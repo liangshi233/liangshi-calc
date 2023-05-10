@@ -1,0 +1,26 @@
+【liangshi-calc说明】
+liangshi-calc是一个Miao-Plugin的面板拓展插件
+目前仅用于数据储存，后续会添加米游社历史活动战绩查询等功能
+当前仅伤害计算可在连接后直接使用
+替换的文件会随着Miao-Plugin更新重置，更新完成后需重新替换
+如果出现 #**伤害 报错null 将ProfileDetail.js中的[0-7]更改为[0-9]
+
+git地址：
+
+【使用说明】
+将整个文件夹放置于plugins内
+将目录下replace文件夹中的cfg_system.js放置于plugins\miao-plugin\config\system内
+将目录下replace文件夹中的ProfileDmg.js放置于plugins\miao-plugin\models内
+在plugins\miao-plugin\config\cfg.js 中添加
+ export const teamLiang = true 
+或直接使用目录replace文件夹中的cfg.js替换
+重启Yunzai-Bot即可使用
+
+【其他可选拓展】
+额外拓展包使用说明均在文件夹内
+role文件夹为旅行者各元素伤害计算拓展包
+arms文件夹为测试武器拓展包
+data文件夹为预设面板拓展包
+
+score文件夹为liangshi版角色评分拓展包
+该拓展包会在调试完成后发布

@@ -1,37 +1,29 @@
 # liangshi-calc
 
-#### 介绍
+#### liangshi-calc是一个Miao-Plugin的面板拓展插件
+#使用说明
 ~~~~~~~~~~
+#打开Yunzai-Bot 根目录输入
 
-#### 软件架构
-软件架构说明
+git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
 
+#将目录下replace文件夹中的cfg_system.js放置于plugins\miao-plugin\config\system内
+#将目录下replace文件夹中的ProfileDmg.js放置于plugins\miao-plugin\models内
+#在plugins\miao-plugin\config\cfg.js 中添加
+ export const teamLiang = true 
+#或直接使用目录replace文件夹中的cfg.js替换
+#重启Yunzai-Bot即可使用
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+~~~~~~~~~~
+####功能
+~~~~~~~~~~
+现有的角色更多的伤害计算条目
+支持旅行者各元素的伤害计算
+添加了用于测试的白板武器
+添加了预设面板（原极限面板）
+~~~~~~~~~~
+####后续会添加的功能
+~~~~~~~~~~
+对每个角色不同玩法的圣遗物评分细化
+米游社历史活动战绩展示（例如海岛宝箱）
+~~~~~~~~~~

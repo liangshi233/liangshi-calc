@@ -1,0 +1,823 @@
+{
+  "uid": "100000002",
+  "name": "",
+  "level": "",
+  "word": "",
+  "face": "",
+  "card": "",
+  "sign": "",
+  "info": false,
+  "_mys": 1679026023258,
+  "avatars": {
+    "10000003": {
+      "name": "琴",
+      "id": 10000003,
+      "elem": "anemo",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 200301,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "斫峰之刃",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "远方的少女之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "2": {
+          "name": "少女飘摇的思念",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "3": {
+          "name": "少女苦短的良辰",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cpct",
+              "value": 3.89
+            },
+            {
+              "key": "atkPlus",
+              "value": 116.69
+            },
+            {
+              "key": "mastery",
+              "value": 23.31
+            },
+            {
+              "key": "recharge",
+              "value": 6.48
+            }
+          ]
+        },
+        "4": {
+          "name": "少女片刻的闲暇",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atkPlus",
+              "value": 116.69
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.48
+            }
+          ]
+        },
+        "5": {
+          "name": "少女易逝的芳颜",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "heal",
+            "value": 35.9
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473415,
+      "_talent": 1677829473415
+    },
+    "10000022": {
+      "name": "温迪",
+      "id": 10000022,
+      "elem": "anemo",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "终末嗟叹之诗",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "野花记忆的绿野",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "mastery",
+              "value": 139.8
+            }
+          ]
+        },
+        "2": {
+          "name": "猎人青翠的箭羽",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "mastery",
+              "value": 139.8
+            }
+          ]
+        },
+        "3": {
+          "name": "翠绿猎人的笃定",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "mastery",
+            "value": 187
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 39
+            }
+          ]
+        },
+        "4": {
+          "name": "翠绿猎人的容器",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "mastery",
+            "value": 187
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 39
+            }
+          ]
+        },
+        "5": {
+          "name": "翠绿的猎人之冠",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "mastery",
+            "value": 187
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 39
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473416,
+      "_talent": 1677829473416
+    },
+    "10000030": {
+      "name": "钟离",
+      "id": 10000030,
+      "elem": "geo",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "黑缨枪",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "勋绩之花",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "hp",
+              "value": 35
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "2": {
+          "name": "昭武翎羽",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "hp",
+              "value": 35
+            },
+            {
+              "key": "hpPlus",
+              "value": 298.75
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "3": {
+          "name": "久远花落之时",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hp",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "hpPlus",
+              "value": 1792.5
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "4": {
+          "name": "无边酣乐之筵",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hp",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "hpPlus",
+              "value": 1792.5
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "5": {
+          "name": "灵光明烁之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hp",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "hpPlus",
+              "value": 1792.5
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473416,
+      "_talent": 1677829473416
+    },
+    "10000035": {
+      "name": "七七",
+      "id": 10000035,
+      "elem": "cryo",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "斫峰之刃",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "远方的少女之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "2": {
+          "name": "少女飘摇的思念",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "3": {
+          "name": "少女苦短的良辰",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cpct",
+              "value": 3.89
+            },
+            {
+              "key": "atkPlus",
+              "value": 116.69
+            },
+            {
+              "key": "mastery",
+              "value": 23.31
+            },
+            {
+              "key": "recharge",
+              "value": 6.48
+            }
+          ]
+        },
+        "4": {
+          "name": "少女片刻的闲暇",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atkPlus",
+              "value": 116.69
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.48
+            }
+          ]
+        },
+        "5": {
+          "name": "少女易逝的芳颜",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "heal",
+            "value": 35.9
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473415,
+      "_talent": 1677829473415
+    },
+    "10000063": {
+      "name": "申鹤",
+      "id": 10000063,
+      "elem": "cryo",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "息灾",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "角斗士的留恋",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.46
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "2": {
+          "name": "角斗士的归宿",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 34.98
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "3": {
+          "name": "朝露之时",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atkPlus",
+              "value": 116.76
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "4": {
+          "name": "祈望之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atkPlus",
+              "value": 116.76
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "5": {
+          "name": "虺雷之姿",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atkPlus",
+              "value": 116.76
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473419,
+      "_talent": 1677829473419
+    }
+  }
+}
