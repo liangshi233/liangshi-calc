@@ -1628,6 +1628,168 @@
       "_time": 1668400555,
       "_update": 1677829473417,
       "_talent": 1677829473417
+    },
+    "10000049": {
+      "name": "宵宫",
+      "id": 10000049,
+      "elem": "pyro",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "飞雷之弦振",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "魂香之花",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "2": {
+          "name": "垂玉之叶",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "3": {
+          "name": "祝祀之凭",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "mastery",
+            "value": 187
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "4": {
+          "name": "涌泉之盏",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "pyro",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "5": {
+          "name": "浮溯之珏",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "cdmg",
+            "value": 62.2
+          },
+          "attrs": [
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "mastery",
+              "value": 139.8
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473417,
+      "_talent": 1677829473417
     }
   }
 }

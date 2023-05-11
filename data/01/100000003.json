@@ -2438,6 +2438,168 @@
       "_time": 1668400555,
       "_update": 1677829473417,
       "_talent": 1677829473417
+    },
+    "10000049": {
+      "name": "宵宫",
+      "id": 10000049,
+      "elem": "pyro",
+      "level": 80,
+      "promote": 5,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 0,
+      "talent": {
+        "a": 8,
+        "e": 8,
+        "q": 8
+      },
+      "weapon": {
+        "name": "弓藏",
+        "level": 80,
+        "promote": 5,
+        "affix": 1
+      },
+      "artis": {
+        "1": {
+          "name": "羁缠之花",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "hp",
+              "value": 23.32
+            }
+          ]
+        },
+        "2": {
+          "name": "思忆之矢",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "def",
+              "value": 29.16
+            }
+          ]
+        },
+        "3": {
+          "name": "朝露之时",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cpct",
+              "value": 11.7
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            },
+            {
+              "key": "hp",
+              "value": 11.66
+            }
+          ]
+        },
+        "4": {
+          "name": "祈望之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "pyro",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "def",
+              "value": 7.29
+            },
+            {
+              "key": "cpct",
+              "value": 11.7
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "hp",
+              "value": 17.49
+            }
+          ]
+        },
+        "5": {
+          "name": "无常之面",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "cdmg",
+            "value": 62.2
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 11.7
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            },
+            {
+              "key": "def",
+              "value": 14.58
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473417,
+      "_talent": 1677829473417
     }
   }
 }
