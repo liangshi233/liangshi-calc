@@ -3,11 +3,11 @@ export const details = [{
   talent: 'a',
   params: { team: false },
   dmg: ({ talent }, dmg) => {
-    let t1 = dmg(talent.a['一段伤害'], 'a')
-    let t2 = dmg(talent.a['二段伤害'], 'a')
-	let t3 = dmg(talent.a['三段伤害'], 'a')
-	let t4 = dmg(talent.a['四段伤害'], 'a')
-	let t5 = dmg(talent.a['五段伤害'], 'a')	
+    let t1 = dmg(talent.a['一段伤害'], 'a', 'phy')
+    let t2 = dmg(talent.a['二段伤害'], 'a', 'phy')
+	let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+	let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
+	let t5 = dmg(talent.a['五段伤害'], 'a', 'phy')
     return {
       dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
       avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
