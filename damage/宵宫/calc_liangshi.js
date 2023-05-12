@@ -1,13 +1,13 @@
 export const details = [{
-  title: '首段普攻',
+  title: '炽焰箭首段',
   params: { num: 1, team: false , hb: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
-  title: '普攻尾箭',
+  title: '炽焰箭尾箭',
   params: { num: 10, team: false , hb: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a')
 }, {
-  title: '尾箭蒸发',
+  title: '炽焰箭尾箭蒸发',
   params: { num: 10, team: false , hb: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }, {
@@ -170,5 +170,5 @@ export const buffs = [{
     atkPlus: 1202.35
   }
 }, 'vaporize',
-{title: '2.28最后修改：如有问题可联系1142607614反馈'}
+{title: '5.12最后修改：如有问题可联系1142607614反馈'}
 ]
