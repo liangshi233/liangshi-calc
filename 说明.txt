@@ -5,7 +5,7 @@ liangshi-calc是一个Miao-Plugin的面板拓展插件
 替换的文件会随着Miao-Plugin更新重置，更新完成后需重新替换
 如果出现 #**伤害 报错null 将ProfileDetail.js中的[0-7]更改为[0-9]
 
-git地址：
+git地址：https://gitee.com/liangshi233/liangshi-calc
 
 【使用说明】
 将整个文件夹放置于plugins内

@@ -1,7 +1,7 @@
 # liangshi-calc
 
 #### liangshi-calc是一个Miao-Plugin的面板拓展插件
-使用说明
+使用说明（需要安装Miao-Plugin才能使用）
 ~~~~~~~~~~
 #打开Yunzai-Bot 根目录输入
 
