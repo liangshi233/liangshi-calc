@@ -1790,6 +1790,168 @@
       "_time": 1668400555,
       "_update": 1677829473417,
       "_talent": 1677829473417
+    },
+    "10000052": {
+      "name": "雷电将军",
+      "id": 10000052,
+      "elem": "electro",
+      "level": 90,
+      "promote": 6,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 6,
+      "talent": {
+        "a": 10,
+        "e": 10,
+        "q": 10
+      },
+      "weapon": {
+        "name": "薙草之稻光",
+        "level": 90,
+        "promote": 6,
+        "affix": 5
+      },
+      "artis": {
+        "1": {
+          "name": "明威之镡",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            }
+          ]
+        },
+        "2": {
+          "name": "切落之羽",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        },
+        "3": {
+          "name": "雷云之笼",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "mastery",
+              "value": 23.3
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "4": {
+          "name": "绯花之壶",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "electro",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "cdmg",
+              "value": 46.6
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            }
+          ]
+        },
+        "5": {
+          "name": "华饰之兜",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "cdmg",
+            "value": 62.2
+          },
+          "attrs": [
+            {
+              "key": "recharge",
+              "value": 19.5
+            },
+            {
+              "key": "atkPlus",
+              "value": 19.45
+            },
+            {
+              "key": "atk",
+              "value": 23.5
+            },
+            {
+              "key": "mastery",
+              "value": 23.3
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473418,
+      "_talent": 1677829473418
     }
   }
 }
