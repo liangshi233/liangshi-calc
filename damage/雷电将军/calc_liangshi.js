@@ -92,7 +92,7 @@ export const defParams = {
   hb: true
 }
 
-export const defDmgIdx = 6
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,recharge,mastery'
 
 export const buffs = [
@@ -181,5 +181,5 @@ export const buffs = [
       defPct: -15
     }
   },
-   {title: '2.12最后修改：如有问题可联系1142607614反馈'}
+   {title: '5.15最后修改：如有问题可联系1142607614反馈'}
 ]
