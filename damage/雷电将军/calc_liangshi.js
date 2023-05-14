@@ -8,15 +8,6 @@ export const details = [{
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['协同攻击伤害'], 'e')
 },{
-  title: '恶曜开眼超激化协同攻击',
-  params: {
-    type: 1,
-    num: 0,
-    team: false,
-	hb: false
-  },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['协同攻击伤害'], 'e', '超激化')
-},{
   title: '零愿力Q后重击',
   params: {
     type: 1,
@@ -53,15 +44,6 @@ export const details = [{
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
-  title: '满愿力超激化梦想一刀',
-  params: {
-    type: 0,
-    num: 60,
-    team: false,
-	hb: false
-  },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q', '超激化')
-}, {
   title: '雷九万班满愿力Q首刀',
   params: {
     type: 0,
@@ -88,7 +70,20 @@ export const details = [{
 	hb: true
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
-}]
+}, {
+ 	title: '梦想一心单次能量恢复',
+   params: {
+     type: 0,
+     num: 60,
+     team: false,
+ 	 hb: false
+   },
+  dmg: ({ talent, calc, attr }) => {
+    return {
+      avg: talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) )
+    }
+  }
+ }]
 
 export const defParams = {
   num: 60,
