@@ -94,10 +94,10 @@ export const buffs = [{
   }
 }, {
   check: ({ params }) => params.team === true,
-  title: '元素共鸣 热诚之火：攻击力提高[dmg]%',
+  title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
   data: {
-    dmg: 25
+    atkPct: 25
   }
 }, 'vaporize',
-{title: '2.11最后修改：如有问题可联系1142607614反馈'}
+{title: '5.16最后修改：如有问题可联系1142607614反馈'}
 ]
