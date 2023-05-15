@@ -2924,6 +2924,168 @@
       "_time": 1668400555,
       "_update": 1677829473418,
       "_talent": 1677829473418
+    },
+    "10000054": {
+      "name": "珊瑚宫心海",
+      "id": 10000054,
+      "elem": "hydro",
+      "level": 80,
+      "promote": 5,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 0,
+      "talent": {
+        "a": 8,
+        "e": 8,
+        "q": 8
+      },
+      "weapon": {
+        "name": "试做金珀",
+        "level": 80,
+        "promote": 5,
+        "affix": 1
+      },
+      "artis": {
+        "1": {
+          "name": "海染之花",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "hp",
+              "value": 17.49
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "def",
+              "value": 14.58
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        },
+        "2": {
+          "name": "渊宫之羽",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 597.5
+            },
+            {
+              "key": "hp",
+              "value": 11.6
+            },
+            {
+              "key": "def",
+              "value": 21.9
+            },
+            {
+              "key": "defPlus",
+              "value": 23.15
+            }
+          ]
+        },
+        "3": {
+          "name": "离别之贝",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hp",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 597.5
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "def",
+              "value": 21.9
+            },
+            {
+              "key": "recharge",
+              "value": 13
+            }
+          ]
+        },
+        "4": {
+          "name": "真珠之笼",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hp",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 597.5
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "def",
+              "value": 21.9
+            },
+            {
+              "key": "recharge",
+              "value": 13
+            }
+          ]
+        },
+        "5": {
+          "name": "海祇之冠",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "heal",
+            "value": 35.9
+          },
+          "attrs": [
+            {
+              "key": "hp",
+              "value": 11.64
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "def",
+              "value": 29.16
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473418,
+      "_talent": 1677829473418
     }
   }
 }
