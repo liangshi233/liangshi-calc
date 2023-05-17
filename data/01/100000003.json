@@ -3086,6 +3086,168 @@
       "_time": 1668400555,
       "_update": 1677829473418,
       "_talent": 1677829473418
+    },
+    "10000057": {
+      "name": "荒泷一斗",
+      "id": 10000057,
+      "elem": "geo",
+      "level": 80,
+      "promote": 5,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 0,
+      "talent": {
+        "a": 8,
+        "e": 8,
+        "q": 8
+      },
+      "weapon": {
+        "name": "白影剑",
+        "level": 80,
+        "promote": 5,
+        "affix": 1
+      },
+      "artis": {
+        "1": {
+          "name": "荣花之期",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "def",
+              "value": 7.3
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 15.6
+            },
+            {
+              "key": "hp",
+              "value": 23.2
+            }
+          ]
+        },
+        "2": {
+          "name": "华馆之羽",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 298.7
+            },
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 23.4
+            },
+            {
+              "key": "hp",
+              "value": 11.6
+            }
+          ]
+        },
+        "3": {
+          "name": "众生之谣",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "def",
+            "value": 58.3
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 597.5
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 15.6
+            },
+            {
+              "key": "hp",
+              "value": 11.6
+            }
+          ]
+        },
+        "4": {
+          "name": "梦醒之瓢",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "geo",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "hpPlus",
+              "value": 298.7
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 15.6
+            },
+            {
+              "key": "hp",
+              "value": 23.2
+            }
+          ]
+        },
+        "5": {
+          "name": "形骸之笠",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "cpct",
+            "value": 31.1
+          },
+          "attrs": [
+            {
+              "key": "def",
+              "value": 7.3
+            },
+            {
+              "key": "cdmg",
+              "value": 23.4
+            },
+            {
+              "key": "recharge",
+              "value": 6.5
+            },
+            {
+              "key": "hp",
+              "value": 11.6
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473418,
+      "_talent": 1677829473418
     }
   }
 }
