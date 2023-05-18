@@ -3248,6 +3248,168 @@
       "_time": 1668400555,
       "_update": 1677829473418,
       "_talent": 1677829473418
+    },
+    "10000058": {
+      "name": "八重神子",
+      "id": 10000058,
+      "elem": "electro",
+      "level": 80,
+      "promote": 5,
+      "fetter": 10,
+      "costume": 0,
+      "cons": 0,
+      "talent": {
+        "a": 8,
+        "e": 8,
+        "q": 8
+      },
+      "weapon": {
+        "name": "流浪乐章",
+        "level": 80,
+        "promote": 5,
+        "affix": 1
+      },
+      "artis": {
+        "1": {
+          "name": "雷鸟的怜悯",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "hpPlus",
+            "value": 4780
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "def",
+              "value": 21.9
+            }
+          ]
+        },
+        "2": {
+          "name": "雷灾的孑遗",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atkPlus",
+            "value": 311
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "hp",
+              "value": 17.49
+            }
+          ]
+        },
+        "3": {
+          "name": "朝露之时",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "atk",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "cpct",
+              "value": 3.9
+            },
+            {
+              "key": "cdmg",
+              "value": 15.6
+            },
+            {
+              "key": "def",
+              "value": 29.16
+            },
+            {
+              "key": "atk",
+              "value": 5.8
+            }
+          ]
+        },
+        "4": {
+          "name": "祈望之心",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "electro",
+            "value": 46.6
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 5.8
+            },
+            {
+              "key": "cpct",
+              "value": 7.8
+            },
+            {
+              "key": "cdmg",
+              "value": 7.8
+            },
+            {
+              "key": "def",
+              "value": 21.9
+            }
+          ]
+        },
+        "5": {
+          "name": "无常之面",
+          "level": 20,
+          "star": 5,
+          "main": {
+            "key": "cpct",
+            "value": 31.1
+          },
+          "attrs": [
+            {
+              "key": "atk",
+              "value": 11.6
+            },
+            {
+              "key": "cdmg",
+              "value": 15.6
+            },
+            {
+              "key": "hp",
+              "value": 5.83
+            },
+            {
+              "key": "def",
+              "value": 14.6
+            }
+          ]
+        }
+      },
+      "_source": "enka",
+      "_time": 1668400555,
+      "_update": 1677829473418,
+      "_talent": 1677829473418
     }
   }
 }
