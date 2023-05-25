@@ -1,9 +1,9 @@
 export const details = [{
   title: '甩尾飞踢伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['甩尾飞踢伤害伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['甩尾飞踢伤害'], 'e')
 },{
   title: '甩尾飞踢蔓激化',
-  dmg: ({ talent }, dmg) => dmg(talent.e['甩尾飞踢伤害伤害'], 'e', 'spread')
+  dmg: ({ talent }, dmg) => dmg(talent.e['甩尾飞踢伤害'], 'e', 'spread')
 },{
   title: '猫箱急件冲撞伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['猫箱急件冲撞伤害'], 'e')
