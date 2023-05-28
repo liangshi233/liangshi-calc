@@ -2,25 +2,28 @@ import fs from 'fs'
 import lodash from 'lodash'
 import Base from './Base.js'
 import { Character } from './index.js'
-import { attrMap } from '../resources/meta/artifact/index.js'
+import { attrMap as attrMapGS } from '../resources/meta/artifact/index.js'
+import { attrMap as attrMapSR } from '../resources/meta-sr/artifact/index.js'
 import DmgBuffs from './profile/DmgBuffs.js'
 import DmgAttr from './profile/DmgAttr.js'
 import DmgCalc from './profile/DmgCalc.js'
 import { Common } from '#miao'
 
 export default class ProfileDmg extends Base {
-  constructor (profile = {}) {
+  constructor (profile = {}, game = 'gs') {
     super()
     this.profile = profile
+    this.game = game
     if (profile && profile.id) {
       let { id } = profile
       this.char = Character.get(id)
     }
   }
 
-  static dmgRulePath (name) {
+  static dmgRulePath (name, game = 'gs') {
     const _path = process.cwd()
-    let path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc_user.js`
+    const meta = game === 'sr' ? 'meta-sr' : 'meta'
+    let path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_user.js`
     if (fs.existsSync(path)) {
       return path
     }
@@ -28,11 +31,11 @@ export default class ProfileDmg extends Base {
     if (fs.existsSync(path) && Common.cfg('teamLiang')) {
       return path
     }
-    path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc_auto.js`
+    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc_auto.js`
     if (fs.existsSync(path) && Common.cfg('teamCalc')) {
       return path
     }
-    path = `${_path}/plugins/miao-plugin/resources/meta/character/${name}/calc.js`
+    path = `${_path}/plugins/miao-plugin/resources/${meta}/character/${name}/calc.js`
     if (fs.existsSync(path)) {
       return path
     }
@@ -46,41 +49,17 @@ export default class ProfileDmg extends Base {
     let ret = {}
     let talentData = profile.talent || {}
     let detail = char.detail
-    lodash.forEach(['a', 'e', 'q'], (key) => {
+    let { isSr, isGs } = this
+    lodash.forEach((isSr ? 'a,e,q,t' : 'a,e,q').split(','), (key) => {
       let level = lodash.isNumber(talentData[key]) ? talentData[key] : (talentData[key]?.level || 1)
       let map = {}
-      if (detail.talentData) {
-        lodash.forEach(char.detail.talentData[key], (ds, key) => {
+      if (isGs && detail.talentData) {
+        lodash.forEach(detail.talentData[key], (ds, key) => {
           map[key] = ds[level - 1]
         })
-      } else {
-        lodash.forEach(char.detail.talent[key].tables, (tr) => {
-          let val = tr.values[level - 1]
-          // eslint-disable-next-line no-control-regex
-          val = val.replace(/[^\x00-\xff]/g, '').trim()
-          val = val.replace(/[a-zA-Z]/g, '').trim()
-          let valArr = []
-          let valArr2 = []
-          lodash.forEach(val.split('/'), (v, idx) => {
-            let valNum = 0
-            lodash.forEach(v.split('+'), (v) => {
-              v = v.split('*')
-              let v1 = v[0].replace('%', '').trim()
-              valNum += v1 * (v[1] || 1)
-              valArr2.push(v1 * 1)
-            })
-            valArr.push(valNum)
-          })
-
-          let name = tr.name2 || tr.name
-          if (isNaN(valArr[0])) {
-            map[name] = false
-          } else if (valArr.length === 1) {
-            map[name] = valArr[0]
-          } else {
-            map[name] = valArr
-          }
-          map[name + '2'] = valArr2
+      } else if (isSr && detail.talent) {
+        lodash.forEach(detail.talent[key].tables, (ds) => {
+          map[ds.name] = ds.values[level - 1]
         })
       }
       ret[key] = map
@@ -88,13 +67,25 @@ export default class ProfileDmg extends Base {
     return ret
   }
 
+  trees () {
+    let ret = {}
+    let reg = /\d{4}(\d{3})/
+    lodash.forEach(this.profile.trees, (t) => {
+      let regRet = reg.exec(t)
+      if (regRet && regRet[1]) {
+        ret[regRet[1]] = true
+      }
+    })
+    return ret
+  }
+
   // 获取buff列表
   getBuffs (buffs) {
-    return DmgBuffs.getBuffs(this.profile, buffs)
+    return DmgBuffs.getBuffs(this.profile, buffs, this.game)
   }
 
   async getCalcRule () {
-    const cfgPath = ProfileDmg.dmgRulePath(this.char?.name)
+    const cfgPath = ProfileDmg.dmgRulePath(this.char?.name, this.char?.game)
     let cfg = {}
     if (cfgPath) {
       cfg = await import(`file://${cfgPath}`)
@@ -105,7 +96,7 @@ export default class ProfileDmg extends Base {
         defDmgIdx: cfg.defDmgIdx || -1, // 默认详情index
         defDmgKey: cfg.defDmgKey || '',
         mainAttr: cfg.mainAttr || 'atk,cpct,cdmg', // 伤害属性
-        enemyName: cfg.enemyName || '小宝' // 敌人名称
+        enemyName: cfg.enemyName || this.isGs ? '小宝' : '弱点敌人' // 敌人名称
       }
     }
     return false
@@ -116,6 +107,8 @@ export default class ProfileDmg extends Base {
       return false
     }
     let { profile } = this
+    let { game } = this.char
+    let sp = this.detail?.sp
     let charCalcData = await this.getCalcRule()
 
     if (!charCalcData) {
@@ -127,13 +120,15 @@ export default class ProfileDmg extends Base {
 
     let meta = {
       cons: profile.cons * 1,
-      talent
+      talent,
+      trees: this.trees()
     }
+
     let { id, weapon, attr } = profile
 
     defParams = defParams || {}
 
-    let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char })
+    let originalAttr = DmgAttr.getAttr({ id, weapon, attr, char: this.char, game, sp })
 
     buffs = this.getBuffs(buffs)
 
@@ -177,7 +172,7 @@ export default class ProfileDmg extends Base {
       }
       let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
 
-      let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail })
+      let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, showDetail: detail.showDetail, game })
       let basicDmgRet
 
       if (detail.dmg) {
@@ -213,6 +208,8 @@ export default class ProfileDmg extends Base {
         attr: []
       }
 
+      let attrMap = game === 'gs' ? attrMapGS : attrMapSR
+
       // 计算角色属性增减
       mainAttr = mainAttr.split(',')
       let params = lodash.merge({}, defParams, detail.params || {})
@@ -232,10 +229,11 @@ export default class ProfileDmg extends Base {
             params,
             incAttr,
             reduceAttr,
-            talent: detail.talent || ''
+            talent: detail.talent || '',
+            game
           })
           let ds = lodash.merge({ talent }, DmgAttr.getDs(attr, meta, params))
-          let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv })
+          let dmg = DmgCalc.getDmgFn({ ds, attr, level: profile.level, enemyLv, game })
           if (detail.dmg) {
             let dmgCalcRet = detail.dmg(ds, dmg)
             rowData.push({
