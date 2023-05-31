@@ -277,7 +277,6 @@ const charData = {
   80: 'mika,米卡',
   81: 'kaveh,卡维',
   82: 'baizhuer,白术',
-  83: 'kirara,绮良良',
   991: 'fengyuansu,风元素',
   992: 'yanyuansu,岩元素',
   993: 'leiyuansu,雷元素',
