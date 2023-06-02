@@ -24,6 +24,6 @@ git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/li
 ~~~~~~~~~~
 后续会添加的功能
 ~~~~~~~~~~
-对每个角色不同玩法的圣遗物评分细化
+对每个角色不同玩法的圣遗物评分细化（暂时只支持2月14日 03:47 之前的 miao-plugin  ）
 米游社历史活动战绩展示（例如海岛宝箱）
 ~~~~~~~~~~
