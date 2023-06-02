@@ -34,135 +34,85 @@
           "name": "远方的少女之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501064,
+            501054,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "2": {
           "name": "少女飘摇的思念",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501064,
+            501224,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "3": {
           "name": "少女苦短的良辰",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "cpct",
-              "value": 3.89
-            },
-            {
-              "key": "atkPlus",
-              "value": 116.69
-            },
-            {
-              "key": "mastery",
-              "value": 23.31
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "4": {
           "name": "少女片刻的闲暇",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 116.69
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "5": {
           "name": "少女易逝的芳颜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "heal",
-            "value": 35.9
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13009,
+          "attrIds": [
+            501064,
+            501054,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         }
       },
@@ -196,135 +146,85 @@
           "name": "野花记忆的绿野",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501244,
+            501064,
+            501204,
+            501224,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244
           ]
         },
         "2": {
           "name": "猎人青翠的箭羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501244,
+            501064,
+            501204,
+            501224,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244
           ]
         },
         "3": {
           "name": "翠绿猎人的笃定",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         },
         "4": {
           "name": "翠绿猎人的容器",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         },
         "5": {
           "name": "翠绿的猎人之冠",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         }
       },
@@ -358,135 +258,85 @@
           "name": "勋绩之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 35
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501034,
+            501204,
+            501224,
+            501234,
+            501034,
+            501034,
+            501034,
+            501034,
+            501034
           ]
         },
         "2": {
           "name": "昭武翎羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 35
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501034,
+            501024,
+            501224,
+            501234,
+            501034,
+            501034,
+            501034,
+            501034,
+            501034
           ]
         },
         "3": {
           "name": "久远花落之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hp",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "hpPlus",
-              "value": 1792.5
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10002,
+          "attrIds": [
+            501024,
+            501204,
+            501224,
+            501234,
+            501024,
+            501024,
+            501024,
+            501024,
+            501024
           ]
         },
         "4": {
           "name": "无边酣乐之筵",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hp",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "hpPlus",
-              "value": 1792.5
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10002,
+          "attrIds": [
+            501024,
+            501204,
+            501224,
+            501234,
+            501024,
+            501024,
+            501024,
+            501024,
+            501024
           ]
         },
         "5": {
           "name": "灵光明烁之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hp",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "hpPlus",
-              "value": 1792.5
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10002,
+          "attrIds": [
+            501024,
+            501204,
+            501224,
+            501234,
+            501024,
+            501024,
+            501024,
+            501024,
+            501024
           ]
         }
       },
@@ -520,135 +370,85 @@
           "name": "远方的少女之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501064,
+            501054,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "2": {
           "name": "少女飘摇的思念",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501064,
+            501224,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "3": {
           "name": "少女苦短的良辰",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "cpct",
-              "value": 3.89
-            },
-            {
-              "key": "atkPlus",
-              "value": 116.69
-            },
-            {
-              "key": "mastery",
-              "value": 23.31
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "4": {
           "name": "少女片刻的闲暇",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 116.69
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "5": {
           "name": "少女易逝的芳颜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "heal",
-            "value": 35.9
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13009,
+          "attrIds": [
+            501064,
+            501054,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         }
       },
@@ -682,135 +482,85 @@
           "name": "角斗士的留恋",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.46
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501064,
+            501054,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "2": {
           "name": "角斗士的归宿",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501064,
+            501224,
+            501204,
+            501234,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064
           ]
         },
         "3": {
           "name": "朝露之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 116.76
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "4": {
           "name": "祈望之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 116.76
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         },
         "5": {
           "name": "虺雷之姿",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 116.76
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501054,
+            501204,
+            501224,
+            501234,
+            501054,
+            501054,
+            501054,
+            501054,
+            501054
           ]
         }
       },
@@ -844,135 +594,85 @@
           "name": "明威之镡",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         },
         "2": {
           "name": "切落之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         },
         "3": {
           "name": "雷云之笼",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "recharge",
-            "value": 51.8
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 10007,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501054,
+            501204,
+            501204,
+            501204,
+            501204,
+            501204
           ]
         },
         "4": {
           "name": "绯花之壶",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "electro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cpct",
-              "value": 3.9
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 15009,
+          "attrIds": [
+            501064,
+            501204,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         },
         "5": {
           "name": "华饰之兜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cpct",
-            "value": 31.1
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 39
-            }
+          "mainId": 13007,
+          "attrIds": [
+            501064,
+            501054,
+            501224,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234,
+            501234
           ]
         }
       },
@@ -1006,135 +706,85 @@
           "name": "远方的少女之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 35
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 14001,
+          "attrIds": [
+            501034,
+            501204,
+            501224,
+            501234,
+            501034,
+            501034,
+            501034,
+            501034,
+            501034
           ]
         },
         "2": {
           "name": "少女飘摇的思念",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 35
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 12001,
+          "attrIds": [
+            501034,
+            501024,
+            501224,
+            501234,
+            501034,
+            501034,
+            501034,
+            501034,
+            501034
           ]
         },
         "3": {
           "name": "少女苦短的良辰",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hp",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "hpPlus",
-              "value": 1792.5
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10002,
+          "attrIds": [
+            501024,
+            501204,
+            501224,
+            501234,
+            501024,
+            501024,
+            501024,
+            501024,
+            501024
           ]
         },
         "4": {
           "name": "少女片刻的闲暇",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hp",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "hpPlus",
-              "value": 1792.5
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10002,
+          "attrIds": [
+            501024,
+            501204,
+            501224,
+            501234,
+            501024,
+            501024,
+            501024,
+            501024,
+            501024
           ]
         },
         "5": {
           "name": "少女易逝的芳颜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "heal",
-            "value": 35.9
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 35
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13009,
+          "attrIds": [
+            501034,
+            501024,
+            501224,
+            501234,
+            501034,
+            501034,
+            501034,
+            501034,
+            501034
           ]
         }
       },
