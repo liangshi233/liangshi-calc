@@ -2,6 +2,3 @@
 json文件放入data\UserData
 js文件放入plugins\example
 重启即可
-
-换圣遗物可能需要预设圣遗物支持
-如需要该功能请将replace文件夹中的data.json放置于plugins\miao-plugin\resources\meta\artifact

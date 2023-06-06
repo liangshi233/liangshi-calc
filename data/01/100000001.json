@@ -34,135 +34,85 @@
           "name": "宗室之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "宗室之翎",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "冰雪故园的终期",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501244,
+            501234
           ]
         },
         "4": {
           "name": "遍结寒霜的傲骨",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cryo",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 15010,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "破冰踏雪的回音",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -196,135 +146,85 @@
           "name": "角斗士的留恋",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "角斗士的归宿",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 23.31
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "翠绿猎人的笃定",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.62
-            },
-            {
-              "key": "mastery",
-              "value": 23.31
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501244,
+            501234
           ]
         },
         "4": {
           "name": "翠绿猎人的容器",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "anemo",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.83
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 15012,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "翠绿的猎人之冠",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 35.0
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501054,
+            501244,
+            501234
           ]
         }
       },
@@ -358,135 +258,85 @@
           "name": "魔女的炎之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "魔女常燃之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "魔女破灭之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "4": {
           "name": "魔女的心之火",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "pyro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "焦灼的魔女帽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -520,135 +370,85 @@
           "name": "角斗士的留恋",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "角斗士的归宿",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "翠绿猎人的笃定",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.62
-            },
-            {
-              "key": "mastery",
-              "value": 23.31
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501244,
+            501234
           ]
         },
         "4": {
           "name": "翠绿猎人的容器",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "anemo",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 35
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 7.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.48
-            }
+          "mainId": 15012,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "翠绿的猎人之冠",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 35.0
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501054,
+            501244,
+            501234
           ]
         }
       },
@@ -682,135 +482,85 @@
           "name": "魔女的炎之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501034,
+            501244
           ]
         },
         "2": {
           "name": "魔女常燃之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501034
           ]
         },
         "3": {
           "name": "魔女破灭之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "hp",
-              "value": 5.8
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501034,
+            501024
           ]
         },
         "4": {
           "name": "魔女的心之火",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "pyro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501034
           ]
         },
         "5": {
           "name": "焦灼的魔女帽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501034,
+            501024,
+            501064
           ]
         }
       },
@@ -844,135 +594,85 @@
           "name": "魔女的炎之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "魔女常燃之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "魔女破灭之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "4": {
           "name": "魔女的心之火",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "pyro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "焦灼的魔女帽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -1006,135 +706,85 @@
           "name": "灵光源起之蕊",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501034
           ]
         },
         "2": {
           "name": "琦色灵彩之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501034,
+            501024
           ]
         },
         "3": {
           "name": "久远花落之时",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "hp",
-              "value": 5.8
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501034,
+            501024
           ]
         },
         "4": {
           "name": "无边酣乐之筵",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "geo",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 15013,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501034
           ]
         },
         "5": {
           "name": "灵光明烁之心",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "hp",
-              "value": 5.8
-            },
-            {
-              "key": "hpPlus",
-              "value": 298.75
-            },
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501054,
+            501034,
+            501024
           ]
         }
       },
@@ -1168,135 +818,85 @@
           "name": "旅途中的鲜花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "坏巫师的羽杖",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "水仙的时时刻刻",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "4": {
           "name": "勇者们的茶会",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hydro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15011,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "恶龙的单片镜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -1330,135 +930,85 @@
           "name": "无垢之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "贤医之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "停摆之刻",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501244,
+            501234
           ]
         },
         "4": {
           "name": "超越之盏",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "phy",
-            "value": 58.3
-          },
-          "attrs": [
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 15015,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "嗤笑之面",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "atk",
-              "value": 34.98
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501064,
+            501054,
+            501244,
+            501234
           ]
         }
       },
@@ -1492,135 +1042,85 @@
           "name": "旅途中的鲜花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501234,
+            501244
           ]
         },
         "2": {
           "name": "坏巫师的羽杖",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "水仙的时时刻刻",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "4": {
           "name": "勇者们的茶会",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hydro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15011,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501234,
+            501244
           ]
         },
         "5": {
           "name": "恶龙的单片镜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -1654,135 +1154,85 @@
           "name": "魂香之花",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "2": {
           "name": "垂玉之叶",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "祝祀之凭",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "mastery",
-            "value": 187
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "4": {
           "name": "涌泉之盏",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "pyro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 15008,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501244
           ]
         },
         "5": {
           "name": "浮溯之珏",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "mastery",
-              "value": 139.8
-            }
+          "mainId": 13008,
+          "attrIds": [
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501244,
+            501064,
+            501054,
+            501234
           ]
         }
       },
@@ -1816,135 +1266,85 @@
           "name": "明威之镡",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "hpPlus",
-            "value": 4780
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 10001,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "2": {
           "name": "切落之羽",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atkPlus",
-            "value": 311
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 10003,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501244,
+            501234
           ]
         },
         "3": {
           "name": "雷云之笼",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "atk",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "mastery",
-              "value": 23.3
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            }
+          "mainId": 10004,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501054,
+            501244,
+            501234
           ]
         },
         "4": {
           "name": "绯花之壶",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "electro",
-            "value": 46.6
-          },
-          "attrs": [
-            {
-              "key": "atk",
-              "value": 5.8
-            },
-            {
-              "key": "recharge",
-              "value": 6.5
-            },
-            {
-              "key": "cdmg",
-              "value": 46.6
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            }
+          "mainId": 15009,
+          "attrIds": [
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501224,
+            501064,
+            501054,
+            501234
           ]
         },
         "5": {
           "name": "华饰之兜",
           "level": 20,
           "star": 5,
-          "main": {
-            "key": "cdmg",
-            "value": 62.2
-          },
-          "attrs": [
-            {
-              "key": "recharge",
-              "value": 19.5
-            },
-            {
-              "key": "atkPlus",
-              "value": 19.45
-            },
-            {
-              "key": "atk",
-              "value": 23.5
-            },
-            {
-              "key": "mastery",
-              "value": 23.3
-            }
+          "mainId": 13008,
+          "attrIds": [
+           501064,
+           501064,
+           501064,
+           501064,
+           501234,
+           501234,
+           501234,
+           501244,
+           501054
           ]
         }
       },
