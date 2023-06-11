@@ -70,25 +70,11 @@ export const buffs = [{
   	qPlus: 278.4
       }
     }, {
-    check: ({ cons, params }) => cons <= 1 && params.team === true,
-    title: '夜兰：获得[dmg]%增伤',
-    data: {
-      dmg: 50
-    }
-   }, {
-    check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
+    check: ({ cons, params }) => params.team === true,
     title: '精1终末夜兰：获得[dmg]%增伤，增加[atkPct]%攻击力与[mastery]精通',
     data: {
   	atkPct: 20,
       mastery: 100,
-      dmg: 35
-    }
-   }, {
-    check: ({ cons, params }) => (cons >= 6 && params.team === true),
-    title: '精5终末夜兰：获得[dmg]%增伤，增加[atkPct]%攻击力与[mastery]精通',
-    data: {
-  	atkPct: 40,
-      mastery: 200,
       dmg: 35
     }
    }, {
@@ -100,5 +86,5 @@ export const buffs = [{
       atkPlus: 1202.35
     }
   },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '6.11最后修改：如有问题可联系1142607614反馈'}
 ]
