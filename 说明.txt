@@ -3,7 +3,7 @@ liangshi-calc是一个Miao-Plugin的面板拓展插件
 目前仅用于数据储存，后续会添加米游社历史活动战绩查询等功能
 当前仅伤害计算可在连接后直接使用
 替换的文件会随着Miao-Plugin更新重置，更新完成后需重新替换
-如果出现 #**伤害 报错null 将ProfileDetail.js中的[0-7]更改为[0-9]
+组队buff重置会在晚些进行，请耐心等待
 
 git地址：https://gitee.com/liangshi233/liangshi-calc
 
