@@ -1,3 +1,6 @@
+// 纳西妲、妮露、艾尔海森、心海
+const team2 = createTeam('海妮心妲', ['纳西妲', '艾尔海森', '心海'])
+
 export const details = [{
   title: '水月伤害',
   params: { sy: true , team: false },
@@ -35,10 +38,25 @@ export const details = [{
   dmg: ({calc, attr}, { reaction }) => {
       return reaction('bloom')}
 }, {
-  title: '妮纳科心 妮露丰穰之核',
+  title: '妮纳科心 丰穰之核',
   params: { bloom: true , team: true },
   dmg: ({calc, attr}, { reaction }) => {
       return reaction('bloom')}
+}, {
+   title: '海妮心妲²·丰穰之核',
+   params: {team: true, bloom: true, ...team2.params},
+   dmg: ({}, {reaction}) => {
+     // 草神二命固定暴击率20%、暴击伤害100%
+     const cpctNum = 20 / 100, cdmgNum = 100 / 100
+     // 计算丰穰之核非暴击伤害
+     const {avg} = reaction('bloom')
+     return {
+       // 暴击伤害
+       dmg: avg * (1 + cdmgNum),
+       // 平均伤害
+       avg: avg * (1 + cpctNum * cdmgNum)
+     }
+   }
 }]
 
 export const defDmgIdx = 5
@@ -101,14 +119,14 @@ export const buffs = [{
 	kx: 30
   }
 }, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
+  check: ({ cons, params }) => (cons >= 6 && params.team === true && team2.not(params)),
   title: '教官精5终末柯莱：元素精通提升[mastery]攻击力提升[atkPct]%',
   data: {
     mastery: 480,
     atkPct: 40
   }
 }, {
-  check: ({ cons, params }) => (cons < 6 && params.team === true),
+  check: ({ cons, params }) => (cons < 6 && params.team === true && team2.not(params)),
   title: '教官精1终末柯莱：元素精通提升[mastery]攻击力提升[atkPct]%',
   data: {
     mastery: 280,
@@ -128,6 +146,10 @@ export const buffs = [{
     mastery: 40,
     atkPct: 20
   }
+},{
+  check: ({ params }) => team2.is(params),
+  title: '纳西妲2命：提供绽放反应固定20%暴击率和100%的暴击伤害',
+  data: {}
 }, {
   check: ({ params }) => params.team === true,
   title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
@@ -141,5 +163,27 @@ export const buffs = [{
     mastery: 80
   }
 },
- {title: '2.1最后修改：如有问题可联系1142607614反馈'}
+ {title: '6.12最后修改：如有问题可联系1142607614反馈'}
 ]
+
+/**
+ * 创建队伍
+ * @param name 队伍名
+ * @param members 队员
+ * @return {{name, members, params, go, is, not}}
+ */
+function createTeam(name, members) {
+  const team = {name, members}
+  // 队伍出战
+  team.go = () => {
+    const params = {}
+    team.members.forEach(k => params[name + '_' + k] = true);
+    return params
+  }
+  team.params = team.go()
+  // 是否是当前配队
+  team.is = (params) => members.filter(k => params[name + '_' + k] === true).length === members.length
+  // 是否不是当前配队
+  team.not = (params) => !team.is(params)
+  return team
+}
