@@ -11,7 +11,8 @@ git地址：https://gitee.com/liangshi233/liangshi-calc
 将整个文件夹放置于plugins内
 将目录下replace文件夹中的cfg_system.js放置于plugins\miao-plugin\config\system内
 将目录下replace文件夹中的ProfileDmg.js放置于plugins\miao-plugin\models内
-在plugins\miao-plugin\config\cfg.js 中添加
+输入#喵喵设置梁氏开启
+或是在plugins\miao-plugin\config\cfg.js 中添加
  export const teamLiang = true 
 或直接使用目录replace文件夹中的cfg.js替换
 重启Yunzai-Bot即可使用
