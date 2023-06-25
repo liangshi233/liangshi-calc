@@ -41,7 +41,7 @@ export const details = [{
 }, {
   title: '深渊7-3 Q核爆',
   talent: 'q',
-  params: { hb: true },
+  params: { team: false , hb: true , hxyz: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '钟鹤云重 钟离普攻前五段',
@@ -194,7 +194,7 @@ export const buffs = [{
     qCpct: 12	  
   }
 }, {
-  check: ({ params }) => (params.hb === true),
+  check: ({ params }) => (params.team === false && params.hb === true),
   title: '深渊核爆：各种buff',
   data: {
     cdmg: 160,
@@ -208,5 +208,5 @@ export const buffs = [{
     cpct: 15
   }
 },
- {title: '6.25最后修改：如有问题可联系1142607614反馈'}
+ {title: '6.26最后修改：如有问题可联系1142607614反馈'}
  ]
