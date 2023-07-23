@@ -15,16 +15,16 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [{
+  title: '姬子1命：释放追加攻击后，速度提高20%',
+  cons: 1,
+  data: {
+    speedPct: 20
+  }
+}, {
   title: '姬子2命：对生命小于50%的敌人伤害提高15%',
   cons: 2,
   data: {
     dmg: 15
-  }
-}, {
-  title: '姬子2命：释放追加攻击后，速度提高20%',
-  cons: 1,
-  data: {
-    speedPct: 20
   }
 }, {
   title: '行迹-灼热：战技对灼烧状态下的敌方目标造成的伤害提高20%',
