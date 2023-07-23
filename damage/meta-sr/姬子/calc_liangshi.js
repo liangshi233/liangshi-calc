@@ -15,21 +15,10 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [{
-  title: '姬子秘技：释放领域使敌方受到伤害提高10%',
-  data: {
-    dmg: 10
-  }
-}, {
   title: '姬子1命：对生命小于50%的敌人伤害提高15%',
   cons: 1,
   data: {
     dmg: 15
-  }
-}, {
-  title: '希儿2命：释放战技后，2层Buff速度提高50%',
-  cons: 2,
-  data: {
-    speedPct: 50
   }
 }, {
   title: '行迹-灼热：战技对灼烧状态下的敌方目标造成的伤害提高20%',
@@ -43,4 +32,4 @@ export const buffs = [{
   data: {
     cpct: 15
   }
-},{title: '5.30最后修改：如有问题可联系1142607614反馈'}]
+},{title: '7.23最后修改：如有问题可联系1142607614反馈'}]
