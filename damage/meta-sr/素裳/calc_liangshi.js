@@ -2,16 +2,16 @@ import { Format } from '#miao'
 
 export const details = [{
   title: '普攻伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 },{
   title: '战技伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'phy')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },{
   title: '战技剑势伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['附加伤害'], 'e', 'phy')
+  dmg: ({ talent }, dmg) => dmg(talent.e['附加伤害'], 'e')
 },{
   title: '终结技伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'phy')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
