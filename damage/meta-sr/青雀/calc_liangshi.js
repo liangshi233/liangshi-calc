@@ -2,32 +2,32 @@ import { Format } from '#miao'
 
 export const details = [{
   title: '门前清伤害',
-  params: { team: false },
+  params: { team: false , lao:false , ting:false , yu:false },
   dmg: ({ talent }, dmg) => dmg(talent.a['门前清·伤害'], 'a')
 }, {
   title: '满层E 杠伤害',
   params: { team: false , lao:true , ting:true , yu:true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['杠·伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['杠·伤害'], 'a')
 }, {
   title: '满层E 杠相邻伤害',
   params: { team: false , lao:true , ting:true , yu:true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['杠·相邻目标伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['杠·相邻目标伤害'], 'a')
 }, {
   title: '终结技伤害',
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '青银布罗 门前清',
-  params: { team: true },
+  params: { team: true , lao:false , ting:false , yu:false },
   dmg: ({ talent }, dmg) => dmg(talent.a['门前清·伤害'], 'a')
 }, {
   title: '青银布罗 杠',
   params: { team: true , lao:true , ting:true , yu:true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['杠·伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['杠·伤害'], 'a')
 }, {
   title: '青银布罗 杠相邻',
   params: { team: true , lao:true , ting:true , yu:true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['杠·相邻目标伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['杠·相邻目标伤害'], 'a')
 }, {
   title: '青银布罗 终结技伤害',
   params: { team: true },
@@ -97,4 +97,4 @@ export const buffs = [{
     speedPct: 12
   }
 },
- {title: '6.15最后修改：如有问题可联系1142607614反馈'}]
+ {title: '8.2最后修改：如有问题可联系1142607614反馈'}]

@@ -36,10 +36,10 @@ export const buffs = [{
     shieldPlus: ({ params }) => params.e ? 25 : 0
   }
 }, {
-  title: '托马天赋2：Q每段伤害提高[ePlus]',
+  title: '托马天赋2：Q每段伤害提高[qPlus]',
   data: {
     qPlus: ({ calc, attr }) => calc(attr.hp) * 0.022
   }
 },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '8.2最后修改：如有问题可联系1142607614反馈'}
 ]

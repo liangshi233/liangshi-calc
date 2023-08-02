@@ -1,22 +1,25 @@
 export const details = [{
+  params: { zai: false , team: false },
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
+  params: { zai: false , team: false },
   title: '战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
+  params: { zai: false , team: false },
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
-  params: { zai: true },
+  params: { zai: true , team: false },
   title: '再现 普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  params: { zai: true },
+  params: { zai: true , team: false },
   title: '再现 战技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
-  params: { zai: true },
+  params: { zai: true , team: false },
   title: '再现 终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
@@ -43,10 +46,11 @@ export const defParams = {
 export const buffs = [{
   title: '希儿天赋：击杀敌人增幅状态提高伤害[xq]%',
   data: {
-   dmg: ({ params , attr , calc , talent }) => params.zai ? (talent.t['伤害提高'] * 100) : 0 ,
+   dmg: ({ params , talent }) => params.zai ?  talent.t['伤害提高'] * 100 : 0 ,
     xq: ({ talent }) => talent.t['伤害提高'] * 100
   }
-}, {
+},
+{
   title: '希儿战技：释放战技后，速度提高25%',
   maxCons: 1,
   data: {
@@ -148,5 +152,5 @@ export const buffs = [{
   data: {
     speedPct: 12
   }
-},{title: '6.20最后修改：如有问题可联系1142607614反馈'}
+},{title: '8.2最后修改：如有问题可联系1142607614反馈'}
 ]

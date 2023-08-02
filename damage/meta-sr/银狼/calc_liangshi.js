@@ -7,7 +7,7 @@ export const details = [{
 }, {
   title: '战技伤害',
   params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.e['单体伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '终结技伤害',
   params: { team: false },
@@ -22,7 +22,7 @@ export const details = [{
 }, {
   title: '希银布罗 战技伤害',
   params: { team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['单体伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '希银布罗 终结技',
   params: { team: true },
@@ -47,7 +47,7 @@ export const buffs = [{
 }, {
   title: '银狼战技：添加弱点降低对方对应属性抗性[kx]%',
   data: {
-    kx: ({ talent }) => talent.e['伤害抗性降低'] * 100
+    kx: ({ talent }) => talent.e['全属性抗性降低'] * 100
   }
 }, {
   title: '银狼终结技：释放终结技降低敌方防御[enemyDef]%',
@@ -101,4 +101,4 @@ export const buffs = [{
   data: {
     speedPct: 12
   }
-},{title: '6.14最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.2最后修改：如有问题可联系1142607614反馈'}]
