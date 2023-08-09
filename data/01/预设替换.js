@@ -1,5 +1,6 @@
-
+//如果自己有或者自己写了替换插件可以不用复制本JS
 let replace_list = {
+	'极限': '极限',
 	'极限面板': '面板100000000',
 	'极限伤害': '伤害100000000',
 	'核爆面板': '面板100000001',
@@ -12,29 +13,38 @@ let replace_list = {
 	'毕业伤害': '伤害100000004',
 	'试用面板': '面板100000005',
 	'试用伤害': '伤害100000005',
+/*
+    下面的是为了方便替换圣遗物的，可根据需要进行删改
+	'极限': '100000000',
+*/
+	'核爆': '100000001',
+	'辅助': '100000002',
+	'平民': '100000003',
+	'毕业': '100000004',
+	'试用': '100000005',
 };
 
 export class xiaofei_input_replace extends plugin {
-	constructor () {
+	constructor() {
 		super({
-			/** 功能名称 */
 			name: '输入替换',
-			/** 功能描述 */
 			dsc: '',
-			/** https://oicqjs.github.io/oicq/#events */
 			event: 'message',
-			/** 优先级，数字越小等级越高 */
 			priority: -10
-		});
+		})
 	}
-	
-	accept(e){
-		for(let key in replace_list){
-			try{
+	accept(e) {
+		for (let key in replace_list) {
+			try {
 				let reg = RegExp(key);
-				if(!reg.test(e.msg)) continue;
-				e.msg = e.msg.replace(reg,replace_list[key]);
-			}catch(err){}
+				if (!reg.test(e.msg)) continue;
+				if (/^(#)?极限/.test(e.msg)) {
+                    e.msg = e.msg.replace(/^(#)?极限/, '#');
+                    e.msg = `${e.msg}极限面板`;
+				}
+				e.msg = e.msg.replace(reg, replace_list[key]);
+			} catch (err) { }
 		}
+		return false;
 	}
 }
