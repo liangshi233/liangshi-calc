@@ -14,7 +14,7 @@ export const details = [{
    title: '强化普攻相邻伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
      const zy = talent.a2['技能伤害·攻击倍率·相邻目标']
-     const zz = talent.a2['能伤害·生命倍率·相邻目标']
+     const zz = talent.a2['技能伤害·生命倍率·相邻目标']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk ) + ( zz * hp ) , 'a' )
@@ -87,4 +87,4 @@ export const buffs = [{
   data: {
     tDmg: 20
   }
-},{title: '8.2最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.9最后修改：如有问题可联系1142607614反馈'}]

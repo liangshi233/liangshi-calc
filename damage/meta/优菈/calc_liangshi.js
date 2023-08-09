@@ -71,7 +71,7 @@ export const details = [{
     buffCount = buffCount + 11
   }
   return {
-	  title: `深渊12-3 光剑${buffCount}层`,
+	  title: `深渊7-3 光剑${buffCount}层`,
     params: { gj: true , team: true , hb: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
@@ -173,5 +173,5 @@ export const buffs = [{
     atkPct: 40
   }
 },
- {title: '5.16最后修改：如有问题可联系1142607614反馈'}
+ {title: '8.8最后修改：如有问题可联系1142607614反馈'}
 ]

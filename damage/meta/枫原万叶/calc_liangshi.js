@@ -1,3 +1,5 @@
+import { Format } from '#miao'
+
 export const details = [{
   title: '下落攻击*乱岚拨止伤害',
   params: { team: false },
@@ -19,6 +21,14 @@ export const details = [{
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
 }, {
+  title: '元素伤害提高',
+  dmg: ({ attr, calc, talent }) => {
+    return {
+      avg: Format.percent(calc(attr.mastery) * 0.0004 ),
+      type: 'text'
+    }
+  }
+}, {
   title: '扩散反应伤害',
   params: { team: false },
   dmg: ({}, { reaction }) => reaction('swirl')
@@ -33,7 +43,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
-export const defDmgIdx = 3
+export const defDmgIdx = 5
 
 export const defParams = {
   team: true
@@ -75,5 +85,5 @@ export const buffs = [{
 	qPlus: 278.4 
     }
   },
-   {title: '2.15最后修改：如有问题可联系1142607614反馈'}
+   {title: '8.8最后修改：如有问题可联系1142607614反馈'}
    ]
