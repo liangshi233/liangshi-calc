@@ -65,7 +65,7 @@ export const buffs = [{
   }
 }, {
   cons: 1,
-  title: '甘雨1命：霜华失命中减少敌人15%冰抗',
+  title: '甘雨1命：霜华矢命中减少敌人15%冰抗',
   data: {
     kx: ({ params }) => params.q ? 0 : 15
   }
