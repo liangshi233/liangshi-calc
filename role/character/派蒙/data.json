@@ -1,17 +1,17 @@
 {
   "id": 20000007,
-  "name": "测试一",
-  "abbr": "测试一",
-  "title": "测试角色",
+  "name": "派蒙",
+  "abbr": "派蒙",
+  "title": "最好的伙伴",
   "star": 5,
   "elem": "pyro",
   "allegiance": "liangshi",
   "weapon": "sword",
-  "birth": "2-28",
+  "birth": "6-1",
   "astro": "旅人座",
-  "desc": "用于测试的角色",
-  "cncv": "？",
-  "jpcv": "？",
+  "desc": "最好的伙伴",
+  "cncv": "多多poi",
+  "jpcv": "古贺葵",
   "costume": false,
   "ver": 1,
   "baseAttr": {
@@ -34,7 +34,7 @@
   },
   "materials": {
     "gem": "璀璨原钻",
-    "specialty": "风车菊",
+    "specialty": "",
     "normal": "",
     "talent": "",
     "weekly": ""

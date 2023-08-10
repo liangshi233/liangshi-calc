@@ -70,33 +70,4 @@ export const details = [
 
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [{
-  title: '1命：防御力降低[enemyDef]%',
-  cons: 1,
-  data: {
-     enemyDef: 100
-    }
-  },{
-  title: '2命：无视敌人[ignore]%防御力',
-  cons: 2,
-  data: {
-     ignore: 50
-    }
-  }, {
-  title: '6命：基础伤害提升伤害[plus]',
-  cons: 6,
-  data: {
-    plus: ({ talent, calc, attr }) =>  calc(attr.atk)
-  }
-}, {
-  title: '天赋1：反应抗性降低100%',
-  data: {
-    fykx: 100
-  }
-}
-,{
-  title: '天赋2：物理抗性与元素降低100%',
-  data: {
-    kx: 100
-  }
-}]
+export const buffs = []

@@ -49,7 +49,7 @@ export const teamCalc = true
 export const teamLiang = true
 
 // liangshi版超全伤害计算展示。开启后请重启喵喵
-export const teamLiangG = false
+export const teamLiangQ = false
 
 // liangshi版的评分规则。开启后请重启喵喵
 export const scireLiang = false

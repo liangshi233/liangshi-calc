@@ -105,7 +105,7 @@ export const cfgSchema = {
         def: false,
         desc: 'liangshi版的伤害计算展示。开启后请重启喵喵'
       },
-      teamLiangG: {
+      teamLiangQ: {
         title: 'liangshi版超全伤害计算',
         key: '梁氏全',
         def: false,

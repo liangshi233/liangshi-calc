@@ -27,6 +27,10 @@ export default class ProfileDmg extends Base {
     if (fs.existsSync(path)) {
       return path
     }
+    path = `${_path}/plugins/liangshi-calc/damage/${meta}/${name}/calc_liangshiQ.js`
+    if (fs.existsSync(path) && Common.cfg('teamLiangQ')) {
+      return path
+    }
     path = `${_path}/plugins/liangshi-calc/damage/${meta}/${name}/calc_liangshi.js`
     if (fs.existsSync(path) && Common.cfg('teamLiang')) {
       return path
