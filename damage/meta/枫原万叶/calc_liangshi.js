@@ -43,7 +43,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
-export const defDmgIdx = 5
+export const defDmgIdx = 3
 
 export const defParams = {
   team: true
@@ -85,5 +85,5 @@ export const buffs = [{
 	qPlus: 278.4 
     }
   },
-   {title: '8.8最后修改：如有问题可联系1142607614反馈'}
+   {title: '8.11最后修改：如有问题可联系1142607614反馈'}
    ]
