@@ -4,8 +4,8 @@ export const details = [{
 }, {
    title: '强化普攻伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
-     const zy = talent.a2['技能伤害·攻击倍率']
-     const zz = talent.a2['技能伤害·生命倍率']
+     const zy = talent.a2['攻击倍率']
+     const zz = talent.a2['生命倍率']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk ) + ( zz * hp ) , 'a' )
@@ -13,8 +13,8 @@ export const details = [{
 }, {
    title: '强化普攻相邻伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
-     const zy = talent.a2['技能伤害·攻击倍率·相邻目标']
-     const zz = talent.a2['技能伤害·生命倍率·相邻目标']
+     const zy = talent.a2['攻击倍率·相邻目标']
+     const zz = talent.a2['生命倍率·相邻目标']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk ) + ( zz * hp ) , 'a' )
@@ -22,9 +22,9 @@ export const details = [{
 }, {
    title: '满buff终结技伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
-     const zy = talent.q['技能伤害·攻击倍率']
-     const zz = talent.q['技能伤害·生命倍率']
-     const ss = talent.q['技能伤害·已损失生命值倍率']
+     const zy = talent.q['攻击倍率']
+     const zz = talent.q['生命倍率']
+     const ss = talent.q['已损失生命值倍率']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk ) + ( zz * hp  ) + ( ss * hp * 0.9 ) , 'q' )
@@ -32,9 +32,9 @@ export const details = [{
 }, {
    title: '满buff终结技相邻伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
-     const zy = talent.q['技能伤害·攻击倍率·相邻目标']
-     const zz = talent.q['技能伤害·生命倍率·相邻目标']
-     const ss = talent.q['技能伤害·已损失生命值倍率·相邻目标']
+     const zy = talent.q['攻击倍率·相邻目标']
+     const zz = talent.q['生命倍率·相邻目标']
+     const ss = talent.q['已损失生命值倍率·相邻目标']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk  ) + ( zz * hp  ) + ( ss * hp * 0.9 ) , 'q' )
@@ -42,8 +42,8 @@ export const details = [{
 }, {
    title: '天赋追击伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
-     const zy = talent.t['技能伤害·攻击倍率']
-     const ss = talent.t['技能伤害·生命倍率']
+     const zy = talent.t['攻击倍率']
+     const ss = talent.t['生命倍率']
      const hp = calc(attr.hp)
      const atk = calc(attr.atk)
      return basic( ( zy * atk  ) + ( ss * hp  ) , 't' )
@@ -87,4 +87,4 @@ export const buffs = [{
   data: {
     tDmg: 20
   }
-},{title: '8.9最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.12最后修改：如有问题可联系1142607614反馈'}]
