@@ -82,43 +82,47 @@ export class allSetting extends plugin {
         */
     }
     async liangshiByebye() {
-    /** 不是主人则阻挡不再往下执行 */
-    if (!this.e.isMaster) { return true }
-    /** 检查是否已备份 */
-    const liangshiData = path.join(`${_path}/data`, `liangshiData`)
-    if (!fs.existsSync(liangshiData)) {
-        await this.e.reply(`你似乎还没备份过哦~`, true)
-        return true
-    }
-    /** 定义 */
-    const miaoFile0 = path.join(`${_path}/plugins/miao-plugin/config`, `cfg.js`)
-    const miaoFile1 = path.join(`${_path}/plugins/miao-plugin/config/system`, `cfg_system.js`)
-    const miaoFile2 = path.join(`${_path}/plugins/miao-plugin/models`, `ProfileDmg.js`)
-    /** 定义 */
-    const dataFile0 = path.join(`${_path}/data/liangshiData`, `cfg.js`)
-    const dataFile1 = path.join(`${_path}/data/liangshiData`, `cfg_system.js`)
-    const dataFile2 = path.join(`${_path}/data/liangshiData`, `ProfileDmg.js`)
-    /** 写入原文件 */
-    if (fs.existsSync(dataFile1)) {
-        /** 判断行数 */
-        const configLines = fs.readFileSync(`${miaoFile1}`, 'utf8').split('\n').length;
-        const defLines = fs.readFileSync(`${dataFile1}`, 'utf8').split('\n').length;
-        if (configLines === defLines) {
-            await this.e.reply(`不是，你都已经恢复过了还恢复呢？？！！`, true)
-            return true
-        } else {
-            fs.copyFile(dataFile0, miaoFile0, (err) => {
-                if (err) throw err;
-            })
-            fs.copyFile(dataFile1, miaoFile1, (err) => {
-                if (err) throw err;
-            })
-            fs.copyFile(dataFile2, miaoFile2, (err) => {
-                if (err) throw err;
-            })
-            await this.e.reply(`梁氏要跟你说拜拜了哦~\n请重启恢复原文件！`, true)
+        /** 不是主人则阻挡不再往下执行 */
+        if (!this.e.isMaster) { return true }
+        /** 检查是否已备份 */
+        const liangshiData = path.join(`${_path}/data`, `liangshiData`)
+        if (!fs.existsSync(liangshiData)) {
+            await this.e.reply(`你似乎还没备份过哦~`, true)
             return true
         }
+        /** 定义 */
+        const miaoFile0 = path.join(`${_path}/plugins/miao-plugin/config`, `cfg.js`)
+        const miaoFile1 = path.join(`${_path}/plugins/miao-plugin/config/system`, `cfg_system.js`)
+        const miaoFile2 = path.join(`${_path}/plugins/miao-plugin/models`, `ProfileDmg.js`)
+        /** 定义 */
+        const dataFile0 = path.join(`${_path}/data/liangshiData`, `cfg.js`)
+        const dataFile1 = path.join(`${_path}/data/liangshiData`, `cfg_system.js`)
+        const dataFile2 = path.join(`${_path}/data/liangshiData`, `ProfileDmg.js`)
+        /** 写入原文件 */
+        if (fs.existsSync(dataFile1)) {
+            /** 判断行数 */
+            const configLines = fs.readFileSync(`${miaoFile1}`, 'utf8').split('\n').length;
+            const defLines = fs.readFileSync(`${dataFile1}`, 'utf8').split('\n').length;
+            if (configLines === defLines) {
+                await this.e.reply(`不是，你都已经恢复过了还恢复呢？？！！`, true)
+                return true
+            } else {
+                fs.copyFile(dataFile0, miaoFile0, (err) => {
+                    if (err) throw err;
+                })
+                fs.copyFile(dataFile1, miaoFile1, (err) => {
+                    if (err) throw err;
+                })
+                fs.copyFile(dataFile2, miaoFile2, (err) => {
+                    if (err) throw err;
+                })
+                const liangshijs = `${_path}/plugins/data/liangshiData`
+                fs.unlink(liangshijs, (err) => {
+                    if (err) throw err;
+                    this.e.reply(`梁氏要跟你说拜拜了哦~\n请重启恢复原文件！`, true)
+                    return true
+                });
+            }
+        }
     }
-}
 }
