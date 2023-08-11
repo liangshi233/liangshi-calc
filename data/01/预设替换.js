@@ -1,6 +1,6 @@
-//如果自己有或者自己写了替换插件可以不用复制本JS
 let replace_list = {
 	'极限': '极限',
+	// '极限面板': '面板100000000',
 	'极限伤害': '伤害100000000',
 	'核爆面板': '面板100000001',
 	'核爆伤害': '伤害100000001',
@@ -37,10 +37,11 @@ export class xiaofei_input_replace extends plugin {
 			try {
 				let reg = RegExp(key);
 				if (!reg.test(e.msg)) continue;
-				if (/^(#)?极限/.test(e.msg)) {
-                    e.msg = e.msg.replace(/^(#)?极限/, '#');
-                    e.msg = `${e.msg}面板100000000`;
+				if (/极限/.test(e.msg)) {
+                    e.msg = e.msg.replace(/极限|面板/g, '');
+					e.msg =  `${e.msg}面板100000000`
 				}
+
 				e.msg = e.msg.replace(reg, replace_list[key]);
 			} catch (err) { }
 		}
