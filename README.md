@@ -7,12 +7,9 @@
 
 git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
 
-#将目录下replace文件夹中的cfg_system.js放置于plugins\miao-plugin\config\system内
-#将目录下replace文件夹中的ProfileDmg.js放置于plugins\miao-plugin\models内
-#在plugins\miao-plugin\config\cfg.js 中添加
- export const teamLiang = true 
-#或直接使用目录replace文件夹中的cfg.js替换
-#重启Yunzai-Bot即可使用
+#重启Bot载入插件发送
+#梁氏启动
+即可启用插件，需再次重启
 （更新插件可使用 #梁氏更新 ）
 （建议使用 #全部更新 来更新，看到本插件同步更新后再替换，避免与miao-plugin版本不一致替换后直接爆炸）
 
