@@ -17,7 +17,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'e')
 }, {
   title: '触电战技结算伤害',
-  dmg: ({ talent }, dmg ) => {
+  dmg: ({ talent , cons }, dmg ) => {
+  let plusDot = cons >= 6 ? 1.56 : 0
   let cxsh1 = dmg((talent.q['回合持续伤害'] + plusDot) * talent.e['额外持续伤害'], '', 'skillDot')
   return {
      avg: cxsh1.avg
@@ -25,7 +26,8 @@ export const details = [{
  }
 }, {
   title: '触电伤害',
-  dmg: ({ talent }, dmg) => {
+  dmg: ({ talent , cons }, dmg) => {
+  let plusDot = cons >= 6 ? 1.56 : 0
   let cx = dmg((talent.q['回合持续伤害'] + plusDot) * talent.q['额外持续伤害'], '', 'skillDot')
   return {
   avg: cx.avg
@@ -33,8 +35,9 @@ export const details = [{
  }
 },{
   title: '触电持续伤害',
-  dmg: ({ talent }, dmg) => {
-  let cxsh = dmg( talent.q['回合持续伤害'] , '', 'skillDot')
+  dmg: ({ talent , cons }, dmg) => {
+  let plusDot = cons >= 6 ? 1.56 : 0
+  let cxsh = dmg((talent.q['回合持续伤害'] + plusDot) , '', 'skillDot')
   return {
   avg: cxsh.avg
   }
@@ -59,7 +62,4 @@ export const buffs = [
 },{
   title: '卡芙卡6命：触电的天赋倍率提升156%',
   cons: 6,
-  data: {
-    dotPct:156
-  }
 },{title: '8.15最后修改：如有问题可联系1142607614反馈'}]
