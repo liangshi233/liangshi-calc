@@ -16,6 +16,12 @@ export const details = [{
     return dmg(talent.q['技能伤害'] + addDmg, 'q')
   }
 }, {
+  title: '对10韧性敌人量子击破纠缠伤害',
+  dmg: ({ calc, attr }, { reaction }) => {
+    return {
+      avg: reaction('entanglement').avg * 5 * (10 + 2) / 4
+    }
+},  {
   title: '希银布罗 普攻伤害',
   params: { team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -101,4 +107,4 @@ export const buffs = [{
   data: {
     speedPct: 12
   }
-},{title: '8.2最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.15最后修改：如有问题可联系1142607614反馈'}]

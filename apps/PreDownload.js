@@ -17,7 +17,7 @@ export class PreDownload extends plugin {
 
   async PreDownload() {
     //暂时使用文字版展示，后续将根据使用情况确定是否修改为图片版
-    await this.reply(`4.0.0版本预下载\n开放时间:2023年8月14日12：00（UTC+8）\n PC（桌面端）\n 34.06GB（4语音） \n Android （移动端） \n 10.54GB （4语音） \n IOS （移动端） \n 暂无数据  \n PlayStation 5 （主机端）\n 该平台不支持预下载 \n PlayStation 4 Pro （主机端）\n 该平台不支持预下载 \n PlayStation 4 （主机端）\n 该平台不支持预下载 `)
+    await this.reply(`4.0.0版本预下载\n开放时间:2023年8月14日12：00（UTC+8）\n PC（桌面端）\n 34.06GB（4语音） \n Android （移动端） \n 10.54GB （4语音） \n IOS （移动端） \n 10.20GB （4语音）  \n PlayStation 5 （主机端）\n 该平台不支持预下载 \n PlayStation 4 Pro （主机端）\n 该平台不支持预下载 \n PlayStation 4 （主机端）\n 该平台不支持预下载 `)
     return true
   }
 }
