@@ -21,7 +21,7 @@ export const details = [{
     return {
       avg: reaction('entanglement').avg * 5 * (10 + 2) / 4
     }
-},  {
+}},  {
   title: '希银布罗 普攻伤害',
   params: { team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
