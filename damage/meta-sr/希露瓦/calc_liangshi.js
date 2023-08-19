@@ -9,7 +9,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['相邻目标伤害'], 'e')
 },{
   title: '触电持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['触电持续伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['触电持续伤害'], '', 'skillDot')
 },{
   title: '附加伤害',
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'], 't')
