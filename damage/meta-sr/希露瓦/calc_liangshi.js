@@ -32,4 +32,4 @@ export const buffs = [{
   data: {
     atk: 20
   }
-}]
+}, {title: '8.20最后修改：如有问题可联系1142607614反馈'}]
