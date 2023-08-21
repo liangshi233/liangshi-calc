@@ -10,20 +10,19 @@ export const details = [{
 }, {
   check: ({ cons }) => cons < 6,
   title: '5层天赋持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 5, 't')
+  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 5, '', 'skillDot')
 }, {
   check: ({ cons }) => cons = 6,
   title: '6命5层天赋持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 1.15 * 5, 't')
+  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 1.15 * 5, '', 'skillDot')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
 {
-  title: '惊喜礼盒：持续伤害提升[xq]%',
+  title: '惊喜礼盒：持续伤害提升[dotEnemyDmg]%',
   data: {
-    tDmg: ({ params , talent }) => params.jing ? ( talent.q['受持续伤害提高'] * 100 ) : 0 ,
-    xq: ({ talent }) => talent.q['受持续伤害提高'] * 100
+    dotEnemyDmg: ({ talent }) => talent.q['受持续伤害提高'] * 100
   }
-},{title: '6.16最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.21最后修改：如有问题可联系1142607614反馈'}]
