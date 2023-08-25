@@ -69,34 +69,6 @@ export const details = [{
       avg: 2 * e_v.avg + 2 * erming.avg + 15 * q.avg + 5 * a.avg
     }
   }
-}, {
-  check: ({ cons }) => cons < 6 ,
-  title: '胡行夜钟 21轴 对单',
-  params: { q: false, team: false , hxyz: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let count = cons * 1 >= 2 ? 1 : 0
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
-    return {
-      dmg: 2 * e_v.dmg + 4 * erming.dmg * count + 21 * q.dmg,
-      avg: 2 * e_v.avg + 4 * erming.avg * count + 21 * q.avg
-    }
-  }
-}, {
-  check: ({ cons }) => cons >= 6,
-  title: '胡行夜钟 21轴 对单',
-  params: { q: false, team: false , hxyz: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
-    let a = basic(calc(attr.hp) * talent.a['破局矢伤害'] * 1.56 / 100, 'a2')
-    return {
-      dmg: 2 * e_v.dmg + 2 * erming.dmg + 15 * q.dmg + 5 * a.dmg,
-      avg: 2 * e_v.avg + 2 * erming.avg + 15 * q.avg + 5 * a.avg
-    }
-  }
 }]
 
 export const defDmgIdx = 4
@@ -182,14 +154,6 @@ export const buffs = [{
   data: {
     hpPct: 25
   }
-}, {
-  check: ({ params }) => (params.team === false && params.hxyz === true),
-  title: '胡行夜钟：生命值提升[hpPct]%,造成的伤害提升2.5%,水元素抗性降低35%',
-  data: {
-	hpPct: 25,
-	eDmg: 2.5,	
-	kx: 35 
-  }
 }, 'vaporize',
-{title: '5.7最后修改：如有问题可联系1142607614反馈'}
+{title: '8.26最后修改：如有问题可联系1142607614反馈'}
 ]
