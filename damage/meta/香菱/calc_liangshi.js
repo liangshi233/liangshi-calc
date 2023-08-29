@@ -32,7 +32,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 }]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = {
@@ -99,5 +99,5 @@ export const buffs = [{
     atkPct: 25
   }
 }, 'vaporize',
-{title: '5.16最后修改：如有问题可联系1142607614反馈'}
+{title: '8.28最后修改：如有问题可联系1142607614反馈'}
 ]
