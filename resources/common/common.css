@@ -205,6 +205,13 @@ body {
   background-position: 100% 0;
 }
 /********  ELEM  ********/
+.elem-absent .talent-icon {
+  background-image: url("./bg/talent-absent.png");
+}
+.elem-absent .elem-bg,
+.absent-bg {
+  background-image: url("./bg/bg-absent.jpg");
+}
 .elem-hydro .talent-icon {
   background-image: url("./bg/talent-hydro.png");
 }
@@ -253,6 +260,34 @@ body {
 .elem-dendro .elem-bg,
 .dendro-bg {
   background-image: url("./bg/bg-dendro.jpg");
+}
+.elem-sangonomiya .elem-bg,
+.sangonomiya-bg {
+  background-image: url("./bg/bg-sangonomiya.jpg");
+}
+.elem-enkanomiya .elem-bg,
+.enkanomiya-bg {
+  background-image: url("./bg/bg-enkanomiya.jpg");
+}
+.elem-bazaar .elem-bg,
+.bazaar-bg {
+  background-image: url("./bg/bg-bazaar.jpg");
+}
+.elem-merusea .elem-bg,
+.merusea-bg {
+  background-image: url("./bg/bg-merusea.jpg");
+}
+.elem-chasm .elem-bg,
+.chasm-bg {
+  background-image: url("./bg/bg-chasm.jpg");
+}
+.elem-qingce .elem-bg,
+.qingce-bg {
+  background-image: url("./bg/bg-qingce.jpg");
+}
+.elem-orchard .elem-bg,
+.orchard-bg {
+  background-image: url("./bg/bg-orchard.jpg");
 }
 /* cont */
 .cont {
