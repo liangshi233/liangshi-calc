@@ -8,6 +8,10 @@ export const details = [{
   title: '演唱开始水珠伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['水珠伤害'], 'e')
 },{
+  title: '演唱开始命中治疗',
+  dmg: ({ talent, attr, calc }, { heal }) =>
+    heal(talent.e['命中治疗量2'][0] * calc(attr.hp) / 100 + talent.e['命中治疗量2'][1] * 1)
+},{
   title: '演唱开始每跳治疗',
   dmg: ({ talent, attr, calc }, { heal }) =>
     heal(talent.e['持续治疗量2'][0] * calc(attr.hp) / 100 + talent.e['持续治疗量2'][1] * 1)
@@ -29,5 +33,5 @@ export const buffs = [{
     dmg: 15
   }
 }, 'vaporize',
-{title: '12.28最后修改：如有问题可联系1142607614反馈'}]
+{title: '8.30最后修改：如有问题可联系1142607614反馈'}]
 
