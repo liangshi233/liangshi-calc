@@ -149,6 +149,11 @@ export const helpList = [
         "desc": "查看近期更新内容"
       },
       {
+        "icon": 31,
+        "title": "#重置预设面板",
+        "desc": "自动替换预设面板文件"
+      },
+      {
         "icon": 29,
         "title": "#梁氏更新",
         "desc": "更新本插件"
