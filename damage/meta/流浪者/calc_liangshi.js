@@ -36,7 +36,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }]
 
-export const defDmgIdx = 3
+export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const defParams = {
@@ -117,5 +117,5 @@ export const buffs = [{
     atkPlus: 1202.35
   }
 },
- {title: '2.20最后修改：如有问题可联系1142607614反馈'}
+ {title: '9.5最后修改：如有问题可联系1142607614反馈'}
 ]
