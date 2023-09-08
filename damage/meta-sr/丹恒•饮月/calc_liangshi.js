@@ -3,15 +3,15 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
   title: '满层E 普攻首段伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a2['目标伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['盘拏耀跃·单体伤害'], 'a')
 }, {
   title: '满层E 普攻尾段伤害',
   params: { buff: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a2['目标伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['盘拏耀跃·单体伤害'], 'a')
 }, {
   title: '满层E 普攻尾段相邻伤害',
   params: { buff: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a2['相邻目标伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['盘拏耀跃·相邻目标伤害'], 'a')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['目标伤害'], 'q')
@@ -24,7 +24,7 @@ export const mainAttr = 'atk,cpct,cdmg,effPct'
 export const defDmgIdx = 2
 
 export const buffs = [{
-  title: '亢心：每次攻击都将提升自己身伤害，至多叠加6层[xq]%',
+  title: '亢心：每次攻击都将提升自己身伤害，至多叠加6层[dmg]%',
   data: {
     dmg: ({ params , talent }) => params.buff ? ( talent.t['伤害提高'] * 100 * 6 ) : 0
   }
@@ -51,4 +51,4 @@ export const buffs = [{
   data: {
     kx: 60
   }
-},{title: '9.5最后修改：如有问题可联系1142607614反馈'}]
+},{title: '9.8最后修改：如有问题可联系1142607614反馈'}]
