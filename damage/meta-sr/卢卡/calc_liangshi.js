@@ -20,6 +20,7 @@ export const defDmgIdx = 2
 
 export const buffs = [{
   title: '制胜一击：释放终结技后敌方受到的伤害增加[dmg]%',
+  data: {
     dmg: ({  talent }) => talent.q['伤害提高'] * 100
   }
 }, {

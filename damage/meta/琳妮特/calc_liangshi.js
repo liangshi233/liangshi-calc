@@ -1,4 +1,8 @@
 export const details = [{
+  check: ({ cons }) => cons >= 6,
+  title: '风附魔普通攻击一段',
+  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
+},{
    title: '谜影突刺伤害',
      dmg: ({ talent }, dmg) => dmg(talent.e['谜影突刺伤害'], 'e')
 },  {
@@ -38,5 +42,5 @@ export const buffs = [{
     dmg: 20
   }
 },
-{title: '7.11最后修改：如有问题可联系1142607614反馈'}
+{title: '9.16最后修改：如有问题可联系1142607614反馈'}
 ]
