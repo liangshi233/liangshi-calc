@@ -1,5 +1,3 @@
-import { Format } from '#miao'
-
 export const details = [{
   title: '门前清伤害',
   params: { team: false , lao:false , ting:false , yu:false },

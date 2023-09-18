@@ -1,5 +1,3 @@
-import { Format } from '#miao'
-
 export const details = [{
   params: { team: false },
   title: '普攻伤害',

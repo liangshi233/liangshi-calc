@@ -1,5 +1,3 @@
-import { Format } from '#miao'
-
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')

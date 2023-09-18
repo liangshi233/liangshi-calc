@@ -1,4 +1,4 @@
-import { Format } from '#miao'
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 export const details = [{
   title: '下落攻击*乱岚拨止伤害',
