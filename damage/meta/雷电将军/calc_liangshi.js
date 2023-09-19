@@ -1,3 +1,5 @@
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+
 export const details = [{
   title: '恶曜开眼协同攻击',
   params: {
@@ -80,7 +82,8 @@ export const details = [{
    },
   dmg: ({ talent, calc, attr }) => {
     return {
-      avg: talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) )
+      avg: Format.number ( talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) ) ),
+      type: 'text'
     }
   }
  }]
