@@ -19,14 +19,14 @@ export class op extends plugin {
       event: 'message',
       priority: 50000,
       rule: [
-        {
+       /*{
           reg: '^#*(随机)?(op|Op|oP|OP|o批|O批|原p|原P)$',
           fnc: 'op'
         },
         {
           reg: '^#*(随机)?(qp|Qp|qP|QP|q批|Q批|穹p|穹P)$',
           fnc: 'qp'
-        }/*,
+        },
         {
           reg: '^#*(强制)?更新(op|Op|oP|OP|o批|O批|原p|原P|qp|Qp|qP|QP|q批|Q批|穹p|穹P)$',
           fnc: 'gxp'
