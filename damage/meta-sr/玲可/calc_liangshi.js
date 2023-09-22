@@ -1,17 +1,17 @@
 export const details = [{
   title: '普攻伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
+  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
+},{
   check: ({ cons }) => cons < 6,
   title: '战技生命上限提升',
-  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['治疗·百分比生命'] + talent.e['治疗·固定值'])
+  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['生命提高·百分比生命'] + talent.e['生命提高·固定值'])
 }, {
   check: ({ cons }) => cons >= 6,
   title: '战技生命上限提升',
-  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * ( talent.e['治疗·百分比生命'] + 0.06 ) + talent.e['治疗·固定值'])
+  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * ( talent.e['生命提高·百分比生命'] + 0.06 ) + talent.e['生命提高·固定值'])
 }, {
   title: '战技生命恢复',
-  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['毁灭存护治疗·百分比'] + talent.e['毁灭存护治疗·固定值'])
+  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['治疗·百分比'] + talent.e['治疗·固定值'])
 }, {
   title: '终结技生命恢复',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.q['治疗·百分比生命'] + talent.q['治疗·固定值'])
