@@ -25,6 +25,7 @@ export const details = [{
     shield(talent.e['三级护盾吸收量2'][0] * calc(attr.def) / 100 + talent.e['三级护盾吸收量2'][1] * 1)
 }, {
   title: '叛逆刮弦释放伤害',
+  params: { qbj: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'phy')
 }, {
   title: '叛逆刮弦持续伤害',
@@ -44,7 +45,7 @@ export const buffs = [{
   title: '辛焱2命：Q的暴击率提升100%',
   cons: 2,
   data: {
-    qCpct: 100
+    qCpct:({ params , talent }) => params.qbj ? 100 : 0
   }
 }, {
   title: '辛焱4命：E造成伤害使敌人物理抗性降低15%',
@@ -53,5 +54,5 @@ export const buffs = [{
     phyKx: 15
   }
 },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '9.23最后修改：如有问题可联系1142607614反馈'}
  ]
