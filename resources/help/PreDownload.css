@@ -1,0 +1,100 @@
+@font-face {
+    font-family: "tttgbnumber";
+    src: url("../common/font/tttgbnumber.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'tttgbnumber';
+}
+
+.container {
+    width: 849px;
+    background: url(../common/bg/bg-geo.jpg) no-repeat;
+    background-size: 100%;
+    padding-bottom: 15px;
+}
+
+.head_box {
+    margin-left: 50px;
+    padding-top: 40px;
+    font-size: 25px;
+    color: #FFDEAD;
+    text-shadow: 2px 2px 3px #9C9C9C;
+}
+
+.help {
+    border: 3mm ridge rgba(211, 220, 50, .6);
+    border-radius: 12px;
+    background-color: rgba(255, 250, 240, 0.4);
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    color: black;
+}
+
+img {
+    width: 40px;
+    height: 40px;
+}
+
+.img-div {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+
+.title {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.help-div {
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+.help-div2 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.help-text,
+.help-div>div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.help-div2 {
+    padding-right: 15px;
+}
+
+.help-div2>div {
+    display: flex;
+}
+
+.help-div>div,
+.help-div2>div {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.text-div {
+    margin-left: 5px;
+}
+
+.plugin {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.logo {
+    margin-top: 15px;
+    text-align: center;
+    color: #FFFAFA;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>预下载占用查询</title>
+    <link rel="preload" href="{{pluResPath}}/plugins/liangshi-calc/resources/common/font/tttgbnumber.ttf" as="font">
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/plugins/liangshi-calc/resources/help/PreDownload.css" />
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="head_box">
+            <h1 class="day_text">预下载空间查询</h1>
+            <div class="plugin">查询预下载需要占用的空间</div>
+        </div>
+        <div class="help">
+            <div class="title">
+                <h2>{{helpList.group}}</h2>
+            </div>
+            <div class="help-text">
+                {{each helpList.list list}}
+                <div class="help-div">
+                    <div>
+                        <div class="img-div">
+                            <img src="{{pluResPath}}/plugins/liangshi-calc/resources/help/img/{{list.icon}}.png">
+                        </div>
+                        <div class="text-div">
+                            <b class="text-title-div">
+                                {{list.title}}
+                            </b>
+                            <div>
+                                {{list.desc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <h3 class="logo">数据来源:liangshi 均采用未删除任何文件的包体</h3>
+    </div>
+</body>
+
+</html>
