@@ -43,7 +43,7 @@ export const details = [{
 export const mainAttr = 'hp,cpct,cdmg'
 
 export const buffs = [{
-  title: '芙宁娜天赋：消耗队友生命值提升E[dmg]%伤',
+  title: '芙宁娜天赋：消耗队友生命值提升E[eMulti]%伤',
   data: {
     eMulti: 40
   }
