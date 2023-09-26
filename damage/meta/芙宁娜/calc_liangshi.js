@@ -8,16 +8,16 @@ export const details = [{
     heal(talent.e['溪流歌手治疗量2'][0] * calc(attr.hp) / 100 + talent.e['溪流歌手治疗量2'][1] * 1)
 }, {
   title: '海薇玛夫人伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100, 'e')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100, 'e')
 },{
   title: '海薇玛夫人蒸发',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100, 'e', '蒸发')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100, 'e', '蒸发')
 }, {
   title: '谢蕾贝妲小姐伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100, 'e')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢蕾贝妲小姐伤害'] / 100, 'e')
 },{
   title: '谢蕾贝妲小姐蒸发',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100, 'e', '蒸发')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢蕾贝妲小姐伤害'] / 100, 'e', '蒸发')
 }, {
   title: '乌瑟勋爵伤害',
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100, 'e')
@@ -45,7 +45,7 @@ export const mainAttr = 'hp,cpct,cdmg'
 export const buffs = [{
   title: '芙宁娜天赋：消耗队友生命值提升E[dmg]%伤',
   data: {
-    dmg: 40
+    eMulti: 40
   }
 }, {
   title: '芙宁娜天赋：450层提升[dmg]%伤害与[heal]%治疗加成',
@@ -76,5 +76,5 @@ export const buffs = [{
     hpPct: ({ calc, attr }) =>  Math.min( 140 , ( calc(attr.hp) * 0.004 * 600 ) )
   }
 }, 'vaporize',
-{title: '9.24最后修改：如有问题可联系1142607614反馈'}
+{title: '9.26最后修改：如有问题可联系1142607614反馈'}
 ]
