@@ -125,6 +125,7 @@ export class allSetting extends plugin {
     const miaoFile6 = path.join(`${_path}/data/PlayerData/sr`, `100000000.json`)
     const miaoFile7 = path.join(`${_path}/plugins/example`, `预设面板.js`)
     const miaoFile8 = path.join(`${_path}/plugins/example`, `预设替换.js`)
+    const miaoFile9 = path.join(`${_path}/data/UserData`, `100000000.json`)
     //      const liangshiFile0 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000000.json`)
     const liangshiFile1 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000001.json`)
     const liangshiFile2 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000002.json`)
@@ -134,6 +135,7 @@ export class allSetting extends plugin {
     const liangshiFile6 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/PlayerData/sr`, `100000000.json`)
     const liangshiFile7 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01`, `预设面板.js`)
     const liangshiFile8 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01`, `预设替换.js`)
+    const liangshiFile9 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000000.json`)
     /** 写入新配置 */
     fs.copyFile(liangshiFile1, miaoFile1, (err) => {
       if (err) throw err
@@ -157,6 +159,9 @@ export class allSetting extends plugin {
       if (err) throw err
     })
     fs.copyFile(liangshiFile8, miaoFile8, (err) => {
+      if (err) throw err
+    })
+    fs.copyFile(liangshiFile9, miaoFile9, (err) => {
       if (err) throw err
     })
     await this.e.reply(`预设面板刷新完成发送[#预设面板]查看预设面板指令`, true)
