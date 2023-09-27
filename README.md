@@ -5,7 +5,11 @@
 ~~~~~~~~~~
 #打开Yunzai-Bot 根目录输入
 
+//gitee
 git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
+
+//github
+git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
 
 #重启Bot载入插件发送
 #梁氏启动
@@ -41,9 +45,6 @@ git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/li
 ~~~~~~~~~~
 关于后续的更新计划
 ~~~~~~~~~~
-// 极限面板
-已接手制作中，预计7天内完成上传
-分批上传期间可忽略更新
 // 预设面板
 预计从9月28-29日开始补
 预计10月12-20日补齐
@@ -55,6 +56,4 @@ git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/li
 // 流派评分
 这个功能其实已经做完了
 等待适配
-// 其他已经完成的功能
-9月27日前完成更新
 ~~~~~~~~~~
