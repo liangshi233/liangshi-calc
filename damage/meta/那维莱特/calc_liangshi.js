@@ -8,7 +8,7 @@ export const details = [{
 //似乎还是有点问题，有空了修
 , {
   title: '重击蓄力 3秒',
-  dmg: ({ talent, calc, attr }, { basic }) => {
+  dmg: ({ talent, calc, attr , cons }, { basic }) => {
   const a2Multi = cons >= 1 ? 1.6 : 1.25
   return basic(a2Multi * calc(attr.hp) * talent.a['重击·衡平推裁持续伤害'] / 100 * 8 , 'a2')
   }
