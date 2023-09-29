@@ -8,7 +8,10 @@ export const details = [{
 //似乎还是有点问题，有空了修
 , {
   title: '重击蓄力 3秒',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(a2Multi * calc(attr.hp) * talent.a['重击·衡平推裁持续伤害'] / 100 * 8 , 'a2')
+  dmg: ({ talent, calc, attr }, { basic }) => {
+  const a2Multi = cons >= 1 ? 1.6 : 1.25
+  return basic(a2Multi * calc(attr.hp) * talent.a['重击·衡平推裁持续伤害'] / 100 * 8 , 'a2')
+  }
 }, {
   title: '泪水啊，我必偿还伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
@@ -65,5 +68,5 @@ export const buffs = [{
     a2Cdmg: 42
   }
 },
- {title: '9.28最后修改：如有问题可联系1142607614反馈'}
+ {title: '9.29最后修改：如有问题可联系1142607614反馈'}
 ]
