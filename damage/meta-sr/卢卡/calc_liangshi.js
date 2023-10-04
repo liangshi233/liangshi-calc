@@ -16,7 +16,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,effPct'
-export const defDmgIdx = 2
+export const defDmgIdx = 1
 
 export const buffs = [{
   title: '制胜一击：释放终结技后敌方受到的伤害增加[dmg]%',

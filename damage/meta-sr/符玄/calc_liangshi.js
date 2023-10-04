@@ -35,6 +35,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defDmgIdx = 3
 
 export const buffs = [{
   title: '太微行棋：生命值提高[hpPct]%暴击率提高[cpct]%',

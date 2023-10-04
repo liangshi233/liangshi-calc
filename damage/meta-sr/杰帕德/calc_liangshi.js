@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,def'
+export const defDmgIdx = 2
 
 export const buffs = [{
   title: '行迹-战意：基于防御值提高攻击力[atkPlus]',

@@ -16,6 +16,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defDmgIdx = 4
 
 export const buffs = [{
   title: '景元2命：神君行动后，普攻战技及终结技的伤害提高20%',

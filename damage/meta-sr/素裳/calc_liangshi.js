@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 3
 
 export const buffs = [{
   title: '素裳天赋：释放终结技攻击力提高[atk]',

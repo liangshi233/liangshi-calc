@@ -19,6 +19,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 3
 
 export const buffs = [{
   title: '希露瓦6命：对触电状态下的敌人伤害提升[dmg]%',

@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defDmgIdx = 2
 
 export const buffs = [{
   title: '姬子1命：释放追加攻击后，速度提高20%',

@@ -36,7 +36,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
-
+export const defDmgIdx = 1
 
 export const buffs = [{
   title: '祥音和韵：基于攻击力提高攻击力[xq]',

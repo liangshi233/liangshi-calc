@@ -3,10 +3,12 @@ export const details = [{
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
 },{
   check: ({ cons }) => cons < 6,
+  dmgKey: 'e',
   title: '战技生命上限提升',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['生命提高·百分比生命'] + talent.e['生命提高·固定值'])
 }, {
   check: ({ cons }) => cons >= 6,
+  dmgKey: 'e',
   title: '战技生命上限提升',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * ( talent.e['生命提高·百分比生命'] + 0.06 ) + talent.e['生命提高·固定值'])
 }, {
@@ -28,6 +30,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,hp'
+export const defDmgKey = 'e'
 
 export const buffs = [{
   title: '玲可1命：对生命值低于50%的角色治疗提高20%',

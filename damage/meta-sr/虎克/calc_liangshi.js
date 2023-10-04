@@ -13,5 +13,6 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 2
 
 export const buffs = [{title: '8.20最后修改：如有问题可联系1142607614反馈'}]

@@ -51,6 +51,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defDmgIdx = 1
 
 export const buffs = [{
   title: '刃天赋：释放战技后造成的伤害提高[dmg]%',

@@ -37,7 +37,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,effPct'
-export const defDmgIdx = 5
+export const defDmgIdx = 2
 
 export const defParams = {
   team: true

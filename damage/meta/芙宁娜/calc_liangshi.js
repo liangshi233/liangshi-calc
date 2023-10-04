@@ -1,9 +1,10 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+ import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 export const details = [{
   check: ({ cons }) => cons >= 2,
   title: '2命普攻伤害提升值-荒',
-  dmg: ({  calc, attr }) => {
+  params: { conshp: true },
+  dmg: ({ calc, attr }) => {
     return {
       avg: Format.number ( ( calc(attr.hp) * 0.3 ) ) ,
       type: 'text'
@@ -11,37 +12,41 @@ export const details = [{
   }
 }, {
   title: '众水的歌者治疗量',
+  params: { conshp: false },
   dmg: ({ talent, attr, calc }, { heal }) =>
     heal(talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
 }, {
   title: '海薇玛夫人伤害',
+  params: { conshp: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 }, {
   title: '乌瑟勋爵伤害',
+  params: { conshp: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
 }, {
   title: '谢贝蕾妲小姐伤害',
+  params: { conshp: false },
   dmgKey: 'e',
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
-},{
+}, {
   title: '谢贝蕾妲小姐蒸发',
+  params: { conshp: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', '蒸发')
 }, {
-  title: '乌瑟勋爵伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
-}, {
   title: '舞台展开伤害',
+  params: { conshp: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
 }, {
   title: 'Q展开蒸发伤害',
+  params: { conshp: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', '蒸发')
 }, {
   title: '心夜万芙 谢贝蕾妲',
-  params: { team: true },
+  params: { team: true , conshp: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 }, {
   title: '心夜万芙 舞台展开',
-  params: { team: true },
+  params: { team: true , conshp: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
 }]
 
@@ -72,14 +77,14 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
   title: '芙宁娜2命：基于生命值的30%提升普通攻击伤害值[aPct]点',
   cons: 2,
   data: {
-    aPct: ({ calc, attr }) => calc(attr.hp) * 0.3,
-    a2Pct: ({ calc, attr }) => calc(attr.hp) * 0.3
+    aPct: ({ calc, attr }) => calc(attr.hp) * 0.3 ,
+    a2Pct:({ calc, attr }) => calc(attr.hp) * 0.3
   }
 }, {
   title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%',
   cons: 6,
   data: {
-    hpPct: ({ calc, attr }) =>  Math.min( 140 , ( calc(attr.hp) * 0.004 * 600 ) )
+    hpPct: ({ calc, attr , params }) =>  params.conshp ? ( Math.min( 140 , ( calc(attr.hp) * 0.004 * 600 ) ) ) : 0 ,
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,
@@ -133,5 +138,5 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     hpPct: 25
   }
 }, 'vaporize',
-{title: '9.29最后修改：如有问题可联系1142607614反馈'}
+{title: '10.5最后修改：如有问题可联系1142607614反馈'}
 ]

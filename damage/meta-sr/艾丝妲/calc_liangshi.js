@@ -7,6 +7,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 1
 
 export const buffs = [{
   title: '星空祝言：速度提高[speedPct]%',

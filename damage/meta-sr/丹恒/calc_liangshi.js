@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 3
 
 export const buffs = [{
   title: '丹恒天赋：丹恒成为我方技能的目标时提高抗性穿透[kx]%',

@@ -13,6 +13,7 @@ export const details = [{
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
+export const defDmgIdx = 2
 
 export const buffs = [{
   title: '行迹-惩戒：施放终结技提高敌人受到伤害12%',
