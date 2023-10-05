@@ -84,7 +84,7 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
   title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPlus]点生命值',
   cons: 6,
   data: {
-    hpPlus: ({ calc, attr , params , calc }) =>  params.conshp ? ( calc(attr.hp) * 120 ) : 0 ,
+    hpPlus: ({ calc, attr , params }) =>  params.conshp ? ( calc(attr.hp) * 120 ) : 0 ,
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,
