@@ -53,7 +53,7 @@ export const details = [{
 
 export const mainAttr = 'hp,cpct,cdmg'
 export const defDmgKey = 'e'
-
+export const defDmgIdx = 4
 
 export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤害至原来的140%'}, {
   title: '芙宁娜天赋：450层提升[dmg]%伤害与[heal]%治疗加成',
@@ -81,10 +81,10 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     a2Pct:({ calc, attr }) => calc(attr.hp) * 0.3
   }
 }, {
-  title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPlus]点生命值',
+  title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%生命值',
   cons: 6,
   data: {
-    hpPlus: ({ calc, attr , params }) =>  params.conshp ? ( calc(attr.hp) * 120 ) : 0 ,
+    hpPct: ({ calc, attr , params }) => params.conshp ? 120 : 0 ,
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,
