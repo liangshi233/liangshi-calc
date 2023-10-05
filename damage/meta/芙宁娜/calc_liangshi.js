@@ -81,10 +81,10 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     a2Pct:({ calc, attr }) => calc(attr.hp) * 0.3
   }
 }, {
-  title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%',
+  title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPlus]点生命值',
   cons: 6,
   data: {
-    hpPct: ({ calc, attr , params }) =>  params.conshp ? ( Math.min( 140 , ( calc(attr.hp) * 0.004 * 600 ) ) ) : 0 ,
+    hpPlus: ({ calc, attr , params , calc }) =>  params.conshp ? ( calc(attr.hp) * 120 ) : 0 ,
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,

@@ -38,9 +38,9 @@ export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 3
 
 export const buffs = [{
-  title: '太微行棋：生命值提高[hpPct]点,暴击率提高[cpct]%',
+  title: '太微行棋：生命值提高[hpPlus]点,暴击率提高[cpct]%',
   data: {
-    hpPct: ({ talent, attr, calc }) => calc(attr.hp) * talent.e['生命上限提高'] ,
+    hpPlus: ({ talent, attr, calc }) => calc(attr.hp) * talent.e['生命上限提高'] ,
     cpct: ({ talent }) => talent.e['暴击率提高'] * 100
   }
 }, {
