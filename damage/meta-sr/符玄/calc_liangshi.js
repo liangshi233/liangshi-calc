@@ -38,9 +38,9 @@ export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 3
 
 export const buffs = [{
-  title: '太微行棋：生命值提高[hpPct]%暴击率提高[cpct]%',
+  title: '太微行棋：生命值提高[hpPct]点,暴击率提高[cpct]%',
   data: {
-    hpPlus: ({ talent, attr, calc }) => calc(attr.hp) * talent.e['生命上限提高'],
+    hpPct: ({ talent, attr, calc }) => calc(attr.hp) * talent.e['生命上限提高'] ,
     cpct: ({ talent }) => talent.e['暴击率提高'] * 100
   }
 }, {
@@ -50,9 +50,9 @@ export const buffs = [{
     cdmg: 30
   }
 }, {
-  title: '符玄6命：符玄施放终结技造成的伤害提高生命值的120%',
+  title: '符玄6命：符玄施放终结技造成的伤害提高生命值的240%,提高[qPlus]点',
   cons: 6,
   data: {
-    qPlus: ({ attr, calc }) => calc(attr.hp) * 1.2
+    qPlus: ({ attr, calc }) => calc(attr.hp) * 2.4
   }
-},{title: '9.16最后修改：如有问题可联系1142607614反馈'}]
+},{title: '10.5最后修改：如有问题可联系1142607614反馈'}]
