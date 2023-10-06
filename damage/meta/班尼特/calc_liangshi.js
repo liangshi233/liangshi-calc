@@ -28,17 +28,6 @@ export const details = [{
     }
   }
 }, {
-  title: '美妙旅程+点E总伤害',
-  params: { team: false , hb: false },
-  dmg: ({ attr, talent, cons }, dmg) => {
-    let eDmg = dmg(talent.e['点按伤害'], 'e')
-    let qDmg = dmg(talent.q['技能伤害'], 'q')
-    return {
-      avg: eDmg.avg + qDmg.avg,
-      dmg: eDmg.dmg + qDmg.dmg
-    }
-  }
-}, {
   title: '美妙旅程每跳治疗',
   params: { team: false , hb: false },
   dmg: ({ attr, calc, talent }, { heal }) => heal(talent.q['持续治疗2'][0] * calc(attr.hp) / 100 + talent.q['持续治疗2'][1] * 1)
@@ -50,6 +39,17 @@ export const details = [{
   title: '班万罗迪 Q融化伤害',
   params: { team: true , hb: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
+}, {
+  title: '雷国 22轴 对单',
+  params: { team: false , hb: false , lg: true },
+  dmg: ({ attr, talent, cons }, dmg) => {
+    let eDmg = dmg(talent.e['点按伤害'], 'e')
+    let qDmg = dmg(talent.q['技能伤害'], 'q')
+    return {
+      avg: eDmg.avg + qDmg.avg,
+      dmg: eDmg.dmg + qDmg.dmg
+    }
+  }
 }]
 
 export const defParams = {team: true ,  hb: true }
@@ -111,7 +111,7 @@ export const buffs = [{
     atkPct: 20,
     cpct: 15
   }
-}, 
+},
  {check: ({ cons,params }) =>  (cons >= 6 && params.team === true),
   title: '6命教官精1终末迪奥娜：提升精通[mastery]点',
   data: {
@@ -123,6 +123,12 @@ export const buffs = [{
   data: {
     mastery: 420
   }
+}, {
+  check: ({ params }) => params.lg === true ,
+  title: '雷国：元素爆发伤害提高18%',
+  data: {
+    qDmg: 18
+  }
 },
- {title: '4.21最后修改：如有问题可联系1142607614反馈'}
+ {title: '10.6最后修改：如有问题可联系1142607614反馈'}
  ]

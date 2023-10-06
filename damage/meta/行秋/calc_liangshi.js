@@ -1,19 +1,27 @@
+let eDmg = false
+let e2Dmg = false
+let e3Dmg = false
+
 export const details = [{
-  title: '重击伤害',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
+  title: 'E两段伤害',
+  params: { team: false , qkx: true },
+  dmg: ({ talent }, dmg) => {
+  eDmg = dmg(talent.e['技能伤害'], 'e')
+  return eDmg
+ }
 }, {
   title: '先QA后E两段伤害',
+  check: ({ cons }) => cons >= 2,
   params: { team: false },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['技能伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '雨帘剑伤害',
   params: { team: false },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['剑雨伤害'], 'q')
 }, {
   title: '雨帘剑蒸发',
   params: { team: false },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'vaporize')
+  dmg: ({ talent }, dmg) => dmg(talent.q['剑雨伤害'], 'q', 'vaporize')
 }, {
   check: ({ cons }) => cons < 2 ,
   title: '雨帘剑37段',
@@ -21,8 +29,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => {
     let q = dmg(talent.q['剑雨伤害'], 'q')
     return {
-      dmg:  37 * q.dmg,
-      avg:  37 * q.avg
+      dmg: 37 * q.dmg,
+      avg: 37 * q.avg
     }
   }
 }, {
@@ -44,8 +52,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => {
     let q = dmg(talent.q['剑雨伤害'], 'q')
     return {
-      dmg:  42 * q.dmg,
-      avg:  42 * q.avg
+      dmg: 42 * q.dmg,
+      avg: 42 * q.avg
     }
   }
 }, {
@@ -83,13 +91,20 @@ export const details = [{
       avg: 37 * q.avg + 18 * qz.avg
     }
   }
+},{
+  title: '胡行夜钟E两段',
+  params: { team: true , qkx: true },
+  dmg: ({ talent }, dmg) => {
+  e2Dmg = dmg(talent.e['技能伤害'], 'e')
+  return e2Dmg
+ }
 }, {
   check: ({ cons }) => cons < 2 ,
   title: '胡行夜钟 21轴 对单',
   params: { team: true },
   dmg: ({ talent }, dmg) => {
     let q = dmg(talent.q['剑雨伤害'], 'q')
-    let e = dmg(talent.e['技能伤害'], 'e')
+    let e = eDmg
     return {
       dmg:  37 * q.dmg + 1 * e.dmg,
       avg:  37 * q.avg + 1 * e.avg
@@ -98,10 +113,10 @@ export const details = [{
 }, {
   check: ({ cons }) => (cons < 6 && cons >= 2),
   title: '胡行夜钟 21轴 对单',
-  params: { team: false },
+  params: { team: true },
   dmg: ({ talent }, dmg) => {
     let q = dmg(talent.q['剑雨伤害'], 'q')
-    let e = dmg(talent.e['技能伤害'], 'e')
+    let e = eDmg
     return {
       dmg:  42 * q.dmg + 1 * e.dmg,
       avg:  42 * q.avg + 1 * e.avg
@@ -110,13 +125,33 @@ export const details = [{
 }, {
   check: ({ cons }) => cons >= 6,
   title: '胡行夜钟 21轴 对单',
-  params: { team: false },
+  params: { team: true },
   dmg: ({ talent }, dmg) => {
     let q = dmg(talent.q['剑雨伤害'], 'q')
-    let e = dmg(talent.e['技能伤害'], 'e')
+    let e = eDmg
     return {
       dmg:  55 * q.dmg + 1 * e.dmg,
       avg:  55 * q.avg + 1 * e.avg
+    }
+  }
+},{
+  title: '雷国E两段',
+  params: { team: false , qkx: true , lg: true },
+  dmg: ({ talent }, dmg) => {
+  e3Dmg = dmg(talent.e['技能伤害'], 'e')
+  return e3Dmg
+ }
+}, {
+  title: '雷国双E 22轴 对单',
+  params: { team: false , lg: true },
+  dmg: ({ talent , cons }, dmg) => {
+    let count4 = cons * 1 >= 4 ? 1 : 0
+    let count6 = cons * 1 >= 6 ? 1 : 0
+    let q = dmg(talent.q['剑雨伤害'], 'q')
+    let e = e3Dmg
+    return {
+      dmg: 30 * q.dmg + count4 * 5 * q.dmg + count6 * 10 * q.dmg + 2 * e.dmg,
+      avg: 30 * q.avg + count4 * 5 * q.avg + count6 * 10 * q.avg + 2 * e.avg
     }
   }
 }]
@@ -138,20 +173,28 @@ export const buffs = [{
   title: '行秋2命：受到剑雨攻击的敌人水元素抗性降低15%',
   cons: 2,
   data: {
-    kx: 15
+    kx: ({ calc, attr , params }) => params.qkx ? 0 : 15 ,
   }
 }, {
   title: '行秋4命：开Q后E的伤害提升50%',
   cons: 4,
   data: {
-    eMulti: 50
+    eMulti: ({ calc, attr , params }) => params.qkx ? 0 : 50 ,
   }
 }, {
   check: ({ params }) => params.team === true ,
   title: '胡行夜钟：水元素抗性降低20%',
   data: {
-	kx: 20 
+	kx: 20
+  }
+}, {
+  check: ({ params }) => params.lg === true ,
+  title: '雷国：元素爆发伤害提高24%攻击力提升20%和1202点',
+  data: {
+    qDmg: 24,
+    atkPct: 20,
+    atkPlus: 1202.35
   }
 }, 'vaporize',
-{title: '5.7最后修改：如有问题可联系1142607614反馈'}
+{title: '10.6最后修改：如有问题可联系1142607614反馈'}
 ]

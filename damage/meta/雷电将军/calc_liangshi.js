@@ -1,13 +1,6 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-export const details = [{
-  title: '恶曜开眼协同攻击',
-  params: {
-    type: 1,
-    num: 0,
-    team: false,
-	hb: false
-  },
+
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['协同攻击伤害'], 'e')
 },{
   title: '零愿力Q后重击',
@@ -73,6 +66,25 @@ export const details = [{
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
+  title: '雷国五重 22轴 对单',
+   params: {
+     type: 0,
+     num: 60,
+     team: false,
+ 	 hb: false,
+ 	 lg: true
+   },
+    dmg: ({ talent , cons }, dmg) => {
+    let e = dmg(talent.e['技能伤害'], 'e')
+    let ex = dmg(talent.e['协同攻击伤害'], 'e')
+    let q = dmg(talent.q['梦想一刀基础伤害'], 'q')
+    let qz = dmg(talent.q['重击伤害'], 'q')
+    return {
+      dmg: e.dmg + ex.dmg * 18 + q.dmg + qz.dmg * 5 ,
+      avg: e.avg + ex.avg * 18 + q.avg + qz.avg * 5
+    }
+  }
+}, {
  	title: '梦想一心单次能量恢复',
    params: {
      type: 0,
@@ -82,7 +94,7 @@ export const details = [{
    },
   dmg: ({ talent, calc, attr }) => {
     return {
-      avg: Format.number ( talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) ) ),
+      avg: Format.sb (talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) ) ) ,
       type: 'text'
     }
   }
@@ -174,6 +186,15 @@ export const buffs = [
       cdmg: 60,
       mastery: 120
     }
+  }
+  ,{
+    check: ({ params }) => params.lg === true,
+    title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
+    sort: 9,
+    data: {
+      atkPct: 20,
+      atkPlus: 1202.35
+    }
   }, {
     check: ({ params }) => (params.team === true && params.hb === true),
     title: '深渊核爆：各种buff',
@@ -184,5 +205,5 @@ export const buffs = [
       defPct: -15
     }
   },
-   {title: '5.15最后修改：如有问题可联系1142607614反馈'}
+   {title: '10.6最后修改：如有问题可联系1142607614反馈'}
 ]
