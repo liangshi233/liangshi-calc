@@ -1,6 +1,13 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-
+export const details = [{
+  title: '恶曜开眼协同攻击',
+  params: {
+    type: 1,
+    num: 0,
+    team: false,
+	hb: false
+  },
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['协同攻击伤害'], 'e')
 },{
   title: '零愿力Q后重击',
