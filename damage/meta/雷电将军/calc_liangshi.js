@@ -101,7 +101,7 @@ export const details = [{
    },
   dmg: ({ talent, calc, attr }) => {
     return {
-      avg: Format.sb (talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) ) ) ,
+      avg: Format.number ( talent.q['梦想一心能量恢复'] * ( 1 + ( ( calc(attr.recharge) - 100 ) * 0.006 ) ) ),
       type: 'text'
     }
   }
