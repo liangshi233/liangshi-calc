@@ -39,6 +39,9 @@ export const rankNumber = 10
 // 面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Enka-API， 3:MiniGG-Api, 4:Hutao-Enka代理。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如112代表国服B服Miao,国外Enka
 export const profileServer = 343
 
+//星铁面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Mihomo， 3:Avocado(鳄梨), 4:EnkaHSR。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如114代表国服B服Miao,国外Enka
+export const srProfileServer = 0
+
 // 开启彩蛋图（三皇冠/ACE/满命）及自定义面板图，关闭使用官方立绘
 export const costumeSplash = true
 
