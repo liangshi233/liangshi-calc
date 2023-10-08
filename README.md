@@ -39,7 +39,6 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 后续会添加的功能
 ~~~~~~~~~~
 免替换版本（制作中）
-对每个角色不同玩法的圣遗物评分细化（ 暂时只支持2月14日 03:47 之前的 miao-plugin  ）
 米游社历史活动战绩展示（例如海岛宝箱）
 原魔面板与伤害计算
 ~~~~~~~~~~

@@ -11,12 +11,10 @@ git地址：https://gitee.com/liangshi233/liangshi-calc
 将整个文件夹放置于plugins内
 输入#梁氏启动 后输入 #喵喵设置梁氏开启
 重启Yunzai-Bot即可使用
+若Miao-Plugin更新完成后替换无法正常开启可手动替换或先恢复后替换
 
 【其他可选拓展】
 额外拓展包使用说明均在replace文件夹内
 role文件夹为旅行者各元素伤害计算拓展包
 arms文件夹为测试武器拓展包
 data文件夹为预设面板拓展包
-
-score文件夹为liangshi版角色评分拓展包
-该拓展包会在调试完成后发布

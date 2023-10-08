@@ -28,6 +28,7 @@ export const details = [{
   }
 }, {
   title: '扩散反应伤害',
+  params: {team: false },
   dmg: ({}, { reaction }) => reaction('swirl')
 }, {
   title: '莫甘娜 E点按伤害',
@@ -101,5 +102,5 @@ export const buffs = [{
     cpct: 15
   }
 },
- {title: '4.21最后修改：如有问题可联系1142607614反馈'}
+ {title: '10.8最后修改：如有问题可联系1142607614反馈'}
  ]
