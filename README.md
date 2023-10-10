@@ -56,3 +56,16 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 这个功能其实已经做完了
 等待适配
 ~~~~~~~~~~
+---
+> 其他资源位置
+
+|                           地址                                 |         名称         |
+|:-------------------------------------------------------------:|----------------------|
+|      [尚未完成](https://gitee.com/liangshi233/resources)          | 配套评分拓展（gitee） |
+|      [尚未完成](https://github.com/liangshi233/resources)         | 配套评分拓展（github）|
+|      [尚未完成](https://gitee.com/liangshi233/data)               | 配套极限面板（gitee） |
+|      [尚未完成](https://github.com/liangshi233/data)              | 配套极限面板（github）|
+|      [Miao-Yunzai](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) | Miao Zai          |
+|      [Yunzai-Bot](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)   | Miao-Yunzai       |
+|      [Yunzai v3.0](https://gitee.com/le-niao/Yunzai-Bot)         | Yunzai-Bot        |
+|      [miao-plugin](https://gitee.com/yoimiya-kokomi/miao-plugin) | miao-plugin       |
