@@ -23,8 +23,8 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 现有的角色更多的伤害计算条目（无法开启请先阅读目录下的帮助）
 
 开启基本面板方法：#喵喵设置梁氏开启
-开启全部面板方法：#喵喵设置梁氏全开启
-开启预设面板方法：#liangshi更新预设面板
+开启超全面板方法：#喵喵设置超全开启
+开启预设面板方法：#梁氏刷新预设面板
 （预设面板当前包括极限、核爆、辅助、平民面板）
 
 支持旅行者各元素的伤害计算（需要手动替换）
@@ -33,8 +33,6 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 添加了用于测试的白板武器（需要手动替换）
 使用方法：#甘雨面板换测试弓箭一档攻击
 
-添加了预设面板（原极限面板，需要手动替换）
-使用方法：#预设面板
 ~~~~~~~~~~
 后续会添加的功能
 ~~~~~~~~~~
@@ -61,8 +59,8 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 |                           地址                                 |         名称         |
 |:-------------------------------------------------------------:|----------------------|
-|      [尚未完成](https://gitee.com/liangshi233/resources)          | 配套评分拓展（gitee） |
-|      [尚未完成](https://github.com/liangshi233/resources)         | 配套评分拓展（github）|
+|      [测试中](https://gitee.com/liangshi233/resources)          | 配套评分拓展（gitee） |
+|      [测试中](https://github.com/liangshi233/resources)         | 配套评分拓展（github）|
 |      [尚未完成](https://gitee.com/liangshi233/data)               | 配套极限面板（gitee） |
 |      [尚未完成](https://github.com/liangshi233/data)              | 配套极限面板（github）|
 |      [Miao-Yunzai](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) | Miao Zai          |

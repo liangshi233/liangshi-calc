@@ -33,7 +33,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['相邻目标伤害'], 'q')
 }, {
   title: '转魄 终结技主目标',
-  params: { zp: false },
+  params: { zp: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['目标伤害'], 'q')
 }, {
   title: '转魄 终结技相邻目标',
