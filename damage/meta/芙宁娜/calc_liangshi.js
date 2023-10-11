@@ -1,16 +1,6 @@
  import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 export const details = [{
-  check: ({ cons }) => cons >= 2,
-  title: '2命普攻伤害提升值-荒',
-  params: { conshp: true },
-  dmg: ({ calc, attr }) => {
-    return {
-      avg: Format.number ( ( calc(attr.hp) * 0.3 ) ) ,
-      type: 'text'
-    }
-  }
-}, {
   title: '众水的歌者治疗量',
   params: { conshp: false },
   dmg: ({ talent, attr, calc }, { heal }) =>
@@ -41,6 +31,16 @@ export const details = [{
   params: { conshp: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', '蒸发')
 }, {
+  check: ({ cons }) => cons >= 6,
+  title: '6命普攻伤害提升值-荒',
+  params: { conshp: true },
+  dmg: ({ calc, attr }) => {
+    return {
+      avg: Format.number ( ( calc(attr.hp) * 0.3 ) ) ,
+      type: 'text'
+    }
+  }
+}, {
   title: '心夜万芙 谢贝蕾妲',
   params: { team: true , conshp: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
@@ -52,14 +52,13 @@ export const details = [{
 
 
 export const mainAttr = 'hp,cpct,cdmg'
-export const defDmgKey = 'e'
-export const defDmgIdx = 4
+export const defDmgIdx = 3
 
 export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤害至原来的140%'}, {
-  title: '芙宁娜天赋：450层提升[dmg]%伤害与[heal]%治疗加成',
+  title: '芙宁娜天赋：300层提升[dmg]%伤害与[heal]%治疗加成',
   data: {
-    dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 450 ,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 450
+    dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 300 ,
+    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 300
   }
 }, {
   title: '芙宁娜天赋2：基于生命值提升召唤物提升[eDmg]%伤害',
@@ -74,17 +73,17 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 150
   }
 }, {
-  title: '芙宁娜2命：基于生命值的30%提升普通攻击伤害值[aPct]点',
+  title: '芙宁娜2命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%生命值',
   cons: 2,
+  data: {
+    hpPct: ({ calc, attr , params }) => params.conshp ? 140 : 0 ,
+  }
+}, {
+  title: '芙宁娜6命：基于生命值的30%提升普通攻击伤害值[aPct]点',
+  cons: 6,
   data: {
     aPct: ({ calc, attr }) => calc(attr.hp) * 0.3 ,
     a2Pct:({ calc, attr }) => calc(attr.hp) * 0.3
-  }
-}, {
-  title: '芙宁娜6命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%生命值',
-  cons: 6,
-  data: {
-    hpPct: ({ calc, attr , params }) => params.conshp ? 120 : 0 ,
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,

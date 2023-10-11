@@ -71,7 +71,7 @@ export class allSetting extends plugin {
 
     let msg = ''
     if (_.every(checkFile, Boolean)) {
-      msg = `已经备份过了！请勿重复备份！若为更新后失效请先 #恢复配置 后替换`
+      msg = `已经备份过了！请勿重复备份！若为更新后失效请先 #梁氏恢复配置 后替换`
     } else {
       msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n请重启机器人以启用梁氏！\n重启后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
     }
