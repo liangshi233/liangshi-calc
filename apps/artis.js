@@ -62,7 +62,9 @@ export class pf extends plugin {
         return true
     } else {
       command = `git init plugins/miao-plugin/resources`
-      command1 = `cd plugins/miao-plugin/resources && git remote add origin https://github.com/liangshi233/resources.git`
+      command1 = `cd plugins/miao-plugin/resources && git remote add origin https://gitee.com/liangshi233/resources.git`
+//gitee的寄了就把上面的注释了下面的取消注释
+//      command1 = `cd plugins/miao-plugin/resources && git remote add origin https://github.com/liangshi233/resources.git`
       command2 = `cd plugins/miao-plugin/resources && git fetch origin master && git reset --hard origin/master`
       if (isForce) {
         command = 'cd plugins/miao-plugin/resources'
