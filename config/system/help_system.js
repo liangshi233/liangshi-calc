@@ -39,7 +39,7 @@ export const helpList = [
       },
       {
         "icon": 86,
-        "title": "#原神4.0版本占用",
+        "title": "#原神占用",
         "desc": "查看该版本在各平台的储存占用情况"
       }
     ]
@@ -115,6 +115,26 @@ export const helpList = [
     ]
   },
   {
+    "group": "Beta功能，需要手动开启，可能会发生未知错误",
+    "list": [
+      {
+        "icon": 29,
+        "title": "#梁氏安装原神评分",
+        "desc": "安装评分拓展"
+      },
+      {
+        "icon": 29,
+        "title": "#梁氏安装原神评分",
+        "desc": "更新评分拓展"
+      },
+      {
+        "icon": 35,
+        "title": "#重置预设面板",
+        "desc": "自动替换预设面板文件"
+      }
+    ]
+  },
+  {
     "group": "将在未来上线的功能",
     "list": [
       {
@@ -147,11 +167,6 @@ export const helpList = [
         "icon": 79,
         "title": "#梁氏版本",
         "desc": "查看近期更新内容"
-      },
-      {
-        "icon": 31,
-        "title": "#重置预设面板",
-        "desc": "自动替换预设面板文件"
       },
       {
         "icon": 29,

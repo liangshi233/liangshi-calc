@@ -119,12 +119,6 @@ export const cfgSchema = {
         def: false,
         desc: 'liangshi版超全伤害计算展示。条目过多非常影响观感，不建议开启'
       },
-      scireLiang: {
-        title: 'liangshi版评分规则',
-        key: '评分',
-        def: false,
-        desc: 'liangshi版的评分规则。开启后请重启喵喵'
-      },
       artisNumber: {
         title: '圣遗物列表数量',
         key: '圣遗物数量',

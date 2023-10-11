@@ -7,7 +7,8 @@ import { Cfg , Common, Data } from '../components/index.js'
 import plugin from '../../../lib/plugins/plugin.js'
 
 const _path = process.cwd()
-const pfPath = `${_path}`
+const pluginPath = `${_path}/plugins/miao-plugin`
+const pfPath = `${_path}/plugins/miao-plugin`
 
 export class pf extends plugin {
   constructor () {
@@ -18,59 +19,84 @@ export class pf extends plugin {
       event: 'message',
       priority: 50000,
       rule: [
-       /*{
-          reg: '^#*梁氏(强制)?更新评分$',
-          fnc: 'gxp'
+/*      {
+          reg: '^#*梁氏(更新|安装)原神评分$',
+          fnc: 'qr'
+        },
+        {
+          reg: '^#*确认(更新|安装)原神评分$',
+          fnc: 'azp'
+        },
+        {
+          reg: '^#*取消更新$',
+          fnc: 'qx'
         }*/
       ]
     }
    )
   }
 
+  async qr (e) {
+    await this.reply(`您确认要更新原神评分吗？\n此操作会替换您原本的原神评分和面板展示布局\n建议在本操作前备份以下文件\n plugins/miao-plugin/resources/character/profile-detail.html \n plugins/miao-plugin/resources/meta/character中您更改过的artis.js \n profile-detail.html的替换仅用于反馈时版本信息的收集\n若您未安装过本拓展请先执行安装，请勿执行更新指令，避免后续无法更新\n如果您能确认自己的操作请输入\n#确认安装原神评分 或 #确认更新原神评分\n如果您不能确认自己的操作请输入\n#取消更新`)
+    return true
+  }
 
-  async gxp (e) {
+
+  async qx (e) {
+    await this.reply(`取消成功，本次更新操作已中断`)
+    return true
+  }
+
+  async azp (e) {
     if (!e.isMaster) {
       e.reply(`只有主人才能更新哦~
       (*/ω＼*)`)
       return false
     }
-    let isForce = e.msg.includes('强制')
+    let isForce = e.msg.includes('更新')
     let command = ''
-    if (fs.existsSync(`${pfPath}`)) {
-      e.reply('开始尝试更新，请耐心等待~')
-      command = 'git pull'
-      if (isForce) {
-        command = 'git  checkout . && git  pull'
-      }
-      exec(command, { cwd: `${pfPath}` }, function (error, stdout, stderr) {
-        console.log(stdout)
-        if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-          e.reply('目前所有评分内容都已经是最新了~')
-          return true
-        }
-        let numRet = /(\d*) files changed,/.exec(stdout)
-        if (numRet && numRet[1]) {
-          e.reply(`报告主人，更新成功，此次更新了${numRet[1]}个评分内容~`)
-          return true
-        }
-        if (error) {
-          e.reply('更新失败！\nError code: ' + error.code + '\n' + error.stack + '\n 请稍后重试。')
-        } else {
-          e.reply('评分拓展更新成功~')
-        }
-      })
+    let command1 = ''
+    let command2 = ''
+    if (fs.existsSync(`${pfPath}/resources`)) {
+        e.reply('您已经初始化过评分拓展模块了，请输入#确认更新原神评分')
+        return true
     } else {
-      command = `git clone https://github.com/liangshi233/plugins.git --depth=1`
+      command = `git init plugins/miao-plugin/resources`
+      command1 = `cd plugins/miao-plugin/resources && git remote add origin https://github.com/liangshi233/resources.git`
+      command2 = `cd plugins/miao-plugin/resources && git fetch origin master && git reset --hard origin/master`
+      if (isForce) {
+        command = 'cd plugins/miao-plugin/resources'
+        command1 = 'cd plugins/liangshi-calc/apps'
+      }
       e.reply('开始尝试安装评分拓展模块，可能会需要一段时间，请耐心等待~')
+          let number = Math.random() * ( 24 - 1 ) + 1
+          e.reply(`已完成${number}%`)
       exec(command, function (error, stdout, stderr) {
         if (error) {
           e.reply('角色评分拓展模块安装失败！\nError code: ' + error.code + '\n' + error.stack + '\n 请稍后重试。')
         } else {
+          number = Math.random() * ( 49 - 25 ) + 25
+          e.reply(`已完成${number}%`)
+      exec(command1, function (error, stdout, stderr) {
+        if (error) {
+          e.reply('角色评分拓展模块安装失败！\nError code: ' + error.code + '\n' + error.stack + '\n 请稍后重试。')
+        } else {
+          number = Math.random() * ( 74 - 50 ) + 50
+          e.reply(`已完成${number}%`)
+      exec(command2, function (error, stdout, stderr) {
+        if (error) {
+          e.reply('角色评分拓展模块安装失败！\nError code: ' + error.code + '\n' + error.stack + '\n 请稍后重试。')
+        } else {
+          number = Math.random() * ( 99 - 75 ) + 75
+          e.reply(`已完成${number}%`)
           e.reply('角色评分拓展模块安装成功！您后续也可以通过 #梁氏更新评分 命令来更新评分拓展')
+          }
+         })
         }
-      })
+       })
+      }
+     })
     }
-    return true
+   return true
   }
-
 }
