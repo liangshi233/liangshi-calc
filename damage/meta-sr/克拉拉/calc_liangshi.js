@@ -9,7 +9,7 @@ export const details = [{
 }, {
   params: { team: false , fu:true },
   title: '反击伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['反击伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.t['反击伤害'], 'e')
 }, {
   params: { team: false , fu:true },
   title: '终结技 反击',
@@ -25,7 +25,7 @@ export const details = [{
 }, {
   params: { team: true , fu:true },
   title: '克艾白素 反击',
-  dmg: ({ talent }, dmg) => dmg(talent.e['反击伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.t['反击伤害'], 'e')
 }, {
   params: { team: true , fu:true },
   title: '克艾白素 终结反击',

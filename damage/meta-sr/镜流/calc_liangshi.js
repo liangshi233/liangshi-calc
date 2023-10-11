@@ -76,7 +76,7 @@ export const buffs = [{
   title: '镜流4命：转魄状态下，消耗队友生命获得的攻击力额外提高30%',
   cons: 4,
   data: {
-    atkPct: ({ params , talent }) => params.zp ? 30 : 0,
+    atkPct: ({ params , talent }) => params.zp ? 30 : 0
   }
 }, {
   title: '镜流6命：转魄状态下，暴击伤害提高50%',
