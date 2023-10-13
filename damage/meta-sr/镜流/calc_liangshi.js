@@ -25,7 +25,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e2['目标伤害'], 'e')
 }, {
   title: '终结技 主目标',
-  params: { zp: true },
+  params: { zp: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['目标伤害'], 'q')
 }, {
   title: '终结技 相邻目标',

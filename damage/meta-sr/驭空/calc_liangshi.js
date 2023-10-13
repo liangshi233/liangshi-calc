@@ -1,3 +1,5 @@
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -8,6 +10,30 @@ export const details = [{
   title: 'Q后普攻伤害',
   params: { guan: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
+}, {
+  title: '鸣弦号令攻击力提高',
+  dmg: ({ talent }) => {
+    return {
+      avg: Format.percent(talent.e['攻击力提高']),
+      type: 'text'
+    }
+  }
+}, {
+  title: '鸣弦号令暴击率提高',
+  dmg: ({ talent }) => {
+    return {
+      avg: Format.percent(talent.q['暴击率提高']),
+      type: 'text'
+    }
+  }
+}, {
+  title: '鸣弦号令暴击伤害提高',
+  dmg: ({ talent }) => {
+    return {
+      avg: Format.percent(talent.q['暴击伤害提高']),
+      type: 'text'
+    }
+  }
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
@@ -36,4 +62,4 @@ export const buffs = [{
   data: {
     dmg: 12
   }
-},{title: '7.19最后修改：如有问题可联系1142607614反馈'}]
+},{title: '10.14最后修改：如有问题可联系1142607614反馈'}]
