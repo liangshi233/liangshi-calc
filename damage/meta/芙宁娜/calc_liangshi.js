@@ -36,7 +36,7 @@ export const details = [{
   params: { conshp: true },
   dmg: ({ calc, attr }) => {
     return {
-      avg: Format.number ( ( calc(attr.hp) * 0.3 ) ) ,
+      avg: Format.number ( ( calc(attr.hp) * 0.35 ) ) ,
       type: 'text'
     }
   }
@@ -66,24 +66,24 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     eDmg: ({ calc, attr }) => Math.min( 28 , ( calc(attr.hp) ) / 1000 * 0.7 )
   }
 }, {
-  title: '芙宁娜1命：层数上限提升150层',
+  title: '芙宁娜1命：层数上限提升100层',
   cons: 1,
   data: {
-    dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 150 ,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 150
+    dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 100 ,
+    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 100
   }
 }, {
-  title: '芙宁娜2命：每层提升芙宁娜0.4%生命值上限，共提升[hpPct]%生命值',
+  title: '芙宁娜2命：每层提升芙宁娜0.35%生命值上限，共提升[hpPct]%生命值',
   cons: 2,
   data: {
     hpPct: ({ calc, attr , params }) => params.conshp ? 140 : 0 ,
   }
 }, {
-  title: '芙宁娜6命：基于生命值的30%提升普通攻击伤害值[aPct]点',
+  title: '芙宁娜6命：基于生命值的35%提升普通攻击伤害值[aPct]点',
   cons: 6,
   data: {
-    aPct: ({ calc, attr }) => calc(attr.hp) * 0.3 ,
-    a2Pct:({ calc, attr }) => calc(attr.hp) * 0.3
+    aPct: ({ calc, attr }) => calc(attr.hp) * 0.35 ,
+    a2Pct:({ calc, attr }) => calc(attr.hp) * 0.35
   }
 }, {
   check: ({ cons, params }) => cons <= 3 && params.team === true,
@@ -137,5 +137,5 @@ export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤
     hpPct: 25
   }
 }, 'vaporize',
-{title: '10.11最后修改：如有问题可联系1142607614反馈'}
+{title: '10.17最后修改：如有问题可联系1142607614反馈'}
 ]
