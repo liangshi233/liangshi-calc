@@ -42,28 +42,24 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 ~~~~~~~~~~
 关于后续的更新计划
 ~~~~~~~~~~
-// 预设面板
-预计从9月28-29日开始补
-预计10月12-20日补齐
 // 普通伤害计算
 版本更新当天更新（如果来得及的话）
 // 超全伤害计算
 预计10月8-10日开始补
 预计11月26-28日补齐
 // 流派评分
-这个功能其实已经做完了
-等待适配
+测试中
+将plugins\liangshi-calc\apps\artis.js中注释删除以参与测试
+BUG较多，不建议开启，删除注释后请按提示操作
 ~~~~~~~~~~
 ---
 > 其他资源位置
 
-|                           地址                                 |         名称         |
-|:-------------------------------------------------------------:|----------------------|
-|      [测试中](https://gitee.com/liangshi233/resources)          | 配套评分拓展（gitee） |
-|      [测试中](https://github.com/liangshi233/resources)         | 配套评分拓展（github）|
-|      [尚未完成](https://gitee.com/liangshi233/data)               | 配套极限面板（gitee） |
-|      [尚未完成](https://github.com/liangshi233/data)              | 配套极限面板（github）|
-|      [Miao-Yunzai](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) | Miao Zai          |
-|      [Yunzai-Bot](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)   | Miao-Yunzai       |
-|      [Yunzai v3.0](https://gitee.com/le-niao/Yunzai-Bot)         | Yunzai-Bot        |
-|      [miao-plugin](https://gitee.com/yoimiya-kokomi/miao-plugin) | miao-plugin       |
+|                              gitee                                |                               github                            |          名称       |
+|:-----------------------------------------------------------------:|:---------------------------------------------------------------:|:------------------:|
+|      [测试中](https://gitee.com/liangshi233/resources)             |     [测试中](https://github.com/liangshi233/resources)           | 配套评分拓展         |
+|      [尚未完成](https://gitee.com/liangshi233/data)                |     [尚未完成](https://github.com/liangshi233/data)               | 配套极限面板         |
+|      [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)        |    [github](https://github.com/yoimiya-kokomi/Miao-Yunzai)      | Miao Zai           |
+|      [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)         |    [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)       | Miao-Yunzai        |
+|      [gitee](https://gitee.com/le-niao/Yunzai-Bot)                |    [github](https://github.com/le-niao/Yunzai-Bot)              | Yunzai-Bot         |
+|      [gitee](https://gitee.com/yoimiya-kokomi/miao-plugin)        |    [github](https://github.com/yoimiya-kokomi/miao-plugin)      | miao-plugin        |
