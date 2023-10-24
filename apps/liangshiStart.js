@@ -44,6 +44,12 @@ export class allSetting extends plugin {
     })
   }
 
+  async init () {
+    this.cpPanels()
+    logger.mark('[liangshi]预设面板自动刷新完成')
+    return true
+  }
+
   async liangshiStart() {
     /** 备份原文件，防止后悔 */
     if (!fs.existsSync(liangshiData)) {
@@ -52,19 +58,19 @@ export class allSetting extends plugin {
 
     let liangshiFile = `${_path}/plugins/liangshi-calc/replace`
     let checkFile = []
-    _.forEach(dataFiles, (v, k) => {
+    _.each(dataFiles, (v, k) => {
       let filename = files[k]
       let miaofile = `${miaoPaths[k]}/${filename}`
       let isExist = fs.existsSync(v)
       if (!isExist) {
-        logger.info(`[liangshi]正在备份${filename}原文件`)
+        logger.mark(`[liangshi]正在备份${filename}原文件`)
         fs.copyFileSync(miaofile, v)
         if (k > 0) {
           if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
           fs.copyFileSync(`${liangshiFile}/${filename}`, miaofile)
         }
       } else {
-        logger.info(`[liangshi]${filename}已备份`)
+        logger.mark(`[liangshi]${filename}已备份`)
       }
       checkFile.push(isExist)
     })
@@ -99,11 +105,11 @@ export class allSetting extends plugin {
       await this.e.reply(`你似乎还没备份过哦~`, true)
       return true
     }
-    _.forEach(dataFiles, (v, k) => {
+    _.each(dataFiles, (v, k) => {
       let filename = files[k]
       let miaofile = `${miaoPaths[k]}/${filename}`
       if (fs.existsSync(v)) {
-        logger.info(`[liangshi]正在还原${filename}`)
+        logger.mark(`[liangshi]正在还原${filename}`)
         if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
         fs.copyFileSync(v, miaofile)
         fs.unlinkSync(v)
@@ -115,54 +121,34 @@ export class allSetting extends plugin {
   }
 
   async panelStart() {
-    /** 定义 */
-    const miaoFile1 = path.join(`${_path}/data/UserData`, `100000001.json`)
-    const miaoFile2 = path.join(`${_path}/data/UserData`, `100000002.json`)
-    const miaoFile3 = path.join(`${_path}/data/UserData`, `100000003.json`)
-    const miaoFile4 = path.join(`${_path}/data/UserData`, `100000004.json`)
-    const miaoFile5 = path.join(`${_path}/data/UserData`, `100000005.json`)
-    const miaoFile6 = path.join(`${_path}/data/PlayerData/sr`, `100000000.json`)
-    const miaoFile7 = path.join(`${_path}/plugins/example`, `预设面板.js`)
-    const miaoFile8 = path.join(`${_path}/plugins/example`, `预设替换.js`)
-    const miaoFile9 = path.join(`${_path}/data/UserData`, `100000000.json`)
-    const liangshiFile1 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000001.json`)
-    const liangshiFile2 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000002.json`)
-    const liangshiFile3 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000003.json`)
-    const liangshiFile4 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000004.json`)
-    const liangshiFile5 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000005.json`)
-    const liangshiFile6 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/PlayerData/sr`, `100000000.json`)
-    const liangshiFile7 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01`, `预设面板.js`)
-    const liangshiFile8 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01`, `预设替换.js`)
-    const liangshiFile9 = path.join(`${_path}/plugins/liangshi-calc/replace/data/01/UserData`, `100000000.json`)
-    /** 写入新配置 */
-    fs.copyFile(liangshiFile1, miaoFile1, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile2, miaoFile2, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile3, miaoFile3, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile4, miaoFile4, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile5, miaoFile5, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile6, miaoFile6, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile7, miaoFile7, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile8, miaoFile8, (err) => {
-      if (err) throw err
-    })
-    fs.copyFile(liangshiFile9, miaoFile9, (err) => {
-      if (err) throw err
-    })
+    this.cpPanels()
     await this.e.reply(`预设面板刷新完成发送[#预设面板]查看预设面板指令`, true)
     return true
+  }
+
+  cpPanels() {
+    const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/01`
+    const replaceFiles = [
+      {
+        liangshi: `${liangshiPath}/UserData`,
+        miao: `${_path}/data/UserData`,
+        type: '.json'
+      }, {
+        liangshi: `${liangshiPath}/PlayerData/sr`,
+        miao: `${_path}/data/PlayerData/sr`,
+        type: '.json'
+      }, {
+        liangshi: liangshiPath,
+        miao: `${_path}/plugins/example`,
+        type: '.js'
+      }
+    ]
+
+    _.each(replaceFiles, v => {
+      let _files = fs.readdirSync(v.liangshi).filter(file => file.includes(v.type))
+      _.each(_files, f => {
+        fs.copyFileSync(`${v.liangshi}/${f}`, `${v.miao}/${f}`)
+      })
+    })
   }
 }
