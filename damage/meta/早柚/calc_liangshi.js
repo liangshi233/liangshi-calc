@@ -6,10 +6,10 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['风风轮舞踢长按伤害'], 'e')
 }, {
   title: '影貉缭乱发动伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['不倒貉貉伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能发动伤害'], 'q')
 }, {
   title: '不倒貉貉每跳伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能发动伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['不倒貉貉伤害'], 'q')
 }, {
   title: '不倒貉貉每跳治疗',
   dmg: ({ attr, calc, talent, cons }, { heal }) => {
@@ -41,5 +41,5 @@ export const buffs = [{
     _heal: ({ attr, calc }) => Math.min(calc(attr.mastery) * 3, 6000)
   }
 },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '10.30最后修改：如有问题可联系1142607614反馈'}
  ]

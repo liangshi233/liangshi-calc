@@ -6,16 +6,10 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '兽牙逐突形胜战法伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.q['技能伤害'] * calc(attr.def) / 100 + attr.q.plus * 1
-    return basic(ret, 'q')
-  }
+  dmg: ({ talent, attr, calc }, { basic }) => basic(talent.q['技能伤害'] * calc(attr.def) / 100 , 'q')
 }, {
   title: '逐突形胜战法每跳伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.q['岩晶崩破伤害'] * calc(attr.def) / 100 + attr.q.plus * 1
-    return basic(ret, 'q')
-  }
+  dmg: ({ talent, attr, calc }, { basic }) => basic(talent.q['岩晶崩破伤害'] * calc(attr.def) / 100 , 'q')
 }, {
   title: '逐突形胜战法每跳治疗',
   cons: 4,
@@ -56,5 +50,5 @@ export const buffs = [{
     dmg: 40
   }
 },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '10.30最后修改：如有问题可联系1142607614反馈'}
  ]

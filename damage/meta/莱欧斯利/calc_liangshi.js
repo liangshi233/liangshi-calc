@@ -21,11 +21,8 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 }]
 
-export const defDmgIdx = 3
-export const defDmgKey = 'e'
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
-
-
 
 export const buffs = [{
   title: '强化斥逐拳伤害：开启E后额外提升普通攻击[aMulti]%伤害',
