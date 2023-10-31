@@ -130,8 +130,8 @@ export class allSetting extends plugin {
     const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/01`
     const replaceFiles = [
       {
-        liangshi: `${liangshiPath}/UserData`,
-        miao: `${_path}/data/UserData`,
+        liangshi: `${liangshiPath}/PlayerData/gs`,
+        miao: `${_path}/data/PlayerData/gs`,
         type: '.json'
       }, {
         liangshi: `${liangshiPath}/PlayerData/sr`,
