@@ -2,7 +2,6 @@
 
 #### liangshi-calc是一个Miao-Plugin的面板拓展插件
 使用说明（需要安装Miao-Plugin才能使用）
->在分支合并前或计算完成重置前暂时不会适配 Miao-Plugin profile-v2 分支
 ~~~~~~~~~~
 #打开Yunzai-Bot 根目录输入
 
@@ -49,7 +48,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 预计10月8-10日开始补
 预计11月26-28日补齐
 // 流派评分
-测试中
+等待重置中
 将plugins\liangshi-calc\apps\artis.js中注释删除以参与测试
 BUG较多，不建议开启，删除注释后请按提示操作
 ~~~~~~~~~~

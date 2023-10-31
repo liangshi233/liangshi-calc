@@ -29,8 +29,8 @@ export const helpList = [
     "list": [
       {
         "icon": 79,
-        "title": "#梁氏帮助",
-        "desc": "查看本页面"
+        "title": "#原神版本",
+        "desc": "查看原神近期小更内容"
       },
       {
         "icon": 71,
