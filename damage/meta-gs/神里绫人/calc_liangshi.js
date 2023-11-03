@@ -65,9 +65,9 @@ export const defParams = {
 }
 
 export const buffs = [{
-  title: '神里绫人元素爆发：普通攻击伤害提升伤害提升20%',
+  title: '神里绫人元素爆发：普通攻击伤害提升伤害提升[aDmg]%',
   data: {
-    dmg: 20
+    aDmg: ({ talent }) => talent.q['普通攻击伤害提升']
   }
 }, {
   cons: 1,
