@@ -3,7 +3,6 @@ logger.info('------------QAQ------------')
 logger.info(`liangshi伤害计算加载成功`)
 logger.info(`如有计算错误可通过以下方式反馈`)
 logger.info(`交流群反馈：807622774`)
-logger.info(`反馈给作者：1142607614`)
 logger.info(`---------------------------`);
 const files = fs.readdirSync('./plugins/liangshi-calc/apps').filter(file => file.endsWith('.js'))
 
