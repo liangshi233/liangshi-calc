@@ -1,4 +1,4 @@
-import { Format } from '#miao'
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 let a3Dmg = false
 let ar3Dmg = false
