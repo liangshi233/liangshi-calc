@@ -1,73 +1,57 @@
-export const details = [{
+export const details = [
+{
   title: '普攻前五段',
-  talent: 'a',
-  params: { team: false },
   dmg: ({ talent }, dmg) => {
     let t1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let t2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-	let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
-	let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
-	let t5 = dmg(talent.a['五段伤害'], 'a', 'phy')
+  	let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+	  let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
+  	let t5 = dmg(talent.a['五段伤害'], 'a', 'phy')
     return {
       dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
       avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
     }
   }
-},{
+},
+{
   title: '玉璋护盾量',
   talent: 'e',
-  params: { team: false },
+  params: { hd: true },
   dmg: ({ attr, calc, talent }, { shield }) => shield(talent.e['护盾基础吸收量'] + calc(attr.hp) * talent.e['护盾附加吸收量'] / 100)
-},{
+},
+{
   title: '共鸣伤害',
   talent: 'e',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][2], 'e')
-},{
+},
+{
   title: '岩脊伤害',
   talent: 'e',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][1], 'e')
-},{
+},
+{
   title: '护盾启动伤害',
   talent: 'e',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
-}, {
+},
+{
   title: '天星伤害',
   talent: 'q',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
-  title: '深渊7-3 Q核爆',
-  talent: 'q',
-  params: { team: false , hb: true , hxyz: false },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
+},
+{
   title: '钟鹤云重 钟离普攻前五段',
   talent: 'a',
-  params: { team: true },
+  params: { teamA: true },
   dmg: ({ talent }, dmg) => {
     let t1 = dmg(talent.a['一段伤害'], 'a')
     let t2 = dmg(talent.a['二段伤害'], 'a')
-	let t3 = dmg(talent.a['三段伤害'], 'a')
-	let t4 = dmg(talent.a['四段伤害'], 'a')
-	let t5 = dmg(talent.a['五段伤害'], 'a')	
+    let t3 = dmg(talent.a['三段伤害'], 'a')
+   	let t4 = dmg(talent.a['四段伤害'], 'a')
+   	let t5 = dmg(talent.a['五段伤害'], 'a')
     return {
       dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
       avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
-    }
-  }
-}, {
-  title: '胡行夜钟 21轴 对单',
-  params: { team: false , hxyz: true },
-  dmg: ({ talent }, dmg) => {
-    let hd = dmg(talent.e['长按伤害'], 'e')
-    let gm = dmg(talent.e['岩脊伤害/共鸣伤害'][2], 'e')
-    let q = dmg(talent.q['技能伤害'], 'q')
-    return {
-      dmg: 1 * hd.dmg +  11 * gm.dmg   + 1 * q.dmg,
-      avg: 1 * hd.avg +  11 * gm.avg   + 1 * q.avg
     }
   }
 }]
@@ -75,138 +59,179 @@ export const details = [{
 export const defDmgIdx = 1
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const defParams = {
-  team: true
-}
 
-export const buffs = [{
-  title: '钟离天赋1：满层Buff下护盾强效提高25%',
+export const buffs = [
+{
+  check: ({ params }) => params.hd === true,
+  title: '钟离天赋：[悬岩宸断] 玉璋护盾受到伤害时提升护盾强效5%,至多提高[shield]%',
   data: {
     shield: 25
   }
-}, {
-  title: '岩系护盾：岩系护盾吸收效率150%',
+},
+{
+  check: ({ params }) => params.hd === true,
+  title: '玉璋护盾：[属性 - 岩] 对所有元素伤害与物理伤害有[shieldInc]%的额外吸收效果。',
   data: {
     shieldInc: 50
   }
-}, {
-  title: '钟离天赋2：基于生命值上限，普通攻击重击下落攻击伤害提高[aPlus]，共鸣伤害提高[ePlus]，天星伤害提高[qPlus]',
+},
+{
+  title: '钟离天赋：[炊金馔玉] 基于生命值上限，普通攻击重击下落攻击伤害提高[aPlus]，岩脊,共鸣与长按伤害提高[ePlus]，天星伤害提高[qPlus]',
+  sort: 9,
   data: {
-	aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
-	a2Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
-	a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	  aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+  	a2Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	  a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
     ePlus: ({ attr, calc }) => calc(attr.hp) * 0.019,
     qPlus: ({ attr, calc }) => calc(attr.hp) * 0.33
   }
-}, {
-  title: '玉璋护盾：降低敌人全抗性[kx]%',
+},
+{
+  title: '钟离技能：[玉璋护盾] 处于玉璋护盾庇护下的角色使附近小范围敌人的所有元素抗性与物理抗性降低[kx]%',
   data: {
     kx: 20
   }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5息灾宗室申鹤：增加[atkPct]%攻击力获得[dmg]%增伤,减抗[kx]%,爆伤15%,提升冰伤害5700',
+},
+{
+  check: ({ cons , params }) => cons >= 2 && params.teamA === true,
+  title: '申鹤2命：[定蒙] 神女遣灵真诀领域中的当前场上角色，冰元素伤害的暴击伤害提高[aCdmg]%',
+  sort: 1,
+  data: {
+    aCdmg: 15
+  }
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '申鹤技能：[神女遣灵真诀] 结成领域,使其中敌人的冰元素抗性与物理抗性降低[kx]%',
+  data: {
+    kx: 15
+  }
+},
+{
+  check: ({ cons , params }) => cons >= 6 && params.teamA === true,
+  title: '申鹤技能：[仰灵威召将役咒] 普通攻击对敌人造成冰元素伤害时,造成的伤害提高[aPlus]%',
   sort: 9,
   data: {
-	atkPct: 20,
-    dmg: 30,
-    kx: 15,
-    cdmg: 15,
-    aPlus: 5700 * 2,
-    ePlus: 5700,
-    qPlus: 5700
+    aPlus: 4009.0
   }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '精1息灾宗室2命申鹤：增加[atkPct]%攻击力获得[dmg]%增伤,减抗[kx]%,爆伤15%,提升冰伤害4300',
+},
+{
+  check: ({ cons , params }) => cons < 6 && params.teamA === true,
+  title: '申鹤技能：[仰灵威召将役咒] 普通攻击对敌人造成冰元素伤害时,造成的伤害提高[aPlus]%',
   sort: 9,
   data: {
-    atkPct: 20,
-    dmg: 30,
-    kx: 15,
-    cdmg: 15,
-    aPlus: 4300 * 2,
-    ePlus: 4300,
-    qPlus: 4300
+    aPlus: 2767.2
   }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '精1息灾宗室申鹤：增加[atkPct]%攻击力获得[dmg]%增伤,减抗[kx]%,提升冰伤害4300',
-  sort: 9,
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '申鹤天赋：[缚灵通真法印] 申鹤施放仰灵威召将役咒后将使附近的队伍中所有角色根据技能释放形式对应伤害提高[dmg]%',
+  sort: 1,
   data: {
-    atkPct: 20,
-    dmg: 30,
-    kx: 15,
-    aPlus: 4300 * 2,
-    ePlus: 4300,
-    qPlus: 4300
+    dmg: 15
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '云堇：获得[aDmg]%增伤，提升普通攻击伤害2336',
-  sort: 9,
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '申鹤天赋：[大洞弥罗尊法] 处于神女遣灵真诀的领域中的当前场上角色，冰元素伤害加成提高[dmg]%',
+  sort: 1,
   data: {
-    aDmg: 15,
-	aPlus: 2336 * 2
+    dmg: 15
   }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '千岩重云：增加[atkPct]%攻击力',
-  sort: 9,
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '申鹤圣遗物：[昔日宗室之仪4] 释放元素爆发后，队伍中所有角色攻击力提升[atkPct]%',
+  sort: 1,
   data: {
     atkPct: 20
   }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '狼末千岩重云：增加[atkPct]%攻击力',
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '云堇技能：[破嶂见旌仪] 对敌人造成普通攻击伤害时，造成的伤害提高[aPlus]',
   sort: 9,
   data: {
-    atkPct: 60
+	  aPlus: 2261.6
   }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5狼末千岩重云：增加[atkPct]%攻击力',
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '云堇2命：[诸般切末] 施放破嶂见旌仪后，附近队伍中所有角色普通攻击造成的伤害提高[aDmg]%',
   sort: 9,
   data: {
-    atkPct: 100
+    aDmg: 15
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 坚定之岩：护盾强效提升[shield]%，造成的伤害提升[dmg]%，降低敌人[kx]%岩元素抗性',
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '云堇6命：[庄谐并举] 处于「飞云旗阵」状态下普通攻击的攻击速度提升[_aSpeed]%',
+  data: {
+    _aSpeed: 12
+  }
+},
+{
+  check: ({ cons , params }) => params.teamA === true,
+  title: '重云圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效果提升[shield]%',
+  sort: 1,
+  data: {
+    atkPct: 20,
+    shield: 30
+  }
+},
+{
+  check: ({ cons , params }) => ((cons < 6 && cons > 1) && params.teamA === true),
+  title: '重云武器：[狼的末路-精1] 攻击命中生命值低于30%的敌人时队伍中所有成员的攻击力提高[atkPct]%',
+  sort: 1,
+  data: {
+    atkPct: 40
+  }
+},
+{
+  check: ({ cons , params }) => (cons >= 6 && params.teamA === true),
+  title: '重云武器：[狼的末路-精5] 攻击命中生命值低于30%的敌人时队伍中所有成员的攻击力提高[atkPct]%',
+  sort: 1,
+  data: {
+    atkPct: 80
+  }
+},
+{
+  check: ({ params }) => params.teamB === true,
+  title: '胡桃天赋：[蝶隐之时] 蝶引来生施加的彼岸蝶舞状态结束后，队伍中所有角色的暴击率提高[qCpct]%',
+  data: {
+    qCpct: 12
+  }
+},
+{
+  check: ({ params }) => params.teamB === true,
+  title: '夜兰天赋：[妙转随心]「玄掷玲珑」存在期间能使队伍中自己的当前场上角色造成的伤害提高，至多提高[qDmg]%',
+  data: {
+	  eDmg: 35,
+	  qDmg: 50
+  }
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '元素共鸣：[坚定之岩] 护盾强效提升[shield]%，造成的伤害提升[dmg]%，降低敌人[kx]%岩元素抗性',
   data: {
     shield: 25,
     dmg: 15,
     kx: 20
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 粉碎之冰：攻击处于冰元素附着或冻结下的敌人时，暴击率提高[cpct]%',
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '元素共鸣：[粉碎之冰] 攻击处于冰元素附着或冻结下的敌人时，暴击率提高[cpct]%',
   data: {
-    cpct: 15
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hxyz === true),
-  title: '胡行夜钟：生命值提升[hpPct]%,造成的伤害提升35%,暴击率提升12%',
-  data: {
-	hpPct: 25,
-	eDmg: 35,
-	qDmg: 50,
-    qCpct: 12	  
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 160,
-    shield: 25,
-    kx: 20,
-    defPct: 25,
-    defPlus: 438,
-    atkPct: 108,
-    atkPlus: 1202.35,
-    dmg: 130,
     cpct: 15
   }
 },
- {title: '6.26最后修改：如有问题可联系1142607614反馈'}
+{
+  check: ({ params }) => params.teamB === true,
+  title: '元素共鸣：[愈疗之水] 生命值上限提升[hpPct]%',
+  data: {
+  	hpPct: 25
+  }
+},
+{title: '6.26最后修改：[10.19重置] 如有问题可联系1142607614反馈'}
  ]
