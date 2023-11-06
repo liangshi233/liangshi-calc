@@ -1,141 +1,188 @@
- import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-export const details = [{
-  title: '众水的歌者治疗量',
-  params: { conshp: false },
-  dmg: ({ talent, attr, calc }, { heal }) =>
-    heal(talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
-}, {
-  title: '海薇玛夫人伤害',
-  params: { conshp: false },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
-}, {
-  title: '乌瑟勋爵伤害',
-  params: { conshp: false },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
-}, {
-  title: '谢贝蕾妲小姐伤害',
-  params: { conshp: false },
-  dmgKey: 'e',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
-}, {
-  title: '谢贝蕾妲小姐蒸发',
-  params: { conshp: false },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', '蒸发')
-}, {
-  title: '舞台展开伤害',
-  params: { conshp: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
-}, {
-  title: 'Q展开蒸发伤害',
-  params: { conshp: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', '蒸发')
-}, {
+export const details = [
+{
   check: ({ cons }) => cons >= 6,
   title: '6命普攻伤害提升值-荒',
-  params: { conshp: true },
+  params: { cons6: true },
   dmg: ({ calc, attr }) => {
     return {
-      avg: Format.number ( ( calc(attr.hp) * 0.35 ) ) ,
+      avg: Format.number ( ( calc(attr.hp) * 0.43 ) ) ,
       type: 'text'
     }
   }
-}, {
-  title: '心夜万芙 谢贝蕾妲',
-  params: { team: true , conshp: false },
+},
+{
+  title: '众水的歌者治疗量',
+  dmg: ({ talent, attr, calc }, { heal }) =>
+    heal(talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1)
+},
+{
+  title: '海薇玛夫人伤害',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
+},
+{
+  title: '乌瑟勋爵伤害',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
+},
+{
+  title: '谢贝蕾妲小姐伤害',
+  dmgKey: 'e',
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
-}, {
+},
+{
+  title: '谢贝蕾妲小姐蒸发',
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', '蒸发')
+},
+{
+  title: '舞台展开伤害',
+  params: { q: true },
+  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+},
+{
+  title: 'Q展开蒸发伤害',
+  params: { q: true },
+  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', '蒸发')
+},
+{
+  title: '心夜万芙 谢贝蕾妲',
+  params: { teamA: true , q: true },
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
+},
+{
   title: '心夜万芙 舞台展开',
-  params: { team: true , conshp: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
+  params: { teamA: true , q: true },
+  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
 }]
 
 
 export const mainAttr = 'hp,cpct,cdmg'
-export const defDmgIdx = 3
+export const defDmgKey = 'e'
 
-export const buffs = [{title: '芙宁娜天赋：消耗队友生命值提升E伤害至原来的140%'}, {
-  title: '芙宁娜天赋：300层提升[dmg]%伤害与[heal]%治疗加成',
+export const buffs = [
+{
+  title: '芙宁娜技能：[孤心沙龙] 「沙龙成员」进行攻击时,根据附近的队伍中生命值高于50%的角色数量,提升此次攻击造成的伤害为原本的1[_eDmg]%',
+  data: {
+    _eDmg: 40
+  }
+},
+{
+  title: '芙宁娜技能：[万众狂欢] 基于芙宁娜持有的「气氛值」,附近的队伍中所有角色造成的伤害提升[dmg]%,受治疗加成提升[healInc]%',
+  check: ({ params }) => params.q === true,
   data: {
     dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 300 ,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 300
+    healInc: ({ talent }) => talent.q['气氛值转化受治疗加成比例'] * 300
   }
-}, {
-  title: '芙宁娜天赋2：基于生命值提升召唤物提升[eDmg]%伤害',
+},
+{
+  title: '芙宁娜天赋：[无人听的自白] 处于不同始基力属性下的芙宁娜的孤心沙龙获得增益效果,「沙龙成员」造成的伤害提升[eDmg]%,「众水的歌者」为周围的当前场上角色恢复生命值的间隔降低[_eSpeed]%',
   data: {
-    eDmg: ({ calc, attr }) => Math.min( 28 , ( calc(attr.hp) ) / 1000 * 0.7 )
+    eDmg: ({ calc, attr }) => Math.min( 28 , ( calc(attr.hp) ) / 1000 * 0.7 ),
+    _eSpeed: ({ calc, attr }) => Math.min( 16 , ( calc(attr.hp) ) / 1000 * 0.4 ),
   }
-}, {
-  title: '芙宁娜1命：层数上限提升100层',
+},
+{
+  title: '芙宁娜1命：[爱是难驯鸟,哀乞亦无用.] 芙宁娜持有「气氛值」的上限提升100点.',
+  check: ({ params }) => params.q === true,
   cons: 1,
   data: {
     dmg: ({ talent }) => talent.q['气氛值转化提升伤害比例'] * 100 ,
-    heal: ({ talent }) => talent.q['气氛值转化治疗加成比例'] * 100
+    healInc: ({ talent }) => talent.q['气氛值转化受治疗加成比例'] * 100
   }
-}, {
-  title: '芙宁娜2命：每层提升芙宁娜0.35%生命值上限，共提升[hpPct]%生命值',
+},
+{
+  title: '芙宁娜2命：[女人皆善变,仿若水中萍.] 基于「气氛值」超过上限的部分,使芙宁娜的生命值上限提升[hpPct]%',
+  check: ({ params }) => params.q === true,
   cons: 2,
   data: {
-    hpPct: ({ calc, attr , params }) => params.conshp ? 140 : 0 ,
+    hpPct: 140
   }
-}, {
-  title: '芙宁娜6命：基于生命值的35%提升普通攻击伤害值[aPct]点',
+},
+{
+  title: '芙宁娜4命：[若非处幽冥,怎知生可贵！] 孤心沙龙的「沙龙成员」命中敌人,或「众水的歌者」为周围的当前场上角色恢复生命值时，芙宁娜获得[_energyevery]点元素能量',
+  cons: 4,
+  data: {
+    _energyevery: 4
+  }
+},
+{
+  title: '芙宁娜6命：[诸君听我颂，共举爱之杯！] 施放孤心沙龙时,芙宁娜的普通攻击、重击与下落攻击将转为无法被附魔覆盖的水元素伤害,且造成的伤害提升[aPlus]点',
+  check: ({ params }) => params.cons6 === true,
+  sort: 9,
   cons: 6,
   data: {
-    aPct: ({ calc, attr }) => calc(attr.hp) * 0.35 ,
-    a2Pct:({ calc, attr }) => calc(attr.hp) * 0.35
+    aPlus: ({ calc, attr }) => calc(attr.hp) * 0.43 ,
+    a2Plus:({ calc, attr }) => calc(attr.hp) * 0.43 ,
+    a3Plus:({ calc, attr }) => calc(attr.hp) * 0.43
   }
-}, {
-  check: ({ cons, params }) => cons <= 3 && params.team === true,
-  title: '0命夜兰：获得[dmg]%增伤',
+},
+{
+  title: '夜兰天赋：[猜先有方] 「玄掷玲珑」存在期间，能使队伍中自己的当前场上角色造成的伤害提高至多[dmg]%',
+  check: ({ params }) => params.teamA === true,
   data: {
     dmg: 50
   }
-}, {
-  check: ({ cons, params }) => (cons >= 4 && params.team === true),
-  title: '4命夜兰：获得[dmg]%增伤,增加40%生命值',
+},
+{
+  title: '夜兰4命：[诓惑者，接树移花] 依照「络命丝」标记敌人的数量,至多获得[hpPct]%生命值上限',
+  check: ({ params , cons }) => cons >= 4 && params.teamA === true,
+  sort: 1,
+  cons: 4,
   data: {
-    dmg: 50,
     hpPct: 40
   }
-}, {check: ({ cons,params }) => cons <= 1 && params.team === true,
-    title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
-    data: {
-      aDmg:16,
-      a2Dmg:16,
-      a3Dmg:16,
-      dmg: 40,
-      atkPct:20,
-      kx:40,
-   }
-  }, {check: ({ cons,params }) => ((cons < 6 && cons >1) && params.team === true),
-    title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg:16,
-      a2Dmg:16,
-      a3Dmg:16,
-      dmg: 48,
-      atkPct:20,
-      kx:40,
-      mastery:200
-   }
-  }, {check: ({ cons,params }) =>  (cons >= 6 && params.team === true),
-    title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg:32,
-      a2Dmg:32,
-      a3Dmg:32,
-      dmg: 48,
-      atkPct:40,
-      kx:40,
-      mastery:200
-   }
-  }, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
+},
+{
+  title: '枫原万叶圣遗物：[翠绿之影4] 根据扩散的元素类型，降低受到影响的敌人[kx]%的对应元素抗性',
+  check: ({ params }) => params.teamA === true,
+  data: {
+    kx: 40
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  check: ({ params , cons }) => (cons < 6 && cons > 1) && params.teamA === true,
+  sort: 1,
+  data: {
+    atkPct: 20,
+    aDmg: 16,
+    a2Dmg: 16,
+    a3Dmg: 16
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    atkPct: 40,
+    aDmg: 32,
+    a2Dmg: 32,
+    a3Dmg: 32
+  }
+},
+{
+  title: '枫原万叶2命：[山岚残芯] 万叶之一刀的流风秋野其中的场上角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 2 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 200
+  }
+},
+{
+  title: '枫原万叶天赋：[风物之诗咏] 触发扩散反应后枫原万叶会为队伍中所有角色提供[dmg]%对应元素伤害加成',
+  check: ({ params }) => params.teamA === true,
+  data: {
+    dmg: 40
+  }
+},
+{
+  title: '元素共鸣：[愈疗之水] 生命值上限提升[hpPct]%',
+  check: ({ params }) => params.teamA === true,
   data: {
     hpPct: 25
   }
-}, 'vaporize',
-{title: '10.17最后修改：如有问题可联系1142607614反馈'}
+},
+ 'vaporize',
+{title: '10.5最后修改：[11.6重置]'}
 ]
