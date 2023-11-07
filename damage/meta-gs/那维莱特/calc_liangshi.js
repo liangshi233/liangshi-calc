@@ -24,7 +24,7 @@ export const details = [
   title: '重击蓄力 3秒',
   dmgKey: 'zj',
   check: ({ cons }) => cons < 1,
-  params: { qb: 5 },
+  params: { qb: 5 , bs: 2 },
   dmg: ({ talent, calc, attr , cons }, { basic }) => {
   return basic( 1.25 * calc(attr.hp) * talent.a['重击·衡平推裁持续伤害'] / 100 * 8 , 'a2' )
   }
@@ -95,7 +95,7 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.qb !== undefined ,
+  check: ({ params }) => params.bs !== undefined ,
   title: '那维莱特2命：[律法的命诫] 根据「遗龙之荣」的层数,使重击·衡平推裁的暴击伤害提升[a2Cdmg]%',
   cons: 2,
   data: {
