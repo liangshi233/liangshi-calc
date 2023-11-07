@@ -43,7 +43,7 @@ export const details = [
 },
 {
   title: '岩脊伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][2], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][0], 'e')
 },
 {
   title: '共鸣伤害',
@@ -492,5 +492,5 @@ export const buffs = [
     kx: 20
   }
 },
-{title: '6.26最后修改：[10.19重置] '}
+{title: '11.8最后修改：[10.19重置] 修正岩脊伤害异常问题'}
 ]

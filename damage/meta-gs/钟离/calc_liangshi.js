@@ -20,12 +20,12 @@ export const details = [
   dmg: ({ attr, calc, talent }, { shield }) => shield(talent.e['护盾基础吸收量'] + calc(attr.hp) * talent.e['护盾附加吸收量'] / 100)
 },
 {
-  title: '共鸣伤害',
+  title: '岩脊伤害',
   talent: 'e',
-  dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][2], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][0], 'e')
 },
 {
-  title: '岩脊伤害',
+  title: '共鸣伤害',
   talent: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][1], 'e')
 },
@@ -233,5 +233,5 @@ export const buffs = [
   	hpPct: 25
   }
 },
-{title: '6.26最后修改：[10.19重置] 如有问题可联系1142607614反馈'}
+{title: '11.8最后修改：[10.19重置] 修正岩脊伤害异常问题'}
  ]
