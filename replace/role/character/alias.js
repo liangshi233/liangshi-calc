@@ -81,7 +81,7 @@ export const alias = {
   莱欧斯利: 'Wriothesley,莱欧,枫丹桑博',
   那维莱特: 'Neuvillette,那维,水龙王,水龙,审判官,海獭,龙王',
   夏洛蒂: 'Charlotte,夏洛,夏洛帝,记者,小记者',
-  芙宁娜: 'Furina,Focalors,水神,芙芙,芙卡洛斯',
+  芙宁娜: 'Furina,Focalors,水神,芙芙,芙卡洛斯,傻芙芙',
 
   //主角
   旅行者: '主角,卑鄙的外乡人,荣誉骑士,爷,主,履刑者,抽卡不歪真君',
