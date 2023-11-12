@@ -18,7 +18,7 @@ export const details = [
 },
 {
   title: 'e持续治疗',
-  dmg: ({ attr, calc, talent }, { heal }) => heal(talent.e['持续治疗2'][0] * calc(attr.hp) / 100 + talent.e['持续治疗2'][1] * 1)
+  dmg: ({ attr, calc, talent }, { heal }) => heal(talent.e['持续治疗量2'][0] * calc(attr.hp) / 100 + talent.e['持续治疗量2'][1] * 1)
 },
 {
   title: '圆阵掷弹爆轰术害',
@@ -59,5 +59,5 @@ export const buffs = [
     dmg: 60
   }
 },
- {title: '11.8最后修改：[11.8重置]'}
+ {title: '11.13最后修改：[11.8重置]'}
  ]
