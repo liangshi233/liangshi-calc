@@ -110,8 +110,8 @@ export const cfgSchema = {
       teamLiang: {
         title: 'liangshi版伤害计算',
         key: '梁氏',
-        def: false,
-        desc: 'liangshi版的伤害计算展示。开启后请重启喵喵'
+        def: true,
+        desc: 'liangshi版的伤害计算展示'
       },
       teamLiangQ: {
         title: 'liangshi版超全伤害计算',
