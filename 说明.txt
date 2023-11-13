@@ -15,6 +15,5 @@ git地址：https://gitee.com/liangshi233/liangshi-calc
 
 【其他可选拓展】
 额外拓展包使用说明均在replace文件夹内
-role文件夹为旅行者各元素伤害计算拓展包
 arms文件夹为测试武器拓展包
 data文件夹为预设面板拓展包
