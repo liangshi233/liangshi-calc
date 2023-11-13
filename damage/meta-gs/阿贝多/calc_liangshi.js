@@ -2,23 +2,19 @@ export const details = [{
   title: '拟造阳华基础伤害',
 	params: {team: false},
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
-}, {
+},
+{
   title: '刹那之花伤害',
 	params: {team: false},
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
-    return basic(ret, 'e')
-  }
-}, {
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
+},
+{
   title: '刹那之花(命中生命值低于50%的敌人)',
 	params: {
 	team: false ,
     half: true
   },
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
-    return basic(ret, 'e')
-  }
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
 }, {
   title: '大地之潮与生灭之花总伤害',
   check: ({ cons }) => cons < 2,
@@ -31,20 +27,14 @@ export const details = [{
 }, {
   title: '阿五钟 刹那之花',
 	params: {team: true},
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
-    return basic(ret, 'e')
-  }
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
 }, {
   title: '阿五钟 刹那之花(命中生命值低于50%的敌人)',
 	params: {
 	team: true ,
     half: true
   },
-  dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['刹那之花伤害'] * calc(attr.def) / 100 + attr.e.plus
-    return basic(ret, 'e')
-  }
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
 }]
 
 export const defDmgIdx = 1
@@ -53,7 +43,6 @@ export const mainAttr = 'def,atk,cpct,cdmg'
 export const defParams = {
     team:true
 }
-
 
 export const buffs = [{
   title: '阿贝多固有天赋1：刹那之花对生命值低于50%的敌人造成的伤害提高25%',
@@ -91,5 +80,5 @@ export const buffs = [{
     kx: 20
   }
 },
-{title: '2.15最后修改：如有问题可联系1142607614反馈'}
+{title: '11.13最后修改：如有问题可联系1142607614反馈'}
 ]
