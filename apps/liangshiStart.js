@@ -1,4 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
+import { Restart } from '../../../plugins/other/restart.js'
 import fs from 'node:fs'
 import path from 'path'
 import _ from 'lodash'
@@ -44,7 +45,7 @@ export class allSetting extends plugin {
     })
   }
 
-  async init () {
+  async init() {
     this.cpPanels()
     logger.mark('[liangshi]预设面板自动刷新完成')
     return true
@@ -79,11 +80,12 @@ export class allSetting extends plugin {
     if (_.every(checkFile, Boolean)) {
       msg = `已经备份过了！请勿重复备份！若为更新后失效请先 #梁氏恢复配置 后替换`
     } else {
-      msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n请重启机器人以启用梁氏！\n重启后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
+      msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n等待bot重启完成后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
     }
+    this.restartApp()
     await this.e.reply(msg, true)
     return true
-   
+
     /** 写入开关 */
     /* byd跟着readme多写的东西👇👇👇
         fs.readFile(`${_path}/plugins/miao-plugin/config/cfg.js`, 'utf8', function (err, data) {
@@ -116,7 +118,7 @@ export class allSetting extends plugin {
       }
     })
     if (_.isEmpty(fs.readdirSync(liangshiData))) fs.rmdirSync(liangshiData)
-    await this.e.reply(`梁氏要跟你说拜拜啦~`, true)    
+    await this.e.reply(`梁氏要跟你说拜拜啦~`, true)
     return true
   }
 
@@ -150,5 +152,14 @@ export class allSetting extends plugin {
         fs.copyFileSync(`${v.liangshi}/${f}`, `${v.miao}/${f}`)
       })
     })
+  }
+
+  async restartApp() {
+    Bot.logger.mark("重启成功,喵喵配置文件修改完成");
+    setTimeout(() => this.restart(), 1000)
+
+  }
+  restart() {
+    new Restart(this.e).restart()
   }
 }
