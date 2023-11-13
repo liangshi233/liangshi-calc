@@ -3,6 +3,7 @@ import { Restart } from '../../../plugins/other/restart.js'
 import fs from 'node:fs'
 import path from 'path'
 import _ from 'lodash'
+import YAML from 'yaml'
 
 const _path = process.cwd()
 const liangshiData = path.join(`${_path}/data`, `liangshiData`)
@@ -43,15 +44,18 @@ export class allSetting extends plugin {
           }*/,
       ],
     })
+    this.cfg = this.getLScfg()
   }
 
-  async init() {
-    this.cpPanels()
-    logger.mark('[liangshi]预设面板自动刷新完成')
-    return true
+  async init () {
+    if (this.cfg.autoRefresh) {
+      this.cpPanels()
+      logger.mark('[liangshi]预设面板自动刷新完成')
+      return true
+    }
   }
 
-  async liangshiStart() {
+  async liangshiStart () {
     /** 备份原文件，防止后悔 */
     if (!fs.existsSync(liangshiData)) {
       fs.mkdirSync(liangshiData)
@@ -78,11 +82,11 @@ export class allSetting extends plugin {
 
     let msg = ''
     if (_.every(checkFile, Boolean)) {
-      msg = `已经备份过了！请勿重复备份！若为更新后失效请先 #梁氏恢复配置 后替换`
+      msg = '已经备份过了！请勿重复备份！若为更新后失效请先 #梁氏恢复配置 后替换'
     } else {
-      msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n等待bot重启完成后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
+      msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n${this.cfg.autoRestart ? '等待bot' : '请重启机器人以启用梁氏！\n'}重启完成后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
     }
-    this.restartApp()
+    if (this.cfg.autoRestart) this.restartApp()
     await this.e.reply(msg, true)
     return true
 
@@ -101,10 +105,10 @@ export class allSetting extends plugin {
         */
   }
 
-  async liangshiByebye() {
+  async liangshiByebye () {
     /** 检查是否已备份 */
     if (!fs.existsSync(liangshiData)) {
-      await this.e.reply(`你似乎还没备份过哦~`, true)
+      await this.e.reply('你似乎还没备份过哦~', true)
       return true
     }
     _.each(dataFiles, (v, k) => {
@@ -118,17 +122,17 @@ export class allSetting extends plugin {
       }
     })
     if (_.isEmpty(fs.readdirSync(liangshiData))) fs.rmdirSync(liangshiData)
-    await this.e.reply(`梁氏要跟你说拜拜啦~`, true)
+    await this.e.reply('梁氏要跟你说拜拜啦~', true)
     return true
   }
 
   async panelStart() {
     this.cpPanels()
-    await this.e.reply(`预设面板刷新完成发送[#预设面板]查看预设面板指令`, true)
+    await this.e.reply('预设面板刷新完成发送[#预设面板]查看预设面板指令', true)
     return true
   }
 
-  cpPanels() {
+  cpPanels () {
     const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/01`
     const replaceFiles = [
       {
@@ -154,12 +158,19 @@ export class allSetting extends plugin {
     })
   }
 
-  async restartApp() {
-    Bot.logger.mark("重启成功,喵喵配置文件修改完成");
-    setTimeout(() => this.restart(), 1000)
-
+  getLScfg () {
+    let def = `${_path}/plugins/liangshi-calc/config/system/config.yaml`
+    let user = `${_path}/plugins/liangshi-calc/config/config.yaml`
+    if (!fs.existsSync(user)) fs.copyFileSync(def, user)
+    return fs.existsSync(user) ? YAML.parse(fs.readFileSync(user, 'utf8')) : {}
   }
-  restart() {
+
+  async restartApp () {
+    Bot.logger.mark('重启成功,喵喵配置文件修改完成')
+    setTimeout(() => this.restart(), 1000)
+  }
+
+  restart () {
     new Restart(this.e).restart()
   }
 }

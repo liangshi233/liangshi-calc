@@ -18,6 +18,13 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 （建议使用 #全部更新 来更新，看到本插件同步更新后再替换，避免与miao-plugin版本不一致替换后直接爆炸）
 
 ~~~~~~~~~~
+### 设置
+请在本插件目录下`config/config.yaml` 修改设置
+~~~~~~~~~~YAML
+autoRestart: false #发送【梁氏启动】后会自动进行重启，默认关闭，需要则改为true
+
+autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默认开启，不需要则改为true
+~~~~~~~~~~
 功能
 ~~~~~~~~~~
 现有的角色更多的伤害计算条目（无法开启请先阅读目录下的帮助）

@@ -1,0 +1,4 @@
+#是否开启自动重启
+autoRestart: false
+#是否自动刷新预设面板
+autoRefresh: true
