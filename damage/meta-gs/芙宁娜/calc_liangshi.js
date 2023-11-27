@@ -1,16 +1,21 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-
 export const details = [
 {
   check: ({ cons }) => cons >= 6,
-  title: '6命普攻伤害提升值-荒',
-  params: { cons6: true },
-  dmg: ({ calc, attr }) => {
-    return {
-      avg: Format.number ( ( calc(attr.hp) * 0.43 ) ) ,
-      type: 'text'
-    }
-  }
+  title: '6命普攻伤害提升-荒',
+  params: { cons6: true , jsl: 0 },
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.hp) * 18 / 100 , 'a')
+},
+{
+  check: ({ cons }) => cons >= 6,
+  title: '6命普攻伤害提升-芒',
+  params: { cons6: true , jsl: 1 },
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.hp) * 43 / 100 , 'a')
+},
+{
+  check: ({ cons }) => cons >= 6,
+  title: '6命普攻治疗量-荒',
+  params: { cons6: true , jsl: 0 },
+  dmg: ({ attr, calc }, { heal }) => heal( calc(attr.hp) * 4 / 100 )
 },
 {
   title: '众水的歌者治疗量',
@@ -36,12 +41,10 @@ export const details = [
 },
 {
   title: '舞台展开伤害',
-  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
 },
 {
   title: 'Q展开蒸发伤害',
-  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', '蒸发')
 },
 {
@@ -99,21 +102,21 @@ export const buffs = [
   }
 },
 {
-  title: '芙宁娜4命：[若非处幽冥,怎知生可贵！] 孤心沙龙的「沙龙成员」命中敌人,或「众水的歌者」为周围的当前场上角色恢复生命值时，芙宁娜获得[_energyevery]点元素能量',
+  title: '芙宁娜4命：[若非处幽冥,怎知生可贵！] 孤心沙龙的「沙龙成员」命中敌人,或「众水的歌者」为周围的当前场上角色恢复生命值时,芙宁娜获得[_energyevery]点元素能量',
   cons: 4,
   data: {
     _energyevery: 4
   }
 },
 {
-  title: '芙宁娜6命：[诸君听我颂，共举爱之杯！] 施放孤心沙龙时,芙宁娜的普通攻击、重击与下落攻击将转为无法被附魔覆盖的水元素伤害,且造成的伤害提升[aPlus]点',
-  check: ({ params }) => params.cons6 === true,
+  title: '芙宁娜6命：[诸君听我颂，共举爱之杯！] 施放孤心沙龙时,芙宁娜的普通攻击、重击与下落攻击将转为无法被附魔覆盖的水元素伤害,且造成的伤害提升[_aPlus]点',
+  check: ({ params }) => params.cons6 === true && params.jsl !== undefined,
   sort: 9,
   cons: 6,
   data: {
-    aPlus: ({ calc, attr }) => calc(attr.hp) * 0.43 ,
-    a2Plus:({ calc, attr }) => calc(attr.hp) * 0.43 ,
-    a3Plus:({ calc, attr }) => calc(attr.hp) * 0.43
+    _aPlus: ({ calc, attr , params }) => calc(attr.hp) * ( 0.18 + 0.25 * params.jsl ),
+    _a2Plus:({ calc, attr , params }) => calc(attr.hp) * ( 0.18 + 0.25 * params.jsl ),
+    _a3Plus:({ calc, attr , params }) => calc(attr.hp) * ( 0.18 + 0.25 * params.jsl )
   }
 },
 {
@@ -184,5 +187,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '10.5最后修改：[11.6重置]'}
+{title: '11.27最后修改：[11.6重置]'}
 ]
