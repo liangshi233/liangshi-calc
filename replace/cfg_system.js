@@ -76,23 +76,23 @@ export const cfgSchema = {
         key: '排行人数',
         type: 'num',
         def: 15,
-        input: (n) => Math.min(30, Math.max(5, (n * 1 || 15))),
-        desc: '可选值5~30，建议15。设置高排名人数会提高图片的长度，图片较大可能会影响渲染与发送速度'
+        input: (n) => Math.min(100, Math.max(5, (n * 1 || 15))),
+        desc: '可选值5~100，建议15。设置高排名人数会提高图片的长度，图片较大可能会影响渲染与发送速度'
       },
       profileServer: {
         title: '面板服务',
         key: '面板服务',
-        type: 'num',
-        def: 0,
-        input: (n) => /[0-4]{1,3}/.test(n) ? n : 0,
+        def: '0',
+        type: 'str',
+        input: (n) => /[0-4]{1,3}/.test(n) ? n : '0',
         desc: '面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Enka-API， 3:MiniGG-Api, 4:Hutao-Enka代理。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如112代表国服B服Miao,国外Enka'
       },
       srProfileServer: {
         title: '星铁面板服务',
         key: '星铁面板服务',
-        type: 'num',
-        def: 0,
-        input: (n) => /[0-4]{1,3}/.test(n) ? n : 0,
+         def: '0',
+        type: 'str',
+        input: (n) => /[0-4]{1,3}/.test(n) ? n : '0',
         desc: '星铁面板服务选择：0:自动，1:喵Api(需具备Token)， 2:Mihomo， 3:Avocado(鳄梨), 4:EnkaHSR。如设置三位数字则为分服务器设置，按顺序分别为 国服/B服/外服，例如114代表国服B服Miao,国外Enka'
       },
       costumeSplash: {
