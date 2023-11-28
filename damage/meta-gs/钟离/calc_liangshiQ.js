@@ -362,7 +362,7 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.teamA === true && artis.千岩牢固 !== 4 ,
+  check: ({ params , artis }) => params.teamA === true && artis.千岩牢固 !== 4 ,
   title: '重云圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效提升[shield]% { 该圣遗物效果不可叠加 }',
   sort: 1,
   data: {

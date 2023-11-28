@@ -102,7 +102,7 @@ export const buffs = [
 },
 {
   title: '班尼特圣遗物：[昔日宗室之仪4] 释放元素爆发后，队伍中所有角色攻击力提升[atkPct]% { 该圣遗物效果不可叠加 }',
-  check: ({ params }) => params.teamA === true && artis.昔日宗室之仪 !== 4 ,
+  check: ({ params , artis }) => params.teamA === true && artis.昔日宗室之仪 !== 4 ,
   sort: 1,
   data: {
     atkPct: 20
