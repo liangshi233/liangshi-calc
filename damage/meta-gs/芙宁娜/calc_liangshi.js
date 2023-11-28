@@ -136,32 +136,44 @@ export const buffs = [
   }
 },
 {
-  title: '枫原万叶圣遗物：[翠绿之影4] 根据扩散的元素类型，降低受到影响的敌人[kx]%的对应元素抗性',
+  title: '枫原万叶圣遗物：[翠绿之影4] 根据扩散的元素类型，降低受到影响的敌人[kx]%的对应元素抗性 { 该圣遗物效果不可叠加 }',
   check: ({ params }) => params.teamA === true,
   data: {
     kx: 40
   }
 },
 {
-  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
   check: ({ params , cons }) => (cons < 6 && cons > 1) && params.teamA === true,
-  sort: 1,
   data: {
-    atkPct: 20,
     aDmg: 16,
     a2Dmg: 16,
     a3Dmg: 16
   }
 },
 {
-  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
-  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => (cons < 6 && cons > 1) && params.teamA === true && weapon.name !== '苍古自由之誓' ,
   sort: 1,
   data: {
-    atkPct: 40,
+    atkPct: 20
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  data: {
     aDmg: 32,
     a2Dmg: 32,
     a3Dmg: 32
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => cons >= 6 && params.teamA === true && weapon.name !== '苍古自由之誓',
+  sort: 1,
+  data: {
+    atkPct: 40
   }
 },
 {
@@ -187,5 +199,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '11.27最后修改：[11.6重置]'}
+{title: '11.28最后修改：[11.6重置]'}
 ]

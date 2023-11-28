@@ -1,4 +1,33 @@
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+
 export const details = [
+{
+  title: '圣遗物输出结果',
+  dmg: ({ artis , attr, calc, talent }) => {
+    return {
+      avg: artis ,
+      type: 'text'
+    }
+  }
+},
+{
+  title: '武器输出结果',
+  dmg: ({ artis , attr, calc, talent, weapon }) => {
+    return {
+      avg: weapon.name ,
+      type: 'text'
+    }
+  }
+},
+{
+  title: '命之座等级输出结果',
+  dmg: ({ artis , attr, calc, talent, weapon, cons}) => {
+    return {
+      avg: cons ,
+      type: 'text'
+    }
+  }
+},
 {
   title: '100%攻击力伤害',
   params: { atkPct: false , kx: false , dmg: false , cdmg: false , plus: false , enemyDef: false , pct: false , mastery: false , shield: false , heal: false },

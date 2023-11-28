@@ -367,7 +367,7 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.teamA === true,
+  check: ({ params }) => params.teamA === true && artis.千岩牢固 !== 4 ,
   title: '久歧忍圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效果提升[shield]%',
   sort: 1,
   data: {
@@ -384,8 +384,8 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.teamA === true,
-  title: '凯亚圣遗物：[昔日宗室之仪4] 释放元素爆发后，队伍中所有角色攻击力提升[atkPct]%',
+  check: ({ params }) => params.teamA === true && artis.昔日宗室之仪 !== 4 ,
+  title: '凯亚圣遗物：[昔日宗室之仪4] 释放元素爆发后，队伍中所有角色攻击力提升[atkPct]% { 该圣遗物效果不可叠加 }',
   sort: 1,
   data: {
     atkPct: 20
@@ -399,5 +399,5 @@ export const buffs = [
   }
 },
  'swirl',
-{title: '4.4最后修改：[10.21重置] '}
+{title: '11.28最后修改：[10.21重置] '}
 ]

@@ -1,4 +1,33 @@
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+
 export const details = [
+{
+  title: '圣遗物输出结果',
+  dmg: ({ artis }) => {
+    return {
+      avg: artis ,
+      type: 'text'
+    }
+  }
+},
+{
+  title: '武器输出结果',
+  dmg: ({ weapon }) => {
+    return {
+      avg: weapon.name ,
+      type: 'text'
+    }
+  }
+},
+{
+  title: '命之座等级输出结果',
+  dmg: ({ cons }) => {
+    return {
+      avg: cons ,
+      type: 'text'
+    }
+  }
+},
   {
   title: '100%攻击力伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害攻击力'], 'e')
