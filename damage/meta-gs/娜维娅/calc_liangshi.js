@@ -47,7 +47,7 @@ export const buffs = [
   check: ({ params }) => params.jp !== undefined ,
   title: '娜维娅技能：[典仪式晶火] 消耗的「裂晶弹片」超过3枚时,将使本次射击造成的伤害额外提升[eDmg]%',
   data: {
-    eDmg:  ({ params }) => params.jp * 15
+    eDmg: ({ params }) => params.jp * 15
   }
 },
 {
@@ -61,7 +61,7 @@ export const buffs = [
 {
   title: '娜维娅天赋：[互助关系网] 队伍中存在三位火元素/雷元素/冰元素/水元素角色,娜维娅的攻击力提升[atkPct]%',
   data: {
-    atkPct: 60
+    atkPct: 40
   }
 },
 {
@@ -77,7 +77,7 @@ export const buffs = [
   title: '娜维娅2命：[总指挥的乘胜追击] 施放典仪式晶火时消耗「裂晶弹片」使本次典仪式晶火的暴击率提升[eCpct]%',
   cons: 2,
   data: {
-    eCpct :  ({ params }) => params.jp * 35
+    eCpct :  ({ params }) => Math.min( 36 , params.jp * 12 )
   }
 },
 {
@@ -92,8 +92,9 @@ export const buffs = [
   title: '娜维娅6命：[刺玫会长的灵活手腕] 施放典仪式晶火时，若消耗的「裂晶弹片」超过3枚,将使本次典仪式晶火的暴击伤害提升[eCdmg]%',
   cons: 6,
   data: {
-    eCdmg :  ({ params }) => params.jp * 35
+    eCdmg :  ({ params }) => Math.min( 135 , params.jp * 45 )
   }
 },
- {title: '11.8最后修改：[11.8重置] '}
+ {title: '测试内容：[4.2.54] 数据随时可能更改，请注意时效性',
+ {title: '11.30最后修改：[11.8重置] '}
 ]
