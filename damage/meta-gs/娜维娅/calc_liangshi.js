@@ -95,6 +95,6 @@ export const buffs = [
     eCdmg :  ({ params }) => Math.min( 135 , params.jp * 45 )
   }
 },
- {title: '测试内容：[4.2.54] 数据随时可能更改，请注意时效性',
+ {title: '测试内容：[4.2.54] 数据随时可能更改，请注意时效性'},
  {title: '11.30最后修改：[11.8重置] '}
 ]
