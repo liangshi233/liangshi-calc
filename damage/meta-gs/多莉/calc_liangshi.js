@@ -17,6 +17,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['连接伤害'], 'q', '超激化')
 }]
 
+export const defParams = { soda: 1 }
 export const mainAttr = 'atk,hp,cpct,cdmg'
 export const defDmgIdx = 2
 

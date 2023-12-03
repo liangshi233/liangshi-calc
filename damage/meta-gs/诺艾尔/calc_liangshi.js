@@ -45,7 +45,7 @@ export const details = [ {
 export const defDmgIdx = 4
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const defParams = { team: true }
+export const defParams = { team: true , soda: 1 }
 
 export const buffs = [{
   title: '元素爆发：诺艾尔开Q基于防御力提高攻击力[atkPlus]',

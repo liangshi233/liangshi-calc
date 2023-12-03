@@ -30,6 +30,7 @@ export const details = [{
   dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * 7.5 / 100)
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 6
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 

@@ -52,7 +52,7 @@ export const details = [{
   }
 }]
 
-export const defParams = {team: true ,  hb: true }
+export const defParams = { soda: 1 }
 export const defDmgIdx = 1
 export const mainAttr = 'atk,hp,cpct,cdmg'
 

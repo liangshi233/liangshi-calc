@@ -413,6 +413,7 @@ export const details = [
 }
 ]
 
+export const defParams = { soda: 1 }
 export const mainAttr = 'hp,cpct,cdmg'
 export const defDmgKey = 'sh'
 

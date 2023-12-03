@@ -29,6 +29,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.q['二重毁伤弹伤害'], 'q')
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 2
 export const mainAttr = 'atk,hp,cpct,cdmg'
 

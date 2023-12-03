@@ -70,7 +70,7 @@ export const defDmgKey = 'q'
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const defParams = {
-    team:true
+    team:true , soda: 1
 }
 
 

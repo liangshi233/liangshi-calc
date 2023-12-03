@@ -29,6 +29,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['相机伤害'], 'q')
 }]
 
+export const defParams = { soda: 1 }
 export const mainAttr = 'atk,hp,cpct,cdmg'
 
 export const buffs = [{

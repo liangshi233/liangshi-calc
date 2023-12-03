@@ -38,6 +38,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['爆发伤害'], 'q')
 }]
 
+export const defParams = { soda: 1 }
 export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 4
 export const enemyName = '魔偶/女士/雷神'

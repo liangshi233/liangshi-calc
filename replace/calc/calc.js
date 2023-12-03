@@ -26,16 +26,25 @@ const attr = function (key, val, elem = '', unit = '%') {
 /*
 可用的buff调控
 
-？    昔日宗室之仪4状态      ？ ？    动作：释放元素爆发      统计方法：测试中        默认： ？
-monv  炽烈的炎之魔女4层数 （ 0 ~ 3 ） 动作：释放元素战技      统计方法：释放次数 * 1  默认：1层
-blst  冰风迷途的勇士4状态 （ 1 ~ 2 ） 动作：目标是否冻结      统计方法：冻结 === 2   默认：1（仅冰附着）
-sebo  苍白之火4层数      （ 0 ~ 2 ） 动作：元素战技命中      统计方法：命中次数 * 1  默认：1层
-caaw  华馆梦醒形骸记4层数 （ 0 ~ 4 ） 动作：岩元素命中或后台   统计方法：命中次数 * 1  默认：4层
-vehe  辰砂往生录4层数    （ 0 ~ 4 ） 动作：生命值降低        统计方法：降低次数 * 1  默认：0层
+？    昔日宗室之仪4状态      ？ ？    动作：释放元素爆发      统计方法：测试中         默认： ？ //来个工具人测下除了甘雨还有哪些角色吃不到4宗室效果的
+monv  炽烈的炎之魔女4层数 （ 0 ~ 3 ） 动作：释放元素战技      统计方法：释放次数 * 1   默认：1层
+blst  冰风迷途的勇士4状态 （ 1 ~ 2 ） 动作：目标是否冻结      统计方法：冻结 === 2    默认：1（仅冰附着）
+sebo  苍白之火4层数      （ 0 ~ 2 ） 动作：元素战技命中      统计方法：命中次数 * 1   默认：1层
+caaw  华馆梦醒形骸记4层数 （ 0 ~ 4 ） 动作：岩元素命中或后台   统计方法：命中次数 * 1   默认：4层
+ecof  来歆余响4期望      （ 0 ~ 1 ） 动作：普通攻击命中      统计方法：触发概率 * 100 默认：1（100%触发）
+vehe  辰砂往生录4层数    （ 0 ~ 4 ） 动作：生命值降低        统计方法：降低次数 * 1   默认：4层
+gidr  饰金之梦4状态     （ 0 ~ 3 ）  动作：队伍内同属性角色数 统计方法：角色数量 * 1   默认：0层 （3不同属性角色队友）
+flpa  乐园遗落之花4层数  （ 0 ~ 4 ）  动作：触发绽放类反应    统计方法：触发次数 * 1   默认：4层
+nydr  水仙之梦4层数     （ 0 ~ 3 ）  动作：各类攻击命中      统计方法：命中次数 * 1   默认：1层
+gotr  黄金剧团4状态     （ 1 ~ 2 ）  动作：处于队伍后台      统计方法：后台 === 2    默认：1（前台）
+soda  昔时之歌4状态     （ 0 ~ 1 ）  动作：角色是否可以治疗   统计方法：可以 === 1    默认：0（不可以）
 
 */
 
 const buffs = {
+//1星
+
+  初学者: {},
 
 //3星
 
@@ -137,7 +146,7 @@ const buffs = {
     4: {
       title: '触发元素反应后，队伍中所有角色的元素精通提高[mastery]点',
       data: {
-        mastery: 120,
+        mastery: 120 ,
         masteryInc: 120
       }
     }
@@ -147,14 +156,14 @@ const buffs = {
     2: {
       title: '普攻与重击造成的伤害提高[aDmg]%',
       data: {
-        aDmg: 15,
+        aDmg: 15 ,
         a2Dmg: 15
       }
     },
     4: {
       title: '施放元素战技后,普通攻击和重击造成的伤害提升[aDmg]%',
       data: {
-        aDmg: 25,
+        aDmg: 25 ,
         a2Dmg: 25
       }
     }
@@ -191,16 +200,30 @@ const buffs = {
 
 //5星
 
+  冰之川与雪之砂 : {
+    2: attr('dmg', 15, '冰'),
+    4: {
+      check: ({ element }) => element === '冰',
+      title: '超导反应造成的伤害提升[overloaded]%，融化反应的加成系数提高[vaporize]%,施放元素爆发后，获得[dmg]%冰元素伤害加成',
+      data: {
+        superConduct: 50 ,
+        melt: 15,
+        dmg: 25
+      }
+    }
+  },
+
   如雷的盛怒: {
     2: attr('dmg', 15, '雷'),
     4: {
-      title: '超载、感电、超导反应造成的伤害提升[overloaded]%，超激化反应带来的伤害提升提高[aggravate]%',
+      title: '超载、感电、超导反应造成的伤害提升[overloaded]%，超激化反应带来的伤害提升提高[aggravate]%,触发上述元素反应或原激化反应时,元素战技冷却时间减少[_ecdPlus]秒',
       data: {
-        overloaded: 40,
-        electroCharged: 40,
-        superConduct: 40,
-        hyperBloom: 40,
-        aggravate: 20
+        overloaded: 40 ,
+        electroCharged: 40 ,
+        superConduct: 40 ,
+        hyperBloom: 40 ,
+        aggravate: 20 ,
+        _ecdPlus: 1
       }
     }
   },
@@ -253,7 +276,7 @@ const buffs = {
     4: {
       title: '击败敌人后，重击不消耗体力且造成的伤害提升[a2Dmg]%',
       data: {
-        a2Dmg: 50,
+        a2Dmg: 50 ,
         _a2Stamina: 100
       }
     }
@@ -279,7 +302,7 @@ const buffs = {
     },
     4: {
       check: ({ element }) => element === '火',
-      title: '对处于火元素影响下的敌人造成的伤害提升[dmg]%',
+      title: '对处于火元素影响下的敌人造成的伤害提升[dmg]%' ,
       data: {
         dmg: 35
       }
@@ -297,7 +320,7 @@ const buffs = {
         overloaded: 40,
         burning: 40,
         burgeon: 40,
-        dmg: ({ params }) => ( params.monv || 1 ) * 7.5,
+        dmg: ({ params }) => ( params.monv || 1 ) * 7.5 ,
         buffCount: ({ params }) => params.monv || 1
       }
     }
@@ -308,7 +331,7 @@ const buffs = {
     4: {
       title: '扩散反应造成的伤害提升[swirl]%，根据扩散的元素类型，降低受到影响的敌人[fykx]%的对应元素抗性',
       data: {
-        swirl: 60,
+        swirl: 60 ,
         fykx: 40
       }
     }
@@ -340,7 +363,7 @@ const buffs = {
     4: {
       title: '处于护盾庇护下时，额外获得[aDmg]%普通攻击和重击伤害加成',
       data: {
-        aDmg: 40,
+        aDmg: 40 ,
         a2Dmg: 40
       }
     }
@@ -361,7 +384,7 @@ const buffs = {
     4: {
       title: '施放元素战技后，普通攻击与重击造成的伤害提高[aDmg]%',
       data: {
-        aDmg: 30,
+        aDmg: 30 ,
         a2Dmg: 30
       }
     }
@@ -372,7 +395,7 @@ const buffs = {
     4: {
       title: '元素战技命中敌人后，使队伍中附近的所有角色攻击力提升[atkPct]%，护盾强效提升[shield]%',
       data: {
-        atkPct: 20
+        atkPct: 20 ,
         shield: 30
       }
     }
@@ -384,7 +407,7 @@ const buffs = {
       title: '元素战技命中敌人[buffCount]次后,攻击力提升[atkPct]%,造成的物理伤害提高[phy]%',
       data: {
         buffCount: ({ params }) => params.sebo || 1 ,
-        atkPct: ({ params }) => ( params.sebo || 1 ) * 9,
+        atkPct: ({ params }) => ( params.sebo || 1 ) * 9 ,
         phy: ({ params }) => Math.min( 0 , ( params.sebo || 0 ) - 1 ) * 25
       }
     }
@@ -401,13 +424,12 @@ const buffs = {
     }
   },
 
-
   追忆之注连: {
     2: attr('atkPct', 18),
     4: {
       title: '施放元素战技后,如果角色的元素能量高于或等于15点,则会恢复[_energyevery]点元素能量,使接下来的普通攻击、重击、下落攻击造成的伤害提高[aDmg]%',
       data: {
-        _energyevery: -15
+        _energyevery: -15 ,
         aDmg: 50,
         a2Dmg: 50,
         a3Dmg: 50
@@ -434,10 +456,11 @@ const buffs = {
   来歆余响: {
     2: attr('atkPct', 18),
     4: {
-      title: '普通攻击命中敌人时,普通攻击造成的伤害提高[aPlus]',
+      title: '普通攻击命中敌人时,普通攻击造成的伤害提高[aPlus]，当前效果触发概率[buffCount]%',
       sort: 9,
       data: {
-        aPlus: ({ attr }) => ( attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100 ) * 0.7
+        buffCount: ({ params }) => ( params.ecof || 1 ) * 100 ,
+        aPlus: ({ params , attr }) => ( attr.atk.base + attr.atk.plus + attr.atk.pct * attr.atk.base / 100 ) * 0.7 * ( params.ecof || 1 )
       }
     }
   },
@@ -447,8 +470,8 @@ const buffs = {
     4: {
       title: '施放元素爆发后攻击力提升,并在角色的生命值降低时,攻击力进一步提升.通过[buffCount]层「潜光」提升合计[atkPct]%攻击力',
       data: {
-        buffCount: ({ params }) => params.vehe || 0 ,
-        atkPct: ({ params }) => ( params.vehe || 0 ) * 10 + 8
+        buffCount: ({ params }) => params.vehe || 4 ,
+        atkPct: ({ params }) => ( params.vehe || 4 ) * 10 + 8
       }
     }
   },
@@ -464,14 +487,14 @@ const buffs = {
     }
   },
 
-  //后续内容尚未重置
-
   饰金之梦: {
     2: attr('mastery', 80),
     4: {
-      title: '队伍存在其他3个不同元素类型角色时，精通提高150',
+      title: '触发元素反应后，队伍存在不同元素类型角色[buffCount]个，元素精通提升[mastery]点，攻击力提升[atkPct]%',
       data: {
-        mastery: 150
+        buffCount: ({ params }) => 3 - ( params.gidr || 0 ) ,
+        mastery: ({ params }) => ( 3 - ( params.gidr || 0 ) ) * 50 ,
+        atkPct: ({ params }) => ( params.gidr || 0 ) * 14
       }
     }
   },
@@ -479,11 +502,12 @@ const buffs = {
   乐园遗落之花: {
     2: attr('mastery', 80),
     4: {
-      title: '满层提高绽放、超绽放、烈绽放反应造成的伤害提升80%',
+      title: '装备者触发绽放、超绽放、烈绽放[buffCount]次，使上述反应伤害提高[bloom]%',
       data: {
-        bloom: 80,
-        burgeon: 80,
-        hyperBloom: 80
+        buffCount: ({ params }) => params.flpa || 4 ,
+        bloom: ({ params }) => 40 + ( params.flpa || 4 ) * 40 * 0.25 ,
+        burgeon: ({ params }) => 40 + ( params.flpa || 4 ) * 40 * 0.25 ,
+        hyperBloom: ({ params }) => 40 + ( params.flpa || 4 ) * 40 * 0.25
       }
     }
   },
@@ -491,10 +515,11 @@ const buffs = {
   沙上楼阁史话: {
     2: attr('dmg', 15, '风'),
     4: {
-      title: '重击命中敌人后，普攻重击与下落攻击伤害提升40',
+      title: '重击命中敌人后，普通攻击速度提升[_aSpeed]%，普通攻击、重击与下落攻击造成的伤害提升[aDmg]%',
       data: {
-        aDmg: 40,
-        a2Dmg: 40,
+        _aSpeed: 10 ,
+        aDmg: 40 ,
+        a2Dmg: 40 ,
         a3Dmg: 40
       }
     }
@@ -503,9 +528,9 @@ const buffs = {
   水仙之梦: {
     2: attr('dmg', 15, '水'),
     4: {
-      title: '3层Buff下提高攻击力25%，水伤15%',
+      title: '普通攻击、重击、下落攻击、元素战技或元素爆发命中敌人后,攻击力提高[atkPct]%,水元素伤害加成提升[dmg]%',
       data: {
-        atkPct: 25,
+        atkPct: 25 ,
         dmg: 15
       }
     }
@@ -514,41 +539,41 @@ const buffs = {
   花海甘露之光: {
     2: attr('hpPct', 20),
     4: {
-      title: '5层Buff下提高元素战技与元素爆发伤害50%',
+      title: '装备者受到伤害后,元素战技与元素爆发造成的伤害提升[eDmg]%',
       data: {
-        eDmg: 50,
-        qDmg: 50
+        eDmg: 10 + 10 * 0.8 * 5 ,
+        qDmg: 10 + 10 * 0.8 * 5
       }
     }
   },
 
   逐影猎人: {
     2: {
-      title: '普通攻击与重击造成的伤害提高15%',
+      title: '普通攻击与重击造成的伤害提高[aDmg]%',
       data: {
-        aDmg: 15,
+        aDmg: 15 ,
         a2Dmg: 15
       }
     },
     4: {
-      title: '3层Buff下提高暴击率36%',
+      title: '当前生命值提升或降低时，暴击率提升[cpct]%',
       data: {
-        cpct: 36
+        cpct: 12 * 3
       }
     }
   },
 
   黄金剧团: {
     2: {
-      title: '元素战技造成的伤害提升20%',
+      title: '元素战技造成的伤害提升[eDmg]%',
       data: {
         eDmg: 20
       }
     },
     4: {
-      title: '满层时元素战技造成的伤害提升50%',
+      title: '元素战技造成的伤害提升，处于队伍后台时还将进一步提升，合计提升[eDmg]%',
       data: {
-        eDmg: 50
+        eDmg: ({ params }) => ( params.gotr || 1 ) * 25
       }
     }
   },
@@ -556,21 +581,27 @@ const buffs = {
   昔时之歌: {
     2: attr('heal', 15),
     4: {
-      title: '满层时伤害值提升1200',
+      title: '装备者对队伍中的角色进行治疗时，记录治疗的生命值回复量，使队伍中自己的当前场上角色的普通攻击、重击、下落攻击、元素战技与元素爆发命中敌人时造成的伤害提高[aPlus]',
       sort: 9,
       data: {
-        aPlus: 1200,
-        a2Plus: 1200,
-        a3Plus: 1200,
-        ePlus: 1200,
-        qPlus: 1200
+        aPlus: ({ params }) => ( params.soda || 0 ) * 1200 ,
+        a2Plus: ({ params }) => ( params.soda || 0 ) * 1200 ,
+        a3Plus: ({ params }) => ( params.soda || 0 ) * 1200 ,
+        ePlus: ({ params }) => ( params.soda || 0 ) * 1200 ,
+        qPlus: ({ params }) => ( params.soda || 0 ) * 1200
       }
     }
   },
 
   回声之林夜话: {
     2: attr('atkPct', 18 ),
-    4: attr('dmg', 50, '岩')
+    4: {
+      check: ({ element }) => element === '岩',
+      title: '施放元素战技后，岩元素伤害加成提升；若处于结晶反应产生的护盾庇护下将进一步提高。合计提高[dmg]%',
+      data: {
+        dmg: 50
+      }
+    }
   }
 
 }

@@ -55,9 +55,8 @@ export const details = [{
 
 export const defDmgIdx = 5
 export const mainAttr = 'hp,atk,cpct,cdmg'
-
 export const defParams = {
-    team:true,e2: true
+    team:true,e2: true , soda: 1
 }
 
 export const buffs = [{

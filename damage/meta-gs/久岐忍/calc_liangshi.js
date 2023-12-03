@@ -23,6 +23,7 @@ export const details = [{
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.q['单次伤害'] * calc(attr.hp) / 100, 'q')
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 2
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 

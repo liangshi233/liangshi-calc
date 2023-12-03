@@ -39,6 +39,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['灵气脉技能伤害'], 'q', 'spread')
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 2
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 

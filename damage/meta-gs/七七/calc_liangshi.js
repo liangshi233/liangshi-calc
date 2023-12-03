@@ -37,6 +37,7 @@ export const details = [{
   dmg: ({ talent, attr, calc }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'

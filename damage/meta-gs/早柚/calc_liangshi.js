@@ -33,6 +33,7 @@ export const details = [
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
