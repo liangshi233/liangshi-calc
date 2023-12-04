@@ -37,14 +37,10 @@ export const details = [{
   dmg: ({ talent, attr, calc }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
 }]
 
-export const defParams = { soda: 1 }
+export const defParams = { soda: 1 , team: true }
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'
-
-export const defParams = {
-  team: true
-}
 
 export const buffs = [{
   title: '七七天赋1：触发元素反应，受到的治疗提高20%',
@@ -115,5 +111,5 @@ export const buffs = [{
     phyKx: 25
   }
 },
- {title: '5.16最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.4最后修改：如有问题可联系1142607614反馈'}
 ]
