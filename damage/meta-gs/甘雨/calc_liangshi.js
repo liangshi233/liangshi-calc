@@ -43,6 +43,7 @@ export const details = [{
   params: {
     team: false,
     alter: false,
+    nobo: true,
     q: 1
   },
   dmg: ({ talent }, dmg) => dmg(talent.q['冰棱伤害'], 'q')
@@ -163,5 +164,5 @@ export const buffs = [{
     atkPlus: 1202.35
   }
 }, 'melt',
- {title: '2.11最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.4最后修改：如有问题可联系1142607614反馈'}
  ]

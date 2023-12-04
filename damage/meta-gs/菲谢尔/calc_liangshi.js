@@ -1,8 +1,19 @@
 export const details = [{
   title: '奥兹攻击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e')
+},
+{
+  check: ({ artis }) => artis.黄金剧团 === 4 ,
+  title: '后台奥兹攻击伤害',
+  params: { gotr: 2 },
+  dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e')
 }, {
   title: '奥兹攻击超激化伤害',
+  dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e', '超激化')
+}, {
+  check: ({ artis }) => artis.黄金剧团 === 4 ,
+  title: '后台奥兹攻击超激化伤害',
+  params: { gotr: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e', '超激化')
 }, {
   title: '奥兹召唤伤害',
@@ -33,5 +44,5 @@ export const buffs = [{
     qPct: ({ params }) => params.q ? 222 : 0
   }
 },
- {title: '12.28最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.4最后修改：如有问题可联系1142607614反馈'}
  ]

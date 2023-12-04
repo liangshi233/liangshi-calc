@@ -17,7 +17,7 @@ export const details = [{
   }
 }, {
   title: 'E2层长按伤害',
-  params: { gj: true , team: false , hb: false },
+  params: { gj: true , team: false , hb: false , sebo: 2 },
   dmg: ({ talent }, dmg) => {
     let e = tmpDmg
     let g = dmg(talent.e['冰涡之剑伤害'], 'e')
@@ -40,7 +40,7 @@ export const details = [{
   }
   return {
     title: `光降之剑${buffCount}层伤害`,
-    params: { gj: true , team: false , hb: false },
+    params: { gj: true , team: false , hb: false , sebo: 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
 }, ({ cons, weapon }) => {
@@ -56,7 +56,7 @@ export const details = [{
   }
   return {
     title: `优丽辛班 光剑${buffCount}层伤害`,
-    params: { gj: true , team: true , hb: false },
+    params: { gj: true , team: true , hb: false , sebo: 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
 }, ({ cons, weapon }) => {
@@ -72,7 +72,7 @@ export const details = [{
   }
   return {
 	  title: `深渊7-3 光剑${buffCount}层`,
-    params: { gj: true , team: true , hb: true },
+    params: { gj: true , team: true , hb: true , sebo: 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
 }]
@@ -173,5 +173,5 @@ export const buffs = [{
     atkPct: 40
   }
 },
- {title: '8.8最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.4最后修改：如有问题可联系1142607614反馈'}
 ]

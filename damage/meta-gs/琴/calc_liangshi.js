@@ -38,14 +38,10 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['爆发伤害'], 'q')
 }]
 
-export const defParams = { soda: 1 }
+export const defParams = { soda: 1 , team: true}
 export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 4
 export const enemyName = '魔偶/女士/雷神'
-
-export const defParams = {
-  team: true
-}
 
 export const buffs = [{
   cons: 1,
@@ -83,5 +79,5 @@ export const buffs = [{
 	qPlus: 278.4 
     }
   },
-   {title: '4.20最后修改：如有问题可联系1142607614反馈'}
+   {title: '12.4最后修改：如有问题可联系1142607614反馈'}
   ]
