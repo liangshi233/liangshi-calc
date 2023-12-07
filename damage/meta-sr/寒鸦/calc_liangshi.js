@@ -91,6 +91,6 @@ export const buffs = [
   data: {
     dmg: 10
   }
-}
+},
 {title: '11.26最后修改：[11.26重置]'}
 ]
