@@ -1,20 +1,12 @@
 export const details = [{
    title: '零阶高压粉碎伤害',
-     dmg: ({ talent }, dmg) => dmg(talent.e['零阶高压粉碎伤害'], 'e')
+   dmg: ({ talent }, dmg) => dmg(talent.e['零阶高压粉碎伤害'], 'e')
 },  {
    title: '四阶高压粉碎伤害',
-     dmg: ({ talent }, dmg) => dmg(talent.e['四阶高压粉碎伤害'], 'e', 'phy')
+   dmg: ({ talent }, dmg) => dmg(talent.e['四阶高压粉碎伤害'], 'e', 'phy')
 }, {
    title: 'Q展开伤害',
-     dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
-  params: { e: true },
-   title: 'Q后零阶高压粉碎',
-     dmg: ({ talent }, dmg) => dmg(talent.e['零阶高压粉碎伤害'], 'e')
-}, {
-  params: { e: true },
-   title: 'Q后四阶高压粉碎',
-     dmg: ({ talent }, dmg) => dmg(talent.e['四阶高压粉碎伤害'], 'e', 'phy')
+   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }
 ]
 
@@ -51,5 +43,5 @@ export const buffs = [{
     cdmg: 36
   }
 },
- {title: '7.11最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.7最后修改：如有问题可联系1142607614反馈'}
 ]

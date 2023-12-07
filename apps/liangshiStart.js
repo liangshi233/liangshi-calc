@@ -37,10 +37,6 @@ export class allSetting extends plugin {
           {
               reg: '^#?(梁氏|liangshi)开启(武器|weapon|额外武器|测试武器)拓展$',
               fnc: 'weaponStart'
-          },
-          {
-              reg: '^#?(梁氏|liangshi)开启(主角|角色|元素主角)拓展$',
-              fnc: 'ysStart'
           }*/,
       ],
     })
@@ -133,7 +129,8 @@ export class allSetting extends plugin {
   }
 
   cpPanels () {
-    const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/01`
+    const panelPath = `${this.cfg.panelmodel}`
+    const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/0${panelPath}`
     const replaceFiles = [
       {
         liangshi: `${liangshiPath}/PlayerData/gs`,

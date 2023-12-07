@@ -152,75 +152,82 @@ export const details = [
 },
 {
   title: '单人海薇玛夫人伤害',
+  params: { e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
 },
 {
   title: '四人海薇玛夫人伤害',
+  params: { e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人海薇玛夫人期望伤害',
-  params: { smz: 25.4 },
+  params: { smz: 25.4 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '四人海薇玛夫人期望伤害',
-  params: { smz: 101.6 },
+  params: { smz: 101.6 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '四人海薇玛夫人极限伤害',
-  params: { smz: 300 , qfz: 400 },
+  params: { smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人乌瑟勋爵伤害',
+  params: { e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
 },
 {
   title: '四人乌瑟勋爵伤害',
+  params: { e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人乌瑟勋爵期望伤害',
-  params: { smz: 25.4 },
+  params: { smz: 25.4 , e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
 },
 {
   title: '四人乌瑟勋爵期望伤害',
-  params: { smz: 101.6 },
+  params: { smz: 101.6 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '四人乌瑟勋爵极限伤害',
-  params: { smz: 300 , qfz: 400 },
+  params: { smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人谢贝蕾妲小姐伤害',
+  params: { e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
 },
 {
   title: '四人谢贝蕾妲小姐伤害',
+  params: { e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人谢贝蕾妲小姐期望伤害',
-  params: { smz: 25.4 },
+  params: { smz: 25.4 , e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '四人谢贝蕾妲小姐期望伤害',
-  params: { smz: 101.6 },
+  params: { smz: 101.6 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '四人谢贝蕾妲小姐极限伤害',
-  params: { smz: 300 , qfz: 400 },
+  params: { smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '单人E完整伤害',
+  params: { e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
@@ -233,6 +240,7 @@ export const details = [
 },
 {
   title: '四人E完整伤害',
+  params: { e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
@@ -245,7 +253,7 @@ export const details = [
 },
 {
   title: '单人E完整期望伤害',
-  params: { smz: 25.4 },
+  params: { smz: 25.4 , e: 10 },
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
@@ -258,7 +266,7 @@ export const details = [
 },
 {
   title: '四人E完整期望伤害',
-  params: { smz: 101.6 },
+  params: { smz: 101.6 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
@@ -271,7 +279,7 @@ export const details = [
 },
 {
   title: '四人E理论极限伤害',
-  params: { smz: 300 , qfz: 400 },
+  params: { smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
@@ -348,7 +356,7 @@ export const details = [
 {
   title: '单人站场15秒',
   dmgKey: 'sh',
-  params: { smz: 25.4 },
+  params: { smz: 25.4 , e: 10 },
   dmg: ({ talent , cons , calc , attr }, { basic }) => {
     let a0 = a0Dmg
     let a1 = a1Dmg
@@ -373,17 +381,17 @@ export const details = [
 },
 {
   title: '心夜万芙 海薇玛夫人',
-  params: { wan: true , teamA: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamA: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '心夜万芙 乌瑟勋爵',
-  params: { wan: true , teamA: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamA: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
 },
 {
   title: '心夜万芙 谢贝蕾妲',
-  params: { wan: true , teamA: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamA: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
 },
 {
@@ -393,17 +401,17 @@ export const details = [
 },
 {
   title: '可万芙班 海薇玛夫人蒸发',
-  params: { wan: true , teamB: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamB: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e', 'vaporize')
 },
 {
   title: '可万芙班 乌瑟勋爵蒸发',
-  params: { wan: true , teamB: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamB: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e', 'vaporize')
 },
 {
   title: '可万芙班 谢贝蕾妲蒸发',
-  params: { wan: true , teamB: true , smz: 300 , qfz: 400 },
+  params: { wan: true , teamB: true , smz: 300 , qfz: 400 , e: 40 },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', 'vaporize')
 },
 {
@@ -426,9 +434,10 @@ export const buffs = [
   }
 },
 {
+  check: ({ params }) => & params.e !== undefined,
   title: '芙宁娜技能：[孤心沙龙] 「沙龙成员」进行攻击时,根据附近的队伍中生命值高于50%的角色数量,提升此次攻击造成的伤害为原本的1[_eDmg]%',
   data: {
-    _eDmg: 40
+    _eDmg: ({ params }) => params.e
   }
 },
 {
@@ -594,5 +603,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '11.29最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}
+{title: '12.7最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}
 ]
