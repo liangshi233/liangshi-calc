@@ -434,7 +434,7 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => & params.e !== undefined,
+  check: ({ params }) => params.e !== undefined,
   title: '芙宁娜技能：[孤心沙龙] 「沙龙成员」进行攻击时,根据附近的队伍中生命值高于50%的角色数量,提升此次攻击造成的伤害为原本的1[_eDmg]%',
   data: {
     _eDmg: ({ params }) => params.e

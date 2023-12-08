@@ -37,7 +37,7 @@ export const details = [
 },
 {
   title: '谢贝蕾妲小姐蒸发',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', '蒸发')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e', 'vaporize')
 },
 {
   title: '舞台展开伤害',
@@ -45,7 +45,7 @@ export const details = [
 },
 {
   title: 'Q展开蒸发伤害',
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', '蒸发')
+  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
 },
 {
   title: '心夜万芙 谢贝蕾妲',

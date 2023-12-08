@@ -407,7 +407,7 @@ const buffs = {
       data: {
         buffCount: ({ params }) => params.sebo || 1 ,
         atkPct: ({ params }) => ( params.sebo || 1 ) * 9 ,
-        phy: ({ params }) => Math.min( 0 , ( params.sebo || 0 ) - 1 ) * 25
+        phy: ({ params }) => Math.max( 0 , ( params.sebo || 0 ) - 1 ) * 25
       }
     }
   },
