@@ -19,7 +19,13 @@ export const details = [
 },
 {
   title: '普通攻击五段伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a1 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
+    return {
+      dmg: a1.dmg * 4 ,
+      avg: a1.avg * 4
+    }
+  }
 },
 {
   title: '普通攻击六段伤害',
@@ -74,7 +80,7 @@ export const details = [
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
     let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
-    let a5 = dmg(talent.a['五段伤害'], 'a', 'phy')
+    let a5 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
     let a6 = dmg(talent.a['六段伤害'], 'a', 'phy')
     let e1 = dmg(talent.e['岩脊伤害/共鸣伤害'][1] * 0.5, 'e')
     let e2 = dmg(talent.e['岩脊伤害/共鸣伤害'][1], 'e')
@@ -82,13 +88,13 @@ export const details = [
     let q1 = dmg(talent.q['技能伤害'], 'q')
     let cons1 = cons * 1 >= 1 ? 1 : 0
     return {
-      dmg: 4 * a1.dmg + 4 * a2.dmg + 4 * a3.dmg + 4 * a4.dmg + 3 * a5.dmg + 3 * a6.dmg + e2.dmg * 9 + e3.dmg + q1.dmg + cons1 * ( e2.dmg * 7 + e1.dmg ),
-      avg: 4 * a1.avg + 4 * a2.avg + 4 * a3.avg + 4 * a4.avg + 3 * a5.avg + 3 * a6.avg + e2.avg * 9 + e3.avg + q1.avg + cons1 * ( e2.avg * 7 + e1.avg )
+      dmg: 4 * a1.dmg + 4 * a2.dmg + 4 * a3.dmg + 4 * a4.dmg + 3 * 4 * a5.dmg + 3 * a6.dmg + e2.dmg * 9 + e3.dmg + q1.dmg + cons1 * ( e2.dmg * 7 + e1.dmg ),
+      avg: 4 * a1.avg + 4 * a2.avg + 4 * a3.avg + 4 * a4.avg + 3 * 4 * a5.avg + 3 * a6.avg + e2.avg * 9 + e3.avg + q1.avg + cons1 * ( e2.avg * 7 + e1.avg )
     }
   }
 },
 {
- 	title: '单人循环流畅度',
+  title: '单人循环流畅度',
   dmg: ({ talent , calc , attr , weapon , cons }) => {
   let weaponn = 0
   let consn = 0
@@ -147,7 +153,7 @@ export const details = [
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
     let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
-    let a5 = dmg(talent.a['五段伤害'], 'a', 'phy')
+    let a5 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
     let a6 = dmg(talent.a['六段伤害'], 'a', 'phy')
     let e1 = dmg(talent.e['岩脊伤害/共鸣伤害'][1] * 0.5, 'e')
     let e2 = dmg(talent.e['岩脊伤害/共鸣伤害'][1], 'e')
@@ -200,8 +206,8 @@ export const details = [
     }
     let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 5 * 3 + weaponn )) / ( 40 - weaponnn - ( 0.2073 * ( 22 + weaponconsn ) ) ) )
     return {
-      dmg: ( 4 * a1.dmg + 4 * a2.dmg + 4 * a3.dmg + 4 * a4.dmg + 3 * a5.dmg + 3 * a6.dmg + e2.dmg * 9 + e3.dmg + q1.dmg * qcn + cons1 * ( e2.dmg * 7 + e1.dmg ) ) / 18,
-      avg: ( 4 * a1.avg + 4 * a2.avg + 4 * a3.avg + 4 * a4.avg + 3 * a5.avg + 3 * a6.avg + e2.avg * 9 + e3.avg + q1.avg * qcn + cons1 * ( e2.avg * 7 + e1.avg ) ) / 18
+      dmg: ( 4 * a1.dmg + 4 * a2.dmg + 4 * a3.dmg + 4 * a4.dmg + 3 * 4 * a5.dmg + 3 * a6.dmg + e2.dmg * 9 + e3.dmg + q1.dmg * qcn + cons1 * ( e2.dmg * 7 + e1.dmg ) ) / 18,
+      avg: ( 4 * a1.avg + 4 * a2.avg + 4 * a3.avg + 4 * a4.avg + 3 * 4 * a5.avg + 3 * a6.avg + e2.avg * 9 + e3.avg + q1.avg * qcn + cons1 * ( e2.avg * 7 + e1.avg ) ) / 18
     }
   }
 },
@@ -211,12 +217,12 @@ export const details = [
   dmg: ({ talent }, dmg) => {
     let t1 = dmg(talent.a['一段伤害'], 'a')
     let t2 = dmg(talent.a['二段伤害'], 'a')
-	  let t3 = dmg(talent.a['三段伤害'], 'a')
-	  let t4 = dmg(talent.a['四段伤害'], 'a')
-    let t5 = dmg(talent.a['五段伤害'], 'a')
+	let t3 = dmg(talent.a['三段伤害'], 'a')
+	let t4 = dmg(talent.a['四段伤害'] , 'a')
+  	let t5 = dmg(talent.a['五段伤害'] / 4 , 'a')
     return {
-      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
-      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
+      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg * 4 ,
+      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg * 4
     }
   }
 },
@@ -492,5 +498,9 @@ export const buffs = [
     kx: 20
   }
 },
-{title: '11.28最后修改：[10.19重置] 修正岩脊伤害异常问题'}
+{title: '12.10最后修改：[10.19重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 ]
+/*
+这里放的是历史更新日志
+{title: '11.28最后修改：[10.19重置] 修正岩脊伤害异常问题'}
+*/

@@ -5,11 +5,11 @@ export const details = [
     let t1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let t2 = dmg(talent.a['二段伤害'], 'a', 'phy')
   	let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
-	  let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
-  	let t5 = dmg(talent.a['五段伤害'], 'a', 'phy')
+	let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
+  	let t5 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
     return {
-      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
-      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
+      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg * 4 ,
+      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg * 4
     }
   }
 },
@@ -48,10 +48,10 @@ export const details = [
     let t2 = dmg(talent.a['二段伤害'], 'a')
     let t3 = dmg(talent.a['三段伤害'], 'a')
    	let t4 = dmg(talent.a['四段伤害'], 'a')
-   	let t5 = dmg(talent.a['五段伤害'], 'a')
+  	let t5 = dmg(talent.a['五段伤害'] / 4 , 'a')
     return {
-      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg,
-      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg
+      dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg * 4 ,
+      avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg * 4
     }
   }
 }]
@@ -79,9 +79,9 @@ export const buffs = [
   title: '钟离天赋：[炊金馔玉] 基于生命值上限，普通攻击重击下落攻击伤害提高[aPlus]，岩脊,共鸣与长按伤害提高[ePlus]，天星伤害提高[qPlus]',
   sort: 9,
   data: {
-	  aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
   	a2Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
-	  a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
     ePlus: ({ attr, calc }) => calc(attr.hp) * 0.019,
     qPlus: ({ attr, calc }) => calc(attr.hp) * 0.33
   }
@@ -233,5 +233,9 @@ export const buffs = [
   	hpPct: 25
   }
 },
-{title: '11.28最后修改：[10.19重置] 修正岩脊伤害异常问题'}
+{title: '12.10最后修改：[10.19重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
  ]
+/*
+这里放的是历史更新日志
+{title: '11.28最后修改：[10.19重置] 修正岩脊伤害异常问题'}
+*/

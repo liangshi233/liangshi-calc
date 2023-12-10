@@ -14,7 +14,13 @@ export const details = [
 },
 {
   title: '普攻三段伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a3.dmg * 2 ,
+      avg: a3.avg * 2
+    }
+  }
 },
 {
   title: '普攻四段伤害',
@@ -96,15 +102,15 @@ export const details = [
   dmg: ({ talent , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-    let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let a3 = dmg(talent.a['三段伤害'] / 2, 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
     let e1 = eDmg
     let e2 = dmg(talent.e['风风轮舞踢长按伤害'], 'e')
     let q1 = qDmg
     let q2 = dmg(talent.q['不倒貉貉伤害'], 'q')
     return {
-      dmg: a1.dmg * 2 + a2.dmg * 2 + a3.dmg * 2 + a4.dmg + e1.dmg * 19 + e2.dmg + q1.dmg + q2.dmg * 7 ,
-      avg: a1.avg * 2 + a2.avg * 2 + a3.avg * 2 + a4.avg + e1.avg * 19 + e2.avg + q1.avg + q2.avg * 7
+      dmg: a1.dmg * 2 + a2.dmg * 2 + a3.dmg * 2 * 2 + a4.dmg + e1.dmg * 19 + e2.dmg + q1.dmg + q2.dmg * 7 ,
+      avg: a1.avg * 2 + a2.avg * 2 + a3.avg * 2 * 2 + a4.avg + e1.avg * 19 + e2.avg + q1.avg + q2.avg * 7
     }
   }
 },
@@ -182,7 +188,7 @@ export const details = [
   dmg: ({ attr, calc, talent, weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-    let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
     let e1 = eDmg
     let e2 = dmg(talent.e['风风轮舞踢长按伤害'], 'e')
@@ -236,8 +242,8 @@ export const details = [
     }
     let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 6 * 3 + weaponn )) / ( 80 - consn - weaponnn - ( 0.2732 * 7 ) ) )
     return {
-      dmg: ( a1.dmg * 2 + a2.dmg * 2 + a3.dmg * 2 + a4.dmg + e1.dmg * 19 + e2.dmg + ( q1.dmg + q2.dmg * 7 ) * qcn ) / 22,
-      avg: ( a1.avg * 2 + a2.avg * 2 + a3.avg * 2 + a4.avg + e1.avg * 19 + e2.avg + ( q1.avg + q2.avg * 7 ) * qcn ) / 22
+      dmg: ( a1.dmg * 2 + a2.dmg * 2 + a3.dmg * 2 * 2 + a4.dmg + e1.dmg * 19 + e2.dmg + ( q1.dmg + q2.dmg * 7 ) * qcn ) / 22,
+      avg: ( a1.avg * 2 + a2.avg * 2 + a3.avg * 2 * 2 + a4.avg + e1.avg * 19 + e2.avg + ( q1.avg + q2.avg * 7 ) * qcn ) / 22
     }
   }
 },
@@ -399,5 +405,5 @@ export const buffs = [
   }
 },
  'swirl',
-{title: '11.28最后修改：[10.21重置] '}
+{title: '12.10最后修改：[10.21重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 ]

@@ -13,7 +13,13 @@ export const details = [
 },
 {
   title: '普通攻击三段伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a3.dmg * 2 ,
+      avg: a3.avg * 2
+    }
+  }
 },
 {
   title: '普通攻击四段伤害',
@@ -21,7 +27,13 @@ export const details = [
 },
 {
   title: '普通攻击五段伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a5 = dmg(talent.a['五段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a5.dmg * 2 ,
+      avg: a5.avg * 2
+    }
+  }
 },
 {
   title: '重击循环伤害',
@@ -150,7 +162,7 @@ export const details = [
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-    let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
     let e1 = dmg(talent.e['点按伤害'], 'e')
     let e2 = dmg(talent.e['长按伤害'], 'e')
@@ -162,8 +174,8 @@ export const details = [
     let cons2 = cons * 1 >= 2 ? 4 : 3
     let cons6 = cons * 1 >= 6 ? 2 : 1
     return {
-      dmg: 5 * a1.dmg + 5 * a2.dmg + 5 * a3.dmg + 5 * a4.dmg + e1.dmg * cons2 + e2.dmg + 2 * e3.dmg + eq.dmg + q1.dmg + q2.dmg + 12 * q3.dmg * cons6,
-      avg: 5 * a1.avg + 5 * a2.avg + 5 * a3.avg + 5 * a4.avg + e1.avg * cons2 + e2.avg + 2 * e3.avg + eq.avg + q1.avg + q2.avg + 12 * q3.avg * cons6
+      dmg: 5 * a1.dmg + 5 * a2.dmg + 5 * 2 * a3.dmg + 5 * a4.dmg + e1.dmg * cons2 + e2.dmg + 2 * e3.dmg + eq.dmg + q1.dmg + q2.dmg + 12 * q3.dmg * cons6,
+      avg: 5 * a1.avg + 5 * a2.avg + 5 * 2 * a3.avg + 5 * a4.avg + e1.avg * cons2 + e2.avg + 2 * e3.avg + eq.avg + q1.avg + q2.avg + 12 * q3.avg * cons6
     }
   }
 },
@@ -236,7 +248,7 @@ export const details = [
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-    let a3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
     let a4 = dmg(talent.a['四段伤害'], 'a', 'phy')
     let e1 = dmg(talent.e['点按伤害'], 'e')
     let e2 = dmg(talent.e['长按伤害'], 'e')
@@ -302,8 +314,8 @@ export const details = [
     }
     let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 7 * 3 + consn + weaponn )) / ( 80 - weaponnn - ( 0.2732 * ( 20 + weaponconsn ) ) ) )
     return {
-      dmg: ( 5 * a1.dmg + 5 * a2.dmg + 5 * a3.dmg + 5 * a4.dmg + e1.dmg * cons2 + e2.dmg + 2 * e3.dmg + eq.dmg + ( q1.dmg + q2.dmg + 12 * q3.dmg * cons6 ) * qcn ) / 22,
-      avg: ( 5 * a1.avg + 5 * a2.avg + 5 * a3.avg + 5 * a4.avg + e1.avg * cons2 + e2.avg + 2 * e3.avg + eq.avg + ( q1.avg + q2.avg + 12 * q3.avg * cons6 ) * qcn ) / 22
+      dmg: ( 5 * a1.dmg + 5 * a2.dmg + 5 * 2 * a3.dmg + 5 * a4.dmg + e1.dmg * cons2 + e2.dmg + 2 * e3.dmg + eq.dmg + ( q1.dmg + q2.dmg + 12 * q3.dmg * cons6 ) * qcn ) / 22,
+      avg: ( 5 * a1.avg + 5 * a2.avg + 5 * 2 * a3.avg + 5 * a4.avg + e1.avg * cons2 + e2.avg + 2 * e3.avg + eq.avg + ( q1.avg + q2.avg + 12 * q3.avg * cons6 ) * qcn ) / 22
     }
   }
 },
@@ -595,5 +607,5 @@ export const buffs = [
   }
 },
 'melt',
- {title: '5.16最后修改：[10.23重置]'}
+ {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 ]

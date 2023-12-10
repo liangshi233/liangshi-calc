@@ -35,24 +35,38 @@ export const details = [
 {
   title: '普通攻击三段伤害',
   params: { aDMG: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a3.dmg * 2 ,
+      avg: a3.avg * 2
+    }
+  }
 },
 {
   title: '无Q普通攻击三段',
   dmg: ({ talent }, dmg) => {
-    a3Dmg = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
+    a3Dmg = a3 * 2
     return a3Dmg
   }
 },
 {
   title: '普通攻击四段伤害',
   params: { aDMG: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a4 = dmg(talent.a['四段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a4.dmg * 2 ,
+      avg: a4.avg * 2
+    }
+  }
 },
 {
   title: '无Q普通攻击四段',
   dmg: ({ talent }, dmg) => {
-    a4Dmg = dmg(talent.a['四段伤害'], 'a', 'phy')
+    let a4 = dmg(talent.a['四段伤害'] / 2 , 'a', 'phy')
+    a4Dmg = a4 * 2
     return a4Dmg
   }
 },
@@ -414,5 +428,5 @@ export const buffs = [
     kx: 20
   }
 },
- {title: '4.4最后修改：[10.22重置] '}
+ {title: '12.10最后修改：[10.22重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
  ]

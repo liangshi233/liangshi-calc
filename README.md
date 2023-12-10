@@ -21,11 +21,11 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 ### 设置
 请在本插件目录下`config/config.yaml` 修改设置
 ~~~~~~~~~~YAML
-autoRestart: false #发送【梁氏启动】后会自动进行重启，默认关闭，需要则改为true
+autoRestart: false #发送【梁氏启动】后会自动进行重启，默认关闭，需要则改为 true
 
-autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默认开启，不需要则改为true
+autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默认开启，不需要则改为 false
 
-panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要自定义请修改为0
+panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要自定义请修改为 0
 ~~~~~~~~~~
 如果您也有持续更新极限面板的意愿可联系我们将您的预设面板加入其中以便持续更新
 

@@ -7,7 +7,13 @@ export const details = [
 },
 {
   title: '普攻尾段2次伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'phy')
+  dmg: ({ talent }, dmg) => {
+    let a5 = dmg(talent.a['五段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a5.dmg * 2 ,
+      avg: a5.avg * 2
+    }
+  }
 },
 {
  title: 'E0层长按伤害',
@@ -311,5 +317,5 @@ export const buffs = [
   }
 },
 'melt',
- {title: '5.16最后修改：[10.23重置]'}
+ {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 ]
