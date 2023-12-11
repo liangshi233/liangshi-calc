@@ -25,6 +25,11 @@ export class allSetting extends plugin {
           permission: 'master'
         },
         {
+          reg: '^#?梁氏强制替换$',
+          fnc: 'liangshiReplace',
+          permission: 'master'
+        },
+        {
           reg: '^#?梁氏(恢复|复)(原|原有|原来的)?配置(文件)?$',
           fnc: 'liangshiByebye',
           permission: 'master'
@@ -35,9 +40,9 @@ export class allSetting extends plugin {
           permission: 'master'
         } /*,
           {
-              reg: '^#?(梁氏|liangshi)开启(武器|weapon|额外武器|测试武器)拓展$',
-              fnc: 'weaponStart'
-          }*/,
+              reg: '^#?(梁氏|liangshi)开启重置版拓展$',
+              fnc: 'resettingStart'
+          }*/
       ],
     })
     this.cfg = this.getLScfg()
@@ -49,6 +54,22 @@ export class allSetting extends plugin {
       logger.mark('[liangshi]预设面板自动刷新完成')
       return true
     }
+  }
+
+  async liangshiReplace () {
+    _.each(dataFiles, (v, k) => {
+      let filename = files[k]
+      let miaofile = `${miaoPaths[k]}/${filename}`
+      let liangshiFile = `${_path}/plugins/liangshi-calc/replace`
+       if (k > 0) {
+         if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
+         fs.copyFileSync(`${liangshiFile}/${filename}`, miaofile)
+       }
+    })
+    logger.mark(`[liangshi]替换成功，本次替换未执行备份`)
+    await this.e.reply(`替换成功，${this.cfg.autoRestart ? '重启中,请稍后.' : '请手动重启以更新'}`, true)
+    if (this.cfg.autoRestart) this.restartApp()
+    return true
   }
 
   async liangshiStart () {
@@ -78,7 +99,7 @@ export class allSetting extends plugin {
 
     let msg = ''
     if (_.every(checkFile, Boolean)) {
-      msg = '已经备份过了！请勿重复备份！若为更新后失效请先 #梁氏恢复配置 后替换'
+      msg = '您已经备份过了~请勿重复备份！若为更新后失效请先【#梁氏恢复配置】后再执行替换 或 使用【#梁氏强制替换】不备份直接进行替换'
     } else {
       msg = `已保存原配置文件至云崽根目录/data/liangshiData内！\n${this.cfg.autoRestart ? '等待bot' : '请重启机器人以启用梁氏！\n'}重启完成后发送【#喵喵设置】查看新设置！\n如果反悔了想恢复原来的请发送\n【#梁氏恢复配置】`
     }
@@ -130,6 +151,10 @@ export class allSetting extends plugin {
 
   cpPanels () {
     const panelPath = `${this.cfg.panelmodel}`
+    if ( this.cfg.panelmodel === undefined ) {
+    logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
+    panelPath = 1
+    }
     const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/0${panelPath}`
     const replaceFiles = [
       {
