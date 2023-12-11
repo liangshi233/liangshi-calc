@@ -150,7 +150,7 @@ export class allSetting extends plugin {
   }
 
   cpPanels () {
-    const panelPath = `${this.cfg.panelmodel}`
+    let panelPath = `${this.cfg.panelmodel}`
     if ( this.cfg.panelmodel === undefined ) {
     logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
     panelPath = 1
