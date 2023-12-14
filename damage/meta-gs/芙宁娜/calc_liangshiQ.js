@@ -442,8 +442,9 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.smz !== undefined,
-  title: '芙宁娜技能：[万众狂欢] 基于芙宁娜持有的「气氛值」,附近的队伍中所有角色造成的伤害提升[dmg]%,受治疗加成提升[healInc]%',
+  title: '芙宁娜技能：[万众狂欢] 持有[buffCount]层「气氛值」,附近的队伍中所有角色造成的伤害提升[dmg]%,受治疗加成提升[healInc]%',
   data: {
+    buffCount: ({ params , cons }) => Math.min( 300 + ( cons * 1 >= 1 ? 100 : 0 ) , params.smz * ( cons * 1 >= 2 ? 3.5 : 1 ) + ( cons * 1 >= 1 ? 150 : 0 ) ) ,
     dmg: ({ talent , params , cons }) => talent.q['气氛值转化提升伤害比例'] * Math.min( 300 + ( cons * 1 >= 1 ? 100 : 0 ) , params.smz * ( cons * 1 >= 2 ? 3.5 : 1 ) + ( cons * 1 >= 1 ? 150 : 0 ) ),
     phy: ({ talent , params , cons }) => talent.q['气氛值转化提升伤害比例'] * Math.min( 300 + ( cons * 1 >= 1 ? 100 : 0 ) , params.smz * ( cons * 1 >= 2 ? 3.5 : 1 ) + ( cons * 1 >= 1 ? 150 : 0 ) ),
     healInc: ({ talent , params , cons }) => talent.q['气氛值转化受治疗加成比例'] * Math.min( 300 + ( cons * 1 >= 1 ? 100 : 0 ) , params.smz * ( cons * 1 >= 2 ? 3.5 : 1 ) + ( cons * 1 >= 1 ? 150 : 0 ) )
@@ -461,9 +462,10 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.smz >= 71 && params.qfz !== undefined,
-  title: '芙宁娜2命：[女人皆善变,仿若水中萍.] 基于「气氛值」超过上限的部分,使芙宁娜的生命值上限提升[hpPct]%',
+  title: '芙宁娜2命：[女人皆善变,仿若水中萍.] 基于「气氛值」超过上限[buffCount]层,使芙宁娜的生命值上限提升[hpPct]%',
   cons: 2,
   data: {
+    buffCount: ({ params }) => params.qfz ,
     hpPct: ({ params }) => Math.min( 140 , params.qfz * 0.35 )
   }
 },
@@ -603,5 +605,9 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '12.7最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}
+{title: '12.14最后修改：[11.28重置] 为气氛值增加层数显示'}
 ]
+/*
+这里放的是历史更新日志
+{title: '12.7最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}
+*/

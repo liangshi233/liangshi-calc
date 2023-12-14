@@ -115,25 +115,37 @@ export const buffs = [
   }
 },
 {
-  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
   check: ({ params , cons }) => (cons < 6 && cons > 1) && params.teamA === true,
-  sort: 1,
   data: {
-    atkPct: 20,
     aDmg: 16,
     a2Dmg: 16,
     a3Dmg: 16
   }
 },
 {
-  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
-  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => (cons < 6 && cons > 1) && params.teamA === true && weapon.name !== '终末嗟叹之诗' ,
   sort: 1,
   data: {
-    atkPct: 40,
+    atkPct: 20
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  data: {
     aDmg: 32,
     a2Dmg: 32,
     a3Dmg: 32
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => cons >= 6 && params.teamA === true && weapon.name !== '终末嗟叹之诗',
+  sort: 1,
+  data: {
+    atkPct: 40
   }
 },
 {
@@ -153,7 +165,7 @@ export const buffs = [
 },
 {
   title: '莫娜圣遗物：[教官4] 	触发元素反应后。队伍中所有角色元素精通提高[mastery]%点',
-  check: ({ params }) => params.teamA === true,
+  check: ({ params , artis }) => params.teamA === true && artis.教官 !== 4 ,
   sort: 1,
   data: {
     mastery: 120

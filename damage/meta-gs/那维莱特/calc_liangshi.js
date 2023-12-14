@@ -76,8 +76,9 @@ export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 export const buffs = [
 {
   check: ({ params }) => params.qb !== undefined ,
-  title: '那维莱特天赋：[古海孑遗的权柄] 队伍中的角色对敌人触发水元素反应,将使重击·衡平推裁造成原本[_a2Dmg]%的伤害',
+  title: '那维莱特天赋：[古海孑遗的权柄] [buffCount]层的「遗龙之荣」,将使重击·衡平推裁造成原本[_a2Dmg]%的伤害',
   data: {
+    buffCount: ({ params }) => params.bs ,
     _a2Dmg: ({ params }) => params.qb * 5 + 100
   }
 },
@@ -96,9 +97,10 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.bs !== undefined ,
-  title: '那维莱特2命：[律法的命诫] 根据「遗龙之荣」的层数,使重击·衡平推裁的暴击伤害提升[a2Cdmg]%',
+  title: '那维莱特2命：[律法的命诫] [buffCount]层的「遗龙之荣」,使重击·衡平推裁的暴击伤害提升[a2Cdmg]%',
   cons: 2,
   data: {
+    buffCount: ({ params }) => params.bs ,
     a2Cdmg: ({ params }) => params.bs * 14
   }
 },
@@ -172,5 +174,5 @@ export const buffs = [
     hpPct: 25
   }
 },
-{title: '10.3最后修改：[11.4重置]'}
+{title: '12.14最后修改：[11.4重置] 为天赋增加层数显示'}
 ]

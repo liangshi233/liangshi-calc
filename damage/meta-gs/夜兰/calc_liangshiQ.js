@@ -1,92 +1,102 @@
-export const details = [{
+import { Format } from '#miao'
+
+export const details = [
+{
   title: '普通攻击一段伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
-},{
+},
+{
   title: '普通攻击二段伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'phy')
-},{
+},
+{
   title: '普通攻击三段伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'phy')
-},{
+},
+{
   title: '普通攻击四段伤害',
-  params: { q: false, team: false , sy: false},
-  dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'phy')
-},{
+  dmg: ({ talent }, dmg) => {
+    let a1 = dmg(talent.a['四段伤害'] / 2 , 'a', 'phy')
+    return {
+      dmg: a1.dmg * 2 ,
+      avg: a1.avg * 2
+    }
+  }
+},
+{
   title: '瞄准射击伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['瞄准射击'], 'a2', 'phy')
-},{
+},
+{
   title: '满蓄力瞄准射击伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
-},{
+},
+{
   title: '下落期间伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
-},{
+},
+{
   title: '低空下落伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3', 'phy')
-},{
+},
+{
   title: '高空下落伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'phy')
-},{
+},
+{
   title: '破局矢伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
-},{
+},
+{
   check: ({ cons }) => cons >= 6,
   title: '运筹帷幄破局矢',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56 , 'a2')
-},{
+},
+{
   title: '破局矢蒸发',
-  params: { q: false, team: false , sy: false},
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2', '蒸发')
-},{
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2', 'vaporize')
+},
+{
   check: ({ cons }) => cons >= 6,
   title: '运筹帷幄破局矢蒸发',
-  params: { q: false, team: false , sy: false},
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56 , 'a2', '蒸发')
-},{
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56 , 'a2', 'vaporize')
+},
+{
   title: '萦络纵命索伤害',
-  params: { q: false, team: false , sy: false},
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-}, {
+},
+{
   title: '萦络纵命索蒸发',
-  params: { q: false, team: false , sy: false},
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
-}, {
-  title: 'Q协同单段伤害',
-  params: { q: true, team: false , sy: false},
-  dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
-  }
-}, {
-  title: 'Q协同单段蒸发',
-  params: { q: true, team: false , sy: false},
-  dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q', '蒸发')
-  }
-}, {
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
+},
+{
   title: '渊图玲珑骰展开伤害',
-  params: { q: true, team: false , sy: false},
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
   }
-}, {
+},
+{
   title: '渊图玲珑骰展开蒸发',
-  params: { q: true, team: false , sy: false},
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    return basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', '蒸发')
+    return basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q', 'vaporize')
   }
-}, {
+},
+{
+  title: 'Q协同单段伤害',
+  dmg: ({ talent, attr, calc, cons }, { basic }) => {
+    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
+  }
+},
+{
+  title: 'Q协同单段蒸发',
+  params: { q: true },
+  dmg: ({ talent, attr, calc, cons }, { basic }) => {
+    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q', 'vaporize')
+  }
+},
+{
   title: 'Q协同15段伤害',
-  params: { q: true, team: false , sy: false},
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let count = cons * 1 >= 2 ? 1 : 0
@@ -96,80 +106,138 @@ export const details = [{
       avg: 8 * erming.avg * count + 15 * q.avg
     }
   }
-}, {
+},
+{
   title: 'Q协同15段蒸发',
-  params: { q: true, team: false , sy: false},
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     let ermingzf = basic(calc(attr.hp) * (14 / 100), 'q', '蒸发')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let count = cons * 1 >= 2 ? 1 : 0
     let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100 ), 'q')
-    let qzf = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100 ), 'q', '蒸发')
+    let qzf = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100 ), 'q', 'vaporize')
     return {
       dmg: 2 * erming.dmg * count + 6 * ermingzf.dmg * count + 30 * q.dmg + 15 * qzf.dmg,
       avg: 2 * erming.avg * count + 6 * ermingzf.dmg * count + 30 * q.avg + 15 * qzf.avg
     }
   }
-}, {
-  title: '非6命单人站场20秒',
-  params: { q: true, team: false , sy: false},
+},
+{
+  title: '单人站场20秒',
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
+    let a1 = basic(calc(attr.atk) * talent.a['一段伤害'] / 100, 'a', 'phy')
+    let a2 = basic(calc(attr.atk) * talent.a['二段伤害'] / 100, 'a', 'phy')
+    let a3 = basic(calc(attr.atk) * talent.a['三段伤害'] / 100, 'a', 'phy')
+    let a4 = basic(calc(attr.atk) * talent.a['四段伤害'] / 2 / 100, 'a', 'phy')
     let z = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
+    let cz = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56, 'a2')
+    let e = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
+    let ce = basic(calc(attr.hp) * (14 / 100), 'q')
+    let q1 = basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
+    let q2 = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
+    let cons1 = cons * 1 >= 1 ? 2 : 1
+    let cons2 = cons * 1 >= 2 ? 1 : 0
+    let cons6 = cons * 1 >= 6 ? 1 : 0
+    return {
+      dmg: 6 * a1.dmg + 6 * a2.dmg + 6 * a3.dmg + 6 * 2 * a4.dmg + z.dmg + e.dmg * cons1 + 8 * ce.dmg * cons2 + q1.dmg + 15 * 3 * q2.dmg + ( cz.dmg * 5 - a1.dmg - a2.dmg - a3.dmg - 2 * a4.dmg ) * cons6,
+      avg: 6 * a1.avg + 6 * a2.avg + 6 * a3.avg + 6 * 2 * a4.avg + z.avg + e.avg * cons1 + 8 * ce.avg * cons2 + q1.avg + 15 * 3 * q2.avg + ( cz.avg * 5 - a1.avg - a2.avg - a3.avg - 2 * a4.avg ) * cons6
+    }
+  }
+},
+{
+ 	title: '单人循环流畅度',
+  dmg: ({ talent , calc , attr , weapon , cons }) => {
+  let weaponn = 0
+  let consn = 0
+  let weaponnn = 0
+  let weaponconsn= 0
+  if (weapon.name === '西风猎弓') {
+  weaponn = 3 * 2 * 2
+  }
+  if (weapon.name === '祭礼弓') {
+  weaponn = 4 * 3
+  }
+  if (cons >= 1) {
+  consn = 4 * 3
+  }
+  if (weapon.name === '钢轮弓') {
+  weaponconsn = 2
+    if (weapon.affix_level >= 4) {
+      weaponconsn = 3
+    }
+  }
+  return {
+    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 4 * 3 + consn + weaponn )) / ( 70 - weaponnn - ( 0.2212 * ( 24 + weaponconsn ) ) ) ) ,
+    type: 'text'
+  }
+ }
+},
+{
+  title: '单人站场期望DPS',
+  dmgKey: 'dps',
+  params: { q: true },
+  dmg: ({ talent, attr, calc, weapon , cons }, { basic }) => {
     let a1 = basic(calc(attr.atk) * talent.a['一段伤害'] / 100, 'a', 'phy')
     let a2 = basic(calc(attr.atk) * talent.a['二段伤害'] / 100, 'a', 'phy')
     let a3 = basic(calc(attr.atk) * talent.a['三段伤害'] / 100, 'a', 'phy')
-    let a4 = basic(calc(attr.atk) * talent.a['四段伤害'] / 100, 'a', 'phy')
+    let a4 = basic(calc(attr.atk) * talent.a['四段伤害'] / 2 / 100, 'a', 'phy')
+    let z = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
+    let cz = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56, 'a2')
     let e = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let count = cons * 1 >= 2 ? 1 : 0
-    let counte = cons * 1 >= 1 ? 2 : 1
-    let k = basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 100), 'q')
+    let ce = basic(calc(attr.hp) * (14 / 100), 'q')
+    let q1 = basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
+    let q2 = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
+    let cons1 = cons * 1 >= 1 ? 2 : 1
+    let cons2 = cons * 1 >= 2 ? 1 : 0
+    let cons6 = cons * 1 >= 6 ? 1 : 0
+    let weaponn = 0
+    let consn = 0
+    let weaponnn = 0
+    let weaponconsn= 0
+    if (weapon.name === '西风猎弓') {
+    weaponn = 3 * 2 * 2
+    }
+    if (weapon.name === '祭礼弓') {
+    weaponn = 4 * 3
+    }
+    if (cons >= 1) {
+    consn = 4 * 3
+    }
+    if (weapon.name === '钢轮弓') {
+    weaponconsn = 2
+      if (weapon.affix_level >= 4) {
+        weaponconsn = 3
+      }
+    }
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 4 * 3 + consn + weaponn )) / ( 70 - weaponnn - ( 0.2212 * ( 24 + weaponconsn ) ) ) )
     return {
-      dmg: z.dmg + 6 * a1.dmg + 6 * a2.dmg + 6 * a3.dmg + 6 * a4.dmg + e.dmg * counte + 8 * erming.dmg * count + 15 * q.dmg + k.dmg,
-      avg: z.avg + 6 * a1.avg + 6 * a2.avg + 6 * a3.avg + 6 * a4.avg + e.avg * counte + 8 * erming.avg * count + 15 * q.avg + k.avg
+      dmg:( 6 * a1.dmg + 6 * a2.dmg + 6 * a3.dmg + 6 * 2 * a4.dmg + z.dmg + e.dmg * cons1 + 8 * ce.dmg * cons2 + qcn * ( q1.dmg + 15 * 3 * q2.dmg + ( cz.dmg * 5 - a1.dmg - a2.dmg - a3.dmg - 2 * a4.dmg ) * cons6 ) ) / 20,
+      avg:( 6 * a1.avg + 6 * a2.avg + 6 * a3.avg + 6 * 2 * a4.avg + z.avg + e.avg * cons1 + 8 * ce.avg * cons2 + qcn * ( q1.avg + 15 * 3 * q2.avg + ( cz.avg * 5 - a1.avg - a2.avg - a3.avg - 2 * a4.avg ) * cons6 ) ) / 20
     }
   }
-}, {
-  check: ({ cons }) => cons >= 6,
-  title: '6命单人站场20秒',
-  params: { q: true, team: false , sy: false},
-  dmg: ({ talent, attr, calc, cons },{ basic }) => {
-    let a = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
-    let qa = basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100 * 1.56, 'a2')
-    let a1 = basic(calc(attr.atk) * talent.a['一段伤害'] / 100, 'a', 'phy')
-    let a2 = basic(calc(attr.atk) * talent.a['二段伤害'] / 100, 'a', 'phy')
-    let a3 = basic(calc(attr.atk) * talent.a['三段伤害'] / 100, 'a', 'phy')
-    let a4 = basic(calc(attr.atk) * talent.a['四段伤害'] / 100, 'a', 'phy')
-    let e = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let count = cons * 1 >= 2 ? 1 : 0
-    let counte = cons * 1 >= 1 ? 2 : 1
-    let qz = basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 100), 'q')
-    return {
-      dmg: a.dmg + 5 * qa.dmg + 5 * a1.dmg + 5 * a2.dmg + 5 * a3.dmg + 5 * a4.dmg + e.dmg * counte + 8 * erming.dmg * count + 15 * q.dmg + qz.dmg,
-      avg: a.avg + 5 * qa.avg + 5 * a1.avg + 5 * a2.avg + 5 * a3.avg + 5 * a4.avg + e.avg * counte + 8 * erming.avg * count + 15 * q.avg + qz.avg
-    }
-  }
-},{
+},
+{
   title: '夜莫万E伤害',
-  params: { q: true , team: true , sy: false},
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-},{
+},
+{
   title: '夜莫万E蒸发',
-  params: { q: true , team: true , sy: false},
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
-}, {
+  params: { q: true , teamA: true },
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
+},
+{
   title: '夜莫万Q单段协同',
-  params: { q: true , team: true , sy: false},
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
-}, {
+},
+{
   check: ({ cons }) => cons < 6,
   title: '夜莫万EE7次连携',
-  params: { q: true, team: true , sy: false },
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
@@ -180,13 +248,13 @@ export const details = [{
       avg: 2 * e_v.avg + 4 * erming.avg * count + 21 * q.avg
     }
   }
-}, {
+},
+{
   check: ({ cons }) => cons < 6,
-  dmgKey: 'q',
   title: '夜莫万EE双蒸7次连携',
-  params: { q: true, team: true , sy: false },
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
+    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let count = cons * 1 >= 2 ? 1 : 0
     let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
@@ -195,10 +263,11 @@ export const details = [{
       avg: 2 * e_v.avg + 4 * erming.avg * count + 21 * q.avg
     }
   }
-}, {
+},
+{
   check: ({ cons }) => cons >= 6,
   title: '夜莫万6命EaEaaaa',
-  params: { q: true, team: true , sy: false},
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
@@ -209,13 +278,13 @@ export const details = [{
       avg: 2 * e_v.avg + 2 * erming.avg + 15 * q.avg + 5 * a.avg
     }
   }
-}, {
+},
+{
   check: ({ cons }) => cons >= 6,
-  dmgKey: 'q',
   title: '夜莫万6命EaEaaaa双蒸',
-  params: { q: true, team: true , sy: false},
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
+    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
     let a = basic(calc(attr.hp) * talent.a['破局矢伤害'] * 1.56 / 100, 'a2')
@@ -224,171 +293,178 @@ export const details = [{
       avg: 2 * e_v.avg + 2 * erming.avg + 15 * q.avg + 5 * a.avg
     }
   }
-}, {
-  check: ({ cons }) => cons < 6 ,
-  title: '胡行夜钟 21轴 对单',
-  params: { q: false, team: false , sy: false, hxyz: true },
+},
+{
+  title: '夜胡行钟 e伤害',
+  params: { teamB: true },
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
+},
+{
+  title: '夜胡行钟 协同单段',
+  params: { teamB: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let count = cons * 1 >= 2 ? 1 : 0
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
-    return {
-      dmg: 2 * e_v.dmg + 4 * erming.dmg * count + 21 * q.dmg,
-      avg: 2 * e_v.avg + 4 * erming.avg * count + 21 * q.avg
-    }
+    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
-}, {
-  check: ({ cons }) => cons >= 6,
-  title: '胡行夜钟 21轴 对单',
-  params: { q: false, team: false , sy: false, hxyz: true },
-  dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
-    let erming = basic(calc(attr.hp) * (14 / 100), 'q')
-    let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
-    let a = basic(calc(attr.hp) * talent.a['破局矢伤害'] * 1.56 / 100, 'a2')
-    return {
-      dmg: 2 * e_v.dmg + 2 * erming.dmg + 15 * q.dmg + 5 * a.dmg,
-      avg: 2 * e_v.avg + 2 * erming.avg + 15 * q.avg + 5 * a.avg
-    }
-  }
-},{
-  title: '深渊12-3E蒸发',
-  params: { q: false, team: true , sy: true },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
-},{
-  title: '4核正机之神E蒸发',
-  params: { q: false, team: false , sy: false , llz: true},
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
-},{
-  title: '大世界多核E蒸发',
-  params: { q: true, team: false , sy: false, dh: true },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
-}]
+},
+]
 
 
-export const defDmgKey = 'q'
+export const defDmgKey = 'dps'
 export const mainAttr = 'hp,cpct,cdmg'
 
 
-export const defParams = {
-  q: true,
-  team: true
-}
-
-
-export const buffs = [{
-  title: '夜兰天赋1：有4个不同元素类型角色时，夜兰生命值上限提高30%',
+export const buffs = [
+{
+  title: '夜兰天赋：[猜先有方] 队伍存在4种元素类型的角色时夜兰的生命值上限提升[hpPct]%',
+  sort: 1,
   data: {
     hpPct: 30
   }
-}, {
-  title: '夜兰4命：E络命丝爆发提高生命值，满Buff下提高40%',
+},
+{
+  title: '夜兰天赋：[猜先有方] 「玄掷玲珑」存在期间，能使队伍中自己的当前场上角色造成的伤害提高至多[dmg]%',
+  check: ({ params }) => params.q === true,
+  data: {
+    dmg: 50
+  }
+},
+{
+  title: '夜兰4命：[诓惑者，接树移花] 依照「络命丝」标记敌人的数量,至多获得[hpPct]%生命值上限',
+  sort: 1,
   cons: 4,
   data: {
     hpPct: 40
   }
-}, {
-  title: '夜兰天赋2：Q持续过程中满层Buff下提高伤害50%',
+},
+{
+  title: '夜兰6命：[取胜者，大小通吃] 「运筹帷幄」状态普通攻击将转为发射特殊的「破局矢」造成的伤害视为重击伤害，能造成破局矢[_aMulti]%的伤害',
+  cons: 6,
   data: {
-    dmg: ({ params }) => params.q ? 50 : 0
+    _aMulti: 156
   }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
+},
+{
+  title: '枫原万叶圣遗物：[翠绿之影4] 根据扩散的元素类型，降低受到影响的敌人[kx]%的对应元素抗性',
+  check: ({ params }) => params.teamA === true,
   data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 40,
-    atkPct: 20,
     kx: 40
   }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
+  check: ({ params , cons }) => (cons < 6 && cons > 1) && params.teamA === true,
   data: {
     aDmg: 16,
     a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 48,
-    atkPct: 20,
-    kx: 40,
-    mastery: 200
+    a3Dmg: 16
   }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => (cons < 6 && cons > 1) && params.teamA === true && weapon.name !== '终末嗟叹之诗' ,
+  sort: 1,
+  data: {
+    atkPct: 20
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
   data: {
     aDmg: 32,
     a2Dmg: 32,
-    a3Dmg: 32,
-    dmg: 48,
-    atkPct: 40,
-    kx: 40,
+    a3Dmg: 32
+  }
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
+  check: ({ params , cons , weapon }) => cons >= 6 && params.teamA === true && weapon.name !== '终末嗟叹之诗',
+  sort: 1,
+  data: {
+    atkPct: 40
+  }
+},
+{
+  title: '枫原万叶2命：[山岚残芯] 万叶之一刀的流风秋野其中的场上角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 2 && params.teamA === true,
+  sort: 1,
+  data: {
     mastery: 200
   }
-}, {
-  check: ({ cons, params }) => (cons >= 2 && params.team === true),
-  title: '千夜教官满命莫娜：获得[dmg]%增伤,暴击[cpct]%,精通[mastery]',
+},
+{
+  title: '枫原万叶天赋：[风物之诗咏] 触发扩散反应后枫原万叶会为队伍中所有角色提供[dmg]%对应元素伤害加成',
+  check: ({ params }) => params.teamA === true,
   data: {
-    dmg: 60,
-    vaporize:15,
-    cpct: 15,
-    mastery: 168
+    dmg: 40
   }
-}, {
-  check: ({ cons, params }) => (cons < 2 && params.team === true),
-  title: '千夜教官0命莫娜：获得[dmg]%增伤,精通[mastery]',
+},
+{
+  title: '莫娜圣遗物：[教官4] 	触发元素反应后。队伍中所有角色元素精通提高[mastery]%点',
+  check: ({ params , artis }) => params.teamA === true && artis.教官 !== 4 ,
+  sort: 1,
   data: {
-    dmg: 60,
-    mastery: 168
+    mastery: 120
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
+},
+{
+  title: '莫娜武器：[千夜浮梦-精1] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons < 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 40
+  }
+},
+{
+  title: '莫娜武器：[千夜浮梦-精5] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 48
+  }
+},
+{
+  title: '莫娜4命：[灭绝的预言] 队伍中所有角色攻击处于星异状态下的敌人时,暴击率提升[cpct]%',
+  check: ({ params , cons }) => cons >= 4 && params.teamA === true,
+  data: {
+    cpct: 15
+  }
+},
+{
+  title: '莫娜技能：[星命定轨] 对敌人施加星异的伤害加成效果,并以此提高[dmg]%这一次造成的伤害',
+  check: ({ params  }) => params.teamA === true,
+  data: {
+    dmg: 60
+  }
+},
+{
+  title: '元素共鸣：[愈疗之水] 生命值上限提升[hpPct]%',
+  check: ({ params }) => params.teamA === true,
   data: {
     hpPct: 25
   }
-}, {
-  check: ({ params }) => (params.team === false && params.hxyz === true),
-  title: '胡行夜钟：生命值提升[hpPct]%,造成的伤害提升2.5%,水元素抗性降低35%',
+},
+{
+  title: '行秋2命：[天青现虹] 受到剑雨攻击的敌人,水元素抗性降低[kx]%',
+  check: ({ params }) => params.teamB === true,
   data: {
-	hpPct: 25,
-	eDmg: 2.5,	
-	kx: 35 
+    kx: 15
   }
-}, {
-  check: ({ params }) => params.sy === true,
-  title: '深渊核爆：属性过多不予展示',//夜莫万可
+},
+{
+  title: '钟离技能：[玉璋护盾] 处于玉璋护盾庇护下的角色使附近小范围敌人的所有元素抗性与物理抗性降低[kx]%',
+  check: ({ params }) => params.teamB === true,
   data: {
-    mastery: 40,
-    cdmg: 120,
-    dmg: 40,
-	hpPct: 25,
-    enemyDef: 23
+    kx: 20
   }
-}, {
-  check: ({ params }) => (params.team === false && params.llz === true),
-  title: '正机之神四核：属性过多不予展示',
+},
+{
+  title: '元素共鸣：[愈疗之水] 生命值上限提升[hpPct]%',
+  check: ({ params }) => params.teamB === true,
   data: {
-    dmg: 139.1,//伤害加成：莫娜技能60% 枫原万叶天赋54.1% 药剂（激流精油）25%
-    mastery: 368,//元素精通提升： 莫娜（千夜浮梦）48 莫娜（教官）120 枫原万叶2命200
-	kx: 190 ,//抗性降低：枫原万叶（翠绿之影4）40% 恒常机关阵列（瘫痪）150%
-	hpPct: 50,//生命值提升：元素共鸣（愈疗之水）25% 料理（绯樱虾仙贝）25%
-    cdmg: 20//爆伤提升：料理（蒙德往事）20%
+    hpPct: 25
   }
-}, {
-  check: ({ params }) => (params.team === false && params.dh === true),
-  title: '大世界多核：属性过多不予展示',
-  data: {
-    enemyDef: 83 ,//防御降低：丽莎天赋15% 雷泽4命15% 可莉2命23% 神里绫华4命30%
-    dmg: 221.1,//伤害加成：莫娜技能60% 阿贝多（悠古的磐岩4）35% 枫原万叶天赋54.1% 丽莎（白辰之环）20% 芭芭拉2命15% 绮良良6命12% 药剂（激流精油）25%
-    mastery: 1633,//元素精通提升：砂糖天赋304 砂糖天赋50 可莉（千夜浮梦）48 温迪（教官）120  温迪（终末嗟叹之诗）200 妮露（圣显之钥）336 纳西妲天赋250 阿贝多天赋125 枫原万叶2命200
-	kx: 180 ,//抗性降低：砂糖（翠绿之影4）40% 行秋2命15% 妮露2命35% 温迪6命20% 钟离技能20% 恒常机关阵列（瘫痪）50%
-	hpPct: 50,//生命值提升：元素共鸣（愈疗之水）25% 料理（绯樱虾仙贝）25%
-    cdmg: 20//爆伤提升：料理（蒙德往事）20%
-  }
-}, 'vaporize',
-{title: '8.24最后修改：如有问题可联系1142607614反馈'}
+},
+ 'vaporize',
+{title: '8.24最后修改：[10.24重置] '}
 ]
