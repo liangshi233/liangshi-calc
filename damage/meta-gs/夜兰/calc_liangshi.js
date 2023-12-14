@@ -1,51 +1,51 @@
-export const details = [{
+export const details = [
+{
   title: '破局矢伤害',
-  params: { q: false, team: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2')
 
-},{
+},
+{
   title: '破局矢蒸发',
-  params: { q: false, team: false },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2', '蒸发')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.a['破局矢伤害'] / 100, 'a2', 'vaporize')
 
-},{
+},
+{
   title: '萦络纵命索伤害',
-  params: { q: false, team: false },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
 
-}, {
+},
+{
   title: '萦络纵命索蒸发',
-  params: { q: false, team: false },
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
 
-}, {
-
+},
+{
   title: 'Q协同单段伤害',
-  params: { q: true, team: false },
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
   }
-}, {
-
+},
+{
   title: 'Q协同单段蒸发',
-  params: { q: true, team: false },
+  params: { q: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q', '蒸发')
+    return basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q', 'vaporize')
   }
-}, {
-
+},
+{
   title: '渊图玲珑骰展开伤害',
-  params: { q: true, team: false },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
     return basic(calc(attr.hp) * (talent.q['技能伤害'] / 100), 'q')
   }
-}, {
+},
+{
   check: ({ cons }) => cons < 6,
   dmgKey: 'q',
   title: '夜莫万EE双蒸7次连携',
-  params: { q: true, team: true },
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
+    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let count = cons * 1 >= 2 ? 1 : 0
     let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
@@ -54,13 +54,14 @@ export const details = [{
       avg: 2 * e_v.avg + 4 * erming.avg * count + 21 * q.avg
     }
   }
-}, {
+},
+{
   check: ({ cons }) => cons >= 6,
   dmgKey: 'q',
   title: '夜莫万6命EaEaaaa双蒸',
-  params: { q: true, team: true },
+  params: { q: true , teamA: true },
   dmg: ({ talent, attr, calc, cons }, { basic }) => {
-    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', '蒸发')
+    let e_v = basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e', 'vaporize')
     let erming = basic(calc(attr.hp) * (14 / 100), 'q')
     let q = basic(calc(attr.hp) * (talent.q['玄掷玲珑伤害'] / 3 / 100), 'q')
     let a = basic(calc(attr.hp) * talent.a['破局矢伤害'] * 1.56 / 100, 'a2')
@@ -71,89 +72,130 @@ export const details = [{
   }
 }]
 
-export const defDmgIdx = 4
+
 export const defDmgKey = 'q'
 export const mainAttr = 'hp,cpct,cdmg'
 
-export const defParams = {
-  q: true,
-  team: true
-}
 
-
-export const buffs = [{
-  title: '夜兰天赋1：有4个不同元素类型角色时，夜兰生命值上限提高30%',
+export const buffs = [
+{
+  title: '夜兰天赋：[猜先有方] 队伍存在4种元素类型的角色时夜兰的生命值上限提升[hpPct]%',
+  sort: 1,
   data: {
     hpPct: 30
   }
-}, {
-  title: '夜兰4命：E络命丝爆发提高生命值，满Buff下提高40%',
+},
+{
+  title: '夜兰天赋：[猜先有方] 「玄掷玲珑」存在期间，能使队伍中自己的当前场上角色造成的伤害提高至多[dmg]%',
+  check: ({ params }) => params.q === true,
+  data: {
+    dmg: 50
+  }
+},
+{
+  title: '夜兰4命：[诓惑者，接树移花] 依照「络命丝」标记敌人的数量,至多获得[hpPct]%生命值上限',
+  sort: 1,
   cons: 4,
   data: {
     hpPct: 40
   }
-}, {
-  title: '夜兰天赋2：Q持续过程中满层Buff下提高伤害50%',
+},
+{
+  title: '夜兰6命：[取胜者，大小通吃] 「运筹帷幄」状态普通攻击将转为发射特殊的「破局矢」造成的伤害视为重击伤害，能造成破局矢[_aMulti]%的伤害',
+  cons: 6,
   data: {
-    dmg: ({ params }) => params.q ? 50 : 0
+    _aMulti: 156
   }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
+},
+{
+  title: '枫原万叶圣遗物：[翠绿之影4] 根据扩散的元素类型，降低受到影响的敌人[kx]%的对应元素抗性',
+  check: ({ params }) => params.teamA === true,
   data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 40,
-    atkPct: 20,
     kx: 40
   }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  check: ({ params , cons }) => (cons < 6 && cons > 1) && params.teamA === true,
+  sort: 1,
   data: {
+    atkPct: 20,
     aDmg: 16,
     a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 48,
-    atkPct: 20,
-    kx: 40,
-    mastery: 200
+    a3Dmg: 16
   }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+},
+{
+  title: '枫原万叶武器：[苍古自由之誓-精5] 消耗所有奋起之符使附近队伍中所有角色获得[aDmg]%普通攻击,重击,下落攻击伤害提升和[atkPct]%攻击力',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  sort: 1,
   data: {
+    atkPct: 40,
     aDmg: 32,
     a2Dmg: 32,
-    a3Dmg: 32,
-    dmg: 48,
-    atkPct: 40,
-    kx: 40,
+    a3Dmg: 32
+  }
+},
+{
+  title: '枫原万叶2命：[山岚残芯] 万叶之一刀的流风秋野其中的场上角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 2 && params.teamA === true,
+  sort: 1,
+  data: {
     mastery: 200
   }
-}, {
-  check: ({ cons, params }) => (cons >= 2 && params.team === true),
-  title: '千夜教官满命莫娜：获得[dmg]%增伤,暴击[cpct]%,精通[mastery]',
+},
+{
+  title: '枫原万叶天赋：[风物之诗咏] 触发扩散反应后枫原万叶会为队伍中所有角色提供[dmg]%对应元素伤害加成',
+  check: ({ params }) => params.teamA === true,
   data: {
-    dmg: 60,
-    vaporize:15,
-    cpct: 15,
-    mastery: 168
+    dmg: 40
   }
-}, {
-  check: ({ cons, params }) => (cons < 2 && params.team === true),
-  title: '千夜教官0命莫娜：获得[dmg]%增伤,精通[mastery]',
+},
+{
+  title: '莫娜圣遗物：[教官4] 	触发元素反应后。队伍中所有角色元素精通提高[mastery]%点',
+  check: ({ params }) => params.teamA === true,
+  sort: 1,
   data: {
-    dmg: 60,
-    mastery: 168
+    mastery: 120
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
+},
+{
+  title: '莫娜武器：[千夜浮梦-精1] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons < 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 40
+  }
+},
+{
+  title: '莫娜武器：[千夜浮梦-精5] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 48
+  }
+},
+{
+  title: '莫娜4命：[灭绝的预言] 队伍中所有角色攻击处于星异状态下的敌人时,暴击率提升[cpct]%',
+  check: ({ params , cons }) => cons >= 4 && params.teamA === true,
+  data: {
+    cpct: 15
+  }
+},
+{
+  title: '莫娜技能：[星命定轨] 对敌人施加星异的伤害加成效果,并以此提高[dmg]%这一次造成的伤害',
+  check: ({ params  }) => params.teamA === true,
+  data: {
+    dmg: 60
+  }
+},
+{
+  title: '元素共鸣：[愈疗之水] 生命值上限提升[hpPct]%',
+  check: ({ params }) => params.teamA === true,
   data: {
     hpPct: 25
   }
-}, 'vaporize',
-{title: '8.26最后修改：如有问题可联系1142607614反馈'}
+},
+ 'vaporize',
+{title: '8.24最后修改：[10.24重置] '}
 ]
