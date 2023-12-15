@@ -2,5 +2,5 @@
 autoRestart: false
 #是否自动刷新预设面板
 autoRefresh: true
-#自动刷新预设面板的版本( 0：用户自定义  1：liangshi )
+#自动刷新预设面板的版本( 0：用户自定义  1：liangshi  2：liangshi(带主角版) )
 panelmodel: 1
