@@ -131,7 +131,7 @@ export const details = [
 },
 {
   title: '众水的歌者总治疗',
-  dmg: ({ talent, attr, calc }, { heal }) => heal( ( talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1 ) * ( 14 + 3 * ( Math.min( 40 , calc(attr.hp) / 1000 ) / 40 ) ) )
+  dmg: ({ talent, attr, calc }, { heal }) => heal( ( talent.e['众水的歌者治疗量2'][0] * calc(attr.hp) / 100 + talent.e['众水的歌者治疗量2'][1] * 1 ) * ( 14 + Math.floor( 3 * ( Math.min( 40 , calc(attr.hp) / 1000 ) / 40 ) ) ) )
 },
 {
   title: '众水的歌者Q后期望治疗',
@@ -231,7 +231,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
-	  let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
+	let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
     return {
       dmg: e1.dmg * 17 + e2.dmg * 8 + e3.dmg * 6 ,
       avg: e1.avg * 17 + e2.avg * 8 + e3.avg * 6
@@ -244,7 +244,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
-	  let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
+	let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
     return {
       dmg: e1.dmg * 17 + e2.dmg * 8 + e3.dmg * 6 ,
       avg: e1.avg * 17 + e2.avg * 8 + e3.avg * 6
@@ -257,7 +257,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
-	  let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
+	let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
     return {
       dmg: e1.dmg * 17 + e2.dmg * 8 + e3.dmg * 6 ,
       avg: e1.avg * 17 + e2.avg * 8 + e3.avg * 6
@@ -270,7 +270,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
-	  let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
+	let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
     return {
       dmg: e1.dmg * 17 + e2.dmg * 8 + e3.dmg * 6 ,
       avg: e1.avg * 17 + e2.avg * 8 + e3.avg * 6
@@ -283,7 +283,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => {
     let e1 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.4 , 'e')
     let e2 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.4 , 'e')
-	  let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
+	let e3 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.4 , 'e')
     return {
       dmg: e1.dmg * 17 + e2.dmg * 8 + e3.dmg * 6 ,
       avg: e1.avg * 17 + e2.avg * 8 + e3.avg * 6
@@ -370,7 +370,7 @@ export const details = [
     let e1 = e1Dmg
     let e2 = basic(calc(attr.hp) * talent.e['海薇玛夫人伤害'] / 100 * 1.1 , 'e')
     let e3 = basic(calc(attr.hp) * talent.e['乌瑟勋爵伤害'] / 100 * 1.1 , 'e')
-	  let e4 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
+	let e4 = basic(calc(attr.hp) * talent.e['谢贝蕾妲小姐伤害'] / 100 * 1.1 , 'e')
     let q1 = q1Dmg
     let cons6 = cons * 1 >= 6 ? 1 : 0
     return {
@@ -605,9 +605,10 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '12.14最后修改：[11.28重置] 为气氛值增加层数显示'}
+{title: '12.16最后修改：[11.28重置] 略微优化E完整治疗条目,使其更加合理'}
 ]
 /*
 这里放的是历史更新日志
+{title: '12.14最后修改：[11.28重置] 为气氛值增加层数显示'}
 {title: '12.7最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}
 */

@@ -1395,6 +1395,87 @@
       "q": 3
     }
   },
+  "20000001": {
+    "id": 20000001,
+    "name": "无元素",
+    "abbr": "无元素",
+    "star": 5,
+    "elem": "multi",
+    "weapon": "sword",
+    "talentId": {
+      "100553": "a"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 0,
+      "q": 0
+    }
+  },
+  "20000002": {
+    "id": 20000002,
+    "name": "风元素",
+    "abbr": "风元素",
+    "star": 5,
+    "elem": "anemo",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 5,
+      "q": 3
+    }
+  },
+  "20000003": {
+    "id": 20000003,
+    "name": "岩元素",
+    "abbr": "岩元素",
+    "star": 5,
+    "elem": "geo",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 5,
+      "q": 3
+    }
+  },
+  "20000004": {
+    "id": 20000004,
+    "name": "雷元素",
+    "abbr": "雷元素",
+    "star": 5,
+    "elem": "electro",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 5,
+      "q": 3
+    }
+  },
+  "20000005": {
+    "id": 20000005,
+    "name": "草元素",
+    "abbr": "草元素",
+    "star": 5,
+    "elem": "dendro",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 3,
+      "q": 5
+    }
+  },
+  "20000006": {
+    "id": 20000006,
+    "name": "水元素",
+    "abbr": "水元素",
+    "star": 5,
+    "elem": "hydro",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 3,
+      "q": 5
+    }
+  },
   "20000099": {
     "id": 20000099,
     "name": "派蒙",
