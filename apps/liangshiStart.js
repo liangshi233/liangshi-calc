@@ -3,16 +3,16 @@ import { Restart } from '../../../plugins/other/restart.js'
 import fs from 'node:fs'
 import path from 'path'
 import _ from 'lodash'
-import YAML from 'yaml'
+import LSconfig from '../components/LSconfig.js'
 
 const _path = process.cwd()
-const liangshiData = path.join(`${_path}/data`, `liangshiData`)
+const liangshiData = path.join(`${_path}/data`, 'liangshiData')
 const files = ['cfg.js', 'cfg_system.js', 'ProfileDmg.js']
-const miaoPaths = _.map([`config`, `config/system`, `models`], (v) => `${_path}/plugins/miao-plugin/${v}`)
+const miaoPaths = _.map(['config', 'config/system', 'models'], (v) => `${_path}/plugins/miao-plugin/${v}`)
 const dataFiles = _.map(files, (v) => `${_path}/data/liangshiData/${v}`)
 
 export class allSetting extends plugin {
-  constructor() {
+  constructor () {
     super({
       name: '插件初始化',
       dsc: '初始化',
@@ -42,10 +42,10 @@ export class allSetting extends plugin {
           {
               reg: '^#?(梁氏|liangshi)开启重置版拓展$',
               fnc: 'resettingStart'
-          }*/
-      ],
+          } */
+      ]
     })
-    this.cfg = this.getLScfg()
+    this.cfg = LSconfig.getConfig('user', 'config')
   }
 
   async init () {
@@ -61,12 +61,12 @@ export class allSetting extends plugin {
       let filename = files[k]
       let miaofile = `${miaoPaths[k]}/${filename}`
       let liangshiFile = `${_path}/plugins/liangshi-calc/replace`
-       if (k > 0) {
-         if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
-         fs.copyFileSync(`${liangshiFile}/${filename}`, miaofile)
-       }
+      if (k > 0) {
+        if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
+        fs.copyFileSync(`${liangshiFile}/${filename}`, miaofile)
+      }
     })
-    logger.mark(`[liangshi]替换成功，本次替换未执行备份`)
+    logger.mark('[liangshi]替换成功，本次替换未执行备份')
     await this.e.reply(`替换成功，${this.cfg.autoRestart ? '重启中,请稍后.' : '请手动重启以更新'}`, true)
     if (this.cfg.autoRestart) this.restartApp()
     return true
@@ -106,20 +106,6 @@ export class allSetting extends plugin {
     if (this.cfg.autoRestart) this.restartApp()
     await this.e.reply(msg, true)
     return true
-
-    /** 写入开关 */
-    /* byd跟着readme多写的东西👇👇👇
-        fs.readFile(`${_path}/plugins/miao-plugin/config/cfg.js`, 'utf8', function (err, data) {
-            if (err) throw err;
-            const teamLiang = `\n// 梁氏开关\nexport const teamLiang = true`;
-            const position = data.indexOf('export const artisNumber = ');
-            const endPosition = data.indexOf('\n', position);
-            const newData = data.slice(0, endPosition + 1) + teamLiang + '\n' + data.slice(endPosition + 1);
-            fs.writeFile(`${_path}/plugins/miao-plugin/config/cfg.js`, newData, function (err) {
-                if (err) throw err;
-            })
-        })
-        */
   }
 
   async liangshiByebye () {
@@ -143,7 +129,7 @@ export class allSetting extends plugin {
     return true
   }
 
-  async panelStart() {
+  async panelStart () {
     this.cpPanels()
     await this.e.reply('预设面板刷新完成发送[#预设面板]查看预设面板指令', true)
     return true
@@ -151,9 +137,9 @@ export class allSetting extends plugin {
 
   cpPanels () {
     let panelPath = `${this.cfg.panelmodel}`
-    if ( this.cfg.panelmodel === undefined ) {
-    logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
-    panelPath = 1
+    if (panelPath === undefined) {
+      logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
+      panelPath = 1
     }
     const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/0${panelPath}`
     const replaceFiles = [
@@ -165,10 +151,6 @@ export class allSetting extends plugin {
         liangshi: `${liangshiPath}/PlayerData/sr`,
         miao: `${_path}/data/PlayerData/sr`,
         type: '.json'
-      }, {
-        liangshi: liangshiPath,
-        miao: `${_path}/plugins/example`,
-        type: '.js'
       }
     ]
 
@@ -178,13 +160,15 @@ export class allSetting extends plugin {
         fs.copyFileSync(`${v.liangshi}/${f}`, `${v.miao}/${f}`)
       })
     })
-  }
 
-  getLScfg () {
-    let def = `${_path}/plugins/liangshi-calc/config/system/config.yaml`
-    let user = `${_path}/plugins/liangshi-calc/config/config.yaml`
-    if (!fs.existsSync(user)) fs.copyFileSync(def, user)
-    return fs.existsSync(user) ? YAML.parse(fs.readFileSync(user, 'utf8')) : {}
+    // 删除历史遗留js
+    const delFiles = ['预设替换', '预设面板']
+    _.each(delFiles, v => {
+      let file = `./plugins/example/${v}.js`
+      if (fs.existsSync(file)) {
+        fs.unlinkSync(file)
+      }
+    })
   }
 
   async restartApp () {
