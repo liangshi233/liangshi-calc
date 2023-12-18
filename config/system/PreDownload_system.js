@@ -41,6 +41,16 @@ const PreDownloadList =
       "icon": 2,
       "title": "4.2.0",
       "desc": "4.24GB"
+    },
+    {
+      "icon": 1,
+      "title": "4.3.0",
+      "desc": "12.54GB"
+    },
+    {
+      "icon": 2,
+      "title": "4.3.0",
+      "desc": "3.59GB"
     }
   ]
 }
