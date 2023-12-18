@@ -1,11 +1,9 @@
-import PreDownloadList from '../config/system/PreDownload_system.js'
+import LSconfig from './LSconfig.js'
 
 let helpUtil = {
-
-    getList() {
-        return PreDownloadList
-    }
-
-
+  getList () {
+    return LSconfig.preDownload
+  }
 }
-export default helpUtil 
+
+export default helpUtil
