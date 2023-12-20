@@ -13,21 +13,22 @@ export const details = [
 },
 {
   title: '3消耗典仪式晶火',
+  params: { jp: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
 },
 {
   title: '4消耗典仪式晶火',
-  params: { jp: 1 },
+  params: { jp: 4 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
 },
 {
   title: '5消耗典仪式晶火',
-  params: { jp: 2 },
+  params: { jp: 5 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
 },
 {
   title: '6消耗典仪式晶火',
-  params: { jp: 3 },
+  params: { jp: 6 },
   dmg: ({ talent }, dmg) => dmg(talent.e['玫瑰晶弹基础伤害'] * 2 , 'e')
 },
 {
@@ -45,9 +46,10 @@ export const mainAttr = 'atk,cpct,cdmg'
 export const buffs = [
 {
   check: ({ params }) => params.jp !== undefined ,
-  title: '娜维娅技能：[典仪式晶火] 消耗的「裂晶弹片」超过3枚时,将使本次射击造成的伤害额外提升[eDmg]%',
+  title: '娜维娅技能：[典仪式晶火] 消耗[_count]枚弹片将使本次射击造成的伤害额外提升[eDmg]%',
   data: {
-    eDmg: ({ params }) => params.jp * 15
+    _count: ({ params }) => params.jp ,
+    eDmg: ({ params }) => ( params.jp - 3 ) * 15
   }
 },
 {
@@ -89,12 +91,12 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.jp !== undefined ,
-  title: '娜维娅6命：[刺玫会长的灵活手腕] 施放典仪式晶火时，若消耗的「裂晶弹片」超过3枚,将使本次典仪式晶火的暴击伤害提升[eCdmg]%',
+  title: '娜维娅6命：[刺玫会长的灵活手腕] 施放典仪式晶火时，消耗[_count]枚弹片,使本次典仪式晶火的暴击伤害提升[eCdmg]%',
   cons: 6,
   data: {
-    eCdmg :  ({ params }) => Math.min( 135 , params.jp * 45 )
+    _count: ({ params }) => params.jp ,
+    eCdmg :  ({ params }) => Math.min( 135 , ( params.jp - 3 ) * 45 )
   }
 },
- {title: '测试内容：[4.2.54] 数据随时可能更改，请注意时效性'},
- {title: '11.30最后修改：[11.8重置] '}
+ {title: '12.21最后修改：[11.8重置] '}
 ]
