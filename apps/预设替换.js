@@ -35,6 +35,7 @@ export class ysmb_input_replace extends plugin {
         let reg = RegExp(key)
         if (!reg.test(e.msg)) continue
         let keywords = Object.keys(replace_list)
+        if (keywords.includes(e.msg)) return e.msg
         let index = keywords.indexOf(key);
         let msg = e.msg.split('换')
         let result = msg.map((element) => {
