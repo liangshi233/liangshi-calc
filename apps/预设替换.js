@@ -34,13 +34,32 @@ export class ysmb_input_replace extends plugin {
       try {
         let reg = RegExp(key)
         if (!reg.test(e.msg)) continue
+        let keywords = Object.keys(replace_list)
+        let index = keywords.indexOf(key);
         let msg = e.msg.split('换')
-        if (msg.length > 1) {
-          let msgone = await set(e, msg[0], true)
-          let msgtwo = await set(e, msg[1], false)
-          e.msg = msgone + '换' + msgtwo
+        let result = msg.map((element) => {
+          if (element.includes(key)) {
+            return element.replace(key,'10000000' + index);
+          } else {
+            return element;
+          }
+        });
+        let Msg = msg[0]
+        if (/极限|核爆|辅助|平民|毕业|试用/.test(Msg)) {
+          Msg = Msg.replace(/#*(星铁)?(极限|核爆|辅助|平民|毕业|试用)(面板|圣遗物|伤害|武器)?/g, '');
+          let mb = `${Msg}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}`
+          Msg =  `#${mb}10000000${index}`
         } else {
-          e.msg = await set(e, e.msg, true)
+           Msg = msg[0]
+        }
+        let filteredMsg = result.filter(element => element !== result[0]);
+        filteredMsg = filteredMsg.map((msgs) =>'换' + msgs).join('');
+        let msgone = Msg
+        if (msg.length > 1) {
+          let msgtwo = filteredMsg
+          e.msg = msgone + msgtwo
+        } else {
+          e.msg = msgone
         }
       } catch (err) { }
     }
@@ -69,20 +88,4 @@ export class ysmb_input_replace extends plugin {
     await this.e.reply(help.join('\n'))
     return true
   }
-}
-
-async function set (e, msg, s) {
-  msg = msg.replace(/#|极限|核爆|辅助|平民|毕业|试用|详情|详细/g, '')
-  const keywords = Object.keys(replace_list)
-  if (keywords.includes(e.msg)) return e.msg
-
-  const mb = `${msg}${/伤害|圣遗物|武器|面板/.test(e.msg) ? '' : '面板'}`
-  keywords.forEach((v, k) => {
-    let reg = new RegExp(v)
-    if (reg.test(e.msg)) {
-      if (s) msg = `#${mb}10000000${k}`
-      else msg = `10000000${k}${msg}`
-    }
-  })
-  return msg
 }
