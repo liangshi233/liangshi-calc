@@ -8,8 +8,8 @@ import LSconfig from '../components/LSconfig.js'
 const _path = process.cwd()
 const liangshiData = path.join(`${_path}/data`, 'liangshiData')
 const files = ['cfg.js', 'cfg_system.js', 'ProfileDmg.js']
-const miaoPaths = _.map(['config', 'config/system', 'models'], (v) => `${_path}/plugins/miao-plugin/${v}`)
-const dataFiles = _.map(files, (v) => `${_path}/data/liangshiData/${v}`)
+const miaoPaths = _.map(['config', 'config/system', 'models'], v => `${_path}/plugins/miao-plugin/${v}`)
+const dataFiles = _.map(files, v => `${liangshiData}/${v}`)
 
 export class allSetting extends plugin {
   constructor () {
@@ -23,18 +23,15 @@ export class allSetting extends plugin {
           reg: '^#?梁氏([，,])?启动([！!])?$',
           fnc: 'liangshiStart',
           permission: 'master'
-        },
-        {
+        }, {
           reg: '^#?梁氏强制替换$',
           fnc: 'liangshiReplace',
           permission: 'master'
-        },
-        {
+        }, {
           reg: '^#?梁氏(恢复|复)(原|原有|原来的)?配置(文件)?$',
           fnc: 'liangshiByebye',
           permission: 'master'
-        },
-        {
+        }, {
           reg: '^#?(梁氏|liangshi)?(刷新|重置|初始化|更新)预设面板$',
           fnc: 'panelStart',
           permission: 'master'
@@ -57,10 +54,10 @@ export class allSetting extends plugin {
   }
 
   async liangshiReplace () {
+    const liangshiFile = `${_path}/plugins/liangshi-calc/replace`
     _.each(dataFiles, (v, k) => {
       let filename = files[k]
       let miaofile = `${miaoPaths[k]}/${filename}`
-      let liangshiFile = `${_path}/plugins/liangshi-calc/replace`
       if (k > 0) {
         if (fs.existsSync(miaofile)) fs.unlinkSync(miaofile)
         fs.copyFileSync(`${liangshiFile}/${filename}`, miaofile)
@@ -74,12 +71,10 @@ export class allSetting extends plugin {
 
   async liangshiStart () {
     /** 备份原文件，防止后悔 */
-    if (!fs.existsSync(liangshiData)) {
-      fs.mkdirSync(liangshiData)
-    }
+    if (!fs.existsSync(liangshiData)) fs.mkdirSync(liangshiData)
 
-    let liangshiFile = `${_path}/plugins/liangshi-calc/replace`
-    let checkFile = []
+    const liangshiFile = `${_path}/plugins/liangshi-calc/replace`
+    const checkFile = []
     _.each(dataFiles, (v, k) => {
       let filename = files[k]
       let miaofile = `${miaoPaths[k]}/${filename}`
@@ -136,8 +131,8 @@ export class allSetting extends plugin {
   }
 
   cpPanels () {
-    let panelPath = `${this.cfg.panelmodel}`
-    if (panelPath === undefined) {
+    let panelPath = this.cfg.panelmodel
+    if (!panelPath) {
       logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
       panelPath = 1
     }
