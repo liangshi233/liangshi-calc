@@ -32,7 +32,7 @@ export const details = [
   check: ({ cons }) => cons >= 1,
   title: '1命会合治疗量',
   dmg: ({ attr, calc }, { heal }) =>
-    heal( calc(attr.hp) * 6 / 100 )
+    heal( calc(attr.hp) * 15 / 100 )
 }]
 
 export const defDmgIdx = 2
@@ -70,5 +70,5 @@ export const buffs = [
   }
 },
 {title: '测试内容：[4.3.50] 数据随时可能更改，请注意时效性'},
-{title: '12.21最后修改：[12.18重置] '}
+{title: '12.26最后修改：[12.18重置] '}
 ]
