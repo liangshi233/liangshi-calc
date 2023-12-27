@@ -49,6 +49,7 @@ export const defParams = { team: true , soda: 1 }
 
 export const buffs = [{
   title: '元素爆发：诺艾尔开Q基于防御力提高攻击力[atkPlus]',
+  sort: 9,
   data: {
     atkPlus: ({ attr, calc, talent }) => talent.q['攻击力提高'] * calc(attr.def) / 100
   }
@@ -60,6 +61,7 @@ export const buffs = [{
    }
  }, {
   title: '诺艾尔6命：诺艾尔开Q基于防御力提高攻击力[atkPlus]',
+  sort: 9,
   cons: 6,
   data: {
     atkPlus: ({ attr, calc, talent }) => calc(attr.def) * 0.5
@@ -89,6 +91,6 @@ export const buffs = [{
      kx: 20
    }
 },
-{title: '5.31最后修改：如有问题可联系1142607614反馈'}
+{title: '5.31最后修改：修复攻击提升不正确的问题'}
 ]
 

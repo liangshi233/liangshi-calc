@@ -45,6 +45,7 @@ export const details = [{
   
   export const buffs = [{
     title: '荒泷一斗天赋2：荒泷逆袈裟造成的伤害基于防御值提高[a2Plus]',
+    sort: 9,
     data: {
       a2Plus: ({ attr, calc }) => calc(attr.def) * 0.35
     }
@@ -56,6 +57,7 @@ export const details = [{
     }
   }, {
     title: '荒泷一斗大招：怒目鬼王状态提高攻击力[atkPlus]',
+    sort: 9,
     data: {
       atkPlus: ({ attr, calc, talent }) => talent.q['攻击力提高'] * calc(attr.def) / 100
     }
@@ -84,6 +86,6 @@ export const details = [{
     kx: 20
   }
 },
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.27最后修改：修复攻击力提升不正确的问题'}
 ]
   

@@ -91,8 +91,8 @@ export const buffs = [{
 }, {
   title: '纳西妲天赋2：基于元素精通提升灭净三业伤害[eDmg]%，暴击率[eCpct]%',
   data: {
-    eDmg: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(80, (calc(attr.mastery) - 200) * 0.1),
-    eCpct: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min(24, (calc(attr.mastery) - 200) * 0.03)
+    eDmg: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min( 80, ( Math.max( calc(attr.mastery) , 200 ) - 200 ) * 0.1 ),
+    eCpct: ({ calc, attr, params }) => (params.e ? 0 : 1) * Math.min( 24, ( Math.max( calc(attr.mastery) , 200 ) - 200 ) * 0.03 )
   }
 }, {
   title: '纳西妲Q：开Q提升灭净三业伤害[eDmg]%',
@@ -151,5 +151,5 @@ export const buffs = [{
     mastery: 100
   }
 },
- {title: '3.25最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.27最后修改：修复精通低于200时伤害倒扣问题'}
 ]
