@@ -34,10 +34,10 @@ export class ysmb_input_replace extends plugin {
       try {
         let reg = RegExp(key)
         if (!reg.test(e.msg)) continue
-        let keywords = Object.keys(replace_list)
-        if (keywords.includes(e.msg)) return e.msg
-        let index = keywords.indexOf(key);
         let msg = e.msg.split('换')
+        let keywords = Object.keys(replace_list)
+        if (keywords.includes(msg[0])) return msg[0]
+        let index = keywords.indexOf(key);
         let result = msg.map((element) => {
           if (element.includes(key)) {
             return element.replace(key,'10000000' + index);
@@ -45,11 +45,13 @@ export class ysmb_input_replace extends plugin {
             return element;
           }
         });
-        let Msg = msg[0]
-        if (/极限|核爆|辅助|平民|毕业|试用/.test(Msg)) {
-          Msg = Msg.replace(/#*(星铁)?(极限|核爆|辅助|平民|毕业|试用)(面板|圣遗物|伤害|武器)?/g, '');
-          let mb = `${Msg}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}`
-          Msg =  `#${mb}10000000${index}`
+        let Msg = result[0]
+        if (reg.test(msg[0])) {
+           Msg = Msg.replace(/#*(星铁)?(面板|圣遗物|伤害|武器)?/g, '');
+           let mb = `${Msg}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}`
+           const number = mb.match(/\d+/);
+           const text = mb.replace(number,'');
+           Msg = '#' + text + number
         } else {
            Msg = msg[0]
         }
