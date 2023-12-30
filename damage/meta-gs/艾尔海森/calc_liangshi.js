@@ -111,6 +111,7 @@ export const defParams = {
 
 export const buffs = [ {
   title: '艾尔海森天赋2：基于元素精通提升光幕与显象缚结伤害[eDmg]%',
+  sort: 9,
   data: {
     eDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
     qDmg: ({ calc, attr }) => Math.min(100, (calc(attr.mastery) ) * 0.1),
@@ -201,5 +202,5 @@ export const buffs = [ {
     mastery: 100
   }
 },
- {title: '1.30最后修改：如有问题可联系1142607614反馈'}
+ {title: '12.30最后修改：修复天赋加成异常'}
  ]

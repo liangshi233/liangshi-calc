@@ -80,6 +80,7 @@ export const buffs = [
 },
 {
   title: '芙宁娜天赋：[无人听的自白] 处于不同始基力属性下的芙宁娜的孤心沙龙获得增益效果,「沙龙成员」造成的伤害提升[eDmg]%,「众水的歌者」为周围的当前场上角色恢复生命值的间隔降低[_eSpeed]%',
+  sort: 9,
   data: {
     eDmg: ({ calc, attr }) => Math.min( 28 , ( calc(attr.hp) ) / 1000 * 0.7 ),
     _eSpeed: ({ calc, attr }) => Math.min( 16 , ( calc(attr.hp) ) / 1000 * 0.4 ),
@@ -200,5 +201,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '11.28最后修改：[11.6重置]'}
+{title: '11.28最后修改：[11.6重置] 修正天赋加成异常'}
 ]
