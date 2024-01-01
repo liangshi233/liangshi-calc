@@ -1,5 +1,7 @@
 # liangshi-calc
 
+#### QQ被封力,有问题只能去群里反馈了807622774
+
 #### liangshi-calc是一个Miao-Plugin的面板拓展插件
 使用说明（需要安装Miao-Plugin才能使用）
 ~~~~~~~~~~
