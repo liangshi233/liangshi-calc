@@ -62,11 +62,11 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 BUG较多，不建议开启，删除注释后请按提示操作
 ~~~~~~~~~~
 ---
+
 > 其他资源位置
 
 |                              gitee                                |                               github                            |          名称       |
 |:-----------------------------------------------------------------:|:---------------------------------------------------------------:|:------------------:|
-|      [测试中](https://gitee.com/liangshi233/resources)             |     [测试中](https://github.com/liangshi233/resources)           | 配套评分拓展         |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)        |    [github](https://github.com/yoimiya-kokomi/Miao-Yunzai)      | Miao Zai           |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)         |    [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)       | Miao-Yunzai        |
 |      [gitee](https://gitee.com/le-niao/Yunzai-Bot)                |    [github](https://github.com/le-niao/Yunzai-Bot)              | Yunzai-Bot         |

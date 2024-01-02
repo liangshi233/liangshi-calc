@@ -107,17 +107,29 @@ export const cfgSchema = {
         def: false,
         desc: '伤害计算包含组队Buff。目前为测试阶段，数据可能不准确，请慎重开启。数据为固定Buff而非真实面板数据，最终计算数值可能有偏差。开启后请重启喵喵'
       },
-      teamLiang: {
+      calcLiang: {
         title: 'liangshi版伤害计算',
-        key: '梁氏',
+        key: '梁氏计算',
         def: true,
         desc: 'liangshi版的伤害计算展示'
       },
-      teamLiangQ: {
+      calcLiangQ: {
         title: 'liangshi版超全伤害计算',
-        key: '超全',
+        key: '超全计算',
         def: false,
         desc: 'liangshi版超全伤害计算展示。条目过多非常影响观感，不建议开启'
+      },
+      artisLiang: {
+        title: 'liangshi版圣遗物评分展示',
+        key: '梁氏评分',
+        def: false,
+        desc: 'liangshi版圣遗物评分展示。'
+      },
+      artisLiangZ: {
+        title: 'liangshi版圣遗物评分展示',
+        key: '自动评分',
+        def: false,
+        desc: 'liangshi版自适应评分展示。目前仅支持单一玩法且正在测试，不建议开启'
       },
       artisNumber: {
         title: '圣遗物列表数量',

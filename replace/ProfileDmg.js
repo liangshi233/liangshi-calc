@@ -23,14 +23,14 @@ export default class ProfileDmg extends Base {
     const _path = process.cwd()
     let dmgFile = [
       { file: 'calc_user', name: '自定义伤害' },
-      { file: 'calc_liangshiQ', name: '梁氏超全计算' , test: () => Common.cfg('teamLiangQ') },
-      { file: 'calc_liangshi', name: '梁氏基础计算' , test: () => Common.cfg('teamLiang') },
+      { file: 'calc_liangshiQ', name: '梁氏超全计算' , test: () => Common.cfg('calcLiangQ') },
+      { file: 'calc_liangshi', name: '梁氏基础计算' , test: () => Common.cfg('calcLiang') },
       { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
       { file: 'calc', name: '喵喵' }
     ]
     for (let ds of dmgFile) {
       let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
-      if ( Common.cfg('teamLiang') || Common.cfg('teamLiangQ') ) {
+      if ( Common.cfg('calcLiang') || Common.cfg('calcLiangQ') ) {
         path = `${_path}/plugins/liangshi-calc/damage/meta-${game}/${name}/${ds.file}.js`
         if (!fs.existsSync(path)) {
           path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
