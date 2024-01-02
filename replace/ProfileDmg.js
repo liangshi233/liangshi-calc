@@ -30,11 +30,11 @@ export default class ProfileDmg extends Base {
     ]
     for (let ds of dmgFile) {
       let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
-      if ( Common.cfg('teamLiangQ') ) {
-      path = `${_path}/plugins/liangshi-calc/damage/meta-${game}/${name}/${ds.file}.js`
-      }
-      if ( Common.cfg('teamLiang') ) {
-      path = `${_path}/plugins/liangshi-calc/damage/meta-${game}/${name}/${ds.file}.js`
+      if ( Common.cfg('teamLiang') || Common.cfg('teamLiangQ') ) {
+        path = `${_path}/plugins/liangshi-calc/damage/meta-${game}/${name}/${ds.file}.js`
+        if (!fs.existsSync(path)) {
+          path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+        }
       }
       if (ds.test && !ds.test()) {
         continue
