@@ -71,26 +71,3 @@ export default function ({ attr, artis, rule, def, cons }) {
   }
   return def({ hp: 80, atk: 75, def: 0, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 50, recharge: 55, heal: 0 })
 }
-
-
-/*
-
-//以下为Beta调试内容
-
-//生命曲线
-//y=a/(x+b)
-
-//0.004=a/(86+b)
-//0.006=a/b
-
-//y=1.032/(x+172)
-
-//岩伤曲线
-//y=a/(x+b)
-
-//0.008=a/(63+b)
-//0.0117=a/b
-
-//y=1.5937/(x+136.21621)
-
-*/
