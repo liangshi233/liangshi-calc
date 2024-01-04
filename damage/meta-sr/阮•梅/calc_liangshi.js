@@ -83,6 +83,7 @@ export const details = [
 }
 ]
 
+export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,stance'
 
 export const buffs = [
@@ -155,4 +156,4 @@ export const buffs = [
   cons: 6
 },
 {
-title: '12.29最后修改：[12.28重置]'}]
+title: '1.4最后修改：[12.28重置] 增加排名规则'}]
