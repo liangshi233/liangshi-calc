@@ -9,7 +9,7 @@ export const details = [
   title: '战技Buff加伤',
   dmg: ({ talent , cons , calc , attr }) => {
     return {
-      avg: Format.percent(talent.e['伤害提高'] + ( ( calc(attr.stance >= 120) ) ? ( Math.min( 36 , ( calc(attr.stance) - 120 ) / 10 * 6 ) ) : 0 ) ),
+      avg: Format.percent(talent.e['伤害提高'] + ( ( calc(attr.stance) >= 120 ) ? ( Math.min( 36 , ( calc(attr.stance) - 120 ) / 10 * 6 ) / 100 ) : 0 ) ),
       type: 'text'
     }
   }
@@ -155,5 +155,9 @@ export const buffs = [
   title: '阮•梅6魂：[半脱纱巾落团扇] 天赋造成的击破伤害倍率额外提高200%',
   cons: 6
 },
-{
-title: '1.4最后修改：[12.28重置] 增加排名规则'}]
+{title: '1.4最后修改：[12.28重置] 修复天赋加成显示异常'}]
+
+/*
+以下是更新日志
+{title: '1.4最后修改：[12.28重置] 增加排名规则'}
+*/
