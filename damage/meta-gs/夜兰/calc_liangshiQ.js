@@ -1,4 +1,4 @@
-import { Format } from '#miao'
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 export const details = [
 {
@@ -466,5 +466,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '8.24最后修改：[10.24重置] '}
+{title: '1.5最后修改：[10.24重置] 修复非Miao仔情况下可能报错的问题'}
 ]

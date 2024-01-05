@@ -58,7 +58,7 @@ export const calcLiangQ = false
 export const artisLiang = false
 
 // liangshi版自适应评分展示。开启后请重启喵喵
-export const artisLiang = false
+export const artisLiangZ = false
 
 // 可选值4~100，建议28，最终圣遗物数量取决于面板内圣遗物数量。设置高圣遗物数量会提高图片的长度，图片较大可能会影响渲染与发送速度
 export const artisNumber = 100

@@ -1,11 +1,11 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let aeDmg = false
-let a1Dmg = false
-let a2Dmg = false
-let a3Dmg = false
-let a4Dmg = false
-let a5Dmg = false
+let aeDmg = { dmg: 0 , avg: 0 }
+let a1Dmg = { dmg: 0 , avg: 0 }
+let a2Dmg = { dmg: 0 , avg: 0 }
+let a3Dmg = { dmg: 0 , avg: 0 }
+let a4Dmg = { dmg: 0 , avg: 0 }
+let a5Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {
@@ -428,5 +428,9 @@ export const buffs = [
     kx: 20
   }
 },
- {title: '12.10最后修改：[10.22重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+ {title: '1.5最后修改：[10.22重置] 修复部分情况下部分计算Nan的问题'}
  ]
+/*
+这里放的是历史更新日志
+{title: '12.10最后修改：[10.22重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+*/

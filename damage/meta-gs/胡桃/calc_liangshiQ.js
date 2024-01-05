@@ -1,12 +1,12 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let a1Dmg = false
-let a2Dmg = false
-let a3Dmg = false
-let a4Dmg = false
-let a5Dmg = false
-let e1Dmg = false
-let e2Dmg = false
+let a1Dmg = { dmg: 0 , avg: 0 }
+let a2Dmg = { dmg: 0 , avg: 0 }
+let a3Dmg = { dmg: 0 , avg: 0 }
+let a4Dmg = { dmg: 0 , avg: 0 }
+let a5Dmg = { dmg: 0 , avg: 0 }
+let e1Dmg = { dmg: 0 , avg: 0 }
+let e2Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {
@@ -575,5 +575,9 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '12.27最后修改：[11.6重置] 修复攻击力提升不正确的问题'}
+{title: '1.5最后修改：[11.6重置] 修复部分情况下部分计算Nan的问题'}
 ]
+/*
+这里放的是历史更新日志
+{title: '12.27最后修改：[11.6重置] 修复攻击力提升不正确的问题'}
+*/

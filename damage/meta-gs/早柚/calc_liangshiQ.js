@@ -1,7 +1,7 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let eDmg = false
-let qDmg = false
+let eDmg = { dmg: 0 , avg: 0 }
+let qDmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {
@@ -405,5 +405,9 @@ export const buffs = [
   }
 },
  'swirl',
-{title: '12.10最后修改：[10.21重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+{title: '1.5最后修改：[10.21重置] 修复部分情况下部分计算Nan的问题'}
 ]
+/*
+这里放的是历史更新日志
+{title: '12.10最后修改：[10.21重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+*/

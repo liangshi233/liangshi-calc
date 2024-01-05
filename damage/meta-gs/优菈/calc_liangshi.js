@@ -1,4 +1,4 @@
-let tmpDmg = false
+let tmpDmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {

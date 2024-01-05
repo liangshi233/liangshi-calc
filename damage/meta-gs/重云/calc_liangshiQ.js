@@ -1,9 +1,9 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let a3Dmg = false
-let ar3Dmg = false
-let q1Dmg = false
-let q2Dmg = false
+let a3Dmg = { dmg: 0 , avg: 0 }
+let ar3Dmg = { dmg: 0 , avg: 0 }
+let q1Dmg = { dmg: 0 , avg: 0 }
+let q2Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {
@@ -115,7 +115,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'melt')
 },
 {
-  check: ({ cons }) => cons > 1,
+  check: ({ cons }) => cons >= 1,
   title: '一命冰刃单道伤害',
   dmg: ({ attr , talent , calc }, { basic }) => {
   a3Dmg = basic( calc( attr.atk ) * ( 50 / 100 ), 'a')
@@ -123,7 +123,7 @@ export const details = [
   }
 },
 {
-  check: ({ cons }) => cons > 1,
+  check: ({ cons }) => cons >= 1,
   title: '一命冰刃单道融化',
   dmg: ({ attr , talent , calc }, { basic }) => {
   ar3Dmg = basic( calc( attr.atk ) * ( 50 / 100 ), 'a', 'melt')
@@ -533,5 +533,5 @@ export const buffs = [
   }
 },
 'melt',
- {title: '11.28最后修改：[10.17重置] 如有问题可联系1142607614反馈'}
+ {title: '1.5最后修改：[10.17重置] 修复1命效果显示异常'}
 ]

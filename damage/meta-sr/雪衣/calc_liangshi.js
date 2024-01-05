@@ -25,6 +25,7 @@ export const details = [{
   dmg: ({ attr, calc }, { heal }) => heal(calc(attr.hp) * 5 / 100 )
 }]
 
+export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
@@ -64,4 +65,4 @@ export const buffs = [
  }
 }, 
 {
-title: '12.29最后修改：[12.28重置]'}]
+title: '1.5最后修改：[12.28重置] 增加排名规则'}]

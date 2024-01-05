@@ -1,6 +1,6 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let tmpDmg = false
+let tmpDmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {

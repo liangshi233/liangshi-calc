@@ -1,17 +1,17 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-let a0Dmg = false
-let a1Dmg = false
-let a2Dmg = false
-let a3Dmg = false
-let a4Dmg = false
-let a11Dmg = false
-let a21Dmg = false
-let a31Dmg = false
-let a41Dmg = false
-let a5Dmg = false
-let e1Dmg = false
-let q1Dmg = false
+let a0Dmg = { dmg: 0 , avg: 0 }
+let a1Dmg = { dmg: 0 , avg: 0 }
+let a2Dmg = { dmg: 0 , avg: 0 }
+let a3Dmg = { dmg: 0 , avg: 0 }
+let a4Dmg = { dmg: 0 , avg: 0 }
+let a11Dmg = { dmg: 0 , avg: 0 }
+let a21Dmg = { dmg: 0 , avg: 0 }
+let a31Dmg = { dmg: 0 , avg: 0 }
+let a41Dmg = { dmg: 0 , avg: 0 }
+let a5Dmg = { dmg: 0 , avg: 0 }
+let e1Dmg = { dmg: 0 , avg: 0 }
+let q1Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [
 {
@@ -606,10 +606,11 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '12.30最后修改：[11.28重置] 修正天赋加成异常'}
+{title: '1.5最后修改：[11.28重置] 修复部分情况下部分计算Nan的问题'}
 ]
 /*
 这里放的是历史更新日志
+{title: '12.30最后修改：[11.28重置] 修正天赋加成异常'}
 {title: '12.16最后修改：[11.28重置] 略微优化E完整治疗条目,使其更加合理'}
 {title: '12.14最后修改：[11.28重置] 为气氛值增加层数显示'}
 {title: '12.7最后修改：[11.28重置] 修正元素爆发会受到气氛值加成的问题'}

@@ -4,15 +4,11 @@ import lodash from 'lodash'
 import fs from 'node:fs'
 
 let charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-gs/character'
-/*
-if ( Common.cfg('artisLiang') ) {
+
+if ( Common.cfg('artisLiang') || Common.cfg('artisLiangZ') ) {
  charPath = process.cwd() + '/plugins/liangshi-calc/damage/meta-gs'
-} else if ( Common.cfg('artisLiangZ') ) {
- charPath = process.cwd() + '/plugins/liangshi-calc/damage/meta-gs'
-} else {
- charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-gs/character'
 }
-*/
+
 let cfgMap = {
   char: {},
   async init () {
@@ -23,10 +19,10 @@ let cfgMap = {
       // 评分规则
       if (cfgMap.exists(char, 'artis_user')) {
         curr.artis = await cfgMap.getCfg(char, 'artis_user', 'default')
-      } else if (cfgMap.exists(char, 'artis_liangshi')) {
-        curr.artis = await cfgMap.getCfg(char, 'artis_liangshi', 'default')
-      } else if (cfgMap.exists(char, 'artis_liangshiZ')) {
+      } else if (cfgMap.exists(char, 'artis_liangshiZ') && Common.cfg('artisLiangZ') ) {
         curr.artis = await cfgMap.getCfg(char, 'artis_liangshiZ', 'default')
+      } else if (cfgMap.exists(char, 'artis_liangshi') && Common.cfg('artisLiang') ) {
+        curr.artis = await cfgMap.getCfg(char, 'artis_liangshi', 'default')
       } else if (cfgMap.exists(char, 'artis')) {
         curr.artis = await cfgMap.getCfg(char, 'artis', 'default')
       }
