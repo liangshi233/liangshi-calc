@@ -1,8 +1,8 @@
 export default function ({ attr, rule, def }) {
   if ( attr.cpct < 15 && attr.cdmg > 280 ) {
-    return rule('林尼-核爆', { hp: 0, atk: 85, cdmg: 100, mastery: 75, dmg: 100 })
+    return rule('林尼-核爆', { hp: 0, atk: 100, cdmg: 100, mastery: 75, dmg: 100 })
   }
-  if (attr.mastery < 160 && attr.cpct * 2 + attr.cdmg > 150 && attr.mastery < 540 ) {
+  if (attr.mastery < 160 && attr.cpct * 2 + attr.cdmg > 150 ) {
     return rule('林尼-直伤', { hp: 0, atk: 85 , cpct: 100, cdmg: 100, dmg: 100 , recharge: 30})
   }
   if ( attr.mastery >= 160 && attr.mastery < 540 ) {

@@ -39,6 +39,9 @@ let cfgMap = {
   },
   async getCfg (char, file, module = '') {
     let cfg = await Data.importModule(`resources/meta-gs/character/${char}/${file}.js`, 'miao')
+    if ( Common.cfg('artisLiang') || Common.cfg('artisLiangZ') ) {
+        cfg = await Data.importModule(`damage/meta-gs/${char}/${file}.js`, 'liangshi-calc')
+    }
     if (module) {
       return cfg[module]
     }

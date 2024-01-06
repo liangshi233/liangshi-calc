@@ -7,7 +7,7 @@ export default function ({ attr, artis, rule, def }) {
     return rule('宵宫-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 100, dmg: 100 , recharge: 55})
   }
   if ( attr.mastery >= 540 ) {
-    return rule('宵宫-烈绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 3 0 , recharge: 100})
+    return rule('宵宫-烈绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 30 , recharge: 100})
   }
   return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100 })
 }

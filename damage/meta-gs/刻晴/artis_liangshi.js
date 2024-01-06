@@ -6,7 +6,7 @@ export default function ({ attr, rule, def }) {
     return rule('刻晴-激化', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100 })
   }
   if ( attr.mastery >= 540 ) {
-    return rule('刻晴-超绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 30 , recharge: 100})
+    return rule('刻晴-超绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 30 , recharge: 75 })
   }
    if (attr.mastery < 80 && attr.cpct * 2 + attr.cdmg > 150 && attr.phy < 41.4 ) {
     return rule('刻晴-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100 , recharge: 30 })

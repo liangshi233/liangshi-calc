@@ -7,8 +7,8 @@ import LSconfig from '../components/LSconfig.js'
 
 const _path = process.cwd()
 const liangshiData = path.join(`${_path}/data`, 'liangshiData')
-const files = ['cfg.js', 'cfg_system.js', 'ProfileDmg.js']
-const miaoPaths = _.map(['config', 'config/system', 'models'], v => `${_path}/plugins/miao-plugin/${v}`)
+const files = ['cfg.js', 'cfg_system.js', 'ProfileDmg.js', 'CharCfg.js']
+const miaoPaths = _.map(['config', 'config/system', 'models', 'models/character'], v => `${_path}/plugins/miao-plugin/${v}`)
 const dataFiles = _.map(files, v => `${liangshiData}/${v}`)
 
 export class allSetting extends plugin {
@@ -35,11 +35,7 @@ export class allSetting extends plugin {
           reg: '^#?(梁氏|liangshi)?(刷新|重置|初始化|更新)预设面板$',
           fnc: 'panelStart',
           permission: 'master'
-        } /*,
-          {
-              reg: '^#?(梁氏|liangshi)开启重置版拓展$',
-              fnc: 'resettingStart'
-          } */
+        }
       ]
     })
     this.cfg = LSconfig.getConfig('user', 'config')
