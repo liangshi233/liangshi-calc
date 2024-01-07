@@ -1,6 +1,6 @@
-export default function ({ artis, attr, rule, def , cons }) {
+export default function ({ artis, weapon, attr, rule, def , cons }) {
   if (weapon.name === '试作金珀' && attr.heal > 1 ) {
-    return rule('八重-治疗', { hp: 100, atk: 50, cpct: 50, cdmg: 30, dmg: 40, recharge: 100 , heal: 100 })
+    return rule('八重-治疗', { hp: 100, atk: 50, cpct: 50, cdmg: 50, dmg: 40, recharge: 100 , heal: 100 })
   }
   if (weapon.name === '昭心' && attr.phy > 10 ) {
     return rule('八重-物理', { atk: 75, cpct: 100, cdmg: 100, dmg: 0, phy: 100 , recharge: 0 , heal: 0 })

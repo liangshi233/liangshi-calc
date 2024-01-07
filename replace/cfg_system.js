@@ -126,7 +126,7 @@ export const cfgSchema = {
         desc: 'liangshi版圣遗物评分展示。'
       },
       artisLiangZ: {
-        title: 'liangshi版圣遗物评分展示',
+        title: 'liangshi版自适应评分展示',
         key: '自动评分',
         def: false,
         desc: 'liangshi版自适应评分展示。目前仅支持单一玩法且正在测试，不建议开启'

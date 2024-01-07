@@ -1,4 +1,4 @@
-export default function ({ attr, weapon, rule, def }) {
+export default function ({ artis, attr, weapon, rule, def }) {
   if (attr.heal > 5 ) {
     return rule('久岐忍-治疗', { hp: 100 , atk: 0 , cpct: 0 , cdmg: 0 , mastery: 75 , dmg: 0 , recharge: 55 , heal: 100 })
   }
