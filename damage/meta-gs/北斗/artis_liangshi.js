@@ -1,4 +1,4 @@
-export default function ({ attr, weapon, rule, def }) {
+export default function ({ attr, artis, weapon, rule, def }) {
   if (attr.phy > 20 ) {
     return rule('北斗-物理', { atk: 80, cpct: 100, cdmg: 100, dmg: 0, phy: 100 , recharge: 15 , heal: 0 })
   }

@@ -1,12 +1,13 @@
 import { Data } from '#miao'
 import { Common } from '#miao'
+//import Base from '../Base.js'
 import lodash from 'lodash'
 import fs from 'node:fs'
 
-let charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-gs/character'
-
+let game = 'gs' //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧
+let charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-${game}/character'
 if ( Common.cfg('artisLiang') || Common.cfg('artisLiangZ') ) {
- charPath = process.cwd() + '/plugins/liangshi-calc/damage/meta-gs'
+ charPath = process.cwd() + '/plugins/liangshi-calc/damage/meta-${game}'
 }
 
 let cfgMap = {
@@ -19,6 +20,8 @@ let cfgMap = {
       // 评分规则
       if (cfgMap.exists(char, 'artis_user')) {
         curr.artis = await cfgMap.getCfg(char, 'artis_user', 'default')
+//    } else if (cfgMap.exists(char, 'artis_li') && Common.cfg('artisLi') ) {
+//      curr.artis = await cfgMap.getCfg(char, 'artis_li', 'default')
       } else if (cfgMap.exists(char, 'artis_liangshiZ') && Common.cfg('artisLiangZ') ) {
         curr.artis = await cfgMap.getCfg(char, 'artis_liangshiZ', 'default')
       } else if (cfgMap.exists(char, 'artis_liangshi') && Common.cfg('artisLiang') ) {
@@ -37,10 +40,10 @@ let cfgMap = {
   exists (char, file) {
     return fs.existsSync(`${charPath}/${char}/${file}.js`)
   },
-  async getCfg (char, file, module = '') {
-    let cfg = await Data.importModule(`resources/meta-gs/character/${char}/${file}.js`, 'miao')
+  async getCfg (char, file, module = '', game = 'gs') {
+    let cfg = await Data.importModule(`resources/meta-${game}/character/${char}/${file}.js`, 'miao')
     if ( Common.cfg('artisLiang') || Common.cfg('artisLiangZ') ) {
-        cfg = await Data.importModule(`damage/meta-gs/${char}/${file}.js`, 'liangshi-calc')
+        cfg = await Data.importModule(`damage/meta-${game}/${char}/${file}.js`, 'liangshi-calc')
     }
     if (module) {
       return cfg[module]
