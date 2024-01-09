@@ -4,10 +4,10 @@ import { Common } from '#miao'
 import lodash from 'lodash'
 import fs from 'node:fs'
 
-let game = 'gs' //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧
-let charPath = process.cwd() + '/plugins/miao-plugin/resources/meta-${game}/character'
-if ( Common.cfg('artisLiang') || Common.cfg('artisLiangZ') ) {
- charPath = process.cwd() + '/plugins/liangshi-calc/damage/meta-${game}'
+let game = 'gs'; //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧
+let charPath = `${process.cwd()}/plugins/miao-plugin/resources/meta-${game}/character`;
+if (Common.cfg('artisLiang') || Common.cfg('artisLiangZ')) {
+    charPath = `${process.cwd()}/plugins/liangshi-calc/damage/meta-${game}`;
 }
 
 let cfgMap = {
