@@ -32,6 +32,18 @@ let cfgMap = {
       // 伤害计算
       if (cfgMap.exists(char, 'calc_user')) {
         curr.calc = await cfgMap.getCfg(char, 'calc_user')
+//      } else if (cfgMap.exists(char, 'calc_liangshiK') && Common.cfg('calcLiangK')) {
+//        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiK')
+//      } else if (cfgMap.exists(char, 'calc_li') && Common.cfg('calcLi')) {
+//        curr.calc = await cfgMap.getCfg(char, 'calc_li')
+      } else if (cfgMap.exists(char, 'calc_liangshiQ') && Common.cfg('calcLiangQ')) {
+        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiQ')
+//      } else if (cfgMap.exists(char, 'calc_liangshiJ') && Common.cfg('calcLiangJ')) {
+//        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiJ')
+//      } else if (cfgMap.exists(char, 'calc_liangshiT') && Common.cfg('calcLiangT')) {
+//        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiT')
+      } else if (cfgMap.exists(char, 'calc_liangshi') && Common.cfg('calcLiang')) {
+        curr.calc = await cfgMap.getCfg(char, 'calc_liangshi')
       } else if (cfgMap.exists(char, 'calc')) {
         curr.calc = await cfgMap.getCfg(char, 'calc')
       }
