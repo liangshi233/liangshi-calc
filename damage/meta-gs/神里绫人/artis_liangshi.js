@@ -1,5 +1,7 @@
 export default function ({ attr, rule, def }) {
-  // 蒸发绫人，具体数值待定
+  if ( attr.mastery >= 540 ) {
+    return rule('绫人-妮绽', { hp: 35, cpct: 60, cdmg: 60, mastery: 100, dmg: 60 , recharge: 100})
+  }
   if (attr.mastery > 160) {
     return rule('绫人-蒸发', { hp: 45, atk: 75, cpct: 100, cdmg: 100, mastery: 60, dmg: 100, recharge: 30 })
   }

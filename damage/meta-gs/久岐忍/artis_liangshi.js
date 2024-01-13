@@ -6,7 +6,7 @@ export default function ({ artis, attr, weapon, rule, def }) {
     return rule('久岐忍-速切', { hp: 25, atk: 80, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 35 })
   }
   if (artis.is('乐园4')) {
-    return rule('久岐忍-超绽', { hp: 35, atk: 35, cpct: 85, cdmg: 85, dmg: 35, mastery: 100 , recharge: 55 })
+    return rule('久岐忍-超绽', { hp: 35, atk: 25, cpct: 85, cdmg: 85, dmg: 35, mastery: 100 , recharge: 55 })
   }
   if (attr.mastery >= 540) {
     return rule('久岐忍-超绽', { hp: 35, atk: 25, cpct: 85, cdmg: 85, dmg: 35, mastery: 100 , recharge: 55 })
@@ -14,7 +14,7 @@ export default function ({ artis, attr, weapon, rule, def }) {
   if (attr.mastery < 540 && attr.mastery >= 80) {
     return rule('久岐忍-激绽', { hp: 25, atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 35 })
   }
-  if (attr.mastery < 80 && attr.cpct * 2 + attr.cdmg > 200 ) {
+  if (attr.mastery < 80 && attr.cpct * 2 + attr.cdmg > 200 && attr.heal < 35 ) {
     return rule('久岐忍-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100 , mastery: 25, recharge: 35 })
   }
   if (attr.heal > 5 ) {
