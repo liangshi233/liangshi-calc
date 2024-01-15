@@ -1,4 +1,4 @@
-export default function ({ attr, rule, def }) {
+export default function ({ attr, artis, rule, def }) {
   if (artis.is('冰套4')) {
     return rule('菲米尼-冰风4', { atk: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 35 })
   }
