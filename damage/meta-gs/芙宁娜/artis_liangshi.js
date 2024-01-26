@@ -12,7 +12,7 @@ export default function ({ attr, artis, weapon, rule, def }) {
     return rule('芙宁娜-直伤', { hp: 100, cpct: 100, cdmg: 100, dmg: 100 , recharge: 30})
   }
   if (artis.is('剧团4')) {
-    return rule('芙宁娜-速切', { hp: 100, cpct: 100, cdmg: 100, mastery: 750, dmg: 100, recharge: 55 })
+    return rule('芙宁娜-速切', { hp: 100, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 55 })
   }
   if (attr.heal > 30 ) {
     return rule('芙宁娜-治疗', { hp: 100 , atk: 0 , cpct: 30 , cdmg: 30 , mastery: 0 , dmg: 30 , recharge: 85 , heal: 100 , phy: 0 })
