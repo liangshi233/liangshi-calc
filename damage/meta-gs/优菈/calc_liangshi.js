@@ -96,15 +96,30 @@ export const enemyName = '魔偶/女士/雷神'
 
 export const buffs = [
 {
+  title: '优菈技能：[冰潮的涡旋] [buffCount]层冷酷之心，提高[_interruption]%抗打断能力和[defPct]%防御力',
+  check: ({ params }) => params.lkzx >= 1,
+  data: {
+    buffCount: ({ params }) => ( params.lkzx || 2 ) ,
+    _interruption: 50 ,
+    defPct: ({ params }) => 30 * ( params.lkzx || 2 )
+  }
+},
+{
   title: '优菈技能：[冰潮的涡旋] 若消耗了冷酷之心效果，会使身边的敌人的物理抗性与冰元素抗性降低[kx]%',
-  check: ({ params }) => params.lkzx === true,
+  check: ({ params }) => params.lkzx >= 1,
   data: {
     kx: ({ talent }) => talent.e['冰元素抗性降低']
   }
 },
 {
+  title: '优菈技能：[凝浪之光剑] 光降之剑会提高抗打断能力[_interruption]%',
+  data: {
+    _interruption: 100
+  }
+},
+{
   title: '优菈1命：[光潮的幻象] 消耗冰潮的涡旋的冷酷之心效果后,物理伤害加成提高[phy]%',
-  check: ({ params }) => params.lkzx === true,
+  check: ({ params }) => params.lkzx >= 1,
   cons: 1,
   data: {
     phy: 30
@@ -317,5 +332,9 @@ export const buffs = [
   }
 },
 'melt',
- {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+ {title: '1.27最后修改：[10.23重置] 修正冷酷之心效果丢失的问题'}
 ]
+/*
+这里放的是历史更新日志
+ {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+*/

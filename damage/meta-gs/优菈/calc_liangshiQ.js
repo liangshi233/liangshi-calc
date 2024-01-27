@@ -65,12 +65,12 @@ export const details = [
 },
 {
   title: '冰涡之剑伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.e['冰涡之剑伤害'], 'e')
 },
 {
   title: '冰涡之剑融化伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.e['冰涡之剑伤害'], 'e' , 'melt')
 },
 {
@@ -86,7 +86,7 @@ export const details = [
 },
 {
   title: 'E1层长按伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 1 , sebo: 2 },
   dmg: ({ talent }, dmg) => {
     let e = tmpDmg
     let g = dmg(talent.e['冰涡之剑伤害'], 'e')
@@ -98,7 +98,7 @@ export const details = [
 },
 {
   title: 'E2层长按伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => {
     let e = tmpDmg
     let g = dmg(talent.e['冰涡之剑伤害'], 'e')
@@ -111,27 +111,27 @@ export const details = [
 },
 {
   title: 'Q斩击伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
   title: 'Q斩击融化伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 },
 {
   title: '光降之剑基础伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'], 'q', 'phy')
 },
 {
   title: '光降之剑每层能量伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['每层能量伤害'], 'q', 'phy')
 },
 {
   title: '光降之剑5层伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * 5 , 'q', 'phy')
 },
  ({ cons, weapon }) => {
@@ -147,18 +147,18 @@ export const details = [
   }
   return {
     title: `光降之剑${buffCount}层伤害`,
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
 },
 {
   title: '光降之剑30层伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * 30 , 'q', 'phy')
 },
 {
   title: '单人站场22秒',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
@@ -244,7 +244,7 @@ export const details = [
 {
   title: '单人站场期望DPS',
   dmgKey: 'dps',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
@@ -321,7 +321,7 @@ export const details = [
 },
 {
  title: '优雷修钟 2层E',
- params: { lkzx: true , teamB: true , sebo: 2 },
+ params: { lkzx: 2 , teamB: true , sebo: 2 },
  dmg: ({ talent }, dmg) => {
    let e = tmpDmg
    let g = dmg(talent.e['冰涡之剑伤害'], 'e')
@@ -334,12 +334,12 @@ export const details = [
 },
 {
   title: '优雷修钟 Q基础伤害',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'], 'q', 'phy')
 },
 {
   title: '优雷修钟 光降之剑每层',
-  params: { lkzx: true , sebo: 2 },
+  params: { lkzx: 2 , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['每层能量伤害'], 'q', 'phy')
 },
 ({ cons, weapon }) => {
@@ -355,28 +355,28 @@ export const details = [
   }
   return {
     title: `优雷修钟 ${buffCount}层伤害`,
-    params: { lkzx: true , teamA: true },
+    params: { lkzx: 2 , teamA: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['光降之剑基础伤害'] + talent.q['每层能量伤害'] * buffCount, 'q', 'phy')
   }
 },
 {
   title: '优万重班 普攻一段融化',
-  params: { lkzx:true , teamB: true },
+  params: { teamB: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'melt')
 },
 {
   title: '优万重班 E点按融化',
-  params: { lkzx:true , teamB: true , eqDmg: true },
+  params: { lkzx: 0 , teamB: true , eqDmg: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['点按伤害'], 'e' , 'melt')
 },
 {
   title: '优万重班 长E融化',
-  params: { lkzx:true , teamB: true , eqDmg: true , sebo: 2 },
+  params: { lkzx: 2 , teamB: true , eqDmg: true , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e', 'melt')
 },
 {
   title: '优万重班 Q斩击融化',
-  params: { lkzx:true , teamB: true , eqDmg: true , sebo: 2 },
+  params: { lkzx: 2 , teamB: true , eqDmg: true , sebo: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 }]
 
@@ -386,15 +386,30 @@ export const enemyName = '魔偶/女士/雷神'
 
 export const buffs = [
 {
+  title: '优菈技能：[冰潮的涡旋] [buffCount]层冷酷之心，提高[_interruption]%抗打断能力和[defPct]%防御力',
+  check: ({ params }) => params.lkzx >= 1,
+  data: {
+    buffCount: ({ params }) => ( params.lkzx || 2 ) ,
+    _interruption: 50 ,
+    defPct: ({ params }) => 30 * ( params.lkzx || 2 )
+  }
+},
+{
   title: '优菈技能：[冰潮的涡旋] 若消耗了冷酷之心效果，会使身边的敌人的物理抗性与冰元素抗性降低[kx]%',
-  check: ({ params }) => params.lkzx === true,
+  check: ({ params }) => params.lkzx >= 1,
   data: {
     kx: ({ talent }) => talent.e['冰元素抗性降低']
   }
 },
 {
+  title: '优菈技能：[凝浪之光剑] 光降之剑会提高抗打断能力[_interruption]%',
+  data: {
+    _interruption: 100
+  }
+},
+{
   title: '优菈1命：[光潮的幻象] 消耗冰潮的涡旋的冷酷之心效果后,物理伤害加成提高[phy]%',
-  check: ({ params }) => params.lkzx === true,
+  check: ({ params }) => params.lkzx >= 1,
   cons: 1,
   data: {
     phy: 30
@@ -607,5 +622,9 @@ export const buffs = [
   }
 },
 'melt',
- {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+ {title: '1.27最后修改：[10.23重置] 修正冷酷之心效果丢失的问题'}
 ]
+/*
+这里放的是历史更新日志
+ {title: '12.10最后修改：[10.23重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+*/
