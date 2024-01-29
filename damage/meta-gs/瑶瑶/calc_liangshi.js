@@ -5,7 +5,7 @@ export const details = [
 },
 {
   title: '白玉萝卜-蔓激化',
-  dmg: ({ talent }, dmg) => dmg(talent.e['白玉萝卜伤害'], 'e', '蔓激化')
+  dmg: ({ talent }, dmg) => dmg(talent.e['白玉萝卜伤害'], 'e', 'spread')
 },
 {
   title: '桂子仙机白玉萝卜伤害',
@@ -13,7 +13,7 @@ export const details = [
 },
 {
   title: '桂子仙机萝卜-蔓激化',
-  dmg: ({ talent }, dmg) => dmg(talent.q['桂子仙机白玉萝卜伤害'], 'q', '蔓激化')
+  dmg: ({ talent }, dmg) => dmg(talent.q['桂子仙机白玉萝卜伤害'], 'q', 'spread')
 },
 {
   title: '玉颗珊珊月中落伤害',
@@ -39,6 +39,7 @@ export const details = [
   dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * 7.5 / 100)
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgIdx = 6
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
@@ -77,5 +78,5 @@ export const buffs = [
   cons: 6
 },
  'spread',
-{title: '4.4最后修改：[10.24重置] '}
+{title: '1.29最后修改：[10.24重置] 修复昔时之歌加成失效问题'}
 ]

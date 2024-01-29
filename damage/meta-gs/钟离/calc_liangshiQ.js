@@ -48,7 +48,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'phy')
 },
 {
-  title: '岩脊伤害',
+  title: '地心伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][0], 'e')
 },
 {
@@ -60,7 +60,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][1] * 15 , 'e')
 },
 {
-  title: '护盾启动伤害',
+  title: '地心·磐礴伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
 },
 {
@@ -498,7 +498,7 @@ export const buffs = [
     kx: 20
   }
 },
-{title: '12.10最后修改：[10.19重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
+{title: '1.29最后修改：[10.19重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 ]
 /*
 这里放的是历史更新日志

@@ -47,7 +47,7 @@ export const details = [
   title: '无Q普通攻击三段',
   dmg: ({ talent }, dmg) => {
     let a3 = dmg(talent.a['三段伤害'] / 2 , 'a', 'phy')
-    a3Dmg = a3 * 2
+    a3Dmg = { dmg: a3.dmg * 2 , avg: a3.avg * 2 }
     return a3Dmg
   }
 },
@@ -66,7 +66,7 @@ export const details = [
   title: '无Q普通攻击四段',
   dmg: ({ talent }, dmg) => {
     let a4 = dmg(talent.a['四段伤害'] / 2 , 'a', 'phy')
-    a4Dmg = a4 * 2
+    a4Dmg = { dmg: a4.dmg * 2 , avg: a4.avg * 2 }
     return a4Dmg
   }
 },
@@ -428,7 +428,7 @@ export const buffs = [
     kx: 20
   }
 },
- {title: '1.5最后修改：[10.22重置] 修复部分情况下部分计算Nan的问题'}
+ {title: '1.29最后修改：[10.22重置] 修复部分情况下部分计算Nan的问题'}
  ]
 /*
 这里放的是历史更新日志
