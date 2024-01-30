@@ -1,4 +1,4 @@
-import { Format } from '#miao'
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
 let c6Dmg = { dmg: 0 , avg: 0 }
 let c6jDmg = { dmg: 0 , avg: 0 }
@@ -550,5 +550,5 @@ export const buffs = [
   }
 },
  'spread',
-{title: '4.4最后修改：[10.24重置] '}
+{title: '1.30最后修改：[10.24重置] '}
 ]
