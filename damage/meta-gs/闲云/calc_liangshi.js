@@ -4,48 +4,48 @@ export const details = [
   dmg: ({ calc, attr, cons }) => {
     let cons2 = cons * 1 >= 2 ? 2 : 1
     return {
-      avg: Math.min( calc(attr.atk) * 180 / 100 , 9000 ) * cons2
+      avg: Math.min( calc(attr.atk) * 200 / 100 , 9000 ) * cons2
     }
   }
 },
 {
   title: '步天梯伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['仙人姿态路径伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },
 {
   title: '一段跳冲击波伤害',
   params: { btt: 1 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['一段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][0], 'a3')
 },
 {
   title: '二段跳冲击波伤害',
   params: { btt: 2 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['二段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][1], 'a3')
 },
 {
   title: '三段跳冲击波伤害',
   params: { btt: 3 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段跳 · 鹤形追击伤害'], 'a3')
+  dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][2], 'a3')
 },
 {
   title: '暮集竹星释放伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['施放瞬间伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
   title: '竹星协同伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['机关协同伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['竹星伤害'], 'q')
 },
 {
   title: '暮集竹星释放治疗',
   dmg: ({ attr, calc, talent, cons }, { heal }) => {
-    let num = talent.q['施放瞬间治疗2'][0] * calc(attr.atk) / 100 + talent.q['施放瞬间治疗2'][1] * 1
+    let num = talent.q['治疗量2'][0] * calc(attr.atk) / 100 + talent.q['治疗量2'][1] * 1
     return heal(num)
   }
 },
 {
-  title: '竹星协同治疗',
+  title: '竹星持续治疗',
   dmg: ({ attr, calc, talent, cons }, { heal }) => {
-    let num = talent.q['机关持续治疗2'][0] * calc(attr.atk) / 100 + talent.q['机关持续治疗2'][1] * 1
+    let num = talent.q['持续治疗量2'][0] * calc(attr.atk) / 100 + talent.q['持续治疗量2'][1] * 1
     return heal(num)
   }
 },
@@ -70,7 +70,7 @@ export const buffs = [
   title: '闲云天赋：[细想应是洞中仙] 暮集竹星的竹星拥有仙力助推时,附近的当前场上角色的下落攻击坠地冲击造成的伤害提升[a3Plus]',
   sort: 9,
   data: {
-    a3Plus: ({ attr, calc }) => Math.min( calc(attr.atk) * 180 / 100 , 9000 )
+    a3Plus: ({ attr, calc }) => Math.min( calc(attr.atk) * 200 / 100 , 9000 )
   }
 },
 {
@@ -86,7 +86,7 @@ export const buffs = [
   sort: 9,
   cons: 2,
   data: {
-    a3Plus: ({ attr, calc }) => Math.min( calc(attr.atk) * 180 / 100 , 9000 )
+    a3Plus: ({ attr, calc }) => Math.min( calc(attr.atk) * 200 / 100 , 9000 )
   }
 },
 {
@@ -98,6 +98,5 @@ export const buffs = [
     a3Cdmg: ({ params }) => 15 + Math.floor( params.btt / 2 ) * 20 + Math.floor( params.btt / 3 ) * 35
   }
 },
-{title: '测试内容：[4.3.52] 数据随时可能更改，请注意时效性'},
-{title: '1.7最后修改：[12.18重置] '}
+{title: '1.31最后修改：[12.18重置] '}
 ]

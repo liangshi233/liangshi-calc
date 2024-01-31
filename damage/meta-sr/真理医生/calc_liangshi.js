@@ -25,14 +25,29 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: '天赋追加伤害',
+  title: '0负面天赋追加伤害',
+  params: { debuff: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.t['追加攻击伤害'], 't')
 },
 {
-  check: ({ cons }) => cons >= 2,
-  title: '2命追加附加单次伤害',
-  dmg: ({ calc, attr, talent }, { basic }) => basic(calc(attr.atk) * 20 / 100, 't')
-}]
+  title: '3负面天赋追加伤害',
+  params: { debuff: 3 },
+  dmg: ({ talent , cons , params }, dmg) => {
+    let cons2 = cons * 1 >= 2 ? ( 0.2 * params.debuff )  : 0
+    let tdmg = talent.t['追加攻击伤害'] + cons2
+    return dmg(tdmg, 't')
+    }
+},
+{
+  title: '6负面天赋追加伤害',
+  params: { debuff: 6 },
+  dmg: ({ talent , cons , params }, dmg) => {
+    let cons2 = cons * 1 >= 2 ? ( 0.2 * params.debuff )  : 0
+    let tdmg = talent.t['追加攻击伤害'] + cons2
+    return dmg(tdmg, 't')
+    }
+}
+]
 
 export const defDmgIdx = 3
 export const defParams = { debuff: 5 }
@@ -84,5 +99,4 @@ export const buffs = [
     tDmg: 50
  }
 },
-{
-title: '12.30最后修改：[12.28重置]'}]
+{title: '1.31最后修改：[12.28重置]'}]
