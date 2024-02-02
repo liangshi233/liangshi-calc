@@ -1,4 +1,7 @@
 export default function ({ attr, artis, rule, def }) {
+  if (attr.phy >= 44 ) {
+    return rule('重云-物理', { atk: 85 , cpct: 100 , cdmg: 100, recharge: 15 , phy: 100 })
+  }
   if (artis.is('冰套4')) {
     return rule('重云-冰风4', { atk: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }

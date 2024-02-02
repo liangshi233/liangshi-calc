@@ -1,6 +1,6 @@
 export default function ({ attr, artis, weapon, rule, def }) {
-  if (attr.phy > 45 ) {
-    return rule('诺艾尔-物理', { atk: 85 , cpct: 100 , cdmg: 100 , mastery: 0 , dmg: 0 , recharge: 0 , phy: 100})
+  if (attr.phy > 44 ) {
+    return rule('诺艾尔-物理', { atk: 85 , cpct: 100 , cdmg: 100 , mastery: 0 , dmg: 0 , recharge: 15 , phy: 100 })
   }
   if (attr.mastery > 420) {
     return rule('诺艾尔-盾辅', { atk: 20, def: 75, cpct: 80, cdmg: 80, mastery: 100, dmg: 50, recharge: 80 })

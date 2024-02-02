@@ -1,8 +1,11 @@
 export default function ({ attr, artis, rule, def }) {
+  if (attr.phy >= 44 ) {
+    return rule('迪希雅-物理', { atk: 85 , cpct: 100 , cdmg: 100, recharge: 15 , phy: 100 })
+  }
   if (artis.is('hp', '3,4,5') && attr.hp > 40000 && attr.cpct * 2 + attr.cdmg < 100) {
     return rule('迪希雅-消解', { hp: 100, atk: 30, cpct: 41, cdmg: 41, recharge: 30 })
   }
-  if (attr.mastery < 80 && attr.cpct * 2 + attr.cdmg > 240) {
+  if (attr.mastery < 80 ) {
     return rule('迪希雅-直伤', { hp: 85, atk: 85, cpct: 100, cdmg: 100, dmg: 100 , recharge: 30})
   }
   if (attr.mastery >= 80 ) {

@@ -1,5 +1,5 @@
 export default function ({ attr, artis, weapon, rule, def , cons }) {
-  if (attr.phy > 45 ) {
+  if (attr.phy > 44 ) {
     if ( cons < 6 ) {
      return rule('辛焱-物理', { atk: 85 , def: 25, cpct: 100 , cdmg: 100 , mastery: 0 , dmg: 0 , recharge: 55 , phy: 100 })
     }
