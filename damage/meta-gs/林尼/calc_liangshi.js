@@ -60,10 +60,10 @@ export const details = [{
     cdmg: 60
   }
 }, {
-  title: '林尼4命：火元素的重击攻击命中敌人火元素抗性降低25%',
+  title: '林尼4命：火元素的重击攻击命中敌人火元素抗性降低20%',
   cons: 4,
   data: {
-    kx: 25
+    kx: 20
   }
 }, {
   check: ({ params }) => params.team === true,
