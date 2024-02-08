@@ -15,9 +15,10 @@ export const details = [{
 {
   title: '终结技单段伤害',
   params: { q: true },
-  dmg: ({ talent , cons }, dmg) => dmg(talent.q['技能伤害'] + ( cons * 1 >= 4 ? 6 : 0 ), 'q')
+  dmg: ({ talent , cons }, dmg) => dmg(talent.q['每段攻击伤害'] + ( cons * 1 >= 4 ? 0.06 : 0 ), 'q')
 }]
 
+export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
@@ -59,4 +60,4 @@ export const buffs = [
  }
 },
 {
-title: '1.17最后修改：[12.28重置]'}]
+title: '2.8最后修改：[12.28重置]'}]
