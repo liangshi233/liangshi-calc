@@ -16,34 +16,35 @@ export const details = [
 {
   title: '奥迹基础伤害',
   params: { q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], '', 'skillDot')
 },
 {
   title: '奥迹每层伤害',
   params: { q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'], 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'], '', 'skillDot')
 },
 {
   title: '奥迹基础伤害(大于7层)',
   params: { tDef: true , q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['持续伤害'], '', 'skillDot')
 },
 {
   title: '奥迹每层伤害(大于7层)',
   params: { tDef: true , q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'], 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'], '', 'skillDot')
 },
 {
   title: '奥迹相邻伤害',
   params: { q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['相邻伤害'], 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['相邻目标伤害'], '', 'skillDot')
 },
 {
   title: '奥迹50层伤害',
   params: { tDef: true , q: true },
-  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'] + talent.t['倍率提高'] * 50 , 't', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['倍率提高'] + talent.t['倍率提高'] * 50 , '', 'skillDot')
 }]
 
+export const defDmgIdx = 8
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
