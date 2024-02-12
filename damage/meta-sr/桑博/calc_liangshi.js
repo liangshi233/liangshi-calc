@@ -28,4 +28,4 @@ export const buffs = [
   data: {
     dotEnemyDmg: ({ talent }) => talent.q['受持续伤害提高'] * 100
   }
-},{title: '8.21最后修改：如有问题可联系1142607614反馈'}]
+},{title: '8.21最后修改：如有问题请输入 #伤害计算反馈'}]

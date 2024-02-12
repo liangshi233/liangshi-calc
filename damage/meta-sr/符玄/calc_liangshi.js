@@ -55,4 +55,4 @@ export const buffs = [{
   data: {
     qPlus: ({ attr, calc }) => calc(attr.hp) * 2.4
   }
-},{title: '10.5最后修改：如有问题可联系1142607614反馈'}]
+},{title: '10.5最后修改：如有问题请输入 #伤害计算反馈'}]

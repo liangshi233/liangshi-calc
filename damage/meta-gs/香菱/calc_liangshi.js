@@ -151,5 +151,5 @@ export const buffs = [{
     atkPct: 25
   }
 }, 'vaporize',
-{title: '10.6最后修改：如有问题可联系1142607614反馈'}
+{title: '10.6最后修改：如有问题请输入 #伤害计算反馈'}
 ]
