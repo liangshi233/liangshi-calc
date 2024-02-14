@@ -50,29 +50,29 @@ export const mainAttr = 'atk,cpct,cdmg'
 export const buffs = [
 {
   check: ({ params }) => params.tDef === true,
-  title: '黑天鹅技能：[失坠，伪神的黄昏] 奥迹大于7层时将无视目标[ignore]%防御力',
+  title: '黑天鹅技能：[失坠，伪神的黄昏] 战技命中使目标防御力降低[enemyDef]%',
   data: {
-    ignore: 20
+    enemyDef: ({ talent }) => talent.e['防御力降低'] * 100
   }
 },
 {
   check: ({ params }) => params.q === true,
-  title: '黑天鹅技能：[失坠，伪神的黄昏] 敌方目标自身回合内受到伤害提高[enemydmg]%',
+  title: '黑天鹅技能：[沉醉于彼界的臂湾] 敌方目标自身回合内受到伤害提高[enemydmg]%',
   data: {
-    enemydmg: ({ talent }) => talent.q['伤害提高']
+    enemydmg: ({ talent }) => talent.q['伤害提高'] * 100
   }
 },
 {
-  title: '黑天鹅天赋：[无端命运的机杼] 战技命中使目标防御力降低[enemyDef]%',
+  title: '黑天鹅天赋：[无端命运的机杼] 奥迹大于等于7层时造成的持续伤害无视目标[ignore]%防御力',
   data: {
-    enemyDef: ({ talent }) => talent.e['防御降低']
+    ignore: 20
   }
 },
 {
   title: '黑天鹅行迹：[烛影朕兆] 使自身造成的伤害提高[dmg]%',
   tree: 3,
   data: {
-    dmg: ({ attr, calc }) => Math.min( 72 , calc(attr.eff) * 60 / 100 )
+    dmg: ({ calc, attr }) => Math.min(72, calc(attr.effPct) * 60 / 100)
   }
 },
 {
@@ -91,4 +91,4 @@ export const buffs = [
   }
 },
 {
-title: '2.8最后修改：[12.30重置]'}]
+title: '2.15最后修改：[12.30重置]'}]
