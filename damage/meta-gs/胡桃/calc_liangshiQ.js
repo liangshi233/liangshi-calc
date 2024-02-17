@@ -260,6 +260,15 @@ export const details = [
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
 },
 {
+  title: '安神秘法治疗',
+  dmg: ({ talent, calc, attr , cons }, { heal }) => heal(calc(attr.hp) * talent.q['技能治疗量'] / 100 )
+},
+{
+  title: '半血安神秘法治疗',
+  params: { hp: true },
+  dmg: ({ talent, calc, attr , cons }, { heal }) => heal(calc(attr.hp) * talent.q['低血量时技能治疗量'] / 100 )
+},
+{
   title: '单人站场16秒',
   params: { hp: true },
   dmg: ({ talent , cons }, dmg) => {
