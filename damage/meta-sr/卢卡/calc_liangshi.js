@@ -9,7 +9,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['单体伤害'], 'e')
 }, {
   title: '裂伤 伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'], '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'], 'dot', 'skillDot')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
@@ -35,4 +35,4 @@ export const buffs = [{
   data: {
     atk: 20
   }
-},{title: '9.14最后修改：如有问题请输入 #伤害计算反馈'}]
+},{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]

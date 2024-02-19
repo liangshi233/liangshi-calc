@@ -10,11 +10,11 @@ export const details = [{
 }, {
   title: '灼烧持续伤害',
   check: ({ cons }) => cons < 2,
-  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'], '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'], 'dot', 'skillDot')
 }, {
   title: '灼烧持续伤害',
   check: ({ cons }) => cons >= 6,
-  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'] + 0.4 , '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'] + 0.4 , 'dot', 'skillDot')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
@@ -23,7 +23,7 @@ export const details = [{
   dmg: ({ talent, cons }, dmg) => {
     let qDmg = dmg(talent.q['技能伤害'], 'q')
     const dotPlus = cons >= 2 ? 0.4 : 0
-    let dotDmg = dmg((talent.e['持续伤害'] + dotPlus) * talent.q['灼烧伤害比例'], '', 'skillDot')
+    let dotDmg = dmg((talent.e['持续伤害'] + dotPlus) * talent.q['灼烧伤害比例'], 'dot', 'skillDot')
     return {
       dmg: qDmg.dmg + dotDmg.avg,
       avg: qDmg.avg + dotDmg.avg

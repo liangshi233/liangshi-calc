@@ -20,11 +20,11 @@ export const details = [{
   check: ({ cons }) => cons >= 6,
   dmgKey: 't',
   dmg: ({ talent }, { dynamic }) => {
-    const dynamicEnemyDmg = 12
+    const dynamicEnemydmg = 12
     let t1dmg = dynamic(talent.t['技能伤害'], 't')
-    let t2dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg })
-    let t3dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 2 })
-    let t4dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemyDmg: dynamicEnemyDmg * 3 })
+    let t2dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg })
+    let t3dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg: dynamicEnemydmg * 2 })
+    let t4dmg = dynamic(talent.t['技能伤害'], 't', { dynamicEnemydmg: dynamicEnemydmg * 3 })
     return {
       dmg: t1dmg.dmg + t2dmg.dmg + t3dmg.dmg + t4dmg.dmg * 7,
       avg: t1dmg.avg + t2dmg.avg + t3dmg.avg + t4dmg.avg * 7
@@ -57,5 +57,5 @@ export const buffs = [{
   tree: 3,
   data: {
     cpct: 10
-  }
-},{title: '10.17最后修改：如有问题请输入 #伤害计算反馈'}]
+  }9
+},{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]

@@ -11,12 +11,12 @@ export const details = [{
   check: ({ cons }) => cons < 6,
   dmgKey: 'q',
   title: '5层天赋持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 5, '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 5, 'dot', 'skillDot')
 }, {
   check: ({ cons }) => cons = 6,
   dmgKey: 'q',
   title: '6命5层天赋持续伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 1.15 * 5, '', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.t['回合开始受到伤害'] * 1.15 * 5, 'dot', 'skillDot')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
@@ -28,4 +28,4 @@ export const buffs = [
   data: {
     dotEnemyDmg: ({ talent }) => talent.q['受持续伤害提高'] * 100
   }
-},{title: '8.21最后修改：如有问题请输入 #伤害计算反馈'}]
+},{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]

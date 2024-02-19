@@ -16,7 +16,7 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [{
-  title: '阿兰天赋：造成的伤害提高[atk]%',
+  title: '阿兰天赋：造成的伤害提高[dmg]%',
   data: {
     dmg: ({ talent }) => talent.t['伤害提高'] * 100
   }
@@ -32,4 +32,4 @@ export const buffs = [{
   data: {
     qDmg: 20
   }
-},{title: '6.16最后修改：如有问题请输入 #伤害计算反馈'}]
+},{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]
