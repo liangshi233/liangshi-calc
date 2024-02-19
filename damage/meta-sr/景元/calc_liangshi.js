@@ -57,5 +57,5 @@ export const buffs = [{
   tree: 3,
   data: {
     cpct: 10
-  }9
+  }
 },{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]
