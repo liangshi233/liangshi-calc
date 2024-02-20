@@ -102,7 +102,7 @@ export const details = [
   title: '旋云开相点按伤害',
   params: { ecd: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['点按伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['点按伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -110,7 +110,7 @@ export const details = [
   title: '旋云开相一段伤害',
   params: { ecd: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['一段蓄力伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['一段蓄力伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -118,7 +118,7 @@ export const details = [
   title: '旋云开相二段伤害',
   params: { ecd: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -309,7 +309,7 @@ export const details = [
   title: '云阿五诺 E二段',
   params: { ecd: true , teamA: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -428,9 +428,10 @@ export const buffs = [
     kx: 20
   }
 },
- {title: '1.29最后修改：[10.22重置] 修复部分情况下部分计算Nan的问题'}
+ {title: '2.21最后修改：[10.22重置] 修复伤害值提升类buff重复计算的问题'}
  ]
 /*
 这里放的是历史更新日志
+ {title: '1.29最后修改：[10.22重置] 修复部分情况下部分计算Nan的问题'}
 {title: '12.10最后修改：[10.22重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
 */

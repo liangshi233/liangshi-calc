@@ -12,7 +12,7 @@ export const details = [
   title: '旋云开相点按伤害',
   params: { ecd: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['点按伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['点按伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -20,7 +20,7 @@ export const details = [
   title: '旋云开相二段伤害',
   params: { ecd: true },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['二段蓄力伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },
@@ -33,7 +33,7 @@ export const details = [
 {
   title: '破嶂见旌仪展开伤害',
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.q['技能伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.q['技能伤害'] * calc(attr.def) / 100
     return basic(ret, 'q')
   }
 }
@@ -61,12 +61,12 @@ export const buffs = [
   }
 },
 {
-  title: '云堇4命：[昇堂吊云] 触发结晶反应后，防御力提升[def]%',
+  title: '云堇4命：[昇堂吊云] 触发结晶反应后，防御力提升[defPct]%',
   sort: 1,
   cons: 4,
   data: {
-    def: 20
+    defPct: 20
   }
 },
- {title: '4.4最后修改：[10.22重置] '}
- ]
+ {title: '2.21最后修改：[10.22重置] 修复伤害值提升类buff重复计算的问题'}
+]
