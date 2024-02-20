@@ -1,122 +1,165 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
 
 let a3Dmg = { dmg: 0 , avg: 0 }
 let ar3Dmg = { dmg: 0 , avg: 0 }
 let q1Dmg = { dmg: 0 , avg: 0 }
 let q2Dmg = { dmg: 0 , avg: 0 }
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '云开星落'
+let eNameT = 'E'
+let qName = '重华叠霜'
+let qNameT = 'Q'
+let c1Name = '一命'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '灭邪四式'
+  c1Name = '一命座'
+  eNameT = '云开星落'
+  qNameT = '重华叠霜'
+ } else if ( NamePath == 3 ) {
+  eNameT = '云开星落'
+  qNameT = '重华叠霜'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  c1Name = 'C1'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
 
 export const details = [
 {
-  title: '普攻一段伤害物理',
+  title: `${aName}一段伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
 },
 {
-  title: '普攻一段伤害冰',
+  title: `${aName}一段伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 },
 {
-  title: '普攻一段融化',
+  title: `${aName}一段融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'melt')
 },
 {
-  title: '普攻二段伤害物理',
+  title: `${aName}二段伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'phy')
 },
 {
-  title: '普攻二段伤害冰',
+  title: `${aName}二段伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a')
 },
 {
-  title: '普攻二段融化',
+  title: `${aName}二段融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'melt')
 },
 {
-  title: '普攻三段伤害物理',
+  title: `${aName}三段伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'phy')
 },
 {
-  title: '普攻三段伤害冰',
+  title: `${aName}三段伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a')
 },
 {
-  title: '普攻三段融化',
+  title: `${aName}三段融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['三段伤害'], 'a', 'melt')
 },
 {
-  title: '普攻四段伤害物理',
+  title: `${aName}四段伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'phy')
 },
 {
-  title: '普攻四段伤害冰',
+  title: `${aName}四段伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a')
 },
 {
-  title: '普攻四段融化',
+  title: `${aName}四段融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'melt')
 },
 {
-  title: '重击循环伤害物理',
+  title: `${a2Name}循环伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2', 'phy')
 },
 {
-  title: '重击循环伤害冰',
+  title: `${a2Name}循环伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2')
 },
 {
-  title: '重击循环伤害融化',
+  title: `${a2Name}循环伤害融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2', 'melt')
 },
 {
-  title: '重击终结伤害物理',
+  title: `${a2Name}终结伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击终结伤害'], 'a2', 'phy')
 },
 {
-  title: '重击终结伤害冰',
+  title: `${a2Name}终结伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击终结伤害'], 'a2')
 },
 {
-  title: '重击终结伤害融化',
+  title: `${a2Name}终结伤害融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击终结伤害'], 'a2', 'melt')
 },
 {
-  title: '下落期间伤害物理',
+  title: `下落期间伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
 },
 {
-  title: '下落期间伤害冰',
+  title: `下落期间伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3')
 },
 {
-  title: '下落期间伤害融化',
+  title: `下落期间伤害融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'melt')
 },
 {
-  title: '低空下落伤害物理',
+  title: `低空${a3Name}伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3', 'phy')
 },
 {
-  title: '低空下落伤害冰',
+  title: `低空${a3Name}伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3')
 },
 {
-  title: '低空下落伤害融化',
+  title: `低空${a3Name}伤害融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3', 'melt')
 },
 {
-  title: '高空下落伤害物理',
+  title: `高空${a3Name}伤害物理`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'phy')
 },
 {
-  title: '高空下落伤害冰',
+  title: `高空${a3Name}伤害冰`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 },
 {
-  title: '高空下落伤害融化',
+  title: `高空${a3Name}伤害融化`,
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'melt')
 },
 {
   check: ({ cons }) => cons >= 1,
-  title: '一命冰刃单道伤害',
+  title: `${c1Name}冰刃单道伤害`,
   dmg: ({ attr , talent , calc }, { basic }) => {
   a3Dmg = basic( calc( attr.atk ) * ( 50 / 100 ), 'a')
   return a3Dmg
@@ -124,22 +167,22 @@ export const details = [
 },
 {
   check: ({ cons }) => cons >= 1,
-  title: '一命冰刃单道融化',
+  title: `${c1Name}冰刃单道融化`,
   dmg: ({ attr , talent , calc }, { basic }) => {
   ar3Dmg = basic( calc( attr.atk ) * ( 50 / 100 ), 'a', 'melt')
   return ar3Dmg
   }
 },
 {
-  title: '重华叠霜伤害',
+  title: `${eName}伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },
 {
-  title: '重华叠霜融化伤害',
+  title: `${eName}融化伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'melt')
 },
 {
-  title: '云开星落单段伤害',
+  title: `${qName}单段伤害`,
   params: { tfkx: true },
   dmg: ({ talent }, dmg) => {
   q1Dmg = dmg( talent.q['技能伤害'], 'q')
@@ -147,7 +190,7 @@ export const details = [
   }
 },
 {
-  title: '云开星落单段融化',
+  title: `${qName}单段融化`,
   params: { tfkx: true },
   dmg: ({ talent }, dmg) => {
   q2Dmg = dmg( talent.q['技能伤害'], 'q', 'melt')
@@ -157,17 +200,29 @@ export const details = [
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `云开星落 ${count}柄灵刃总伤害`,
+    title: `${qName} ${count}柄灵刃总伤害`,
     params: { tfkx: true },
-    dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q')
+    dmg: ({ talent, cons }, dmg) => {
+    let qDmg = dmg(talent.q['技能伤害'] , 'q')
+     return {
+       dmg: qDmg.dmg * count ,
+       avg: qDmg.avg * count
+     }
+    }
   }
 },
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `云开星落 ${count}柄灵刃融化`,
+    title: `${qName} ${count}柄灵刃总伤害`,
     params: { tfkx: true },
-    dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q', 'melt')
+    dmg: ({ talent, cons }, dmg) => {
+    let qDmg = dmg(talent.q['技能伤害'] , 'q', 'melt')
+     return {
+       dmg: qDmg.dmg * count ,
+       avg: qDmg.avg * count
+     }
+    }
   }
 },
 {
@@ -220,7 +275,7 @@ export const details = [
   }
 },
 {
- 	title: '单人循环流畅度',
+  title: '单人循环流畅度',
   dmg: ({ talent , calc , attr , weapon , cons }) => {
   let weaponn = 0
   let consn = 0
@@ -440,24 +495,32 @@ export const details = [
   }
 },
 {
-  title: '重香行班 E融化',
+  title: `重香行班 ${eNameT}融化`,
   params: { teamA: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'melt')
 },
- ({ cons }) => {
+{
+  title: `重香行班 ${qNameT}伤害`,
+  params: { teamA: true , tfkx: true },
+  dmg: ({ talent, cons }, dmg) => {
   let count = cons === 6 ? 4 : 3
-  return {
-    title: '重香行班 Q伤害',
-    params: { teamA: true , tfkx: true },
-    dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q')
+  let qDmg = dmg(talent.q['技能伤害'] , 'q')
+   return {
+     dmg: qDmg.dmg * count ,
+     avg: qDmg.avg * count
+   }
   }
 },
- ({ cons }) => {
+{
+  title: `重香行班 ${qNameT}融化`,
+  params: { teamA: true , tfkx: true },
+  dmg: ({ talent, cons }, dmg) => {
   let count = cons === 6 ? 4 : 3
-  return {
-    title: '重香行班 Q融化',
-    params: { teamA: true , tfkx: true },
-    dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q', 'melt')
+  let qDmg = dmg(talent.q['技能伤害'] , 'q', 'melt')
+   return {
+     dmg: qDmg.dmg * count ,
+     avg: qDmg.avg * count
+   }
   }
 }
 ]
@@ -533,5 +596,9 @@ export const buffs = [
   }
 },
 'melt',
- {title: '1.5最后修改：[10.17重置] 修复1命效果显示异常'}
+ {title: '2.19最后修改：[10.17重置] 修正多段类元素爆发无法多次获取伤害值提升类buff的问题'}
 ]
+/*
+这里放的是历史更新日志
+ {title: '1.5最后修改：[10.17重置] 修复1命效果显示异常'}
+*/

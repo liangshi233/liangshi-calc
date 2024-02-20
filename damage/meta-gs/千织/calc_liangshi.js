@@ -27,12 +27,12 @@ export const details = [
 },
 {
   title: '羽袖一触人偶伤害',
-  dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.e['自律人形 · 袖斩切2'][0] * calc(attr.atk) / 100 + talent.e['自律人形 · 袖斩切2'][1] * calc(attr.def) / 100 , 'e')
+  dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
 },
 {
   title: '2命人偶切斩伤害',
   check: ({ cons }) => cons >= 2,
-  dmg: ({ talent, calc, attr, cons }, { basic }) => basic( ( talent.e['自律人形 · 袖斩切2'][0] * calc(attr.atk) / 100 + talent.e['自律人形 · 袖斩切2'][1] * calc(attr.def) / 100 ) * 1.7 , 'e')
+  dmg: ({ talent, calc, attr, cons }, { basic }) => basic( ( talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 ) * 1.7 , 'e')
 },
 {
   title: '二刀之形 · 比翼伤害',
@@ -62,5 +62,5 @@ export const buffs = [
   }
 },
 {title: '测试内容：[4.4.52] 数据随时可能更改，请注意时效性'},
-{title: '2.14最后修改：[1.30重置]'}
+{title: '2.20最后修改：[1.30重置]'}
 ]

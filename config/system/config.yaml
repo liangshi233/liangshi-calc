@@ -4,3 +4,5 @@ autoRestart: false
 autoRefresh: true
 #自动刷新预设面板的版本( 0：用户自定义  1：liangshi  2：liangshi(带主角版) )
 panelmodel: 1
+#面板内容显示( 1：默认模式  2：完全名称  3：部分简写  4：全部简写  5：字母简写  6：仅字母 )
+namemodel: 1
