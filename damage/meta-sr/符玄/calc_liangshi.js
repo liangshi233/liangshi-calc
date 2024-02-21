@@ -1,13 +1,15 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
 
-export const details = [{
+export const details = [
+{
    title: '普攻伤害',
    dmg: ({ talent, calc, attr, cons }, { basic }) => {
      const zz = talent.a['技能伤害']
      const hp = calc(attr.hp)
      return basic( ( zz * hp ) , 'a' )
    }
-}, {
+},
+{
   title: '战技提高生命上限值',
   dmg: ({ talent, attr, calc }) => {
     return {

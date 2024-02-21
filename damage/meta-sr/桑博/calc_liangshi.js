@@ -24,8 +24,8 @@ export const defDmgKey = 'q'
 
 export const buffs = [
 {
-  title: '惊喜礼盒：持续伤害提升[dotEnemyDmg]%',
+  title: '惊喜礼盒：持续伤害提升[dotEnemydmg]%',
   data: {
-    dotEnemyDmg: ({ talent }) => talent.q['受持续伤害提高'] * 100
+    dotEnemydmg: ({ talent }) => talent.q['受持续伤害提高'] * 100
   }
-},{title: '2.19最后修改：如有问题请输入 #伤害计算反馈'}]
+},{title: '2.21最后修改：如有问题请输入 #伤害计算反馈'}]
