@@ -11,7 +11,7 @@ export const details = [
 {
   title: '战技主目标伤害',
   dmg: ({ talent , cons }, dmg) => {
-     let talentConfig = cons >= 6 ? 'q' : 'a'
+     let talentConfig = cons >= 6 ? 'q' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
      let eDmg = dmg(talent.e['单体伤害'] * talentDmg , `${talentConfig}`)
      return eDmg
@@ -20,7 +20,7 @@ export const details = [
 {
   title: '战技相邻目标伤害',
   dmg: ({ talent , cons }, dmg) => {
-     let talentConfig = cons >= 6 ? 'q' : 'a'
+     let talentConfig = cons >= 6 ? 'q' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
      let e2Dmg = dmg(talent.e['相邻目标伤害'] * talentDmg , `${talentConfig}`)
      return e2Dmg
