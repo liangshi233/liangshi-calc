@@ -189,4 +189,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `12.27最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]

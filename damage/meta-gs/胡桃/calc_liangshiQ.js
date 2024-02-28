@@ -1,5 +1,12 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
 
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let energy = cfg.energymodel
 let a1Dmg = { dmg: 0 , avg: 0 }
 let a2Dmg = { dmg: 0 , avg: 0 }
 let a3Dmg = { dmg: 0 , avg: 0 }
@@ -7,10 +14,78 @@ let a4Dmg = { dmg: 0 , avg: 0 }
 let a5Dmg = { dmg: 0 , avg: 0 }
 let e1Dmg = { dmg: 0 , avg: 0 }
 let e2Dmg = { dmg: 0 , avg: 0 }
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '血梅香'
+let eNameT = 'E'
+let qName = '安神秘法'
+let qNameT = 'Q'
+let tName = '半血'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '往生堂秘传枪法'
+  eNameT = '蝶引来生'
+  qNameT = '安神秘法'
+  tName = '一半生命值'
+ } else if ( NamePath == 3 ) {
+  eNameT = '蝶引来生'
+  qNameT = '安神秘法'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['f', 'y', 'dph', 'dps']
+let ranking = 'undefined'
+ if ( rankingOnePath == 'm' )  {
+ ranking = 'dps'
+} else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' )  {
+    ranking = 'dps'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' )  {
+      ranking = 'dps'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[胡桃] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'dps'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+} else {
+ ranking = `${rankingOnePath}`
+}
+if (!cfg.energymodel) {
+energy = 0
+}
+let renew = '12.27-修复攻击力提升不正确的问题'
+ renew = '1.5-修复部分情况下部分计算Nan的问题'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
-  title: '普通攻击一段伤害',
+  title: `${aName}一段伤害`,
+  dmgKey: 'undefined',
   params: { e: true },
    dmg: ({ talent }, dmg) => {
     a1Dmg = dmg(talent.a['一段伤害'], 'a', 'phy')
@@ -18,25 +93,26 @@ export const details = [
   }
 },
 {
-  title: '开E普攻一段',
+  title: `开${eNameT}${aName}一段`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a')
 },
 {
-  title: '开E普攻一段蒸发',
+  title: `开${eNameT}${aName}一段蒸发`,
+  dmgKey: 'a',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E普攻一段',
+  title: `${tName}开${eNameT}${aName}一段`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a')
 },
 {
-  title: '半血开E普攻一段蒸发',
+  title: `${tName}开${eNameT}${aName}一段蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
 },
 {
-  title: '普通攻击二段伤害',
+  title: `${aName}二段伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => {
     a2Dmg = dmg(talent.a['二段伤害'], 'a', 'phy')
@@ -44,25 +120,25 @@ export const details = [
   }
 },
 {
-  title: '开E普攻二段',
+  title: `开${eNameT}${aName}二段`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['二段伤害'], 'a')
 },
 {
-  title: '开E普攻二段蒸发',
+  title: `开${eNameT}${aName}二段蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['二段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E普攻二段',
+  title: `${tName}开${eNameT}${aName}二段`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['二段伤害'], 'a')
 },
 {
-  title: '半血开E普攻二段蒸发',
+  title: `${tName}开${eNameT}${aName}二段蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['二段伤害'], 'a', 'vaporize')
 },
 {
-  title: '普通攻击三段伤害',
+  title: `${aName}三段伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => {
     a3Dmg = dmg(talent.a['三段伤害'], 'a', 'phy')
@@ -70,25 +146,25 @@ export const details = [
   }
 },
 {
-  title: '开E普攻三段',
+  title: `开${eNameT}${aName}三段`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['三段伤害'], 'a')
 },
 {
-  title: '开E普攻三段蒸发',
+  title: `开${eNameT}${aName}三段蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['三段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E普攻三段',
+  title: `${tName}开${eNameT}${aName}三段`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['三段伤害'], 'a')
 },
 {
-  title: '半血开E普攻三段蒸发',
+  title: `${tName}开${eNameT}${aName}三段蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['三段伤害'], 'a', 'vaporize')
 },
 {
-  title: '普通攻击四段伤害',
+  title: `${aName}四段伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => {
     a4Dmg = dmg(talent.a['四段伤害'], 'a', 'phy')
@@ -96,25 +172,25 @@ export const details = [
   }
 },
 {
-  title: '开E普攻四段',
+  title: `开${eNameT}${aName}四段`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['四段伤害'], 'a')
 },
 {
-  title: '开E普攻四段蒸发',
+  title: `开${eNameT}${aName}四段蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['四段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E普攻四段',
+  title: `${tName}开${eNameT}${aName}四段`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['四段伤害'], 'a')
 },
 {
-  title: '半血开E普攻四段蒸发',
+  title: `${tName}开${eNameT}${aName}四段蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['四段伤害'], 'a', 'vaporize')
 },
 {
-  title: '普通攻击五段伤害',
+  title: `${aName}五段伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => {
     a5Dmg = dmg(talent.a['五段伤害'], 'a', 'phy')
@@ -122,43 +198,44 @@ export const details = [
   }
 },
 {
-  title: '开E普攻五段',
+  title: `开${eNameT}${aName}五段`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['五段伤害'], 'a')
 },
 {
-  title: '开E普攻五段蒸发',
+  title: `开${eNameT}${aName}五段蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E普攻五段',
+  title: `${tName}开${eNameT}${aName}五段`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['五段伤害'], 'a')
 },
 {
-  title: '半血开E普攻五段蒸发',
+  title: `${tName}开${eNameT}${aName}五段蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 },
 {
-  title: '重击伤害',
+  title: `${a2Name}伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
 },
 {
-  title: 'E后重击',
+  title: `${eNameT}后${a2Name}`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
-  title: 'E后重击蒸发',
+  title: `${eNameT}后${a2Name}蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
 {
-  title: '半血开E重击',
+  title: `${tName}开${eNameT}${a2Name}`,
+  dmgKey: 'z',
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
-  title: '半血开E重击蒸发',
+  title: `${tName}开${eNameT}${a2Name}蒸发`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
@@ -168,27 +245,28 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
 },
 {
-  title: '低空下落伤害',
+  title: `低空${a3Name}伤害`,
   params: { e: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3', 'phy')
 },
 {
-  title: '高空下落伤害',
+  title: `高空${a3Name}伤害`,
+  dmgKey: 'c',
   params: { e: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'phy')
 },
 {
-  title: '无E血梅香伤害',
+  title: `无${eNameT}${eName}伤害`,
   params: { e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e')
 },
 {
-  title: '无E血梅香蒸发',
+  title: `无${eNameT}${eName}蒸发`,
   params: { e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e', 'vaporize')
 },
 {
-  title: '无E半血血梅香伤害',
+  title: `无${eNameT}${tName}${eName}伤害`,
   params: { hp: true , e: true },
   dmg: ({ talent, attr }, dmg ) => {
     e1Dmg = dmg(talent.e['血梅香伤害'], 'e')
@@ -196,7 +274,7 @@ export const details = [
   }
 },
 {
-  title: '无E半血血梅香伤害',
+  title: `无${eNameT}${tName}${eName}伤害`,
   params: { hp: true , e: true },
   dmg: ({ talent, attr }, dmg ) => {
     e2Dmg = dmg(talent.e['血梅香伤害'], 'e', 'vaporize')
@@ -204,67 +282,70 @@ export const details = [
   }
 },
 {
-  title: '血梅香伤害',
+  title: `${eName}伤害`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e')
 },
 {
-  title: '血梅香蒸发',
+  title: `${eName}蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e', 'vaporize')
 },
 {
-  title: '半血血梅香伤害',
+  title: `${tName}${eName}伤害`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e')
 },
 {
-  title: '半血血梅香蒸发',
+  title: `${tName}${eName}蒸发`,
+  dmgKey: 'e',
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e', 'vaporize')
 },
 {
-  title: '安神秘法伤害',
+  title: `${qName}伤害`,
   params: { e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: '安神秘法蒸发',
+  title: `${qName}蒸发`,
   params: { e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 },
 {
-  title: '半血安神秘法',
+  title: `${tName}${qName}`,
   params: { hp: true , e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q')
 },
 {
-  title: '半血安神秘法蒸发',
+  title: `${tName}${qName}蒸发`,
   params: { hp: true , e: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
 },
 {
-  title: 'E后安神秘法',
+  title: `${eNameT}后${qName}`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: 'E后安神秘法蒸发',
+  title: `${eNameT}后${qName}蒸发`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 },
 {
-  title: '半血开E后Q',
+  title: `${tName}开${eNameT}后${qNameT}`,
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q')
 },
 {
-  title: '半血开E后Q蒸发',
+  title: `${tName}开${eNameT}后${qNameT}蒸发`,
+  dmgKey: 'q',
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
 },
 {
-  title: '安神秘法治疗',
+  title: `${qName}治疗`,
   dmg: ({ talent, calc, attr , cons }, { heal }) => heal(calc(attr.hp) * talent.q['技能治疗量'] / 100 )
 },
 {
-  title: '半血安神秘法治疗',
+  title: `${tName}${qName}治疗`,
+  dmgKey: 'h',
   params: { hp: true },
   dmg: ({ talent, calc, attr , cons }, { heal }) => heal(calc(attr.hp) * talent.q['低血量时技能治疗量'] / 100 )
 },
@@ -290,6 +371,7 @@ export const details = [
 },
 {
   title: '单人站场16秒蒸发',
+  dmgKey: 'dph',
   params: { hp: true },
   dmg: ({ talent , cons }, dmg) => {
     let q = dmg(talent.q['技能伤害'], 'q', 'vaporize')
@@ -356,7 +438,7 @@ export const details = [
   weaponconsn = 1
   }
   return {
-    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn )) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) ) ,
+    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn + energy )) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) ) ,
     type: 'text'
   }
  }
@@ -419,7 +501,7 @@ export const details = [
     if (weapon.name === '天空之脊') {
     weaponconsn = 1
     }
-    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn ) ) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) )
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn + energy ) ) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) )
     return {
       dmg: ( qcn * ( q.dmg + cons2 * 2 * e2.dmg ) + 2 * e1.dmg + 7 * z1.dmg + 2 * ( a1.dmg + a2.dmg + a3.dmg + a4.dmg + a5.dmg ) ) / 16 ,
       avg: ( qcn * ( q.avg + cons2 * 2 * e2.avg ) + 2 * e1.avg + 7 * z1.avg + 2 * ( a1.avg + a2.avg + a3.avg + a4.avg + a5.avg ) ) / 16
@@ -485,7 +567,7 @@ export const details = [
     if (weapon.name === '天空之脊') {
     weaponconsn = 1
     }
-    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn ) ) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) )
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 2.5 * 2 * 3 + weaponn + energy ) ) / ( 60 - weaponnn - ( 0.2073 * ( 10 + weaponconsn ) ) ) )
     return {
       dmg: ( qcn * ( q.dmg + cons2 * 2 * e2.dmg ) + 2 * e1.dmg + 7 * z1.dmg + 2 * ( a1.dmg + a2.dmg + a3.dmg + a4.dmg + a5.dmg ) ) / 16 ,
       avg: ( qcn * ( q.avg + cons2 * 2 * e2.avg ) + 2 * e1.avg + 7 * z1.avg + 2 * ( a1.avg + a2.avg + a3.avg + a4.avg + a5.avg ) ) / 16
@@ -493,22 +575,22 @@ export const details = [
   }
 },
 {
-  title: '胡行夜钟 普攻一段蒸发',
+  title: `胡行夜钟 ${aName}一段蒸发`,
   params: { teamA: true , hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
 },
 {
-  title: '胡行夜钟 重击蒸发',
+  title: `胡行夜钟 ${a2Name}蒸发`,
   params: { teamA: true , hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
 {
-  title: '胡行夜钟 Q蒸发',
+  title: `胡行夜钟 ${qNameT}蒸发`,
   params: { teamA: true , hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
 }]
 
-export const defDmgKey = 'dps'
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const buffs = [
@@ -584,9 +666,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '1.5最后修改：[11.6重置] 修复部分情况下部分计算Nan的问题'}
+{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 更新日志:${renew} 其他信息:${information}`}
 ]
-/*
-这里放的是历史更新日志
-{title: '12.27最后修改：[11.6重置] 修复攻击力提升不正确的问题'}
-*/
