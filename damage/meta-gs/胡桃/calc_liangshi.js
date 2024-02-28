@@ -1,40 +1,121 @@
+import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '血梅香'
+let eNameT = 'E'
+let qName = '安神秘法'
+let qNameT = 'Q'
+let tName = '半血'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '往生堂秘传枪法'
+  eNameT = '蝶引来生'
+  qNameT = '安神秘法'
+  tName = '一半生命值'
+ } else if ( NamePath == 3 ) {
+  eNameT = '蝶引来生'
+  qNameT = '安神秘法'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['c', 'h', 'f', 'y', 'dph', 'hph', 'dps', 'hps']
+let ranking = 'undefined'
+ if ( rankingOnePath == 'm' )  {
+ ranking = 'z'
+} else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' )  {
+    ranking = 'z'
+   }  else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' )  {
+      ranking = 'z'
+     }  else if (miss.includes(rankingThreePath)) {
+      logger.mark('[胡桃] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'z'
+     }  else {
+       ranking = `${rankingThreePath}`
+     }
+   }  else {
+     ranking = `${rankingTwoPath}`
+   }
+} else {
+ ranking = `${rankingOnePath}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '12.27-修复攻击力提升不正确的问题'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: '半血开E普攻一段',
+  title: `${tName}开${eNameT}${aName}一段`,
+  dmgKey: 'undefined',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a')
 },
 {
-  title: '半血开E重击',
+  title: `${tName}开${eNameT}${a2Name}`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
-  title: '半血开E普攻一段蒸发',
+  title: `${tName}开${eNameT}${aName}一段蒸发`,
+  dmgKey: 'a',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
 },
 {
-  title: '半血开E重击蒸发',
+  title: `${tName}开${eNameT}${a2Name}蒸发`,
+  dmgKey: 'z',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
 {
-  title: '血梅香伤害',
+  title: `${eName}伤害`,
+  dmgKey: 'e',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.e['血梅香伤害'], 'e')
 },
 {
-  title: '半血开E后Q',
+  title: `${tName}开${eNameT}后${qNameT}`,
+  dmgKey: 'q',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q')
 },
 {
-  title: '胡行夜钟 重击蒸发',
+  title: `胡行夜钟 ${a2Name}蒸发`,
   params: { teamA: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
 {
-  title: '胡行夜钟 Q蒸发',
+  title: `胡行夜钟 ${qNameT}蒸发`,
   params: { teamA: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['低血量时技能伤害'], 'q', 'vaporize')
 }]
 
-export const defDmgIdx = 3
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const buffs = [
@@ -108,5 +189,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '12.27最后修改：[11.6重置] 修复攻击力提升不正确的问题'}
-]
+{title: `12.27最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]

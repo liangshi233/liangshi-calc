@@ -6,3 +6,11 @@ autoRefresh: true
 panelmodel: 1
 #面板内容显示( 1：默认模式  2：完全名称  3：部分简写  4：全部简写  5：字母简写  6：仅字母 )
 namemodel: 1
+#环境产球设置
+energymodel: 0
+#排名规则-首选
+rankingOnemodel: m
+#排名规则-次选
+rankingTwomodel: hps
+#排名规则-备选
+rankingThreemodel: dps
