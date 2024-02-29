@@ -132,7 +132,7 @@ export class allSetting extends plugin {
       logger.mark('[liangshi]自动替换版本选择配置文件缺失，已自动选择默认版本替换')
       panelPath = 1
     }
-    const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/0${panelPath}`
+    const liangshiPath = `${_path}/plugins/liangshi-calc/replace/data/${panelPath}`
     const replaceFiles = [
       {
         liangshi: `${liangshiPath}/PlayerData/gs`,
