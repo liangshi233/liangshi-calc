@@ -1,5 +1,7 @@
 #config设置内容
+
 如果出现错误可将配置文件删除，重启后会自动生成
+
 ##设置1
 ~~~~~~~~~~YAML
 autoRestart: false 
