@@ -24,8 +24,8 @@ export const details = [{
   dmgKey: 'dmg',
   dmg: ({ attr, calc, talent }) => {
     return {
-      avg: ( calc(attr.cdmg) * talent.q['百分比暴伤'] + talent.q['固定暴伤'] * 100 ),
-      unit: '%'
+      avg: Format.percent(calc(attr.cdmg) * talent.q['百分比暴伤'] / 100 + talent.q['固定暴伤']),
+      type: 'text'
     }
   }
 }]

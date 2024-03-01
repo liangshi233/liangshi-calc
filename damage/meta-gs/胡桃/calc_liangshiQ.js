@@ -6,6 +6,7 @@ let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
+let gs46ranking = cfg.gs46ranking
 let energy = cfg.energymodel
 let a1Dmg = { dmg: 0 , avg: 0 }
 let a2Dmg = { dmg: 0 , avg: 0 }
@@ -55,13 +56,14 @@ if ( NamePath !== 1 ) {
 }
 const miss = ['f', 'y', 'dph', 'dps']
 let ranking = 'undefined'
- if ( rankingOnePath == 'm' )  {
- ranking = 'dps'
-} else if (miss.includes(rankingOnePath)) {
-   if ( rankingTwoPath == 'm' )  {
+if (!cfg.gs46ranking) {
+ if ( rankingOnePath == 'm' ) {
+  ranking = 'dps'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
     ranking = 'dps'
    } else if (miss.includes(rankingTwoPath)) {
-     if ( rankingThreePath == 'm' )  {
+     if ( rankingThreePath == 'm' ) {
       ranking = 'dps'
      } else if (miss.includes(rankingThreePath)) {
       logger.mark('[胡桃] 排名规则均未命中，已选择默认排名规则')
@@ -72,8 +74,11 @@ let ranking = 'undefined'
    } else {
      ranking = `${rankingTwoPath}`
    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
 } else {
- ranking = `${rankingOnePath}`
+ ranking = `${gs46ranking}`
 }
 if (!cfg.energymodel) {
 energy = 0
@@ -666,5 +671,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 更新日志:${renew} 其他信息:${information}`}
+{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs46ranking} 更新日志:${renew} 其他信息:${information}`}
 ]

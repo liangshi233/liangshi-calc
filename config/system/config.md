@@ -121,7 +121,7 @@ rankingOnemodel: m
 
 `hps` 使用角色的平均每秒治疗量（仅限使用超全版伤害计算）
 
-`undefined` 摆烂
+`undefined` 摆烂,爱用啥排用啥排
 
 </details>
 
@@ -148,6 +148,91 @@ rankingThreemodel: dps
 >此选项为角色排行备选规则，角色排行时，首选与次选规则均未命中时候将会使用此规则
 
 `可用的内容` 与首选规则一致
+
+</details>
+
+---
+
+##设置10086
+- **适配中** —— 此设置可能只在部分角色中生效
+- **不生成** —— 此设置不会自行生成，需要手动添加
+~~~~~~~~~~YAML
+？？？？？: dps
+~~~~~~~~~~
+<details><summary>可用的内容 a z c e q </summary>
+
+>此选项为角色专属排行规则，角色排行时，只会使用此规则且不受到通用规则影响
+
+`可用的内容` 与首选规则一致，但不可使用 `m` 作为排行规则
+
+<details><summary>使用规则</summary>
+
+角色所存在的游戏 `gs` 或 `sr` 加 `角色ID` 加 `ranking`
+
+举例1
+~~~~~~~~~~YAML
+#指定 星铁 角色 花火 使用 辅助队友能力 进行角色排行
+sr1306ranking: f
+~~~~~~~~~~
+
+举例2
+~~~~~~~~~~YAML
+#指定 原神 角色 胡桃 使用 重击伤害 进行角色排行
+gs46ranking: z
+~~~~~~~~~~
+
+<details><summary>出问题了？</summary>
+
+出现以下情况的请立刻点击 `右上角叉叉` 退出本页面
+~~~~~~~~~~YAML
+e: gs70ranking
+
+gs70ranking: m
+
+gs角色IDranking: e
+
+gs 角色ID ranking: e
+
+gs八重神子ranking: e
+
+gs 珊瑚宫心海 ranking: h
+
+gs 70 ranking: e
+
+gs加70加ranking: e
+
+gs 加 70 加 ranking: e
+
+gs+70+ranking: e
+
+gs + 70 + ranking: e
+
+gs70rankingsr1112ranking: e
+
+gs70ranking sr1112ranking: e
+~~~~~~~~~~
+~~~~~~~~~~
+来份所有角色已经设置好的
+
+救命啊，这个到底要怎么改啊
+
+为什么不直接用角色名字却用的ID
+
+想同时使用两个条目进行排行，怎么改
+
+一个一个角色还要单独设置，真是太麻烦了
+
+就一个排行整这么麻烦的设置，真是太不方便了
+
+为什么单独设置不能使用默认规则，真是太不方便了
+
+我用的基础版计算，但是我想用超全版里的条目进行排行
+~~~~~~~~~~
+>问角色ID的也请点击 `右上角叉叉`
+
+</details>
+
+</details>
 
 </details>
 
@@ -221,3 +306,4 @@ stylemodel: false
 `false` 禁用面板主题自动更新
 
 </details>
+

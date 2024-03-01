@@ -6,6 +6,7 @@ let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
+let gs46ranking = cfg.gs46ranking
 let energy = cfg.energymodel
 let aName = '普通攻击'
 let a2Name = '重击'
@@ -48,25 +49,29 @@ if ( NamePath !== 1 ) {
 }
 const miss = ['c', 'h', 'f', 'y', 'dph', 'hph', 'dps', 'hps']
 let ranking = 'undefined'
- if ( rankingOnePath == 'm' )  {
- ranking = 'z'
-} else if (miss.includes(rankingOnePath)) {
-   if ( rankingTwoPath == 'm' )  {
+if (!cfg.gs46ranking) {
+ if ( rankingOnePath == 'm' ) {
+  ranking = 'z'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
     ranking = 'z'
-   }  else if (miss.includes(rankingTwoPath)) {
-     if ( rankingThreePath == 'm' )  {
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
       ranking = 'z'
      }  else if (miss.includes(rankingThreePath)) {
       logger.mark('[胡桃] 排名规则均未命中，已选择默认排名规则')
       ranking = 'z'
-     }  else {
+     } else {
        ranking = `${rankingThreePath}`
      }
-   }  else {
+   } else {
      ranking = `${rankingTwoPath}`
    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
 } else {
- ranking = `${rankingOnePath}`
+ ranking = `${gs46ranking}`
 }
 if (!cfg.namemodel) {
 energy = 0
@@ -189,4 +194,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs46ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]

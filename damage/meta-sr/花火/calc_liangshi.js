@@ -6,6 +6,7 @@ let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
+let sr1306ranking = cfg.sr1306ranking
 let aName = '普通攻击'
 let eName = '梦游鱼'
 let eNameT = 'E'
@@ -40,27 +41,32 @@ if ( NamePath !== 1 ) {
 }
 const miss = ['z','c','e','h','y','dps','dph','hph','hps']
 let ranking = 'undefined'
+if (!cfg.sr1306ranking) {
  if ( rankingOnePath == 'm' )  {
- ranking = 'f'
-} else if (miss.includes(rankingOnePath)) {
-   if ( rankingTwoPath == 'm' )  {
-    ranking = 'f'
-   } else if (miss.includes(rankingTwoPath)) {
-     if ( rankingThreePath == 'm' )  {
-      ranking = 'f'
-     } else if (miss.includes(rankingThreePath)) {
-      logger.mark('[花火] 排名规则均未命中，已选择默认排名规则')
-      ranking = 'f'
-     } else {
-       ranking = `${rankingThreePath}`
-     }
-   } else {
-     ranking = `${rankingTwoPath}`
-   }
+  ranking = 'f'
+ } else if (miss.includes(rankingOnePath)) {
+    if ( rankingTwoPath == 'm' )  {
+     ranking = 'f'
+    } else if (miss.includes(rankingTwoPath)) {
+      if ( rankingThreePath == 'm' )  {
+       ranking = 'f'
+      } else if (miss.includes(rankingThreePath)) {
+       logger.mark('[花火] 排名规则均未命中，已选择默认排名规则')
+       ranking = 'f'
+      } else {
+        ranking = `${rankingThreePath}`
+      }
+    } else {
+      ranking = `${rankingTwoPath}`
+    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
 } else {
- ranking = `${rankingOnePath}`
+ ranking = `${sr1306ranking}`
 }
 let renew = '2.29-修复对非浮点数进行排名导致的undefined问题'
+ renew = '3.1-修复天赋加成异常问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -80,8 +86,8 @@ export const details = [
   dmgKey: 'f',
   dmg: ({ attr, calc, talent, cons }) => {
     return {
-      avg: ( calc(attr.cdmg) * ( talent.e['百分比爆伤'] + ( cons * 1 >= 6 ? 0.3 : 0 ) ) + talent.e['额外爆伤'] * 100 ),
-      unit: '%'
+      avg: Format.percent(calc(attr.cdmg) * ( talent.e['百分比爆伤'] + ( cons * 1 >= 6 ? 0.3 : 0 ) ) / 100 + talent.e['额外爆伤'] ),
+      type: 'text'
     }
   }
 },
@@ -96,6 +102,7 @@ export const details = [
 },
 {
   title: `${qName}满层Buff加伤`,
+  dmgKey: 'q',
   params: { migui: 3 },
   dmg: ({ talent }) => {
     return {
@@ -106,21 +113,22 @@ export const details = [
 }]
 
 export const defDmgKey = `${ranking}`
+export const defParams = { migui: 0 }
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
 {
   title: '花火技能：[一人千役] [buffCount]层【谜诡】,使我方所有角色造成伤害额外提高[dmg]%',
   data: {
-    buffCount: ({ params }) => ( params.migui || 0 ),
-    dmg: ({ params , talent }) => ( params.migui || 0 ) * talent.q['天赋增伤每层额外提高']
+    buffCount: ({ params }) => Math.min(params.migui, 3) ,
+    dmg: ({ params , talent }) => Math.min(params.migui, 3) * talent.q['天赋增伤每层额外提高'] * 100
   }
 },
 {
   title: '花火天赋：[叙述性诡计] [buffCount]层【谜诡】,使我方所有角色造成伤害提高[dmg]%',
   data: {
-    buffCount: ({ params }) => ( params.migui || 0 ) ,
-    dmg: ({ params , talent }) => ( params.migui || 0 ) * talent.t['伤害提高']
+    buffCount: ({ params }) => Math.min(params.migui, 3) ,
+    dmg: ({ params , talent }) => Math.min(params.migui, 3) * talent.t['伤害提高'] * 100
   }
 },
 {
@@ -139,17 +147,19 @@ export const buffs = [
   }
 },
 {
-  title: '花火1魂：[悬置怀疑] 持有【谜诡】的我方目标速度提高[speedPct]%',
+  title: '花火1魂：[悬置怀疑] 持有[buffCount]层【谜诡】,攻击力提高[atkPct]%',
   cons: 1,
   data: {
-    speedPct: 12
+    buffCount: ({ params }) => Math.min(params.migui, 3) ,
+    atkPct: ({ params }) => Math.min(params.migui, 1) * 40
  }
 },
 {
-  title: '花火2魂：[虚构无端] 天赋造成的伤害提高效果的可叠加层数增加1层,使我方目标造成伤害时无视目标[ignore]%的防御力',
+  title: '花火2魂：[虚构无端] [buffCount]层【谜诡】,使我方目标造成伤害时无视目标[ignore]%的防御力',
   cons: 2,
   data: {
-    ignore: ({ params }) => ( params.migui || 0 ) * 8
+    buffCount: ({ params }) => Math.min(params.migui, 3) ,
+    ignore: ({ params }) => Math.min(params.migui, 3) * 8
  }
 },
 {
@@ -159,4 +169,4 @@ export const buffs = [
     _eCdmg: 30
  }
 },
-{title: `2.29最后修改：[12.30重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 更新日志:${renew} 其他信息:${information}`}]
+{title: `3.1最后修改：[12.30重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1306ranking} 更新日志:${renew} 其他信息:${information}`}]
