@@ -103,7 +103,7 @@ export const buffs = [
   title: '菲米尼2命：[企鹅与丰渥之国] 施放浮冰增压·高压粉碎将为菲米尼恢复[_energyevery]点元素能量',
   cons: 2,
   data: {
-    _energyevery: ({ params }) => 2 + ( params.e || 0 )
+    _energyevery: ({ params }) => 2 + ( params.e == 0 ? 0 : ( params.e || 0 ) )
   }
 },
 {

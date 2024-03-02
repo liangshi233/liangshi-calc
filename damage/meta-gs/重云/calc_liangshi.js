@@ -1,24 +1,108 @@
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs36ranking = cfg.gs36ranking
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '云开星落'
+let eNameT = 'E'
+let qName = '重华叠霜'
+let qNameT = 'Q'
+let c1Name = '一命'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '灭邪四式'
+  c1Name = '一命座'
+  eNameT = '云开星落'
+  qNameT = '重华叠霜'
+ } else if ( NamePath == 3 ) {
+  eNameT = '云开星落'
+  qNameT = '重华叠霜'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  c1Name = 'C1'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['z', 'c', 'f', 'h', 'y', 'dph', 'hph', 'dps', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs36ranking) {
+ if ( rankingOnePath == 'm' ) {
+ ranking = 'e'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
+    ranking = 'e'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
+      ranking = 'e'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[重云] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'e'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs36ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: '普攻四段伤害',
+  title: `${aName}四段伤害`,
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a')
 },
 {
-  title: '普攻四段融化',
+  title: `${aName}四段融化`,
+  dmgKey: 'undefined',
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'melt')
 },
 {
-  title: '重华叠霜伤害',
+  title: `${eName}伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },
 {
-  title: '重华叠霜融化伤害',
+  title: `${eName}融化伤害`,
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'melt')
 },
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `云开星落 ${count}柄灵刃总伤害`,
+    title: `${qName} ${count}柄灵刃总伤害`,
     params: { tfkx: true },
     dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q')
   }
@@ -26,20 +110,21 @@ export const details = [
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `云开星落 ${count}柄灵刃融化`,
+    title: `${qName} ${count}柄灵刃融化`,
     params: { tfkx: true },
+    dmgKey: 'q',
     dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q', 'melt')
   }
 },
 {
-  title: '重香行班 E融化',
+  title: `重香行班 ${eNameT}融化`,
   params: { teamA: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'melt')
 },
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `重香行班 Q伤害`,
+    title: `重香行班 ${qNameT}伤害`,
     params: { teamA: true , tfkx: true },
     dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q')
   }
@@ -47,14 +132,13 @@ export const details = [
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `重香行班 Q融化`,
+    title: `重香行班 ${qNameT}融化`,
     params: { teamA: true , tfkx: true },
     dmg: ({ talent, cons }, dmg) => dmg(talent.q['技能伤害'] * count, 'q', 'melt')
   }
-}
-]
+}]
 
-export const defDmgIdx = 2
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
@@ -117,5 +201,4 @@ export const buffs = [
   }
 },
 'melt',
- {title: '11.28最后修改：[10.17重置]'}
-]
+ {title: `2.28最后修改：[10.17重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs36ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]

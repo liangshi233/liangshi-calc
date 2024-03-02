@@ -2,7 +2,7 @@ export const details = [ {
   title: '护心铠启动伤害',
   params: { team: false },
   dmg: ({ talent, attr, calc }, { basic }) => {
-    let ret = talent.e['技能伤害'] * calc(attr.def) / 100 + (attr.e.plus || 0)
+    let ret = talent.e['技能伤害'] * calc(attr.def) / 100
     return basic(ret, 'e')
   }
 },{

@@ -62,8 +62,8 @@ export const buffs = [
 {
   title: '闲云天赋：[霜翎高逐祥风势] 朝起鹤云的闲云冲击波命中[buffCount]个敌人,使角色的下落攻击的暴击率提升[a3Cpct]%',
   data: {
-    buffCount: ({ params }) => ( params.enemy || 4 ) ,
-    a3Cpct: ({ params }) => Math.min( 10 , ( params.enemy || 4 ) * 2 + 2 )
+    buffCount: ({ params }) => ( params.enemy == 0 ? 0 : ( params.enemy || 4 ) ) ,
+    a3Cpct: ({ params }) => Math.min( 10 , ( params.enemy == 0 ? 0 : ( params.enemy || 4 ) ) * 2 + ( params.enemy == 0 ? 0 : 2 ) )
   }
 },
 {

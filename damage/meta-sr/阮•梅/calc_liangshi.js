@@ -90,7 +90,7 @@ export const buffs = [
 {
   title: '敌人状态：[韧性] 具有[toughness]韧性',
   data: {
-    toughness: ({ params }) => ( params.toughness || 0 )
+    toughness: ({ params }) => params.toughness == 0 ? 0 : ( params.toughness || 0 )
   }
 },
 {

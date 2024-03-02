@@ -113,22 +113,21 @@ export const details = [
 }]
 
 export const defDmgKey = `${ranking}`
-export const defParams = { migui: 0 }
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
 {
   title: '花火技能：[一人千役] [buffCount]层【谜诡】,使我方所有角色造成伤害额外提高[dmg]%',
   data: {
-    buffCount: ({ params }) => Math.min(params.migui, 3) ,
-    dmg: ({ params , talent }) => Math.min(params.migui, 3) * talent.q['天赋增伤每层额外提高'] * 100
+    buffCount: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) ,
+    dmg: ({ params , talent }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) * talent.q['天赋增伤每层额外提高'] * 100
   }
 },
 {
   title: '花火天赋：[叙述性诡计] [buffCount]层【谜诡】,使我方所有角色造成伤害提高[dmg]%',
   data: {
-    buffCount: ({ params }) => Math.min(params.migui, 3) ,
-    dmg: ({ params , talent }) => Math.min(params.migui, 3) * talent.t['伤害提高'] * 100
+    buffCount: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) ,
+    dmg: ({ params , talent }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) * talent.t['伤害提高'] * 100
   }
 },
 {
@@ -139,27 +138,29 @@ export const buffs = [
   }
 },
 {
-  title: '花火行迹：[夜想曲] 我方全体暴击率提升[cpct]%,我方队伍中存在3名量子属性角色，量子属性伤害提升[dmg]%',
+  title: '花火行迹：[夜想曲] 我方全体攻击力提升[_atkPct]%,我方队伍中存在[teamCount]名量子属性角色，量子属性角色攻击力提高[__atkPct]%',
   tree: 3,
   data: {
-    cpct: 5 ,
-    dmg: 30
+    _atkPct: 15 ,
+    teamCount: ({ params }) => params.QuantumTeam == 0 ? 1 : ( params.QuantumTeam || 2 ) ,
+    __atkPct: ({ params }) => ( 5 / 2 ) * Math.pow( ( params.QuantumTeam == 0 ? 1 : ( params.QuantumTeam || 2 ) ) , 2 ) + ( 5 / 2 ) * ( params.QuantumTeam == 0 ? 1 : ( params.QuantumTeam || 2 ) ) ,
+    atkPct: ({ params }) => 15 + ( 5 / 2 ) * Math.pow( ( params.QuantumTeam == 0 ? 1 : ( params.QuantumTeam || 2 ) ) , 2 ) + ( 5 / 2 ) * ( params.QuantumTeam == 0 ? 1 : ( params.QuantumTeam || 2 ) )
   }
 },
 {
   title: '花火1魂：[悬置怀疑] 持有[buffCount]层【谜诡】,攻击力提高[atkPct]%',
   cons: 1,
   data: {
-    buffCount: ({ params }) => Math.min(params.migui, 3) ,
-    atkPct: ({ params }) => Math.min(params.migui, 1) * 40
+    buffCount: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) ,
+    atkPct: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 1 ) * 40
  }
 },
 {
   title: '花火2魂：[虚构无端] [buffCount]层【谜诡】,使我方目标造成伤害时无视目标[ignore]%的防御力',
   cons: 2,
   data: {
-    buffCount: ({ params }) => Math.min(params.migui, 3) ,
-    ignore: ({ params }) => Math.min(params.migui, 3) * 8
+    buffCount: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) ,
+    ignore: ({ params }) => Math.min( ( params.migui == 0 ? 0 : ( params.migui || 0 ) ) , 3 ) * 8
  }
 },
 {
