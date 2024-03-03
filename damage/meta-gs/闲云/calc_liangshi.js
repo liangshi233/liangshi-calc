@@ -94,8 +94,8 @@ export const buffs = [
   title: '闲云6命：[知是留云僊] 在一次朝起鹤云的鹤云幻化期间施展了[buffCount]次步天梯后,该次鹤云幻化期间的闲云冲击波的暴击伤害提升[a3Cdmg]%,若暮集竹星的竹星拥有仙力助推,则朝起鹤云不进入冷却',
   cons: 6,
   data: {
-    buffCount: ({ params }) => params.btt ,
-    a3Cdmg: ({ params }) => 15 + Math.floor( params.btt / 2 ) * 20 + Math.floor( params.btt / 3 ) * 35
+    buffCount: ({ params }) => ( params.btt == 0 ? 0 : ( params.btt || 0 ) ) ,
+    a3Cdmg: ({ params }) => ( 5 / 3 ) * Math.pow( ( params.btt == 0 ? 0 : ( params.btt || 0 ) ) , 3 ) - ( 5 / 2 ) * Math.pow( ( params.btt == 0 ? 0 : ( params.btt || 0 ) ) , 2 ) + ( 95 / 6 ) * ( params.btt == 0 ? 0 : ( params.btt || 0 ) )
   }
 },
 {title: '1.31最后修改：[12.18重置] '}

@@ -7,6 +7,11 @@ let q1Dmg = { dmg: 0 , avg: 0 }
 let q2Dmg = { dmg: 0 , avg: 0 }
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs36ranking = cfg.gs36ranking
+let energy = cfg.energymodel
 let aName = '普通攻击'
 let a2Name = '重击'
 let a3Name = '下落攻击'
@@ -47,14 +52,48 @@ if ( NamePath !== 1 ) {
   qNameT = 'Q'
  }
 }
+const miss = ['f', 'h', 'y', 'hph', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs36ranking) {
+ if ( rankingOnePath == m ) {
+ ranking = 'dps'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == m ) {
+    ranking = 'dps'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == m ) {
+      ranking = 'dps'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[重云] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'dps'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs36ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '1.5-修复1命效果显示异常'
+ renew = '2.19-修正多段类元素爆发无法多次获取伤害值提升类buff的问题'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
   title: `${aName}一段伤害物理`,
+  dmgKey: 'undefined',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
 },
 {
   title: `${aName}一段伤害冰`,
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 },
 {
@@ -119,6 +158,7 @@ export const details = [
 },
 {
   title: `${a2Name}终结伤害融化`,
+  dmgKey: 'z',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击终结伤害'], 'a2', 'melt')
 },
 {
@@ -155,6 +195,7 @@ export const details = [
 },
 {
   title: `高空${a3Name}伤害融化`,
+  dmgKey: 'c',
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'melt')
 },
 {
@@ -179,6 +220,7 @@ export const details = [
 },
 {
   title: `${eName}融化伤害`,
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e', 'melt')
 },
 {
@@ -214,7 +256,8 @@ export const details = [
  ({ cons }) => {
   let count = cons === 6 ? 4 : 3
   return {
-    title: `${qName} ${count}柄灵刃总伤害`,
+    title: `${qName} ${count}柄灵刃总融化`,
+    dmgKey: 'q',
     params: { tfkx: true },
     dmg: ({ talent, cons }, dmg) => {
     let qDmg = dmg(talent.q['技能伤害'] , 'q', 'melt')
@@ -249,6 +292,7 @@ export const details = [
 },
 {
   title: '单人站场15秒融化',
+  dmgKey: 'dph',
   dmg: ({ talent , cons }, dmg) => {
     let aw1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let aw2 = dmg(talent.a['二段伤害'], 'a', 'phy')
@@ -331,7 +375,7 @@ export const details = [
     }
   }
   return {
-    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn )) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) ) ,
+    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy )) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) ) ,
     type: 'text'
   }
  }
@@ -405,7 +449,7 @@ export const details = [
     if (cons >= 4) {
     consn = 1 * 7
     }
-    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn ) ) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) )
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) )
     return {
       dmg: ( aw1.dmg + aw2.dmg + aw3.dmg + aw4.dmg + a1.dmg * 3 + a2.dmg * 3 + a3.dmg * 3 + a4.dmg * 2 + ax3.dmg * 9 * cons1 + e.dmg * 2 + q.dmg * cons6 * qcn ) / 15,
       avg: ( aw1.avg + aw2.avg + aw3.avg + aw4.avg + a1.avg * 3 + a2.avg * 3 + a3.avg * 3 + a4.avg * 2 + ax3.avg * 9 * cons1 + e.avg * 2 + q.avg * cons6 * qcn ) / 15
@@ -487,7 +531,7 @@ export const details = [
     if (cons >= 4) {
     consn = 1 * 7
     }
-    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn ) ) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) )
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 40 - consn - weaponnn - ( 0.2732 * ( 15 + weaponconsn ) ) ) )
     return {
       dmg: ( ar1.dmg + ar2.dmg + ar3.dmg + ar4.dmg + aw1.dmg + aw2.dmg + aw3.dmg + aw4.dmg + a1.dmg * 2 + a2.dmg * 2 + a3.dmg * 2 + a4.dmg * 1 + ax3.dmg * 6 * cons1 + axr3.dmg * 3 * cons1 + e.dmg * 2 + q.dmg * cons6 * qcn ) / 15,
       avg: ( ar1.avg + ar2.avg + ar3.avg + ar4.avg + aw1.avg + aw2.avg + aw3.avg + aw4.avg + a1.avg * 2 + a2.avg * 2 + a3.avg * 2 + a4.avg * 1 + ax3.avg * 6 * cons1 + axr3.avg * 3 * cons1 + e.avg * 2 + q.avg * cons6 * qcn ) / 15
@@ -525,7 +569,7 @@ export const details = [
 }
 ]
 
-export const defDmgKey = 'dps'
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
@@ -596,9 +640,4 @@ export const buffs = [
   }
 },
 'melt',
- {title: '2.19最后修改：[10.17重置] 修正多段类元素爆发无法多次获取伤害值提升类buff的问题'}
-]
-/*
-这里放的是历史更新日志
- {title: '1.5最后修改：[10.17重置] 修复1命效果显示异常'}
-*/
+ {title: `2.28最后修改：[10.17重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs36ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
