@@ -41,6 +41,11 @@ if ( NamePath !== 1 ) {
   aName = 'A'
   a2Name = 'Z'
   a3Name = '戳'
+//我也不知道该怎么叫了，现在这个叫法应该能看懂吧，觉得不合适的可以用下面注释掉的
+/*
+  a2Name = '戳'
+  a3Name = '插'
+*/
   eName = 'E'
   qName = 'Q'
   eNameT = 'E'

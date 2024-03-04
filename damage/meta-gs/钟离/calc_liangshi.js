@@ -1,12 +1,106 @@
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs30ranking = cfg.gs30ranking
+let energy = cfg.energymodel
+let hName = '玉璋护盾'
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '地心'
+let e2Name = '地心·磐礴'
+let eNameT = 'E'
+let e2NameT = '长E'
+let qName = '天星'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '岩雨'
+  eNameT = '地心'
+  e2NameT = '地心·磐礴'
+  qNameT = '天星'
+ } else if ( NamePath == 3 ) {
+  eNameT = '地心'
+  e2NameT = '地心·磐礴'
+  qNameT = '天星'
+ } else if ( NamePath == 4 ) { 
+  hName = '元素战技护盾'
+  eName = '元素战技'
+  e2Name = '长按元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  e2NameT = '长按元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) { 
+  hName = 'E技能盾'
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  e2Name = '长按E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  e2NameT = '长按E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  hName = 'E盾'
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  e2Name = '长E'
+  qName = 'Q'
+  eNameT = 'E'
+  e2NameT = '长E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['z', 'c', 'f', 'y','dph','dps','hph','hps']
+let ranking = 'undefined'
+if (!cfg.gs30ranking) {
+ if ( rankingOnePath == 'm' ) {
+ ranking = 'h'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
+    ranking = 'h'
+   }  else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
+      ranking = 'h'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[钟离] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'h'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs30ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '11.28-修正岩脊伤害异常问题'
+ renew = '1.29-修正多段类普攻无法多次获取伤害值提升类buff的问题'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: '普攻前五段',
+  title: `${aName}前五段`,
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => {
     let t1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let t2 = dmg(talent.a['二段伤害'], 'a', 'phy')
-  	let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
-	let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
-  	let t5 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
+    let t3 = dmg(talent.a['三段伤害'], 'a', 'phy')
+    let t4 = dmg(talent.a['四段伤害'], 'a', 'phy')
+    let t5 = dmg(talent.a['五段伤害'] / 4 , 'a', 'phy')
     return {
       dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg * 4 ,
       avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg * 4
@@ -14,41 +108,39 @@ export const details = [
   }
 },
 {
-  title: '玉璋护盾量',
-  talent: 'e',
+  title: `${hName}量`,
+  dmgKey: 'h',
   params: { hd: true },
   dmg: ({ attr, calc, talent }, { shield }) => shield(talent.e['护盾基础吸收量'] + calc(attr.hp) * talent.e['护盾附加吸收量'] / 100)
 },
 {
-  title: '地心伤害',
-  talent: 'e',
+  title: `${eName}伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][0], 'e')
 },
 {
   title: '共鸣伤害',
-  talent: 'e',
+  dmgKey: 'undefined',
   dmg: ({ talent }, dmg) => dmg(talent.e['岩脊伤害/共鸣伤害'][1], 'e')
 },
 {
-  title: '地心·磐礴伤害',
-  talent: 'e',
+  title: `${e2Name}伤害`,
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['长按伤害'], 'e')
 },
 {
-  title: '天星伤害',
-  talent: 'q',
+  title: `${qName}伤害`,
+  dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: '钟鹤云重 钟离普攻前五段',
-  talent: 'a',
+  title: `钟鹤云重 ${aName}前五段`,
   params: { teamA: true },
   dmg: ({ talent }, dmg) => {
     let t1 = dmg(talent.a['一段伤害'], 'a')
     let t2 = dmg(talent.a['二段伤害'], 'a')
     let t3 = dmg(talent.a['三段伤害'], 'a')
-   	let t4 = dmg(talent.a['四段伤害'], 'a')
-  	let t5 = dmg(talent.a['五段伤害'] / 4 , 'a')
+    let t4 = dmg(talent.a['四段伤害'], 'a')
+    let t5 = dmg(talent.a['五段伤害'] / 4 , 'a')
     return {
       dmg: t1.dmg + t2.dmg + t3.dmg + t4.dmg + t5.dmg * 4 ,
       avg: t1.avg + t2.avg + t3.avg + t4.avg + t5.avg * 4
@@ -56,9 +148,8 @@ export const details = [
   }
 }]
 
-export const defDmgIdx = 1
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg'
-
 
 export const buffs = [
 {
@@ -152,7 +243,7 @@ export const buffs = [
   title: '云堇技能：[破嶂见旌仪] 对敌人造成普通攻击伤害时，造成的伤害提高[aPlus]',
   sort: 9,
   data: {
-	  aPlus: 2261.6
+	aPlus: 2261.6
   }
 },
 {
@@ -206,8 +297,8 @@ export const buffs = [
   check: ({ params }) => params.teamB === true,
   title: '夜兰天赋：[妙转随心]「玄掷玲珑」存在期间能使队伍中自己的当前场上角色造成的伤害提高，至多提高[qDmg]%',
   data: {
-	  eDmg: 35,
-	  qDmg: 50
+	eDmg: 35,
+	qDmg: 50
   }
 },
 {
@@ -233,9 +324,4 @@ export const buffs = [
   	hpPct: 25
   }
 },
-{title: '1.29最后修改：[10.19重置] 修正多段类普攻无法多次获取伤害值提升类buff的问题'}
- ]
-/*
-这里放的是历史更新日志
-{title: '11.28最后修改：[10.19重置] 修正岩脊伤害异常问题'}
-*/
+{title: `2.29最后修改：[10.19重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs30ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
