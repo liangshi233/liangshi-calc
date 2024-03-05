@@ -23,7 +23,7 @@ export default class ProfileDmg extends Base {
     const _path = process.cwd()
     let dmgFile = [
       { file: 'calc_user', name: '自定义伤害' },
-//    { file: 'calc_li', name: 'liangshicalc 大爷' , test: () => Common.cfg('calcLi') },
+      { file: 'calc_li', name: 'liangshicalc 大爷' , test: () => Common.cfg('calcLi') },
 //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => Common.cfg('calcLiangK') },
 //    { file: 'calc_liangshiT', name: 'liangshicalc 组队' , test: () => Common.cfg('calcLiangT') },
 //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => Common.cfg('calcLiangJ') },

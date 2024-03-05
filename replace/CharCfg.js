@@ -20,8 +20,8 @@ let cfgMap = {
       // 评分规则
       if (cfgMap.exists(char, 'artis_user')) {
         curr.artis = await cfgMap.getCfg(char, 'artis_user', 'default')
-//    } else if (cfgMap.exists(char, 'artis_li') && Common.cfg('artisLi') ) {
-//      curr.artis = await cfgMap.getCfg(char, 'artis_li', 'default')
+      } else if (cfgMap.exists(char, 'artis_li') && Common.cfg('artisLi') ) {
+        curr.artis = await cfgMap.getCfg(char, 'artis_li', 'default')
       } else if (cfgMap.exists(char, 'artis_liangshiZ') && Common.cfg('artisLiangZ') ) {
         curr.artis = await cfgMap.getCfg(char, 'artis_liangshiZ', 'default')
       } else if (cfgMap.exists(char, 'artis_liangshi') && Common.cfg('artisLiang') ) {
@@ -34,8 +34,8 @@ let cfgMap = {
         curr.calc = await cfgMap.getCfg(char, 'calc_user')
 //      } else if (cfgMap.exists(char, 'calc_liangshiK') && Common.cfg('calcLiangK')) {
 //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiK')
-//      } else if (cfgMap.exists(char, 'calc_li') && Common.cfg('calcLi')) {
-//        curr.calc = await cfgMap.getCfg(char, 'calc_li')
+      } else if (cfgMap.exists(char, 'calc_li') && Common.cfg('calcLi')) {
+        curr.calc = await cfgMap.getCfg(char, 'calc_li')
       } else if (cfgMap.exists(char, 'calc_liangshiQ') && Common.cfg('calcLiangQ')) {
         curr.calc = await cfgMap.getCfg(char, 'calc_liangshiQ')
 //      } else if (cfgMap.exists(char, 'calc_liangshiJ') && Common.cfg('calcLiangJ')) {

@@ -55,13 +55,13 @@ if ( NamePath !== 1 ) {
 const miss = ['f', 'h', 'y', 'hph', 'hps']
 let ranking = 'undefined'
 if (!cfg.gs36ranking) {
- if ( rankingOnePath == m ) {
+ if ( rankingOnePath == 'm' ) {
  ranking = 'dps'
  } else if (miss.includes(rankingOnePath)) {
-   if ( rankingTwoPath == m ) {
+   if ( rankingTwoPath == 'm' ) {
     ranking = 'dps'
    } else if (miss.includes(rankingTwoPath)) {
-     if ( rankingThreePath == m ) {
+     if ( rankingThreePath == 'm' ) {
       ranking = 'dps'
      } else if (miss.includes(rankingThreePath)) {
       logger.mark('[重云] 排名规则均未命中，已选择默认排名规则')
