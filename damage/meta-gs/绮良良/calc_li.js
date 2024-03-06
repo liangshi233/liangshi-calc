@@ -44,6 +44,5 @@ export const buffs = [{
   data: {
     dmg: 12
   }
-},
- {title: '4.19最后修改：如有问题可联系1142607614反馈'}
+
 ]

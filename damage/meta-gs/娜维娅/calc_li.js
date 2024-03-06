@@ -72,5 +72,3 @@ export const buffs = [{
     eCdmg :  ({ params }) => Math.min( 135 , ( params.jp - 3 ) * 45 )
   }
 }]
-
-export const createdBy = 'liangshi'

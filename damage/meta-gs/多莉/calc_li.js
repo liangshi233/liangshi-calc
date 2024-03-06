@@ -30,6 +30,4 @@ export const buffs = [{
   data: {
     healInc: 50
   }
-},
- {title: '4.4最后修改：如有问题可联系1142607614反馈'}
- ]
+}]

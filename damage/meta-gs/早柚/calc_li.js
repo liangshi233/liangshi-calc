@@ -62,6 +62,5 @@ export const buffs = [
     qPlus: ({ attr, calc }) => Math.min( calc(attr.atk) * calc(attr.mastery) * 0.002 , calc(attr.atk) * 4 ),
     _heal: ({ attr, calc }) => Math.min( calc(attr.mastery) * 3 , 6000)
   }
-},
-{title: '4.4最后修改：[10.19重置] '}
+}
 ]

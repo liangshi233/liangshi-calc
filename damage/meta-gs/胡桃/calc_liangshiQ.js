@@ -235,12 +235,12 @@ export const details = [
 },
 {
   title: `${tName}开${eNameT}${a2Name}`,
-  dmgKey: 'z',
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
   title: `${tName}开${eNameT}${a2Name}蒸发`,
+  dmgKey: 'z',
   params: { hp: true },
   dmg: ({ talent, attr }, dmg ) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 },
