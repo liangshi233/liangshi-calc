@@ -54,7 +54,7 @@ if ( NamePath !== 1 ) {
   qNameT = 'Q'
  }
 }
-const miss = ['f', 'y', 'dph', 'dps']
+const miss = ['f', 'y', 'hph', 'hps']
 let ranking = 'undefined'
 if (!cfg.gs46ranking) {
  if ( rankingOnePath == 'm' ) {

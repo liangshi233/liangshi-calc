@@ -1,6 +1,6 @@
-let QDmg = false
-let Q1Dmg = false
-let Q2Dmg = false
+let QDmg = { dmg: 0 , avg: 0 }
+let Q1Dmg = { dmg: 0 , avg: 0 }
+let Q2Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [{
   title: '锅巴单口伤害',
@@ -11,11 +11,11 @@ export const details = [{
   params: { team: false , qhs: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['喷火伤害'], 'e', 'vaporize')
 }, {
-  title: ' 旋火轮单次伤害',
+  title: '旋火轮单次伤害',
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q')
 }, {
-  title: ' 旋火轮单次蒸发',
+  title: '旋火轮单次蒸发',
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['旋火轮伤害'], 'q', 'vaporize')
 }, {
