@@ -134,7 +134,7 @@ export class GS extends plugin {
     } else if (type == '角色海报') {
       if (!this.poster[role.name]) return this.e.reply("暂无该角色海报")
       url = this.poster[role.name]
-      imgPath = `${this.coverpath}/${role.name}.png`
+      imgPath = `${this.posterpath}/${role.name}.png`
     } else if (type == '普通攻击') {
       if (!this.attack[role.name]) return this.e.reply("暂无该角色普通攻击介绍")
       url = this.attack[role.name]

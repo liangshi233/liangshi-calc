@@ -1,11 +1,11 @@
 export const details = [{
-  check: ({ cons }) => cons >= 6,
-  title: '风附魔普通攻击一段',
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
-},{
    title: '谜影突刺伤害',
      dmg: ({ talent }, dmg) => dmg(talent.e['谜影突刺伤害'], 'e')
-},  {
+},{
+   check: ({ cons }) => cons >= 6,
+   title: '风附魔普通攻击一段',
+     dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
+},{
    title: '流涌之刃伤害',
      dmg: ({ talent }, dmg) => dmg(talent.e['流涌之刃伤害'], 'e')
 }, {
@@ -15,7 +15,7 @@ export const details = [{
    title: '惊奇猫猫盒伤害',
      dmg: ({ talent }, dmg) => dmg(talent.q['惊奇猫猫盒伤害'], 'q')
 }, {
-  params: { q:true },
+  params: { q: true },
    title: '彩练术弹伤害',
      dmg: ({ talent }, dmg) => dmg(talent.q['彩练术弹伤害'], 'q')
 }
