@@ -29,7 +29,7 @@ autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默�
 
 panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要自定义请修改为 0
 ~~~~~~~~~~
-更多设置内容请 [点击](config/system/config.md)
+更多设置内容请 [点击](config/system/config.md)🤔
 
 ### 功能
 ~~~~~~~~~~
@@ -56,8 +56,9 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 
 > 其他资源位置
 
-|                              gitee                                |                               github                            |          名称       |
+|                              线路一（不是😺                         |                               线路二（不是😺                       |          名称       |
 |:-----------------------------------------------------------------:|:---------------------------------------------------------------:|:------------------:|
+|      [其实雨很好没有取名](https://qsyhh.icu/xmdz)                    |    [其实雨很好没有取名](https://qsyhh.icu/xmdz)                     | 插件库              |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)        |    [github](https://github.com/yoimiya-kokomi/Miao-Yunzai)      | Miao-Yunzai        |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)         |    [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)       | Yunzai-Bot-Miao    |
 |      [gitee](https://gitee.com/le-niao/Yunzai-Bot)                |    [github](https://github.com/le-niao/Yunzai-Bot)              | Yunzai-Bot-Le      |

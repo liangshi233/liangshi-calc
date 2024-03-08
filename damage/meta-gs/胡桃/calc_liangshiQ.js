@@ -632,7 +632,7 @@ export const buffs = [
   }
 },
 {
-  title: '胡桃6命：[幽蝶能留一缕芳] 胡桃的生命值降至25%以下,或承受足以使她倒下的伤害时胡桃的所有元素抗性和物理抗性提高[_res]%,暴击率提高[_cpct]%,并提高[_interruption]%抗打断能力',
+  title: '胡桃6命：[幽蝶能留一缕芳] 胡桃的生命值降至25%以下,或承受足以使她倒下的伤害时胡桃的所有元素抗性和物理抗性提高[_res]%,暴击率提高[_cpct]%,并提高[_interruption]%抗打断能力 { 此效果不会参与伤害计算 }',
   cons: 6,
   data: {
     _interruption: 100 ,
@@ -671,5 +671,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs46ranking} 更新日志:${renew} 其他信息:${information}`}
+{title: `2.28最后修改：[11.6重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs46ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}
 ]
