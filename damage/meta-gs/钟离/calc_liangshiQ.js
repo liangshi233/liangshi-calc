@@ -398,7 +398,7 @@ export const buffs = [
   title: '申鹤技能：[仰灵威召将役咒] 普通攻击对敌人造成冰元素伤害时,造成的伤害提高[aPlus]%',
   sort: 9,
   data: {
-    aPlus: 6080.0
+    aPlus: 4009.0
   }
 },
 {
@@ -406,7 +406,7 @@ export const buffs = [
   title: '申鹤技能：[仰灵威召将役咒] 普通攻击对敌人造成冰元素伤害时,造成的伤害提高[aPlus]%',
   sort: 9,
   data: {
-    aPlus: 4375.2
+    aPlus: 2767.2
   }
 },
 {
@@ -467,8 +467,8 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.teamA === true,
-  title: '重云圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效提升[shield]%',
+  check: ({ params , artis }) => params.teamA === true && artis.千岩牢固 !== 4 ,
+  title: '重云圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效提升[shield]% { 该圣遗物效果不可叠加 }',
   sort: 1,
   data: {
     atkPct: 20,
@@ -525,8 +525,16 @@ export const buffs = [
   check: ({ params }) => params.teamB === true,
   title: '夜兰天赋：[妙转随心]「玄掷玲珑」存在期间能使队伍中自己的当前场上角色造成的伤害提高，至多提高[qDmg]%',
   data: {
-	  eDmg: 35,
-	  qDmg: 50
+    eDmg: 35,
+    qDmg: 50
+  }
+},
+{
+  check: ({ params , cons }) => cons >= 4 && params.teamB === true,
+  title: '夜兰4命：[诓惑者，接树移花] 依照「络命丝」标记敌人的数量,使队伍中所有角色的生命值上限提升[hpPct]%',
+  sort: 1,
+  data: {
+  	hpPct: 40
   }
 },
 {
