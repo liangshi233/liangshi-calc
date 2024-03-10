@@ -1,16 +1,10 @@
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
-},{
-  check: ({ cons }) => cons < 6,
-  dmgKey: 'e',
-  title: '战技生命上限提升',
-  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['生命提高·百分比生命'] + talent.e['生命提高·固定值'])
 }, {
-  check: ({ cons }) => cons >= 6,
-  dmgKey: 'e',
   title: '战技生命上限提升',
-  dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * ( talent.e['生命提高·百分比生命'] + 0.06 ) + talent.e['生命提高·固定值'])
+  dmgKey: 'e',
+  dmg: ({ calc, attr, talent , cons }) => { return { avg: calc(attr.hp) * ( talent.e['生命提高·百分比生命'] + ( cons * 1 >= 6 ? 0.06 : 0 ) ) + talent.e['生命提高·固定值'] } }
 }, {
   title: '战技生命恢复',
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['治疗·百分比'] + talent.e['治疗·固定值'])
