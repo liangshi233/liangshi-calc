@@ -59,6 +59,7 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 |                              线路一（不是😺                         |                               线路二（不是😺                       |          名称       |
 |:-----------------------------------------------------------------:|:---------------------------------------------------------------:|:------------------:|
 |      [其实雨很好没有取名](https://qsyhh.icu/xmdz)                    |    [其实雨很好没有取名](https://qsyhh.icu/xmdz)                     | 插件库              |
+|                              即将完成                              |                             即将完成                              | 预设面板JS版         |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)        |    [github](https://github.com/yoimiya-kokomi/Miao-Yunzai)      | Miao-Yunzai        |
 |      [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)         |    [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)       | Yunzai-Bot-Miao    |
 |      [gitee](https://gitee.com/le-niao/Yunzai-Bot)                |    [github](https://github.com/le-niao/Yunzai-Bot)              | Yunzai-Bot-Le      |
