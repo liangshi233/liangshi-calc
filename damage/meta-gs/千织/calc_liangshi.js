@@ -61,6 +61,5 @@ export const buffs = [
     aPlus: ({ attr, calc }) => calc(attr.def) * 235 / 100
   }
 },
-{title: '测试内容：[4.4.52] 数据随时可能更改，请注意时效性'},
 {title: '2.20最后修改：[1.30重置]'}
 ]
