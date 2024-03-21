@@ -1,14 +1,11 @@
 export const details = [{
   title: '普攻伤害',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
   title: '战技伤害',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '终结技伤害',
-  params: { team: false },
   dmg: ({ talent, cons }, dmg) => {
     let addDmg = (cons * 1 >= 4) ? 1 : 0
     return dmg(talent.q['技能伤害'] + addDmg, 'q')
@@ -19,29 +16,11 @@ export const details = [{
     return {
       avg: reaction('entanglement').avg * 5 * (10 + 2) / 4
     }
-}},  {
-  title: '希银布罗 普攻伤害',
-  params: { team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
-  title: '希银布罗 战技伤害',
-  params: { team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
-}, {
-  title: '希银布罗 终结技',
-  params: { team: true },
-  dmg: ({ talent, cons }, dmg) => {
-    let addDmg = (cons * 1 >= 4) ? 1 : 0
-    return dmg(talent.q['技能伤害'] + addDmg, 'q')
   }
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,effPct'
 export const defDmgIdx = 2
-
-export const defParams = {
-  team: true
-}
 
 export const buffs = [{
   title: '银狼天赋：防御力缺陷降低敌方防御力[enemyDef]%',
@@ -73,36 +52,5 @@ export const buffs = [{
   tree: 2,
   data: {
     kx: 3
-  }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '布洛妮娅 贝洛伯格进行曲：攻击力提升[atk]%,暴击伤害提升[cdmg]%',
-  data: {
-    atk: 55,
-    cdmg: 68.768
-  }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '布洛妮娅 行迹-军势：造成的伤害提升[dmg]%',
-  data: {
-    dmg: 10
-  }
-}, {
-  check: ({ cons, params }) => ((cons == 6) && params.team === true),
-  title: '罗刹光锥 棺的回响⁵：速度提高[speedPct]%',
-  data: {
-    speedPct: 20
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '罗刹光锥 棺的回响³：速度提高[speedPct]%',
-  data: {
-    speedPct: 16
-  }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '罗刹光锥 棺的回响¹：速度提高[speedPct]%',
-  data: {
-    speedPct: 12
   }
 },{title: '8.15最后修改：如有问题请输入 #伤害计算反馈'}]

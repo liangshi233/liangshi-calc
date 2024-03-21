@@ -1,156 +1,162 @@
-export const details = [{
-  params: { zai: false , team: false },
-  title: '普攻伤害',
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let sr1102ranking = cfg.sr1102ranking
+let aName = '普通攻击'
+let eName = '归刃'
+let eNameT = 'E'
+let qName = '乱蝶'
+let qNameT = 'Q'
+let c6Name = '六魂'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '强袭'
+  c6Name = '六星魂'
+  eNameT = '归刃'
+  qNameT = '乱蝶'
+ } else if ( NamePath == 3 ) {
+  eNameT = '归刃'
+  qNameT = '乱蝶'
+ } else if ( NamePath == 4 ) {
+  eName = '战技'
+  qName = '终结技'
+  eNameT = '战技'
+  qNameT = '终结技'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  c6Name = 'c6'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['z','c','f','h','y','dps','dph','hph','hps']
+let ranking = 'undefined'
+if (!cfg.sr1102ranking) {
+ if ( rankingOnePath == 'm' )  {
+  ranking = 'q'
+ } else if (miss.includes(rankingOnePath)) {
+    if ( rankingTwoPath == 'm' )  {
+     ranking = 'q'
+    } else if (miss.includes(rankingTwoPath)) {
+      if ( rankingThreePath == 'm' )  {
+       ranking = 'q'
+      } else if (miss.includes(rankingThreePath)) {
+       logger.mark('[希儿] 排名规则均未命中，已选择默认排名规则')
+       ranking = 'q'
+      } else {
+        ranking = `${rankingThreePath}`
+      }
+    } else {
+      ranking = `${rankingTwoPath}`
+    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${sr1102ranking}`
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
+export const details = [
+{
+  title: `${aName}伤害`,
+  dmgKey: 'undefined',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
-  params: { zai: false , team: false },
-  title: '战技伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
-}, {
-  params: { zai: false , team: false },
-  title: '终结技伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
-  params: { zai: true , team: false },
-  title: '再现 普攻伤害',
+},
+{
+  title: `再现 ${aName}伤害`,
+  dmgKey: 'a',
+  params: { Attack: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
-  params: { zai: true , team: false },
-  title: '再现 战技伤害',
+},
+{
+  title: `${eName}伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
-}, {
-  params: { zai: true , team: false },
-  title: '再现 终结技伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
-  params: { zai: true , team: true },
-  title: '希银停罗 普攻伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
-  params: { zai: true , team: true },
-  title: '希银停罗 战技伤害',
+},
+{
+  title: `再现 ${eName}伤害`,
+  dmgKey: 'e',
+  params: { Attack: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
-}, {
-  params: { zai: true , team: true },
-  title: '希银停罗 终结技伤害',
+},
+{
+  title: `${qName}伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+},
+{
+  title: `再现 ${qName}伤害`,
+  dmgKey: 'q',
+  params: { Attack: true },
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+},
+{
+  check: ({ cons }) => cons >= 6,
+  title: `${c6Name} ${qName}附加伤害`,
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] * 0.15 , 'q')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
-export const defDmgIdx = 5
+export const defDmgIdx = `${ranking}`
 
-export const defParams = {
-  team: true
-}
-
-export const buffs = [{
-  title: '希儿天赋：击杀敌人增幅状态提高伤害[xq]%',
+export const buffs = [
+{
+  check: ({ params }) => params.Attack === true,
+  title: '希儿天赋：[再现] 施放普攻、战技、终结技消灭敌方目标时立即获得1个额外回合并进入增幅状态，增幅状态下施放攻击造成的伤害提高[dmg]%',
   data: {
-   dmg: ({ params , talent }) => params.zai ?  talent.t['伤害提高'] * 100 : 0 ,
-    xq: ({ talent }) => talent.t['伤害提高'] * 100
+   dmg: ({ talent }) => talent.t['伤害提高'] * 100
   }
 },
 {
-  title: '希儿战技：释放战技后，速度提高25%',
-  maxCons: 1,
-  data: {
-    speedPct: 25
-  }
-}, {
-  title: '希儿1命：对生命小于80%的敌人造成伤害时，暴击率提高15%',
-  cons: 1,
-  data: {
-    cpct: 15
-  }
-}, {
-  title: '希儿2命：释放战技后，2层Buff速度提高50%',
-  cons: 2,
-  data: {
-    speedPct: 50
-  }
-}, {
-  title: '行迹-夜行：抗性穿透提高20',
+  title: '希儿行迹：[夜行] 增幅状态下的量子属性抗性穿透提高[kx]%',
   tree: 2,
   data: {
     kx: 20
   }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '停云 祥音和韵：攻击力提升[atk]%',
+},
+{
+  title: '希儿技能：[归刃] 使速度提高[speedPct]%',
+  maxCons: 1,
   data: {
-    atk: 25
+    speedPct: 25
   }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '停云 云光覆仪祷：造成的伤害提升[dmg]%',
+},
+{
+  title: '希儿1魂：[斩尽] 对当前生命值百分比小于等于80%的敌方目标造成伤害时，暴击率提高[cpct]%',
+  cons: 1,
   data: {
-    dmg: 50
+    cpct: 15
   }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '停云光锥 镂月裁云之意⁵：暴击伤害提升[cdmg]%',
+},
+{
+  title: '希儿2魂：[蝶舞] 战技的加速效果可以叠加，使速度提高[speedPct]%',
+  cons: 2,
   data: {
-    cdmg: 24
+    speedPct: 50
   }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '银狼 是否允许更改？：敌人元素抗性降低[kx]%',
+},
+{
+  title: '希儿4魂：[掠影] 消灭敌方目标时，自身恢复[_energyevery]点能量。',
+  cons: 4,
   data: {
-    kx: 10
+    _energyevery: 15
   }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '银狼 |账号已封禁|：敌人防御力降低[enemyDef]%',
-  data: {
-    enemyDef: 43
-  }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '银狼 等待程序相应...：敌人防御力降低[enemyDef]%',
-  data: {
-    enemyDef: 8
-  }
-}, {
-  check: ({ cons, params }) =>  params.team === true,
-  title: '银狼 行迹-旁注：抗性额外降低[kx]%',
-  data: {
-    kx: 3
-  }
-}, {
-  check: ({ cons, params }) => ((cons == 6) && params.team === true),
-  title: '银狼光锥 雨一直下⁵：敌人受到的伤害提升[dmg]%',
-  data: {
-    dmg: 20
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '银狼光锥 雨一直下³：敌人受到的伤害提升[dmg]%',
-  data: {
-    dmg: 16
-  }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '银狼光锥 雨一直下¹：敌人受到的伤害提升[dmg]%',
-  data: {
-    dmg: 12
-  }
-}, {
-  check: ({ cons, params }) => ((cons == 6) && params.team === true),
-  title: '罗刹光锥 棺的回响⁵：速度提高[speedPct]%',
-  data: {
-    speedPct: 20
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-  title: '罗刹光锥 棺的回响³：速度提高[speedPct]%',
-  data: {
-    speedPct: 16
-  }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.team === true,
-  title: '罗刹光锥 棺的回响¹：速度提高[speedPct]%',
-  data: {
-    speedPct: 12
-  }
-},{title: '8.2最后修改：如有问题请输入 #伤害计算反馈'}
-]
+},
+{
+  title: '希儿6魂：[离析] 施放终结技后使受到攻击的敌方单体陷入【乱蝶】状态。【乱蝶】状态下的敌方目标受到攻击后，额外受到1次量子属性附加伤害。',
+  cons: 6
+},
+{title: `3.21最后修改：[3.21重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1102ranking} 更新日志:${renew} 其他信息:${information}`}]
+
