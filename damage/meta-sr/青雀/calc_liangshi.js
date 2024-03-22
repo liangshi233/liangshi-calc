@@ -42,5 +42,5 @@ export const buffs = [{
   data: {
     qDmg: 10
   }
-}
+}, 
  {title: '8.2最后修改：如有问题请输入 #伤害计算反馈'}]
