@@ -109,7 +109,7 @@ export const details = [
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
-export const defDmgIdx = `${ranking}`
+export const defDmgKey = `${ranking}`
 
 export const buffs = [
 {
