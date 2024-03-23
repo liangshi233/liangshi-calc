@@ -1,38 +1,34 @@
 export const details = [{
   title: '重击伤害',
-  params: {team: false , hb: false },
+  params: {team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
   title: '重击蒸发',
-  params: {team: false , hb: false },
+  params: {team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: '水中幻愿持续伤害',
-  params: {team: false , hb: false },
+  params: {team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'], 'e')
 }, {
   title: '水中幻愿爆裂伤害',
-  params: {team: false , hb: false },
+  params: {team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['爆裂伤害'], 'e')
 }, {
   title: 'Q泡影破裂伤害',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q')
 }, {
   title: 'Q泡影破裂蒸发',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'vaporize')
 }, {
   title: '莫万香班 重击蒸发',
-  params: { q: true , team: true , hb: false },
+  params: { q: true , team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
 }, {
   title: '莫万香班 Q蒸发',
-  params: { q: true , team: true , hb: false },
-  dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'vaporize')
-}, {
-	title: '深渊12-3 Q蒸发核爆',
-  params: { q: true , team: false , hb: true },
+  params: { q: true , team: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['泡影破裂伤害'], 'q', 'vaporize')
 }]
 
@@ -40,7 +36,7 @@ export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg,recharge,mastery'
 
 export const defParams = {
-  team: true , hb: true
+  team: true
 }
 
 
@@ -123,19 +119,6 @@ export const buffs = [{
   title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
   data: {
     atkPct: 25
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 40,
-    mastery: 370,
-    kx: 40,
-    defPct: -15,
-    hpPct: 25,
-    atkPct: 128,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '5.16最后修改：如有问题请输入 #伤害计算反馈'}

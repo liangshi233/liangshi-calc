@@ -1,10 +1,10 @@
 export const details = [{
   title: '领域伤害',
-  params: {team: false , hb: false },
+  params: {team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['领域伤害'], 'e')
 }, {
   title: '领域伤害蒸发',
-  params: { team: false ,e2: true, hb: false },
+  params: { team: false ,e2: true},
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.e['领域伤害2']
     const hp = calc(attr.hp)
@@ -13,7 +13,7 @@ export const details = [{
   }
 }, {
   title: '炽鬃拳伤害',
-  params: { team: false , hb: false },
+  params: { team: false },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.q['炽鬃拳伤害2']
     const hp = calc(attr.hp)
@@ -22,7 +22,7 @@ export const details = [{
   }
 }, {
   title: '迪甘莫妲 E协同伤害',
-  params: { team: true ,e2: true, hb: false },
+  params: { team: true ,e2: true},
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.e['领域伤害2']
     const hp = calc(attr.hp)
@@ -31,7 +31,7 @@ export const details = [{
   }
 }, {
   title: '迪甘莫妲 炽鬃拳伤害',
-  params: { team: true , hb: false },
+  params: { team: true },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.q['炽鬃拳伤害2']
     const hp = calc(attr.hp)
@@ -40,17 +40,13 @@ export const details = [{
   }
 }, {
   title: '迪甘莫妲 炽鬃拳蒸发',
-  params: { team: true , hb: false },
+  params: { team: true },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     const td = talent.q['炽鬃拳伤害2']
     const hp = calc(attr.hp)
     const atk = calc(attr.atk)
     return basic(td[0] * atk / 100 + td[1] * hp / 100, 'q', '蒸发')
   }
-}, {
-  title: '深渊7-2 Q单段融化核爆',
-  params: {team: false , hb: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['炽鬃拳伤害'], 'q', 'melt')
 }]
 
 export const defDmgIdx = 5
@@ -118,18 +114,6 @@ export const buffs = [{
   title: '精1千夜0命纳西妲：增加精通[mastery]',
   data: {
     mastery: 290,
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 80,
-    mastery: 370,
-    kx: 40,
-    defPct: -15,
-    atkPct: 133,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '3.1最后修改：如有问题请输入 #伤害计算反馈'}

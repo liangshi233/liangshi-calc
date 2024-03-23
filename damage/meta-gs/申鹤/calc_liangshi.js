@@ -8,51 +8,47 @@ export const details = [{
   }
 }, {
   title: 'E点按技能伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['点按技能伤害'], 'e')
 }, {
   title: 'E点按融化伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['点按技能伤害'], 'e', 'melt')
 }, {
   title: 'E长按技能伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e')
 }, {
   title: 'E长按融化伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e', 'melt')
 }, {
   title: 'Q每跳伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
 }, {
   title: 'Q每跳融化伤害',
-  params: {team:false,hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q', 'melt')
 }, {
   title: '神鹤万心 E点按',
-  params: {team:true,hb:false},
+  params: {team:true},
   dmg: ({ talent }, dmg) => dmg(talent.e['点按技能伤害'], 'e')
 }, {
   title: '神鹤万心 E长按',
-  params: {team:true,hb:false},
+  params: {team:true},
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e')
 }, {
   title: '神鹤万心 Q每跳',
-  params: {team:true,hb:false},
+  params: {team:true},
   dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
-}, {
-	title: '深渊12-3 E长按融化核爆',
-  params: {team:false , hb:true},
-  dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e', 'melt')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgIdx = 0
 
 export const defParams = {
-    team:true,hb:true
+    team:true
 }
 
 export const buffs = [{
@@ -128,18 +124,6 @@ export const buffs = [{
   title: '元素共鸣 粉碎之冰：攻击处于冰元素附着或冻结下的敌人时，暴击率提高[cpct]%',
   data: {
     cpct: 15
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 100,
-    mastery: 370,
-    kx: 40,
-    atkPct: 128,
-    defPct: -25,
-    atkPlus: 1202.35
   }
 },
  {title: '2.28最后修改：如有问题请输入 #伤害计算反馈'}

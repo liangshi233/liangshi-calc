@@ -1,30 +1,30 @@
 export const details = [{
   title: '隐具魔术箭伤害',
-  params: { team: false , hb: false},
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'], 'a2')
 }, {
   title: '礼花术弹伤害',
-  params: {  team: false , hb: false},
+  params: {  team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['礼花术弹伤害'], 'a2')
 }, {
   title: '眩惑光戏法',
-  params: { team: false , hb: false},
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }, {
   title: '大魔术·灵迹巡游伤害',
-  params: { team: false , hb: false},
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: 'Q引爆礼花伤害',
-  params: { team: false , hb: false},
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['引爆礼花伤害'], 'q')
 }, {
   title: '林尼三火重击',
-  params: { team: true , hb: false},
+  params: { team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['隐具魔术箭伤害'], 'a2')
 }, {
   title: '林尼三火引爆礼花',
-  params: { team: true , hb: false},
+  params: { team: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['引爆礼花伤害'], 'q')
   }
 ]
@@ -33,8 +33,7 @@ export const details = [{
   export const mainAttr = 'atk,cpct,cdmg,mastery'
   
   export const defParams = {
-    team: true,
-    hb: true
+    team: true
   }
   
   export const buffs = [
@@ -129,18 +128,6 @@ export const details = [{
   title: '完场喝彩：队伍中林尼以外每个元素类型为火元素的角色，提升20%伤害',
   data: {
     dmg: 40
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 80,
-    mastery: 370,
-    kx: 40,
-    defPct: -15,
-    atkPct: 133,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '7.6最后修改：如有问题请输入 #伤害计算反馈'}]

@@ -1,30 +1,30 @@
 export const details = [{
   title: '普通攻击一段伤害',
-  params: { q: false , team: false , hb: false},
+  params: { q: false , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
   }, {
     title: 'E后带火花重击',
-    params: { q: false, team: false , hb: false},
+    params: { q: false, team: false },
     dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
   }, {
     title: 'E后带火花重击蒸发',
-    params: { q: false, team: false , hb: false},
+    params: { q: false, team: false },
     dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
   }, {
     title: '单次轰轰火花伤害',
-    params: { team: false , hb: false},
+    params: { team: false },
     dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
   }, {
   title: '蹦蹦炸弹弹跳伤害',
-  params: { q: false , team: true , hb: false},
+  params: { q: false , team: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['蹦蹦炸弹伤害'], 'e')
   }, {
     title: '可莉三火E后火花重击',
-    params: { q: false, team: true , hb: false},
+    params: { q: false, team: true },
     dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
   }, {
     title: '可莉三火轰轰火花伤害',
-    params: { team: true , hb: false},
+    params: { team: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
   },{
     title: '可莉三火可莉一轮总伤',
@@ -41,10 +41,6 @@ export const details = [{
         avg:  ta.avg * 8 +  tz.avg * 4 +  tz2.avg * 2 +  tejump.avg * 3 +  tebomb.avg * 8 +  tq.avg * 16
       }
     }
-  }, {
-	  title: '深渊7-2 重击融化核爆',
-  params: { q: false , team: false , hb: true},
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'melt')
   }
   ]
   
@@ -52,8 +48,7 @@ export const details = [{
   export const mainAttr = 'atk,cpct,cdmg,mastery'
   
   export const defParams = {
-    team: true,
-    hb: true
+    team: true
   }
   
   export const buffs = [{
@@ -131,18 +126,6 @@ export const details = [{
   title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
   data: {
     atkPct: 25
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 80,
-    mastery: 370,
-    kx: 40,
-    defPct: -15,
-    atkPct: 133,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '5.16最后修改：如有问题请输入 #伤害计算反馈'}]

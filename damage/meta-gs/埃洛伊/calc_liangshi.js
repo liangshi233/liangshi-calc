@@ -1,46 +1,42 @@
 export const details = [{
   title: '附魔普攻第四段',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a')
 }, {
   title: '冰尘弹伤害',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['冰尘弹伤害'], 'e')
 }, {
   title: '冷冻炸弹伤害',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['冷冻炸弹伤害'], 'e')
 }, {
   title: '冷冻炸弹融化伤害',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.e['冷冻炸弹伤害'], 'e', 'melt')
 }, {
   title: '曙光寓言伤害',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
   title: '曙光寓言融化伤害',
-  params: {team:false, hb:false},
+  params: {team:false},
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 }, {
 	title: '埃鹤万心 冰尘弹伤害',
-  params: {team:true, hb:false},
+  params: {team:true},
   dmg: ({ talent }, dmg) => dmg(talent.e['冰尘弹伤害'], 'e')
 }, {
   title: '埃鹤万心 Q伤害',
-  params: {team:true, hb:false},
+  params: {team:true},
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}, {
-	title: '深渊12-3 Q融化核爆',
-  params: {team:false , hb:true},
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 4
 
 export const defParams = {
-    team:true, hb:true
+    team:true
 }
 
 export const buffs = [{
@@ -123,18 +119,6 @@ export const buffs = [{
   title: '元素共鸣 粉碎之冰：攻击处于冰元素附着或冻结下的敌人时，暴击率提高[cpct]%',
   data: {
     cpct: 15
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 100,
-    mastery: 370,
-    kx: 40,
-    atkPct: 128,
-    defPct: -25,
-    atkPlus: 1202.35
   }
 },
  {title: '4.4最后修改：如有问题请输入 #伤害计算反馈'}

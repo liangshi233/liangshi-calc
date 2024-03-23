@@ -1,46 +1,42 @@
 export const details = [{
   title: '逆焰之刃第三段伤害',
-  params: { team: false , hb: false },
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e')
 }, {
   title: '逆焰之刃第三段蒸发',
-  params: { team: false , hb: false },
+  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'vaporize')
 }, {
   title: '黎明爆发伤害',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q')
 }, {
   title: '黎明爆发蒸发伤害',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'vaporize')
 }, {
   title: '黎明爆发融化伤害',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'melt')
 },{
   title: '开Q后单次重击',
-  params: { q: true , team: false , hb: false },
+  params: { q: true , team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2')
 }, {
   title: '凯万班融卢E三段融化',
-  params: { team: true , hb: false },
+  params: { team: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'melt')
 }, {
   title: '凯万班融卢黎明融化',
-  params: { q: true , team: true , hb: false },
+  params: { q: true , team: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'melt')
 },{
   title: '融卢开Q后普攻一段融化',
-  params: { q: true , team: true , hb: false },
+  params: { q: true , team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'melt')
-}, {
-	title: '深渊7-2 Q融化核爆',
-  params: { q: true , team: false , hb: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'melt')
 }]
 
-export const defParams = { monv: 3 ,  team: true ,  hb: true }
+export const defParams = { monv: 3 ,  team: true }
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgIdx = 2
 
@@ -112,18 +108,6 @@ export const buffs = [{
   title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
   data: {
     atkPct: 25
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 80,
-    mastery: 370,
-    kx: 40,
-    defPct: -15,
-    atkPct: 133,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '5.16最后修改：如有问题请输入 #伤害计算反馈'}

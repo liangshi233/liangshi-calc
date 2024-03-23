@@ -30,10 +30,6 @@ export const details = [{
   title: '神鹤万莫Q单段伤害',
   params: {team:true,hb:false},
   dmg: ({ talent }, dmg) => dmg(talent.q['切割伤害'], 'q')
-}, {
-	title: '深渊12-3 Q融化核爆',
-  params: {team:false , hb:true},
-  dmg: ({ talent }, dmg) => dmg(talent.q['切割伤害'], 'q', 'melt')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg'
@@ -139,18 +135,6 @@ export const buffs = [{
   title: '元素共鸣 粉碎之冰：攻击处于冰元素附着或冻结下的敌人时，暴击率提高[cpct]%',
   data: {
     cpct: 15
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 100,
-    mastery: 370,
-    kx: 40,
-    atkPct: 128,
-    defPct: -25,
-    atkPlus: 1202.35
   }
 },
  {title: '2.28最后修改：如有问题请输入 #伤害计算反馈'}

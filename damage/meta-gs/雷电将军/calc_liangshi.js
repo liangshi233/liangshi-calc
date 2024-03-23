@@ -5,8 +5,7 @@ export const details = [{
   params: {
     type: 1,
     num: 0,
-    team: false,
-	hb: false
+    team: false
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.e['协同攻击伤害'], 'e')
 },{
@@ -14,8 +13,7 @@ export const details = [{
   params: {
     type: 1,
     num: 0,
-    team: false,
-	hb: false
+    team: false
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['重击伤害'], 'q')
 },{
@@ -23,8 +21,7 @@ export const details = [{
   params: {
     type: 1,
     num: 60,
-    team: false,
-	hb: false
+    team: false
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['重击伤害'], 'q')
 }, {
@@ -32,8 +29,7 @@ export const details = [{
   params: {
     type: 1,
     num: 0,
-    team: false,
-	hb: false
+    team: false
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
@@ -41,8 +37,7 @@ export const details = [{
   params: {
     type: 0,
     num: 60,
-    team: false,
-	hb: false
+    team: false
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
@@ -50,8 +45,7 @@ export const details = [{
   params: {
     type: 0,
     num: 60,
-    team: true,
-	hb: false
+    team: true
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
@@ -59,8 +53,7 @@ export const details = [{
   params: {
     type: 1,
     num: 60,
-    team: true,
-	hb: false
+    team: true
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['重击伤害'], 'q')
 }, {
@@ -68,8 +61,7 @@ export const details = [{
   params: {
     type: 0,
     num: 60,
-    team: true,
-	hb: true
+    team: true
   },
   dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 }, {
@@ -78,7 +70,6 @@ export const details = [{
      type: 0,
      num: 60,
      team: false,
- 	 hb: false,
  	 lg: true
    },
     dmg: ({ talent , cons }, dmg) => {
@@ -96,8 +87,7 @@ export const details = [{
    params: {
      type: 0,
      num: 60,
-     team: false,
- 	 hb: false
+     team: false
    },
   dmg: ({ talent, calc, attr }) => {
     return {
@@ -110,8 +100,7 @@ export const details = [{
 export const defParams = {
   num: 60,
   type: 0,
-  team: true,
-  hb: true
+  team: true
 }
 
 export const defDmgIdx = 4
@@ -196,15 +185,6 @@ export const buffs = [
     data: {
       atkPct: 20,
       atkPlus: 1202.35
-    }
-  }, {
-    check: ({ params }) => (params.team === true && params.hb === true),
-    title: '深渊核爆：各种buff',
-    data: {
-      cdmg: 120,
-      dmg: 40,
-      atkPct: 40,
-      defPct: -15
     }
   },
    {title: '1.10最后修改：修复枫原万叶精通加成异常问题'}

@@ -1,24 +1,24 @@
 export const details = [{
   title: '炽焰箭首段',
-  params: { num: 1, team: false , hb: false},
+  params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
   title: '炽焰箭尾箭',
-  params: { num: 10, team: false , hb: false},
+  params: { num: 10, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a')
 }, {
   title: '炽焰箭尾箭蒸发',
-  params: { num: 10, team: false , hb: false},
+  params: { num: 10, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }, {
   title: '宵夜万班尾箭蒸发',
-  params: { num: 10, team: true , hb: false},
+  params: { num: 10, team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }, {
   check: ({ cons }) => cons >= 6,
   dmgKey: 'e',
   title: '宵夜万班凹双蒸',
-  params: { num: 10, team: true , hb: false},
+  params: { num: 10, team: true },
   dmg: ({ talent }, dmg) => {
     let a0Dmg = dmg(talent.a['一段伤害'] / 2, 'a', 'vaporize')
     let a1Dmg = dmg(talent.a['一段伤害'] / 2, 'a')
@@ -38,7 +38,7 @@ export const details = [{
   check: ({ cons }) => cons < 6,
   dmgKey: 'e',
   title: '宵夜万班147蒸发',
-  params: { num: 10, team: true , hb: false},
+  params: { num: 10, team: true },
   dmg: ({ talent }, dmg) => {
     let a0Dmg = dmg(talent.a['一段伤害'], 'a', 'vaporize')
     let a1Dmg = dmg(talent.a['一段伤害'], 'a')
@@ -53,20 +53,16 @@ export const details = [{
   }
 }, {
   title: '重击伤害',
-  params: { num: 1, team: false , hb: false},
+  params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
 }, {
   title: '琉金云间草爆炸伤害',
-  params: { num: 1, team: false , hb: false},
+  params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['琉金火光爆炸伤害'], 'q')
 }, {
   title: '琉金云间草爆炸蒸发',
-  params: { num: 1, team: false , hb: false},
+  params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['琉金火光爆炸伤害'], 'q', 'vaporize')
-}, {
-  title: '深渊7-2 Q融化核爆',
-  params: { num: 1, team: false , hb: true},
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['技能伤害'], 'q', 'melt')
 }]
 
 export const defDmgIdx = 2
@@ -74,7 +70,7 @@ export const defDmgKey = 'e'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = {
-  num: 10, team: true, hb: true
+  num: 10, team: true
 }
 
 export const buffs = [{
@@ -156,18 +152,6 @@ export const buffs = [{
   title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
   data: {
     hpPct: 25
-  }
-}, {
-  check: ({ params }) => (params.team === false && params.hb === true),
-  title: '深渊核爆：各种buff',
-  data: {
-    cdmg: 120,
-    dmg: 100,
-    mastery: 370,
-    kx: 40,
-    atkPct: 93,
-    defPct: -25,
-    atkPlus: 1202.35
   }
 }, 'vaporize',
 {title: '5.12最后修改：如有问题请输入 #伤害计算反馈'}
