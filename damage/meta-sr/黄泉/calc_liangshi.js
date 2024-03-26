@@ -1,6 +1,84 @@
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let sr1308ranking = cfg.sr1308ranking
+let aName = '普通攻击'
+let eName = '八雷飞渡'
+let eNameT = 'E'
+let qName = '残梦尽染，一刀缭断'
+let q1Name = '啼泽雨斩'
+let q2Name = '黄泉返渡'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '三途枯榷'
+  eNameT = '八雷飞渡'
+  qNameT = '残梦尽染，一刀缭断'
+ } else if ( NamePath == 3 ) {
+  eNameT = '八雷飞渡'
+  qNameT = '残梦尽染，一刀缭断'
+ } else if ( NamePath == 4 ) {
+  eName = '战技'
+  qName = '终结技'
+  eNameT = '战技'
+  qNameT = '终结技'
+  q1Name = '终结斩'
+  q2Name = '终结尾'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+  q1Name = 'Q技能斩'
+  q2Name = 'Q技能尾'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+  q1Name = 'Q斩'
+  q2Name = 'Q尾'
+ }
+}
+const miss = ['z','c','f','h','y','dps','dph','hph','hps']
+let ranking = 'undefined'
+if (!cfg.sr1308ranking) {
+ if ( rankingOnePath == 'm' )  {
+  ranking = 'q'
+ } else if (miss.includes(rankingOnePath)) {
+    if ( rankingTwoPath == 'm' )  {
+     ranking = 'q'
+    } else if (miss.includes(rankingTwoPath)) {
+      if ( rankingThreePath == 'm' )  {
+       ranking = 'q'
+      } else if (miss.includes(rankingThreePath)) {
+       logger.mark('[黄泉] 排名规则均未命中，已选择默认排名规则')
+       ranking = 'q'
+      } else {
+        ranking = `${rankingThreePath}`
+      }
+    } else {
+      ranking = `${rankingTwoPath}`
+    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${sr1308ranking}`
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: '普攻伤害',
+  title: `${aName}伤害`,
+  dmgKey: 'a',
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q' : 'a'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
@@ -9,7 +87,8 @@ export const details = [
   }
 },
 {
-  title: '战技主目标伤害',
+  title: `${eName}主目标伤害`,
+  dmgKey: 'e',
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
@@ -18,7 +97,7 @@ export const details = [
   }
 },
 {
-  title: '战技相邻目标伤害',
+  title: `${eName}相邻目标伤害`,
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
@@ -27,16 +106,17 @@ export const details = [
   }
 },
 {
-  title: '啼泽雨斩单次伤害',
+  title: `${q1Name}单次伤害`,
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
-     let q1Dmg = dmg(talent.q['啼泽雨斩伤害'] * talentDmg , 'q')
+     let q1Dmg = dmg( ( talent.q['啼泽雨斩伤害'] + talent.q['倍率提升'] ) * talentDmg , 'q')
      return q1Dmg
   }
 },
 {
-  title: '黄泉返渡伤害',
+  title: `${q2Name}伤害`,
+  dmgKey: 'undefined',
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
@@ -45,17 +125,28 @@ export const details = [
   }
 },
 {
-  title: '每层集真赤消除伤害',
+  title: '集真赤消除额外伤害',
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
-     let q3Dmg = dmg(talent.q['倍率提升'] * talentDmg , 'q')
+     let q3Dmg = dmg(talent.q['消除伤害'] * talentDmg , 'q')
      return q3Dmg
+  }
+},
+{
+  title: `${qName}完整伤害`,
+  dmgKey: 'q',
+  params: { q: true },
+  dmg: ({ talent , cons }, dmg) => {
+     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + ( talent.q['啼泽雨斩伤害'] + talent.q['倍率提升'] ) * 3 ) * talentDmg , 'q')
+     return q4Dmg
   }
 }]
 
-export const defDmgIdx = 4
-export const mainAttr = 'atk,cpct,cdmg'
+
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defDmgKey = `${ranking}`
 
 export const buffs = [
 {
@@ -74,7 +165,7 @@ export const buffs = [
   }
 },
 {
-  title: '黄泉行迹：[雷心] 终结技的【啼泽雨斩】击中持有【集真赤】的敌方目标时，使黄泉造成的伤害提高[dmg]%',
+  title: '黄泉行迹：[雷心] 终结技的【啼泽雨斩】击中持有【集真赤】的敌方目标时，使黄泉造成的伤害提高[dmg]%，并在发动【黄泉返渡】时额外造成6次伤害',
   tree: 3,
   data: {
     dmg: 30 * 3
@@ -92,16 +183,18 @@ export const buffs = [
   cons: 2
 },
 {
-  title: '黄泉4魂：[亘焰燎照镜中人] 施放终结技时，使敌方全体受到的终结技伤害提高[qEnemydmg]%',
+  title: '黄泉4魂：[亘焰燎照镜中人] 在敌方目标进入战斗时，使其陷入终结技伤害易伤状态，受到的终结技伤害提高[qEnemydmg]%',
   cons: 4,
   data: {
     qEnemydmg: 12
   }
 },
 {
-  title: '黄泉6魂：[灾咎解桎梏] 终结技的暴击伤害提高[qCdmg]%，施放普攻、战技造成的伤害同时视为终结技伤害。',
+  title: '黄泉6魂：[灾咎解桎梏] 终结技伤害全属性抗性穿透提高[kx]%，施放普攻、战技造成的伤害同时视为终结技伤害。',
   cons: 6,
   data: {
-    qCdmg: 60
+    kx: 20
   }
-}]
+},
+{title: `3.26最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
+
