@@ -5,11 +5,7 @@ export const details = [
 },
 {
   title: '战技护盾量',
-  dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.def) * talent.q['百分比防御'] + talent.q['固定值'])
-},
-{
-  title: '战技护盾上限',
-  dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.def) * talent.q['百分比上限'] + talent.q['固定数值上限'])
+  dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.def) * talent.e['防御力百分比'] + talent.e['固定值'])
 },
 {
   title: '终结技伤害',
@@ -17,11 +13,11 @@ export const details = [
 },
 {
   title: '追加攻击伤害',
-  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.t['追加攻击伤害'], 't')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.t['每段伤害'], 't')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,def'
-export const defDmgIdx = 2
+export const defDmgIdx = 1
 
 export const buffs = [
 {
@@ -31,11 +27,11 @@ export const buffs = [
   }
 },
 {
-  check: ({ calc, attr }) => calc(attr.def) >= 1200,
+  check: ({ calc, attr }) => calc(attr.def) >= 1600,
   title: '砂金行迹：[杠杆] 使自身暴击率提高[cpct]%',
   tree: 1,
   data: {
-    cpct: ({ calc, attr }) => Math.min( 40 , ( calc(attr.def) - 1200 ) / 100 * 2 )
+    cpct: ({ calc, attr }) => Math.min( 48 , ( calc(attr.def) - 1600 ) / 100 * 2 )
   }
 },
 {
@@ -64,6 +60,6 @@ export const buffs = [
   cons: 6,
   data: {
     buffCount: ({ params }) => ( params.play || 3 ) ,
-    dmg: ({ params }) => 50 * ( params.play || 3 )
+    dmg: ({ params }) => Math.min( 150 , 50 * ( params.play || 3 ) )
  }
 }]

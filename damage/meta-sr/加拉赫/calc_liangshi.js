@@ -5,11 +5,11 @@ export const details = [
 },
 {
   title: '酒花奔涌伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['酒花奔涌伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['TODO'], 'a')
 },
 {
   title: '战技生命恢复',
-  dmg: ({ talent }, { heal }) => heal(talent.e['治疗量'])
+  dmg: ({ talent }, { heal }) => heal(talent.e['生命值回复'])
 },
 {
   title: '终结技伤害',
@@ -17,7 +17,7 @@ export const details = [
 },
 {
   title: '天赋生命恢复',
-  dmg: ({ talent }, { heal }) => heal(talent.t['酩酊·治疗'])
+  dmg: ({ talent }, { heal }) => heal(talent.t['生命值回复'])
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
@@ -25,23 +25,22 @@ export const defDmgIdx = 2
 
 export const buffs = [
 {
-  check: ({ params }) => params.buff === true,
-  title: '加拉赫技能：[鏖战正酣] 【酩酊】使目标受到的击破伤害提高[dmg]%',
+  title: '加拉赫技能：[鏖战正酣] 【酩酊】使目标受到的击破伤害提高[_dmg]%',
   data: {
-    dmg: 15
+    _dmg: ({ talent }) => talent.t['击破伤害提高']
   }
 },
 {
-  title: '加拉赫天赋：[酒花奔涌] 受到强化普攻酒花奔涌攻击的目标攻击力降低[atkDef]%',
+  title: '加拉赫技能：[酒花奔涌] 受到强化普攻酒花奔涌攻击的目标攻击力降低[atkDef]%',
   data: {
-    atkDef:  ({ talent }) => talent.a['攻击力降低']
+    atkDef: ({ talent }) => talent.a2['TODO']
   }
 },
 {
   title: '加拉赫行迹：[崭新配方] 使自身提供的治疗量提高[heal]%',
   tree: 1,
   data: {
-    heal: ({ calc, attr }) => Math.min( 75 , ( calc(attr.stance) * 30 ) / 100 )
+    heal: ({ calc, attr }) => Math.min( 75 , ( calc(attr.stance) * 50 ) / 100 )
   }
 },
 {
@@ -50,14 +49,6 @@ export const buffs = [
   data: {
     effDef: 50 ,
     _energyevery: 20
- }
-},
-{
-  check: ({ params }) => params.buff === true,
-  title: '加拉赫2魂：[狮子之尾] 处于【酩酊】状态的目标受到的击破伤害额外提高[dmg]%',
-  cons: 2,
-  data: {
-    dmg: 8
  }
 },
 {
