@@ -10,7 +10,7 @@ export class GS extends plugin {
       name: '角色资源',
       dsc: '角色资源',
       event: 'message',
-      priority: 500,
+      priority: 5000,
       rule: [
         {
           reg: '^#*(.*)(收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发)(帮助)?$',
