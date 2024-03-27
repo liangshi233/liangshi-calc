@@ -110,7 +110,7 @@ export const details = [
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
-     let q1Dmg = dmg( ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] * 3 ) * talentDmg , 'q')
+     let q1Dmg = dmg( ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] ) * talentDmg , 'q')
      return q1Dmg
   }
 },
@@ -139,7 +139,7 @@ export const details = [
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
-     let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] ) * 3 ) * talentDmg , 'q')
+     let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + talent.q['啼泽雨斩伤害'] * 3 + talent.q['集真赤最高倍率'] ) * talentDmg , 'q')
      return q4Dmg
   }
 }]
