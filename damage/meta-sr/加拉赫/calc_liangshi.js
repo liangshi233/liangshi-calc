@@ -1,39 +1,121 @@
+import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let sr1301ranking = cfg.sr1301ranking
+let aName = '普通攻击'
+let a2Name = '酒花奔涌'
+let eName = '罐装特调'
+let eNameT = 'E'
+let qName = '香槟仪礼'
+let qNameT = 'Q'
+let tName = '鏖战正酣'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '开瓶费'
+  eNameT = '罐装特调'
+  qNameT = '香槟仪礼'
+ } else if ( NamePath == 3 ) {
+  eNameT = '罐装特调'
+  qNameT = '香槟仪礼'
+ } else if ( NamePath == 4 ) {
+  e2Name = '强化普攻'
+  eName = '战技'
+  qName = '终结技'
+  eNameT = '战技'
+  qNameT = '终结技'
+  tName = '天赋'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  e2Name = '强化普攻'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+  tName = '天赋'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  e2Name = 'A2'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+  tName = 'T'
+ }
+}
+const miss = ['e','z','f','y','dps','dph','hph','hps']
+let ranking = 'undefined'
+if (!cfg.sr1301ranking) {
+ if ( rankingOnePath == 'm' )  {
+  ranking = 'h'
+ } else if (miss.includes(rankingOnePath)) {
+    if ( rankingTwoPath == 'm' )  {
+     ranking = 'h'
+    } else if (miss.includes(rankingTwoPath)) {
+      if ( rankingThreePath == 'm' )  {
+       ranking = 'h'
+      } else if (miss.includes(rankingThreePath)) {
+       logger.mark('[加拉赫] 排名规则均未命中，已选择默认排名规则')
+       ranking = 'h'
+      } else {
+        ranking = `${rankingThreePath}`
+      }
+    } else {
+      ranking = `${rankingTwoPath}`
+    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${sr1301ranking}`
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: '普攻伤害',
+  title: `${aName}伤害`,
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 },
 {
-  title: '酒花奔涌伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a2['TODO'], 'a')
+  title: `${a2Name}伤害`,
+  dmgKey: 'c',
+  dmg: ({ talent }, dmg) => dmg(talent.a2['技能伤害'], 'a')
 },
 {
-  title: '战技生命恢复',
+  title: `${eName}生命恢复`,
+  dmgKey: 'h',
   dmg: ({ talent }, { heal }) => heal(talent.e['生命值回复'])
 },
 {
-  title: '终结技伤害',
+  title: `${qName}伤害`,
+  dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: '天赋生命恢复',
+  title: `${tName}生命恢复`,
+  dmgKey: 'undefined',
   dmg: ({ talent }, { heal }) => heal(talent.t['生命值回复'])
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
-export const defDmgIdx = 2
+export const defDmgKey = `${ranking}`
 
 export const buffs = [
 {
   title: '加拉赫技能：[鏖战正酣] 【酩酊】使目标受到的击破伤害提高[_dmg]%',
   data: {
-    _dmg: ({ talent }) => talent.t['击破伤害提高']
+    _dmg: ({ talent }) => talent.t['击破伤害提高'] * 100
   }
 },
 {
   title: '加拉赫技能：[酒花奔涌] 受到强化普攻酒花奔涌攻击的目标攻击力降低[atkDef]%',
   data: {
-    atkDef: ({ talent }) => talent.a2['TODO']
+    atkDef: ({ talent }) => talent.a2['攻击力降低'] * 100
   }
 },
 {

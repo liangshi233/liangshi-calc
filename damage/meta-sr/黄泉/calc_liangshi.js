@@ -72,7 +72,7 @@ if (!cfg.sr1308ranking) {
 } else {
  ranking = `${sr1308ranking}`
 }
-let renew = '无'
+let renew = '3.29 修复4星魂加成错误，6星魂后普攻战技无法受到对应加成的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -80,7 +80,7 @@ export const details = [
   title: `${aName}伤害`,
   dmgKey: 'a',
   dmg: ({ talent , cons }, dmg) => {
-     let talentConfig = cons >= 6 ? 'q' : 'a'
+     let talentConfig = cons >= 6 ? 'q,a' : 'a'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
      let aDmg = dmg(talent.a['技能伤害'] * talentDmg , `${talentConfig}`)
      return aDmg
@@ -90,7 +90,7 @@ export const details = [
   title: `${eName}主目标伤害`,
   dmgKey: 'e',
   dmg: ({ talent , cons }, dmg) => {
-     let talentConfig = cons >= 6 ? 'q' : 'e'
+     let talentConfig = cons >= 6 ? 'q,e' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
      let eDmg = dmg(talent.e['单体伤害'] * talentDmg , `${talentConfig}`)
      return eDmg
@@ -99,7 +99,7 @@ export const details = [
 {
   title: `${eName}相邻目标伤害`,
   dmg: ({ talent , cons }, dmg) => {
-     let talentConfig = cons >= 6 ? 'q' : 'e'
+     let talentConfig = cons >= 6 ? 'q,e' : 'e'
      let talentDmg = cons >= 1 ? 1.6 : 1.15
      let e2Dmg = dmg(talent.e['相邻目标伤害'] * talentDmg , `${talentConfig}`)
      return e2Dmg
@@ -185,7 +185,7 @@ export const buffs = [
   title: '黄泉4魂：[亘焰燎照镜中人] 在敌方目标进入战斗时，使其陷入终结技伤害易伤状态，受到的终结技伤害提高[qEnemydmg]%',
   cons: 4,
   data: {
-    qEnemydmg: 12
+    qEnemydmg: 8
   }
 },
 {
@@ -195,5 +195,5 @@ export const buffs = [
     kx: 20
   }
 },
-{title: `3.26最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `3.29最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
 
