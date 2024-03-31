@@ -14,3 +14,10 @@ rankingOnemodel: m
 rankingTwomodel: hps
 
 rankingThreemodel: dps
+
+
+calcLi: false
+calcLiang: true
+calcLiangQ: false
+artisLiangZ: false
+artisLiang: false

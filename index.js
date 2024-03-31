@@ -1,4 +1,12 @@
 import fs from 'node:fs'
+import LSstart from './components/LSstart.js'
+import LSconfig from './components/LSconfig.js'
+const cfg = LSconfig.getConfig('user', 'config')
+
+if (cfg.calcLiang) {
+  LSstart.start()
+}
+
 logger.info('------------QAQ------------')
 logger.info(`liangshi伤害计算加载成功`)
 logger.info(`如有计算错误可通过以下方式反馈`)
