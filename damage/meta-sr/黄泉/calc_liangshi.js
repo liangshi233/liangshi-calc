@@ -139,7 +139,7 @@ export const details = [
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
      let talentDmg = cons >= 1 ? 1.6 : 1.15
-     let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + talent.q['啼泽雨斩伤害'] * 3 + talent.q['集真赤最高倍率'] ) * talentDmg , 'q')
+     let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] ) * 3 ) * talentDmg , 'q')
      return q4Dmg
   }
 }]
@@ -195,5 +195,5 @@ export const buffs = [
     kx: 20
   }
 },
-{title: `3.29最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `3.31最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
 
