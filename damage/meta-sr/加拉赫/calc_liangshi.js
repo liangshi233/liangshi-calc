@@ -22,7 +22,7 @@ if ( NamePath !== 1 ) {
   eNameT = '罐装特调'
   qNameT = '香槟仪礼'
  } else if ( NamePath == 4 ) {
-  e2Name = '强化普攻'
+  a2Name = '强化普攻'
   eName = '战技'
   qName = '终结技'
   eNameT = '战技'
@@ -30,7 +30,7 @@ if ( NamePath !== 1 ) {
   tName = '天赋'
  } else if ( NamePath == 5 ) {
   aName = '普攻'
-  e2Name = '强化普攻'
+  a2Name = '强化普攻'
   eName = 'E技能'
   qName = 'Q技能'
   eNameT = 'E技能'
@@ -38,7 +38,7 @@ if ( NamePath !== 1 ) {
   tName = '天赋'
  } else if ( NamePath == 6 ) {
   aName = 'A'
-  e2Name = 'A2'
+  a2Name = 'A2'
   eName = 'E'
   qName = 'Q'
   eNameT = 'E'
