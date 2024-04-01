@@ -2,14 +2,14 @@
  * 预设面板替换关键词
  * 顺序不可乱，对应10000000-100000005
  */
-const replace_list = {
-  极限: '极限',
-  核爆: '核爆',
-  辅助: '辅助',
-  平民: '平民',
-  毕业: '毕业',
-  试用: '试用'
-}
+const replace_list = [
+  '极限',
+  '核爆',
+  '辅助',
+  '平民',
+  '毕业',
+  '试用'
+]
 
 export class ysmb_input_replace extends plugin {
   constructor () {
@@ -30,43 +30,26 @@ export class ysmb_input_replace extends plugin {
   }
 
   async accept (e) {
-    for (let key in replace_list) {
-      try {
-        let reg = RegExp(key)
-        if (!reg.test(e.msg)) continue
-        let msg = e.msg.split('换')
-        let keywords = Object.keys(replace_list)
-        if (keywords.includes(msg[0])) return msg[0]
-        let index = keywords.indexOf(key);
-        let result = msg.map((element) => {
-          if (element.includes(key)) {
-            return element.replace(key,'10000000' + index);
-          } else {
-            return element;
-          }
-        });
-        let Msg = result[0]
-        if (reg.test(msg[0])) {
-           Msg = Msg.replace(/#*(星铁)?(面板|圣遗物|伤害|武器)?/g, '');
-           let mb = `${Msg}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}`
-           const number = mb.match(/\d+/);
-           const text = mb.replace(number,'');
-           Msg = '#' + text + number
-        } else {
-           Msg = msg[0]
-        }
-        let filteredMsg = result.filter(element => element !== result[0]);
-        filteredMsg = filteredMsg.map((msgs) =>'换' + msgs).join('');
-        let msgone = Msg
-        if (msg.length > 1) {
-          let msgtwo = filteredMsg
-          e.msg = msgone + msgtwo
-        } else {
-          e.msg = msgone
-        }
-      } catch (err) { }
+    let reg = RegExp(replace_list.join('|'));
+    if (!reg.test(e.msg)) return false
+    let msg = /换/.test(e.msg) ? e.msg.split('换') : [e.msg];
+    if (replace_list.includes(msg[0])) return false
+    let result = this._replace(msg);
+    let Msg = result[0].replace(/#/g, '');
+    if (reg.test(msg[0])) {
+      let uid = Msg.match(/\d+/);
+      result[0] = `#${Msg.replace(uid,'')}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`;
     }
-    return false
+    e.msg = msg.length > 1 ? result.slice(0).join('换') : result[0];
+  }
+
+  _replace (msg) {
+    let Msg = [];
+    msg.map((i) => {
+      let idx = replace_list.findIndex(k => i.includes(k));
+      Msg.push(idx !== -1 ? i.replace(replace_list[idx], `10000000${idx}`) : i);
+    })
+    return Msg
   }
 
   // 预设面板说明
