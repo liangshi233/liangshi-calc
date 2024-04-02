@@ -1,4 +1,4 @@
-import { Loccupied , Common } from '#liangshi'
+import { Loccupied, Common } from '#liangshi'
 
 export class Help extends plugin {
   constructor() {

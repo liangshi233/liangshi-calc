@@ -1,4 +1,4 @@
-import { exec , execSync } from "child_process"
+import { exec, execSync } from "child_process"
 import common from "../../../lib/common/common.js"
 
 const _path = process.cwd();
