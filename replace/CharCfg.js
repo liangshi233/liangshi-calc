@@ -1,8 +1,8 @@
-import { Data } from '#miao'
+import { Data, LSconfig } from '#liangshi'
 //import Base from '../Base.js'
 import lodash from 'lodash'
 import fs from 'node:fs'
-import LSconfig from '../components/LSconfig.js'
+
 const cfg = LSconfig.getConfig('user', 'config')
 
 let game = 'gs'; //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧

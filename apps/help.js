@@ -1,7 +1,7 @@
-import lodash from 'lodash'
-import fs from 'fs'
-import { Cfg, Version, Common, Data } from '../components/index.js'
+import { Cfg, Version, Common, Data } from '#liangshi'
 import Theme from './help/theme.js'
+import lodash from 'lodash'
+import fs from 'node:fs'
 
 const _path = process.cwd()
 const helpPath = `${_path}/plugins/liangshi-calc/resources/help`

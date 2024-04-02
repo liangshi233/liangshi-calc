@@ -1,5 +1,4 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { Format, LSconfig } from '#liangshi'
 
 let a3Dmg = { dmg: 0 , avg: 0 }
 let ar3Dmg = { dmg: 0 , avg: 0 }

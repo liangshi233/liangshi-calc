@@ -1,5 +1,4 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel

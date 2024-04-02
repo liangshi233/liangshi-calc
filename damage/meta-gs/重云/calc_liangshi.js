@@ -1,4 +1,4 @@
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel

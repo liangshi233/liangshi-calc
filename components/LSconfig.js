@@ -1,3 +1,4 @@
+import chokidar from 'chokidar'
 import YAML from 'yaml'
 import fs from 'node:fs'
 
@@ -6,11 +7,30 @@ const _path = process.cwd()
 class LSconfig {
   constructor () {
     this.def = `${_path}/plugins/liangshi-calc/config/system/`
+    this.defSet = {}
+
     this.user = `${_path}/plugins/liangshi-calc/config/`
+    this.userSet = {}
+
+    /** 监听文件 */
+    this.watcher = { userSet: {}, defSet: {} }
+
+    this.initCfg()
   }
 
   get preDownload () {
     return this.getConfig('def', 'PreDownload')
+  }
+
+  /**
+   * 初始化配置文件
+   */
+  initCfg () {
+    const file = 'config.yaml'
+    if (!fs.existsSync(`${this.user}${file}`)) {
+      fs.copyFileSync(`${this.def}${file}`, `${this.user}${file}`)
+    }
+    this.watch(`${this.user}${file}`, file.replace('.yaml', ''), 'userSet')
   }
 
   /**
@@ -19,7 +39,6 @@ class LSconfig {
    * @param {string} name 文件名
    */
   getConfig (type, name) {
-    if (type === 'user') this.defSetCopy(name)
     const conf = this.getYaml(this.getFilePath(type), name)
     return conf
   }
@@ -43,12 +62,23 @@ class LSconfig {
   }
 
   /**
-   * 默认拷贝到用户配置
-   * @param {string} name YAMl文件名
+   * 监听配置文件
+   * @param {string} path 路径
+   * @param {string} name 文件名
+   * @param {'defSet'|'userSet'} type 默认配置/用户配置
    */
-  defSetCopy (name) {
-    name = `${name}.yaml`
-    if (!fs.existsSync(this.user + name)) fs.copyFileSync(this.def + name, this.user + name)
+  watch (path, name, type = 'defSet') {
+    if (this.watcher[type][name]) return
+  
+    const watcher = chokidar.watch(path)
+    watcher.on('change', path => {
+      delete this[type][name]
+      logger.mark(`[liangshi_calc][修改配置文件][${type}][${name}]`)
+      if (this[`change_${name}`]) {
+        this[`change_${name}`]()
+      }
+    })
+    this.watcher[type][name] = watcher
   }
 }
 

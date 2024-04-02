@@ -1,5 +1,4 @@
-import fs from 'fs'
-import { Cfg, Loccupied ,  Common, Data } from '../components/index.js'
+import { Loccupied, Common } from '#liangshi'
 
 export class Help extends plugin {
   constructor() {

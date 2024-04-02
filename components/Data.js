@@ -1,10 +1,12 @@
 import lodash from 'lodash'
-import fs from 'fs'
+import fs from 'node:fs'
 
 const _path = process.cwd()
 const getRoot = (root = '') => {
   if (root === 'root' || root === 'yunzai') {
     root = `${_path}/`
+  } else if (root === 'miao') {
+    root = `${_path}/plugins/miao-plugin/`
   } else if (!root) {
     root = `${_path}/plugins/liangshi-calc/`
   }

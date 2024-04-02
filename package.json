@@ -1,0 +1,10 @@
+{
+  "name": "liangshi-calc",
+  "version": "1.4.0",
+  "author": "liangshi233",
+  "description": "为角色面板功能提供全方位拓展",
+  "type": "module",
+  "imports": {
+    "#liangshi": "./components/index.js"
+  }
+}

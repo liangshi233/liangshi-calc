@@ -1,9 +1,10 @@
-import fs from 'fs'
-import ProfileDmg from '../../miao-plugin/models/ProfileDmg.js'
 import CharCfg from '../../miao-plugin/models/character/CharCfg.js'
+import ProfileDmg from '../../miao-plugin/models/ProfileDmg.js'
+import Common from '../../miao-plugin/components/Common.js'
 import _CharCfg from '../replace/CharCfg.js'
-import { Common } from '#miao'
 import LSconfig from './LSconfig.js'
+import fs from 'node:fs'
+
 const cfg = LSconfig.getConfig('user', 'config')
 
 const LSstart = {

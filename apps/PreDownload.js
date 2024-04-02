@@ -1,6 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import helpUtil from '../components/PreDownload.js'
-import puppeteer from '../../../lib/puppeteer/puppeteer.js'
+import { LSconfig } from '#liangshi'
 
 const _path = process.cwd().replace(/\\/g, '/')
 
@@ -24,14 +22,7 @@ export class help extends plugin {
   }
 
   async help (e) {
-    let helpList = helpUtil.getList()
-    let data = {
-      tplFile: './plugins/liangshi-calc/resources/help/PreDownload.html',
-      pluResPath: `${_path}/plugins/liangshi-calc/resources`,
-      helpList
-    }
-    let img = await puppeteer.screenshot('help', data)
-    e.reply(img)
+    await this.renderImg('liangshi-calc', 'help/PreDownload.html', { helpList: LSconfig.preDownload })
     return true
   }
 }

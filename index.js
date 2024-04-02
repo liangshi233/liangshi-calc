@@ -1,6 +1,7 @@
 import fs from 'node:fs'
+import { LSconfig } from '#liangshi'
 import LSstart from './components/LSstart.js'
-import LSconfig from './components/LSconfig.js'
+
 const cfg = LSconfig.getConfig('user', 'config')
 
 if (cfg.calcLiang) {
