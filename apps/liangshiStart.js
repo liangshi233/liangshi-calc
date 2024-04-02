@@ -1,8 +1,8 @@
 import { Restart } from '../../../plugins/other/restart.js'
+import LSstart from '../components/LSstart.js'
+import { LSconfig } from '#liangshi'
 import fs from 'node:fs'
 import _ from 'lodash'
-import LSconfig from '../components/LSconfig.js'
-import LSstart from '../components/LSstart.js'
 
 const _path = process.cwd()
 export class allSetting extends plugin {

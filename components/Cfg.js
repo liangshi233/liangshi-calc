@@ -1,6 +1,6 @@
-import fs from 'fs'
 import lodash from 'lodash'
 import YAML from 'yaml'
+import fs from 'node:fs'
 
 const _path = process.cwd()
 const _cfgPath = `${_path}/plugins/liangshi-calc/components/`

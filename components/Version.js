@@ -1,5 +1,5 @@
-import fs from 'fs'
 import lodash from 'lodash'
+import fs from 'node:fs'
 
 const _path = process.cwd()
 const _logPath = `${_path}/plugins/liangshi-calc/CHANGELOG.md`

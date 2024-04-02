@@ -1,9 +1,10 @@
-import plugin from "../../../lib/plugins/plugin.js";
-import { exec , execSync } from "child_process";
+import { exec , execSync } from "child_process"
 import common from "../../../lib/common/common.js"
+
 const _path = process.cwd();
 const plugin1 = 'liangshi-calc';
 const pluginPath = `${_path}/plugins/${plugin1}`
+
 export class updateMora extends plugin {
   constructor() {
     super({

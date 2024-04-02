@@ -1,0 +1,10 @@
+{
+  "name": "liangshi-calc",
+  "version": "1.4.0",
+  "author": "liangshi233",
+  "description": "liangshi-calc",
+  "type": "module",
+  "imports": {
+    "#liangshi": "./components/index.js"
+  }
+}

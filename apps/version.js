@@ -1,5 +1,4 @@
-import fs from 'fs'
-import { Cfg, GVersion, Common, Data } from '../components/index.js'
+import { GVersion, Common } from '#liangshi'
 
 export class Help extends plugin {
   constructor() {
