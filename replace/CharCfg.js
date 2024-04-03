@@ -3,11 +3,11 @@ import { Data, LSconfig } from '#liangshi'
 import lodash from 'lodash'
 import fs from 'node:fs'
 
-const cfg = LSconfig.getConfig('user', 'config')
+const cfgL = LSconfig.getConfig('user', 'config')
 
 let game = 'gs'; //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧
 let charPath = `${process.cwd()}/plugins/miao-plugin/resources/meta-${game}/character`;
-if (cfg.artisLiang || cfg.artisLiangZ) {
+if (cfgL.artisLiang || cfgL.artisLiangZ) {
   charPath = `${process.cwd()}/plugins/liangshi-calc/damage/meta-${game}`;
 }
 
@@ -21,11 +21,11 @@ let cfgMap = {
       // 评分规则
       if (cfgMap.exists(char, 'artis_user')) {
         curr.artis = await cfgMap.getCfg(char, 'artis_user', 'default')
-      } else if (cfgMap.exists(char, 'artis_li') && cfg.artisLi) {
+      } else if (cfgMap.exists(char, 'artis_li') && cfgL.artisLi) {
         curr.artis = await cfgMap.getCfg(char, 'artis_li', 'default')
-      } else if (cfgMap.exists(char, 'artis_liangshiZ') && cfg.artisLiangZ) {
+      } else if (cfgMap.exists(char, 'artis_liangshiZ') && cfgL.artisLiangZ) {
         curr.artis = await cfgMap.getCfg(char, 'artis_liangshiZ', 'default')
-      } else if (cfgMap.exists(char, 'artis_liangshi') && cfg.artisLiang) {
+      } else if (cfgMap.exists(char, 'artis_liangshi') && cfgL.artisLiang) {
         curr.artis = await cfgMap.getCfg(char, 'artis_liangshi', 'default')
       } else if (cfgMap.exists(char, 'artis')) {
         curr.artis = await cfgMap.getCfg(char, 'artis', 'default')
@@ -35,15 +35,15 @@ let cfgMap = {
         curr.calc = await cfgMap.getCfg(char, 'calc_user')
         //      } else if (cfgMap.exists(char, 'calc_liangshiK') && Common.cfg('calcLiangK')) {
         //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiK')
-      } else if (cfgMap.exists(char, 'calc_li') && cfg.calcLi) {
+      } else if (cfgMap.exists(char, 'calc_li') && cfgL.calcLi) {
         curr.calc = await cfgMap.getCfg(char, 'calc_li')
-      } else if (cfgMap.exists(char, 'calc_liangshiQ') && cfg.calcLiangQ) {
+      } else if (cfgMap.exists(char, 'calc_liangshiQ') && cfgL.calcLiangQ) {
         curr.calc = await cfgMap.getCfg(char, 'calc_liangshiQ')
         //      } else if (cfgMap.exists(char, 'calc_liangshiJ') && Common.cfg('calcLiangJ')) {
         //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiJ')
         //      } else if (cfgMap.exists(char, 'calc_liangshiT') && Common.cfg('calcLiangT')) {
         //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiT')
-      } else if (cfgMap.exists(char, 'calc_liangshi') && cfg.calcLiang) {
+      } else if (cfgMap.exists(char, 'calc_liangshi') && cfgL.calcLiang) {
         curr.calc = await cfgMap.getCfg(char, 'calc_liangshi')
       } else if (cfgMap.exists(char, 'calc')) {
         curr.calc = await cfgMap.getCfg(char, 'calc')
@@ -55,8 +55,8 @@ let cfgMap = {
   },
   async getCfg(char, file, module = '', game = 'gs') {
     let cfg = await Data.importModule(`resources/meta-${game}/character/${char}/${file}.js`, 'miao')
-    if (cfg.artisLiang || cfg.artisLiangZ) {
-      cfg = await Data.importModule(`damage/meta-${game}/${char}/${file}.js`, 'liangshi-calc')
+    if (cfgL.artisLiang || cfgL.artisLiangZ) {
+      cfg = await Data.importModule(`damage/meta-${game}/${char}/${file}.js`)
     }
     if (module) {
       return cfg[module]
