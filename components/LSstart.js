@@ -8,21 +8,15 @@ import fs from 'node:fs'
 const cfg = LSconfig.getConfig('user', 'config')
 
 const LSstart = {
-  start(set = false) {
-    if (!cfg.calcLiang && !set) return
-    if (!this._dmgRulePath) {
-      this._dmgRulePath = ProfileDmg.dmgRulePath
-      this._getCalcRule = CharCfg.getCalcRule
-      this._getArtisCfg = CharCfg.getArtisCfg
-    }
+  init() {
     ProfileDmg.dmgRulePath = (name, game = 'gs') => {
       const _path = process.cwd()
       let dmgFile = [
         { file: 'calc_user', name: '自定义伤害' },
         { file: 'calc_li', name: 'liangshicalc 大爷', test: () => cfg.calcLi },
         //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => Common.cfg('calcLiangK') },
-        //    { file: 'calc_liangshiT', name: 'liangshicalc 组队' , test: () => Common.cfg('calcLiangT') },
-        //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => Common.cfg('calcLiangJ') },
+        //    { file: 'calc_liangshiT', name: 'liangshicalc 组队' , test: () => cfg.calcLiangT },
+        //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
         { file: 'calc_liangshiQ', name: 'liangshicalc 超全', test: () => cfg.calcLiangQ },
         { file: 'calc_liangshi', name: 'liangshicalc 基础', test: () => cfg.calcLiang },
         { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
@@ -47,14 +41,8 @@ const LSstart = {
     }
     CharCfg.getCalcRule = _CharCfg.getCalcRule
     CharCfg.getArtisCfg = _CharCfg.getArtisCfg
-  },
-  stop() {
-    if (this._dmgRulePath && this._getCalcRule && this._getArtisCfg) {
-      ProfileDmg.dmgRulePath = this._dmgRulePath
-      CharCfg.getCalcRule = this._getCalcRule
-      CharCfg.getArtisCfg = this._getArtisCfg
-    }
   }
 }
+LSstart.init()
 
 export default LSstart
