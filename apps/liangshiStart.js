@@ -13,15 +13,14 @@ export class allSetting extends plugin {
       event: 'message',
       priority: 5000,
       rule: [
+/*
         {
           reg: '^#?梁氏([，,])?启动([！!])?$',
           fnc: 'liangshiStart',
           permission: 'master'
-        }, {
-          reg: '^#?梁氏(恢复|复)(原|原有|原来的)?配置(文件)?$',
-          fnc: 'liangshiByebye',
-          permission: 'master'
-        }, {
+        },
+*/
+        {
           reg: '^#?(梁氏|liangshi)?(刷新|重置|初始化|更新)预设面板$',
           fnc: 'panelStart',
           permission: 'master'
@@ -38,21 +37,14 @@ export class allSetting extends plugin {
       return true
     }
   }
-
+/*
   async liangshiStart() {
     this.cfg.calcLiang = true//todo 写入配置文件
     LSstart.start(true)
     await this.e.reply('欢迎使用梁氏', true)
     return true
   }
-
-  async liangshiByebye() {
-    this.cfg.calcLiang = false//todo 写入配置文件
-    LSstart.stop()
-    await this.e.reply('梁氏要跟你说拜拜啦~', true)
-    return true
-  }
-
+*/
   async panelStart() {
     this.cpPanels()
     await this.e.reply('预设面板刷新完成发送[#预设面板]查看预设面板指令', true)

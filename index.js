@@ -1,12 +1,5 @@
 import fs from 'node:fs'
 import { LSconfig } from '#liangshi'
-import LSstart from './components/LSstart.js'
-
-const cfg = LSconfig.getConfig('user', 'config')
-
-if (cfg.calcLiang) {
-  LSstart.start()
-}
 
 logger.info('------------QAQ------------')
 logger.info(`liangshi伤害计算加载成功`)
