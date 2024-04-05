@@ -14,7 +14,7 @@
 .container {
     width: 849px;
     background: url(../common/bg/bg-geo.jpg) no-repeat;
-    background-size: 100%;
+    background-size: cover;
     padding-bottom: 15px;
 }
 
