@@ -1,4 +1,4 @@
-import LSconfig from '#liangshi'
+import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
