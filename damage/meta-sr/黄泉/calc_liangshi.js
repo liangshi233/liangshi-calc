@@ -73,6 +73,7 @@ if (!cfg.sr1308ranking) {
  ranking = `${sr1308ranking}`
 }
 let renew = '3.29 修复4星魂加成错误，6星魂后普攻战技无法受到对应加成的问题'
+renew = '4.6 修复2星魂加成错误的加成在1星辉时被获取的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -81,7 +82,7 @@ export const details = [
   dmgKey: 'a',
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q,a' : 'a'
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let aDmg = dmg(talent.a['技能伤害'] * talentDmg , `${talentConfig}`)
      return aDmg
   }
@@ -91,7 +92,7 @@ export const details = [
   dmgKey: 'e',
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q,e' : 'e'
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let eDmg = dmg(talent.e['单体伤害'] * talentDmg , `${talentConfig}`)
      return eDmg
   }
@@ -100,7 +101,7 @@ export const details = [
   title: `${eName}相邻目标伤害`,
   dmg: ({ talent , cons }, dmg) => {
      let talentConfig = cons >= 6 ? 'q,e' : 'e'
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let e2Dmg = dmg(talent.e['相邻目标伤害'] * talentDmg , `${talentConfig}`)
      return e2Dmg
   }
@@ -109,7 +110,7 @@ export const details = [
   title: `${q1Name}单次伤害`,
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let q1Dmg = dmg( ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] ) * talentDmg , 'q')
      return q1Dmg
   }
@@ -119,7 +120,7 @@ export const details = [
   dmgKey: 'undefined',
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let q2Dmg = dmg(talent.q['黄泉返渡伤害'] * talentDmg , 'q')
      return q2Dmg
   }
@@ -128,7 +129,7 @@ export const details = [
   title: '集真赤消除额外伤害',
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let q3Dmg = dmg(talent.q['消去集真赤伤害'] * talentDmg , 'q')
      return q3Dmg
   }
@@ -138,7 +139,7 @@ export const details = [
   dmgKey: 'q',
   params: { q: true },
   dmg: ({ talent , cons }, dmg) => {
-     let talentDmg = cons >= 1 ? 1.6 : 1.15
+     let talentDmg = cons >= 2 ? 1.6 : 1.15
      let q4Dmg = dmg( ( talent.q['黄泉返渡伤害'] + ( talent.q['啼泽雨斩伤害'] + talent.q['集真赤最高倍率'] ) * 3 ) * talentDmg , 'q')
      return q4Dmg
   }
@@ -195,5 +196,5 @@ export const buffs = [
     kx: 20
   }
 },
-{title: `3.31最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.6最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1308ranking} 更新日志:${renew} 其他信息:${information}`}]
 
