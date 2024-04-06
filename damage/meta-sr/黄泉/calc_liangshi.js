@@ -73,7 +73,7 @@ if (!cfg.sr1308ranking) {
  ranking = `${sr1308ranking}`
 }
 let renew = '3.29 修复4星魂加成错误，6星魂后普攻战技无法受到对应加成的问题'
-renew = '4.6 修复2星魂加成错误的加成在1星辉时被获取的问题'
+renew = '4.6 修复2星魂加成错误的在1星辉时被获取的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [

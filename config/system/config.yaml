@@ -1,23 +1,17 @@
 #详细内容请查看说明
-autoRestart: false
 
-autoRefresh: true
-
-panelmodel: 1
-
-namemodel: 1
-
-energymodel: 0
-
-rankingOnemodel: m
-
-rankingTwomodel: hps
-
-rankingThreemodel: dps
-
-
-calcLi: false
 calcLiang: true
 calcLiangQ: false
-artisLiangZ: false
+calcLi: false
 artisLiang: false
+artisLiangZ: false
+
+autoRestart: false
+autoRefresh: true
+panelmodel: 1
+namemodel: 1
+energymodel: 0
+rankingOnemodel: m
+rankingTwomodel: hps
+rankingThreemodel: dps
+
