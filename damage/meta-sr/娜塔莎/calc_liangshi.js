@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -24,10 +29,15 @@ export const details = [{
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.hp) * talent.e['复活·百分比生命'] + talent.e['复活·固定值'])
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '娜塔莎秘技：[催眠研习] 进入战斗后对敌方全体造成物理属性伤害，并有100%的基础概率使敌方每个单体目标陷入虚弱状态。'
+},
 {
   title: '行迹-医者：治疗量提高10%',
   tree: 1,

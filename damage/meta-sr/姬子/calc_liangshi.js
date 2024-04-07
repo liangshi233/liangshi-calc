@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -12,10 +17,18 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'], 't')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '姬子秘技：[不完全燃烧] 处于特殊领域内的敌人进入战斗后，使敌方目标受到的火属性伤害提高[enemydmg]%。',
+   data: {
+    enemydmg: 10
+   }
+},{
   title: '姬子1命：释放追加攻击后，速度提高20%',
   cons: 1,
   data: {

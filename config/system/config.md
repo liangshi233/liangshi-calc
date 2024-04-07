@@ -3,20 +3,80 @@
 !如果出现错误可将配置文件删除，重启后会自动生成
 > 设置项标题中出现 **适配中** 的设置可能只在部分角色中生效 <br> 设置项标题中出现 **不生成** 的设置不会自行生成，需要手动添加
 
-## 设置1
-使用`梁氏启动`后是否自动进行重启
+---
+
+## 主要设置
+
+### 设置1
+是否启用`liangshicalc 基础`计算
 ~~~~~~~~~~YAML
-autoRestart: false 
+calcLiang: true
 ~~~~~~~~~~
 <details><summary>可用的内容 false true</summary>
 
-`true` 使用`梁氏启动`后会自动进行重启
+`true` 启用
 
-`false` 使用`梁氏启动`后不会进行重启操作
+`false` 禁用
 
 </details>
 
-## 设置2
+### 设置2
+是否启用`liangshicalc 超全`计算
+~~~~~~~~~~YAML
+calcLiangQ: false
+~~~~~~~~~~
+<details><summary>可用的内容 false true</summary>
+
+`true` 启用
+
+`false` 禁用
+
+</details>
+
+### 设置3
+是否启用`liangshicalc 大爷`计算
+~~~~~~~~~~YAML
+calcLi: false
+~~~~~~~~~~
+<details><summary>可用的内容 false true</summary>
+
+`true` 启用
+
+`false` 禁用
+
+</details>
+
+### 设置4
+是否启用来自`liangshicalc`的基础评分规则
+~~~~~~~~~~YAML
+artisLiang: false
+~~~~~~~~~~
+<details><summary>可用的内容 false true</summary>
+
+`true` 启用
+
+`false` 禁用
+
+</details>
+
+### 设置5
+是否启用来自`liangshicalc`的自适应评分规则
+~~~~~~~~~~YAML
+artisLiangZ: false
+~~~~~~~~~~
+<details><summary>可用的内容 false true</summary>
+
+`true` 启用
+
+`false` 禁用
+
+</details>
+
+---
+
+## 一般设置
+
+### 设置1
 载入插件时是否自动刷新设置的预设面板
 ~~~~~~~~~~YAML
 autoRefresh: true
@@ -29,7 +89,7 @@ autoRefresh: true
 
 </details>
 
-## 设置3
+### 设置2
 设置自动刷新预设面板的版本
 ~~~~~~~~~~YAML
 panelmodel: 1 
@@ -49,7 +109,7 @@ panelmodel: 1
 
 </details>
 
-## 设置4(适配中)
+### 设置3(适配中)
 设置伤害条目名称显示
 ~~~~~~~~~~YAML
 namemodel: 1
@@ -77,24 +137,7 @@ namemodel: 1
 
 </details>
 
-## 设置5(适配中)
-环境产出能量设置
-~~~~~~~~~~YAML
-energymodel: 0
-~~~~~~~~~~
-<details><summary>可用的内容 数字 </summary>
-
->此选项产出的能量会被角色的元素充能影响且会影响到角色DPS的计算，请慎重调整
-
-`<0` 环境会扣除角色能量，例如 噬能之雷 深海龙蜥
-
-`0` 环境不产出元素能量，角色无法通过环境获取元素能量
-
-`>0` 环境会为角色提供能量或目标会产出元素能量
-
-</details>
-
-## 设置6(适配中)
+### 设置4(适配中)
 角色排行规则首选设置
 ~~~~~~~~~~YAML
 rankingOnemodel: m
@@ -133,7 +176,7 @@ rankingOnemodel: m
 
 </details>
 
-## 设置7(适配中)
+### 设置5(适配中)
 角色排行规则次选设置
 ~~~~~~~~~~YAML
 rankingTwomodel: hps
@@ -146,7 +189,7 @@ rankingTwomodel: hps
 
 </details>
 
-## 设置8(适配中)
+### 设置6(适配中)
 角色排行规则备选设置
 ~~~~~~~~~~YAML
 rankingThreemodel: dps
@@ -159,9 +202,7 @@ rankingThreemodel: dps
 
 </details>
 
----
-
-## 设置10086(适配中、不生成)
+### 设置10086(适配中、不生成)
 角色专属排名规则设置
 ~~~~~~~~~~YAML
 ？？？？？: dps
@@ -170,7 +211,7 @@ rankingThreemodel: dps
 
 >此选项为角色专属排行规则，角色排行时，只会使用此规则且不受到通用规则影响
 
- **可用的内容** 与首选规则一致，但不可使用 `m` 作为排行规则
+**可用的内容** 与首选规则一致，但不可使用 `m` 作为排行规则
 
 <details><summary>使用规则</summary>
 
@@ -243,27 +284,63 @@ gs70ranking sr1112ranking: e
 
 ---
 
+## 伤害计算相关设置
+
+### 设置1(适配中)
+环境产出能量设置
+~~~~~~~~~~YAML
+energymodel: 0
+~~~~~~~~~~
+<details><summary>可用的内容 数字 </summary>
+
+>此选项产出的能量会被角色的元素充能影响且会影响到角色DPS的计算，请慎重调整
+
+`<0` 环境会扣除角色能量，例如 噬能之雷 深海龙蜥
+
+`0` 环境不产出元素能量，角色无法通过环境获取元素能量
+
+`>0` 环境会为角色提供能量或目标会产出元素能量
+
+</details>
+
+### 设置2
+角色秘技设置
+~~~~~~~~~~YAML
+technique: 0
+~~~~~~~~~~
+<details><summary>可用的内容 数字 </summary>
+
+>此选项仅对星铁角色生效，启用后角色计算将加入秘技加成
+
+`0` 角色不启用秘技
+
+`>0` 角色启用秘技，根据设置的数字叠层 （请设置为正整数）
+
+</details>
+
+---
+
 ## 默认配置
 <details><summary>点此展开</summary>
 
 >出现异常时可复制下方配置尝试恢复
 
 ~~~~~~~~~~YAML
-autoRestart: false
+calcLiang: true
+calcLiangQ: false
+calcLi: false
+artisLiang: false
+artisLiangZ: false
 
-autoRefresh: false
-
+autoRefresh: true
 panelmodel: 1
-
 namemodel: 1
-
-energymodel: 0
-
 rankingOnemodel: m
-
 rankingTwomodel: hps
-
 rankingThreemodel: dps
+
+technique: 0
+energymodel: 0
 ~~~~~~~~~~
 
 </details>

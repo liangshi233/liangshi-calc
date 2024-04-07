@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [
 {
   title: '普攻伤害',
@@ -16,10 +21,18 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.t['每段伤害'], 't')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,def'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,def'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '砂金秘技：[红黑之间] 战斗开始时我方防御力提高[defPct]%。',
+   data: {
+    defPct: ({ params }) => Math.min( 60 , ( 4 * Math.pow( params.technique , 3 ) - 18 * Math.pow( params.technique , 2 ) + 38 * params.technique ) )
+   }
+},
 {
   title: '砂金技能：[轮盘勋爵] 我方目标击中【惊惶】状态下的敌方目标时，造成的暴击伤害提高[cdmg]%',
   data: {

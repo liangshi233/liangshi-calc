@@ -1,6 +1,7 @@
 import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -113,8 +114,16 @@ export const details = [
 
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '花火秘技：[不可靠叙事者] 进入战斗时为我方恢复[skillPoints]个战技点。',
+   data: {
+    skillPoints: 3
+   }
+},
 {
   title: '花火技能：[一人千役] [buffCount]层【谜诡】,使我方所有角色造成伤害额外提高[dmg]%',
   data: {

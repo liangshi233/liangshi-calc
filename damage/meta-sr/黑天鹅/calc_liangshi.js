@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [
 {
@@ -46,6 +49,7 @@ export const details = [
 
 export const defDmgIdx = 8
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
 {

@@ -5,6 +5,7 @@ let ar3Dmg = { dmg: 0 , avg: 0 }
 let q1Dmg = { dmg: 0 , avg: 0 }
 let q2Dmg = { dmg: 0 , avg: 0 }
 let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -107,8 +108,9 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg( ( talent.q['伤害倍率提高'] + talent.t['反击伤害'] ) * 0.5, 't')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgKey = `${ranking}`
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
 {

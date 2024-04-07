@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [{
   title: '普攻伤害',
@@ -27,8 +30,13 @@ export const details = [{
 
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '雪衣秘技：[斩立决] 进入战斗后对敌方全体造成量子属性伤害。'
+},
 {
   title: '雪衣技能：[天罚贯身] 通过削减韧性,终结技造成的伤害提高[qDmg]%',
   data: {

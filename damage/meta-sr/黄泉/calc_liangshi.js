@@ -1,6 +1,7 @@
 import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -73,7 +74,7 @@ if (!cfg.sr1308ranking) {
  ranking = `${sr1308ranking}`
 }
 let renew = '3.29 修复4星魂加成错误，6星魂后普攻战技无法受到对应加成的问题'
-renew = '4.6 修复2星魂加成错误的在1星辉时被获取的问题'
+renew = '4.6 修复2星魂加成错误的在1星魂时被获取的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -145,10 +146,15 @@ export const details = [
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgKey = `${ranking}`
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '黄泉秘技：[四相断我] 每个波次开始时对敌方全体造成雷属性伤害。'
+},
 {
   check: ({ params }) => params.q === true,
   title: '黄泉天赋：[红叶时雨，万倾一空] 终结技期间可无视弱点属性削减敌方韧性，并使敌方全体全属性抗性降低[kx]%',

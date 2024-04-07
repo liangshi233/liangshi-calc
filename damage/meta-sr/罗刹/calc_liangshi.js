@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -12,8 +17,9 @@ export const details = [{
   dmg: ({ calc, attr, talent }, { heal }) => heal(calc(attr.atk) * talent.t['攻击力百分比'] + talent.t['固定生命值'])
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [{
   title: '罗刹1命：结界生效后攻击力提高20%',

@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -12,10 +17,16 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 3
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '素裳秘技：[云骑剑经 • 叩阵] 进入战斗后对敌方全体造成物理属性伤害。'
+},
+{
   title: '素裳天赋：释放终结技攻击力提高[atk]',
   data: {
     atk: ({ talent }) => talent.q['攻击力提高']

@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -16,11 +21,18 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.t['技能伤害'], 't')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 2
-
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '黑塔秘技：[可以优化一下] 战斗开始时攻击力提高[atkPct]%。',
+   data: {
+    atkPct: 40
+   }
+},
 {
   title: '黑塔天赋：战技对生命值大于50%的敌人造成的伤害提高50%',
   data: {

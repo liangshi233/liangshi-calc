@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [{
   title: '普攻伤害',
@@ -34,11 +37,19 @@ export const details = [{
   title: '赐福下Q后普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }]
-
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '停云秘技：[惠风和畅] 为自身恢复[_energyevery]点能量。',
+   data: {
+    _energyevery: 50
+   }
+},
+{
   title: '祥音和韵：基于攻击力提高攻击力[xq]',
   data: {
     atkPlus: ({ params , attr , calc , talent }) => params.yun ? (Math.min( talent.e['攻击力上限'] * calc(attr.atk) , talent.e['攻击力提高'] * calc(attr.atk) ) ) : 0 ,

@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [
 {
@@ -50,10 +53,17 @@ export const details = [
 ]
 
 export const defDmgIdx = 3
-export const defParams = { debuff: 5 }
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { debuff: 5 , technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '真理医生秘技：[偶像塑造] 处于特殊领域内的敌人进入战斗后，使敌方每个单体目标速度降低[_enemySpeed]%。',
+   data: {
+    _enemySpeed: 15
+   }
+},
 {
   check: ({ params }) => params.e === true,
   title: '真理医生行迹：[归纳] 施放战技时,目标有[_debuff]个负面效果,暴击率提高[eCpct]%,暴击伤害提高[eCdmg]%',

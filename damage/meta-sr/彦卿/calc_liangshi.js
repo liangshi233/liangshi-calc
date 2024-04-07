@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -17,10 +22,19 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '彦卿秘技：[御剑真诀] 对当前生命值百分比大于等于50%的敌方目标造成的伤害提高[dmg]%。',
+   data: {
+    dmg: 30
+   }
+},
+{
   title: '彦卿天赋：智剑连心提高[cpct]%暴击率和[cdmg]%爆伤',
   data: {
     cpct: ({ talent }) => talent.t['暴击率提高'] * 100,

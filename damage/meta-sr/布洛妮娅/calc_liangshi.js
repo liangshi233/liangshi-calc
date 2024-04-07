@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [{
   title: '普攻伤害',
@@ -32,8 +35,16 @@ export const details = [{
 
 export const defDmgKey = 'dmg'
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '布洛妮娅秘技：[在旗帜下] 战斗开始时我方全体攻击力提高[atkPct]%。',
+   data: {
+    atkPct: 15
+   }
+},
 {
   title: '行迹-号令：普通攻击暴击率提高至[aCpct]%',
   tree: 1,

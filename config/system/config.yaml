@@ -8,6 +8,7 @@ artisLiangZ: false
 
 autoRestart: false
 autoRefresh: true
+technique: 0
 panelmodel: 1
 namemodel: 1
 energymodel: 0

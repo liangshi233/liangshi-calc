@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '门前清伤害',
   params: { lao: false , ting: false , yu: false },
@@ -15,8 +20,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,effPct'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,effPct'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [{
   title: '海底捞月：使用战技提高造成的伤害[xq]%',

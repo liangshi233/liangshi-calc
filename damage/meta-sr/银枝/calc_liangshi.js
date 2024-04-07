@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [
 {
   title: '0层普攻伤害',
@@ -51,8 +56,16 @@ export const details = [
 
 export const defDmgIdx = 7
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '银枝秘技：[纯粹高洁宣言] 主动攻击陷入晕眩状态的敌人，对敌方全体造成物理属性伤害，并使银枝恢复[_energyevery]点能量。',
+   data: {
+    _energyevery: 15
+   }
+},
 {
   check: ({ params }) => params.sg !== undefined,
   title: '银枝天赋：[崇高的客体] 施放普攻、战技、终结技时,每击中敌方目标,为银枝恢复[_energyevery]点能量并使银枝暴击率提高[cpct]%',

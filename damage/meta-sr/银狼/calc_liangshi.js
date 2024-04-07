@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -19,10 +24,16 @@ export const details = [{
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,effPct'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg,effPct'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '银狼秘技：[|强制结束进程|] 进入战斗后对敌方全体造成量子属性伤害。'
+},
+{
   title: '银狼天赋：防御力缺陷降低敌方防御力[enemyDef]%',
   data: {
     enemyDef: ({ talent }) => talent.t['防御力降低'] * 100

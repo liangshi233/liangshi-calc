@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -15,8 +20,9 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.t['反击伤害'], 't')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
 {

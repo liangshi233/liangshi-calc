@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -6,10 +11,16 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '艾丝妲秘技：[灵光一现] 进入战斗后对敌方全体造成火属性伤害。'
+},
+{
   title: '星空祝言：速度提高[speedPct]%',
   data: {
     speedPct: ({ talent }) => talent.q['速度提高']

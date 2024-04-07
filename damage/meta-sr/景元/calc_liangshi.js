@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -32,8 +37,9 @@ export const details = [{
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgKey = 't'
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [{
   title: '景元2命：神君行动后，普攻战技及终结技的伤害提高20%',

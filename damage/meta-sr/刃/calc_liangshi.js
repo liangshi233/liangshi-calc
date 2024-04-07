@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -50,10 +55,15 @@ export const details = [{
    }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '刃秘技：[极速收割] 进入战斗后消耗生命值对敌方全体造成风属性伤害。'
+},{
   title: '刃天赋：释放战技后造成的伤害提高[dmg]%',
   data: {
     dmg: ({ talent }) => talent.e['伤害提高'] * 100

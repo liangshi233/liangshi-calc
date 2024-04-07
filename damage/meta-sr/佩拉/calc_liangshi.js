@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -34,10 +39,18 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e' )
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 4
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '佩拉秘技：[先发制人] 进入战斗后对敌方全体造成冰属性伤害，同时使敌方每个单体目标防御力降低[enemyDef]%。',
+   data: {
+    enemyDef: 20
+   }
+},
 {
   title: '佩拉终结技：释放终结技降低敌方防御[xq]%',
   data: {

@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 't')
@@ -29,8 +34,16 @@ export const details = [{
 
 export const defDmgIdx = 6
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '托帕秘技：[明补] 战斗中账账施放首次攻击后，托帕恢复[_energyevery]点能量。',
+   data: {
+    _energyevery: 60
+   }
+},{
   title: '托帕天赋：追加攻击对处于负债证明的敌人伤害提高[xq]%',
   data: {
     tDmg: ({ params , talent }) => params.fz ? ( talent.e['追加攻击伤害提高'] * 100 ) : 0 ,

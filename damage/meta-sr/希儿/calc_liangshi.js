@@ -1,6 +1,7 @@
 import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -108,8 +109,9 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] * 0.15 , 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgKey = `${ranking}`
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
 {

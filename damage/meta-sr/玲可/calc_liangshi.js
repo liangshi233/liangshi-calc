@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
@@ -23,8 +28,9 @@ export const details = [{
   dmg: ({ calc, attr }) => { return { avg: calc(attr.hp) * 0.03 } }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,hp'
 export const defDmgKey = 'e'
+export const mainAttr = 'atk,cpct,cdmg,hp'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [{
   title: '玲可1命：对生命值低于50%的角色治疗提高20%',

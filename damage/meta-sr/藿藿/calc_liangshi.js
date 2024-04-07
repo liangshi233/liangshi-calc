@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [
 {
@@ -39,8 +42,16 @@ export const details = [
 
 export const defDmgIdx = 3
 export const mainAttr = 'hp,cpct,cdmg,heal'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '霍霍秘技：[凶煞•劾压鬼物] 恐吓周围的敌人，使其攻击力降低[atkDef]%。',
+   data: {
+    atkDef: 25
+   }
+},
 {
   title: '霍霍行迹：[怯惧应激] 我方目标提供治疗时,霍霍恢复[_energyevery]点能量',
   tree: 3,

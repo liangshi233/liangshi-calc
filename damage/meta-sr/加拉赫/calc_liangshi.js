@@ -1,6 +1,7 @@
 import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -102,10 +103,15 @@ export const details = [
   dmg: ({ talent }, { heal }) => heal(talent.t['生命值回复'])
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgKey = `${ranking}`
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '加拉赫秘技：[亲启佳酿] 进入战斗后对敌方全体造成火属性伤害。'
+},
 {
   title: '加拉赫技能：[鏖战正酣] 【酩酊】使目标受到的击破伤害提高[_dmg]%',
   data: {

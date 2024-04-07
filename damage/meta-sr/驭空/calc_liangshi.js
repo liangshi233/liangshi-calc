@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [{
   title: '普攻伤害',
@@ -36,8 +39,9 @@ export const details = [{
   }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [{
   title: '天阙鸣弦：释放战技提高攻击力[atkPlus]%',

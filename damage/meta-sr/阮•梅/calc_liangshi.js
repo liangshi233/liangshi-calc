@@ -1,4 +1,7 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
 
 export const details = [
 {
@@ -19,7 +22,7 @@ export const details = [
   params: { q: true , e: true , toughness: 2 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * talent.q['击破伤害比例']
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
     }
   }
 },
@@ -28,7 +31,7 @@ export const details = [
   params: { q: true , e: true , toughness: 10 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * talent.q['击破伤害比例']
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
     }
   }
 },
@@ -37,7 +40,7 @@ export const details = [
   params: { q: true , e: true , toughness: 12 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * talent.q['击破伤害比例']
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
     }
   }
 },
@@ -47,7 +50,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * talent.t['击破伤害比例'] * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
     }
   }
 },
@@ -57,7 +60,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * talent.t['击破伤害比例'] * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
     }
   }
 },
@@ -67,7 +70,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * talent.t['击破伤害比例'] * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
     }
   }
 },
@@ -77,7 +80,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * talent.t['击破伤害比例'] * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
     }
   }
 }
@@ -85,6 +88,7 @@ export const details = [
 
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,stance'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
 {
@@ -92,6 +96,14 @@ export const buffs = [
   data: {
     toughness: ({ params }) => params.toughness == 0 ? 0 : ( params.toughness || 0 )
   }
+},
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '阮•梅秘技：[拭琴抚罗袂] 在模拟宇宙中，拥有[buffCount]个祝福，击破敌方目标弱点后对其额外造成[buff]%冰属性击破伤害的击破伤害。',
+   data: {
+    buffCount: ({ params }) => params.technique ,
+    buff: ({ params }) => Math.min( 2000 , params.technique * 100 )
+   }
 },
 {
   check: ({ params }) => params.e === true,

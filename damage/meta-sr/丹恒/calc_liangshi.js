@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -12,10 +17,18 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['减速目标q伤害倍率提高'], 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 3
+export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '丹恒秘技：[破敌锋芒] 战斗开始时攻击力提高[atkPct]%。',
+   data: {
+    atkPct: 40
+   }
+},{
   title: '丹恒天赋：丹恒成为我方技能的目标时提高抗性穿透[kx]%',
   data: {
     kx: ({ talent }) => talent.t['风抗性穿透']

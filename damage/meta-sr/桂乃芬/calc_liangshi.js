@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -33,8 +38,13 @@ export const details = [{
 
 export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '桂乃芬秘技：[耍耍把式卖卖艺] 进入战斗后造成4次火属性伤害，并有100%基础概率使目标陷入【吞火】状态。'
+},{
   title: '天赋-古来君子养艺人：3层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
   check: ({ cons }) => cons < 6,
   data: {

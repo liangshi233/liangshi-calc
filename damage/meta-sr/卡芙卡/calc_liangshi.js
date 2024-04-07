@@ -1,3 +1,8 @@
+import { Format, LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -42,10 +47,15 @@ export const details = [{
  }
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defDmgIdx = 5
+export const mainAttr = 'atk,cpct,cdmg,speed'
+export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '卡芙卡秘技：[宽恕无关慈悲] 进入战斗后对敌方全体造成雷属性伤害，同时有100%的基础概率使敌方每个单体目标陷入与终结技相同的触电状态。'
+},
 {
   title: '卡芙卡1命：目标受到的持续伤害提高30%',
   cons: 1,

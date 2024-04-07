@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -12,10 +17,15 @@ export const details = [{
   dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.def) * 0.24 + 150)
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,def'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg,def'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '杰帕德秘技：[有情之证] 进入战斗后为我方全体提供护盾。'
+},{
   title: '行迹-战意：基于防御值提高攻击力[atkPlus]',
   tree: 3,
   data: {

@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
@@ -20,10 +25,15 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['相邻目标伤害'], 'q')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,effPct'
 export const defDmgIdx = 2
+export const mainAttr = 'atk,cpct,cdmg,effPct'
+export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '丹恒•饮月秘技：[掣空如虹] 使用攻击会快速向前移动一段距离并攻击接触到的敌人，主动攻击敌人进入战斗后，对敌方全体造成虚数属性伤害，并使自身获得1个【逆鳞】。'
+},{
   title: '亢心：每次攻击都将提升自己身伤害，至多叠加6层[dmg]%',
   data: {
     dmg: ({ params , talent }) => params.buff ? ( talent.t['伤害提高'] * 100 * 6 ) : 0

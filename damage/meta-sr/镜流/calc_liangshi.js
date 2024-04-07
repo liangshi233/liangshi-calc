@@ -1,3 +1,8 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let Technique = cfg.technique
+
 export const details = [{
   title: '普攻伤害',
   params: { zp: false },
@@ -41,12 +46,19 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.q['相邻目标伤害'], 'q')
 }]
 
-
-export const mainAttr = 'hp,atk,cpct,cdmg'
 export const defDmgIdx = 3
+export const mainAttr = 'hp,atk,cpct,cdmg'
+export const defParams = { technique: `${Technique}` }
 
-
-export const buffs = [{
+export const buffs = [
+{
+  check: ({ params }) => params.technique >= 1,
+  title: '镜流秘技：[古镜照神] 处于特殊领域内的敌人进入战斗后，立即为自身恢复[_energyevery]%点能量、获得1层【朔望】并有100%的基础概率使敌方目标陷入冻结状态。',
+   data: {
+    _energyevery: 15
+   }
+},
+{
   title: '澹月转魄：转魄提升暴击率[xq1]%，消耗队友血量提升至多[xq2]%攻击力',
   data: {
     cpct: ({ params , talent }) => params.zp ? ( talent.t['暴击率提高'] * 100 ) : 0 ,
