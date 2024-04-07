@@ -1,3 +1,5 @@
+import Character from "../../miao-plugin/models/Character.js"
+
 /**
  * 预设面板替换关键词
  * 顺序不可乱，对应10000000-100000005
@@ -38,7 +40,10 @@ export class ysmb_input_replace extends plugin {
     let Msg = result[0].replace(/#/g, '');
     if (reg.test(msg[0])) {
       let uid = Msg.match(/\d+/);
-      result[0] = `#${Msg.replace(uid,'')}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`;
+      let name = Msg.replace(uid,'');
+      let char = Character.get(name.replace(/面板|圣遗物|伤害|武器/g,''), e.isSr ? 'sr' : 'gs')
+      if (!char) return false
+      result[0] = `#${name}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`;
     }
     e.msg = msg.length > 1 ? result.slice(0).join('换') : result[0];
   }
