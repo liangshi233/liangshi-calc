@@ -1,4 +1,4 @@
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -130,6 +130,7 @@ export const details = [
   }
 }]
 
+export const defParams = { soda: 1 }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 

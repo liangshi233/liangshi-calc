@@ -28,7 +28,6 @@ artisLiangZ: false #liangshicalc自适应评分
 ~~~~~~~~~~
 ###### 其他设置
 ~~~~~~~~~~YAML
-autoRestart: false #发送【梁氏启动】后会自动进行重启，默认关闭，需要则改为 true
 autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默认开启，不需要则改为 false
 panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要自定义请修改为 0
 ~~~~~~~~~~

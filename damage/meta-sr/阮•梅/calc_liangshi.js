@@ -22,7 +22,7 @@ export const details = [
   params: { q: true , e: true , toughness: 2 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) )
     }
   }
 },
@@ -31,7 +31,7 @@ export const details = [
   params: { q: true , e: true , toughness: 10 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) )
     }
   }
 },
@@ -40,7 +40,7 @@ export const details = [
   params: { q: true , e: true , toughness: 12 },
   dmg: ({ talent, params }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) )
+      avg: reaction('iceBreak').avg / 0.9 * ( params.toughness + 2 ) / 4 * ( talent.q['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) )
     }
   }
 },
@@ -50,7 +50,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2 ) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) ) * cons6
     }
   }
 },
@@ -60,7 +60,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2 ) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) ) * cons6
     }
   }
 },
@@ -70,7 +70,7 @@ export const details = [
   dmg: ({ talent, cons, params }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 3 : 1
     return {
-      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( params.technique || 0 ) ) ) * cons6
+      avg: reaction('iceBreak').avg / 1 * ( params.toughness + 2 ) / 4 * ( talent.t['击破伤害比例'] + Math.min( 20 , ( ( params.technique || 0 ) * 1 ) ) ) * cons6
     }
   }
 },
