@@ -42,7 +42,7 @@ export class ysmb_input_replace extends plugin {
       let uid = Msg.match(/\d+/);
       let name = Msg.replace(uid,'');
       let char = Character.get(name.replace(/面板|圣遗物|伤害|武器/g,''), e.isSr ? 'sr' : 'gs')
-      if (!char) return false
+      if (!char && !/面板/.test(Msg)) return false
       result[0] = `#${name}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`;
     }
     e.msg = msg.length > 1 ? result.slice(0).join('换') : result[0];
