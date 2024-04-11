@@ -73,7 +73,7 @@ if (!cfg.gs52ranking) {
 if (!cfg.namemodel) {
 energy = 0
 }
-let renew = '无'
+let renew = '4.11 修复命座效果异常'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -179,10 +179,10 @@ export const buffs = [
 },
 {
   title: '雷电将军2命：[斩铁断金] 奥义·梦想真说的梦想一刀与梦想一心状态期间的攻击将无视敌人[qIgnore]%的防御力。',
-  cons: 1,
+  cons: 2,
   data: {
     qIgnore: 60
   }
 },
- {title: `4.4最后修改：[1.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs52ranking} 更新日志:${renew} 其他信息:${information}`}]
+ {title: `4.11最后修改：[1.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs52ranking} 更新日志:${renew} 其他信息:${information}`}]
 

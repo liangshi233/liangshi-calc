@@ -1,6 +1,86 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs93ranking = cfg.gs93ranking
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '朝起鹤云'
+let e2Name = '步天梯'
+let eNameT = 'E'
+let qName = '暮集竹星'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '清风散花词'
+  eNameT = '朝起鹤云'
+  qNameT = '暮集竹星'
+ } else if ( NamePath == 3 ) {
+  eNameT = '朝起鹤云'
+  qNameT = '暮集竹星'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['a', 'z', 'y', 'dph', 'hph', 'dps', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs93ranking) {
+ if ( rankingOnePath == 'm' ) {
+ ranking = 'c'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
+    ranking = 'c'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
+      ranking = 'c'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[闲云] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'c'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs93ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
   title: '仙力助推下落攻击伤害提升值',
+  dmgKey: 'f',
   dmg: ({ calc, attr, cons }) => {
     let cons2 = cons * 1 >= 2 ? 2 : 1
     return {
@@ -9,41 +89,46 @@ export const details = [
   }
 },
 {
-  title: '步天梯伤害',
+  title: `${e2Name}伤害`,
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },
 {
-  title: '一段跳冲击波伤害',
+  title: `${eName}一段跳伤害`,
   params: { btt: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][0], 'a3')
 },
 {
-  title: '二段跳冲击波伤害',
+  title: `${eName}二段跳伤害`,
   params: { btt: 2 },
   dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][1], 'a3')
 },
 {
-  title: '三段跳冲击波伤害',
+  title: `${eName}三段跳伤害`,
+  dmgKey: 'c',
   params: { btt: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['闲云冲击波伤害'][2], 'a3')
 },
 {
-  title: '暮集竹星释放伤害',
+  title: `${qName}释放伤害`,
+  dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
-  title: '竹星协同伤害',
+  title: `${qName}协同伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.q['竹星伤害'], 'q')
 },
 {
-  title: '暮集竹星释放治疗',
+  title: `${qName}释放治疗`,
+  dmgKey: 'h',
   dmg: ({ attr, calc, talent, cons }, { heal }) => {
     let num = talent.q['治疗量2'][0] * calc(attr.atk) / 100 + talent.q['治疗量2'][1] * 1
     return heal(num)
   }
 },
 {
-  title: '竹星持续治疗',
+  title: `${qName}持续治疗`,
+  dmgKey: 'undefined',
   dmg: ({ attr, calc, talent, cons }, { heal }) => {
     let num = talent.q['持续治疗量2'][0] * calc(attr.atk) / 100 + talent.q['持续治疗量2'][1] * 1
     return heal(num)
@@ -51,11 +136,12 @@ export const details = [
 },
 {
   title: '扩散反应伤害',
+  dmgKey: 'r',
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
 
 export const defParams = { soda: 1 }
-export const defDmgIdx = 4
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [
@@ -98,5 +184,5 @@ export const buffs = [
     a3Cdmg: ({ params }) => ( 5 / 3 ) * Math.pow( ( params.btt == 0 ? 0 : ( params.btt || 0 ) ) , 3 ) - ( 5 / 2 ) * Math.pow( ( params.btt == 0 ? 0 : ( params.btt || 0 ) ) , 2 ) + ( 95 / 6 ) * ( params.btt == 0 ? 0 : ( params.btt || 0 ) )
   }
 },
-{title: '1.31最后修改：[12.18重置] '}
-]
+ {title: `4.11最后修改：[12.18重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs93ranking} 更新日志:${renew} 其他信息:${information}`}]
+
