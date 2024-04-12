@@ -1,0 +1,38 @@
+name: 插件/排行/设置问题
+description: 插件/排行/设置异常。
+title: "[其他问题]"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢对项目的支持与关注。在提出问题之前，请确保你已查看相关开发或使用文档以及设置文档：
+        - https://gitee.com/liangshi233/liangshi-calc/blob/master/README.md
+        - https://gitee.com/liangshi233/liangshi-calc/blob/master/config/system/config.md
+
+  - type: checkboxes
+    attributes:
+      label: 这个问题是否已经存在？
+      options:
+        - label: 我已经搜索过现有的问题 (https://gitee.com/liangshi233/liangshi-calc/issues)
+          required: true
+
+  - type: checkboxes
+    attributes:
+      label: 是否已阅读过文档？
+      options:
+        - label: 我已经阅读过使用文档以及设置文档。
+          required: true
+
+  - type: textarea
+    attributes:
+      label: 问题复现
+      description: 请详细告诉我们问题是怎么出现的。
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 截图或视频
+      description: 如果有该问题的截图或视频，请在此处上传。
+      value: |
+        [将图片拖动至或手动点击上传图片]提交的时候记得把这行删了~

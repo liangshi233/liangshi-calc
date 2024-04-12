@@ -1,0 +1,12 @@
+issue_template_configs:
+  - name: 伤害计算相关问题
+    description: 当你在伤害计算中发现了问题，或者计算数值与预期不符。
+    file: calc.yaml
+    
+  - name: 角色评分相关问题
+    description: 当你觉得角色评分不够合理，或者没有新流派的评分。
+    file: artis.yaml
+    
+  - name: 插件/排行/设置问题
+    description: 插件/排行/设置异常。
+    file: bug.yaml

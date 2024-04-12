@@ -1,0 +1,34 @@
+name: 角色评分相关问题
+description: 当你觉得角色评分不够合理，或者没有新流派的评分。
+title: "[角色评分BUG]"
+body:
+  - type: dropdown
+    attributes:
+      label: 类型
+      description: 问题出现在哪个方面
+      options:
+        - 评分异常
+        - 流派缺失
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: 这个问题是否已经存在？
+      options:
+        - label: 我已经搜索过现有的问题 (https://gitee.com/liangshi233/liangshi-calc/issues)
+          required: true
+
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 请简单的描述一下问题。
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 截图或视频
+      description: 如果有该问题的截图或视频，请在此处上传。
+      value: |
+        [将图片拖动至或手动点击上传图片]提交的时候记得把这行删了~
