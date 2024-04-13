@@ -17,7 +17,7 @@ export class example extends plugin {
 			fnc: 'fk'
 		  },
           {
-            reg: '^#?(删除|重置|移除|清除|还原)(liangshi设置|Liangshi设置|)$',
+            reg: '^#?(删除|重置|移除|清除|还原)(liangshi设置|Liangshi设置|梁氏设置)$',
             fnc: 'sc',
             permission: 'master'
           },

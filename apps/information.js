@@ -11,7 +11,7 @@ export class GS extends plugin {
       priority: 5000,
       rule: [
         {
-          reg: '^#*(.*)(收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发)(帮助)?$',
+          reg: '^#*(.*)(收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发|cv)(帮助)?$',
           fnc: 'GS'
         }
       ]
@@ -26,6 +26,7 @@ export class GS extends plugin {
     this.attackpath = './plugins/liangshi-calc/resources/attackimg'
     this.skillpath = './plugins/liangshi-calc/resources/skillimg'
     this.outbreakpath = './plugins/liangshi-calc/resources/outbreakimg'
+    this.cvpath = './plugins/liangshi-calc/resources/cvimg'
 
     this.json = './plugins/liangshi-calc/resources/imgConfig/curve.json'
     this.covjson = './plugins/liangshi-calc/resources/imgConfig/cover.json'
@@ -34,6 +35,7 @@ export class GS extends plugin {
     this.attjson = './plugins/liangshi-calc/resources/imgConfig/attack.json'
     this.skijson = './plugins/liangshi-calc/resources/imgConfig/skill.json'
     this.outjson = './plugins/liangshi-calc/resources/imgConfig/outbreak.json'
+    this.cvjson = './plugins/liangshi-calc/resources/imgConfig/cv.json'
 
     this.curve = JSON.parse(fs.readFileSync(this.json, 'utf8'))
     this.cover = JSON.parse(fs.readFileSync(this.covjson, 'utf8'))
@@ -42,6 +44,7 @@ export class GS extends plugin {
     this.attack = JSON.parse(fs.readFileSync(this.attjson, 'utf8'))
     this.skill = JSON.parse(fs.readFileSync(this.skijson, 'utf8'))
     this.outbreak = JSON.parse(fs.readFileSync(this.outjson, 'utf8'))
+    this.cv = JSON.parse(fs.readFileSync(this.cvjson, 'utf8'))
   }
 
   //初始化
@@ -70,6 +73,9 @@ export class GS extends plugin {
     if (!fs.existsSync(this.introducepath)) {
       fs.mkdirSync(this.introducepath)
     }
+    if (!fs.existsSync(this.cvpath)) {
+      fs.mkdirSync(this.cvpath)
+    }
   }
 
   async GS() {
@@ -77,12 +83,12 @@ export class GS extends plugin {
     if (/#?(收益曲线)帮助/.test(this.e.msg)) {
       role.name = "帮助"
     } else {
-      role = gsCfg.getRole(this.e.msg, '收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发')
+      role = gsCfg.getRole(this.e.msg, '收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发|cv')
     }
     if (!role) return logger.error("指令可能错误", role)
     let type = "";
     if (/介绍/.test(this.e.msg)) {
-        type = "角色介绍"; //2.3版本及之前的角色海报与介绍为同一张图，阿贝多没有角色海报与介绍
+        type = "角色介绍"; //2.3版本及之前的角色海报与介绍为同一张图
     } else if (/封面/.test(this.e.msg)) {
         type = "角色封面"; //芙宁娜,林尼,琳妮特,菲米尼,魈拥有多张封面
     } else if (/海报/.test(this.e.msg)) {
@@ -103,7 +109,9 @@ export class GS extends plugin {
         type = "元素战技";
     } else if (/元素爆发/.test(this.e.msg)) {
         type = "元素爆发";
-    } else {
+    } else if (/cv/.test(this.e.msg)) {
+        type = "cv";
+    }else {
         type = "？";
     }
     /** 主角特殊处理 */
@@ -145,6 +153,10 @@ export class GS extends plugin {
       if (!this.outbreak[role.name]) return this.e.reply("暂无该角色元素爆发介绍")
       url = this.outbreak[role.name]
       imgPath = `${this.outbreakpath}/${role.name}.png`
+    } else if (type == 'cv') {
+      if (!this.cv[role.name]) return this.e.reply("暂无该角色cv介绍")
+      url = this.cv[role.name]
+      imgPath = `${this.cvpath}/${role.name}.png`
     } else if (type == '名片') {
       imgPath = `${this.img}/${role.name}/imgs/card.webp`
     } else if (type == '立绘') {
