@@ -28,6 +28,13 @@ export class example extends plugin {
 			fnc: 'wlktz'
 		  }
 //  */
+//  /*
+		  ,
+		  {
+			reg: '^#?((开拓者·存护|开拓者•存护|开拓者存护|存护开拓者|火开拓者|开拓者火|存护主)(极限面板|面板100000000))$',
+			fnc: 'chktz'
+		  }
+//  */
 		]
 	  })
 	}
@@ -44,6 +51,11 @@ export class example extends plugin {
 
  async wlktz(e) {
   e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/3.bmp`))
+  return
+ }
+
+ async chktz(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/4.bmp`))
   return
  }
 
