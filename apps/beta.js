@@ -35,6 +35,13 @@ export class example extends plugin {
 			fnc: 'chktz'
 		  }
 //  */
+//  /*
+		  ,
+		  {
+			reg: '^#?((开拓者·同谐|开拓者•同谐|开拓者同谐|同谐开拓者|虚数开拓者|开拓者虚数|同谐主)(极限面板|面板100000000))$',
+			fnc: 'txktz'
+		  }
+//  */
 		]
 	  })
 	}
@@ -56,6 +63,11 @@ export class example extends plugin {
 
  async chktz(e) {
   e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/4.bmp`))
+  return
+ }
+
+ async txktz(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/5.bmp`))
   return
  }
 
