@@ -13,10 +13,12 @@ const LSstart = {
       const _path = process.cwd()
       let dmgFile = [
         { file: 'calc_user', name: '自定义伤害' },
-        { file: 'calc_li', name: 'liangshicalc 大爷', test: () => cfg.calcLi },
-        //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => Common.cfg('calcLiangK') },
+        { file: 'calc_li', name: '大爷', test: () => cfg.calcLi },
+        //    { file: 'calc_qsyhh', name: 'qsyhhcalc 基础' , test: () => cfg.calcQsyhh },
+        //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => cfg.calcLiangK },
         //    { file: 'calc_liangshiT', name: 'liangshicalc 组队' , test: () => cfg.calcLiangT },
         //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
+        //    { file: 'calc_liangshiP', name: 'liangshipro 进阶' , test: () => cfg.calcLiangP },
         { file: 'calc_liangshiQ', name: 'liangshicalc 超全', test: () => cfg.calcLiangQ },
         { file: 'calc_liangshi', name: 'liangshicalc 基础', test: () => cfg.calcLiang },
         { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
@@ -30,6 +32,11 @@ const LSstart = {
             path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
           }
         }
+/*
+        if (cfg.calcQsyhh) {
+          path = `${_path}/plugins/wiki/resources/meta-${game}/${name}/${ds.file}.js`
+        }
+*/        
         if (ds.test && !ds.test()) {
           continue
         }
