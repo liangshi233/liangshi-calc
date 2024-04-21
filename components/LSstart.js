@@ -34,9 +34,9 @@ const LSstart = {
         }
 /*
         if (cfg.calcQsyhh) {
-          path = `${_path}/plugins/wiki/resources/meta-${game}/${name}/${ds.file}.js`
+          path = `${_path}/plugins/wiki/resources/meta-${game}/character/${name}/${ds.file}.js`
         }
-*/        
+*/
         if (ds.test && !ds.test()) {
           continue
         }
