@@ -1,14 +1,98 @@
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs94ranking = cfg.gs94ranking
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '羽袖一触'
+let eNameT = 'E'
+let qName = '二刀之形·比翼'
+let qNameT = 'Q'
+let c2Name = '二命'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '心织刀流'
+  c2Name = '二命座'
+  eNameT = '羽袖一触'
+  qNameT = '二刀之形·比翼'
+ } else if ( NamePath == 3 ) {
+  eNameT = '羽袖一触'
+  qNameT = '二刀之形·比翼'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  c2Name = 'C2'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['f', 'h', 'y', 'dph', 'hph', 'dps', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs36ranking) {
+ if ( rankingOnePath == 'm' ) {
+ ranking = 'e2'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
+    ranking = 'e2'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
+      ranking = 'e2'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[千织] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'e2'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs94ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
 export const details = [
 {
-  title: 'E后普攻一段',
+  title: `${eNameT}后${aName}一段`,
+  dmgKey: 'undefined',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 },
 {
-  title: 'E后普攻四段',
+  title: `${eNameT}后${aName}四段`,
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a')
 },
 {
-  title: 'E后重击',
+  title: `${eNameT}后${a2Name}`,
+  dmgKey: 'z',
   dmg: ({ talent }, dmg) => {
     let a1 = dmg(talent.a['重击伤害'] / 2 , 'a2')
     return {
@@ -18,28 +102,56 @@ export const details = [
   }
 },
 {
-  title: 'E后高空下落伤害',
-  dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
+  title: `${eNameT}后高空${a3Name}伤害`,
+  dmgKey: 'c',
+  dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害2'][1], 'a3')
 },
 {
-  title: '羽袖一触释放伤害',
+  title: `${eName}释放伤害`,
+  dmgKey: 'e',
   dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.e['上挑攻击伤害2'][0] * calc(attr.atk) / 100 + talent.e['上挑攻击伤害2'][1] * calc(attr.def) / 100 , 'e')
 },
 {
-  title: '羽袖一触人偶伤害',
+  title: `${eName}人偶伤害`,
+  dmgKey: 'e2',
   dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
 },
 {
-  title: '2命人偶切斩伤害',
+  title: `${c2Name}人偶切斩伤害`,
   check: ({ cons }) => cons >= 2,
   dmg: ({ talent, calc, attr, cons }, { basic }) => basic( ( talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 ) * 1.7 , 'e')
 },
 {
-  title: '二刀之形 · 比翼伤害',
+  title: `${qName}伤害`,
+  dmgKey: 'q',
   dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.q['技能伤害2'][0] * calc(attr.atk) / 100 + talent.q['技能伤害2'][1] * calc(attr.def) / 100 , 'q')
+},{
+  title: `一五千钟 后台10斩2协`,
+  check: ({ cons }) => cons < 4,
+  params: { team: true },
+  dmg: ({ talent, calc, attr, cons }, { basic }) => {
+    let e1 = basic(talent.e['上挑攻击伤害2'][0] * calc(attr.atk) / 100 + talent.e['上挑攻击伤害2'][1] * calc(attr.def) / 100 , 'e')
+    let e2 = basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
+    return {
+      dmg: e1.dmg * 3 + e2.dmg * 10,
+      avg: e1.avg * 3 + e2.avg * 10
+    }
+  }
+},{
+  title: `一五千钟 后台10斩2协3绢`,
+  check: ({ cons }) => cons >= 4,
+  params: { team: true },
+  dmg: ({ talent, calc, attr, cons }, { basic }) => {
+    let e1 = basic(talent.e['上挑攻击伤害2'][0] * calc(attr.atk) / 100 + talent.e['上挑攻击伤害2'][1] * calc(attr.def) / 100 , 'e')
+    let e2 = basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
+    return {
+      dmg: e1.dmg * 3 + e2.dmg * 10 + e2.dmg * 3 * 1.7 ,
+      avg: e1.avg * 3 + e2.avg * 10 + e2.avg * 3 * 1.7
+    }
+  }
 }]
 
-export const defDmgIdx = 5
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,def,cpct,cdmg'
 
 export const buffs = [
@@ -60,6 +172,19 @@ export const buffs = [
     _eCdPlus: 12,
     aPlus: ({ attr, calc }) => calc(attr.def) * 235 / 100
   }
+}, {
+  check: ({ params }) => params.team === true,
+  title: '6命五郎：增加[defPct]%防御力，增加[cdmg]%暴击伤害',
+  data: {
+    cdmg: 40,
+    defPct: 25
+  }
+}, {
+   check: ({ params }) => params.team === true,
+   title: '钟离：降低敌人[kx]%全抗',
+   data: {
+     kx: 20
+   }
 },
-{title: '2.20最后修改：[1.30重置]'}
-]
+ {title: `3.7最后修改：[1.30重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs94ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+

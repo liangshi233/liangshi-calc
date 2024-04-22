@@ -7,7 +7,7 @@
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
 |阿蕾奇诺|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
-|千织|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
+|千织|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
 |闲云|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)|
 |嘉明|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/嘉明/side.webp)|
 |夏沃蕾|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏沃蕾/side.webp)|

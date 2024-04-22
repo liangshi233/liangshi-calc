@@ -235,7 +235,7 @@ export const details = [
   weaponconsn = 2
   }
   return {
-    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 5 * 3 + weaponn )) / ( 40 - weaponnn - ( 0.2073 * ( 22 + weaponconsn ) ) ) ) ,
+    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 5 * 3 + weaponn + energy ) ) / ( 40 - weaponnn - ( 0.2073 * ( 22 + weaponconsn ) ) ) ) ,
     type: 'text'
   }
  }
@@ -299,7 +299,7 @@ export const details = [
     if (weapon.name === '天空之脊') {
     weaponconsn = 2
     }
-    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 5 * 3 + weaponn )) / ( 40 - weaponnn - ( 0.2073 * ( 22 + weaponconsn ) ) ) )
+    let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 5 * 3 + weaponn + energy ) ) / ( 40 - weaponnn - ( 0.2073 * ( 22 + weaponconsn ) ) ) )
     return {
       dmg: ( 4 * a1.dmg + 4 * a2.dmg + 4 * a3.dmg + 4 * a4.dmg + 3 * 4 * a5.dmg + 3 * a6.dmg + e2.dmg * 9 + e3.dmg + q1.dmg * qcn + cons1 * ( e2.dmg * 7 + e1.dmg ) ) / 18,
       avg: ( 4 * a1.avg + 4 * a2.avg + 4 * a3.avg + 4 * a4.avg + 3 * 4 * a5.avg + 3 * a6.avg + e2.avg * 9 + e3.avg + q1.avg * qcn + cons1 * ( e2.avg * 7 + e1.avg ) ) / 18
@@ -596,4 +596,4 @@ export const buffs = [
     kx: 20
   }
 },
-{title: `2.29最后修改：[10.19重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs30ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.22最后修改：[10.19重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs30ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
