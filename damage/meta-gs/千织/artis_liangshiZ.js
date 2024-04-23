@@ -1,4 +1,4 @@
-wexport default function ({ attr , artis , weapon , rule , def , cons }) {
+export default function ({ attr , artis , weapon , rule , def , cons }) {
   //参考数据 千织Lv90 有乐御廉切Lv90 天赋LV9 LV9 LV9 命之座0层 圣遗物华馆梦醒形骸记X5
   if (attr.phy > 25 ) {
     if ( cons >= 6 ) {
