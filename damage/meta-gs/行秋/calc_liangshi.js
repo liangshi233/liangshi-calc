@@ -1,6 +1,6 @@
-let eDmg = false
-let e2Dmg = false
-let e3Dmg = false
+let eDmg = { dmg: 0 , avg: 0 }
+let e2Dmg = { dmg: 0 , avg: 0 }
+let e3Dmg = { dmg: 0 , avg: 0 }
 
 export const details = [{
   title: 'E两段伤害',
@@ -196,5 +196,5 @@ export const buffs = [{
     atkPlus: 1202.35
   }
 }, 'vaporize',
-{title: '10.6最后修改：如有问题请输入 #伤害计算反馈'}
+{title: '4.23最后修改：如有问题请输入 #伤害计算反馈'}
 ]

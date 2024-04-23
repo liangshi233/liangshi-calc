@@ -107,7 +107,7 @@
 
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|波提欧|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
+|波提欧|√|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
 |知更鸟|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/知更鸟/face.png)|
 |黄泉|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/黄泉/face.png)|
 |加拉赫|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/加拉赫/face.png)|

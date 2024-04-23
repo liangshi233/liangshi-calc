@@ -1,4 +1,4 @@
-export default function ({ attr , artis , weapon , rule , def , cons }) {
+wexport default function ({ attr , artis , weapon , rule , def , cons }) {
   //参考数据 千织Lv90 有乐御廉切Lv90 天赋LV9 LV9 LV9 命之座0层 圣遗物华馆梦醒形骸记X5
   if (attr.phy > 25 ) {
     if ( cons >= 6 ) {
@@ -11,7 +11,7 @@ export default function ({ attr , artis , weapon , rule , def , cons }) {
   if (attr.mastery > 320 ) {
     return rule('静态-盾辅', { atk: 0, def: 50, cpct: 90, cdmg: 90, mastery: 100, dmg: 50, recharge: 80 })
   }
-  let atkS = ( ( attr.atk - 864.7 ) / 504.12 )
+  let atkS = ( ( attr.atk - 864.7 ) / 50.41 )
   let defS = ( ( attr.def - 1238.9 ) / 69.47 )
   let dmgS = ( ( attr.dmg - 24 ) / 5.82999996840953 )
   let cpctS = ( ( attr.cpct - 24.2 ) / 3.88999991118907 )
