@@ -113,7 +113,8 @@ export const details = [
 {
   title: `${qName}蒸发伤害`,
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
-},{
+},
+{
   title: `${qName}治疗量`,
   dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( 150 / 100 * ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPlus ) , 100 ) / 100 ) * calc(attr.hp) + 150 / 100 * calc(attr.atk) )
 }]
@@ -153,7 +154,7 @@ export const buffs = [
   cons: 1,
    data: {
     aPlus: ({ attr , calc , params , cons , weapon }) =>  calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPlus ) , 100 ) / 200 ) * ( 100 / 100 ) ),
-    _aInterruption: 70
+    _aInterruption: 100
    }
 },
 {
@@ -180,4 +181,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.23最后修改：[3.11重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.23最后修改：[3.11重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 更新日志:${renew} 其他信息:${information}`}]

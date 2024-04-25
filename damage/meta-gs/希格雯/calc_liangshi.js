@@ -174,4 +174,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.23最后修改：[3.11重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.23最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]

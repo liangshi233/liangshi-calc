@@ -185,7 +185,7 @@ export const buffs = [
   cons: 1,
    data: {
     aPlus: ({ attr , calc , params , cons , weapon }) =>  calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPlus ) , 100 ) / 200 ) * ( 100 / 100 ) ),
-    _aInterruption: 70
+    _aInterruption: 100
    }
 },
 {

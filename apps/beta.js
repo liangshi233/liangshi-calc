@@ -14,13 +14,6 @@ export class example extends plugin {
 			fnc: 'mb'
 		  }
 //  */
-/*
-		  ,
-		  {
-			reg: '^#?(知更鸟(极限伤害|伤害100000000))$',
-			fnc: 'sh'
-		  }
-*/
 //  /*
 		  ,
 		  {
@@ -42,17 +35,33 @@ export class example extends plugin {
 			fnc: 'txktz'
 		  }
 //  */
+//  /*
+		  ,
+		  {
+			reg: '^#?((克洛琳德|克洛琳|克洛|琳德|决斗代理人|克罗|林德|克罗琳德|Clorinde|clorinde)(极限面板|面板100000000))$',
+			fnc: 'klld'
+		  }
+//  */
+//  /*
+		  ,
+		  {
+			reg: '^#?((希格雯|格雯|希格|护士长|美露辛|小美露辛|希格文|希格问|希个雯|Sigewinne|sigewinne)(极限面板|面板100000000))$',
+			fnc: 'xgw'
+		  }
+//  */
+//  /*
+		  ,
+		  {
+			reg: '^#?((赛索斯|索斯|赛索|赛锁斯|赛索丝|塞索斯|小赛诺|Sethos|sethos)(极限面板|面板100000000))$',
+			fnc: 'sss'
+		  }
+//  */
 		]
 	  })
 	}
 
  async mb(e) {
   e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.bmp`))
-  return
- }
-
- async sh(e) {
-  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/2.bmp`))
   return
  }
 
@@ -68,6 +77,21 @@ export class example extends plugin {
 
  async txktz(e) {
   e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/5.bmp`))
+  return
+ }
+
+ async klld(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/10.bmp`))
+  return
+ }
+
+ async xgw(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/11.bmp`))
+  return
+ }
+
+ async sss(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/12.bmp`))
   return
  }
 
