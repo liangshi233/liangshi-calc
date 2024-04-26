@@ -116,7 +116,7 @@ export const details = [
 {
   title: `${qName}单段伤害`,
   dmgKey: 'q',
-  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'][0], 'q')
+  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害2'][0], 'q')
 }]
 
 export const defParams = { blPlus: 0 , blPct: 1 }
