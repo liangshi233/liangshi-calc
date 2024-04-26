@@ -99,25 +99,25 @@ export const details = [
 {
   title: `${eName}水球伤害`,
   dmgKey: 'e',
-  dmg: ({ talent, attr }, dmg ) => dmg(talent.e['激愈水球伤害'], 'e')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e')
 },
 {
   title: `${eName}水球蒸发`,
-  dmg: ({ talent, attr }, dmg ) => dmg(talent.e['激愈水球伤害'], 'e', 'vaporize')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e', 'vaporize')
 },
 {
   title: `${eName}水球治疗`,
   dmgKey: 'h',
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * talent.e['激愈水球治疗量2'][0] + talent.e['激愈水球治疗量2'][1] )
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1] )
 },
 {
   title: `${eName}水球自身治疗`,
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 0.5 )
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 50 / 100 )
 },
 {
   title: `${qName}单段伤害`,
   dmgKey: 'q',
-  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q')
+  dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
 }]
 
 export const defParams = { blPlus: 0 , blPct: 1 }
@@ -128,7 +128,7 @@ export const buffs = [
 {
   title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
   data: {
-    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( ( 20 ) ) + params.blPlus ) , 200 )
+    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( ( 10 * 2 ) ) + params.blPlus ) , 200 )
   }
 },
 {
@@ -174,4 +174,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.23最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.26最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]

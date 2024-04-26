@@ -8,10 +8,6 @@ export const details = [{
   params: { zp: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 }, {
-  title: '转魄 普攻',
-  params: { zp: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
-}, {
   title: '战技伤害',
   params: { zp: false },
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')

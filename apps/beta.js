@@ -11,7 +11,14 @@ export class example extends plugin {
 //  /*
 		  {
 			reg: '^#?(知更鸟(极限面板|面板100000000)|极限知更鸟)$',
-			fnc: 'mb'
+			fnc: 'zgn'
+		  }
+//  */
+//  /*
+		  ,
+		  {
+			reg: '^#?(波提欧(极限面板|面板100000000)|极限波提欧)$',
+			fnc: 'bto'
 		  }
 //  */
 //  /*
@@ -60,8 +67,13 @@ export class example extends plugin {
 	  })
 	}
 
- async mb(e) {
+ async zgn(e) {
   e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.bmp`))
+  return
+ }
+
+ async bto(e) {
+  e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/2.bmp`))
   return
  }
 

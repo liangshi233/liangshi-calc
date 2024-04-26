@@ -116,7 +116,7 @@ export const details = [
 {
   title: `${qName}单段伤害`,
   dmgKey: 'q',
-  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'], 'q')
+  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害'][0], 'q')
 }]
 
 export const defParams = { blPlus: 0 , blPct: 1 }
@@ -175,5 +175,5 @@ export const buffs = [
     interruption: 100
   }
 },
-{title: `4.24最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.26最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
 
