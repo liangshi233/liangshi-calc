@@ -117,6 +117,11 @@ export const details = [
   title: `${qName}单段伤害`,
   dmgKey: 'q',
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害2'][0], 'q')
+},
+{
+  title: `克皇 ${qName}单段激化`,
+  params: { teamA: true },
+  dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害2'][0], 'q', 'aggravate')
 }]
 
 export const defParams = { blPlus: 0 , blPct: 1 }
@@ -175,5 +180,52 @@ export const buffs = [
     interruption: 100
   }
 },
-{title: `4.26最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
+{
+  title: '纳西妲天赋：[净善摄受明论] 依据队伍中元素精通最高的角色的元素精通,提高领域内当前场上角色的元素精通[mastery]点',
+  check: ({ params }) => params.teamA === true,
+  sort: 7,
+  data: {
+    mastery: 250
+  }
+},
+{
+  title: '纳西妲2命：[正等善见之根] 处于纳西妲施加的蕴种印状态下的敌人,受到原激化、超激化、蔓激化反应影响后,防御力降低[enemyDef]%',
+  check: ({ params , cons }) => cons >= 2 && params.teamA === true,
+  data: {
+    enemyDef: 30
+  }
+},
+{
+  title: '纳西妲武器：[千夜浮梦-精1] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons < 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 40
+  }
+},
+{
+  title: '纳西妲武器：[千夜浮梦-精5] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
+  check: ({ params , cons }) => cons >= 6 && params.teamA === true,
+  sort: 1,
+  data: {
+    mastery: 48
+  }
+},
+{
+  title: '钟离圣遗物：[千岩牢固4] 元素战技命中敌人使队伍中附近的所有角色攻击力提升[atkPct]%护盾强效提升[shield]%',
+  check: ({ params , artis }) => params.teamA === true  && artis.千岩牢固 !== 4 ,
+  sort: 1,
+  data: {
+    atkPct: 20,
+    shield: 30
+  }
+},
+{
+  title: '钟离技能：[玉璋护盾] 处于玉璋护盾庇护下的角色使附近小范围敌人的所有元素抗性与物理抗性降低[kx]%',
+  check: ({ params }) => params.teamA === true ,
+  data: {
+    kx: 20
+  }
+},
+{title: `4.28最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
 
