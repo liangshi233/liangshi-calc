@@ -8,8 +8,8 @@
 
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|克洛琳德|×|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
-|赛索斯|×|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
+|克洛琳德|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
+|赛索斯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
 |希格雯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
 |阿蕾奇诺|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
 |千织|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
