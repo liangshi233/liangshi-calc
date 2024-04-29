@@ -2,6 +2,8 @@ import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
+let BLPlusPath = cfg.bndOfLifePlus || 0
+let BLPctPath = cfg.bndOfLifePct || 1
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
@@ -119,7 +121,7 @@ export const details = [
   dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( 150 / 100 * ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPlus ) , 200 ) / 100 ) * calc(attr.hp) + 150 / 100 * calc(attr.atk) )
 }]
 
-export const defParams = { blPlus: 0 , blPct: 1 }
+export const defParams = { blPlus: `${BLPlusPath}` , blPct: `${BLPctPath}` }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 

@@ -6,13 +6,15 @@ calcLi: false
 artisLiang: false
 artisLiangZ: false
 
-autoRestart: false
 autoRefresh: true
-technique: 0
 panelmodel: 1
 namemodel: 1
-energymodel: 0
 rankingOnemodel: m
 rankingTwomodel: hps
 rankingThreemodel: dps
+
+technique: 0
+energymodel: 0
+bndOfLifePlus: 0
+bndOfLifePct: 1
 

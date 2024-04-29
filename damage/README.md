@@ -94,7 +94,6 @@
 ---
 |主角属性|基础计算|超全计算|基础评分|自适应评分|自定义|图标|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|无|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/无主/side.png)|
 |风|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/风主/side.png)|
 |岩|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/岩主/side.png)|
 |雷|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷主/side.png)|
@@ -102,6 +101,7 @@
 |水|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/水主/side.png)|
 |火|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/火主/side.png)|
 |冰|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/冰主/side.png)|
+|无|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/无主/side.png)|
 </details>
 
 ---

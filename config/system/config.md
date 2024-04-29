@@ -320,6 +320,48 @@ technique: 0
 
 ---
 
+### 设置3
+角色初始生命之契设置
+~~~~~~~~~~YAML
+bndOfLifePlus: 0
+~~~~~~~~~~
+<details><summary>可用的内容 数字 </summary>
+
+>此选项在会大幅影响到DPS和Pro版计算中圣遗物谐律异想断章的触发，请谨慎修改
+
+`0` 角色初始不拥有生命之契
+
+`>0` 角色初始拥有指定生命值上限的生命之契（请设置为小于200的数）
+
+`200` 在缩放设置为1的情况下角色始终拥有最高上限的生命之契
+
+</details>
+
+---
+
+### 设置4
+角色生命之契缩放设置
+~~~~~~~~~~YAML
+bndOfLifePct: 1
+~~~~~~~~~~
+<details><summary>可用的内容 数字 </summary>
+
+>此选项在会大幅影响到DPS计算，请谨慎修改
+
+`0` 角色无法获取生命之契
+
+`>0&<1` 角色获取生命之契按比例减少
+
+`1` 角色正常获取生命之契
+
+`>1` 角色获取生命之契按比例提升
+
+>参考数据 阿蕾奇诺期望伤害：0.64
+
+</details>
+
+---
+
 ## 默认配置
 <details><summary>点此展开</summary>
 
@@ -341,6 +383,8 @@ rankingThreemodel: dps
 
 technique: 0
 energymodel: 0
+bndOfLifePlus: 0
+bndOfLifePct: 1
 ~~~~~~~~~~
 
 </details>

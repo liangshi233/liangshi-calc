@@ -2,6 +2,8 @@ import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
+let BLPlusPath = cfg.bndOfLifePlus || 0
+let BLPctPath = cfg.bndOfLifePct || 1
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
@@ -148,7 +150,7 @@ export const details = [
 }
 ]
 
-export const defParams = { blPlus: 0 , blPct: 1 }
+export const defParams = { blPlus: `${BLPlusPath}` , blPct: `${BLPctPath}` }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 

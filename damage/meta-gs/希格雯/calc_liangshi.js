@@ -74,7 +74,7 @@ if (!cfg.namemodel) {
 energy = 0
 }
 let renew = '无'
-let information = '测试内容:[4.6.50] 数据随时可能更改，请注意时效性'
+let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
 
 export const details = [
 {
@@ -108,11 +108,11 @@ export const details = [
 {
   title: `${eName}水球治疗`,
   dmgKey: 'h',
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1] )
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( ( calc(attr.hp) * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1] ) * 1.3 )
 },
 {
   title: `${eName}水球自身治疗`,
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 50 / 100 )
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 50 / 100 * 1.3 )
 },
 {
   title: `${qName}单段伤害`,
@@ -144,9 +144,9 @@ export const buffs = [
   }
 },
 {
-  title: '希格雯天赋：[细致入微的诊疗] 基于队伍中所有角色当前生命之契的总和,获得[heal]%治疗加成',
+  title: '希格雯天赋：[细致入微的诊疗] 基于队伍中所有角色当前生命之契的总和,提升[_heal]%治疗量',
   data: {
-    heal: 30
+    _heal: 30
   }
 },
 {
@@ -174,4 +174,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.26最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `4.29最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
