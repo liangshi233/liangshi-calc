@@ -2,6 +2,8 @@ import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
+let BLPlusPath = cfg.bndOfLifePlus || 0
+let BLPctPath = cfg.bndOfLifePct || 1
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
@@ -74,7 +76,7 @@ if (!cfg.namemodel) {
 energy = 0
 }
 let renew = '无'
-let information = '如有问题请输入 #伤害计算反馈'
+let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
 
 export const details = [
 {
@@ -124,7 +126,7 @@ export const details = [
   dmg: ({ talent, attr }, dmg ) => dmg(talent.q['技能伤害2'][0], 'q', 'aggravate')
 }]
 
-export const defParams = { blPlus: 0 , blPct: 1 }
+export const defParams = { blPlus: `${BLPlusPath}` , blPct: `${BLPctPath}` }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
@@ -138,8 +140,8 @@ export const buffs = [
 {
   title: '克洛琳德天赋：[破夜的明焰] 队伍中附近的角色对敌人触发雷元素相关反应后，提升普通攻击与残光将终造成的雷元素伤害[aPlus]%',
   data: {
-    aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 17 / 100 * 3 ) , 1530 ),
-    qPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 17 / 100 * 3 ) , 1530 )
+    aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 20 / 100 * 3 ) , 1800 ),
+    qPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 20 / 100 * 3 ) , 1800 )
   }
 },
 {
@@ -157,8 +159,8 @@ export const buffs = [
   title: '克洛琳德2命：[「自此，直面长夜之危」] 队伍中附近的角色对敌人触发雷元素相关反应后，普通攻击与残光将终造成的雷元素伤害再提升[aPlus]%,处于3层状态下时，抗打断能力提升[interruption]%',
   cons: 2,
   data: {
-    aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 7 / 100 * 3 ) , 630 ),
-    qPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 7 / 100 * 3 ) , 630 ),
+    aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 10 / 100 * 3 ) , 900 ),
+    qPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 10 / 100 * 3 ) , 900 ),
     interruption: 70
   }
 },

@@ -118,7 +118,7 @@ export const details = [
 },
 {
   title: `${qName}治疗量`,
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( 150 / 100 * ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) + params.blPlus ) ) , 200 ) / 100 ) * calc(attr.hp) + 150 / 100 * calc(attr.atk) )
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( 150 / 100 * ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) / 100 ) * calc(attr.hp) + 150 / 100 * calc(attr.atk) )
 }]
 
 export const defParams = { blPlus: `${BLPlusPath}` , blPct: `${BLPctPath}` }
@@ -129,13 +129,13 @@ export const buffs = [
 {
   title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
   data: {
-    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) + params.blPlus ) ) , 200 )
+    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 )
   }
 },
 {
   title: '阿蕾奇诺技能：[红死之宴] 阴翳礼赞状态下，普通攻击将转为红死之宴,使造成的伤害提升[aPlus]；通过这种方式消耗生命之契时，会使元素战技「万相化灰」的冷却缩短[_eCd]秒。',
   data: {
-    aPlus: ({ talent , attr , calc , params , cons , weapon }) => calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) + params.blPlus ) ) , 200 ) / 100 ) * ( talent.a['红死之宴提升'] / 100 ) ),
+    aPlus: ({ talent , attr , calc , params , cons , weapon }) => calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) / 100 ) * ( talent.a['红死之宴提升'] / 100 ) ),
     _eCd: 0.8
   }
 },
@@ -155,7 +155,7 @@ export const buffs = [
   title: '阿蕾奇诺1命：[「所有的仇与债皆由我偿…」] 红死之宴进一步提高[aPlus]；此外，在红死之宴状态下进行普通攻击时，提高[_aInterruption]%抗打断能力。',
   cons: 1,
    data: {
-    aPlus: ({ attr , calc , params , cons , weapon }) =>  calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) + params.blPlus ) ) , 200 ) / 100 ) * ( 100 / 100 ) ),
+    aPlus: ({ attr , calc , params , cons , weapon }) =>  calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) / 100 ) * ( 100 / 100 ) ),
     _aInterruption: 100
    }
 },
@@ -178,7 +178,7 @@ export const buffs = [
   title: '阿蕾奇诺6命：[「自此以后，我们将共飨新生。」] 厄月将升造成的伤害提高[qPlus],且释放后普通攻击与元素爆发的暴击率提高[aCpct]%,暴击伤害提高[aCdmg]%',
   cons: 6,
   data: {
-    qPlus: ({ calc , attr , params  , cons , weapon }) => ( calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) + params.blPlus ) ) , 200 ) / 100 ) * ( 700 / 100 ) ) ),
+    qPlus: ({ calc , attr , params  , cons , weapon }) => ( calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) / 100 ) * ( 700 / 100 ) ) ),
     aCpct: 10 ,
     aCdmg: 70 ,
     qCpct: 10 ,
