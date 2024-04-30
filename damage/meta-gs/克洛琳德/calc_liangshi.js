@@ -134,18 +134,18 @@ export const buffs = [
 {
   title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
   data: {
-     _BondOfLife: ({ talent , params , weapon }) => Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + params.blPlus + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) ) , 200 )
+     _BondOfLife: ({ talent , params , weapon }) => Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 )
   }
 },
 {
-  title: '克洛琳德天赋：[破夜的明焰] 队伍中附近的角色对敌人触发雷元素相关反应后，提升普通攻击与残光将终造成的雷元素伤害[aPlus]%',
+  title: '克洛琳德天赋：[破夜的明焰] 队伍中附近的角色对敌人触发雷元素相关反应后，提升普通攻击与残光将终造成的雷元素伤害[aPlus]',
   data: {
     aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 20 / 100 * 3 ) , 1800 ),
     qPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 20 / 100 * 3 ) , 1800 )
   }
 },
 {
-  check: ({ talent , params , weapon }) => ( params.blPct * ( talent.q['赋予生命之契'] + 35 + params.blPlus + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) ) >= 100 ,
+  check: ({ talent , params , weapon }) => ( params.blPct * ( talent.q['赋予生命之契'] + 35 + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) + params.blPct * params.blPlus ) >= 100 ,
   title: '克洛琳德天赋：[契令的酬偿] 生命之契的数值提升或降低时，暴击率提升[cpct]% ',
   data: {
     cpct: 10 * 2
@@ -156,7 +156,7 @@ export const buffs = [
   cons: 1
 },
 {
-  title: '克洛琳德2命：[「自此，直面长夜之危」] 队伍中附近的角色对敌人触发雷元素相关反应后，普通攻击与残光将终造成的雷元素伤害再提升[aPlus]%,处于3层状态下时，抗打断能力提升[interruption]%',
+  title: '克洛琳德2命：[「自此，直面长夜之危」] 队伍中附近的角色对敌人触发雷元素相关反应后，普通攻击与残光将终造成的雷元素伤害再提升[aPlus],处于3层状态下时，抗打断能力提升[interruption]%',
   cons: 2,
   data: {
     aPlus: ({ attr, calc }) => Math.min( ( calc(attr.atk) * 10 / 100 * 3 ) , 900 ),
@@ -168,8 +168,8 @@ export const buffs = [
   title: '克洛琳德4命：[「铭记泪，生命与仁爱」] 当前拥有[_BondOfLife]%生命值上限的生命之契，残光将终造成的伤害提升[qDmg]',
   cons: 4,
    data: {
-     _BondOfLife: ({ talent , params , weapon }) => Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + params.blPlus + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) ) , 200 ) ,
-     qDmg: ({ talent , params , weapon }) => Math.min( ( Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + params.blPlus + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) ) , 200 ) * 2 ) , 200 )
+     _BondOfLife: ({ talent , params , weapon }) => Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) ,
+     qDmg: ({ talent , params , weapon }) => Math.min( ( Math.min( ( params.blPct * ( talent.q['赋予生命之契'] + 35 + ( weapon.name === '海渊终曲' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) * 2 ) , 200 )
    }
 },
 {
@@ -229,5 +229,5 @@ export const buffs = [
     kx: 20
   }
 },
-{title: `4.28最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.1最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}`}]
 
