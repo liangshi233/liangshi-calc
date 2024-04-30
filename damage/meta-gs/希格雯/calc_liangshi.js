@@ -1,6 +1,8 @@
 import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
+let BLPlusPath = cfg.bndOfLifePlus || 0
+let BLPctPath = cfg.bndOfLifePct || 1
 let NamePath = cfg.namemodel
 let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
@@ -108,11 +110,11 @@ export const details = [
 {
   title: `${eName}水球治疗`,
   dmgKey: 'h',
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1] ) * 1.3
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal( ( calc(attr.hp) * talent.e['激愈水球治疗量2'][0] / 100 + talent.e['激愈水球治疗量2'][1] ) * 1.3 )
 },
 {
   title: `${eName}水球自身治疗`,
-  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 50 / 100 ) * 1.3
+  dmg: ({ params, cons, talent, attr, calc, weapon }, { heal }) => heal(calc(attr.hp) * 50 / 100 * 1.3 )
 },
 {
   title: `${qName}单段伤害`,
@@ -120,7 +122,7 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
 }]
 
-export const defParams = { blPlus: 0 , blPct: 1 }
+export const defParams = { blPlus: `${BLPlusPath}` , blPct: `${BLPctPath}` }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
@@ -128,7 +130,7 @@ export const buffs = [
 {
   title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
   data: {
-    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( ( 10 * 2 ) ) + params.blPlus ) , 200 )
+    _BondOfLife: ({ params , cons , weapon }) => Math.min( ( params.blPct * ( 10 * 2 ) + params.blPct * params.blPlus ) , 200 )
   }
 },
 {
@@ -174,4 +176,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.29最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.1最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}`}]
