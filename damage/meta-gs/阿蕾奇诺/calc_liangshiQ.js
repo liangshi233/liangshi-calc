@@ -76,7 +76,7 @@ if (!cfg.gs96ranking) {
 if (!cfg.namemodel) {
 energy = 0
 }
-let renew = '无'
+let renew = '5.3 修复血偿勒令回收伤害错误的受到元素战技伤害加成的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -174,7 +174,7 @@ export const details = [
   check: ({ cons }) => cons >= 2,
   title: '血偿勒令回收伤害',
   dmg: ({ attr, calc }, { basic }) => {
-   c2eDmg = basic(calc(attr.atk) * 900 / 100, 'e')
+   c2eDmg = basic(calc(attr.atk) * 900 / 100, '')
    return c2eDmg
   }
 },
@@ -475,4 +475,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.30最后修改：[4.30重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.3最后修改：[4.30重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 更新日志:${renew} 其他信息:${information}`}]

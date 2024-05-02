@@ -76,6 +76,7 @@ if (!cfg.namemodel) {
 energy = 0
 }
 let renew = '4.30 修复生命之契缩放设置对初始生命之契不生效的问题'
+renew = '5.3 修复血偿勒令回收伤害错误的受到元素战技伤害加成的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -91,7 +92,7 @@ export const details = [
 {
   check: ({ cons }) => cons >= 2,
   title: '血偿勒令回收伤害',
-  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 900 / 100, 'e')
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 900 / 100, '')
 },
 {
   title: `${eName}发动伤害`,
@@ -186,4 +187,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `4.30最后修改：[3.11重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.3最后修改：[3.11重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs96ranking} 更新日志:${renew} 其他信息:${information}`}]

@@ -156,7 +156,7 @@ export const buffs = [
 },
 {
   title: '久岐忍2命：[割舍侥幸之心] 越祓草轮的持续时间延长[_eSustainedPlus]秒',
-  cons: 2
+  cons: 2,
   data: {
     _eSustainedPlus: 3
   }
