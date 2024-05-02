@@ -1,189 +1,191 @@
-// 纳西妲、妮露、艾尔海森、心海
-const team2 = createTeam('海妮心妲', ['纳西妲', '艾尔海森', '心海'])
+import { Format, LSconfig } from '#liangshi'
 
-export const details = [{
-  title: '水月伤害',
-  params: { sy: true , team: false },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
-}, {
-  title: '水月蒸发伤害',
-  params: { sy: true , team: false },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e', 'vaporize')
-}, {
-  title: '剑舞步三段伤害',
-  params: { team: false },
-  dmg: ({ talent, calc, attr, cons }, { basic }) => {
-    let pct = talent.e['剑舞步/旋舞步一段伤害2'][0] * 1 + talent.e['剑舞步/旋舞步二段伤害2'][0] * 1
-    let ret1 = basic(calc(attr.hp) * pct / 100, 'e')
-    if (cons >= 1) {
-      attr.e.dmg += 65
-    }
-    let ret2 = basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
-    return {
-      dmg: ret1.dmg + ret2.dmg,
-      avg: ret2.avg + ret2.avg
-    }
-  }
-}, {
-  title: 'Q两段总伤害',
-   params: { team: false },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害'] + talent.q['永世流沔伤害']) / 100, 'q')
-}, {
-  title: '远梦聆泉首段蒸发伤害',
-  params: { team: false },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * (talent.q['技能伤害']) / 100, 'q', 'vaporize')
-}, {
-  title: '丰穰之核伤害',
-  params: { bloom: true , team: false },
-  dmg: ({calc, attr}, { reaction }) => {
-      return reaction('bloom')}
-}, {
-  title: '妮纳科心 丰穰之核',
-  params: { bloom: true , team: true },
-  dmg: ({calc, attr}, { reaction }) => {
-      return reaction('bloom')}
-}, {
-   title: '海妮心妲²·丰穰之核',
-   params: {team: true, bloom: true, ...team2.params},
-   dmg: ({}, {reaction}) => {
-     // 草神二命固定暴击率20%、暴击伤害100%
-     const cpctNum = 20 / 100, cdmgNum = 100 / 100
-     // 计算丰穰之核非暴击伤害
-     const {avg} = reaction('bloom')
-     return {
-       // 暴击伤害
-       dmg: avg * (1 + cdmgNum),
-       // 平均伤害
-       avg: avg * (1 + cpctNum * cdmgNum)
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs70ranking = cfg.gs70ranking
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '七域舞步'
+let e2Name = '旋舞步'
+let e3Name = '剑舞步'
+let eNameT = 'E'
+let e2NameT = 'EE'
+let e3NameT = 'EA'
+let qName = '远梦聆泉'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '弦月舞步'
+  eNameT = '七域舞步'
+  e2NameT = '旋舞步'
+  e3NameT = '剑舞步'
+  qNameT = '远梦聆泉'
+ } else if ( NamePath == 3 ) {
+  eNameT = '七域舞步'
+  e2NameT = '旋舞步'
+  e3NameT = '剑舞步'
+  qNameT = '远梦聆泉'
+ } else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  e2Name = 'EE技能'
+  e3Name = 'EA技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  e2NameT = 'EE技能'
+  e3NameT = 'EA技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  e2Name = 'EE'
+  e3Name = 'EA'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['a', 'z', 'c', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs70ranking) {
+ if ( rankingOnePath == 'm' )  {
+ ranking = 'r'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' )  {
+    ranking = 'r'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' )  {
+      ranking = 'r'
+     }  else if (miss.includes(rankingThreePath)) {
+      logger.mark('[妮露] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'r'
+     } else {
+       ranking = `${rankingThreePath}`
      }
+   } else {
+     ranking = `${rankingTwoPath}`
    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+ ranking = `${gs70ranking}`
+}
+if (!cfg.namemodel) {
+energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
+export const details = [
+{
+  title: `${eName}启动伤害`,
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['技能伤害'] / 100, 'e')
+},
+{
+  title: `${e3Name}一段伤害`,
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['剑舞步/旋舞步一段伤害2'][0] / 100, 'e')
+},
+{
+  title: `${e3Name}二段伤害`,
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['剑舞步/旋舞步二段伤害2'][0] / 100, 'e')
+},
+{
+  title: '水月伤害',
+  params: { sy: true },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e')
+},
+{
+  title: '水月蒸发伤害',
+  dmgKey: 'e',
+  params: { sy: true },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['水月/水轮伤害2'][0] / 100, 'e', 'vaporize')
+},
+{
+  title: `${qName}命中伤害`,
+  dmg: ({ talent, calc, attr }, { basic }) => basic( calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+},
+{
+  title: `${qName}命中蒸发`,
+  dmgKey: 'q',
+  dmg: ({ talent, calc, attr }, { basic }) => basic( calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+},
+{
+  title: '永世流沔伤害',
+  dmg: ({ talent, calc, attr }, { basic }) => basic( calc(attr.hp) * talent.q['永世流沔伤害'] / 100, 'q')
+},
+{
+  title: '丰穰之核伤害',
+  dmgKey: 'r',
+  params: { bloom: true },
+  dmg: ({ calc, attr }, { reaction }) => {
+      return reaction('bloom') }
 }]
 
-export const defDmgIdx = 5
-export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
+export const defDmgKey = `${ranking}`
+export const mainAttr = 'hp,cpct,cdmg,mastery'
 
-export const defParams = {
-    team: true
-}
-
-export const buffs = [{
-  title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
+export const buffs = [
+{
+  check: ({ params }) => params.bloom === true,
+  title: '妮露天赋：[折旋落英之庭] 触发绽放反应时,将取代草原核产生「丰穰之核」,角色受到草元素攻击会使元素精通提升[mastery]点 { 该效果单人不生效 }',
   data: {
-    bloom: ({ calc, attr }) => Math.min(400,(calc(attr.hp)-30000)/1000*9),
-    mastery:({ params }) => params.bloom ? 100 : 0
-  }
-},{
-  title: '妮露1命：水月造成的伤害提升65%',
-  cons: 1,
-  data: {
-    eDmg: ({ params }) => params.sy ? 65 : 0
-  }
-}, {
-  title: '妮露2命：金杯的丰馈下降低敌人35%水抗与草抗',
-  cons: 2,
-  data: {
-    kx: 35
-  }
-}, {
-  title: '妮露4命：第三段舞步命中敌人Q伤害提高50%',
-  cons: 4,
-  data: {
-    qDmg: 50
-  }
-}, {
-  title: '妮露6命：提高暴击[cpct]%，爆伤[cdmg]%',
-  cons: 6,
-  data: {
-    cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
-    cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
-  }
-}, {
-  check: ({ cons, params }) => (cons >= 4 && params.team === true),
-  title: '精5千夜4命4深林纳西妲：增加精通[mastery]，降低[kx]%草元素抗性',
-  data: {
-    mastery: 418,
-	kx: 30
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 4 &&cons >= 2) && params.team === true),
-  title: '精1千夜2命4深林纳西妲：增加精通[mastery]，降低[kx]%草元素抗性',
-  data: {
-    mastery: 290,
-	kx: 30
-  }
-}, {
-  check: ({ cons, params }) => (cons < 2 && params.team === true),
-  title: '精1千夜0命4深林纳西妲：增加精通[mastery]，降低[kx]%草元素抗性',
-  data: {
-    mastery: 290,
-	kx: 30
-  }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true && team2.not(params)),
-  title: '教官精5终末柯莱：元素精通提升[mastery]攻击力提升[atkPct]%',
-  data: {
-    mastery: 480,
-    atkPct: 40
-  }
-}, {
-  check: ({ cons, params }) => (cons < 6 && params.team === true && team2.not(params)),
-  title: '教官精1终末柯莱：元素精通提升[mastery]攻击力提升[atkPct]%',
-  data: {
-    mastery: 280,
-    atkPct: 20
-  }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.team === true),
-  title: '千岩精5千夜珊瑚宫心海：元素精通提升[mastery]攻击力提升[atkPct]%',
-  data: {
-    mastery: 48,
-    atkPct: 40
-  }
-}, {
-  check: ({ cons, params }) => (cons < 6 && params.team === true),
-  title: '千岩精1千夜珊瑚宫心海：元素精通提升[mastery]攻击力提升[atkPct]%',
-  data: {
-    mastery: 40,
-    atkPct: 20
-  }
-},{
-  check: ({ params }) => team2.is(params),
-  title: '纳西妲2命：提供绽放反应固定20%暴击率和100%的暴击伤害',
-  data: {}
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 愈疗之水：生命值上限提升[hpPct]%',
-  data: {
-    hpPct: 25
-  }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 蔓生之草(燃烧/普通绽放队)：触发燃烧或绽放反应后，提升元素精通[mastery]点',
-  data: {
-    mastery: 80
+    mastery: 100
   }
 },
- {title: '6.12最后修改：如有问题请输入 #伤害计算反馈'}
-]
-
-/**
- * 创建队伍
- * @param name 队伍名
- * @param members 队员
- * @return {{name, members, params, go, is, not}}
- */
-function createTeam(name, members) {
-  const team = {name, members}
-  // 队伍出战
-  team.go = () => {
-    const params = {}
-    team.members.forEach(k => params[name + '_' + k] = true);
-    return params
+{
+  check: ({ params }) => params.bloom === true,
+  title: '妮露天赋：[翩舞永世之梦] 处于「金杯的丰馈」状态下的角色触发的丰穰之核造成的伤害提升[bloom]% { 该效果单人不生效 }',
+  sort: 9,
+  data: {
+    bloom: ({ calc, attr }) => Math.max( 0 , Math.min( 400 , ( calc(attr.hp) - 30000 ) / 1000 * 9 ) )
   }
-  team.params = team.go()
-  // 是否是当前配队
-  team.is = (params) => members.filter(k => params[name + '_' + k] === true).length === members.length
-  // 是否不是当前配队
-  team.not = (params) => !team.is(params)
-  return team
-}
+},
+{
+  check: ({ params }) => params.sy === true,
+  title: '妮露1命：[却月的轻舞] 水月造成的伤害提升[eDmg]%,净天水环的持续时间延长6秒',
+  cons: 1,
+  data: {
+    eDmg: 65
+  }
+},
+{
+  check: ({ params }) => params.bloom === true,
+  title: '妮露2命：[星天的花雨] 对敌人造成水元素伤害后,该敌人的水元素抗性降低[kx]%,触发绽放反应对敌人造成伤害后,该敌人的草元素抗性降低[_kx]% { 该效果单人不生效 }',
+  cons: 2,
+  data: {
+    kx: 35,
+    _kx: 35
+  }
+},
+{
+  title: '妮露4命：[挽漪的节音] 七域舞步的翩转状态下的第三段舞步命中敌人后,将恢复[_energyevery]点元素能量,并使浮莲舞步·远梦聆泉造成的伤害提升[qDmg]%',
+  cons: 4,
+  data: {
+    _energyevery: 15 ,
+    qDmg: 50
+  }
+},
+{
+  title: '妮露6命：[断霜的弦歌] 暴击率提升[cpct]%,暴击伤害提升[cdmg]%',
+  sort: 9,
+  cons: 6,
+  data: {
+    cpct: ({ calc, attr }) => Math.min( 30 , calc(attr.hp) / 1000 * 0.6 ),
+    cdmg: ({ calc, attr }) => Math.min( 60 , calc(attr.hp) / 1000 * 1.2 )
+  }
+},
+{title: `4.28最后修改：[12.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs70ranking} 更新日志:${renew} 其他信息:${information}`}]
