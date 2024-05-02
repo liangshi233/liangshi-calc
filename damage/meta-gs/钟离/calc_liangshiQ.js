@@ -364,9 +364,9 @@ export const buffs = [
   title: '钟离天赋：[炊金馔玉] 基于生命值上限，普通攻击重击下落攻击伤害提高[aPlus]，岩脊,共鸣与长按伤害提高[ePlus]，天星伤害提高[qPlus]',
   sort: 9,
   data: {
-	  aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	aPlus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
   	a2Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
-	  a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
+	a3Plus: ({ attr, calc }) => calc(attr.hp) * 0.0139,
     ePlus: ({ attr, calc }) => calc(attr.hp) * 0.019,
     qPlus: ({ attr, calc }) => calc(attr.hp) * 0.33
   }
@@ -437,7 +437,7 @@ export const buffs = [
   title: '云堇技能：[破嶂见旌仪] 对敌人造成普通攻击伤害时，造成的伤害提高[aPlus]',
   sort: 9,
   data: {
-	  aPlus: 2261.6
+    aPlus: 2261.6
   }
 },
 {
@@ -545,7 +545,7 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.teamC === true,
-  title: '荧1命：[巍然的青岩] 角色处于岩潮叠嶂中时，暴击率提升[cpct]%抗打断能力提升[_interruption]%',
+  title: '旅行者1命：[巍然的青岩] 角色处于岩潮叠嶂中时，暴击率提升[cpct]%抗打断能力提升[_interruption]%',
   data: {
   	cpct: 10,
   	_interruption: 30

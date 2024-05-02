@@ -160,6 +160,13 @@ export const buffs = [
   }
 },
 {
+  title: '闲云1命：[借风洗尘缘] 朝起鹤云的可用次数增加[_eIncreases]次。',
+  cons: 1,
+  data: {
+    _eIncreases: 1
+  }
+},
+{
   title: '闲云2命：[鹤唳远人间] 施放朝起鹤云后,攻击力提升[atkPct]%',
   sort: 1,
   cons: 2,

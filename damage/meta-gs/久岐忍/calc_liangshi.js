@@ -136,7 +136,10 @@ export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
 export const buffs = [
 {
-  title: '久岐忍技能：[御咏鸣神刈山祭] 施放时，若生命值不高于50%时，结界的持续时间将会延长1.0秒'
+  title: '久岐忍技能：[御咏鸣神刈山祭] 施放时，若生命值不高于50%时，结界的持续时间将会延长[_qSustainedPlus]秒',
+  data: {
+    _qSustainedPlus: 1
+  }
 },
 {
   title: '久岐忍天赋：[破笼之志] 生命值不高于50%时，治疗加成提升[heal]%',
@@ -152,8 +155,11 @@ export const buffs = [
   }
 },
 {
-  title: '久岐忍2命：[割舍侥幸之心] 越祓草轮的持续时间延长3秒',
+  title: '久岐忍2命：[割舍侥幸之心] 越祓草轮的持续时间延长[_eSustainedPlus]秒',
   cons: 2
+  data: {
+    _eSustainedPlus: 3
+  }
 },
 {
   title: '久岐忍4命：[割舍封闭之心] 处于越祓草轮状态下的角色，在普通攻击、重击或下落攻击命中敌人时，雷草标将落在敌人所在的位置造成雷元素范围伤害。',
@@ -197,5 +203,5 @@ export const buffs = [
     _reduction: 45.32
   }
 },
-{title: `4.8最后修改：[3.8重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs65ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.3最后修改：[3.8重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs65ranking} 更新日志:${renew} 其他信息:${information}`}]
 

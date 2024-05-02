@@ -133,10 +133,10 @@ export const buffs = [
   }
 },
 {
-  title: '阿蕾奇诺技能：[红死之宴] 阴翳礼赞状态下，普通攻击将转为红死之宴,使造成的伤害提升[aPlus]；通过这种方式消耗生命之契时，会使元素战技「万相化灰」的冷却缩短[_eCd]秒。',
+  title: '阿蕾奇诺技能：[红死之宴] 阴翳礼赞状态下，普通攻击将转为红死之宴,使造成的伤害提升[aPlus]；通过这种方式消耗生命之契时，会使元素战技「万相化灰」的冷却缩短[_eCdPlus]秒。',
   data: {
     aPlus: ({ talent , attr , calc , params , cons , weapon }) => calc(attr.atk) * ( ( Math.min( ( params.blPct * ( ( 65 + ( cons >= 2 ? 65 : 0 ) ) + ( weapon.name === '赤月之形' ? 25 : 0 ) ) + params.blPct * params.blPlus ) , 200 ) / 100 ) * ( talent.a['红死之宴提升'] / 100 ) ),
-    _eCd: 0.8
+    _eCdPlus: 0.8
   }
 },
 {

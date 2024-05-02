@@ -79,6 +79,12 @@ export const mainAttr = 'hp,cpct,cdmg'
 
 export const buffs = [
 {
+  title: '夜兰技能：[潜形隐曜弓] 「破局」状态，使下一次满蓄力瞄准射击所需的蓄力时间减少[_a2Speed]%，并将在满蓄力时转为发射「破局矢」',
+  data: {
+    _a2Speed: 80
+  }
+},
+{
   title: '夜兰天赋：[猜先有方] 队伍存在4种元素类型的角色时夜兰的生命值上限提升[hpPct]%',
   sort: 1,
   data: {
@@ -90,6 +96,13 @@ export const buffs = [
   check: ({ params }) => params.q === true,
   data: {
     dmg: 50
+  }
+},
+{
+  title: '夜兰1命：[与谋者，以局入局] 萦络纵命索的可使用次数增加[_eIncreases]次。',
+  cons: 1,
+  data: {
+    _eIncreases: 1
   }
 },
 {
@@ -209,5 +222,5 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: '8.24最后修改：[10.24重置] '}
+{title: '5.2最后修改：[10.24重置] '}
 ]

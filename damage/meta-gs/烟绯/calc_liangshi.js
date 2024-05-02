@@ -66,11 +66,11 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.dhy === true,
-  title: '烟绯1命：[占理不饶人] 烟绯进行重击时,每持有一枚丹火印,都会提高烟绯在咏唱期间[_interruption]%的抗打断能力,并额外降低本次重击[_a2Stamina]%的体力消耗',
+  title: '烟绯1命：[占理不饶人] 烟绯进行重击时,每持有一枚丹火印,都会提高烟绯在咏唱期间[_interruption]%的抗打断能力,并额外降低本次重击[_a2StaminaPct]%的体力消耗',
   cons: 1,
   data: {
     _interruption: 10,
-    _a2Stamina: 10
+    _a2StaminaPct: 10
   }
 },
 {

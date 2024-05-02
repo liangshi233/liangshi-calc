@@ -156,10 +156,11 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.sy === true,
-  title: '妮露1命：[却月的轻舞] 水月造成的伤害提升[eDmg]%,净天水环的持续时间延长6秒',
+  title: '妮露1命：[却月的轻舞] 水月造成的伤害提升[eDmg]%,净天水环的持续时间延长[_eSustainedPlus]秒',
   cons: 1,
   data: {
-    eDmg: 65
+    eDmg: 65 ,
+    _eSustainedPlus: 6
   }
 },
 {
