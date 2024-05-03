@@ -484,7 +484,7 @@ export const details = [
 {
   title: `一五千钟 后台10斩2协`,
   check: ({ cons }) => cons < 4,
-  params: { team: true },
+  params: { teamA: true },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     let e1 = basic(talent.e['上挑攻击伤害2'][0] * calc(attr.atk) / 100 + talent.e['上挑攻击伤害2'][1] * calc(attr.def) / 100 , 'e')
     let e2 = basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
@@ -497,7 +497,7 @@ export const details = [
 {
   title: `一五千钟 后台10斩2协3绢`,
   check: ({ cons }) => cons >= 4,
-  params: { team: true },
+  params: { teamA: true },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     let e1 = basic(talent.e['上挑攻击伤害2'][0] * calc(attr.atk) / 100 + talent.e['上挑攻击伤害2'][1] * calc(attr.def) / 100 , 'e')
     let e2 = basic(talent.e['袖伤害2'][0] * calc(attr.atk) / 100 + talent.e['袖伤害2'][1] * calc(attr.def) / 100 , 'e')
@@ -530,19 +530,40 @@ export const buffs = [
     _eCdPlus: 12,
     aPlus: ({ attr, calc }) => calc(attr.def) * 235 / 100
   }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '6命五郎：增加[defPct]%防御力，增加[cdmg]%暴击伤害',
-  data: {
-    cdmg: 40,
-    defPct: 25
-  }
-}, {
-   check: ({ params }) => params.team === true,
-   title: '钟离：降低敌人[kx]%全抗',
-   data: {
-     kx: 20
-   }
 },
- {title: `4.22最后修改：[4.22重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs94ranking} 魔物产球设置:${energy} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{
+  check: ({ params }) => params.teamA === true,
+  title: '五郎技能：[犬坂吠吠方圆阵] 领域内的当前场上角色防御力提升[defPlus]点,岩元素伤害加成提升[dmg]%,抗打断能力提升[_interruption]%',
+  sort: 1,
+  data: {
+  	defPlus: 438,
+  	dmg: 15,
+  	_interruption: 50
+  }
+},
+{
+  check: ({ params , cons }) => params.teamA === true,
+  title: '五郎6命：[犬勇•忠如山] 施放犬坂吠吠方圆阵或兽牙逐突形胜战法后提高附近的队伍中所有角色[eCdmg]%岩元素暴击伤害',
+  data: {
+  	eCdmg: 40,
+  	qCdmg: 40
+  }
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '钟离技能：[玉璋护盾] 处于玉璋护盾庇护下的角色使附近小范围敌人的所有元素抗性与物理抗性降低[kx]%',
+  data: {
+    kx: 20
+  }
+},
+{
+  check: ({ params }) => params.teamA === true,
+  title: '元素共鸣：[坚定之岩] 护盾强效提升[shield]%，造成的伤害提升[dmg]%，降低敌人[kx]%岩元素抗性',
+  data: {
+    shield: 25,
+    dmg: 15,
+    kx: 20
+  }
+},
+ {title: `5.3最后修改：[4.22重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs94ranking} 魔物产球设置:${energy} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
 
