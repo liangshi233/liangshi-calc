@@ -47,7 +47,7 @@ if ( NamePath !== 1 ) {
   qNameT = 'Q'
  }
 }
-const miss = ['c', 'h', 'f', 'y', 'dph', 'hph', 'dps', 'hps']
+const miss = ['c', 'h', 'f', 'y', 'hph', 'hps']
 let ranking = 'undefined'
 if (!cfg.gs96ranking) {
  if ( rankingOnePath == 'm' ) {
@@ -163,11 +163,13 @@ export const details = [
 },
 {
   title: `满契${aName}六段伤害`,
+  dmgKey: 'a',
   params: { blPlus: 200 , blPct: 1 },
   dmg: ({ talent, attr , cons }, dmg ) => dmg(talent.a['六段伤害'], 'a')
 },
 {
   title: `${eNameT}后${a2Name}伤害`,
+  dmgKey: 'z',
   dmg: ({ talent, attr , cons }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
@@ -263,6 +265,7 @@ export const details = [
 },
 {
   title: '单人站场20秒',
+  dmgKey: 'dph',
   params: { blPct: 0.594 , bdmgPct: 0 , bdmgplus: 65 },
   dmg: ({ talent, attr , cons }, dmg ) => {
 	let e1 = dmg(talent.e['尖刺伤害'], 'e')
@@ -342,6 +345,7 @@ export const details = [
 },
 {
   title: '单人站场期望DPS',
+  dmgKey: 'dps',
   params: { blPct: 0.594 , bdmgPct: 0 , bdmgplus: 65 },
   dmg: ({ talent , calc , attr , weapon , cons }, dmg ) => {
 	let e1 = dmg(talent.e['尖刺伤害'], 'e')

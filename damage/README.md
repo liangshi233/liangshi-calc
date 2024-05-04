@@ -94,7 +94,7 @@
 ---
 |主角属性|基础计算|超全计算|基础评分|自适应评分|自定义|图标|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|风|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/风主/side.png)|
+|风|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/风主/side.png)|
 |岩|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/岩主/side.png)|
 |雷|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷主/side.png)|
 |草|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/草主/side.png)|
