@@ -1,4 +1,4 @@
-import Character from "../../miao-plugin/models/Character.js"
+import Character from '../../miao-plugin/models/Character.js'
 
 /**
  * 预设面板替换关键词
@@ -32,27 +32,27 @@ export class ysmb_input_replace extends plugin {
   }
 
   async accept (e) {
-    let reg = RegExp(replace_list.join('|'));
+    let reg = RegExp(replace_list.join('|'))
     if (!reg.test(e.msg)) return false
-    let msg = /换/.test(e.msg) ? e.msg.split('换') : [e.msg];
+    let msg = /换/.test(e.msg) ? e.msg.split('换') : [e.msg]
     if (replace_list.includes(msg[0])) return false
-    let result = this._replace(msg);
-    let Msg = result[0].replace(/#/g, '');
+    let result = this._replace(msg)
+    let Msg = result[0].replace(/#/g, '')
     if (reg.test(msg[0])) {
-      let uid = Msg.match(/\d+/);
-      let name = Msg.replace(uid,'');
-      let char = Character.get(name.replace(/面板|圣遗物|伤害|武器/g,''), e.isSr ? 'sr' : 'gs')
+      let uid = Msg.match(/\d+/)
+      let name = Msg.replace(uid, '')
+      let char = Character.get(name.replace(/面板|圣遗物|伤害|武器/g, ''), e.isSr ? 'sr' : 'gs')
       if (!char && !/面板/.test(Msg)) return false
-      result[0] = `#${name}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`;
+      result[0] = `#${name}${/面板|圣遗物|伤害|武器/.test(Msg) ? '' : '面板'}${uid}`
     }
-    e.msg = msg.length > 1 ? result.slice(0).join('换') : result[0];
+    e.msg = msg.length > 1 ? result.slice(0).join('换') : result[0]
   }
 
   _replace (msg) {
-    let Msg = [];
-    msg.map((i) => {
-      let idx = replace_list.findIndex(k => i.includes(k));
-      Msg.push(idx !== -1 ? i.replace(replace_list[idx], `10000000${idx}`) : i);
+    let Msg = []
+    msg.forEach(i => {
+      let idx = replace_list.findIndex(k => i.includes(k))
+      Msg.push(idx !== -1 ? i.replace(replace_list[idx], `10000000${idx}`) : i)
     })
     return Msg
   }

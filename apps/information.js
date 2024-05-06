@@ -1,9 +1,10 @@
 import common from '../../../lib/common/common.js'
 import gsCfg from '../../genshin/model/gsCfg.js'
 import fs from 'node:fs'
+import _ from 'lodash'
 
 export class GS extends plugin {
-  constructor() {
+  constructor () {
     super({
       name: '角色资源',
       dsc: '角色资源',
@@ -17,172 +18,98 @@ export class GS extends plugin {
       ]
     })
 
+    this.liangshi = './plugins/liangshi-calc/resources'
     this.img = './plugins/miao-plugin/resources/meta-gs/character'
-    this.curvepath = './plugins/liangshi-calc/resources/curveimg'
-    this.coverpath = './plugins/liangshi-calc/resources/coverimg'
-    this.posterpath = './plugins/liangshi-calc/resources/posterimg'
-    this.introducepath = './plugins/liangshi-calc/resources/introduceimg'
-    this.ReferencPanelpath = './plugins/liangshi-calc/resources/ReferencPanel'
-    this.attackpath = './plugins/liangshi-calc/resources/attackimg'
-    this.skillpath = './plugins/liangshi-calc/resources/skillimg'
-    this.outbreakpath = './plugins/liangshi-calc/resources/outbreakimg'
-    this.cvpath = './plugins/liangshi-calc/resources/cvimg'
 
-    this.json = './plugins/liangshi-calc/resources/imgConfig/curve.json'
-    this.covjson = './plugins/liangshi-calc/resources/imgConfig/cover.json'
-    this.posjson = './plugins/liangshi-calc/resources/imgConfig/poster.json'
-    this.intjson = './plugins/liangshi-calc/resources/imgConfig/introduce.json'
-    this.attjson = './plugins/liangshi-calc/resources/imgConfig/attack.json'
-    this.skijson = './plugins/liangshi-calc/resources/imgConfig/skill.json'
-    this.outjson = './plugins/liangshi-calc/resources/imgConfig/outbreak.json'
-    this.cvjson = './plugins/liangshi-calc/resources/imgConfig/cv.json'
-
-    this.curve = JSON.parse(fs.readFileSync(this.json, 'utf8'))
-    this.cover = JSON.parse(fs.readFileSync(this.covjson, 'utf8'))
-    this.poster = JSON.parse(fs.readFileSync(this.posjson, 'utf8'))
-    this.introduce = JSON.parse(fs.readFileSync(this.intjson, 'utf8'))
-    this.attack = JSON.parse(fs.readFileSync(this.attjson, 'utf8'))
-    this.skill = JSON.parse(fs.readFileSync(this.skijson, 'utf8'))
-    this.outbreak = JSON.parse(fs.readFileSync(this.outjson, 'utf8'))
-    this.cv = JSON.parse(fs.readFileSync(this.cvjson, 'utf8'))
-  }
-
-  //初始化
-  async init() {
-    if (!fs.existsSync(this.attackpath)) {
-      fs.mkdirSync(this.attackpath)
-    }
-    if (!fs.existsSync(this.skillpath)) {
-      fs.mkdirSync(this.skillpath)
-    }
-    if (!fs.existsSync(this.outbreakpath)) {
-      fs.mkdirSync(this.outbreakpath)
-    }
-    if (!fs.existsSync(this.posterpath)) {
-      fs.mkdirSync(this.posterpath)
-    }
-    if (!fs.existsSync(this.curvepath)) {
-      fs.mkdirSync(this.curvepath)
-    }
-    if (!fs.existsSync(this.coverpath)) {
-      fs.mkdirSync(this.coverpath)
-    }
-    if (!fs.existsSync(this.ReferencPanelpath)) {
-      fs.mkdirSync(this.ReferencPanelpath)
-    }
-    if (!fs.existsSync(this.introducepath)) {
-      fs.mkdirSync(this.introducepath)
-    }
-    if (!fs.existsSync(this.cvpath)) {
-      fs.mkdirSync(this.cvpath)
+    this.resMap = {
+      收益曲线: {
+        img: `${this.liangshi}/curveimg`,
+        json: `${this.liangshi}/imgConfig/curve.json`
+      },
+      角色介绍: {
+        img: `${this.liangshi}/introduceimg`,
+        json: `${this.liangshi}/imgConfig/introduce.json`
+      },
+      角色海报: {
+        img: `${this.liangshi}/posterimg`,
+        json: `${this.liangshi}/imgConfig/poster.json`
+      },
+      角色封面: {
+        img: `${this.liangshi}/coverimg`,
+        json: `${this.liangshi}/imgConfig/cover.json`
+      },
+      普通攻击: {
+        img: `${this.liangshi}/attackimg`,
+        json: `${this.liangshi}/imgConfig/attack.json`
+      },
+      元素战技: {
+        img: `${this.liangshi}/skillimg`,
+        json: `${this.liangshi}/imgConfig/skill.json`
+      },
+      元素爆发: {
+        img: `${this.liangshi}/outbreakimg`,
+        json: `${this.liangshi}/imgConfig/outbreak.json`
+      },
+      cv: {
+        img: `${this.liangshi}/cvimg`,
+        json: `${this.liangshi}/imgConfig/cv.json`
+      },
+      名片: 'card',
+      立绘: 'splash',
+      侧头像: 'side',
+      证件照: 'face'
     }
   }
 
-  async GS() {
+  // 初始化
+  async init () {
+    let imgPaths = [..._.map(this.resMap, 'img'), `${this.liangshi}/ReferencPanel`]
+    imgPaths.forEach(path => {
+      if (!fs.existsSync(path)) fs.mkdirSync(path)
+    })
+  }
+
+  async GS () {
     let role = {}
-    if (/#?(收益曲线)帮助/.test(this.e.msg)) {
-      role.name = "帮助"
-    } else {
-      role = gsCfg.getRole(this.e.msg, '收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发|cv')
-    }
-    if (!role) return logger.error("指令可能错误", role)
-    let type = "";
-    if (/介绍/.test(this.e.msg)) {
-        type = "角色介绍"; //2.3版本及之前的角色海报与介绍为同一张图
-    } else if (/封面/.test(this.e.msg)) {
-        type = "角色封面"; //芙宁娜,林尼,琳妮特,菲米尼,魈拥有多张封面
-    } else if (/海报/.test(this.e.msg)) {
-        type = "角色海报";
-    } else if (/收益曲线/.test(this.e.msg)) {
-        type = "收益曲线";
-    } else if (/名片/.test(this.e.msg)) {
-        type = "名片";
-    } else if (/立绘/.test(this.e.msg)) {
-        type = "立绘";
-    } else if (/证件照/.test(this.e.msg)) {
-        type = "证件照";
-    } else if (/侧头像/.test(this.e.msg)) {
-        type = "侧头像";
-    } else if (/普通攻击/.test(this.e.msg)) {
-        type = "普通攻击";
-    } else if (/元素战技/.test(this.e.msg)) {
-        type = "元素战技";
-    } else if (/元素爆发/.test(this.e.msg)) {
-        type = "元素爆发";
-    } else if (/cv/.test(this.e.msg)) {
-        type = "cv";
-    }else {
-        type = "？";
-    }
+    if (/#?收益曲线帮助/.test(this.e.msg)) role.name = '帮助'
+    else role = gsCfg.getRole(this.e.msg, '收益曲线|角色介绍|介绍|角色海报|海报|角色封面|封面|侧头像|证件照|立绘|名片|普通攻击|元素战技|元素爆发|cv')
+
+    if (!role) return logger.error('指令可能错误', role)
+
+    let type = _.find(_.keys(this.resMap), v => this.e.msg.includes(v.replace('角色', '')))
+    if (!type) type = '？'
+
     /** 主角特殊处理 */
     if (['10000005', '10000007', '20000000'].includes(String(role.roleId))) {
-      if (!['风主', '岩主', '雷主', '草主', '水主'].includes(role.alias)) {
-        await this.e.reply(`请选择：风主${type}、岩主${type}、雷主${type}、草主${type}、水主${type}`)
+      let travelers = ['风主', '岩主', '雷主', '草主', '水主']
+      if (!travelers.includes(role.alias)) {
+        await this.e.reply(`请选择：${travelers.map(v => v + type).join('、')}`)
         return
-      } else {
-        role.name = role.alias
+      } else role.name = role.alias
+    }
+
+    if (this.resMap[type]) {
+      let imgPath
+      if (this.resMap[type].json) {
+        let json = JSON.parse(fs.readFileSync(this.resMap[type].json, 'utf8'))
+        if (!json[role.name]) return this.e.reply(`暂无该角色${type}图片`)
+
+        imgPath = `${this.resMap[type].img}/${role.name}.png`
+        if (!fs.existsSync(imgPath)) await this.getImg(json[role.name], imgPath)
+      } else imgPath = `${this.img}/${role.name}/imgs/${type}.webp`
+
+      if (fs.existsSync(imgPath)) {
+        await this.e.reply(segment.image(imgPath))
+        return true
       }
-    }
-    let imgPath
-    let url
-    if (type == '收益曲线') {
-      if (!this.curve[role.name]) return this.e.reply("暂无该角色收益曲线")
-      url = this.curve[role.name]
-      imgPath = `${this.curvepath}/${role.name}.png`
-    } else if (type == '角色介绍') {
-      if (!this.introduce[role.name]) return this.e.reply("暂无该角色介绍")
-      url = this.introduce[role.name]
-      imgPath = `${this.introducepath}/${role.name}.png`
-    } else if (type == '角色封面') {
-      if (!this.cover[role.name]) return this.e.reply("暂无该角色封面")
-      url = this.cover[role.name]
-      imgPath = `${this.coverpath}/${role.name}.png`
-    } else if (type == '角色海报') {
-      if (!this.poster[role.name]) return this.e.reply("暂无该角色海报")
-      url = this.poster[role.name]
-      imgPath = `${this.posterpath}/${role.name}.png`
-    } else if (type == '普通攻击') {
-      if (!this.attack[role.name]) return this.e.reply("暂无该角色普通攻击介绍")
-      url = this.attack[role.name]
-      imgPath = `${this.attackpath}/${role.name}.png`
-    } else if (type == '元素战技') {
-      if (!this.skill[role.name]) return this.e.reply("暂无该角色元素战技介绍")
-      url = this.skill[role.name]
-      imgPath = `${this.skillpath}/${role.name}.png`
-    } else if (type == '元素爆发') {
-      if (!this.outbreak[role.name]) return this.e.reply("暂无该角色元素爆发介绍")
-      url = this.outbreak[role.name]
-      imgPath = `${this.outbreakpath}/${role.name}.png`
-    } else if (type == 'cv') {
-      if (!this.cv[role.name]) return this.e.reply("暂无该角色cv介绍")
-      url = this.cv[role.name]
-      imgPath = `${this.cvpath}/${role.name}.png`
-    } else if (type == '名片') {
-      imgPath = `${this.img}/${role.name}/imgs/card.webp`
-    } else if (type == '立绘') {
-      imgPath = `${this.img}/${role.name}/imgs/splash.webp`
-    } else if (type == '证件照') {
-      imgPath = `${this.img}/${role.name}/imgs/face.webp`
-    } else if (type == '侧头像') {
-      imgPath = `${this.img}/${role.name}/imgs/side.webp`
-    } else {
-      await this.e.reply(`${role.name}？`)
-    }
-    if (!fs.existsSync(imgPath)) {
-      await this.getImg(url, imgPath)
-    }
-    if (fs.existsSync(imgPath)) {
-      await this.e.reply(segment.image(imgPath));
-      return true;
-    }
+    } else await this.e.reply(`${role.name}？`)
   }
 
-  //下载图片
-  async getImg(name, Path) {
+  // 下载图片
+  async getImg (name, Path) {
     logger.mark(`${this.e.logFnc} 下载${name}素材图`)
-    if (!await common.downFile(name, Path)) {
-      return false
-    }
+    if (!await common.downFile(name, Path)) return false
+
     logger.mark(`${this.e.logFnc} 下载${name}素材成功`)
     return true
   }
