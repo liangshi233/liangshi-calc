@@ -3,7 +3,7 @@ export class update extends plugin {
     super({
       name: '[伤害计算拓展]更新',
       event: 'message',
-      priority: 4000,
+      priority: 500,
       rule: [
         {
           reg: '^#*梁氏(计算|插件)?(强制)?更新$',
