@@ -9,7 +9,6 @@ let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
 let gs2001ranking = cfg.gs2001ranking
 let energy = cfg.energymodel
-let c2eDmg = { dmg: 0 , avg: 0 }
 let aName = '普通攻击'
 let a2Name = '重击'
 let a3Name = '下落攻击'
