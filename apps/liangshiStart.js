@@ -5,11 +5,12 @@ import fs from 'node:fs'
 import _ from 'lodash'
 
 const _path = process.cwd()
+
 export class allSetting extends plugin {
   constructor () {
     super({
-      name: '插件初始化',
-      dsc: '初始化',
+      name: '梁氏预设面板',
+      dsc: '梁氏预设面板初始化',
       event: 'message',
       priority: 5000,
       rule: [

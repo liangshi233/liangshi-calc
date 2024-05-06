@@ -64,7 +64,7 @@ export class GS extends plugin {
   // 初始化
   async init () {
     let imgPaths = [..._.map(this.resMap, 'img'), `${this.liangshi}/ReferencPanel`]
-    imgPaths.forEach(path => {
+    _.compact(imgPaths).forEach(path => {
       if (!fs.existsSync(path)) fs.mkdirSync(path)
     })
   }
