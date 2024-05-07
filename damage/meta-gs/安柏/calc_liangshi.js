@@ -29,14 +29,10 @@ export const defDmgKey = 'e'
 
 export const buffs = [{
   title: '安柏天赋1：箭雨暴击率提高10%',
-  data: {
-    qCpct: 10
-  }
+  data: { qCpct: 10 }
 }, {
   title: '安柏天赋2：命中弱点后攻击力提升15%',
-  data: {
-    atkPct: 15
-  }
+  data: { atkPct: 15 }
 }, {
   title: '安柏2命：瞄准引爆兔兔伯爵伤害提高200%',
   cons: 2,
@@ -44,5 +40,4 @@ export const buffs = [{
     eDmg: ({ params }) => params.e ? 200 : 0
   }
 }, 'vaporize',
-{title: '2.1最后修改：如有问题请输入 #伤害计算反馈'}
-]
+{ title: '2.1最后修改：如有问题请输入 #伤害计算反馈' }]

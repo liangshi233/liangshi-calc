@@ -69,7 +69,7 @@ class LSconfig {
    */
   watch (path, name, type = 'defSet') {
     if (this.watcher[type][name]) return
-  
+
     const watcher = chokidar.watch(path)
     watcher.on('change', path => {
       delete this[type][name]

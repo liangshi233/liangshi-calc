@@ -1,6 +1,6 @@
 export default function ({ attr, artis, weapon, rule, def }) {
-  if (attr.phy > 45 ) {
-    return rule('阿贝多-物理', { atk: 85 , cpct: 100 , cdmg: 100 , mastery: 0 , dmg: 0 , recharge: 15 , phy: 100})
+  if (attr.phy > 45) {
+    return rule('阿贝多-物理', { atk: 85, cpct: 100, cdmg: 100, mastery: 0, dmg: 0, recharge: 15, phy: 100 })
   }
   if (artis.is('宗室4')) {
     return rule('阿贝多-宗室', { atk: 65, def: 55, cpct: 100, cdmg: 100, dmg: 100, recharge: 80 })

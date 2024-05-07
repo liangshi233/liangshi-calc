@@ -27,9 +27,7 @@ export class Help extends plugin {
   }
 
   async help (e) {
-    if (!Cfg.get('sys.help', false)) {
-      return false
-    }
+    if (Cfg.get('sys.help', false)) return false
 
     let custom = {}
     let help = {}
