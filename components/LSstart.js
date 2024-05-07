@@ -8,7 +8,7 @@ import fs from 'node:fs'
 const cfg = LSconfig.getConfig('user', 'config')
 
 const LSstart = {
-  init() {
+  init () {
     ProfileDmg.dmgRulePath = (name, game = 'gs') => {
       const _path = process.cwd()
       let dmgFile = [
@@ -32,11 +32,11 @@ const LSstart = {
             path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
           }
         }
-/*
+        /*
         if (cfg.calcQsyhh) {
           path = `${_path}/plugins/wiki/resources/meta-${game}/character/${name}/${ds.file}.js`
         }
-*/
+        */
         if (ds.test && !ds.test()) {
           continue
         }
@@ -50,6 +50,5 @@ const LSstart = {
     CharCfg.getArtisCfg = _CharCfg.getArtisCfg
   }
 }
-LSstart.init()
 
 export default LSstart
