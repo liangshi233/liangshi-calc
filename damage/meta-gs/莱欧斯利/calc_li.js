@@ -2,19 +2,19 @@ export const details = [{
   title: 'E后普攻首段',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) < 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) < 120,
   title: 'E后强化重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) >= 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) >= 120,
   title: 'E后强化重击融化伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'melt')
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) < 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) < 120,
   title: 'Q总伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) >= 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) >= 120,
   title: 'Q融化总伤害',
   dmg: ({ talent }, dmg) => {
     const td = talent.q['技能伤害2'][0]
@@ -26,7 +26,7 @@ export const details = [{
     }
   }
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) < 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) < 120,
   title: '一轮普攻5A接重击',
   dmg: ({ talent, cons }, dmg) => {
     let a1Dmg = dmg(talent.a['一段伤害'], 'a')
@@ -42,7 +42,7 @@ export const details = [{
     }
   }
 }, {
-  check: ({ attr, calc }) => calc(attr.mastery) >= 120 ,
+  check: ({ attr, calc }) => calc(attr.mastery) >= 120,
   title: '普攻5A接重击(融化)',
   dmg: ({ talent, cons }, dmg) => {
     let a1Dmg = dmg(talent.a['一段伤害'], 'a', 'melt')
@@ -63,39 +63,42 @@ export const details = [{
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,dmg,mastery'
 
-export const buffs = [{
-  title: '冰牙突驰：强化普攻，使其造成的伤害提升至[_aMulti]%',
-  data: {
-    _aMulti: ({ talent }) => talent.e['强化斥逐拳伤害'],
-    aMulti: ({ talent }) => talent.e['强化斥逐拳伤害'] - 100
-  }
-}, {
-  title: '天赋-公理终有辩诉之日：重击造成的伤害提升[a2Dmg]%',
-  data: {
-    a2Dmg: 50
-  }
-}, {
-  title: '天赋-罪业终有报偿之时：生命变动时获得1层Buff，5层Buff使得攻击力提升[atkPct]%',
-  data: {
-    atkPct: 30
-  }
-}, {
-  title: '莱欧1命：重击造成的伤害额外提升[a2Dmg]%',
-  cons: 1,
-  data: {
-    a2Dmg: 150
-  }
-}, {
-  title: '莱欧2命：5层Buff使得Q造成的伤害提升[qDmg]%',
-  cons: 2,
-  data: {
-    qDmg: 200
-  }
-}, {
-  title: '莱欧6命：重击的暴击率提升[a2Cpct]%,暴击伤害提升[a2Cdmg]%,并能够额外造成一次伤害',
-  cons: 6,
-  data: {
-    a2Cpct: 10,
-    a2Cdmg: 80
-  }
-}, 'melt']
+export const buffs = [
+  {
+    title: '冰牙突驰：强化普攻，使其造成的伤害提升至[_aMulti]%',
+    data: {
+      _aMulti: ({ talent }) => talent.e['强化斥逐拳伤害'],
+      aMulti: ({ talent }) => talent.e['强化斥逐拳伤害'] - 100
+    }
+  }, {
+    title: '天赋-公理终有辩诉之日：重击造成的伤害提升[a2Dmg]%',
+    data: {
+      a2Dmg: 50
+    }
+  }, {
+    title: '天赋-罪业终有报偿之时：生命变动时获得1层Buff，5层Buff使得攻击力提升[atkPct]%',
+    data: {
+      atkPct: 30
+    }
+  }, {
+    title: '莱欧1命：重击造成的伤害额外提升[a2Dmg]%',
+    cons: 1,
+    data: {
+      a2Dmg: 150
+    }
+  }, {
+    title: '莱欧2命：5层Buff使得Q造成的伤害提升[qDmg]%',
+    cons: 2,
+    data: {
+      qDmg: 200
+    }
+  }, {
+    title: '莱欧6命：重击的暴击率提升[a2Cpct]%,暴击伤害提升[a2Cdmg]%,并能够额外造成一次伤害',
+    cons: 6,
+    data: {
+      a2Cpct: 10,
+      a2Cdmg: 80
+    }
+  },
+  'melt'
+]

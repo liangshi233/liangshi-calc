@@ -2,23 +2,23 @@ export const details = [{
   title: '炽焰箭首段',
   params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
-},{
+}, {
   title: '炽焰箭首段蒸发',
   params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
-},{
+}, {
   title: '炽焰箭首段融化',
   params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'melt')
-},{
+}, {
   title: '炽焰箭二段',
   params: { num: 2, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a')
-},{
+}, {
   title: '炽焰箭二段蒸发',
   params: { num: 2, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'vaporize')
-},{
+}, {
   title: '炽焰箭二段融化',
   params: { num: 2, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'melt')
@@ -106,11 +106,11 @@ export const details = [{
   title: '琉金云间草爆炸融化',
   params: { num: 1, team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['琉金火光爆炸伤害'], 'q', 'melt')
-},{
+}, {
   title: '宵夜万班首箭蒸发',
   params: { num: 10, team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
-},{
+}, {
   title: '宵夜万班尾箭蒸发',
   params: { num: 10, team: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
@@ -118,7 +118,7 @@ export const details = [{
   check: ({ cons }) => cons >= 6,
   dmgKey: 'e',
   title: '宵夜万班凹双蒸',
-  params: { num: 10, team: true , xywb: true},
+  params: { num: 10, team: true, xywb: true },
   dmg: ({ talent }, dmg) => {
     let a0Dmg = dmg(talent.a['一段伤害'] / 2, 'a', 'vaporize')
     let a1Dmg = dmg(talent.a['一段伤害'] / 2, 'a')
@@ -138,7 +138,7 @@ export const details = [{
   check: ({ cons }) => cons < 6,
   dmgKey: 'e',
   title: '宵夜万班147蒸发',
-  params: { num: 10, team: true , xywb: true},
+  params: { num: 10, team: true, xywb: true },
   dmg: ({ talent }, dmg) => {
     let a0Dmg = dmg(talent.a['一段伤害'], 'a', 'vaporize')
     let a1Dmg = dmg(talent.a['一段伤害'], 'a')
@@ -151,19 +151,19 @@ export const details = [{
       dmg: a0Dmg.dmg / 2 + a1Dmg.dmg / 2 + a2Dmg.dmg + a3Dmg.dmg + a4Dmg.dmg + a5Dmg.dmg
     }
   }
-},{
+}, {
   title: '宵云夜班 首箭蒸发',
   params: { num: 1, team: true, xyyb: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'vaporize')
-},{
+}, {
   title: '宵云夜班 尾箭蒸发',
   params: { num: 10, team: true, xyyb: true },
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'vaporize')
 }, {
   dmgKey: 'e',
   title: '宵云夜班 20轴对单',
-  params: { num: 10, team: true, xyyb: true  },
-  dmg: ({ talent , cons }, dmg) => {
+  params: { num: 10, team: true, xyyb: true },
+  dmg: ({ talent, cons }, dmg) => {
     let q1Dmg = dmg(talent.q['技能伤害'], 'q', 'vaporize')
     let q2Dmg = dmg(talent.q['琉金火光爆炸伤害'], 'q', 'vaporize')
     let a1Dmg = dmg(talent.a['一段伤害'], 'a')
@@ -179,8 +179,8 @@ export const details = [{
     let count = cons * 1 >= 1 ? 2 : 0
     let count2 = cons * 1 >= 6 ? 1 : 0
     return {
-      avg: q1Dmg.avg + q2Dmg.avg * ( 5 + count ) + a1zDmg.avg + a2zDmg.avg + a3zDmg.avg + a4zDmg.avg + a5zDmg.avg + ( a1Dmg.avg + a2Dmg.avg + a3Dmg.avg + a4Dmg.avg + a5Dmg.avg * 2 ) + ( a1Dmg.avg + a1zDmg.avg * 0.5 + a2Dmg.avg * 2 + a3Dmg.avg + a4Dmg.avg + a4zDmg.avg * 0.5 + a5Dmg.avg * 2 ) * 0.6 * count2 ,
-      dmg: q1Dmg.dmg + q2Dmg.dmg * ( 5 + count ) + a1zDmg.dmg + a2zDmg.dmg + a3zDmg.dmg + a4zDmg.dmg + a5zDmg.dmg + ( a1Dmg.dmg + a2Dmg.dmg + a3Dmg.dmg + a4Dmg.dmg + a5Dmg.dmg * 2 ) + ( a1Dmg.dmg + a1zDmg.dmg * 0.5 + a2Dmg.dmg * 2 + a3Dmg.dmg + a4Dmg.dmg + a4zDmg.dmg * 0.5 + a5Dmg.dmg * 2 ) * 0.6 * count2
+      avg: q1Dmg.avg + q2Dmg.avg * (5 + count) + a1zDmg.avg + a2zDmg.avg + a3zDmg.avg + a4zDmg.avg + a5zDmg.avg + (a1Dmg.avg + a2Dmg.avg + a3Dmg.avg + a4Dmg.avg + a5Dmg.avg * 2) + (a1Dmg.avg + a1zDmg.avg * 0.5 + a2Dmg.avg * 2 + a3Dmg.avg + a4Dmg.avg + a4zDmg.avg * 0.5 + a5Dmg.avg * 2) * 0.6 * count2,
+      dmg: q1Dmg.dmg + q2Dmg.dmg * (5 + count) + a1zDmg.dmg + a2zDmg.dmg + a3zDmg.dmg + a4zDmg.dmg + a5zDmg.dmg + (a1Dmg.dmg + a2Dmg.dmg + a3Dmg.dmg + a4Dmg.dmg + a5Dmg.dmg * 2) + (a1Dmg.dmg + a1zDmg.dmg * 0.5 + a2Dmg.dmg * 2 + a3Dmg.dmg + a4Dmg.dmg + a4zDmg.dmg * 0.5 + a5Dmg.dmg * 2) * 0.6 * count2
     }
   }
 }]
@@ -192,94 +192,95 @@ export const defParams = {
   num: 10
 }
 
-export const buffs = [{
-  title: '焰硝庭火舞：开启E后额外提升普通[aMulti]%伤害',
-  data: {
-    aMulti: ({ talent }) => talent.e['炽焰箭伤害'] - 100
-  }
-}, {
-  title: '宵宫天赋1：袖火百景图10层提高20%火伤加成',
-  data: {
-    dmg: ({ params }) => params.num ? params.num * 2 : 20
-  }
-}, {
-  title: '宵宫2命：宵宫造成暴击后获得25%火伤加成',
-  cons: 2,
-  data: {
-    dmg: ({ params }) => params.num > 1 ? 25 : 0
-  }
-}, {
-  title: '宵宫6命：按照一轮普攻触发3次，尾箭双蒸计算',
-  cons: 6,
-  data: {
-    aMulti: 0
-  }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '夜兰：获得[dmg]%增伤',
-  data: {
-    dmg: 50
-  }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
-  sort: 9,
-  data: {
-    atkPct: 20,
-    atkPlus: 1202.35
-  }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
-  data: {
-    atkPct: 25
-  }
-}, {
-  check: ({ cons, params }) => cons <= 1 && params.xywb === true,
-  title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
-  sort: 9,
-  data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 40,
-    atkPct: 20,
-    kx: 40
-  }
-}, {
-  check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.xywb === true),
-  title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-  sort: 9,
-  data: {
-    aDmg: 16,
-    a2Dmg: 16,
-    a3Dmg: 16,
-    dmg: 48,
-    atkPct: 20,
-    kx: 40,
-    mastery: 200
-  }
-}, {
-  check: ({ cons, params }) => (cons >= 6 && params.xywb === true),
-  title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-  sort: 9,
-  data: {
-    aDmg: 32,
-    a2Dmg: 32,
-    a3Dmg: 32,
-    dmg: 48,
-    atkPct: 40,
-    kx: 40,
-    mastery: 200
-  }
-}, {
-  check: ({ params }) => params.xyyb === true,
-  title: '云堇：获得[aDmg]%增伤，提升普通攻击伤害2336',
-  sort: 9,
-  data: {
-    aDmg: 15,
-	aPlus: 2336 * 2
-  }
-}, 'vaporize',
-{title: '9.26最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '焰硝庭火舞：开启E后额外提升普通[aMulti]%伤害',
+    data: {
+      aMulti: ({ talent }) => talent.e['炽焰箭伤害'] - 100
+    }
+  }, {
+    title: '宵宫天赋1：袖火百景图10层提高20%火伤加成',
+    data: {
+      dmg: ({ params }) => params.num ? params.num * 2 : 20
+    }
+  }, {
+    title: '宵宫2命：宵宫造成暴击后获得25%火伤加成',
+    cons: 2,
+    data: {
+      dmg: ({ params }) => params.num > 1 ? 25 : 0
+    }
+  }, {
+    title: '宵宫6命：按照一轮普攻触发3次，尾箭双蒸计算',
+    cons: 6,
+    data: {
+      aMulti: 0
+    }
+  }, {
+    check: ({ params }) => params.team === true,
+    title: '夜兰：获得[dmg]%增伤',
+    data: {
+      dmg: 50
+    }
+  }, {
+    check: ({ params }) => params.team === true,
+    title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
+    sort: 9,
+    data: {
+      atkPct: 20,
+      atkPlus: 1202.35
+    }
+  }, {
+    check: ({ params }) => params.team === true,
+    title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
+    data: {
+      atkPct: 25
+    }
+  }, {
+    check: ({ cons, params }) => cons <= 1 && params.xywb === true,
+    title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
+    sort: 9,
+    data: {
+      aDmg: 16,
+      a2Dmg: 16,
+      a3Dmg: 16,
+      dmg: 40,
+      atkPct: 20,
+      kx: 40
+    }
+  }, {
+    check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.xywb === true),
+    title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+    sort: 9,
+    data: {
+      aDmg: 16,
+      a2Dmg: 16,
+      a3Dmg: 16,
+      dmg: 48,
+      atkPct: 20,
+      kx: 40,
+      mastery: 200
+    }
+  }, {
+    check: ({ cons, params }) => (cons >= 6 && params.xywb === true),
+    title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
+    sort: 9,
+    data: {
+      aDmg: 32,
+      a2Dmg: 32,
+      a3Dmg: 32,
+      dmg: 48,
+      atkPct: 40,
+      kx: 40,
+      mastery: 200
+    }
+  }, {
+    check: ({ params }) => params.xyyb === true,
+    title: '云堇：获得[aDmg]%增伤，提升普通攻击伤害2336',
+    sort: 9,
+    data: {
+      aDmg: 15,
+      aPlus: 2336 * 2
+    }
+  }, 'vaporize',
+  { title: '9.26最后修改：如有问题请输入 #伤害计算反馈' }
 ]

@@ -1,10 +1,10 @@
 export const details = [{
   title: '断除烦恼炮总伤害',
   dmg: ({ talent, cons }, dmg) => dmg(talent.e['断除烦恼炮伤害'] + talent.e['售后服务弹伤害'] * (cons >= 1 ? 3 : 2), 'e')
-},  {
+}, {
   title: '断除烦恼炮超激化伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['断除烦恼炮伤害'], 'e', '超激化')
-},{
+}, {
   title: '灯中幽精每跳恢复生命',
   dmg: ({ talent, calc, attr }, {
     heal

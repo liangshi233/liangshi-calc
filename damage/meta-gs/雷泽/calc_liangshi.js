@@ -27,25 +27,26 @@ export const details = [{
 export const defDmgIdx = 0
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [{
-  title: '雷泽1命：获得元素球后8秒伤害提高10%',
-  cons: 1,
-  data: {
-    dmg: 10,
-    phy: 10
-  }
-}, {
-  title: '雷泽2命：攻击生命值低于30%的敌人暴击率提高10%',
-  cons: 2,
-  data: {
-    cpct: 10
-  }
-}, {
-  title: '雷泽4命：E点按降低敌人防御力15%',
-  cons: 4,
-  data: {
-    def: 15
-  }
-},
- {title: '4.4最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '雷泽1命：获得元素球后8秒伤害提高10%',
+    cons: 1,
+    data: {
+      dmg: 10,
+      phy: 10
+    }
+  }, {
+    title: '雷泽2命：攻击生命值低于30%的敌人暴击率提高10%',
+    cons: 2,
+    data: {
+      cpct: 10
+    }
+  }, {
+    title: '雷泽4命：E点按降低敌人防御力15%',
+    cons: 4,
+    data: {
+      def: 15
+    }
+  },
+  { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }
 ]

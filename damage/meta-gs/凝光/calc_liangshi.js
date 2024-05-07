@@ -18,11 +18,12 @@ export const details = [{
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [{
-  title: '凝光天赋2：穿过璇玑屏获得12%岩伤加成',
-  data: {
-    dmg: 12
-  }
-},
- {title: '4.4最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '凝光天赋2：穿过璇玑屏获得12%岩伤加成',
+    data: {
+      dmg: 12
+    }
+  },
+  { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }
 ]

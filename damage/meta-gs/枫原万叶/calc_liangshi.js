@@ -24,7 +24,7 @@ export const details = [{
   title: '元素伤害提高',
   dmg: ({ attr, calc, talent }) => {
     return {
-      avg: Format.percent(calc(attr.mastery) * 0.0004 ),
+      avg: Format.percent(calc(attr.mastery) * 0.0004),
       type: 'text'
     }
   }
@@ -49,41 +49,42 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [{
-  title: '万叶2命：开Q后精通提高200',
-  cons: 2,
-  data: {
-    mastery: 200
-  }
-}, {
-  title: '元素精通：扩散伤害提高[swirlPlus]%',
-  sort: 2,
-  data: {
-    swirlPlus: ({ calc, attr }) => 1600 * calc(attr.mastery) / (calc(attr.mastery) + 2000)
-  }
-}, {
-  check: ({ params }) => params.team === true,
-  title: '讨龙宗室丽莎：增加[atkPct]%攻击力降低敌人15%防御力',
-  data: {
-    atkPct: 68,
-    enemyDef: 15
-  }
-}, {
+export const buffs = [
+  {
+    title: '万叶2命：开Q后精通提高200',
+    cons: 2,
+    data: {
+      mastery: 200
+    }
+  }, {
+    title: '元素精通：扩散伤害提高[swirlPlus]%',
+    sort: 2,
+    data: {
+      swirlPlus: ({ calc, attr }) => 1600 * calc(attr.mastery) / (calc(attr.mastery) + 2000)
+    }
+  }, {
+    check: ({ params }) => params.team === true,
+    title: '讨龙宗室丽莎：增加[atkPct]%攻击力降低敌人15%防御力',
+    data: {
+      atkPct: 68,
+      enemyDef: 15
+    }
+  }, {
     check: ({ params }) => params.team === true,
     title: '千岩天空珐露珊：增加[dmg]%风元素伤害加成与[cdmg]%爆伤,降低[kx]%风元素抗性,增加[atkPct]%攻击力',
     data: {
       dmg: 38.25,
       cdmg: 40,
-	  kx:30,
-	  atkPct: 20,
+      kx: 30,
+      atkPct: 20
     }
   }, {
     check: ({ params }) => params.team === true,
     title: '祈风之赐：造成的风元素伤害提升[aPlus]',
     data: {
-	ePlus: 278.4 ,
-	qPlus: 278.4 
+      ePlus: 278.4,
+      qPlus: 278.4
     }
   },
-   {title: '8.11最后修改：如有问题请输入 #伤害计算反馈'}
-   ]
+  { title: '8.11最后修改：如有问题请输入 #伤害计算反馈' }
+]

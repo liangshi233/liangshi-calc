@@ -30,16 +30,17 @@ export const details = [{
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [{
-  title: '托马天赋1：5层Buff提高护盾强效25%',
-  data: {
-    shieldPlus: ({ params }) => params.e ? 25 : 0
-  }
-}, {
-  title: '托马天赋2：Q每段伤害提高[qPlus]',
-  data: {
-    qPlus: ({ calc, attr }) => calc(attr.hp) * 0.022
-  }
-},
- {title: '8.2最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '托马天赋1：5层Buff提高护盾强效25%',
+    data: {
+      shieldPlus: ({ params }) => params.e ? 25 : 0
+    }
+  }, {
+    title: '托马天赋2：Q每段伤害提高[qPlus]',
+    data: {
+      qPlus: ({ calc, attr }) => calc(attr.hp) * 0.022
+    }
+  },
+  { title: '8.2最后修改：如有问题请输入 #伤害计算反馈' }
 ]

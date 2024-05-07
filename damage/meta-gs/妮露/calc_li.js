@@ -22,43 +22,46 @@ export const details = [{
 }, {
   title: '丰穰之核伤害',
   params: { bloom: true },
-  dmg: ({calc, attr}, { reaction }) => {
-      return reaction('bloom')}
+  dmg: ({ calc, attr }, { reaction }) => {
+    return reaction('bloom')
+  }
 }]
 
 export const defDmgIdx = 3
 
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [{
-  title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
-  data: {
-    bloom: ({ calc, attr }) => Math.min(400,(calc(attr.hp)-30000)/1000*9),
-    mastery:({ params }) => params.bloom ? 100 : 0
+export const buffs = [
+  {
+    title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
+    data: {
+      bloom: ({ calc, attr }) => Math.min(400, (calc(attr.hp) - 30000) / 1000 * 9),
+      mastery: ({ params }) => params.bloom ? 100 : 0
+    }
+  }, {
+    title: '妮露1命：水月造成的伤害提升65%',
+    cons: 1,
+    data: {
+      eDmg: ({ params }) => params.sy ? 65 : 0
+    }
+  }, {
+    title: '妮露2命：金杯的丰馈下降低敌人35%水抗与草抗',
+    cons: 2,
+    data: {
+      kx: 35
+    }
+  }, {
+    title: '妮露4命：第三段舞步命中敌人Q伤害提高50%',
+    cons: 4,
+    data: {
+      qDmg: 50
+    }
+  }, {
+    title: '妮露6命：提高暴击[cpct]%，爆伤[cdmg]%',
+    cons: 6,
+    data: {
+      cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
+      cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
+    }
   }
-},{
-  title: '妮露1命：水月造成的伤害提升65%',
-  cons: 1,
-  data: {
-    eDmg: ({ params }) => params.sy ? 65 : 0
-  }
-}, {
-  title: '妮露2命：金杯的丰馈下降低敌人35%水抗与草抗',
-  cons: 2,
-  data: {
-    kx: 35
-  }
-}, {
-  title: '妮露4命：第三段舞步命中敌人Q伤害提高50%',
-  cons: 4,
-  data: {
-    qDmg: 50
-  }
-}, {
-  title: '妮露6命：提高暴击[cpct]%，爆伤[cdmg]%',
-  cons: 6,
-  data: {
-    cpct: ({ calc, attr }) => Math.min(30, calc(attr.hp) / 1000 * 0.6),
-    cdmg: ({ calc, attr }) => Math.min(60, calc(attr.hp) / 1000 * 1.2)
-  }
-}]
+]

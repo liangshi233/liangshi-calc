@@ -22,29 +22,30 @@ export const details = [{
 export const defDmgIdx = 0
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [{
-  title: '莱依拉1命：安眠帷幕护盾的伤害吸收量提高20%',
-  cons: 1,
-  data: {
-    shield: 20
-  }
-}, {
-  title: '莱依拉6命：飞星与星光弹造成的伤害提升40%',
-  cons: 6,
-  data: {
-    eDmg: 40,
-    qDmg: 40
-  }
-}, {
-  title: '莱依拉天赋1：满层护盾强效提升24%',
-  data: {
-    shield: 24
-  }
-}, {
-  title: '莱依拉天赋2：飞星造成的伤害值基于生命值提高[ePlus]',
-  data: {
-    ePlus: ({ attr, calc }) => calc(attr.hp) * 0.015
-  }
-},
- {title: '4.4最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '莱依拉1命：安眠帷幕护盾的伤害吸收量提高20%',
+    cons: 1,
+    data: {
+      shield: 20
+    }
+  }, {
+    title: '莱依拉6命：飞星与星光弹造成的伤害提升40%',
+    cons: 6,
+    data: {
+      eDmg: 40,
+      qDmg: 40
+    }
+  }, {
+    title: '莱依拉天赋1：满层护盾强效提升24%',
+    data: {
+      shield: 24
+    }
+  }, {
+    title: '莱依拉天赋2：飞星造成的伤害值基于生命值提高[ePlus]',
+    data: {
+      ePlus: ({ attr, calc }) => calc(attr.hp) * 0.015
+    }
+  },
+  { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }
 ]

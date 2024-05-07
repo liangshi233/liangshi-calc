@@ -266,9 +266,9 @@ export const details = [
       let weaponconsn = 0
       if (weapon.name === '西风长枪') weaponn = 3 * 2 * 2
 
-      if (weapon.name === '喜多院十文字') weaponnn = (3 + (weapon.affix - 1) * 0.5) * 3
+      if (weapon.name === '喜多院十文字') weaponnn = (2.5 + weapon.affix * 0.5) * 3
 
-      if (weapon.name === '公义的酬报') weaponnn = 8 + (weapon.affix - 1) * 2
+      if (weapon.name === '公义的酬报') weaponnn = 6 + weapon.affix * 2
 
       if (weapon.name === '天空之脊') weaponconsn = 2
 
@@ -304,9 +304,9 @@ export const details = [
       let weaponconsn = 0
       if (weapon.name === '西风长枪') weaponn = 3 * 2 * 2
 
-      if (weapon.name === '喜多院十文字') weaponnn = (3 + (weapon.affix - 1) * 0.5) * 3
+      if (weapon.name === '喜多院十文字') weaponnn = (2.5 + weapon.affix * 0.5) * 3
 
-      if (weapon.name === '公义的酬报') weaponnn = 8 + (weapon.affix - 1) * 2
+      if (weapon.name === '公义的酬报') weaponnn = 6 + weapon.affix * 2
 
       if (weapon.name === '天空之脊') weaponconsn = 2
       let qcn = Math.min(1, ((calc(attr.recharge) / 100 * (5 * 3 + weaponn + energy)) / (60 - weaponnn - consn - (0.2073 * (14 + weaponconsn)))))

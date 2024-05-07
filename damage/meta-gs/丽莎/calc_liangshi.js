@@ -2,14 +2,14 @@ export const details = [{
   title: '重击伤害',
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
-},{
+}, {
   title: '重击超激化伤害',
   params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', '超激化')
-},{
+}, {
   title: '点按苍雷伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['点按伤害'], 'e')
-},{
+}, {
   title: '点按苍雷超激化伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['点按伤害'], 'e', '超激化')
 }, {
@@ -31,11 +31,12 @@ export const details = [{
 export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [{
-  title: '丽莎天赋2：敌人受到蔷薇的雷光攻击后，降低15%防御力',
-  data: {
-    enemyDef: ({ params }) => params.q ? 15 : 0
-  }
-},
- {title: '4.4最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '丽莎天赋2：敌人受到蔷薇的雷光攻击后，降低15%防御力',
+    data: {
+      enemyDef: ({ params }) => params.q ? 15 : 0
+    }
+  },
+  { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }
 ]

@@ -1,7 +1,8 @@
-export const details = [{
-  title: '普通攻击一段伤害',
-  params: { q: false , team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
+export const details = [
+  {
+    title: '普通攻击一段伤害',
+    params: { q: false, team: false },
+    dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
   }, {
     title: 'E后带火花重击',
     params: { q: false, team: false },
@@ -15,9 +16,9 @@ export const details = [{
     params: { team: false },
     dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
   }, {
-  title: '蹦蹦炸弹弹跳伤害',
-  params: { q: false , team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['蹦蹦炸弹伤害'], 'e')
+    title: '蹦蹦炸弹弹跳伤害',
+    params: { q: false, team: true },
+    dmg: ({ talent }, dmg) => dmg(talent.e['蹦蹦炸弹伤害'], 'e')
   }, {
     title: '可莉三火E后火花重击',
     params: { q: false, team: true },
@@ -26,32 +27,31 @@ export const details = [{
     title: '可莉三火轰轰火花伤害',
     params: { team: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['轰轰火花伤害'], 'q')
-  },{
+  }, {
     title: '可莉三火可莉一轮总伤',
     params: { q: 1, team: true },
     dmg: ({ talent }, dmg) => {
-      let ta = dmg(talent.a['一段伤害'] , 'a')
-      let tz = dmg(talent.a['重击伤害'] , 'a')
-      let tz2 = dmg(talent.a['重击伤害'] , 'a2')
-      let tejump = dmg(talent.e['技能伤害'] , 'e')
-      let tebomb = dmg(talent.e['技能伤害'] , 'e')
-      let tq = dmg(talent.q['轰轰火花伤害'] , 'q')
+      let ta = dmg(talent.a['一段伤害'], 'a')
+      let tz = dmg(talent.a['重击伤害'], 'a')
+      let tz2 = dmg(talent.a['重击伤害'], 'a2')
+      let tejump = dmg(talent.e['技能伤害'], 'e')
+      let tebomb = dmg(talent.e['技能伤害'], 'e')
+      let tq = dmg(talent.q['轰轰火花伤害'], 'q')
       return {
-        dmg:  ta.dmg * 8 +  tz.dmg * 4 +  tz2.dmg * 2 +  tejump.dmg * 3 +  tebomb.dmg * 8 +  tq.dmg * 16,
-        avg:  ta.avg * 8 +  tz.avg * 4 +  tz2.avg * 2 +  tejump.avg * 3 +  tebomb.avg * 8 +  tq.avg * 16
+        dmg: ta.dmg * 8 + tz.dmg * 4 + tz2.dmg * 2 + tejump.dmg * 3 + tebomb.dmg * 8 + tq.dmg * 16,
+        avg: ta.avg * 8 + tz.avg * 4 + tz2.avg * 2 + tejump.avg * 3 + tebomb.avg * 8 + tq.avg * 16
       }
     }
   }
-  ]
-  
-  export const defDmgIdx = 1
-  export const mainAttr = 'atk,cpct,cdmg,mastery'
-  
-  export const defParams = {
-    team: true
-  }
-  
-  export const buffs = [{
+]
+
+export const defDmgIdx = 1
+export const mainAttr = 'atk,cpct,cdmg,mastery'
+
+export const defParams = { team: true }
+
+export const buffs = [
+  {
     title: '可莉天赋1：爆裂火花使重击伤害提升50%',
     data: {
       a2Dmg: 50
@@ -114,7 +114,7 @@ export const details = [{
     sort: 9,
     data: {
       aDmg: 32,
-      a2Dmg: 32, 
+      a2Dmg: 32,
       a3Dmg: 32,
       dmg: 48,
       atkPct: 40,
@@ -122,11 +122,12 @@ export const details = [{
       mastery: 200
     }
   }, {
-  check: ({ params }) => params.team === true,
-  title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
-  data: {
-    atkPct: 25
-  }
-}, 'vaporize',
-{title: '5.16最后修改：如有问题请输入 #伤害计算反馈'}]
-  
+    check: ({ params }) => params.team === true,
+    title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
+    data: {
+      atkPct: 25
+    }
+  },
+  'vaporize',
+  { title: '5.16最后修改：如有问题请输入 #伤害计算反馈' }
+]
