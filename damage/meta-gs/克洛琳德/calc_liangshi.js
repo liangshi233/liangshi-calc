@@ -54,16 +54,16 @@ if (!cfg.gs98ranking) {
  } else if (miss.includes(rankingOnePath)) {
    if ( rankingTwoPath == 'm' ) {
     ranking = 'a'
-   }  else if (miss.includes(rankingTwoPath)) {
+   } else if (miss.includes(rankingTwoPath)) {
      if ( rankingThreePath == 'm' ) {
       ranking = 'a'
-     }  else if (miss.includes(rankingThreePath)) {
+     } else if (miss.includes(rankingThreePath)) {
       logger.mark('[克洛琳德] 排名规则均未命中，已选择默认排名规则')
       ranking = 'a'
-     }  else {
+     } else {
        ranking = `${rankingThreePath}`
      }
-   }  else {
+   } else {
      ranking = `${rankingTwoPath}`
    }
  } else {

@@ -56,7 +56,7 @@ if (!cfg.gs69ranking) {
  } else if (miss.includes(rankingOnePath)) {
    if ( rankingTwoPath == 'm' ) {
     ranking = 'z'
-   }  else if (miss.includes(rankingTwoPath)) {
+   } else if (miss.includes(rankingTwoPath)) {
      if ( rankingThreePath == 'm' ) {
       ranking = 'z'
      } else if (miss.includes(rankingThreePath)) {

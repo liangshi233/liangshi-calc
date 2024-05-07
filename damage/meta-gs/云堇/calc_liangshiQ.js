@@ -185,36 +185,36 @@ export const details = [
   weaponn = 3 * 2 * 2
   }
   if (weapon.name === '喜多院十文字') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 3 * 3
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 3.5 * 3
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 4 * 3
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 4.5 * 3
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 5 * 3
     }
   }
   if (weapon.name === '公义的酬报') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 8
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 10
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 12
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 14
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 16
     }
   }
@@ -256,36 +256,36 @@ export const details = [
     weaponn = 3 * 2 * 2
     }
     if (weapon.name === '喜多院十文字') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 4 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 4.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 5 * 3
       }
     }
     if (weapon.name === '公义的酬报') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 8
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 10
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 12
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 14
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 16
       }
     }

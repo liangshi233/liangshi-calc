@@ -274,36 +274,36 @@ export const details = [
   let weaponnn = 0
   let weaponconsn = 0
   if (weapon.name === '船坞长剑') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 2 * 3
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 2.5 * 3
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 3 * 3
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 3.5 * 3
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 4 * 3
     }
   }
   if (weapon.name === '天目影打刀') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 6
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 7.5
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 9
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 10.5
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 12
     }
   }
@@ -348,36 +348,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn = 0
     if (weapon.name === '船坞长剑') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '天目影打刀') {
-      if (weapon.affix = 1) {
+      if (weapon.affix = =1) {
         weaponnn = 6
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 7.5
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 9
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 10.5
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 12
       }
     }
@@ -418,36 +418,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn = 0
     if (weapon.name === '船坞长剑') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '天目影打刀') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 6
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 7.5
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 9
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 10.5
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 12
       }
     }

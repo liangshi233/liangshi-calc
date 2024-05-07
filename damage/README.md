@@ -11,7 +11,7 @@
 |克洛琳德|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
 |赛索斯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
 |希格雯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
-|阿蕾奇诺|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
+|阿蕾奇诺|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
 |千织|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
 |闲云|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)|
 |嘉明|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/嘉明/side.webp)|
@@ -95,8 +95,8 @@
 |主角属性|基础计算|超全计算|基础评分|自适应评分|自定义|图标|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
 |风|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/风主/side.png)|
-|岩|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/岩主/side.png)|
-|雷|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷主/side.png)|
+|岩|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/岩主/side.png)|
+|雷|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷主/side.png)|
 |草|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/草主/side.png)|
 |水|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/水主/side.png)|
 |火|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/火主/side.png)|
@@ -110,8 +110,12 @@
 
 > 排名不分前后 按`Ctrl + F`可以进行搜索
 
+>流萤/翡翠 计算需要先安装wiki插件才可使用
+
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
+|流萤|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
+|翡翠|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/翡翠/face.png)|
 |波提欧|√|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
 |知更鸟|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/知更鸟/face.png)|
 |黄泉|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/黄泉/face.png)|
@@ -170,3 +174,5 @@
 |虚无|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/开拓者•虚无/face.png)|
 |智识|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/开拓者•智识/face.png)|
 </details>
+
+---

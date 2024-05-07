@@ -187,36 +187,36 @@ export const details = [
   let weaponnn = 0
   let weaponconsn = 0
   if (weapon.name === '便携动力锯') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 2 * 3
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 2.5 * 3
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 3 * 3
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 3.5 * 3
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 4 * 3
     }
   }
   if (weapon.name === '桂木斩长正') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 3 * 3 * 2 -3
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 3.5 * 3 * 2 -3
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 4 * 3 * 2 -3
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 4.5 * 3 * 2 -3
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 5 * 3 * 2 -3
     }
   }
@@ -264,36 +264,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn= 0
     if (weapon.name === '便携动力锯') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '桂木斩长正') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 3 * 3 * 2 -3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 3.5 * 3 * 2 -3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 4 * 3 * 2 -3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 4.5 * 3 * 2 -3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 5 * 3 * 2 -3
       }
     }

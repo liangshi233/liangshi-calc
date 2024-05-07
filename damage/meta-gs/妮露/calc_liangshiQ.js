@@ -69,7 +69,7 @@ if (!cfg.gs70ranking) {
    } else if (miss.includes(rankingTwoPath)) {
      if ( rankingThreePath == 'm' )  {
       ranking = 'r'
-     }  else if (miss.includes(rankingThreePath)) {
+     } else if (miss.includes(rankingThreePath)) {
       logger.mark('[妮露] 排名规则均未命中，已选择默认排名规则')
       ranking = 'r'
      } else {
@@ -320,36 +320,36 @@ export const details = [
   let weaponnn = 0
   let weaponconsn = 0
   if (weapon.name === '船坞长剑') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 2 * 3
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 2.5 * 3
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 3 * 3
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 3.5 * 3
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 4 * 3
     }
   }
   if (weapon.name === '天目影打刀') {
-    if (weapon.affix = 1) {
+    if (weapon.affix == 1) {
       weaponnn = 6
     }
-    if (weapon.affix = 2) {
+    if (weapon.affix == 2) {
       weaponnn = 7.5
     }
-    if (weapon.affix = 3) {
+    if (weapon.affix == 3) {
       weaponnn = 9
     }
-    if (weapon.affix = 4) {
+    if (weapon.affix == 4) {
       weaponnn = 10.5
     }
-    if (weapon.affix = 5) {
+    if (weapon.affix == 5) {
       weaponnn = 12
     }
   }
@@ -388,36 +388,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn = 0
     if (weapon.name === '船坞长剑') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '天目影打刀') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 6
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 7.5
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 9
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 10.5
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 12
       }
     }
@@ -457,36 +457,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn = 0
     if (weapon.name === '船坞长剑') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '天目影打刀') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 6
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 7.5
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 9
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 10.5
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 12
       }
     }
@@ -528,36 +528,36 @@ export const details = [
     let weaponnn = 0
     let weaponconsn = 0
     if (weapon.name === '船坞长剑') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 2 * 3
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 2.5 * 3
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 3 * 3
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 3.5 * 3
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 4 * 3
       }
     }
     if (weapon.name === '天目影打刀') {
-      if (weapon.affix = 1) {
+      if (weapon.affix == 1) {
         weaponnn = 6
       }
-      if (weapon.affix = 2) {
+      if (weapon.affix == 2) {
         weaponnn = 7.5
       }
-      if (weapon.affix = 3) {
+      if (weapon.affix == 3) {
         weaponnn = 9
       }
-      if (weapon.affix = 4) {
+      if (weapon.affix == 4) {
         weaponnn = 10.5
       }
-      if (weapon.affix = 5) {
+      if (weapon.affix == 5) {
         weaponnn = 12
       }
     }
@@ -570,9 +570,9 @@ export const details = [
     if (weapon.name === '天空之刃') {
     weaponconsn = 1
     }
-	  if (cons >= 4) {
-	   consn = 15
-	  }
+    if (cons >= 4) {
+     consn = 15
+    }
     let qcn = Math.min( 1 , ( calc(attr.recharge) / 100 * ( 3.5 * 3 + weaponn + energy ) ) / ( 70 - consn - weaponnn - ( 0.2212 * ( 12 + weaponconsn ) ) ) )
     return {
       dmg: ( 4 * ( a1.dmg + a2.dmg + a3.dmg ) + e1.dmg + 6 * ( e2.dmg + e3.dmg + e4.dmg ) + qcn * ( q1.dmg + q2.dmg ) + r1.avg * ( 14 + qcn * 4 ) ) / 18,
