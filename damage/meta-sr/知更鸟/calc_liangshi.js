@@ -94,7 +94,7 @@ export const details = [
   dmgKey: 'f',
   dmg: ({ talent, attr, calc }) => {
     return {
-      avg: Math.floor( ( calc(attr.atk) * talent.q['攻击力提升·百分比'] + talent.q['攻击力提升·固定值'] ) * 100 ) / 100,
+      avg: Math.floor( ( calc(attr.atk) * talent.q['攻击力提高百分比'] + talent.q['攻击力提高固定值'] ) * 100 ) / 100,
       type: 'text'
     }
   }
@@ -104,12 +104,10 @@ export const details = [
   dmgKey: 'q',
   params: { e: true , q: true },
   dmg: ({ talent , cons }, dmg) => {
-   let qdmg = dmg(talent.q['附加伤害'], 'q')
-   let q1dmg = dmg(0.72, 'q')
-   let cosn1 = cons * 1 >= 1 ? 1 : 0
-   let cosn6 = 1 + ( cons * 1 >= 6 ? 3.50 : 1.50 )
+   let q1 = dmg(talent.q['附加伤害'], 't')
+   let cosn6 = 1 + ( cons * 1 >= 6 ? 6.00 : 1.50 )
      return {
-       avg: ( qdmg.avg + q1dmg.avg * cosn1 ) * cosn6
+       avg: q1.avg * cosn6
      }
   }
 }]
@@ -137,27 +135,37 @@ export const buffs = [
   check: ({ params }) => params.q === true,
   title: '知更鸟技能：[千音迭奏，群星赋格] 【协奏】状态，使我方全体攻击力提高[atkPlus]',
   data: {
-    atkPlus: ({ talent, calc, attr }) => calc(attr.atk) * talent.q['攻击力提升·百分比'] + talent.q['攻击力提升·固定值'],
+    atkPlus: ({ talent, calc, attr }) => calc(attr.atk) * talent.q['攻击力提高百分比'] + talent.q['攻击力提高固定值'] * 1,
     qCpct: -2147483647
   }
 },
 {
   title: '知更鸟天赋：[调性合颂] 使我方全体暴击伤害提高[cdmg]%，且我方目标攻击敌方目标后，知更鸟额外为自身恢复[_energyevery]点能量。',
   data: {
-    cdmg: 20,
-    _energyevery: 10
-  }
-},
-{
-  title: '知更鸟1魂：[微笑的国度] 处于【协奏】状态时，我方目标施放普攻、战技、终结技时额外造成的物理属性附加伤害倍率提高[_dmg]%',
-  cons: 1,
-  data: {
-    _dmg: 72
+    cdmg: ({ talent }) => talent.t['暴伤提高'] * 100,
+    _energyevery: 2
   }
 },
 {
   check: ({ params }) => params.q === true,
-  title: '知更鸟4魂：[千音迭奏，群星赋格] 施放终结技时，解除我方全体的控制类负面状态，使我方全体在知更鸟处于【协奏】状态期间的效果抵抗提高[effDef]%',
+  title: '知更鸟1魂：[微笑的国度] 处于【协奏】状态时，我方全体全属性抗性穿透提高[kx]%',
+  cons: 1,
+  data: {
+    kx: 24
+  }
+},
+{
+  check: ({ params }) => params.q === true,
+  title: '知更鸟2魂：[两者的午茶] 处于【协奏】状态时，我方全体速度提高[speedPct]%，天赋的能量恢复效果额外提高[_energyevery]点',
+  cons: 2,
+  data: {
+    speedPct: 16,
+    _energyevery: 1
+  }
+},
+{
+  check: ({ params }) => params.q === true,
+  title: '知更鸟4魂：[雨滴的钥匙] 施放终结技时，解除我方全体的控制类负面状态，使我方全体在知更鸟处于【协奏】状态期间的效果抵抗提高[effDef]%',
   cons: 4,
   data: {
     effDef: 50
@@ -165,11 +173,10 @@ export const buffs = [
 },
 {
   check: ({ params }) => params.q === true,
-  title: '知更鸟6魂：[月隐的午夜] 知更鸟处于【协奏】状态时，我方全体全属性抗性穿透提高[kx]%，且触发的前6次附加伤害的暴击伤害提高[_cdmg]%。',
+  title: '知更鸟6魂：[月隐的午夜] 处于【协奏】状态时，终结技造成的物理属性附加伤害的暴击伤害额外提高[_cdmg]%。',
   cons: 6,
   data: {
-    kx: 20,
-    _cdmg: 200
+    _cdmg: 450
   }
 },
 {title: `3.26最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1309ranking} 更新日志:${renew} 其他信息:${information}`}]
