@@ -33,7 +33,7 @@ export class ysmb_input_replace extends plugin {
 
   async accept (e) {
     let reg = RegExp(replace_list.join('|'))
-    if (!reg.test(e.msg)) return false
+    if (!reg.test(e.msg) || /添加|删除|表情/.test(e.msg)) return false
     let msg = /换/.test(e.msg) ? e.msg.split('换') : [e.msg]
     if (replace_list.includes(msg[0])) return false
     let result = this._replace(msg)
