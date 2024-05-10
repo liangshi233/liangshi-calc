@@ -1,4 +1,4 @@
-import Character from '../../miao-plugin/models/Character.js'
+import { Character } from '../../miao-plugin/models/index.js'
 
 /**
  * 预设面板替换关键词
