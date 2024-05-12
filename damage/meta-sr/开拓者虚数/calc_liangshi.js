@@ -80,7 +80,7 @@ export const details = [
   params: { toughnessDef: 1 , q: true },
   dmg: ({ params , trees }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg * params.toughnessDef * ( trees['103'] ? 1.6 : 1 ) / 0.9
+      avg: reaction('iceBreak').avg * params.toughnessDef * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -113,7 +113,7 @@ export const details = [
   dmg: ({ params , cons , trees }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 7 : 5
     return {
-      avg: /*没有超击破，拿冰击破模拟一下*/ reaction('iceBreak').avg * ( params.toughnessDef * cons6 ) * ( trees['103'] ? 1.6 : 1 ) / 0.9
+      avg: /*没有超击破，拿冰击破模拟一下*/ reaction('iceBreak').avg * ( params.toughnessDef * cons6 ) * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -122,7 +122,7 @@ export const details = [
   dmgKey: 'q',
   dmg: ({ talent }) => {
     return {
-      avg: Format.percent( talent.q['技能伤害'] ) ,
+      avg: Format.percent( talent.q['击破特攻提高'] ) ,
       type: 'text'
     }
   }
@@ -132,7 +132,7 @@ export const details = [
   dmgKey: 'f',
   dmg: ({ talent, attr, calc, cons }) => {
     return {
-      avg: Format.percent( ( calc(attr.stance) * 0.15 ) * ( cons * 1 >= 4 ? 1 : 0 ) / 100 + talent.q['技能伤害'] ) ,
+      avg: Format.percent( ( calc(attr.stance) * 0.15 ) * ( cons * 1 >= 4 ? 1 : 0 ) / 100 + talent.q['击破特攻提高'] ) ,
       type: 'text'
     }
   }
@@ -203,4 +203,4 @@ export const buffs = [
   title: '开拓者6魂：[越狱的跨洋彩虹] 战技的额外伤害次数增加2次。',
   cons: 6
 },
-{title: `3.26最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr8006ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.12最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr8006ranking} 更新日志:${renew} 其他信息:${information}`}]
