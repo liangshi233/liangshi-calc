@@ -37,7 +37,7 @@ export class ysmb_input_replace extends plugin {
     let msg = /换/.test(e.msg) ? e.msg.split('换') : [e.msg]
     if (replace_list.includes(msg[0])) return false
     let result = this._replace(msg)
-    let Msg = result[0].replace(/#/g, '')
+    let Msg = result[0].replace(/#(星铁)?/g, '')
     if (reg.test(msg[0])) {
       let uid = Msg.match(/\d+/)
       let name = Msg.replace(uid, '')
