@@ -77,10 +77,10 @@ export const details = [
 },
 {
   title: `单目标${aName}超击破`,
-  params: { toughnessDef: 1 , q: true },
+  params: { toughnessDef: 1 , q: true , toughness: 0 },
   dmg: ({ params , trees }, { reaction }) => {
     return {
-      avg: /*超击破有问题，拿冰击破模拟一下reaction('superBreak').avg*/ reaction('iceBreak').avg * params.toughnessDef * ( trees['101'] ? 1.6 : 1 ) / 0.9
+      avg: reaction('superBreak').avg * params.toughnessDef * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -109,11 +109,11 @@ export const details = [
 {
   title: `单目标${eName}完整超击破`,
   dmgKey: 'r',
-  params: { toughnessDef: 0.5 , q: true },
+  params: { toughnessDef: 0.5 , q: true , toughness: 0 },
   dmg: ({ params , cons , trees }, { reaction }) => {
     let cons6 = cons * 1 >= 6 ? 6 : 4
     return {
-      avg: /*超击破有问题，拿冰击破模拟一下reaction('superBreak').avg*/ reaction('iceBreak').avg * ( params.toughnessDef * cons6 + 1 ) * ( trees['101'] ? 1.6 : 1 ) / 0.9
+      avg: reaction('superBreak').avg * ( params.toughnessDef * cons6 + 1 ) * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -146,7 +146,7 @@ export const buffs = [
 {
   title: '敌人状态：[韧性] 具有[toughness]韧性',
   data: {
-    toughness: ({ params }) => params.toughness == 0 ? 0 : ( params.toughness || 0 )
+    toughness: ({ params }) => params.toughness == 0 ? 0 : ( params.toughness || 12 )
   }
 },
 {
