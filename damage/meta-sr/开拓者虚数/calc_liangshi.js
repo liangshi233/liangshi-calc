@@ -80,7 +80,7 @@ export const details = [
   params: { toughnessDef: 1 , q: true },
   dmg: ({ params , trees }, { reaction }) => {
     return {
-      avg: reaction('iceBreak').avg * params.toughnessDef * ( trees['101'] ? 1.6 : 1 ) / 0.9
+      avg: /*超击破有问题，拿冰击破模拟一下reaction('superBreak').avg*/ reaction('iceBreak').avg * params.toughnessDef * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -109,11 +109,11 @@ export const details = [
 {
   title: `单目标${eName}完整超击破`,
   dmgKey: 'r',
-  params: { toughnessDef: 1 , q: true },
+  params: { toughnessDef: 0.5 , q: true },
   dmg: ({ params , cons , trees }, { reaction }) => {
-    let cons6 = cons * 1 >= 6 ? 7 : 5
+    let cons6 = cons * 1 >= 6 ? 6 : 4
     return {
-      avg: /*没有超击破，拿冰击破模拟一下*/ reaction('iceBreak').avg * ( params.toughnessDef * cons6 ) * ( trees['101'] ? 1.6 : 1 ) / 0.9
+      avg: /*超击破有问题，拿冰击破模拟一下reaction('superBreak').avg*/ reaction('iceBreak').avg * ( params.toughnessDef * cons6 + 1 ) * ( trees['101'] ? 1.6 : 1 ) / 0.9
     }
   }
 },
@@ -203,4 +203,4 @@ export const buffs = [
   title: '开拓者6魂：[越狱的跨洋彩虹] 战技的额外伤害次数增加2次。',
   cons: 6
 },
-{title: `5.12最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr8006ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.14最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr8006ranking} 更新日志:${renew} 其他信息:${information}`}]
