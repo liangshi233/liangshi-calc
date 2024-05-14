@@ -25,7 +25,8 @@ const LSstart = {
         { file: 'calc', name: '喵喵' }
       ]
       // 兼容处理星铁主角的情况
-      if (/星|穹/.test(name)) name = name.replace(/星|穹|·/g, '开拓者')
+      let tbReg = /^(星|穹)·/
+      if (tbReg.test(name)) name = name.replace(tbReg, '开拓者')
 
       for (let ds of dmgFile) {
         let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
