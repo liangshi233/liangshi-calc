@@ -160,7 +160,7 @@ export const buffs = [
   check: ({ params }) => params.q === true,
   title: '开拓者技能：[喧嚣的舞灯巡游] 持有【伴舞】的我方目标击破特攻提高[stance]%',
   data: {
-    stance: ({ talent }) => talent.q['技能伤害'] * 100
+    stance: ({ talent }) => talent.q['击破特攻提高'] * 100
   }
 },
 {

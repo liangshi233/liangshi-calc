@@ -93,23 +93,23 @@ export const details = [
 {
   title: `${qName}伤害`,
   dmgKey: 'q',
-  dmg: ({ talent , attr, calc }, { basic }) => basic(calc(attr.def) * talent.q['技能伤害-防御力'] + calc(attr.atk) * talent.q['技能伤害-攻击力'], 'q')
+  dmg: ({ talent , attr, calc }, { basic }) => basic(calc(attr.def) * talent.q['防御力倍率'] + calc(attr.atk) * talent.q['攻击力倍率'], 'q')
 },
 {
   title: `${tName}护盾量`,
   dmgKey: 'h',
-  dmg: ({ attr, calc, talent }, { shield }) => shield(talent.t['护盾量-百分比'] * calc(attr.def) + talent.t['护盾量-数值'] )
+  dmg: ({ attr, calc, talent }, { shield }) => shield(talent.t['百分比防御'] * calc(attr.def) + talent.t['固定值'] )
 },
 {
   title: `${tName}${aName}目标伤害`,
   dmgKey: 'c',
   params: { aDmg: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a2['强化-单体伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['技能伤害'], 'a')
 },
 {
   title: `${tName}${aName}相邻伤害`,
   params: { aDmg: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a2['强化-扩散伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.a2['相邻目标伤害'], 'a')
 },
 {
   check: ({ cons }) => cons >= 2,
