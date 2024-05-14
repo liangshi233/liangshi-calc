@@ -65,7 +65,7 @@ if (!cfg.sr1309ranking) {
 } else {
  ranking = `${sr1309ranking}`
 }
-let renew = '无'
+let renew = '5.14 修复追加攻击会异常受到自身暴击伤害提升'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -136,7 +136,7 @@ export const buffs = [
   title: '知更鸟技能：[千音迭奏，群星赋格] 【协奏】状态，使我方全体攻击力提高[atkPlus]',
   data: {
     atkPlus: ({ talent, calc, attr }) => calc(attr.atk) * talent.q['攻击力提高百分比'] + talent.q['攻击力提高固定值'] * 1,
-    qCpct: -2147483647
+    tCpct: -2147483647
   }
 },
 {
@@ -179,4 +179,4 @@ export const buffs = [
     _cdmg: 450
   }
 },
-{title: `3.26最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1309ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `5.14最后修改：[3.26重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1309ranking} 更新日志:${renew} 其他信息:${information}`}]
