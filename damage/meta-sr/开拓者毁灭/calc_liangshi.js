@@ -87,17 +87,17 @@ export const details = [
 {
   title: `${qName}${aName}伤害`,
     dmgKey: 'q',
-  dmg: ({ talent }, dmg) => dmg(talent.q['单攻-单体伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['单体伤害'], 'q')
 },
 {
   title: `${qName}${eNameT}主目标伤害`,
   params: { Fighting: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['扩散-单体伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q2['扩散伤害'], 'q')
 },
 {
   title: `${qName}${eNameT}相邻伤害`,
   params: { Fighting: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['扩散-扩散伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q2['扩散伤害·相邻目标'], 'q')
 }]
 
 export const mainAttr = 'atk,cpct,cdmg,speed'
@@ -107,7 +107,7 @@ export const buffs = [
 {
   title: '开拓者天赋：[牵制盗垒] 击破敌方目标的弱点后，攻击力提高[atkPct]%',
   data: {
-    atkPct: ({ talent }) => talent.q['攻击力提升'] * 100 * 2
+    atkPct: ({ talent }) => talent.t['攻击力提升'] * 100 * 2
   }
 },
 {
