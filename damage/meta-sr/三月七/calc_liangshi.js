@@ -25,10 +25,12 @@ export const mainAttr = 'atk,cpct,cdmg,speed'
 export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
-{
-  title: '三月七4命：反击造成的伤害值增加[tPlus]',
-  cons: 1,
-  data: {
-    tPlus: ({ talent, calc, attr }) => 0.3 * calc(attr.def)
-  }
-},{title: '7.13最后修改：如有问题请输入 #伤害计算反馈'}]
+  {
+    title: '三月七4命：反击造成的伤害值增加[tPlus]',
+    cons: 1,
+    data: {
+      tPlus: ({ talent, calc, attr }) => 0.3 * calc(attr.def)
+    }
+  },
+  { title: '7.13最后修改：如有问题请输入 #伤害计算反馈' }
+]

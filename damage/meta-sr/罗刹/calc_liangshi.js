@@ -21,18 +21,19 @@ export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 export const defParams = { technique: `${Technique}` }
 
-export const buffs = [{
-  title: '罗刹1命：结界生效后攻击力提高20%',
-  cons: 1,
-  data: {
-    atkPct: 20
-  }
-}, {
-  title: '罗刹6命：释放终结技降低敌方抗性20%',
-  cons: 6,
-  data: {
-    kx: 20
-  }
-},
-{title: '7.15最后修改：如有问题请输入 #伤害计算反馈'}
+export const buffs = [
+  {
+    title: '罗刹1命：结界生效后攻击力提高20%',
+    cons: 1,
+    data: {
+      atkPct: 20
+    }
+  }, {
+    title: '罗刹6命：释放终结技降低敌方抗性20%',
+    cons: 6,
+    data: {
+      kx: 20
+    }
+  },
+  { title: '7.15最后修改：如有问题请输入 #伤害计算反馈' }
 ]

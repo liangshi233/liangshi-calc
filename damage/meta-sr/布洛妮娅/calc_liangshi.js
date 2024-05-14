@@ -38,23 +38,24 @@ export const mainAttr = 'atk,cpct,cdmg'
 export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
-{
-  check: ({ params }) => params.technique >= 1,
-  title: '布洛妮娅秘技：[在旗帜下] 战斗开始时我方全体攻击力提高[atkPct]%。',
-   data: {
-    atkPct: 15
-   }
-},
-{
-  title: '行迹-号令：普通攻击暴击率提高至[aCpct]%',
-  tree: 1,
-  data: {
-    aCpct: 100
-  }
-},{
-  title: '行迹-军势：布洛妮娅在场时，我方全体造成的伤害提高10%',
-  check: ({ trees }) => trees[103],
-  data: {
-    dmg: 10
-  }
-},{title: '2.23最后修改：如有问题请输入 #伤害计算反馈'}]
+  {
+    check: ({ params }) => params.technique >= 1,
+    title: '布洛妮娅秘技：[在旗帜下] 战斗开始时我方全体攻击力提高[atkPct]%。',
+    data: {
+      atkPct: 15
+    }
+  }, {
+    title: '行迹-号令：普通攻击暴击率提高至[aCpct]%',
+    tree: 1,
+    data: {
+      aCpct: 100
+    }
+  }, {
+    title: '行迹-军势：布洛妮娅在场时，我方全体造成的伤害提高10%',
+    check: ({ trees }) => trees[103],
+    data: {
+      dmg: 10
+    }
+  },
+  { title: '2.23最后修改：如有问题请输入 #伤害计算反馈' }
+]

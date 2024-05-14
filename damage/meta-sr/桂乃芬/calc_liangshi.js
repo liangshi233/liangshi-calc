@@ -19,7 +19,7 @@ export const details = [{
 }, {
   title: '灼烧持续伤害',
   check: ({ cons }) => cons >= 6,
-  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'] + 0.4 , 'dot', 'skillDot')
+  dmg: ({ talent }, dmg) => dmg(talent.e['持续伤害'] + 0.4, 'dot', 'skillDot')
 }, {
   title: '终结技伤害',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
@@ -41,25 +41,26 @@ export const mainAttr = 'atk,cpct,cdmg'
 export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
-{
-  check: ({ params }) => params.technique >= 1,
-  title: '桂乃芬秘技：[耍耍把式卖卖艺] 进入战斗后造成4次火属性伤害，并有100%基础概率使目标陷入【吞火】状态。'
-},{
-  title: '天赋-古来君子养艺人：3层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
-  check: ({ cons }) => cons < 6,
-  data: {
-    enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 3
+  {
+    check: ({ params }) => params.technique >= 1,
+    title: '桂乃芬秘技：[耍耍把式卖卖艺] 进入战斗后造成4次火属性伤害，并有100%基础概率使目标陷入【吞火】状态。'
+  }, {
+    title: '天赋-古来君子养艺人：3层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
+    check: ({ cons }) => cons < 6,
+    data: {
+      enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 3
+    }
+  }, {
+    title: '天赋-古来君子养艺人：4层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
+    cons: 6,
+    data: {
+      enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 4
+    }
+  }, {
+    title: '行迹-逾锋：对处于灼烧状态的敌人伤害提高[dmg]%',
+    tree: 3,
+    data: {
+      dmg: 20
+    }
   }
-}, {
-  title: '天赋-古来君子养艺人：4层【吞火】状态下目标受到的伤害提高[enemyDmg]%',
-  cons: 6,
-  data: {
-    enemyDmg: ({ talent }) => talent.t['伤害提高'] * 100 * 4
-  }
-}, {
-  title: '行迹-逾锋：对处于灼烧状态的敌人伤害提高[dmg]%',
-  tree: 3,
-  data: {
-    dmg: 20
-  }
-}]
+]

@@ -22,13 +22,15 @@ export const mainAttr = 'atk,cpct,cdmg,def'
 export const defParams = { technique: `${Technique}` }
 
 export const buffs = [
-{
-  check: ({ params }) => params.technique >= 1,
-  title: '杰帕德秘技：[有情之证] 进入战斗后为我方全体提供护盾。'
-},{
-  title: '行迹-战意：基于防御值提高攻击力[atkPlus]',
-  tree: 3,
-  data: {
-    atkPlus: ({ calc, attr }) => calc(attr.def) * 0.35
-  }
-},{title: '5.30最后修改：如有问题请输入 #伤害计算反馈'}]
+  {
+    check: ({ params }) => params.technique >= 1,
+    title: '杰帕德秘技：[有情之证] 进入战斗后为我方全体提供护盾。'
+  }, {
+    title: '行迹-战意：基于防御值提高攻击力[atkPlus]',
+    tree: 3,
+    data: {
+      atkPlus: ({ calc, attr }) => calc(attr.def) * 0.35
+    }
+  },
+  { title: '5.30最后修改：如有问题请输入 #伤害计算反馈' }
+]
