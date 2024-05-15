@@ -60,7 +60,7 @@
 |神里绫华|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫华/side.webp)|
 |枫原万叶|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/枫原万叶/side.webp)|
 |优菈|√|√|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/优菈/side.webp)|
-|烟绯|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/烟绯/side.webp)|
+|烟绯|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/烟绯/side.webp)|
 |罗莎莉亚|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/罗莎莉亚/side.webp)|
 |胡桃|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/胡桃/side.webp)|
 |魈|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/魈/side.webp)|
