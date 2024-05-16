@@ -119,6 +119,12 @@ export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
+{
+  title: '任务加成：[单手剑战斗技巧•八] 在任务『近在咫尺的目标』中使用『单手剑战斗技巧•八』后，基础攻击力提升[_atkPlus]点 { 此效果暂不参与计算 }',
+  data: {
+    _atkPlus: 3
+  }
+},
   {
     title: '旅行者天赋：[蔓生的埜草] 草灯莲将在其存在期间每秒获得一层莲光遍照效果，使其领域内的当前场上角色的元素精通提升[mastery]点元素精通。',
     check: ({ params }) => params.q === true,

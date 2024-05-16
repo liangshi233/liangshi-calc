@@ -4,8 +4,6 @@
 
 > 排名不分前后 按`Ctrl + F`可以进行搜索
 
->克洛琳德/赛索斯/希格雯 计算需要先安装wiki插件才可使用
-
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
 |克洛琳德|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
@@ -97,8 +95,8 @@
 |风|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/风主/side.png)|
 |岩|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/岩主/side.png)|
 |雷|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷主/side.png)|
-|草|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/草主/side.png)|
-|水|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/水主/side.png)|
+|草|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/草主/side.png)|
+|水|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/水主/side.png)|
 |火|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/火主/side.png)|
 |冰|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/冰主/side.png)|
 |无|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/无主/side.png)|

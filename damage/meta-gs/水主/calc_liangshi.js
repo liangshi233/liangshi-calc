@@ -118,6 +118,12 @@ export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
 export const buffs = [
+{
+  title: '任务加成：[单手剑战斗技巧•八] 在任务『近在咫尺的目标』中使用『单手剑战斗技巧•八』后，基础攻击力提升[_atkPlus]点 { 此效果暂不参与计算 }',
+  data: {
+    _atkPlus: 3
+  }
+},
   {
     check: ({ params }) => params.e === true,
     title: '旅行者技能：[水纹剑] 长按施放时，若生命值高于50%，露滴造成的伤害将提高[ePlus]，并且每秒损失[_deHp]生命值。',

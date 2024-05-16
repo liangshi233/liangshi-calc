@@ -121,6 +121,12 @@ export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
+{
+  title: '任务加成：[单手剑战斗技巧•八] 在任务『近在咫尺的目标』中使用『单手剑战斗技巧•八』后，基础攻击力提升[_atkPlus]点 { 此效果暂不参与计算 }',
+  data: {
+    _atkPlus: 3
+  }
+},
   {
     title: '旅行者天赋：[破碎的绝岩] 星陨剑的冷却时间减少[_ecdPlus]秒',
     data: {
