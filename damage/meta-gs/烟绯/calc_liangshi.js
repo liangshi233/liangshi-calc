@@ -58,9 +58,10 @@ if ( NamePath !== 1 ) {
 }
 const miss = ['a', 'c', 'h', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
 let ranking = 'undefined'
+if (!cfg.gs48ranking) {
  if ( rankingOnePath == 'm' ) {
- ranking = 'z'
-} else if (miss.includes(rankingOnePath)) {
+  ranking = 'z'
+ } else if (miss.includes(rankingOnePath)) {
    if ( rankingTwoPath == 'm' ) {
     ranking = 'z'
    } else if (miss.includes(rankingTwoPath)) {
@@ -75,8 +76,11 @@ let ranking = 'undefined'
    } else {
      ranking = `${rankingTwoPath}`
    }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
 } else {
- ranking = `${rankingOnePath}`
+  ranking = `${gs48ranking}`
 }
 if (!cfg.energymodel) {
   energy = 0

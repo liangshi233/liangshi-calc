@@ -1,100 +1,167 @@
-export const details = [{
-  title: '普通攻击一段超激化伤害',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', '超激化')
-}, {
-  title: '重击伤害',
-  params: { team: false },
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs58ranking = cfg.gs58ranking
+let energy = cfg.energymodel
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '野干役咒·杀生樱'
+let eNameT = 'E'
+let qName = '大密法·天狐显真'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '狐灵食罪式'
+  eNameT = '野干役咒·杀生樱'
+  qNameT = '大密法·天狐显真'
+ }  else if ( NamePath == 3 ) {
+  eNameT = '野干役咒·杀生樱'
+  qNameT = '大密法·天狐显真'
+ }  else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['a', 'c', 'h', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
+let ranking = 'undefined'
+if (!cfg.gs58ranking) {
+ if ( rankingOnePath == 'm' ) {
+  ranking = 'e'
+ } else if (miss.includes(rankingOnePath)) {
+   if ( rankingTwoPath == 'm' ) {
+    ranking = 'e'
+   } else if (miss.includes(rankingTwoPath)) {
+     if ( rankingThreePath == 'm' ) {
+      ranking = 'e'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[八重神子] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'e'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+  ranking = `${gs58ranking}`
+}
+if (!cfg.energymodel) {
+  energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
+export const details = [
+{
+  title: `${a2Name}单段伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
-}, {
-  title: '重击超激化伤害',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', '超激化')
-}, {
+},
+{
+  title: `${a2Name}单段激化`,
+  dmgKey: 'z',
+  dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'aggravate')
+},
+{
+  check: ({ cons }) => cons < 2,
+  title: `叁阶${eName}伤害`,
+  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e')
+},
+{
   check: ({ cons }) => cons < 2,
   dmgKey: 'e',
-  title: '叄阶杀生樱伤害',
-  params: { team: false },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e')
-}, {
+  title: `叁阶${eName}激化`,
+  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e', 'aggravate')
+},
+{
+  check: ({ cons }) => cons >= 2,
+  title: `肆阶${eName}伤害`,
+  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e')
+},
+{
   check: ({ cons }) => cons >= 2,
   dmgKey: 'e',
-  title: '肆阶杀生樱伤害',
-  params: { team: false },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e')
-}, {
-  check: ({ cons }) => cons < 2,
-  dmgKey: 'e_t',
-  params: { team: true },
-  title: '温三雷叄阶杀生樱伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·叁阶'], 'e')
-}, {
-  check: ({ cons }) => cons >= 2,
-  dmgKey: 'e_t',
-  params: { team: true },
-  title: '温三雷肆阶杀生樱伤害',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e')
-}, {
+  title: `肆阶${eName}激化`,
+  dmg: ({ talent, attr }, dmg) => dmg(talent.e['杀生樱伤害·肆阶'], 'e', 'aggravate')
+},
+{
+  title: `${qName}伤害`,
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+},
+{
+  title: `${qName}激化`,
+  dmgKey: 'q',
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'aggravate')
+},
+{
   title: '天狐霆雷伤害',
-  params: { team: false },
   dmg: ({ talent }, dmg) => dmg(talent.q['天狐霆雷伤害'], 'q')
-}, {
-  title: '天狐霆雷超激化伤害',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.q['天狐霆雷伤害'], 'q', '超激化')
-}, {
-  title: '温三雷四段Q总伤害',
-  params: { team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + talent.q['天狐霆雷伤害'] * 3, 'q')
+},
+{
+  title: '天狐霆雷激化',
+  dmg: ({ talent }, dmg) => dmg(talent.q['天狐霆雷伤害'], 'q', 'aggravate')
 }]
 
-export const mainAttr = 'atk,cpct,cdmg,mastery'
-export const defDmgKey = 'e'
 
-export const defParams = { team: true }
+export const defDmgKey = `${ranking}`
+export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const buffs = [
-  {
-    title: '八重神子天赋2：基于元素精通提高杀生樱伤害[eDmg]%',
-    data: {
-      eDmg: ({ attr, calc }) => calc(attr.mastery) * 0.15
-    }
-  }, {
-    check: ({ cons }) => cons >= 4,
-    title: '八重神子4命：杀生樱命中敌人后提高雷伤[dmg]%',
-    data: { dmg: 20 }
-  }, {
-    cons: 6,
-    title: '八重神子6命：杀生樱无视敌人[eDef]%防御',
-    data: { eDef: 60 }
-  }, {
-    check: ({ cons, params }) => ((cons == 6) && params.team === true),
-    title: '精5终末6命温迪：增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      atkPct: 40,
-      kx: 60,
-      mastery: 200
-    }
-  }, {
-    check: ({ cons, params }) => (cons <= 5 && params.team === true),
-    title: '精1终末0命温迪：增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      atkPct: 20,
-      kx: 40,
-      mastery: 100
-    }
-  }, {
-    check: ({ params }) => params.team === true,
-    title: '天空宗室九条：增加[atkPlus]点攻击力,[atkPct]%攻击与[cdmg]%爆伤',
-    data: {
-      atkPlus: 794.2,
-      atkPct: 20,
-      cdmg: 60
-    }
-  }, {
-    check: ({ params }) => params.team === true,
-    title: '恶曜开眼：开E元素爆发伤害提升[qDmg]%',
-    data: { qDmg: 27 }
-  },
-  { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }
-]
+{
+  title: '八重神子天赋：[启蜇之祝词] 使杀生樱造成的伤害提升[eDmg]%',
+  sort: 9,
+  data: {
+    eDmg: ({ attr, calc }) => calc(attr.mastery) * 0.15
+  }
+},
+{
+  title: '八重神子1命：[野狐供真篇] 大密法·天狐显真引发次天狐霆雷，会恢复[_energyevery]点元素能量。',
+  cons: 1,
+  data: {
+    _energyevery: 24
+  }
+},
+{
+  title: '八重神子2命：[望月吼哕声] 杀生樱创造时的位阶上限提升至肆阶，攻击范围提升60%。',
+  cons: 2
+},
+{
+  title: '八重神子4命：[绯樱引雷章] 杀生樱的落雷命中敌人后，队伍中附近的所有角色获得[dmg]%雷元素伤害加成。',
+  cons: 4,
+  data: {
+    dmg: 20
+  }
+},
+{
+  title: '八重神子6命：[大杀生咒禁] 杀生樱在攻击时无视敌人[ignore]%的防御力。',
+  cons: 6,
+  data: {
+    ignore: 60
+  }
+},
+{title: `5.18最后修改：[5.13重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs58ranking} 更新日志:${renew} 其他信息:${information}`}]
+

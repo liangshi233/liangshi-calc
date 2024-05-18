@@ -43,7 +43,7 @@
 |久岐忍|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/久岐忍/side.webp)|
 |夜兰|√|√|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夜兰/side.webp)|
 |神里绫人|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫人/side.webp)|
-|八重神子|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/八重神子/side.webp)|
+|八重神子|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/八重神子/side.webp)|
 |申鹤|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/申鹤/side.webp)|
 |云堇|√|√|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云堇/side.webp)|
 |荒泷一斗|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/荒泷一斗/side.webp)|
