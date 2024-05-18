@@ -6,9 +6,9 @@
 
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|克洛琳德|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
-|赛索斯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
-|希格雯|√|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
+|克洛琳德|!|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
+|赛索斯|!|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
+|希格雯|!|×|×|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
 |阿蕾奇诺|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
 |千织|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
 |闲云|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)|
@@ -72,7 +72,7 @@
 |温迪|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/温迪/side.webp)|
 |砂糖|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/砂糖/side.webp)|
 |刻晴|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/刻晴/side.webp)|
-|莫娜|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫娜/side.webp)|
+|莫娜|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫娜/side.webp)|
 |重云|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/重云/side.webp)|
 |七七|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/七七/side.webp)|
 |诺艾尔|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/诺艾尔/side.webp)|
@@ -99,7 +99,7 @@
 |水|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/水主/side.png)|
 |火|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/火主/side.png)|
 |冰|×|×|×|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/冰主/side.png)|
-|无|√|×|√|×|×|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/无主/side.png)|
+|无|√|×|√|×|√|![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/无主/side.png)|
 </details>
 
 ---
@@ -174,3 +174,16 @@
 </details>
 
 ---
+
+<details><summary>符号解释</summary>
+
+|符号|解释|
+|:-----:|:----:|
+|√|已经支持或已经适配的内容|
+|!|已经支持或已经适配但未在游戏内实装可能过时的内容|
+|×|暂未支持或暂未适配会在未来更新的内容|
+|~|已经在制作中但未制作完成或未适配的内容|
+|*|不完全支持或不完全适配的内容|
+|/|不支持或不适配且未来没有计划更新的内容|
+
+</details>
