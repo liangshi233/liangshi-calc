@@ -118,7 +118,7 @@ export const details = [
       }
     }
   }, {
-    title: '下落期间伤害',
+    title: `${a3Name}期间伤害`,
     dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
   }, {
     title: `低空${a3Name}伤害`,

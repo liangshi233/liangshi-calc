@@ -216,7 +216,7 @@ export const details = [
     params: { hp: true },
     dmg: ({ talent, attr }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'vaporize')
   }, {
-    title: '下落期间伤害',
+    title: `${a3Name}期间伤害`,
     params: { e: true },
     dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
   }, {

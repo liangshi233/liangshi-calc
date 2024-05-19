@@ -146,13 +146,13 @@ export const details = [
     dmgKey: 'z',
     dmg: ({ talent }, dmg) => dmg(talent.a['重击终结伤害'], 'a2', 'melt')
   }, {
-    title: '下落期间伤害物理',
+    title: `${a3Name}期间伤害物理`,
     dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
   }, {
-    title: '下落期间伤害冰',
+    title: `${a3Name}期间伤害冰`,
     dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3')
   }, {
-    title: '下落期间伤害融化',
+    title: `${a3Name}期间伤害融化`,
     dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'melt')
   }, {
     title: `低空${a3Name}伤害物理`,

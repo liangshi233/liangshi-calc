@@ -113,7 +113,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'aggravate')
 },
 {
-  title: '下落期间伤害',
+  title: `${a3Name}期间伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3')
 },
 {
