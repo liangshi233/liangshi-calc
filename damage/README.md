@@ -36,7 +36,7 @@
 |妮露|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/妮露/side.webp)|
 |赛诺|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛诺/side.webp)|
 |坎蒂丝|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/坎蒂丝/side.webp)|
-|提纳里|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/提纳里/side.webp)|
+|提纳里|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/提纳里/side.webp)|
 |多莉|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/多莉/side.webp)|
 |柯莱|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/柯莱/side.webp)|
 |鹿野院平藏|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/鹿野院平藏/side.webp)|
