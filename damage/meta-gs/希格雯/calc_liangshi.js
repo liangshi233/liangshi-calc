@@ -78,7 +78,7 @@ if (!cfg.gs95ranking) {
 if (!cfg.namemodel) energy = 0
 
 let renew = '无'
-let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
+let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时效性'
 
 export const details = [
   {
@@ -93,8 +93,10 @@ export const details = [
     title: `${eName}伤害提升值`,
     dmgKey: 'f',
     dmg: ({ calc, attr, cons }) => {
+      let cons1 = cons >= 1 ? 100 : 80
+      let cos1 = cons >= 1 ? 3500 : 2800
       return {
-        avg: Math.max(0, Math.min(((calc(attr.hp) - 30000) / 1000 * 65), 1800))
+        avg: Math.max(0, Math.min(((calc(attr.hp) - 30000) / 1000 * cons1), cos1))
       }
     }
   }, {
@@ -144,7 +146,7 @@ export const buffs = [
       _heal: 30
     }
   }, {
-    title: '希格雯1命：[「最快乐的精灵，可否懂得焦虑」] 弹跳水疗法的激愈水球能额外弹跳3次',
+    title: '希格雯1命：[「最快乐的精灵，可否懂得焦虑」] 弹跳水疗法的激愈水球能额外弹跳3次，静养计数产生的伤害值额外提升',
     cons: 1
   }, {
     title: '希格雯2命：[「最仁慈的精灵，可否化解仇敌」] 弹跳水疗法抛出的激愈水球或过饱和心意注射命中敌人后，该敌人的水元素抗性降低[kx]%',
@@ -160,10 +162,10 @@ export const buffs = [
     sort: 9,
     cons: 6,
     data: {
-      qCpct: ({ calc, attr }) => Math.min(20, calc(attr.hp) / 1000 * 0.7),
-      qCdmg: ({ calc, attr }) => Math.min(110, calc(attr.hp) / 1000 * 1.6)
+      qCpct: ({ calc, attr }) => Math.min(20, calc(attr.hp) / 1000 * 0.4),
+      qCdmg: ({ calc, attr }) => Math.min(110, calc(attr.hp) / 1000 * 2.2)
     }
   },
   'vaporize',
-  { title: `5.1最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `5.23最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 更新日志:${renew} 其他信息:${information}` }
 ]

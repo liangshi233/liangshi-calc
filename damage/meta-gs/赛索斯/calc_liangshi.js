@@ -81,7 +81,7 @@ if (!cfg.gs97ranking) {
 if (!cfg.namemodel) energy = 0
 
 let renew = '无'
-let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
+let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时效性'
 
 export const details = [
   {
@@ -146,6 +146,7 @@ export const buffs = [
       a2Plus: ({ attr, calc }) => calc(attr.mastery) * 600 / 100
     }
   }, {
+    check: ({ params }) => params.q !== true,
     title: '赛索斯1命：[封龛谒灵歌] 贯影箭的暴击率提升[a2Cpct]%',
     cons: 1,
     data: {
@@ -168,5 +169,5 @@ export const buffs = [
     cons: 6
   },
   'aggravate',
-  { title: `4.29最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `5.23最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
 ]
