@@ -93,15 +93,15 @@ export const details = [
   }, {
     title: `${eName}贯夜突进伤害`,
     params: { blPct: 0 },
-    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][0], 'e')
+    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][0], 'a')
   }, {
     title: `${eName}强化贯夜伤害`,
     params: { blPct: 0.5 },
-    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][1], 'e')
+    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][1], 'a')
   }, {
     title: `${eName}贯夜·契令`,
     dmgKey: 'e',
-    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'e')
+    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a')
   }, {
     check: ({ cons }) => cons >= 1,
     title: '夜巡之影协同攻击',
