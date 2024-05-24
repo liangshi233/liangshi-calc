@@ -78,17 +78,17 @@ if (!cfg.gs98ranking) {
 if (!cfg.namemodel) energy = 0
 
 let renew = '无'
-let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
+let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时效性'
 
 export const details = [
   {
     title: `${eNameT}后${aName}射击`,
     dmgKey: 'undefined',
-    params: { blPct: 0.5 },
     dmg: ({ talent, attr, cons }, dmg) => dmg(talent.e['驰猎伤害2'][0], 'a')
   }, {
     title: `${eNameT}后${aName}穿透射击`,
     dmgKey: 'a',
+    params: { blPct: 0.5 },
     dmg: ({ talent, attr, cons }, dmg) => dmg(talent.e['驰猎伤害2'][1], 'a')
   }, {
     title: `${eName}贯夜突进伤害`,
@@ -129,7 +129,7 @@ export const buffs = [
   {
     title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
     data: {
-      _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200)
+      _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200)
     }
   }, {
     title: '克洛琳德天赋：[破夜的明焰] 队伍中附近的角色对敌人触发雷元素相关反应后，提升普通攻击与残光将终造成的雷元素伤害[aPlus]',
@@ -138,7 +138,6 @@ export const buffs = [
       qPlus: ({ attr, calc }) => Math.min((calc(attr.atk) * 20 / 100 * 3), 1800)
     }
   }, {
-    check: ({ talent, params, weapon }) => (params.blPct * (talent.q['赋予生命之契'] + 35 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus) >= 100,
     title: '克洛琳德天赋：[契令的酬偿] 生命之契的数值提升或降低时，暴击率提升[cpct]% ',
     data: {
       cpct: 10 * 2
@@ -158,8 +157,8 @@ export const buffs = [
     title: '克洛琳德4命：[「铭记泪，生命与仁爱」] 当前拥有[_BondOfLife]%生命值上限的生命之契，残光将终造成的伤害提升[qDmg]',
     cons: 4,
     data: {
-      _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200),
-      qDmg: ({ talent, params, weapon }) => Math.min((Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200) * 2), 200)
+      _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200),
+      qDmg: ({ talent, params, weapon }) => Math.min((Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200) * 2), 200)
     }
   }, {
     title: '克洛琳德6命：[「为此，勿将希望弃扬」] 施放狩夜之巡后暴击率提高[cpct]%,暴击伤害提高[cdmg]%,夜巡状态持续期间受到的伤害降低[_reduction]%，抗打断能力提高[interruption]%，明烛之影会追击敌人造成雷元素伤害',
@@ -212,5 +211,5 @@ export const buffs = [
       kx: 20
     }
   },
-  { title: `5.1最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `5.24最后修改：[4.24重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs98ranking} 更新日志:${renew} 其他信息:${information}` }
 ]
