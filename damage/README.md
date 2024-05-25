@@ -84,7 +84,7 @@
 |香菱|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/香菱/side.webp)|
 |安柏|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/安柏/side.webp)|
 |雷泽|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷泽/side.webp)|
-|迪卢克|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪卢克/side.webp)|
+|迪卢克|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪卢克/side.webp)|
 |凯亚|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凯亚/side.webp)|
 |芭芭拉|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/芭芭拉/side.webp)|
 |丽莎|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丽莎/side.webp)|
@@ -175,6 +175,44 @@
 
 ---
 
+<details><summary>鸣潮</summary>
+
+> 排名不分前后 按`Ctrl + F`可以进行搜索
+
+> 此内容计算必需要先安装wiki插件才可使用
+
+|角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
+|:-----|:----:|:----:|:----:|:----:|:----:|:----:|
+|忌炎|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/忌炎/face.png)|
+|鉴心|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/鉴心/face.png)|
+|卡卡罗|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡卡罗/face.png)|
+|安可|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/安可/face.png)|
+|维里奈|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/维里奈/face.png)|
+|凌阳|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凌阳/face.png)|
+|秧秧|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/秧秧/face.png)|
+|白芷|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/白芷/face.png)|
+|炽霞|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/炽霞/face.png)|
+|散华|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/散华/face.png)|
+|秋水|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/秋水/face.png)|
+|丹瑾|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丹瑾/face.png)|
+|莫特斐|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫特斐/face.png)|
+|渊武|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/渊武/face.png)|
+|桃祈|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/桃祈/face.png)|
+
+---
+
+|主角属性|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
+|:-----|:----:|:----:|:----:|:----:|:----:|:----:|
+|衍射|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-衍射/face.png)|
+|湮灭|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-湮灭/face.png)|
+|热熔|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-热熔/face.png)|
+|冷凝|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-冷凝/face.png)|
+|导电|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-导电/face.png)|
+|气动|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/漂泊者-气动/face.png)|
+
+</details>
+
+---
 <details><summary>符号解释</summary>
 
 |符号|解释|

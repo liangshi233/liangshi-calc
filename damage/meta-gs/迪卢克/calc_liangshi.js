@@ -1,110 +1,193 @@
-export const details = [{
-  title: '逆焰之刃第三段伤害',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e')
-}, {
-  title: '逆焰之刃第三段蒸发',
-  params: { team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'vaporize')
-}, {
-  title: '黎明爆发伤害',
-  params: { q: true, team: false },
+import { LSconfig } from '#liangshi'
+
+let cfg = LSconfig.getConfig('user', 'config')
+let NamePath = cfg.namemodel
+let rankingOnePath = cfg.rankingOnemodel
+let rankingTwoPath = cfg.rankingTwomodel
+let rankingThreePath = cfg.rankingThreemodel
+let gs16ranking = cfg.gs16ranking
+let energy = cfg.energymodel
+let e1Dmg = { avg: 0 , dmg: 0 }
+let aName = '普通攻击'
+let a2Name = '重击'
+let a3Name = '下落攻击'
+let eName = '逆焰之刃'
+let eNameT = 'E'
+let qName = '黎明'
+let qNameT = 'Q'
+if ( NamePath !== 1 ) {
+ if ( NamePath == 2 ) {
+  aName = '淬炼之剑'
+  eNameT = '逆焰之刃'
+  qNameT = '黎明'
+ }  else if ( NamePath == 3 ) {
+  eNameT = '逆焰之刃'
+  qNameT = '黎明'
+ }  else if ( NamePath == 4 ) {
+  eName = '元素战技'
+  qName = '元素爆发'
+  eNameT = '元素战技'
+  qNameT = '元素爆发'
+ } else if ( NamePath == 5 ) {
+  aName = '普攻'
+  a3Name = '下落'
+  eName = 'E技能'
+  qName = 'Q技能'
+  eNameT = 'E技能'
+  qNameT = 'Q技能'
+ } else if ( NamePath == 6 ) {
+  aName = 'A'
+  a2Name = 'Z'
+  a3Name = '戳'
+  eName = 'E'
+  qName = 'Q'
+  eNameT = 'E'
+  qNameT = 'Q'
+ }
+}
+const miss = ['z', 'h', 'f', 'y', 'hph', 'hps', 'dph', 'dps']
+let ranking = 'undefined'
+if (!cfg.gs16ranking) {
+ if (rankingOnePath == 'm') {
+  ranking = 'q'
+ } else if (miss.includes(rankingOnePath)) {
+   if (rankingTwoPath == 'm') {
+    ranking = 'q'
+   } else if (miss.includes(rankingTwoPath)) {
+     if (rankingThreePath == 'm') {
+      ranking = 'q'
+     } else if (miss.includes(rankingThreePath)) {
+      logger.mark('[迪卢克] 排名规则均未命中，已选择默认排名规则')
+      ranking = 'q'
+     } else {
+       ranking = `${rankingThreePath}`
+     }
+   } else {
+     ranking = `${rankingTwoPath}`
+   }
+ } else {
+  ranking = `${rankingOnePath}`
+ }
+} else {
+  ranking = `${gs16ranking}`
+}
+if (!cfg.energymodel) {
+  energy = 0
+}
+let renew = '无'
+let information = '如有问题请输入 #伤害计算反馈'
+
+export const details = [
+{
+  title: `${eName}第一段伤害`,
+  dmg: ({ talent }, dmg) => {
+    e1Dmg = dmg(talent.e['一段伤害'], 'e')
+    return e1Dmg
+  }
+},
+{
+  title: `${eName}第一段融化`,
+  dmgKey: 'undefined',
+  dmg: ({ talent }, dmg) => dmg(talent.e['一段伤害'], 'e', 'melt')
+},
+{
+  title: `${eName}完整伤害`,
+  dmgKey: 'e',
+  params: { e: true },
+  dmg: ({ talent }, dmg ) => {
+    let e1 = e1Dmg
+    let e2 = dmg(talent.e['二段伤害'], 'e')
+    let e3 = dmg(talent.e['三段伤害'], 'e')
+    return {
+      dmg: e1.dmg + e2.dmg + e3.dmg ,
+      avg: e1.avg + e2.avg + e3.avg
+    }
+  }
+},
+{
+  title: `${qName}爆发伤害`,
+  params: { q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q')
-}, {
-  title: '黎明爆发蒸发伤害',
-  params: { q: true, team: false },
+},
+{
+  title: `${qName}爆发蒸发`,
+  params: { q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'vaporize')
-}, {
-  title: '黎明爆发融化伤害',
-  params: { q: true, team: false },
+},
+{
+  title: `${qName}爆发融化`,
+  dmgKey: 'q',
+  params: { q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'melt')
-}, {
-  title: '开Q后单次重击',
-  params: { q: true, team: false },
-  dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2')
-}, {
-  title: '凯万班融卢E三段融化',
-  params: { team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['三段伤害'], 'e', 'melt')
-}, {
-  title: '凯万班融卢黎明融化',
-  params: { q: true, team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害'], 'q', 'melt')
-}, {
-  title: '融卢开Q后普攻一段融化',
-  params: { q: true, team: true },
-  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'melt')
+},
+{
+  title: `${qName}每段伤害`,
+  params: { q: true },
+  dmg: ({ talent }, dmg) => dmg(talent.q['持续伤害'], 'q')
+},
+{
+  title: `${qNameT}后${aName}一段伤害`,
+  dmgKey: 'a',
+  params: { q: true },
+  dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
+},
+{
+  title: `${qNameT}后高空${a3Name}伤害`,
+  dmgKey: 'c',
+  params: { q: true },
+  dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 }]
 
-export const defParams = { monv: 3, team: true }
+export const defParams = { monv: 3 }
+export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
-export const defDmgIdx = 2
 
 export const buffs = [
-  {
-    title: '迪卢克天赋2：释放元素爆发后获得20%火伤加成',
-    data: {
-      dmg: ({ params }) => params.q ? 20 : 0
-    }
-  }, {
-    title: '迪卢克1命：对于生命值高于50%的敌人，造成伤害提高15%',
-    cons: 1,
-    data: { dmg: 15 }
-  }, {
-    title: '迪卢克2命：受伤3层提高攻击力30%',
-    cons: 2,
-    data: { atkPct: 30 }
-  }, {
-    title: '迪卢克4命：间隔2秒释放E提高伤害40%',
-    cons: 4,
-    data: { eDmg: 40 }
-  }, {
-    check: ({ params }) => params.team === true,
-    title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',
-    sort: 9,
-    data: {
-      atkPct: 20,
-      atkPlus: 1202.35
-    }
-  }, {
-    check: ({ cons, params }) => cons <= 1 && params.team === true,
-    title: '精1苍古0命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%',
-    data: {
-      aDmg: 16,
-      a2Dmg: 16,
-      a3Dmg: 16,
-      dmg: 40,
-      atkPct: 20,
-      kx: 40
-    }
-  }, {
-    check: ({ cons, params }) => ((cons < 6 && cons > 1) && params.team === true),
-    title: '精1苍古2命万叶：获得[dmg]%增伤(苍古普攻16增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg: 16,
-      a2Dmg: 16,
-      a3Dmg: 16,
-      dmg: 48,
-      atkPct: 20,
-      kx: 40,
-      mastery: 200
-    }
-  }, {
-    check: ({ cons, params }) => (cons >= 6 && params.team === true),
-    title: '精5苍古6命万叶：获得[dmg]%增伤(苍古普攻32增伤)，增加[atkPct]%攻击,减抗[kx]%,精通[mastery]',
-    data: {
-      aDmg: 32,
-      a2Dmg: 32,
-      a3Dmg: 32,
-      dmg: 48,
-      atkPct: 40,
-      kx: 40,
-      mastery: 200
-    }
-  }, {
-    check: ({ params }) => params.team === true,
-    title: '元素共鸣 热诚之火：攻击力提高[atkPct]%',
-    data: { atkPct: 25 }
-  }, 'vaporize',
-  { title: '5.16最后修改：如有问题请输入 #伤害计算反馈' }
-]
+{
+  title: '迪卢克天赋：[永不休止] 重击的体力消耗降低[_a2StaminaPct]%，持续时间延长[_a2SustainedPlus]秒',
+  data: {
+    _a2StaminaPct: 50 ,
+    _a2SustainedPlus: 3
+  }
+},
+{
+  check: ({ params }) =>  params.q === true ,
+  title: '迪卢克天赋：[熔毁之翼] 黎明提供的火元素附魔效果持续期间，获得[dmg]%火元素伤害加成',
+  data: {
+    dmg: 20
+  }
+},
+{
+  title: '迪卢克1命：[罪罚裁断] 对于生命值高于50%的敌人，造成伤害提高[dmg]%',
+  cons: 1,
+  data: {
+    dmg: 15
+  }
+},
+{
+  title: '迪卢克2命：[罪罚裁断] 受到伤害时，攻击力提高[atkPct]%，攻击速度提高[_aSpeed]%',
+  cons: 2,
+  data: {
+    atkPct: 10 * 3 ,
+    _aSpeed: 5 * 3
+  }
+},
+{
+  check: ({ params }) =>  params.e === true ,
+  title: '迪卢克4命：[罪罚裁断] 施放逆焰之刃的2秒后，下一段逆焰之刃的伤害提高[eDmg]%',
+  cons: 4,
+  data: {
+    eDmg: 40
+  }
+},
+{
+  title: '迪卢克6命：[清算黑暗的炎之剑] 施放逆焰之刃后，普通攻击的攻击速度提升[_aSpeed]%，造成伤害提高[aDmg]%',
+  cons: 6,
+  data: {
+    _aSpeed: 30 ,
+    aDmg: 30
+  }
+},
+ 'vaporize',
+{title: `5.25最后修改：[5.12重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs16ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+
