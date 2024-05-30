@@ -68,7 +68,7 @@ if (!cfg.sr1315ranking) {
   ranking = `${sr1315ranking}`
 }
 
-let renew = '无'
+let renew = '5.30 修复六魂击破加成异常'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -79,7 +79,7 @@ export const details = [
     title: `${eNameT}后${aName}伤害`,
     dmgKey: 'a',
     params: { e: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a2['击锤连弩·伤害'], 'a')
+    dmg: ({ talent }, dmg) => dmg(talent.a2['技能伤害'], 'a')
   }, {
     title: `${qName}伤害`,
     dmgKey: 'q',
@@ -97,27 +97,27 @@ export const details = [
     title: '天赋一层击破-精英敌人',
     params: { toughness: 10 },
     dmg: ({ talent, cons, params }, { reaction }) => {
-      let cons6 = cons * 1 >= 6 ? 40 : 0
+      let cons6 = cons * 1 >= 6 ? 0.4 : 0
       return {
-        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['击破伤害·一层优势口袋'] + cons6)
+        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['1层伤害'] + cons6)
       }
     }
   }, {
     title: '天赋二层击破-精英敌人',
     params: { toughness: 10 },
     dmg: ({ talent, cons, params }, { reaction }) => {
-      let cons6 = cons * 1 >= 6 ? 40 : 0
+      let cons6 = cons * 1 >= 6 ? 0.4 : 0
       return {
-        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['击破伤害·二层优势口袋'] + cons6)
+        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['2层伤害'] + cons6)
       }
     }
   }, {
     title: '天赋三层击破-精英敌人',
     params: { toughness: 10 },
     dmg: ({ talent, cons, params }, { reaction }) => {
-      let cons6 = cons * 1 >= 6 ? 40 : 0
+      let cons6 = cons * 1 >= 6 ? 0.4 : 0
       return {
-        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['击破伤害·三层优势口袋'] + cons6)
+        avg: reaction('iceBreak').avg / 0.9 * (params.toughness + 2) / 4 * (talent.t['3层伤害'] + cons6)
       }
     }
   }
@@ -184,5 +184,5 @@ export const buffs = [
     title: '波提欧6魂：[撬棍旅馆的浣熊] 触发天赋造成击破伤害时，对目标额外造成击破伤害',
     cons: 6
   },
-  { title: `4.23最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1315ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `5.30最后修改：[4.23重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1315ranking} 更新日志:${renew} 其他信息:${information}` }
 ]

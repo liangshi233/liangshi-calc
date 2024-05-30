@@ -16,13 +16,13 @@ const LSstart = {
         { file: 'calc_li', name: '大爷', test: () => cfg.calcLi },
         //    { file: 'calc_qsyhh', name: 'qsyhhcalc 基础' , test: () => cfg.calcQsyhh },
         //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => cfg.calcLiangK },
-        //    { file: 'calc_liangshiT', name: 'liangshicalc 组队' , test: () => cfg.calcLiangT },
         //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
-        //    { file: 'calc_liangshiP', name: 'liangshipro 进阶' , test: () => cfg.calcLiangP },
+        { file: 'calc_liangshiP', name: 'liangshipro 进阶' , test: () => cfg.calcLiangP },
         { file: 'calc_liangshiQ', name: 'liangshicalc 超全', test: () => cfg.calcLiangQ },
+        { file: 'calc_liangshiT', name: 'liangshicalc 队伍' , test: () => cfg.calcLiangT },
         { file: 'calc_liangshi', name: 'liangshicalc 基础', test: () => cfg.calcLiang },
-        { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
-        { file: 'calc', name: '喵喵' }
+        { file: 'calc_auto', name: 'miao-plugin 组团', test: () => Common.cfg('teamCalc') },
+        { file: 'calc', name: 'miao-plugin 单人' }
       ]
       // 兼容处理星铁主角的情况
       let tbReg = /^(星|穹)·/
@@ -41,6 +41,9 @@ const LSstart = {
           path = `${_path}/plugins/qsyhh-calc/resources/meta-${game}/character/${name}/${ds.file}.js`
         }
         */
+        if (cfg.calcLiangP) {
+          path = `/plugins/liangshi-calc/resources/calc-pro/meta-${game}/${name}/${ds.file}.js`
+        }
         if (ds.test && !ds.test()) {
           continue
         }
