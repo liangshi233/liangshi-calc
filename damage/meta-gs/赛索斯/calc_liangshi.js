@@ -86,11 +86,11 @@ let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时
 export const details = [
   {
     title: `二段蓄力${a2Name2}`,
-    dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害'][1] * calc(attr.mastery) / 100, 'a2')
+    dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害2'][1] * calc(attr.mastery) / 100, 'a2')
   }, {
     title: `二段蓄力${a2Name2}激化`,
     dmgKey: 'z',
-    dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害'][1] * calc(attr.mastery) / 100, 'a2', 'aggravate')
+    dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害2'][1] * calc(attr.mastery) / 100, 'a2', 'aggravate')
   }, {
     title: `${eName}伤害`,
     dmg: ({ talent, attr }, dmg) => dmg(talent.e['技能伤害'], 'e')
@@ -169,5 +169,5 @@ export const buffs = [
     cons: 6
   },
   'aggravate',
-  { title: `5.23最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `6.5最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
 ]
