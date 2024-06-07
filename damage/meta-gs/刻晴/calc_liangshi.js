@@ -51,16 +51,16 @@ const miss = ['a', 'c', 'h', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
 let ranking = 'undefined'
 if (!cfg.gs42ranking) {
  if (rankingOnePath == 'm') {
-  ranking = 'dps'
+  ranking = 'q'
  } else if (miss.includes(rankingOnePath)) {
    if (rankingTwoPath == 'm') {
-    ranking = 'dps'
+    ranking = 'q'
    } else if (miss.includes(rankingTwoPath)) {
      if (rankingThreePath == 'm') {
-      ranking = 'dps'
+      ranking = 'q'
      } else if (miss.includes(rankingThreePath)) {
       logger.mark('[刻晴] 排名规则均未命中，已选择默认排名规则')
-      ranking = 'dps'
+      ranking = 'q'
      } else {
        ranking = `${rankingThreePath}`
      }
