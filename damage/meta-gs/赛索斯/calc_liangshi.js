@@ -85,10 +85,10 @@ let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时
 
 export const details = [
   {
-    title: `二段蓄力${a2Name2}`,
+    title: `${a2Name2}`,
     dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害2'][1] * calc(attr.mastery) / 100, 'a2')
   }, {
-    title: `二段蓄力${a2Name2}激化`,
+    title: `${a2Name2}激化`,
     dmgKey: 'z',
     dmg: ({ talent, calc, attr, cons }, { basic }) => basic(talent.a['贯影箭伤害2'][0] * calc(attr.atk) / 100 + talent.a['贯影箭伤害2'][1] * calc(attr.mastery) / 100, 'a2', 'aggravate')
   }, {
