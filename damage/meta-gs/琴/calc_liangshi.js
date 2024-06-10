@@ -79,10 +79,12 @@ let information = '如有问题请输入 #伤害计算反馈'
 export const details = [
 {
   title: `${a2Name}伤害`,
+  dmgKey: 'z',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
 },
 {
   title: `${eName}伤害`,
+  dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
 },
 {
@@ -93,6 +95,7 @@ export const details = [
 },
 {
   title: `${qName}爆发伤害`,
+  dmgKey: 'q',
   params: { q: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['爆发伤害'], 'q')
 },
@@ -103,6 +106,7 @@ export const details = [
 },
 {
   title: `${qName}爆发治疗`,
+  dmgKey: 'h',
   dmg: ({ talent, calc, attr }, { heal }) => heal(talent.q['领域发动治疗量2'][0] * calc(attr.atk) / 100 + talent.q['领域发动治疗量2'][1] * 1)
 },
 {
@@ -111,6 +115,7 @@ export const details = [
 },
 {
   title: '扩散反应伤害',
+  dmgKey: 'r',
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
 

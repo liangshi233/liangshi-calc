@@ -78,18 +78,18 @@ if (!cfg.gs98ranking) {
 if (!cfg.namemodel) energy = 0
 
 let renew = '无'
-let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时效性'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
   {
-    title: `${eNameT}后${aName}射击`,
-    dmgKey: 'undefined',
-    dmg: ({ talent, attr, cons }, dmg) => dmg(talent.e['驰猎伤害2'][0], 'a')
-  }, {
     title: `${eNameT}后${aName}穿透射击`,
     dmgKey: 'a',
     params: { blPct: 0.5 },
     dmg: ({ talent, attr, cons }, dmg) => dmg(talent.e['驰猎伤害2'][1], 'a')
+  }, {
+    title: `${eNameT}后${aName}射击`,
+    dmgKey: 'undefined',
+    dmg: ({ talent, attr, cons }, dmg) => dmg(talent.e['驰猎伤害2'][0], 'a')
   }, {
     title: `${eName}贯夜突进伤害`,
     params: { blPct: 0 },
@@ -101,7 +101,13 @@ export const details = [
   }, {
     title: `${eName}贯夜·契令`,
     dmgKey: 'e',
-    dmg: ({ talent, attr }, dmg) => dmg(talent.e['贯夜伤害2'][2], 'a')
+    dmg: ({ talent, attr }, dmg ) => {
+     let e3 = dmg(talent.e['贯夜伤害2'][2], 'e')
+     return {
+       dmg: e3.dmg * 3 ,
+       avg: e3.avg * 3
+     }
+    }
   }, {
     check: ({ cons }) => cons >= 1,
     title: '夜巡之影协同攻击',

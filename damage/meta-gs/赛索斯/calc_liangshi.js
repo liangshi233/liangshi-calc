@@ -81,7 +81,7 @@ if (!cfg.gs97ranking) {
 if (!cfg.namemodel) energy = 0
 
 let renew = '无'
-let information = '测试内容:[4.6.53] 数据随时可能更改，请注意时效性'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
   {
@@ -137,13 +137,13 @@ export const buffs = [
   }, {
     title: '赛索斯天赋：[黑鸢的密喻] 瞄准射击时，使蓄力时间降低至0.3秒，并获得[_energyevery]元素能量',
     data: {
-      _energyevery: -1.05
+      _energyevery: -20
     }
   }, {
     check: ({ params }) => params.q !== true,
     title: '赛索斯天赋：[砂王的赐礼] 「热砂炫影」效果，使贯影箭造成的伤害值提升[a2Plus]',
     data: {
-      a2Plus: ({ attr, calc }) => calc(attr.mastery) * 600 / 100
+      a2Plus: ({ attr, calc }) => calc(attr.mastery) * 700 / 100
     }
   }, {
     check: ({ params }) => params.q !== true,
@@ -169,5 +169,5 @@ export const buffs = [
     cons: 6
   },
   'aggravate',
-  { title: `6.5最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
+  { title: `6.10最后修改：[4.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs97ranking} 更新日志:${renew} 其他信息:${information}` }
 ]

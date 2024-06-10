@@ -691,7 +691,6 @@ export const details = [
   title: '单人站场期望DPS蒸发',
   dmgKey: 'dps',
   check: ({ cons }) => cons < 6,
-  dmgKey: 'dps',
   params: { gltk: 3 , q: true },
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'vaporize')
@@ -783,7 +782,6 @@ export const details = [
   title: '单人站场期望DPS蒸发',
   dmgKey: 'dps',
   check: ({ cons }) => cons >= 6,
-  dmgKey: 'dps',
   params: { gltk: 4 , q: true },
   dmg: ({ talent , calc , attr , weapon , cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'vaporize')
