@@ -12,7 +12,7 @@
 |希格雯|!|!|!|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
 |阿蕾奇诺|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)|
 |千织|√|√|√|√|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)|
-|闲云|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)|
+|闲云|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)|
 |嘉明|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/嘉明/side.webp)|
 |夏沃蕾|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏沃蕾/side.webp)|
 |娜维娅|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/娜维娅/side.webp)|
