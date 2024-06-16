@@ -70,7 +70,7 @@
 |达达利亚|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/达达利亚/side.webp)|
 |迪奥娜|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪奥娜/side.webp)|
 |可莉|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/可莉/side.webp)|
-|温迪|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/温迪/side.webp)|
+|温迪|√|×|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/温迪/side.webp)|
 |砂糖|√|×|√|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/砂糖/side.webp)|
 |刻晴|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/刻晴/side.webp)|
 |莫娜|√|√|√|×|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫娜/side.webp)|
