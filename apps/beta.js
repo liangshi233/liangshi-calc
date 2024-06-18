@@ -10,8 +10,8 @@ export class beta extends plugin {
       rule: [
         // 每个角色已分开，不需要此功能或不需要的角色请将对应的注释
         {
-          reg: '^#?((流萤|流荧|牢萤|留莹|留萤|萨姆|萤宝)(极限面板|面板100000000))$',
-          fnc: 'ly'
+          reg: '^#?((云璃)(极限面板|面板100000000))$',
+          fnc: 'yl'
         },{
           reg: '^#?((翡翠)(极限面板|面板100000000))$',
           fnc: 'fc'
@@ -23,7 +23,7 @@ export class beta extends plugin {
     })
   }
 
-  async ly () {
+  async yl () {
     this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.bmp`))
     return true
   }
