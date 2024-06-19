@@ -109,10 +109,10 @@
 
 > 排名不分前后 按`Ctrl + F`可以进行搜索
 
-> 流萤/翡翠 相关内容需要先安装wiki插件才可使用
-
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
+|云璃|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
+|椒丘|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椒丘/face.png)|
 |流萤|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
 |翡翠|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/翡翠/face.png)|
 |波提欧|√|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
@@ -180,7 +180,7 @@
 
 > 排名不分前后 按`Ctrl + F`可以进行搜索
 
-> 此内容必需要先安装 wiki 或 [mc-wiki](https://gitee.com/qsyhh/mc-wiki) 插件才可使用
+> 此内容暂缓更新
 
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
