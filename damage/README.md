@@ -113,7 +113,7 @@
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
 |云璃|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
 |椒丘|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椒丘/face.png)|
-|流萤|~|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
+|流萤|√|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
 |翡翠|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/翡翠/face.png)|
 |波提欧|√|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
 |知更鸟|√|×|×|/|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/知更鸟/face.png)|

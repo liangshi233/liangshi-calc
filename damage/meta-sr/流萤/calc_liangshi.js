@@ -1,5 +1,4 @@
-import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -111,8 +110,8 @@ export const details = [
   dmg: ({ talent, attr, calc }, { basic }) => basic( calc(attr.atk) * talent.e2['相邻目标伤害'] + Math.min( 360 , calc(attr.stance) ) * 0.1, 'e')
 },
 {
-  title: `${qNameT}后${e2Name}击破-精英敌人`,
-  params: { q: true ,  e: true , toughness: 10 , jp: true },
+  title: `${qNameT}后${e2Name}-精英敌人击破`,
+  params: { q: true ,  e: true , toughness: 10 },
   dmg: ({ talent, params, cons }, { reaction }) => {
     return {
       avg: reaction('fireBreak').avg * ( params.toughness + 2 ) / 4
@@ -122,7 +121,7 @@ export const details = [
 {
   check: ({ calc, attr }) => calc(attr.stance) >= 200 ,
   title: `${qNameT}后${a2Name}天赋超击破`,
-  params: { toughnessDef: 1.5 , q: true , jp: true },
+  params: { toughnessDef: 1.5 , q: true },
   dmg: ({ params , cons , calc, attr }, { reaction }) => {
     return {
       avg: reaction('superBreak').avg * params.toughnessDef * ( cons >= 6 ? 2 : 1.5 ) * ( calc(attr.stance) >= 360 ? 0.5 : 0.35 ) / 0.9
@@ -133,7 +132,7 @@ export const details = [
   check: ({ calc, attr }) => calc(attr.stance) >= 200 ,
   title: `${qNameT}后${e2NameT}天赋超击破`,
   dmgKey: 'r',
-  params: { toughnessDef: 3 , q: true , jp: true , e: true },
+  params: { toughnessDef: 3 , q: true , e: true },
   dmg: ({ params , cons , calc, attr }, { reaction }) => {
     return {
       avg: reaction('superBreak').avg * params.toughnessDef * ( cons >= 6 ? 2 : 1.5 ) * ( calc(attr.stance) >= 360 ? 0.5 : 0.35 ) / 0.9
@@ -147,7 +146,31 @@ export const mainAttr = 'atk,dmg,stance'
 
 export const buffs = [
 {
-  check: ({ params }) => params.jp === true,
+  title: '角色状态：[面板属性] 当前攻击力[_atk]，防御力[_def]，生命值[_hp]，速度[_speed]，暴击率[_cpct]%，暴击伤害[_cdmg]%，充能效率[_recharge]%，击破特攻[_stance]%，效果命中[_effPct]%，效果抵抗[_effDef]%，治疗加成[_heal]%，伤害加成[_dmg]%',
+  sort: 10,
+  data: {
+    _atk: ({ calc, attr }) => calc(attr.atk) ,
+    _def: ({ calc, attr }) => calc(attr.def) ,
+    _hp: ({ calc, attr }) => calc(attr.hp) ,
+    _speed: ({ calc, attr }) => calc(attr.speed) ,
+    _cpct: ({ calc, attr }) => calc(attr.cpct) ,
+    _cdmg: ({ calc, attr }) => calc(attr.cdmg) ,
+    _recharge: ({ calc, attr }) => calc(attr.recharge) ,
+    _stance: ({ calc, attr }) => calc(attr.stance) ,
+    _effPct: ({ calc, attr }) => calc(attr.effPct) ,
+    _effDef: ({ calc, attr }) => calc(attr.effDef) ,
+    _heal: ({ calc, attr }) => calc(attr.heal) ,
+    _dmg: ({ calc, attr }) => calc(attr.dmg)
+  }
+},
+{
+  title: '敌人状态：[韧性] 具有[toughness]韧性上限',
+  data: {
+    toughness: ({ params }) => ( params.toughness || 10 )
+  }
+},
+{
+  check: ({ params }) => params.q === true,
   title: '流萤技能：[火萤Ⅳ型-完全燃烧] 「完全燃烧」状态下速度提高[speed]%,使敌方目标受到装甲「萨姆」造成的击破伤害提高[breakEnemydmg]%',
   data: {
     speed: ({ talent }) => talent.q['速度提高'] ,
@@ -164,12 +187,12 @@ export const buffs = [
   }
 },
 {
-  check: ({ calc, attr }) => calc(attr.atk) >= 1800 ,
+  check: ({ calc, attr }) => calc(attr.atk) > 1800 ,
   title: '流萤行迹：[γ模组-过载核心] 装甲「萨姆」的攻击力高于1800点，使自身击破特攻提高[stance]%',
   sort: 9,
   tree: 3,
   data: {
-    stance: ({ calc, attr }) => ( ( calc(attr.atk) - 1800 ) / 10 ) * 0.8
+    stance: ({ calc, attr }) => Math.floor( ( calc(attr.atk) - 1800 ) / 10 ) * 0.8
   }
 },
 {
@@ -194,7 +217,7 @@ export const buffs = [
   title: '流萤4魂：[我会看见，飞萤之火] 「完全燃烧」状态下，装甲「萨姆」的效果抵抗提高[effDef]%',
   cons: 4,
   data: {
-    effDef: 15
+    effDef: 50
  }
 },
 {
@@ -205,5 +228,5 @@ export const buffs = [
     kx: 20
  }
 },
-{title: `6.20最后修改：[5.4重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1310ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `6.22最后修改：[5.4重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1310ranking} 更新日志:${renew} 其他信息:${information}`}]
 
