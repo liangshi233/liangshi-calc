@@ -1,18 +1,19 @@
 import { Data, LSconfig } from '#liangshi'
-//import Base from '../Base.js'
+import { miaoPath, rootPath } from '#miao.path'
 import lodash from 'lodash'
 import fs from 'node:fs'
 
 const cfgL = LSconfig.getConfig('user', 'config')
 
-let game = 'gs'; //星铁的评分似乎没有人做,看后续有没有人有需求再弄吧
-let miaoPath = `${process.cwd()}/plugins/miao-plugin/resources/meta-${game}/character`;
-let liangPath = `${process.cwd()}/plugins/liangshi-calc/damage/meta-${game}`;
-
 let cfgMap = {
   char: {},
-  async init() {
-    let chars = fs.readdirSync(cfgL.calcLiang || cfgL.artisLiang ? liangPath : miaoPath)
+  game: 'gs',
+  async init (game = 'gs') {
+    this.game = game
+    let chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
+    if (cfgL.calcLiang || cfgL.artisLiang) {
+       chars = fs.readdirSync(`${rootPath}/plugins/liangshi-calc/damage/meta-${game}`)
+    }
     for (let char of chars) {
       cfgMap.char[char] = {}
       let curr = cfgMap.char[char]
@@ -39,8 +40,8 @@ let cfgMap = {
         curr.calc = await cfgMap.getCfg(char, 'calc_liangshiQ')
         //      } else if (cfgMap.exists(char, 'calc_liangshiJ') && cfgL.calcLiangJ) {
         //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiJ')
-        //      } else if (cfgMap.exists(char, 'calc_liangshiT') && cfgL.calcLiangT) {
-        //        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiT')
+      } else if (cfgMap.exists(char, 'calc_liangshiT') && cfgL.calcLiangT) {
+        curr.calc = await cfgMap.getCfg(char, 'calc_liangshiT')
       } else if (cfgMap.exists(char, 'calc_liangshi') && cfgL.calcLiang) {
         curr.calc = await cfgMap.getCfg(char, 'calc_liangshi')
       } else if (cfgMap.exists(char, 'calc', 'miao')) {
@@ -49,21 +50,24 @@ let cfgMap = {
     }
   },
   exists(char, file, path = '') {
-    if (path) return fs.existsSync(`${miaoPath}/${char}/${file}.js`)
-    return fs.existsSync(`${liangPath}/${char}/${file}.js`)
+    if (path) return fs.existsSync(`${miaoPath}/resources/meta-${this.game}/character/${char}/${file}.js`)
+    return fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/meta-${this.game}/${char}/${file}.js`)
   },
-  async getCfg(char, file, module = '', game = 'gs') {
-    let cfg = await Data.importModule(`resources/meta-${game}/character/${char}/${file}.js`, 'miao');
+  async getCfg(char, file, module = '') {
+    let cfg = await Data.importModule(`resources/meta-${this.game}/character/${char}/${file}.js`, 'miao');
     if (module && cfgL.artisLiang) {
-      cfg = await Data.importModule(`damage/meta-${game}/${char}/${file}.js`)
+      cfg = await Data.importModule(`damage/meta-${this.game}/${char}/${file}.js`)
     } else if (cfgL.calcLiang) {
-      cfg = await Data.importModule(`damage/meta-${game}/${char}/${file}.js`)
+      cfg = await Data.importModule(`damage/meta-${this.game}/${char}/${file}.js`)
     }
     if (module) return cfg[module]
     return cfg
   }
 }
-await cfgMap.init()
+await cfgMap.init('gs')
+let cfgMapGs = { ...cfgMap }
+await cfgMap.init('sr')
+let cfgMapSr = { ...cfgMap }
 
 /**
  * 角色相关配置
@@ -86,7 +90,12 @@ let CharCfg = {
     }
   },
   getArtisCfg(char) {
-    return cfgMap.char[char.isTraveler ? '旅行者' : char.name]?.artis || false
+    if (char.game !== 'sr') {
+      let charName = char.isTraveler ? `旅行者/${char.elem}` : char.name
+      return cfgMapGs.char[charName]?.artis || false
+    } else {
+      return cfgMapSr.char[char.name]?.artis || false
+    }
   }
 }
 export default CharCfg
