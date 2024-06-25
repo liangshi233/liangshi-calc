@@ -1,5 +1,5 @@
 import { Data, LSconfig } from '#liangshi'
-import { miaoPath, rootPath } from '#miao.path'
+import { miaoPath, rootPath } from '../../miao-plugin/tools/path.js'
 import lodash from 'lodash'
 import fs from 'node:fs'
 
