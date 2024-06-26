@@ -80,7 +80,7 @@ if (!cfg.namemodel) {
 energy = 0
 }
 let renew = '无'
-let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
@@ -305,7 +305,7 @@ export const details = [
 	}
 },
 {
-  title: '单人站场18秒自我治疗',
+  title: '双人站场18秒治疗',
   dmgKey: 'hph',
   params: { elv: 2 },
   dmg: ({ talent, attr, calc, cons }, { heal }) => {
@@ -319,7 +319,7 @@ export const details = [
   }
 },
 {
- 	title: '单人循环流畅度',
+	title: '单人循环流畅度',
   dmg: ({ talent , calc , attr , weapon , cons }) => {
   let weaponn = 0
   let weaponnn = 0
@@ -394,7 +394,7 @@ export const details = [
 	}
 },
 {
-  title: '单人站场期望自我HPS',
+  title: '双人站场期望HPS',
   dmgKey: 'hps',
   params: { elv: 2 },
   dmg: ({ talent, attr, calc, cons }, { heal }) => {

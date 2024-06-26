@@ -74,7 +74,7 @@ if (!cfg.namemodel) {
 energy = 0
 }
 let renew = '无'
-let information = '测试内容:[4.6.51] 数据随时可能更改，请注意时效性'
+let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
