@@ -111,7 +111,7 @@
 
 |角色名字|基础计算|超全计算|基础评分|自适应评分|自定义|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|
-|云璃|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
+|云璃|!|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
 |椒丘|!|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椒丘/face.png)|
 |流萤|√|×|×|/|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
 |翡翠|√|×|×|/|√|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/翡翠/face.png)|
