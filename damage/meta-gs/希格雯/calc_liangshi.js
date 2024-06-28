@@ -91,8 +91,8 @@ export const details = [
   title: `${eName}伤害提升值`,
   dmgKey: 'f',
   dmg: ({ calc, attr, cons }) => {
-      let cons1 = cons >= 1 ? 100 : 80
-      let cos1 = cons >= 1 ? 3500 : 2800
+    let cons1 = cons >= 1 ? 100 : 80
+    let cos1 = cons >= 1 ? 3500 : 2800
     return {
       avg: Math.max( 0 , Math.min( ( ( calc(attr.hp) - 30000 ) / 1000 * cons1 ) , cos1 ) )
     }

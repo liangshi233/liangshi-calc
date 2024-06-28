@@ -244,65 +244,65 @@ export const details = [
 },
 {
   title: `${qName}完整伤害`,
-	dmg: ({ talent, attr , cons , calc }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-	  let cons4 = cons >= 4 ? 13 : 6
-	  return {
-		  avg: q1.avg * cons4,
-	  	dmg: q1.dmg * cons4
-	  }
-	}
+  dmg: ({ talent, attr , cons , calc }, { basic }) => {
+    let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+    let cons4 = cons >= 4 ? 13 : 6
+    return {
+      avg: q1.avg * cons4,
+      dmg: q1.dmg * cons4
+    }
+  }
 },
 {
   title: `${qName}完整蒸发`,
   dmgKey: 'q',
-	dmg: ({ talent, attr , cons , calc }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-	  let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
-	  let cons4 = cons >= 4 ? 10 : 4
-	  let con4 = cons >= 4 ? 3 : 2
-	  return {
-		  avg: q1.avg * cons4 + q2.avg * con4 ,
-		  dmg: q1.dmg * cons4 + q2.dmg * con4
-	  }
-	}
+  dmg: ({ talent, attr , cons , calc }, { basic }) => {
+    let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+    let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+    let cons4 = cons >= 4 ? 10 : 4
+    let con4 = cons >= 4 ? 3 : 2
+    return {
+      avg: q1.avg * cons4 + q2.avg * con4 ,
+      dmg: q1.dmg * cons4 + q2.dmg * con4
+    }
+  }
 },
 {
   title: '单人站场18秒',
   params: { elv: 2 },
-	dmg: ({ talent, attr , cons , calc }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+  dmg: ({ talent, attr , cons , calc }, { basic }) => {
+    let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
     let e1 = basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e')
     let e2 = e1Dmg
     let e3 = e2Dmg
-	  let a2 = a2Dmg
+    let a2 = a2Dmg
     let cons1 = cons >= 1 ? 4 : 1
-	  let cons4 = cons >= 4 ? 13 : 6
-	  return {
-		  avg: a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + q1.avg * cons4 ,
-	  	dmg: a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + q1.dmg * cons4
-	  }
+    let cons4 = cons >= 4 ? 13 : 6
+    return {
+      avg: a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + q1.avg * cons4 ,
+      dmg: a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + q1.dmg * cons4
 	}
+  }
 },
 {
   title: '单人站场18秒蒸发',
   dmgKey: 'dph',
   params: { elv: 2 },
-	dmg: ({ talent, attr , cons , calc }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-	  let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+  dmg: ({ talent, attr , cons , calc }, { basic }) => {
+	let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+	let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
     let e1 = basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e', 'vaporize')
     let e2 = e1zDmg
     let e3 = e2zDmg
-	  let a2 = a2zDmg
+	let a2 = a2zDmg
     let cons1 = cons >= 1 ? 4 : 1
-	  let cons4 = cons >= 4 ? 10 : 4
-	  let con4 = cons >= 4 ? 3 : 2
-	  return {
-		  avg: a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + q1.avg * cons4 + q2.avg * con4 ,
-	  	dmg: a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + q1.dmg * cons4 + q2.dmg * con4
-	  }
-	}
+    let cons4 = cons >= 4 ? 10 : 4
+    let con4 = cons >= 4 ? 3 : 2
+    return {
+      avg: a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + q1.avg * cons4 + q2.avg * con4 ,
+      dmg: a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + q1.dmg * cons4 + q2.dmg * con4
+    }
+  }
 },
 {
   title: '双人站场18秒治疗',
@@ -319,34 +319,8 @@ export const details = [
   }
 },
 {
-	title: '单人循环流畅度',
+  title: '单人循环流畅度',
   dmg: ({ talent , calc , attr , weapon , cons }) => {
-  let weaponn = 0
-  let weaponnn = 0
-  if (weapon.name === '西风猎弓') {
-    weaponn = 3 * 2 * 2
-  }
-  if (weapon.name === '祭礼弓') {
-    weaponn = 4 * 3
-  }
-  weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 ) / 2000 ) , 5 ) * 4
-  return {
-    avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 70 - weaponnn ) ) ,
-    type: 'text'
-  }
- }
-},
-{
-  title: '单人站场期望DPS',
-  params: { elv: 2 },
-	dmg: ({ talent, attr , cons , calc , weapon }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-    let e1 = basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e')
-    let e2 = e1Dmg
-    let e3 = e2Dmg
-	  let a2 = a2Dmg
-    let cons1 = cons >= 1 ? 4 : 1
-	  let cons4 = cons >= 4 ? 13 : 6
     let weaponn = 0
     let weaponnn = 0
     if (weapon.name === '西风猎弓') {
@@ -355,28 +329,54 @@ export const details = [
     if (weapon.name === '祭礼弓') {
       weaponn = 4 * 3
     }
-    weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 ) / 2000 ) , 5 ) * 4
+    weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 * 2 ) / 2000 ) , 5 )
+    return {
+      avg: Format.percent ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 70 - weaponnn ) ) ,
+      type: 'text'
+    }
+  }
+},
+{
+  title: '单人站场期望DPS',
+  params: { elv: 2 },
+	dmg: ({ talent, attr , cons , calc , weapon }, { basic }) => {
+	let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+    let e1 = basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e')
+    let e2 = e1Dmg
+    let e3 = e2Dmg
+	let a2 = a2Dmg
+    let cons1 = cons >= 1 ? 4 : 1
+    let cons4 = cons >= 4 ? 13 : 6
+    let weaponn = 0
+    let weaponnn = 0
+    if (weapon.name === '西风猎弓') {
+      weaponn = 3 * 2 * 2
+    }
+    if (weapon.name === '祭礼弓') {
+      weaponn = 4 * 3
+    }
+    weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 * 2 ) / 2000 ) , 5 )
     let qcn = Math.min( ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 70 - weaponnn ) ) , 1 )
-	  return {
-		  avg: ( a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + ( q1.avg * cons4 ) * qcn ) / 18 ,
-	  	dmg: ( a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + ( q1.dmg * cons4 ) * qcn ) / 18
-	  }
+    return {
+      avg: ( a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + ( q1.avg * cons4 ) * qcn ) / 18 ,
+      dmg: ( a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + ( q1.dmg * cons4 ) * qcn ) / 18
 	}
+  }
 },
 {
   title: '单人站场期望DPS蒸发',
   dmgKey: 'dps',
   params: { elv: 2 },
 	dmg: ({ talent, attr , cons , calc , weapon }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-	  let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+	let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+	let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
     let e1 = basic(calc(attr.hp) * talent.e['激愈水球伤害'] / 100, 'e', 'vaporize')
     let e2 = e1zDmg
     let e3 = e2zDmg
-	  let a2 = a2zDmg
+	let a2 = a2zDmg
     let cons1 = cons >= 1 ? 4 : 1
-	  let cons4 = cons >= 4 ? 10 : 4
-	  let con4 = cons >= 4 ? 3 : 2
+	let cons4 = cons >= 4 ? 10 : 4
+	let con4 = cons >= 4 ? 3 : 2
     let weaponn = 0
     let weaponnn = 0
     if (weapon.name === '西风猎弓') {
@@ -385,13 +385,13 @@ export const details = [
     if (weapon.name === '祭礼弓') {
       weaponn = 4 * 3
     }
-    weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 ) / 2000 ) , 5 ) * 4
+    weaponnn = Math.min( ( ( calc(attr.hp) * 0.1 * 2 ) / 2000 ) , 5 )
     let qcn = Math.min( ( ( calc(attr.recharge) / 100 * ( 4 * 3 + weaponn + energy ) ) / ( 70 - weaponnn ) ) , 1 )
-	  return {
-		  avg: ( a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + ( q1.avg * cons4 + q2.avg * con4 ) * qcn ) / 18 ,
-	  	dmg: ( a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + ( q1.dmg * cons4 + q2.dmg * con4 ) * qcn ) / 18
-	  }
-	}
+    return {
+      avg: ( a2.dmg * 6 + e1.avg * cons1 + e2.avg + e3.avg * 3 + ( q1.avg * cons4 + q2.avg * con4 ) * qcn ) / 18 ,
+      dmg: ( a2.dmg * 6 + e1.dmg * cons1 + e2.dmg + e3.dmg * 3 + ( q1.dmg * cons4 + q2.dmg * con4 ) * qcn ) / 18
+    }
+  }
 },
 {
   title: '双人站场期望HPS',
@@ -415,16 +415,16 @@ export const details = [
 {
   title: `希芙万迪 ${qNameT}完整蒸发`,
   params: { teamA: true },
-	dmg: ({ talent, attr , cons , calc }, { basic }) => {
-	  let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
-	  let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
-	  let cons4 = cons >= 4 ? 10 : 4
-	  let con4 = cons >= 4 ? 3 : 2
-	  return {
-		  avg: q1.avg * cons4 + q2.avg * con4 ,
-		  dmg: q1.dmg * cons4 + q2.dmg * con4
-	  }
-	}
+  dmg: ({ talent, attr , cons , calc }, { basic }) => {
+    let q1 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+    let q2 = basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+    let cons4 = cons >= 4 ? 10 : 4
+    let con4 = cons >= 4 ? 3 : 2
+    return {
+      avg: q1.avg * cons4 + q2.avg * con4 ,
+      dmg: q1.dmg * cons4 + q2.dmg * con4
+    }
+  }
 }]
 
 export const defParams = { blPlus: 0 , blPct: 1 }
@@ -575,4 +575,4 @@ export const buffs = [
   }
 },
  'vaporize',
-{title: `5.25最后修改：[5.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
+{title: `6.28最后修改：[5.25重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs95ranking} 魔物产球设置:${energy} 更新日志:${renew} 其他信息:${information}`}]
