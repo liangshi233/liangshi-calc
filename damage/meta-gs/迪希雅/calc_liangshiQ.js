@@ -18,7 +18,7 @@ let a2Name = '重击'
 let a3Name = '下落攻击'
 let eName = '熔铁流狱'
 let eNameT = 'E'
-let qName = '凭此结契'
+let qName = '炎啸狮子咬'
 let qNameT = 'Q'
 if ( NamePath !== 1 ) {
  if ( NamePath == 2 ) {
