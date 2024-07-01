@@ -115,8 +115,8 @@
 
 |角色名字|极限面板|核爆面板|辅助面板|平民面板|毕业面板|试用面板|期望面板|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|云璃|×|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
-|椒丘|×|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椒丘/face.png)|
+|云璃|√|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云璃/face.png)|
+|椒丘|√|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椒丘/face.png)|
 |流萤|√|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流萤/face.png)|
 |翡翠|√|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/翡翠/face.png)|
 |波提欧|√|×|×|×|×|/|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/波提欧/face.png)|
