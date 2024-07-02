@@ -8,7 +8,7 @@
 
 |角色名字|极限面板|核爆面板|辅助面板|平民面板|毕业面板|试用面板|期望面板|头像|
 |:-----|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|艾梅莉埃|×|×|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾梅莉埃/side.webp)|
+|艾梅莉埃|!|×|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾梅莉埃/side.webp)|
 |克洛琳德|√|×|×|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)|
 |赛索斯|√|×|×|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)|
 |希格雯|!|×|!|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)|
