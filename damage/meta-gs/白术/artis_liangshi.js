@@ -1,5 +1,5 @@
 export default function ({ attr, artis, weapon, rule, def }) {
-  if ((weapon.name === '昭心' || weapon.name === '天空之卷') && attr.phy > 10) {
+  if ((weapon.name === '昭心' || weapon.name === '天空之卷') && attr.phy > 15) {
     return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, phy: 100, recharge: 15 })
   }
   if (attr.mastery >= 540) {
@@ -12,10 +12,10 @@ export default function ({ attr, artis, weapon, rule, def }) {
     return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }
   if (attr.heal > 21) {
-    return rule('生存-治疗', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 85, heal: 100 })
+    return rule('生存-治疗', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 100 })
   }
   if (attr.heal < 21) {
-    return rule('辅助-增伤', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 85, heal: 60 })
+    return rule('辅助-增伤', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 60 })
   }
   return def({ hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 85, heal: 100 })
 }
