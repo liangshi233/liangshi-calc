@@ -19,10 +19,10 @@ if ( NamePath !== 1 ) {
   aName = '逐影枪术·改'
   eNameT = '撷萃调香'
   qNameT = '香氛演绎'
- }  else if ( NamePath == 3 ) {
+ } else if ( NamePath == 3 ) {
   eNameT = '撷萃调香'
   qNameT = '香氛演绎'
- }  else if ( NamePath == 4 ) {
+ } else if ( NamePath == 4 ) {
   eName = '元素战技'
   qName = '元素爆发'
   eNameT = '元素战技'
@@ -147,7 +147,7 @@ export const buffs = [
 {
   title: '艾梅莉埃天赋：[精馏] 敌人处于燃烧化状态下，造成伤害提升[dmg]%',
   data: {
-    dmg: ({ params }) => params.spre === true ? 0 : Math.min( 36 , calc(attr.atk) / 1000 * 15 )
+    dmg: ({ params , calc }) => params.spre === true ? 0 : Math.min( 36 , calc(attr.atk) / 1000 * 15 )
   }
 },
 {
