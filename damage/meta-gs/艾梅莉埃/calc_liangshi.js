@@ -147,7 +147,7 @@ export const buffs = [
 {
   title: '艾梅莉埃天赋：[精馏] 敌人处于燃烧化状态下，造成伤害提升[dmg]%',
   data: {
-    dmg: ({ params , calc }) => params.spre === true ? 0 : Math.min( 36 , calc(attr.atk) / 1000 * 15 )
+    dmg: ({ params , calc , attr }) => params.spre === true ? 0 : Math.min( 36 , calc(attr.atk) / 1000 * 15 )
   }
 },
 {

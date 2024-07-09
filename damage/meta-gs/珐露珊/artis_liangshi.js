@@ -1,12 +1,15 @@
-export default function ({ attr, artis, rule, def }) {
-  if (attr.mastery >= 320) {
-    return rule('珐露珊-扩散', { atk: 65, cpct: 90, cdmg: 90, mastery: 100, dmg: 80, recharge: 55 })
+export default function ({ attr, artis, weapon, rule, def }) {
+  if (attr.phy > 52) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, phy: 100, recharge: 15 })
   }
-  if (attr.cpct * 2 + attr.cdmg >= 180 && artis.is('dmg', 4)) {
-    return rule('珐露珊-输出', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 35 })
+  if (artis.is('宗室4')) {
+    return rule('输出-宗室', { atk: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 80 })
   }
-  if (attr.phy < 1) {
-    return rule('珐露珊-辅助', { atk: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, recharge: 75 })
+  if (attr.mastery >= 420) {
+    return rule('驻场-扩散', { atk: 50, cpct: 60, cdmg: 60, mastery: 100, dmg: 50, recharge: 80 })
   }
-  return def({ hp: 0, atk: 75, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, phy: 0, recharge: 55 })
+  if (attr.mastery < 420) {
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
+  }
+  return def({ atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
 }
