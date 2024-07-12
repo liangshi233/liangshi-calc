@@ -1,9 +1,12 @@
-export default function ({ attr, artis, weapon, rule, def }) {
-  if (attr.phy > 44) {
-    return rule('一斗-物理', { atk: 85, cpct: 100, cdmg: 100, mastery: 0, dmg: 0, recharge: 15, phy: 100 })
+export default function ({ attr, artis, rule, def }) {
+  if (attr.phy > 42) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
-  if (attr.mastery > 420) {
-    return rule('一斗-盾辅', { atk: 20, def: 45, cpct: 90, cdmg: 90, mastery: 100, dmg: 50, recharge: 80 })
+  if (attr.mastery >= 420) {
+    return rule('生存-结晶', { def: 50, cpct: 60, cdmg: 60, mastery: 100, dmg: 50, recharge: 80 })
   }
-  return def({ hp: 0, atk: 50, def: 100, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, phy: 0, recharge: 30, heal: 0 })
+  if (attr.mastery < 420) {
+    return rule('输出-直伤', { def: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
+  }
+  return def({ def: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
 }
