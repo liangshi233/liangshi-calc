@@ -2,7 +2,7 @@ export default function ({ attr, weapon, artis, rule, def }) {
   if (attr.phy >= 44) {
     return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
-  if (artis.is('hp', '3,4,5')) {
+  if (artis.is('hp', '4,5')) {
     return rule('辅助-增伤', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80 })
   }
   if (artis.is('乐园4') || attr.mastery >= 540) {
