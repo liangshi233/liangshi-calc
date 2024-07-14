@@ -1,15 +1,15 @@
-export default function ({ attr, rule, def }) {
-  if (attr.phy >= 41.4) {
-    return rule('琳德-物理', { atk: 85, cpct: 100, cdmg: 100, mastery: 0, dmg: 0, recharge: 30, phy: 100 })
+export default function ({ attr, artis, rule, def }) {
+  if (attr.phy > 45) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
-  if (attr.mastery >= 80 && attr.mastery < 540) {
-    return rule('琳德-激化', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100 })
+  if (artis.is('乐园4') || attr.mastery >= 540) {
+    return rule('驻场-超绽', { atk: 55, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
-  if (attr.mastery >= 540) {
-    return rule('琳德-超绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 30, recharge: 75 })
+  if (attr.mastery >= 160) {
+    return rule('驻场-激绽', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
   }
-  if (attr.mastery < 80 && attr.cpct * 2 + attr.cdmg > 150 && attr.phy < 41.4) {
-    return rule('琳德-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 30 })
+  if (attr.mastery < 160) {
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, dmg: 100, phy: 100 })
+  return def({ atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
 }
