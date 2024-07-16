@@ -14,5 +14,5 @@ export default function ({ attr, artis, weapon, rule, def }) {
   if (attr.mastery < 120) {
     return rule('输出-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100,  recharge: 55 })
+  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })
 }

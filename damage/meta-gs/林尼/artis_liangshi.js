@@ -1,18 +1,18 @@
-export default function ({ attr, rule, def }) {
-  if (attr.cpct < 15 && attr.cdmg > 280) {
-    return rule('林尼-核爆', { hp: 0, atk: 100, cdmg: 100, mastery: 75, dmg: 100 })
+export default function ({ attr, artis, rule, def }) {
+  if (attr.phy > 52) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
-  if (attr.mastery < 160 && attr.cpct * 2 + attr.cdmg > 150) {
-    return rule('林尼-直伤', { hp: 0, atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 30 })
+  if (attr.mastery < 240) {
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
   }
-  if (attr.mastery >= 160 && attr.mastery < 540) {
-    return rule('林尼-蒸发', { hp: 0, atk: 75, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, recharge: 30 })
+  if (artis.is('dmg', 4) && artis.is('mastery', 3)) {
+    return rule('驻场-融化', { atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 45 })
   }
-  if (attr.mastery >= 540) {
-    return rule('林尼-烈绽', { atk: 25, cpct: 60, cdmg: 60, mastery: 100, dmg: 30, recharge: 100 })
+  if (artis.is('dmg', 4) && attr.mastery >= 240 && attr.mastery < 540) {
+    return rule('驻场-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
   }
-  if (attr.phy >= 41.4) {
-    return rule('林尼-物理', { atk: 85, cpct: 100, cdmg: 100, mastery: 0, dmg: 0, recharge: 30, phy: 100 })
+  if (artis.is('乐园4') || attr.mastery >= 540) {
+    return rule('驻场-烈绽', { atk: 30, cpct: 60, cdmg: 60, mastery: 100, dmg: 35, recharge: 80 })
   }
-  return def({ hp: 0, atk: 75, cpct: 100, cdmg: 100, mastery: 0, dmg: 100, recharge: 55 })
+  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 45 })
 }
