@@ -54,3 +54,9 @@ list:
   - icon: 2
     title: '4.7.0'
     desc: 2.49GB
+  - icon: 1
+    title: '4.8.0'
+    desc: 22.93GB
+  - icon: 2
+    title: '4.8.0'
+    desc: 2.13GB

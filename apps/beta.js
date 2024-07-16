@@ -15,9 +15,6 @@ export class beta extends plugin {
         },{
           reg: '^#?((椒丘)(极限面板|面板100000000))$',
           fnc: 'jq'
-        },{
-          reg: '^#?((Emilie|调香师|梅莉|爱美丽|艾梅丽埃|艾梅莉埃)(极限面板|面板100000000))$',
-          fnc: 'amla'
         }
       ]
     })
@@ -30,11 +27,6 @@ export class beta extends plugin {
 
   async jq () {
     this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/2.bmp`))
-    return true
-  }
-
-  async amla () {
-    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/3.bmp`))
     return true
   }
 
