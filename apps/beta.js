@@ -15,6 +15,9 @@ export class beta extends plugin {
         },{
           reg: '^#?((椒丘)(极限面板|面板100000000))$',
           fnc: 'jq'
+        },{
+          reg: '^#?((玛拉妮)(极限面板|面板100000000))$',
+          fnc: 'mln'
         }
       ]
     })
@@ -27,6 +30,11 @@ export class beta extends plugin {
 
   async jq () {
     this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/2.bmp`))
+    return true
+  }
+
+  async mln () {
+    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/3.jpg`))
     return true
   }
 
