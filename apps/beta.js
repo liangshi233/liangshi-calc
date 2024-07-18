@@ -18,6 +18,9 @@ export class beta extends plugin {
         },{
           reg: '^#?((玛拉妮)(极限面板|面板100000000))$',
           fnc: 'mln'
+        },{
+          reg: '^#?((基尼奇)(极限面板|面板100000000))$',
+          fnc: 'jnq'
         }
       ]
     })
@@ -34,7 +37,12 @@ export class beta extends plugin {
   }
 
   async mln () {
-    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/3.jpg`))
+    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.jpg`))
+    return true
+  }
+
+  async jnq () {
+    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/2.jpg`))
     return true
   }
 
