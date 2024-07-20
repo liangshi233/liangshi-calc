@@ -27,7 +27,7 @@
 |琳妮特|√|×|×|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/琳妮特/side.webp)|
 |绮良良|√|×|×|√|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/绮良良/side.webp)|
 |白术|√|√|√|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/白术/side.webp)|
-|卡维|√|×|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡维/side.webp)|
+|卡维|√|×|×|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡维/side.webp)|
 |米卡|√|×|√|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/米卡/side.webp)|
 |迪希雅|√|√|×|×|×|×|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪希雅/side.webp)|
 |艾尔海森|√|√|×|×|×|√|×|![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾尔海森/side.webp)|
