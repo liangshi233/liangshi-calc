@@ -62,6 +62,21 @@ class LSconfig {
   }
 
   /**
+   * 写入对应模块数据文件
+   * @param {'def'|'user'} type 默认配置/用户配置
+   * @param {string} name 文件名
+   * @param {object} data 写入内容
+   */
+  writeData (type, name, data) {
+    try {
+      fs.writeFileSync(`${this.getFilePath(type)}${name}.yaml`, YAML.stringify(data), 'utf8')
+    } catch (error) {
+      logger.error(`[${name}] 写入失败 ${error}`)
+      return false
+    }
+  }
+
+  /**
    * 监听配置文件
    * @param {string} path 路径
    * @param {string} name 文件名
