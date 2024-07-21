@@ -210,11 +210,11 @@ export function supportGuoba () {
           }
         }
       ],
-      async getConfigData () {
+      getConfigData () {
         let config = LSconfig.getConfig('user', 'config')
         return config
       },
-      async setConfigData (data, { Result }) {
+      setConfigData (data, { Result }) {
         // 1.读取现有配置文件
         let config = LSconfig.getConfig('user', 'config')
         // 2. 更新配置对象
