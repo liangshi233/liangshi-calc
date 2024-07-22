@@ -17,9 +17,9 @@ const LSstart = {
         //    { file: 'calc_qsyhh', name: 'qsyhhcalc 基础' , test: () => cfg.calcQsyhh },
         //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => cfg.calcLiangK },
         //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
-        { file: 'calc_liangshiP', name: 'liangshipro 进阶' , test: () => cfg.calcLiangP },
+        { file: 'calc_liangshiP', name: 'liangshipro 进阶', test: () => cfg.calcLiangP },
         { file: 'calc_liangshiQ', name: 'liangshicalc 超全', test: () => cfg.calcLiangQ },
-        { file: 'calc_liangshiT', name: 'liangshicalc 队伍' , test: () => cfg.calcLiangT },
+        { file: 'calc_liangshiT', name: 'liangshicalc 队伍', test: () => cfg.calcLiangT },
         { file: 'calc_liangshi', name: 'liangshicalc 基础', test: () => cfg.calcLiang },
         { file: 'calc_auto', name: 'miao-plugin 组团', test: () => Common.cfg('teamCalc') },
         { file: 'calc', name: 'miao-plugin 单人' }
