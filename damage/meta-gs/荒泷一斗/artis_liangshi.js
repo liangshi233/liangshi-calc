@@ -6,7 +6,7 @@ export default function ({ attr, artis, rule, def }) {
     return rule('生存-结晶', { def: 50, cpct: 60, cdmg: 60, mastery: 100, dmg: 50, recharge: 80 })
   }
   if (attr.mastery < 420) {
-    return rule('输出-直伤', { def: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
+    return rule('输出-直伤', { def: 80, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }
-  return def({ def: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
+  return def({ def: 80, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
 }

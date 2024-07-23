@@ -6,7 +6,7 @@ export default function ({ attr, artis, rule, def }) {
     return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
   }
   if (artis.is('冰套4')) {
-    return rule('驻场-冻结', { atk: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
+    return rule('驻场-冻结', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
   }
   if (attr.mastery >= 120 && attr.mastery < 540) {
     return rule('驻场-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
