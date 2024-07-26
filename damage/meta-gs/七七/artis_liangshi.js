@@ -1,5 +1,5 @@
 export default function ({ attr, artis, rule, def }) {
-  if (attr.phy > 45) {
+  if (attr.phy > 42) {
     return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
   if (artis.is('冰套4')) {

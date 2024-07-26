@@ -1,9 +1,18 @@
 export default function ({ attr, artis, rule, def }) {
-  if (artis.is('hp', '3,4,5') && attr.hp > 32000 && attr.cpct * 2 + attr.cdmg < 160) {
-    return rule('绮良良-盾辅', { hp: 100, atk: 30, cpct: 41, cdmg: 41, recharge: 30 })
+  if (attr.phy > 42) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, recharge: 15, phy: 100 })
   }
-  if (attr.cpct * 2 + attr.cdmg >= 180 && artis.is('dmg', 4)) {
-    return rule('绮良良-输出', { hp: 50, atk: 75, cpct: 100, cdmg: 100, mastery: 55, dmg: 100, recharge: 30, heal: 0 })
+  if (artis.is('乐园4') || attr.mastery >= 540) {
+    return rule('驻场-超绽', { hp: 55, atk: 45, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
-  return def({ hp: 75, atk: 75, cpct: 100, cdmg: 100, dmg: 80, mastery: 75, phy: 0, recharge: 55 })
+  if (artis.is('hp', 4)) {
+    return rule('生存-护盾', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 60 })
+  }
+  if (attr.mastery >= 120) {
+    return rule('驻场-激绽', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
+  }
+  if (attr.mastery < 120) {
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
+  }
+  return def({ hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 60 })
 }

@@ -12,13 +12,13 @@ export default function ({ artis, weapon, attr, rule, def}) {
     return rule('输出-激绽', { atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 55 })
   }
   if (artis.is('剧团4') && attr.mastery < 120) {
-    return rule('输出-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, mastery: 45, recharge: 55 })
+    return rule('输出-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, mastery: 25, recharge: 55 })
   }
   if (attr.mastery >= 120) {
     return rule('驻场-激绽', { atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 55 })
   }
   if (attr.mastery < 120) {
-    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, mastery: 45, recharge: 55 })
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, mastery: 25, recharge: 55 })
   }
   return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 55 })
 }
