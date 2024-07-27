@@ -14,5 +14,5 @@ export default function ({ attr, artis, weapon, rule, def }) {
   if (attr.heal > 5) {
     return rule('生存-治疗', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 100 })
   }
-  return def({ hp: 100, cpct: 60, cdmg: 60, dmg: 60, recharge: 85, heal: 100 })
+  return def({ hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 100 })
 }
