@@ -11,5 +11,5 @@ export default function ({ attr, artis, rule, def }) {
   if (attr.mastery >= 120) {
     return rule('驻场-融化', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
   }
-  return def({ atk: 85, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
+  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 45 })
 }

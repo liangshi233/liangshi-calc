@@ -1,4 +1,4 @@
-export default function ({ attr, artis, rule, def }) {
+export default function ({ attr, artis, weapon, rule, def }) {
   if ((weapon.name === '昭心' || weapon.name === '天空之卷') && attr.phy > 15) {
     return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, phy: 100, recharge: 15 })
   }
