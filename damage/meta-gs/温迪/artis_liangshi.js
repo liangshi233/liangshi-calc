@@ -1,9 +1,15 @@
-export default function ({ attr, rule, def }) {
-  if (attr.recharge > 240) {
-    return rule('温迪-辅助', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 100 })
+export default function ({ attr, artis, weapon, rule, def }) {
+  if (attr.phy > 52) {
+    return rule('驻场-物理', { atk: 85, cpct: 100, cdmg: 100, phy: 100, recharge: 15 })
   }
-  if (attr.mastery > 320) {
-    return rule('温迪-扩散', { atk: 50, cpct: 90, cdmg: 90, mastery: 100, dmg: 75, recharge: 90 })
+  if (artis.is('宗室4')) {
+    return rule('输出-宗室', { atk: 75, cpct: 100, cdmg: 100, dmg: 100, recharge: 80 })
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 75, dmg: 100, recharge: 75 })
+  if (attr.mastery >= 420) {
+    return rule('驻场-扩散', { atk: 50, cpct: 60, cdmg: 60, mastery: 100, dmg: 50, recharge: 80 })
+  }
+  if (attr.mastery < 420) {
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
+  }
+  return def({ atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 45 })
 }
