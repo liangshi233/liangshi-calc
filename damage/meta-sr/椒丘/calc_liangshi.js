@@ -76,7 +76,7 @@ export const details = [
 {
   title: `${eName}主目标伤害`,
   dmgKey: 'e',
-  dmg: ({ talent }, dmg) => dmg(talent.e['主目标伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['目标伤害'], 'e')
 },
 {
   title: `${eName}相邻目标伤害`,
@@ -87,8 +87,16 @@ export const details = [
   title: `${qName}伤害`,
   dmgKey: 'q',
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
-}
-]
+},
+{
+  title: '烬煨持续伤害',
+  dmg: ({ talent , cons }, dmg ) => {
+  let cxsh = dmg(talent.t['持续伤害'] + ( cons >= 2 ? 3 : 0 ), 'dot', 'skillDot')
+  return {
+     avg: cxsh.avg
+  }
+ }
+}]
 
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,speed'
@@ -103,7 +111,7 @@ export const buffs = [
 {
   title: '椒丘天赋：[四示八权，纤滋精味] 使用普攻、战技、终结技击中敌人时使敌人受到的伤害提高[enemydmg]%。',
   data: {
-    enemydmg: ({ talent , cons }) => talent.t['受伤害提高'] * 100 + talent.t['额外提高'] * 100 * ( cons >= 6 ? 9 : 5 )
+    enemydmg: ({ talent , cons }) => talent.t['1层伤害提高'] * 100 + talent.t['叠加伤害提高'] * 100 * ( cons >= 6 ? 9 : 5 )
   }
 },
 {
@@ -115,22 +123,25 @@ export const buffs = [
   }
 },
 {
-  title: '椒丘行迹：[爟火] 结界存在时，敌方目标效果命中降低[_enemyeffPct]%，且每回合开始时会受到火属性附加伤害。',
+  title: '椒丘行迹：[爟火] 战斗开始时，立即恢复[_energyevery]点能量',
   tree: 3,
   data: {
-    _enemyeffPct: 30
+    _energyevery: 15
   }
 },
 {
   title: '椒丘1魂：[五味五走，生熟有定] 我方目标攻击处于【烬煨】状态的敌方目标时，造成的伤害提高[dmg]%',
   cons: 1,
   data: {
-    dmg: 48
+    dmg: 40
   }
 },
 {
-  title: '椒丘2魂：[爽口作疾，厚味措毒] 【烬煨】状态可被视作灼烧状态，【烬煨】状态下的敌方目标在每回合开始时受到火属性持续伤害。',
-  cons: 2
+  title: '椒丘2魂：[爽口作疾，厚味措毒] 敌方目标处于【烬煨】状态时，【烬煨】对其造成的火属性持续伤害倍率提高[_dotPlus]%',
+  cons: 2,
+  data: {
+    _dotPlus: 300
+  }
 },
 {
   title: '椒丘4魂：[藏腑和平，血气资荣] 结界存在时，敌方目标的攻击力降低[_enemyatk]%。',
@@ -146,4 +157,4 @@ export const buffs = [
     kx: 3 * 9
   }
 },
-{title: `6.18最后修改：[6.18重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1218ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `7.31最后修改：[6.18重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1218ranking} 更新日志:${renew} 其他信息:${information}`}]
