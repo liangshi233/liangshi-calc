@@ -1,4 +1,4 @@
-import { LSconfig } from '#liangshi'
+import { Format, LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -38,7 +38,7 @@ if ( NamePath !== 1 ) {
   qNameT = 'Q'
  }
 }
-const miss = ['z','c','e','h','y','dps','dph','hph','hps']
+const miss = ['c','h','y','dps','dph','hph','hps']
 let ranking = 'undefined'
 if (!cfg.sr1221ranking) {
  if ( rankingOnePath == 'm' )  {
@@ -76,52 +76,49 @@ export const details = [
 {
   title: `${eName}主目标伤害`,
   dmgKey: 'e',
-  dmg: ({ talent }, dmg) => dmg(talent.e['主目标伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['目标伤害'], 'e')
 },
 {
   title: `${eName}相邻目标伤害`,
   dmg: ({ talent }, dmg) => dmg(talent.e['相邻目标伤害'], 'e')
 },
 {
-  title: '反击伤害主目标',
-  params: { cons4: true },
+  title: `${eName}生命恢复`,
   dmgKey: 'undefined',
-  dmg: ({ talent }, dmg) => dmg(talent.t['主目标伤害'], 't')
+  dmg: ({ calc, attr, talent }, { heal }) => heal( calc(attr.hp) * talent.e['回复·百分比生命'] + talent.e['回复·固定值'] * 1 )
 },
 {
-  title: `${qName}勘破•斩`,
-  params: { cons1: true , cons4: true },
+  title: '反击伤害主目标',
+  params: { cons2: true },
+  dmgKey: 'z',
+  dmg: ({ talent }, dmg) => dmg(talent.t['反击·目标伤害'], 't')
+},
+{
+  title: `${qName}勘破•斩伤害`,
+  params: { cons1: true , cons2: true },
   dmgKey: 'q',
-  dmg: ({ talent }, dmg) => dmg(talent.q['勘破•斩主目标'], 'q,t')
+  dmg: ({ talent }, dmg) => dmg(talent.q['反击·目标伤害'], 'q,t')
 },
 {
-  title: `${qName}勘破•灭`,
-  params: { cons1: true , cons4: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['勘破•灭主目标'], 'q,t')
+  title: `${qName}勘破•斩相邻伤害`,
+  params: { cons1: true , cons2: true },
+  dmg: ({ talent }, dmg) => dmg(talent.q['反击·相邻目标伤害'], 'q,t')
 },
 {
   title: `${qName}勘破•灭额外伤害`,
-  params: { cons4: true },
-  dmg: ({ talent }, dmg) => dmg(talent.q['随机伤害'], 'q,t')
-}
-]
+  params: { cons2: true },
+  dmg: ({ talent }, dmg) => dmg(talent.q['勘破灭·随机伤害'], 'q,t')
+}]
 
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,speed'
 
 export const buffs = [
 {
-  check: ({ params }) => params.cons4 === true,
+  check: ({ params }) => params.cons2 === true,
   title: '云璃技能：[剑为地纪，刃惊天宗] 【格挡】状态期间云璃造成的暴击伤害提高[cdmg]%',
   data: {
     cdmg: ({ talent }) => talent.q['暴击伤害提高'] * 100
-  }
-},
-{
-  title: '云璃行迹：[灼毂] 受到攻击时，额外回复[_energyevery]点能量。',
-  tree: 1,
-  data: {
-    _energyevery: 15
   }
 },
 {
@@ -147,11 +144,27 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.cons4 === true,
-  title: '云璃4魂：[大匠击橐] 发动反击造成伤害时无视敌方目标[ignore]%的防御力。',
-  cons: 4,
+  check: ({ params }) => params.cons2 === true,
+  title: '云璃2魂：[初芒破生] 发动反击造成伤害时无视敌方目标[ignore]%的防御力。',
+  cons: 2,
   data: {
     ignore: 20
   }
 },
-{title: `6.18最后修改：[6.18重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1221ranking} 更新日志:${renew} 其他信息:${information}`}]
+{
+  title: '云璃4魂：[大匠击橐] 发动【勘破•斩】或【勘破•灭】后使自身效果抵抗提高[effDef]%',
+  cons: 4,
+  data: {
+    effDef: 50
+  }
+},
+{
+  check: ({ params }) => params.cons2 === true,
+  title: '云璃6魂：[剑胆琴心] 发动【勘破•斩】或【勘破•灭】造成伤害时暴击率提高[cpct]%，物理属性抗性穿透提高[kx]%',
+  cons: 6,
+  data: {
+    cpct: 15,
+    kx: 20
+  }
+},
+{title: `7.31最后修改：[6.18重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1221ranking} 更新日志:${renew} 其他信息:${information}`}]
