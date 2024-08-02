@@ -65,6 +65,7 @@ export const buffs = [
   }, {
     title: '黑天鹅行迹：[烛影朕兆] 使自身造成的伤害提高[dmg]%',
     tree: 3,
+    sort: 9,
     data: {
       dmg: ({ calc, attr }) => Math.min(72, calc(attr.effPct) * 60 / 100)
     }
@@ -82,5 +83,5 @@ export const buffs = [
       _energyevery: 8
     }
   },
-  { title: '2.19最后修改：[12.30重置]' }
+  { title: '8.2最后修改：[12.30重置]' }
 ]
