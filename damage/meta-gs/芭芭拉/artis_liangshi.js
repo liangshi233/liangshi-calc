@@ -11,7 +11,7 @@ export default function ({ attr, artis, weapon, rule, def }) {
   if (artis.is('乐园4') || attr.mastery >= 540) {
     return rule('驻场-绽放', { hp: 55, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
-  if (attr.heal > 5) {
+  if (attr.heal > 15) {
     return rule('生存-治疗', { hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 100 })
   }
   return def({ hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80, heal: 100 })
