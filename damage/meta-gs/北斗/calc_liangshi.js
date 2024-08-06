@@ -9,8 +9,7 @@ export const details = [{
   dmg: ({ talent }, dmg) => dmg(talent.e['基础伤害'] + talent.e['受击时伤害提升'] * 2, 'e', '超激化')
 }, {
   title: '捉浪护盾吸收量',
-  dmg: ({ talent, calc, attr }, { shield }) =>
-    shield((talent.e['护盾吸收量2'][0] * calc(attr.hp) / 100 + talent.e['护盾吸收量2'][1] * 1) * 1)
+  dmg: ({ talent, calc, attr }, { shield }) => shield((talent.e['护盾吸收量2'][0] * calc(attr.hp) / 100 + talent.e['护盾吸收量2'][1] * 1) * 1)
 }, {
   title: '斫雷伤害',
   params: { q: true },
@@ -34,5 +33,4 @@ export const buffs = [{
   data: {
     kx: ({ params }) => params.q ? 15 : 0
   }
-},
-{ title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }]
+}, { title: '4.4最后修改：如有问题请输入 #伤害计算反馈' }]
