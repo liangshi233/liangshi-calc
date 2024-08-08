@@ -11,5 +11,5 @@ export default function ({ attr, artis, rule, def }) {
   if (attr.mastery < 120) {
     return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, mastery: 25, dmg: 100, recharge: 35 })
   }
-  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 100, dmg: 100, recharge: 35 })
+  return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 35 })
 }

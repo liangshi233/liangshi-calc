@@ -4,6 +4,13 @@
 使用说明（需要安装Miao-Plugin才能使用）
 
 打开Yunzai-Bot 根目录输入
+
+<details><summary>跑路了</summary>
+
+![](./resources/LLQ.jpg)
+
+</details>
+
 ##### gitee
 ~~~~~~~~~~
 git clone --depth=1 https://gitee.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
