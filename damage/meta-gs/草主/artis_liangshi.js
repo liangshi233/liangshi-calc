@@ -9,7 +9,7 @@ export default function ({ attr, artis, rule, def }) {
     return rule('驻场-绽放', { atk: 55, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
   if (attr.mastery < 120) {
-    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, mastery: 25, dmg: 100, recharge: 55 })
+    return rule('驻场-直伤', { atk: 85, cpct: 100, cdmg: 100, mastery: 30, dmg: 100, recharge: 55 })
   }
   return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 80, dmg: 100, recharge: 55 })
 }
