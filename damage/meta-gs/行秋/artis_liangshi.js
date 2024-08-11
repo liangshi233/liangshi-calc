@@ -8,10 +8,16 @@ export default function ({ attr, weapon, artis, rule, def }) {
   if (artis.is('乐园4') || attr.mastery >= 540) {
     return rule('输出-绽放', { atk: 55, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
-  if (attr.mastery < 80) {
+  if (attr.mastery < 160) {
+    if (artis.is('绝缘4')) {
+      return rule('输出-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 85 })
+    }
     return rule('输出-直伤', { atk: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }
-  if (attr.mastery > 80) {
+  if (attr.mastery > 160) {
+    if (artis.is('绝缘4')) {
+      return rule('输出-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 75 })
+    }
     return rule('输出-蒸发', { atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })
   }
   return def({ atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })

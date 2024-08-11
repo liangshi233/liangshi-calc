@@ -9,9 +9,15 @@ export default function ({ attr, weapon, artis, rule, def }) {
     return rule('输出-绽放', { hp: 55, cpct: 60, cdmg: 60, mastery: 100, dmg: 60, recharge: 80 })
   }
   if (attr.mastery < 180) {
+    if (artis.is('绝缘4')) {
+      return rule('输出-直伤', { hp: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 85 })
+    }
     return rule('输出-直伤', { hp: 85, cpct: 100, cdmg: 100, dmg: 100, recharge: 55 })
   }
   if (attr.mastery > 180) {
+    if (artis.is('绝缘4')) {
+      return rule('输出-蒸发', { hp: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 75 })
+    }
     return rule('输出-蒸发', { hp: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })
   }
   return def({ hp: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })
