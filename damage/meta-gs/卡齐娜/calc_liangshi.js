@@ -95,6 +95,7 @@ export const details = [
   dmg: ({ calc, attr }, { basic }) => basic(calc(attr.def) * 200 / 100, '')
 }]
 
+export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'def,cpct,cdmg,mastery'
 
@@ -132,5 +133,5 @@ export const buffs = [
   title: '卡齐娜6命：[这一次，我一定要赢] 队伍中自己的当前场上角色的护盾因任何原因被替换或摧毁时，将造成岩元素范围伤害',
   cons: 6
 },
-{title: `8.16最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
 

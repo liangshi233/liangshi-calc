@@ -120,6 +120,7 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.q['激光伤害'], 'q', 'spread')
 }]
 
+export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
@@ -156,5 +157,5 @@ export const buffs = [
     qDmg: 70
   }
 },
-{title: `8.16最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
 

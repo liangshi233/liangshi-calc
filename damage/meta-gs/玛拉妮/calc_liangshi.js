@@ -121,6 +121,7 @@ export const details = [
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
 }]
 
+export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,cpct,cdmg,mastery'
 
@@ -160,5 +161,5 @@ export const buffs = [
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
   cons: 6
 },
-{title: `8.16最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
 
