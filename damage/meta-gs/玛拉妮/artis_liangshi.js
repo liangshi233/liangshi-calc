@@ -1,4 +1,4 @@
-export default function ({ attr, artis, rule, def }) {
+export default function ({ attr, artis, weapon, rule, def }) {
   if (weapon.name === '试作金珀' && attr.heal > 1) {
     return rule('生存-治疗', { atk: 30, cpct: 60, cdmg: 60, dmg: 60, recharge: 100, heal: 100 })
   }
