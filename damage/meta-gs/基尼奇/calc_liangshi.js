@@ -73,51 +73,51 @@ if (!cfg.gs101ranking) {
 if (!cfg.energymodel) {
   energy = 0
 }
-let renew = '[数据来源4.8.54]测试内容请注意时效性,数据正确性请自行辨别'
+let renew = '无'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
   title: '环绕射击单枚',
-  dmg: ({ talent }, dmg) => dmg(talent.e['环绕射击伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['环绕射击伤害'], 'e,nightsoul')
 },
 {
   title: '环绕射击单枚激化',
-  dmg: ({ talent }, dmg) => dmg(talent.e['环绕射击伤害'], 'e', 'spread')
+  dmg: ({ talent }, dmg) => dmg(talent.e['环绕射击伤害'], 'e,nightsoul', 'spread')
 },
 {
   title: '迴猎贯鳞炮伤害',
   dmgKey: 'e',
   params: { jp: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e,nightsoul')
 },
 {
   title: '迴猎贯鳞炮激化',
   params: { jp: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e', 'spread')
+  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e,nightsoul', 'spread')
 },
 {
   check: ({ cons }) => cons >= 2,
   title: '2命首次猎贯鳞炮',
   params: { jp: true ,cons2: true },
-  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['迴猎贯鳞炮伤害'], 'e,nightsoul')
 },
 {
   title: `${qName}释放伤害`,
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul')
 },
 {
   title: `${qName}释放激化`,
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'spread')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul', 'spread')
 },
 {
   title: `${qName}龙息伤害`,
   dmgKey: 'q',
-  dmg: ({ talent }, dmg) => dmg(talent.q['激光伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['龙息伤害'], 'q,nightsoul')
 },
 {
   title: `${qName}龙息激化`,
-  dmg: ({ talent }, dmg) => dmg(talent.q['激光伤害'], 'q', 'spread')
+  dmg: ({ talent }, dmg) => dmg(talent.q['龙息伤害'], 'q,nightsoul', 'spread')
 }]
 
 export const defParams = { Nightsoul: true }
@@ -150,12 +150,12 @@ export const buffs = [
   }
 },
 {
-  title: '基尼奇4命：[蜂鸟之羽] 进行环绕射击或施放迴猎贯鳞炮后，将为他恢复5点元素能量。 向伟大圣龙致意造成的伤害提升[qDmg]%',
+  title: '基尼奇4命：[蜂鸟之羽] 进行环绕射击或施放迴猎贯鳞炮后，将恢复[_energyevery]点元素能量。 向伟大圣龙致意造成的伤害提升[qDmg]%',
   cons: 4,
   data: {
     _energyevery: 5,
     qDmg: 70
   }
 },
-{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
 

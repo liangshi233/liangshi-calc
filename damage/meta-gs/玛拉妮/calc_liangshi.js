@@ -73,52 +73,53 @@ if (!cfg.gs102ranking) {
 if (!cfg.energymodel) {
   energy = 0
 }
-let renew = '[数据来源4.8.54]测试内容请注意时效性,数据正确性请自行辨别'
+let renew = '无'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
   title: '鲨鲨撕咬基础伤害',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a,nightsoul')
 },
 {
   title: '鲨鲨撕咬基础蒸发',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a', 'vaporize')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a,nightsoul', 'vaporize')
 },
 {
   title: '鲨鲨撕咬一层伤害',
   params: { lscn: 1 },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a,nightsoul')
 },
 {
   title: '鲨鲨撕咬二层伤害',
   params: { lscn: 2 },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.e['鲨鲨撕咬基础伤害'] / 100, 'a,nightsoul')
 },
 {
   title: '巨浪鲨鲨撕咬伤害',
   params: { lscn: 3 },
-  dmgKey: 'e',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul')
 },
 {
   title: '巨浪鲨鲨撕咬蒸发',
   params: { lscn: 3 },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a', 'vaporize')
+  dmgKey: 'e',
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
+  check: ({ cons }) => cons >= 1,
   title: '1命首次巨浪鲨鲨撕咬蒸发',
-  params: { cons1: true },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a', 'vaporize')
+  params: { cons1: true , lscn: 3 },
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
   title: `${qName}伤害`,
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q,nightsoul')
 },
 {
   title: `${qName}蒸发`,
   dmgKey: 'q',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q', 'vaporize')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * talent.q['技能伤害'] / 100, 'q,nightsoul', 'vaporize')
 }]
 
 export const defParams = { Nightsoul: true }
@@ -128,16 +129,18 @@ export const mainAttr = 'hp,cpct,cdmg,mastery'
 export const buffs = [
 {
   check: ({ params }) => params.lscn !== undefined,
-  title: '玛拉妮技能：[踏鲨破浪] 浪势充能使鲨鲨撕咬造成的伤害提升[aPlus]',
+  title: '玛拉妮技能：[踏鲨破浪] 浪势充能使鲨鲨撕咬造成的伤害提升[aPlus]巨浪鲨鲨撕咬伤害额外提升[_aPlus]',
   sort: 9,
   data: {
-    aPlus: ({ talent, calc, attr, params }) => calc(attr.hp) * talent.e['浪势充能伤害提升'] / 100 * params.lscn
+    aPlus: ({ talent, calc, attr, params }) => calc(attr.hp) * talent.e['浪势充能伤害提升'] / 100 * params.lscn ,
+    _aPlus: ({ talent, calc, attr }) => calc(attr.hp) * talent.e['巨浪鲨鲨撕咬伤害额外提升'] / 100
   }
 },
 {
-  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,玛拉妮的爆瀑飞弹造成的伤害提升[aDmg]%。',
+  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,玛拉妮的爆瀑飞弹造成的伤害提升[qPlus]',
+  sort: 9,
   data: {
-    aDmg: 45
+    qPlus: ({ calc, attr }) => calc(attr.hp) * 45 / 100
   }
 },
 {
@@ -161,5 +164,5 @@ export const buffs = [
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
   cons: 6
 },
-{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
 

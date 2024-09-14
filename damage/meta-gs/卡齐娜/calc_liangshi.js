@@ -44,7 +44,7 @@ if ( NamePath !== 1 ) {
   qNameT = 'Q'
  }
 }
-const miss = ['a', 'z', 'c', 'h', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
+const miss = ['z', 'c', 'h', 'f', 'y', 'dph', 'dps', 'hph', 'hps']
 let ranking = 'undefined'
 if (!cfg.gs100ranking) {
  if ( rankingOnePath == 'm' ) {
@@ -73,20 +73,23 @@ if (!cfg.gs100ranking) {
 if (!cfg.energymodel) {
   energy = 0
 }
-let renew = '[数据来源4.8.54]测试内容请注意时效性,数据正确性请自行辨别'
+let renew = '无'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
 {
   title: `${eName}搭乘伤害`,
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.e['冲天转转搭乘伤害'] / 100, 'e')
+  dmgKey: 'a',
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.e['冲天转转搭乘伤害'] / 100, 'e,nightsoul')
 },
 {
   title: `${eName}独立伤害`,
-  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.e['冲天转转独立伤害'] / 100, 'e')
+  dmgKey: 'e',
+  dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.e['冲天转转独立伤害'] / 100, 'e,nightsoul')
 },
 {
   title: `${qName}伤害`,
+  dmgKey: 'q',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.q['技能伤害'] / 100, 'q')
 },
 {
@@ -133,5 +136,5 @@ export const buffs = [
   title: '卡齐娜6命：[这一次，我一定要赢] 队伍中自己的当前场上角色的护盾因任何原因被替换或摧毁时，将造成岩元素范围伤害',
   cons: 6
 },
-{title: `9.2最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
 

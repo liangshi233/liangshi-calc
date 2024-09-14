@@ -51,7 +51,7 @@ if (NamePath !== 1) {
 
 const miss = ['f', 'h', 'y', 'hph', 'hps']
 let ranking = 'undefined'
-if (!cfg.gs36ranking) {
+if (!cfg.gs94ranking) {
   if (rankingOnePath == 'm') {
     ranking = 'dps'
   } else if (miss.includes(rankingOnePath)) {
