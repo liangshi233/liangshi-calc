@@ -107,7 +107,7 @@ export const details = [
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
-  check: ({ cons }) => cons >= 1,
+  check: ({ cons }) => cons >= 1 && cons < 6,
   title: '1命首次巨浪鲨鲨撕咬蒸发',
   params: { cons1: true , lscn: 3 },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
@@ -129,7 +129,7 @@ export const mainAttr = 'hp,cpct,cdmg,mastery'
 export const buffs = [
 {
   check: ({ params }) => params.lscn !== undefined,
-  title: '玛拉妮技能：[踏鲨破浪] 浪势充能使鲨鲨撕咬造成的伤害提升[aPlus]巨浪鲨鲨撕咬伤害额外提升[_aPlus]',
+  title: '玛拉妮技能：[踏鲨破浪] 浪势充能使鲨鲨撕咬造成的伤害提升[aPlus],巨浪鲨鲨撕咬伤害额外提升[_aPlus]',
   sort: 9,
   data: {
     aPlus: ({ talent, calc, attr, params }) => calc(attr.hp) * talent.e['浪势充能伤害提升'] / 100 * params.lscn ,
@@ -137,7 +137,7 @@ export const buffs = [
   }
 },
 {
-  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,玛拉妮的爆瀑飞弹造成的伤害提升[qPlus]',
+  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,爆瀑飞弹造成的伤害提升[qPlus]',
   sort: 9,
   data: {
     qPlus: ({ calc, attr }) => calc(attr.hp) * 45 / 100
@@ -162,7 +162,11 @@ export const buffs = [
 },
 {
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
-  cons: 6
+  cons: 6,
+  sort: 9,
+  data: {
+    aPlus: ({ calc, attr }) => calc(attr.hp) * 66 / 100
+  }
 },
-{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.14最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
 
