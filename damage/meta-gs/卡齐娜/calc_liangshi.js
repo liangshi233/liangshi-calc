@@ -93,6 +93,11 @@ export const details = [
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.def) * talent.q['技能伤害'] / 100, 'q')
 },
 {
+  title: '结晶护盾吸收量',
+  dmgKey: 'r',
+  dmg: ({}, { reaction }) => reaction('crystallize')
+},
+{
   check: ({ cons }) => cons >= 6,
   title: '护盾替换摧毁伤害',
   dmg: ({ calc, attr }, { basic }) => basic(calc(attr.def) * 200 / 100, '')
@@ -136,5 +141,5 @@ export const buffs = [
   title: '卡齐娜6命：[这一次，我一定要赢] 队伍中自己的当前场上角色的护盾因任何原因被替换或摧毁时，将造成岩元素范围伤害',
   cons: 6
 },
-{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.17最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
 
