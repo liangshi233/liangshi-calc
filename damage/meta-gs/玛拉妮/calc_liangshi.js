@@ -73,7 +73,7 @@ if (!cfg.gs102ranking) {
 if (!cfg.energymodel) {
   energy = 0
 }
-let renew = '无'
+let renew = '修复鲨鲨撕咬能够获取[悠闲的「梅兹特利」…]加成的问题'
 let information = '如有问题请输入 #伤害计算反馈'
 
 export const details = [
@@ -97,19 +97,19 @@ export const details = [
 },
 {
   title: '巨浪鲨鲨撕咬伤害',
-  params: { lscn: 3 },
+  params: { Surging: true, lscn: 3 },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul')
 },
 {
   title: '巨浪鲨鲨撕咬蒸发',
-  params: { lscn: 3 },
+  params: { Surging: true, lscn: 3 },
   dmgKey: 'e',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
   check: ({ cons }) => cons >= 1 && cons < 6,
   title: '1命首次巨浪鲨鲨撕咬蒸发',
-  params: { cons1: true , lscn: 3 },
+  params: { cons1: true, lscn: 3 },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
@@ -161,6 +161,7 @@ export const buffs = [
   }
 },
 {
+  check: ({ params }) => params.Surging === true,
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
   cons: 6,
   sort: 9,
@@ -168,5 +169,5 @@ export const buffs = [
     aPlus: ({ calc, attr }) => calc(attr.hp) * 66 / 100
   }
 },
-{title: `9.14最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.18最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
 
