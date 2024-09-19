@@ -97,12 +97,12 @@ export const details = [
 },
 {
   title: '巨浪鲨鲨撕咬伤害',
-  params: { Surging: true, lscn: 3 },
+  params: { lscn: 3 },
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul')
 },
 {
   title: '巨浪鲨鲨撕咬蒸发',
-  params: { Surging: true, lscn: 3 },
+  params: { lscn: 3 },
   dmgKey: 'e',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
@@ -161,7 +161,7 @@ export const buffs = [
   }
 },
 {
-  check: ({ params }) => params.Surging === true,
+  check: ({ params }) => params.lscn >= 3,
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
   cons: 6,
   sort: 9,
