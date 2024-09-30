@@ -109,9 +109,9 @@ export const mainAttr = 'def,cpct,cdmg,mastery'
 
 export const buffs = [
 {
-  title: '卡齐娜天赋：[山的回声] 队伍中的附近的角色触发「夜魂迸发」,岩元素伤害加成提升[dmg]%。',
+  title: '卡齐娜天赋：[山的回声] 队伍中的附近的角色触发「夜魂迸发」,岩元素伤害加成提升[_dmg]% { 该效果单人不生效 }',
   data: {
-    dmg: 20
+    _dmg: 20
   }
 },
 {
@@ -141,5 +141,5 @@ export const buffs = [
   title: '卡齐娜6命：[这一次，我一定要赢] 队伍中自己的当前场上角色的护盾因任何原因被替换或摧毁时，将造成岩元素范围伤害',
   cons: 6
 },
-{title: `9.17最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.30最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs100ranking} 更新日志:${renew} 其他信息:${information}`}]
 

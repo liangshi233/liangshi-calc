@@ -137,10 +137,10 @@ export const buffs = [
   }
 },
 {
-  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,爆瀑飞弹造成的伤害提升[qPlus]',
+  title: '玛拉妮天赋：[纳塔最好的向导] 队伍中的附近的角色触发「夜魂迸发」,爆瀑飞弹造成的伤害提升[_qPlus] { 该效果单人不生效 }',
   sort: 9,
   data: {
-    qPlus: ({ calc, attr }) => calc(attr.hp) * 45 / 100
+    _qPlus: ({ calc, attr }) => calc(attr.hp) * 45 / 100
   }
 },
 {
@@ -169,5 +169,5 @@ export const buffs = [
     aPlus: ({ calc, attr }) => calc(attr.hp) * 66 / 100
   }
 },
-{title: `9.18最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.30最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs102ranking} 更新日志:${renew} 其他信息:${information}`}]
 

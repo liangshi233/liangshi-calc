@@ -127,9 +127,9 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const buffs = [
 {
   check: ({ params }) => params.jp === true ,
-  title: '基尼奇天赋：[焰灵的契约] 队伍中的附近的角色触发「夜魂迸发」迴猎贯鳞炮造成的伤害提高[ePlus]',
+  title: '基尼奇天赋：[焰灵的契约] 队伍中的附近的角色触发「夜魂迸发」迴猎贯鳞炮造成的伤害提高[_ePlus] { 该效果单人不生效 }',
   data: {
-    ePlus: ({ calc , attr }) => calc(attr.atk) * 320 / 100
+    _ePlus: ({ calc , attr }) => calc(attr.atk) * 320 / 100
   }
 },
 {
@@ -157,5 +157,5 @@ export const buffs = [
     qDmg: 70
   }
 },
-{title: `9.10最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `9.30最后修改：[8.16重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs101ranking} 更新日志:${renew} 其他信息:${information}`}]
 
