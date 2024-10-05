@@ -12,7 +12,11 @@ let cfgMap = {
     this.game = game
     let chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
     if (cfgL.calcLiang || cfgL.artisLiang) {
+      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/liangshi-${game}`)) {
+       chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
+      } else {
        chars = fs.readdirSync(`${rootPath}/plugins/liangshi-calc/damage/liangshi-${game}`)
+      }
     }
     for (let char of chars) {
       cfgMap.char[char] = {}

@@ -29,7 +29,7 @@ const LSstart = {
       if (tbReg.test(name)) name = name.replace(tbReg, '开拓者')
 
       for (let ds of dmgFile) {
-        let path = `${_path}/plugins/miao-plugin/resources/liangshi-${game}/character/${name}/${ds.file}.js`
+        let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
         if (cfg.calcLiang || cfg.calcLiangQ) {
           path = `${_path}/plugins/liangshi-calc/damage/liangshi-${game}/${name}/${ds.file}.js`
           if (!fs.existsSync(path)) {
