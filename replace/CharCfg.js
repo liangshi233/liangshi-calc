@@ -12,7 +12,7 @@ let cfgMap = {
     this.game = game
     let chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
     if (cfgL.calcLiang || cfgL.artisLiang) {
-       chars = fs.readdirSync(`${rootPath}/plugins/liangshi-calc/damage/meta-${game}`)
+       chars = fs.readdirSync(`${rootPath}/plugins/liangshi-calc/damage/liangshi-${game}`)
     }
     for (let char of chars) {
       cfgMap.char[char] = {}
@@ -51,14 +51,14 @@ let cfgMap = {
   },
   exists(char, file, path = '') {
     if (path) return fs.existsSync(`${miaoPath}/resources/meta-${this.game}/character/${char}/${file}.js`)
-    return fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/meta-${this.game}/${char}/${file}.js`)
+    return fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/liangshi-${this.game}/${char}/${file}.js`)
   },
   async getCfg(char, file, module = '') {
     let cfg = await Data.importModule(`resources/meta-${this.game}/character/${char}/${file}.js`, 'miao');
     if (module && cfgL.artisLiang) {
-      cfg = await Data.importModule(`damage/meta-${this.game}/${char}/${file}.js`)
+      cfg = await Data.importModule(`damage/liangshi-${this.game}/${char}/${file}.js`)
     } else if (cfgL.calcLiang) {
-      cfg = await Data.importModule(`damage/meta-${this.game}/${char}/${file}.js`)
+      cfg = await Data.importModule(`damage/liangshi-${this.game}/${char}/${file}.js`)
     }
     if (module) return cfg[module]
     return cfg

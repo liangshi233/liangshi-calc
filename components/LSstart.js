@@ -14,8 +14,8 @@ const LSstart = {
       let dmgFile = [
         { file: 'calc_user', name: '自定义伤害' },
         { file: 'calc_li', name: '大爷', test: () => cfg.calcLi },
-        //    { file: 'calc_qsyhh', name: 'qsyhhcalc 基础' , test: () => cfg.calcQsyhh },
-        //    { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => cfg.calcLiangK },
+        { file: 'calc_liangshiN', name: 'liangshipro 前瞻', test: () => cfg.calcLiangN },
+        { file: 'calc_liangshiK', name: 'liangshicalc 开发' , test: () => cfg.calcLiangK },
         //    { file: 'calc_liangshiJ', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
         { file: 'calc_liangshiP', name: 'liangshipro 进阶', test: () => cfg.calcLiangP },
         { file: 'calc_liangshiQ', name: 'liangshicalc 超全', test: () => cfg.calcLiangQ },
@@ -29,20 +29,15 @@ const LSstart = {
       if (tbReg.test(name)) name = name.replace(tbReg, '开拓者')
 
       for (let ds of dmgFile) {
-        let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+        let path = `${_path}/plugins/miao-plugin/resources/liangshi-${game}/character/${name}/${ds.file}.js`
         if (cfg.calcLiang || cfg.calcLiangQ) {
-          path = `${_path}/plugins/liangshi-calc/damage/meta-${game}/${name}/${ds.file}.js`
+          path = `${_path}/plugins/liangshi-calc/damage/liangshi-${game}/${name}/${ds.file}.js`
           if (!fs.existsSync(path)) {
             path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
           }
         }
-        /*
-        if (cfg.calcQsyhh) {
-          path = `${_path}/plugins/qsyhh-calc/resources/meta-${game}/character/${name}/${ds.file}.js`
-        }
-        */
         if (cfg.calcLiangP) {
-          path = `/plugins/liangshi-calc/resources/calc-pro/meta-${game}/${name}/${ds.file}.js`
+          path = `/plugins/liangshi-calc/damage/liangshipro-${game}/${name}/${ds.file}.js`
         }
         if (ds.test && !ds.test()) {
           continue
