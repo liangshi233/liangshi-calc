@@ -14,6 +14,5 @@ export default function ({ attr, artis, weapon, rule, def }) {
   if (artis.is('dmg', 4) && attr.mastery >= 120 && attr.mastery < 540) {
     return rule('驻场-蒸发', { hp: 20, atk: 75, cpct: 100, cdmg: 100, mastery: 50, dmg: 100, recharge: 55 })
   }
-  
   return def({ hp: 100, cpct: 40, cdmg: 40, dmg: 40, recharge: 80 })
 }
