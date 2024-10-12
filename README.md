@@ -50,14 +50,46 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 ~~~~~~~~~~
 默认支持内容查询 [点击](damage/liangshi-gs/README.md)🤔
 
+<details><summary>安装他人的计算-仅供参考</summary>
+
+###### 步骤1
+
+使用链接安装示例 - 仅供参考，具体步骤请按对应计算说明中写明方法
+~~~~~~~~~~
+#更新https://gitee.com/liangshi233/liangshi星铁伤害计算
+~~~~~~~~~~
+
+使用名字安装/更新示例 - 仅供参考，具体步骤请按对应计算说明中写明方法
+~~~~~~~~~~
+#更新liangshi星铁伤害计算
+~~~~~~~~~~
+
+手动安装示例 - 仅供参考，具体步骤请按对应计算说明中写明方法
+
+~~~~~~~~~~
+git clone --depth=1 https://gitee.com/liangshi233/liangshi-sr.git ./plugins/liangshi-calc/damage/liangshi-sr/
+~~~~~~~~~~
+
+###### 步骤2
+
+在设置中手动添加-仅供参考，具体步骤请按对应计算说明中的方法
+~~~~~~~~~~YAML
+calcmodel: liangshi #你安装计算的名字（例如abc-gs，就填abc）
+~~~~~~~~~~
+
+###### 步骤3
+
+重启Bot
+
+</details>
+
 ---
 
 > 其他资源位置
 
-* qsyhh的插件库： [PlugLib](https://qsyhh.icu/xmdz)
-* Yunzai-Bot 乐乐乐原版： [gitee](https://gitee.com/le-niao/Yunzai-Bot) [github](https://github.com/le-niao/Yunzai-Bot)
-* Yunzai-Bot Miao版：[gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot) [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)
-* Miao-Yunzai [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) [github](https://github.com/yoimiya-kokomi/Miao-Yunzai)
-* Miao-Plugin [gitee](https://gitee.com/yoimiya-kokomi/miao-plugin) [github](https://github.com/yoimiya-kokomi/miao-plugin)
-* 鸣潮插件 [gitee](https://gitee.com/qsyhh/mc-wiki)
-* 预设面板JS版 [gitee](https://gitee.com/liangshi233/presets-panel)
+|名称|gitee|github|
+|:----:|:----:|:----:|
+|Yunzai-Bot | [gitee](https://gitee.com/le-niao/Yunzai-Bot) | [github](https://github.com/le-niao/Yunzai-Bot) |
+|Yunzai-Miao| [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot) | [github](https://github.com/yoimiya-kokomi/Yunzai-Bot) |
+|Miao-Yunzai | [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) | [github](https://github.com/yoimiya-kokomi/Miao-Yunzai) |
+|Miao-Plugin | [gitee](https://gitee.com/yoimiya-kokomi/miao-plugin) | [github](https://github.com/yoimiya-kokomi/miao-plugin) |

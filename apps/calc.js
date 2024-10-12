@@ -48,8 +48,8 @@ export class calc extends plugin {
     } else if (/尘白|CBJQ|cbjq|尘白禁区/.test(this.e.msg)) {
       calcdata = 'cbjq'
     } else {
-      calcdata = 'gs' //仅添加了已发现有插件支持的游戏，如有新游戏可在issue中提出
-    } //部分游戏计算可能需要安装相应插件才可使用且部分游戏可能拥有多个插件，请安装前注意计算支持的插件名称
+      calcdata = 'gs' //仅添加已支持的游戏，如有新的游戏可在issue中提出
+    } //部分游戏可能需要安装相应插件才可使用且部分游戏可能拥有多个插件，请安装前注意插件名称
     let namedata = ''
     let gitdata = ''
     if (/liangshi|梁氏|LS|Liangshi|ls/.test(this.e.msg)) {
@@ -59,12 +59,16 @@ export class calc extends plugin {
       gitdata = 'https://gitee.com/jntmtt'
       namedata = 'ikun'
     } else {
-      e.reply('未知作者，请检查作者名称')
-      return false //部分游戏插件和部分作者的计算为私库状态，需要根据相应插件说明在此添加对应内容
+     let webdata = e.msg.match(/^#*(强制)?更新(.*)(崩坏三|崩坏3|崩三|崩3|bh3|BH3|原神|ys|YS|gs|GS|星铁|sr|SR|崩坏星穹铁道|崩坏：星穹铁道|铁道|绝区零|zzz|ZZZ|绝|鸣潮|mc|MC|明朝|潮|幻塔|HT|ht|幻塔PSN|幻塔psn|HTPSN|htpsn|战双|ZS|zs|战双帕弥什|帕弥什|PNS|pns|尘白|CBJQ|cbjq|尘白禁区)(计算|伤害计算)$/)
+     if (fs.existsSync(`${_path}/plugins/liangshi-calc/damage/${webdata[2]}-${calcdata}/`)) {
+      namedata = `${webdata[2]}`
+     } else {
+      gitdata = `${webdata[2]}`
+     } //部分游戏插件和部分作者的计算为私库状态，需要根据相应插件说明在此添加对应内容
     }
     let command = ''
     if (fs.existsSync(`${_path}/plugins/liangshi-calc/damage/${namedata}-${calcdata}/`)) {
-      e.reply('开始尝试更新，请耐心等待~')
+      e.reply('开始尝试更新选定的计算，请耐心等待~')
       command = 'git pull'
       if (isForce) {
         command = 'git  checkout . && git  pull'
