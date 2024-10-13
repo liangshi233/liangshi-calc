@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { exec } from 'child_process'
 import plugin from '../../../lib/plugins/plugin.js'
+import LSconfig from '../components/LSconfig.js'
 
 const _path = process.cwd()
 
