@@ -4,6 +4,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import LSconfig from '../components/LSconfig.js'
 
 const _path = process.cwd()
+const cfgL = LSconfig.getConfig('user', 'config')
 
 export class calc extends plugin {
   constructor () {
@@ -59,6 +60,8 @@ export class calc extends plugin {
     } else if (/ikun|Ikun/.test(this.e.msg)) {
       gitdata = 'https://gitee.com/jntmtt'
       namedata = 'ikun'
+    } else if (/当前|已启用|使用中|默认|自定义/.test(this.e.msg)) {
+      namedata = cfgL.calcmodel
     } else {
      let webdata = e.msg.match(/^#*(强制)?更新(.*)(崩坏三|崩坏3|崩三|崩3|bh3|BH3|原神|ys|YS|gs|GS|星铁|sr|SR|崩坏星穹铁道|崩坏：星穹铁道|铁道|绝区零|zzz|ZZZ|绝|鸣潮|mc|MC|明朝|潮|幻塔|HT|ht|幻塔PSN|幻塔psn|HTPSN|htpsn|战双|ZS|zs|战双帕弥什|帕弥什|PNS|pns|尘白|CBJQ|cbjq|尘白禁区)(计算|伤害计算)$/)
      if (fs.existsSync(`${_path}/plugins/liangshi-calc/damage/${webdata[2]}-${calcdata}/`)) {
