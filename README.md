@@ -1,4 +1,4 @@
-# liangshi-calc
+ # liangshi-calc
 
 ## 为角色面板功能提供全方位拓展
 使用说明（需要安装Miao-Plugin才能使用）
@@ -80,6 +80,8 @@ calcmodel: liangshi #你安装计算的名字（例如abc-gs，就填abc）
 ###### 步骤3
 
 重启Bot
+
+> 由于个人时间精力有限，后续自带的计算基本不再会更新新角色，建议安装其他仓库的计算避免后续角色无计算
 
 </details>
 

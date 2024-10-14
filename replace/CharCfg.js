@@ -4,6 +4,7 @@ import lodash from 'lodash'
 import fs from 'node:fs'
 
 const cfgL = LSconfig.getConfig('user', 'config')
+let calcmodel = cfgL.calcmodel
 
 let cfgMap = {
   char: {},
@@ -11,7 +12,6 @@ let cfgMap = {
   async init (game = 'gs') {
     this.game = game
     let chars = fs.readdirSync(`${miaoPath}/resources/meta-${game}/character`)
-    let calcmodel = cfgL.calcmodel
     if (cfgL.calcLiang || cfgL.artisLiang) {
       if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${game}`)) {
        if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/liangshi-${game}`)) {

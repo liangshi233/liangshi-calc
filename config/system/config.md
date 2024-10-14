@@ -78,7 +78,7 @@ artisLiangZ: false
 ### 设置6(不生成)
 你使用的其他计算名称或仓库名称
 ~~~~~~~~~~YAML
-artisLiangZ: liangshi
+calcmodel: liangshi
 ~~~~~~~~~~
 不使用其他计算请勿修改此项
 
