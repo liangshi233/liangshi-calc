@@ -61,13 +61,13 @@ let cfgMap = {
   async getCfg(char, file, module = '') {
     let cfg = await Data.importModule(`resources/meta-${this.game}/character/${char}/${file}.js`, 'miao');
     if (module && cfgL.artisLiang) {
-      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${game}`)) {
+      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${this.game}`)) {
        cfg = await Data.importModule(`damage/liangshi-${this.game}/${char}/${file}.js`)
       } else {
        cfg = await Data.importModule(`damage/${calcmodel}-${this.game}/${char}/${file}.js`)
       }
     } else if (cfgL.calcLiang) {
-      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${game}`)) {
+      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${this.game}`)) {
        cfg = await Data.importModule(`damage/liangshi-${this.game}/${char}/${file}.js`)
       } else {
        cfg = await Data.importModule(`damage/${calcmodel}-${this.game}/${char}/${file}.js`)
