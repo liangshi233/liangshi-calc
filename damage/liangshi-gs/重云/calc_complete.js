@@ -10,7 +10,7 @@ let rankingOnePath = cfg.rankingOnemodel
 let rankingTwoPath = cfg.rankingTwomodel
 let rankingThreePath = cfg.rankingThreemodel
 let gs36ranking = cfg.gs36ranking
-cccccc
+let energy = cfg.energymodel
 let aName = '普通攻击'
 let a2Name = '重击'
 let a3Name = '下落攻击'
