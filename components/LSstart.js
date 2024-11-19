@@ -38,6 +38,9 @@ const LSstart = {
           if (!fs.existsSync(path)) {
             path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
           }
+          if (!fs.existsSync(path)) {
+            path = `${_path}/plugins/liangshi-calc/damage/calc_basic_${game}.js`
+          }
         }
         if (ds.test && !ds.test()) {
           continue
