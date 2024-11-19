@@ -46,13 +46,11 @@ const LSstart = {
           return { path, createdBy: ds.name }
         }
       }
-      if (!fs.existsSync(path)) {
-         path = `${_path}/plugins/liangshi-calc/damage/calc_basic_${game}.js`
-        if (fs.existsSync(path)) {
-          return { path, createdBy: ds.name }
-        } else {
-          return false
-        }
+      let path = `${_path}/plugins/liangshi-calc/damage/calc_basic_${game}.js`
+      if (fs.existsSync(path)) {
+        return { path, createdBy: "liangshicalc 通用" }
+      } else {
+        return false
       }
       return false
     }

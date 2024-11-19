@@ -320,5 +320,3 @@ export const defDmgKey = `${ranking}`
 export const mainAttr = 'cpct,cdmg,mastery'
 
 export const buffs = [{title: `11.18最后修改：[10.19重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 更新日志:${renew} 其他信息:${information}`}]
-
-export const createdBy = 'liangshicalc 通用'
