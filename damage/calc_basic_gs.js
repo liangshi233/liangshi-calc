@@ -236,7 +236,7 @@ export const details = [
   }
 },
 {
-  title: `${eName}命中治疗`,
+  title: `${qName}命中治疗`,
   check: ({ talent }) => talent.q['命中治疗量2'] || talent.q['治疗量2'],
   dmg: ({ talent, calc, attr }, { heal }) => {
     let qTal = !talent.q['命中治疗量2'] ? talent.q['治疗量2'] : talent.q['命中治疗量2']
