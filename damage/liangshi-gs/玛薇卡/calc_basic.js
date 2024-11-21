@@ -157,7 +157,7 @@ export const buffs = [
   title: '玛薇卡天赋：[「基扬戈兹」] 施放元素爆发燔天之时后，拥有[_buff]战意，造成的伤害提升[dmg]%',
   data: {
     _buff: ({ params }) => params.q ,
-    dmg: ({ params }) => Math.min( 50 , params.q * 0.25 ),
+    dmg: ({ params }) => Math.min( 50 , params.q * 0.25 )
   }
 },
 {

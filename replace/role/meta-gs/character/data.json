@@ -1503,6 +1503,186 @@
       "q": 5
     }
   },
+  "10000099": {
+    "id": 10000099,
+    "name": "艾梅莉埃",
+    "abbr": "艾梅",
+    "star": 5,
+    "elem": "dendro",
+    "weapon": "polearm",
+    "talentId": {
+      "10991": "a",
+      "10992": "e",
+      "10995": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000100": {
+    "id": 10000100,
+    "name": "卡齐娜",
+    "abbr": "卡齐娜",
+    "star": 4,
+    "elem": "geo",
+    "weapon": "polearm",
+    "talentId": {
+      "11001": "a",
+      "11002": "e",
+      "11005": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000101": {
+    "id": 10000101,
+    "name": "基尼奇",
+    "abbr": "基尼奇",
+    "star": 5,
+    "elem": "dendro",
+    "weapon": "claymore",
+    "talentId": {
+      "11011": "a",
+      "11012": "e",
+      "11015": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000102": {
+    "id": 10000102,
+    "name": "玛拉妮",
+    "abbr": "玛拉妮",
+    "star": 5,
+    "elem": "hydro",
+    "weapon": "catalyst",
+    "talentId": {
+      "30000": "a",
+      "30002": "e",
+      "30007": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000103": {
+    "id": 10000103,
+    "name": "希诺宁",
+    "abbr": "希诺宁",
+    "star": 5,
+    "elem": "geo",
+    "weapon": "sword",
+    "talentId": {
+      "11031": "a",
+      "11032": "e",
+      "11035": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000104": {
+    "id": 10000104,
+    "name": "恰斯卡",
+    "abbr": "恰斯卡",
+    "star": 5,
+    "elem": "anemo",
+    "weapon": "bow",
+    "talentId": {
+      "11041": "a",
+      "11042": "e",
+      "11045": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000105": {
+    "id": 10000105,
+    "name": "欧洛伦",
+    "abbr": "欧洛伦",
+    "star": 4,
+    "elem": "electro",
+    "weapon": "bow",
+    "talentId": {
+      "11051": "a",
+      "11052": "e",
+      "11055": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 0
+    }
+  },
+  "10000106": {
+    "id": 10000106,
+    "name": "玛薇卡",
+    "abbr": "玛薇卡",
+    "star": 5,
+    "elem": "pyro",
+    "weapon": "claymore",
+    "talentId": {
+      "11061": "a",
+      "11062": "e",
+      "11065": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 5,
+      "q": 3
+    }
+  },
+  "10000107": {
+    "id": 10000107,
+    "name": "茜特菈莉",
+    "abbr": "菈莉",
+    "star": 5,
+    "elem": "cryo",
+    "weapon": "catalyst",
+    "talentId": {
+      "11071": "a",
+      "11072": "e",
+      "11075": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
+  "10000108": {
+    "id": 10000108,
+    "name": "蓝砚",
+    "abbr": "蓝砚",
+    "star": 4,
+    "elem": "anemo",
+    "weapon": "catalyst",
+    "talentId": {
+      "11081": "a",
+      "11082": "e",
+      "11085": "q"
+    },
+    "talentCons": {
+      "a": 0,
+      "e": 3,
+      "q": 5
+    }
+  },
   "20000000": {
     "id": 20000000,
     "name": "旅行者",
@@ -1603,6 +1783,19 @@
     "abbr": "水主",
     "star": 5,
     "elem": "hydro",
+    "weapon": "sword",
+    "talentId": {},
+    "talentCons": {
+      "e": 3,
+      "q": 5
+    }
+  },
+  "20000007": {
+    "id": 20000007,
+    "name": "火主",
+    "abbr": "火主",
+    "star": 5,
+    "elem": "pyro",
     "weapon": "sword",
     "talentId": {},
     "talentCons": {
