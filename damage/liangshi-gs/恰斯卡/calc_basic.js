@@ -117,6 +117,12 @@ export const details = [
     let Z3Dmg = cons >= 1 ? hgzyd : (Z3config >= 66.6 ? zyd : hgzyd )
     let Z2Dmg = cons >= 1 ? (Z4element >= 0 ? hgzyd : (Z4element > 0.5 ? (Z4element > 0.5 ? hgzyd : szfhgzyd) : (Z4element > 0.5 ? hzfhgzyd : hgzyd))) : (Z4element >= 0 ? zyd : { dmg: zyd.dmg + ksDmg.avg, avg: zyd.avg + ksDmg.avg })
     let cons2 = basic((cons >= 2 ? 400 : 0) * calc(attr.atk) / 100, 'a2,nightsoul', 'phy')
+    /*
+    遵循2次附着规则，后填先发
+    模拟对单，扩散不触发二次反应，无队友buff
+    伤害不包括天赋额外流焰弹，初始默认无附着，无附着时不触发扩散
+    不计算战技起身伤害，依据天赋概率平均每次装填1.33火弹1.33水弹3.33风弹（0命）随机触发
+    */
     return {
       dmg: hgzyd.dmg + hgzyd.dmg + Z4Dmg.dmg + Z3Dmg.dmg + Z2Dmg.dmg + zyd.dmg + cons2.dmg,
       avg: hgzyd.avg + hgzyd.avg + Z4Dmg.avg + Z3Dmg.avg + Z2Dmg.avg + zyd.avg + cons2.avg

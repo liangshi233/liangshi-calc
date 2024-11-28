@@ -168,15 +168,23 @@ export const buffs = [
   }
 },
 {
-  title: '玛薇卡2命：[灰烬的代价] 基础攻击力提升[atkBase]%，并根据诸火武装的形态使附近的敌人的防御力降低[eEnemyDef]%普通攻击伤害提升[aPlus]重击伤害提升[a2Plus]',
-  sort: 9,
+  title: '玛薇卡2命：[灰烬的代价] 基础攻击力提升[atkBase]',
+  sort: 2,
   cons: 2,
   data: {
     atkBase: 300,
+    atkPlus: ({ calc, attr }) => 300 * calc(attr.atk.pct) / 100 + 300
+  }
+},
+{
+  title: '玛薇卡2命：[灰烬的代价] 根据诸火武装的形态使附近的敌人的防御力降低[eEnemyDef]%普通攻击伤害提升[aPlus]重击伤害提升[a2Plus]',
+  sort: 9,
+  cons: 2,
+  data: {
     eEnemyDef: 20,
     aPlus: ({ calc, attr }) => calc(attr.atk) * 100 / 100 ,
     a2Plus: ({ calc, attr }) => calc(attr.atk) * 150 / 100
   }
 },
- {title: `11.20最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs106ranking} 更新日志:${renew} 其他信息:${information}`}]
+ {title: `11.28最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs106ranking} 更新日志:${renew} 其他信息:${information}`}]
 
