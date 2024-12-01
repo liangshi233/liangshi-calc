@@ -112,16 +112,16 @@ export const details = [
     let Z4config = Math.floor(Math.random() * 100) + 1
     let Z6config = Math.floor(Math.random() * 100) + 1
     let ksDmg = reaction('swirl')
-    let Z4element = Z6config > 50 ? (Z4config > 50 ? 0 : 1) : (Z4config > 50 ? 0.5 : 5)
-    let Z4Dmg = Z4element > 0.5 ? szfhgzyd : (Z4element > 0 ? hzfhgzyd : zyd)
+    let Z4element = Z6config > 33 ? (Z4config > 33 ? 0 : 1) : (Z4config > 33 ? 0.5 : 0)
+    let Z4Dmg = Z4element > 0.5 ? szfhgzyd : (Z4element > 0 ? hzfhgzyd : hgzyd)
     let Z3Dmg = cons >= 1 ? hgzyd : (Z3config >= 66.6 ? zyd : hgzyd )
-    let Z2Dmg = cons >= 1 ? (Z4element >= 0 ? hgzyd : (Z4element > 0.5 ? (Z4element > 0.5 ? hgzyd : szfhgzyd) : (Z4element > 0.5 ? hzfhgzyd : hgzyd))) : (Z4element >= 0 ? zyd : { dmg: zyd.dmg + ksDmg.avg, avg: zyd.avg + ksDmg.avg })
-    let cons2 = basic((cons >= 2 ? 400 : 0) * calc(attr.atk) / 100, 'a2,nightsoul', 'phy')
+    let Z2Dmg = cons >= 1 ? (Z4element >= 0 ? hgzyd : (Z4config > 33 ? (Z2config > 33 ? hgzyd : szfhgzyd) : (Z2config > 33 ? hzfhgzyd : hgzyd))) : (Z4element >= 0 ? zyd : { dmg: zyd.dmg + ksDmg.avg, avg: zyd.avg + ksDmg.avg })
+    let cons2 = basic((cons >= 2 ? 400 : 0) * calc(attr.atk) / 100, 'a2,nightsoul', 'scene')
     /*
     遵循2次附着规则，后填先发
     模拟对单，扩散不触发二次反应，无队友buff
     伤害不包括天赋额外流焰弹，初始默认无附着，无附着时不触发扩散
-    不计算战技起身伤害，依据天赋概率平均每次装填1.33火弹1.33水弹3.33风弹（0命）随机触发
+    不计算战技起身伤害，依据天赋概率平均每次装填2.44火弹1.22水弹2.33风弹（0命）、3.33火弹1.66水弹1风弹（1~6命）随机触发
     */
     return {
       dmg: hgzyd.dmg + hgzyd.dmg + Z4Dmg.dmg + Z3Dmg.dmg + Z2Dmg.dmg + zyd.dmg + cons2.dmg,
@@ -182,5 +182,5 @@ export const buffs = [
     a2Cdmg: 120
   }
 },
-{title: `11.19最后修改：[11.02重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs104ranking} 更新日志:${renew} 其他信息:${information}`}]
+{title: `12.1最后修改：[11.02重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs104ranking} 更新日志:${renew} 其他信息:${information}`}]
 
