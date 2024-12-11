@@ -76,7 +76,6 @@ if ( rankingOnePath == 'm' ) {
 } else {
  ranking = `${rankingOnePath}`
 }
-
 if (!cfg.namemodel) {
 energy = 0
 }
@@ -210,7 +209,7 @@ export const details = [
 },
 {
   check: ({ talent }) => talent.q['护盾基础吸收量2'] || talent.q['护盾吸收量2'] || talent.q['吸收量2'],
-  title: `${eName}护盾量`,
+  title: `${qName}护盾量`,
   dmg: ({ talent, attr, calc }, { shield }) => {
     let qTal = !talent.q['护盾基础吸收量2'] ? (!talent.q['护盾吸收量2'] ? talent.q['吸收量2'] : talent.q['护盾吸收量2']) : talent.q['护盾基础吸收量2']
     let qShield = shield(qTal[0] * calc(attr.hp) / 100 + qTal[1] * 1)
