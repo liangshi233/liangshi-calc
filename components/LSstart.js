@@ -26,9 +26,8 @@ const LSstart = {
       // 兼容处理星铁主角的情况
       let tbReg = /^(星|穹)·/
       if (tbReg.test(name)) name = name.replace(tbReg, '开拓者')
-
+      let calcmodel = cfg.calcmodel
       for (let ds of dmgFile) {
-        let calcmodel = cfg.calcmodel
         let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
         if (cfg.calcLiang || cfg.calcLiangQ || cfg.calcLiangJ || cfg.calcLiangT || cfg.calcLiangN || cfg.calcLiangK) {
             path = `${_path}/plugins/liangshi-calc/damage/${calcmodel}-${game}/${name}/${ds.file}.js`
