@@ -44,7 +44,7 @@ export const defParams = { team: true }
 
 export const buffs = [characterBuffGs,enemyBuffGs,
   {
-    check: ({ params }) => params.TargetHp  50,
+    check: ({ params }) => params.TargetHp < 50,
     title: '阿贝多固有天赋1：刹那之花对生命值低于50%的敌人造成的伤害提高25%',
     data: {
       eDmg: 25
