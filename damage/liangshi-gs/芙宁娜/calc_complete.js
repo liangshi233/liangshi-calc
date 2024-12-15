@@ -1,4 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let a0Dmg = { dmg: 0, avg: 0 }
 let a1Dmg = { dmg: 0, avg: 0 }
@@ -342,7 +343,7 @@ export const defParams = { soda: 1 }
 export const mainAttr = 'hp,cpct,cdmg'
 export const defDmgKey = 'sh'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '芙宁娜天赋：[无人听的自白] 处于不同始基力属性下的芙宁娜的孤心沙龙获得增益效果,「沙龙成员」造成的伤害提升[eDmg]%,「众水的歌者」为周围的当前场上角色恢复生命值的间隔降低[_eSpeed]%',
     sort: 9,

@@ -1,4 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 export const details = [
   {
@@ -252,7 +253,7 @@ export const details = [
 
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '攻击提升：攻击力提升100%',
     data: {

@@ -1,4 +1,5 @@
 import lodash from 'lodash'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '海月之誓伤害',
@@ -74,7 +75,7 @@ export const defParams = {
   soda: 1
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '珊瑚宫心海天赋3：暴击率降低100%，治疗加成提高25%',
     isStatic: true,

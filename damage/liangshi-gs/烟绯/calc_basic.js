@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -130,7 +131,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '烟绯天赋：[关联条款] 通过重击消耗4枚丹火印,烟绯会提升[a2Dmg]%火伤',
   cons: 6,

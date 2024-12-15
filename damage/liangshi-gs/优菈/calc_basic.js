@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 let tmpDmg = { dmg: 0, avg: 0 }
 
 export const details = [
@@ -86,7 +88,7 @@ export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '优菈技能：[冰潮的涡旋] [buffCount]层冷酷之心，提高[_interruption]%抗打断能力和[defPct]%防御力',
     check: ({ params }) => params.lkzx >= 1,

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 let QDmg = { dmg: 0, avg: 0 }
 let Q1Dmg = { dmg: 0, avg: 0 }
 let Q2Dmg = { dmg: 0, avg: 0 }
@@ -61,7 +63,7 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     cons: 1,
     title: '香菱1命：锅巴降低敌人火抗15',

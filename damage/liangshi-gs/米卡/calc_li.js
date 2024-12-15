@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '霜流矢伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['霜流矢伤害'], 'e')

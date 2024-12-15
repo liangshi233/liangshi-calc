@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '游丝徵灵伤害',
   params: { team: false },
@@ -43,7 +45,7 @@ export const defParams = { soda: 1 }
 export const defDmgIdx = 2
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     passive: 1,
     title: '白术天赋1：生命值低于50%获得20%治疗加成。高于50%获得25%草元素伤害加成',

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '魔王武装状态重击',
   params: { team: false },
@@ -41,7 +43,7 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     check: ({ params }) => params.team === true,
     title: '风鹰宗室班：增加[atkPlus]点攻击力与[atkPct]%攻击力',

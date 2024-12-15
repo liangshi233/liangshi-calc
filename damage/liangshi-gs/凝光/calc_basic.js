@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '普通攻击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['普通攻击伤害'], 'a')
@@ -18,7 +20,7 @@ export const details = [{
 export const defDmgIdx = 1
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '凝光天赋2：穿过璇玑屏获得12%岩伤加成',
     data: {

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: 'E众水歌者治疗',
   dmg: ({ talent, attr, calc }, { heal }) =>
@@ -39,7 +41,7 @@ export const details = [{
 export const mainAttr = 'hp,mastery,cpct,cdmg,dmg'
 export const defDmgIdx = 3
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '芙宁娜天赋：消耗4队友生命值，E伤害提升140%'
   }, {

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   params: { team: false },
@@ -45,7 +47,7 @@ export const mainAttr = 'atk,cpct,cdmg'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '九条E技能：提升攻击力[atkPlus]',
     data: {

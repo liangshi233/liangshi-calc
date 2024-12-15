@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -133,7 +134,7 @@ export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   check: ({ params }) => params.q !== undefined ,
   title: '玛薇卡技能：[燔天之时] 拥有[_buff]战意，坠日斩伤害提升[qPlus]，「古名解放」普通攻击伤害提升[aPlus]，「古名解放」重攻击伤害提升[a2Plus]，抗打断能力提升[_interruption]%',

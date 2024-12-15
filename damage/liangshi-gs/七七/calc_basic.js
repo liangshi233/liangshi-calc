@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -125,7 +126,7 @@ export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '七七天赋：[延命妙法] 处于仙法·寒病鬼差状态下的角色触发元素反应时，受治疗加成提升[healInc]%',
   data: {

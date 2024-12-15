@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
@@ -24,7 +26,7 @@ export const details = [{
 export const defDmgIdx = 6
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '罗莎莉亚天赋1：从背后攻击时，暴击率提升12%',
     data: {

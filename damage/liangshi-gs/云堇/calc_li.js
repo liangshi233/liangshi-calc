@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '二段蓄力E伤害',
   dmg: ({ talent, attr, calc }, { basic }) => {
@@ -23,7 +25,7 @@ export const defDmgIdx = 2
 
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const buffs = [{
+export const buffs = [characterBuffGs,enemyBuffGs,{
   title: '云堇被动：队伍存在4元素类型角色时，Q提供的普攻伤害提高[_q]',
   sort: 9,
   data: {

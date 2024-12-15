@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '霜流矢伤害伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['霜流矢伤害'], 'e')
@@ -26,7 +28,7 @@ export const defDmgIdx = 5
 export const defDmgKey = 'qHeal'
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   'vaporize',
   { title: '5.1最后修改：如有问题请输入 #伤害计算反馈' }
 ]

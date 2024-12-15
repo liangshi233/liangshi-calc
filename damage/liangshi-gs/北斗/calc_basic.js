@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '捉浪伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['基础伤害'], 'e')
@@ -27,7 +29,7 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 6
 
-export const buffs = [{
+export const buffs = [characterBuffGs,enemyBuffGs,{
   title: '北斗6命：Q持续期间，周围敌人的雷元素抗性降低15%',
   cons: 6,
   data: {

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
@@ -130,7 +132,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '八重神子天赋：[启蜇之祝词] 使杀生樱造成的伤害提升[eDmg]%',
   sort: 9,

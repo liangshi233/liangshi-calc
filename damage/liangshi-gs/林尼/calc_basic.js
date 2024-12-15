@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '隐具魔术箭伤害',
@@ -35,7 +37,7 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '林尼天赋1：基于攻击力，隐具魔术箭造成的伤害提升60%',
     data: {

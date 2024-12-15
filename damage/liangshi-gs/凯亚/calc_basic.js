@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '普攻首段伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
@@ -24,7 +26,7 @@ export const details = [{
 export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     cons: 1,
     title: '凯亚1命：命中处于冰元素下的敌人普通攻击与重击暴击率提升15%',

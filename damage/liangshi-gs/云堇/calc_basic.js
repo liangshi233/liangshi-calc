@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: 'Q提供普攻基础伤害',
@@ -38,7 +40,7 @@ export const details = [
 export const defDmgIdx = 0
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     check: ({ params }) => params.qjichu === true,
     title: '云堇天赋：[莫从恒蹊] 队伍存在4元素类型角色时，「飞云旗阵」提供的普通攻击伤害提高[_q]点',

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '烈烧佑命之侍护伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
@@ -30,7 +32,7 @@ export const details = [{
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '托马天赋1：5层Buff提高护盾强效25%',
     data: {

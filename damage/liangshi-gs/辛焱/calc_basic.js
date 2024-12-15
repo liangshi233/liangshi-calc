@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击循环伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['重击循环伤害'], 'a2', 'phy')
@@ -36,7 +38,7 @@ export const defDmgIdx = 7
 export const mainAttr = 'atk,def,cpct,cdmg'
 export const enemyName = '魔偶/女士/雷神/丘丘'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '辛焱天赋2：处于护盾下物理伤害提高15%',
     data: {

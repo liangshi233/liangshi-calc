@@ -1,4 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -120,7 +121,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '胡桃技能：[蝶引来生] 消耗一部分生命值,击退周围敌人,基于进入该状态时胡桃的生命值上限,提高胡桃[atkPlus]点攻击力',
     sort: 9,

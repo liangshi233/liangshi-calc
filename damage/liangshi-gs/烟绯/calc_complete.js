@@ -1,4 +1,5 @@
 import { Format , LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -895,7 +896,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   check: ({ params }) => params.hd === true,
   title: '凭此结契护盾：[属性 - 火] 对火元素伤害有[_pyroShieldInc]%的额外吸收效果。',

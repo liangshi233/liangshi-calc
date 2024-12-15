@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -101,7 +102,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '蓝砚天赋：[苍翎镇邪敕符] 元素战技造成的伤害值提升[dmg],元素爆发造成的伤害值提升[dmg]',
   sort: 9,

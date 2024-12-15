@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '普攻首段伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
@@ -27,7 +29,7 @@ export const details = [{
 export const defDmgIdx = 0
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '雷泽1命：获得元素球后8秒伤害提高10%',
     cons: 1,

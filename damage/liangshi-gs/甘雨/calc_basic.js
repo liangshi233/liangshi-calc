@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '霜华矢总伤害',
   params: {
@@ -58,7 +60,7 @@ export const defParams = {
   alter: true
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     cons: 0,
     title: '甘雨天赋1：霜华矢发射后的5秒内霜华矢暴击率提高20%',

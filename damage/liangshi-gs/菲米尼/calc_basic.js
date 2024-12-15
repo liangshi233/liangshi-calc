@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '普通攻击一段伤害',
@@ -58,7 +60,7 @@ export const details = [
 export const defDmgIdx = 7
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '菲米尼技能：[猎影潜袭] 浮冰增压冷却时间缩短[_ecd]%',
     data: {

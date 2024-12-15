@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     check: ({ cons }) => cons < 1,
@@ -73,7 +75,7 @@ export const details = [
 export const defDmgKey = 'zj'
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     check: ({ params }) => params.qb !== undefined,
     title: '那维莱特天赋：[古海孑遗的权柄] [buffCount]层的「遗龙之荣」,将使重击·衡平推裁造成原本[_a2Dmg]%的伤害',

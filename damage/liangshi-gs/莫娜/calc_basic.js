@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -125,7 +126,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,recharge,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '莫娜天赋：[「托付于命运吧!」] 水元素伤害加成获得[dmg]%额外提升',
   sort: 9,

@@ -1,4 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -122,7 +123,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '赛索斯技能：[古仪·鸣砂掣雷] 对敌人触发了感电、超导、超载、原激化、超激化、超绽放或雷元素扩散反应，恢复[_energyevery]元素能量',
     data: {

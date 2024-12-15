@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     check: ({ cons }) => cons >= 6,
@@ -52,7 +54,7 @@ export const defParams = { soda: 1 }
 export const mainAttr = 'hp,cpct,cdmg'
 export const defDmgKey = 'e'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '芙宁娜技能：[孤心沙龙] 「沙龙成员」进行攻击时,根据附近的队伍中生命值高于50%的角色数量,提升此次攻击造成的伤害为原本的1[_eDmg]%',
     data: {

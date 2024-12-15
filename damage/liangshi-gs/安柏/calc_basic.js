@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
@@ -27,7 +29,7 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgKey = 'e'
 
-export const buffs = [{
+export const buffs = [characterBuffGs,enemyBuffGs,{
   title: '安柏天赋1：箭雨暴击率提高10%',
   data: { qCpct: 10 }
 }, {

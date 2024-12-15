@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -107,7 +108,7 @@ export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'def,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '卡齐娜天赋：[山的回声] 队伍中的附近的角色触发「夜魂迸发」,岩元素伤害加成提升[_dmg]% { 该效果单人不生效 }',
   data: {

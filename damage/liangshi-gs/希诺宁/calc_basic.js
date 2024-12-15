@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -118,7 +119,7 @@ export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'def,cpct,cdmg,heal'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '希诺宁天赋：[四境四象回声] 拥有少于两枚经过元素转化的「源音采样」，普通攻击与下落攻击造成的伤害提升[aDmg]%',
   data: {

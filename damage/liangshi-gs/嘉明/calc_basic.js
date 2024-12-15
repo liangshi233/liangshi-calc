@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '下落攻击·踏云献瑞伤害',
@@ -31,7 +33,7 @@ export const details = [
 export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '嘉明天赋：[祥烟瑞气] 生命值低于50%时，获得[healInc]%受治疗加成。生命值高于或等于50%时，下落攻击·踏云献瑞造成的伤害提升[a3Dmg]%。',
     data: {

@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffSr, enemyBuffSr } from '../resources/CalcBuff/index.js'
 
 /*
 
@@ -164,29 +165,5 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
-{
-  title: '角色状态：[面板属性] 当前攻击力[_atk]，防御力[_def]，生命值[_hp]，速度[_speed]，暴击率[_cpct]%，暴击伤害[_cdmg]%，充能效率[_recharge]%，击破特攻[_stance]%，效果命中[_effPct]%，效果抵抗[_effDef]%，治疗加成[_heal]%，伤害加成[_dmg]%',
-  sort: 10,
-  data: {
-    _atk: ({ calc, attr }) => calc(attr.atk),
-    _def: ({ calc, attr }) => calc(attr.def),
-    _hp: ({ calc, attr }) => calc(attr.hp),
-    _speed: ({ calc, attr }) => calc(attr.speed),
-    _cpct: ({ calc, attr }) => calc(attr.cpct),
-    _cdmg: ({ calc, attr }) => calc(attr.cdmg),
-    _recharge: ({ calc, attr }) => calc(attr.recharge),
-    _stance: ({ calc, attr }) => calc(attr.stance),
-    _effPct: ({ calc, attr }) => calc(attr.effPct),
-    _effDef: ({ calc, attr }) => calc(attr.effDef),
-    _heal: ({ calc, attr }) => calc(attr.heal),
-    _dmg: ({ calc, attr }) => calc(attr.dmg)
-  }
-},
-{
-  title: '敌人状态：[韧性] 具有[toughness]韧性上限',
-  data: {
-    toughness: ({ params }) => ( params.toughness || 10 )
-  }
-},
+export const buffs = [characterBuffSr,enemyBuffSr,
 {title: `12.11最后修改：[12.8重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 更新日志:${renew} 其他信息:${information}`}]

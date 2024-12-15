@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '苍鹭庇卫护盾吸收',
   dmg: ({ attr, calc, talent }, { shield }) =>
@@ -30,7 +32,7 @@ export const details = [{
 export const defDmgIdx = 5
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '坎蒂丝2命：E命中敌人提升20%生命值',
     cons: 2,

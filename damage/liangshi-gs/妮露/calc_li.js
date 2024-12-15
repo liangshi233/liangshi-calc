@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '水月伤害',
   params: { sy: true },
@@ -31,7 +33,7 @@ export const defDmgIdx = 3
 
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '妮露天赋：丰穰之核增伤[bloom]%,元素精通提升100点',
     data: {

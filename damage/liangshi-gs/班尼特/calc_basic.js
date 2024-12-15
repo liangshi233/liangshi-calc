@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: 'Q后点按热情过载伤害',
   params: { team: false, hb: false },
@@ -53,7 +55,7 @@ export const defParams = { soda: 1 }
 export const defDmgIdx = 1
 export const mainAttr = 'atk,hp,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '元素爆发：基于基础攻击力提高攻击力[atkPlus]',
     data: {

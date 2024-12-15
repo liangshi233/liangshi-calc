@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 import { LSconfig } from '#liangshi'
 
 let cfg = LSconfig.getConfig('user', 'config')
@@ -134,7 +136,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '艾梅莉埃天赋：[余薰] 每萃集两枚香韵,柔灯之匣·二阶将消耗香韵,并浸析出「清露香氛」,对敌人造成草元素范围伤害。'
 },

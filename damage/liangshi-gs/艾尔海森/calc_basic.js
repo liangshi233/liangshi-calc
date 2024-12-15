@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '附魔普攻一段蔓激化伤害',
   params: { team: false },
@@ -109,7 +111,7 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '艾尔海森天赋2：基于元素精通提升光幕与显象缚结伤害[eDmg]%',
     sort: 9,

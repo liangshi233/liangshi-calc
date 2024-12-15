@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
@@ -25,7 +27,7 @@ export const details = [{
 export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '珐露珊6命：Q提升暴击伤害40%',
     cons: 6,

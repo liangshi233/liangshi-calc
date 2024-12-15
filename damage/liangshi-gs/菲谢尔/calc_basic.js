@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '奥兹攻击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.e['奥兹攻击伤害'], 'e')
@@ -32,7 +34,7 @@ export const details = [{
 
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '菲谢尔2命：施放夜巡影翼时，能额外造成200%攻击力的伤害',
     data: {

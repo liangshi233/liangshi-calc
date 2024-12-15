@@ -1,4 +1,5 @@
 import { LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -126,7 +127,7 @@ export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '茜特菈莉天赋：[五重天的寒雨] 处于夜魂加持状态下时,触发冻结反应或融化反应后,敌人的抗性降低[kx]%',
   data: {

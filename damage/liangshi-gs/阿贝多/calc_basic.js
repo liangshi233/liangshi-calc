@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '拟造阳华基础伤害',
   params: { team: false },
@@ -10,7 +12,7 @@ export const details = [{
   title: '刹那之花(命中生命值低于50%的敌人)',
   params: {
     team: false,
-    half: true
+    TargetHp: 49
   },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
 }, {
@@ -30,7 +32,7 @@ export const details = [{
   title: '阿五钟 刹那之花(命中生命值低于50%的敌人)',
   params: {
     team: true,
-    half: true
+    TargetHp: 49
   },
   dmg: ({ talent, attr, calc }, { basic }) => basic(calc(attr.def) * talent.e['刹那之花伤害'] / 100, 'e')
 }]
@@ -40,11 +42,12 @@ export const mainAttr = 'def,atk,cpct,cdmg'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
+    check: ({ params }) => params.TargetHp  50,
     title: '阿贝多固有天赋1：刹那之花对生命值低于50%的敌人造成的伤害提高25%',
     data: {
-      eDmg: ({ params }) => params.half ? 25 : 0
+      eDmg: 25
     }
   }, {
     title: '阿贝多2命：4每层Buff提高Q [qPlus]伤害',

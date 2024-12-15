@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: 'E点按伤害',
@@ -28,7 +30,7 @@ export const defParams = { soda: 1 }
 export const defDmgIdx = 2
 export const mainAttr = 'atk,hp,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '夏沃蕾天赋：[尖兵协同战法] 队伍中所有角色的元素类型均为火元素与雷元素，并且至少有一名火元素角色、一名雷元素角色时,角色触发超载反应后，受本次反应影响的敌人的火元素与雷元素抗性降低[kx]%',
     data: {

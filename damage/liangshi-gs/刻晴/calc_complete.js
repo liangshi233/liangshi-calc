@@ -1,4 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -584,7 +585,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
 {
   title: '刻晴天赋：[玉衡之贵] 施放天街巡游时,暴击率提升[cpct]%,元素充能效率提升[recharge]%',
   data: {

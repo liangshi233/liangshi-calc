@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '开Q后普攻一段伤害',
@@ -41,7 +43,7 @@ export const enemyName = '魔偶/女士/雷神'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '荒泷一斗天赋2：荒泷逆袈裟造成的伤害基于防御值提高[a2Plus]',
     sort: 9,

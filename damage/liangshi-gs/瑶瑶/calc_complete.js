@@ -1,4 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let c6Dmg = { dmg: 0, avg: 0 }
 let c6jDmg = { dmg: 0, avg: 0 }
@@ -295,7 +296,7 @@ export const defParams = { soda: 1 }
 export const defDmgKey = 'hps'
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '瑶瑶技能：[玉颗珊珊月中落] 周期性召唤「月桂·弹跳型」并使瑶瑶的移动速度提升[_jSpeed]%获得[_dendroRes]%草元素抗性',
     data: {

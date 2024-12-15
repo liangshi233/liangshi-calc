@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '普通攻击一段伤害',
@@ -50,7 +52,7 @@ export const mainAttr = 'atk,cpct,cdmg,mastery'
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '可莉天赋1：爆裂火花使重击伤害提升50%',
     data: {

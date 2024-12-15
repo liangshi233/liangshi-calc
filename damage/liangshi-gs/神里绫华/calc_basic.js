@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '普通攻击一段伤害',
   params: { team: false, hb: false },
@@ -37,7 +39,7 @@ export const defDmgIdx = 4
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     passive: 1,
     title: '神里绫华天赋1：释放E后普攻与重击伤害提高30%',

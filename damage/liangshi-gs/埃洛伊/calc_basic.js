@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '附魔普攻第四段',
   params: { team: false },
@@ -37,7 +39,7 @@ export const defDmgIdx = 4
 
 export const defParams = { team: true }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '埃洛伊天赋：冰驰状态提高普攻伤害',
     data: {

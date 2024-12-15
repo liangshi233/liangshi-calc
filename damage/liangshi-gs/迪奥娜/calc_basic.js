@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
@@ -25,7 +27,7 @@ export const details = [{
 export const mainAttr = 'atk,hp,cpct,cdmg'
 export const defDmgIdx = 2
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '迪奥娜天赋：长按E获得75%护盾吸收量加成',
     data: { shield: 75 }

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '附魔普通攻击一段',
   dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
@@ -29,7 +31,7 @@ export const details = [{
 export const defDmgIdx = 7
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '繁绘隅穹：草原核造成的伤害提升[bloom]%',
     data: {

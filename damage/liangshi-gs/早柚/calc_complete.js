@@ -1,4 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
 
 let eDmg = { dmg: 0, avg: 0 }
 let qDmg = { dmg: 0, avg: 0 }
@@ -217,7 +218,7 @@ export const details = [
 export const defDmgKey = 'hps'
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     check: ({ params }) => params.con2d === true,
     title: '早柚2命：[理清逃跑路线] 点按施放风风轮舞踢造成的伤害提高[eDmg]%',

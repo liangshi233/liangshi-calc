@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 let eDmg = { dmg: 0, avg: 0 }
 let e2Dmg = { dmg: 0, avg: 0 }
 let e3Dmg = { dmg: 0, avg: 0 }
@@ -163,7 +165,7 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '行秋天赋2：获得20%水伤加成',
     isStatic: true,

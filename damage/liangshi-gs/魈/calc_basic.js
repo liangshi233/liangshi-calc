@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '风轮两立',
   params: { team: false },
@@ -69,7 +71,7 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '靖妖傩舞：普通攻击/重击/下落攻击伤害提升[a3Dmg]%',
     data: {

@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '神里流·镜花伤害',
   params: {
@@ -64,7 +66,7 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '神里绫人元素爆发：普通攻击伤害提升伤害提升[aDmg]%',
     data: {

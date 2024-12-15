@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [{
   title: '重击伤害',
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
@@ -19,7 +21,7 @@ export const details = [{
 export const defDmgIdx = 3
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '五郎天赋2：犬坂吠吠方圆阵造成的伤害基于防御值提高[ePlus]',
     data: {

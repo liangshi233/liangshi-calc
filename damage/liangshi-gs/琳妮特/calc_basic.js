@@ -1,3 +1,5 @@
+import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+
 export const details = [
   {
     title: '谜影突刺伤害',
@@ -25,7 +27,7 @@ export const details = [
 export const defDmgIdx = 0
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [
+export const buffs = [characterBuffGs,enemyBuffGs,
   {
     title: '琳尼特天赋：释放Q后提升攻击力20%',
     data: {
