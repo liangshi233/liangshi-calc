@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 /**
  * q: 1 - Q状态，a伤害
@@ -49,7 +49,7 @@ export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defParams = { q: 3, team: true }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '赛诺Q：Q状态下提升元素精通100点',
     data: {

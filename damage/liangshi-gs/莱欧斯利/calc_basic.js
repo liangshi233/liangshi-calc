@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: 'E后斥逐拳一段',
@@ -26,7 +26,7 @@ export const details = [{
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '强化斥逐拳伤害：开启E后额外提升普通攻击[aMulti]%伤害',
     data: {

@@ -1,5 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -265,7 +265,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     check: ({ params }) => params.hd === true,
     title: '钟离天赋：[悬岩宸断] 玉璋护盾受到伤害时提升护盾强效5%,至多提高[shield]%',

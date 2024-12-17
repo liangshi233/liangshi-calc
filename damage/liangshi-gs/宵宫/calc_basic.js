@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '炽焰箭首段',
@@ -75,7 +75,7 @@ export const defParams = {
   num: 10, team: true
 }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '焰硝庭火舞：开启E后额外提升普通[aMulti]%伤害',
     data: {

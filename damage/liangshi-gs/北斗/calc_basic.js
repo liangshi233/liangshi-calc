@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '捉浪伤害',
@@ -29,7 +29,7 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgIdx = 6
 
-export const buffs = [characterBuffGs,enemyBuffGs,{
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,{
   title: '北斗6命：Q持续期间，周围敌人的雷元素抗性降低15%',
   cons: 6,
   data: {

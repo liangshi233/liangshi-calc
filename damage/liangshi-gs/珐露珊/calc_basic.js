@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -27,7 +27,7 @@ export const details = [{
 export const defDmgIdx = 2
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '珐露珊6命：Q提升暴击伤害40%',
     cons: 6,

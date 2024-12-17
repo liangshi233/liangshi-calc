@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [
   {
@@ -34,7 +34,7 @@ export const defParams = { soda: 1 }
 export const defDmgIdx = 4
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     check: ({ params }) => params.con2 === true,
     title: '早柚2命：[理清逃跑路线] 长按施放风风轮舞踢造成的伤害提高66%',

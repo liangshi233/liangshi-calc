@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -33,7 +33,7 @@ export const details = [{
 export const defDmgIdx = 5
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '丽莎天赋2：敌人受到蔷薇的雷光攻击后，降低15%防御力',
     data: {

@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -27,7 +27,7 @@ export const details = [{
 export const mainAttr = 'atk,hp,cpct,cdmg'
 export const defDmgIdx = 2
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '迪奥娜天赋：长按E获得75%护盾吸收量加成',
     data: { shield: 75 }

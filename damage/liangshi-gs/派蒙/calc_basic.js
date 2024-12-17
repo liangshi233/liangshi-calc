@@ -1,5 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [
   {
@@ -99,4 +99,4 @@ export const details = [
 
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs]
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff]

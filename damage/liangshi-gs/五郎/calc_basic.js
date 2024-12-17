@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -21,7 +21,7 @@ export const details = [{
 export const defDmgIdx = 3
 export const mainAttr = 'atk,def,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '五郎天赋2：犬坂吠吠方圆阵造成的伤害基于防御值提高[ePlus]',
     data: {

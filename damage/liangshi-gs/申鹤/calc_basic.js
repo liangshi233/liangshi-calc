@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: 'E基础伤害提升值',
@@ -51,7 +51,7 @@ export const defDmgIdx = 0
 
 export const defParams = { team: true }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '申鹤天赋1：Q范围内冰伤提高15%',
     data: {

@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [
   {
@@ -70,7 +70,7 @@ export const details = [
 export const defDmgKey = 'q'
 export const mainAttr = 'hp,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '夜兰技能：[潜形隐曜弓] 「破局」状态，使下一次满蓄力瞄准射击所需的蓄力时间减少[_a2Speed]%，并将在满蓄力时转为发射「破局矢」',
     data: {

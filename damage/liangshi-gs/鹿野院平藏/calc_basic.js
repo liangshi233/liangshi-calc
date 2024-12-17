@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '普攻一段伤害',
@@ -47,7 +47,7 @@ export const mainAttr = 'atk,cpct,cdmg'
 
 export const defParams = { team: true }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '鹿野院平藏6命：每层「变格」提高E 4%暴击率,「正论」提高E 32%暴击伤害',
     cons: 6,

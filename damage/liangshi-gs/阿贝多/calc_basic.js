@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '拟造阳华基础伤害',
@@ -42,7 +42,7 @@ export const mainAttr = 'def,atk,cpct,cdmg'
 
 export const defParams = { team: true }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     check: ({ params }) => params.TargetHp < 50,
     title: '阿贝多固有天赋1：刹那之花对生命值低于50%的敌人造成的伤害提高25%',

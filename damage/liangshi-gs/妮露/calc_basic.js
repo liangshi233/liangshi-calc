@@ -1,5 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -136,7 +136,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     check: ({ params }) => params.bloom === true,
     title: '妮露天赋：[折旋落英之庭] 触发绽放反应时,将取代草原核产生「丰穰之核」,角色受到草元素攻击会使元素精通提升[mastery]点 { 该效果单人不生效 }',

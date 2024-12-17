@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '普攻首段伤害',
@@ -26,7 +26,7 @@ export const details = [{
 export const defDmgIdx = 3
 export const mainAttr = 'atk,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     cons: 1,
     title: '凯亚1命：命中处于冰元素下的敌人普通攻击与重击暴击率提升15%',

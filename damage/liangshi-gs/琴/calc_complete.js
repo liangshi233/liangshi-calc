@@ -1,5 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -401,7 +401,7 @@ export const mainAttr = 'atk,cpct,cdmg'
 export const defDmgKey = `${ranking}`
 export const enemyName = '魔偶/女士/雷神'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
 {
   title: '琴天赋：[顺风而行] 普通攻击命中时，有50%的几率为队伍中所有角色恢复生命值'
 },

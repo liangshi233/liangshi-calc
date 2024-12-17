@@ -1,3 +1,17 @@
+import { CurrentImaginarium } from '../FantasticalBlessings.js'
+let NowImaginarium = CurrentImaginarium()
+
+//开幕祝福
+export const ImaginariumBuff = {
+  check: ({ characterName }) => NowImaginarium.includes(characterName),
+  title: '幻境祝福：[开幕角色] 角色编入队伍后，生命值、攻击力与防御力提升[hpPct]%,该效果不论是否在幻想真境剧诗中都将生效。',
+  data: {
+    hpPct: 20,
+    atkPct: 20,
+    defPct: 20
+  }
+}
+
 //火草 草火 燃烧
 export const burningBuff = [{
   check: ({ params }) => params.ImaginariumBuff >= 1,

@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '断除烦恼炮总伤害',
@@ -23,7 +23,7 @@ export const defParams = { soda: 1 }
 export const mainAttr = 'atk,hp,cpct,cdmg'
 export const defDmgIdx = 2
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '多莉1命：断除烦恼炮命中后增加一枚炮弹',
     cons: 1

@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -29,7 +29,7 @@ export const defDmgIdx = 1
 export const defDmgKey = 'qHeal'
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,{
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,{
   title: '芭芭拉2命：开E水环持续期间获得15%水伤加成',
   cons: 2,
   data: { dmg: 15 }

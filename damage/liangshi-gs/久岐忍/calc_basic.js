@@ -1,5 +1,5 @@
 import { LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -131,7 +131,7 @@ export const defParams = { soda: 1 }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '久岐忍技能：[御咏鸣神刈山祭] 施放时，若生命值不高于50%时，结界的持续时间将会延长[_qSustainedPlus]秒',
     data: {

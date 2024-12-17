@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [
   {
@@ -38,7 +38,7 @@ export const defParams = { soda: 1 }
 export const defDmgIdx = 6
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '瑶瑶技能：[玉颗珊珊月中落] 周期性召唤「月桂·弹跳型」并使瑶瑶的移动速度提升[_jSpeed]%获得[_dendroRes]%草元素抗性',
     data: {

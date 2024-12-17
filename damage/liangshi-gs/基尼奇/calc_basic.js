@@ -1,5 +1,5 @@
 import { LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -125,7 +125,7 @@ export const defParams = { Nightsoul: true }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
 {
   check: ({ params }) => params.jp === true ,
   title: '基尼奇天赋：[焰灵的契约] 队伍中的附近的角色触发「夜魂迸发」迴猎贯鳞炮造成的伤害提高[_ePlus] { 该效果单人不生效 }',

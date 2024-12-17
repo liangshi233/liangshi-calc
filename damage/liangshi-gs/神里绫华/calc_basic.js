@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '普通攻击一段伤害',
@@ -39,7 +39,7 @@ export const defDmgIdx = 4
 
 export const defParams = { team: true }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     passive: 1,
     title: '神里绫华天赋1：释放E后普攻与重击伤害提高30%',

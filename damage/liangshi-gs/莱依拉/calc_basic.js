@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '满层E护盾量',
@@ -24,7 +24,7 @@ export const details = [{
 export const defDmgIdx = 0
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '莱依拉1命：安眠帷幕护盾的伤害吸收量提高20%',
     cons: 1,

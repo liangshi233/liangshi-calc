@@ -1,5 +1,5 @@
 import { LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -143,7 +143,7 @@ export const defParams = { monv: 3 }
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
 {
   title: '迪卢克天赋：[永不休止] 重击的体力消耗降低[_a2StaminaPct]%，持续时间延长[_a2SustainedPlus]秒',
   data: {

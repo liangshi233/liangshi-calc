@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -34,7 +34,7 @@ export const details = [{
 export const defParams = { soda: 1 }
 export const mainAttr = 'atk,hp,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '夏洛蒂天赋2：含有非枫丹角色治疗加成提升15%，含有枫丹角色冰伤加成提升15%',
     data: {

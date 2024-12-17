@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '霜流矢伤害伤害',
@@ -28,7 +28,7 @@ export const defDmgIdx = 5
 export const defDmgKey = 'qHeal'
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   'vaporize',
   { title: '5.1最后修改：如有问题请输入 #伤害计算反馈' }
 ]

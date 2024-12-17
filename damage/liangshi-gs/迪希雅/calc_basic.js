@@ -1,5 +1,5 @@
 import { LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 let cfg = LSconfig.getConfig('user', 'config')
 let NamePath = cfg.namemodel
@@ -172,7 +172,7 @@ export const details = [
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,atk,cpct,cdmg'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
 {
   title: '迪希雅天赋：[不吝佑助] 施放熔铁流狱·净焰昂藏后将获得额外的[_interruption]%抗打断能力,承担来自赤鬃之血的伤害时,受到的伤害降低60%.',
   data: {

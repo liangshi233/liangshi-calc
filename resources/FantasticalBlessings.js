@@ -4,9 +4,17 @@ export const blessings = {
   "2024-9": ["迪希雅", "香菱", "玛拉妮", "坎蒂丝", "艾梅莉埃", "瑶瑶"],
   "2024-10": ["迪希雅", "夏沃蕾", "刻晴", "菲谢尔", "千织", "凝光"],
   "2024-11": ["可莉", "辛焱", "八重神子", "多莉", "提纳里", "绮良良"],
-  "2024-12": ["珊瑚宫心海", "行秋", "雷电将军", "九条裟罗", "琴", "琳妮特"], //当前服务器版本
+  "2024-12": ["珊瑚宫心海", "行秋", "雷电将军", "九条裟罗", "琴", "琳妮特"],
   "2025-1": ["迪卢克", "班尼特", "甘雨", "凯亚", "娜维娅", "诺艾尔"],
   "2025-2": ["胡桃", "嘉明", "莫娜", "行秋", "温迪", "鹿野院平藏"]
+}
+
+export function CurrentImaginarium() {
+  let time = new Date()
+  let year = time.getFullYear()
+  let month = time.getMonth() + 1
+  let timeData = `${year}-${month}`
+  return blessings[timeData] || []
 }
 
 export const ImaginariumNumber = {

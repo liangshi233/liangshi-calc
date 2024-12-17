@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '重击伤害',
@@ -29,7 +29,7 @@ export const details = [{
 export const mainAttr = 'atk,cpct,cdmg,mastery'
 export const defDmgKey = 'e'
 
-export const buffs = [characterBuffGs,enemyBuffGs,{
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,{
   title: '安柏天赋1：箭雨暴击率提高10%',
   data: { qCpct: 10 }
 }, {

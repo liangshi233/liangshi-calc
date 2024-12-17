@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '甩尾飞踢伤害',
@@ -33,7 +33,7 @@ export const details = [{
 export const defDmgIdx = 5
 export const mainAttr = 'atk,hp,cpct,cdmg,mastery'
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '绮良良天赋2：呜喵町飞足造成的伤害提升[eDmg]%',
     data: {

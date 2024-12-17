@@ -1,5 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import { characterBuffGs, enemyBuffGs } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '下落攻击*乱岚拨止伤害',
@@ -50,7 +50,7 @@ export const defParams = {
   team: true
 }
 
-export const buffs = [characterBuffGs,enemyBuffGs,
+export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   {
     title: '万叶2命：开Q后精通提高200',
     cons: 2,
