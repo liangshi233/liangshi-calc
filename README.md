@@ -49,6 +49,8 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 支持部分角色自定义条目名称
 支持安装他人伤害计算与评分
 ~~~~~~~~~~
+！希诺宁及往后计算未经实机检验正确性，有问题请在issues中提出
+
 默认支持内容查询 [点击](damage/liangshi-gs/README.md)🤔
 
 <details><summary>安装他人的计算-仅供参考</summary>

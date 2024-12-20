@@ -140,7 +140,7 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   sort: 9,
   data: {
     ePlus: ({ attr, calc }) => calc(attr.mastery) * 90 / 100,
-    qPlus: ({ attr, calc }) => calc(attr.mastery) * 2400 / 100
+    qPlus: ({ attr, calc }) => calc(attr.mastery) * 1200 / 100
   }
 },
 {
@@ -155,8 +155,8 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   title: '茜特菈莉6命：[原动天的密契] 施放元素战技时提供[dmg]%元素伤害加成',
   cons: 6,
   data: {
-    dmg: 1.5 * 40
+    dmg: 2.5 * 40
   }
 },
- {title: `11.20最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs107ranking} 更新日志:${renew} 其他信息:${information}`}]
+ {title: `12.18最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs107ranking} 更新日志:${renew} 其他信息:${information}`}]
 

@@ -150,7 +150,7 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
 {
   title: '玛薇卡天赋：[炎花献礼] 附近的角色触发「夜魂迸发」时，攻击力提升[atkPct]%',
   data: {
-    atkPct: 35
+    atkPct: 30
   }
 },
 {
@@ -158,7 +158,7 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   title: '玛薇卡天赋：[「基扬戈兹」] 施放元素爆发燔天之时后，拥有[_buff]战意，造成的伤害提升[dmg]%',
   data: {
     _buff: ({ params }) => params.q ,
-    dmg: ({ params }) => Math.min( 50 , params.q * 0.25 )
+    dmg: ({ params }) => Math.min( 40 , params.q * 0.2 )
   }
 },
 {
@@ -173,19 +173,34 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   sort: 2,
   cons: 2,
   data: {
-    atkBase: 300,
-    atkPlus: ({ calc, attr }) => 300 * calc(attr.atk.pct) / 100 + 300
+    atkBase: 200,
+    atkPlus: ({ calc, attr }) => 200 * calc(attr.atk.pct) / 100 + 200
   }
 },
 {
-  title: '玛薇卡2命：[灰烬的代价] 根据诸火武装的形态使附近的敌人的防御力降低[eEnemyDef]%普通攻击伤害提升[aPlus]重击伤害提升[a2Plus]',
+  title: '玛薇卡2命：[灰烬的代价] 根据诸火武装的形态使附近的敌人的防御力降低[eEnemyDef]%普通攻击伤害提升[aPlus]重击伤害提升[a2Plus]元素爆发伤害提升[qPlus]',
   sort: 9,
   cons: 2,
   data: {
     eEnemyDef: 20,
-    aPlus: ({ calc, attr }) => calc(attr.atk) * 100 / 100 ,
-    a2Plus: ({ calc, attr }) => calc(attr.atk) * 150 / 100
+    aPlus: ({ calc, attr }) => calc(attr.atk) * 60 / 100 ,
+    a2Plus: ({ calc, attr }) => calc(attr.atk) * 90 / 100 ,
+    qPlus: ({ calc, attr }) => calc(attr.atk) * 120 / 100
   }
 },
- {title: `11.28最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs106ranking} 更新日志:${renew} 其他信息:${information}`}]
+{
+  title: '玛薇卡4命：[「领袖」的觉悟] 施放元素爆发燔天之时后的伤害提升效果不再随时间降低，并额外获得[dmg]%伤害加成。',
+  cons: 4,
+  data: {
+    dmg: 10
+  }
+},
+{
+  title: '玛薇卡6命：[「人之名」解放] 驾驶驰轮车时使附近的敌人的防御力降低[enemyDef]%',
+  cons: 6,
+  data: {
+    enemyDef: 20
+  }
+},
+ {title: `12.28最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs106ranking} 更新日志:${renew} 其他信息:${information}`}]
 

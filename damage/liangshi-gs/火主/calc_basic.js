@@ -134,7 +134,7 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
   title: '旅行者1命：[流光的星火] 焰烈之槛或灼火之槛存在期间，造成的伤害提升[dmg]%',
   cons: 1,
   data: {
-    dmg: ({ params }) => params.Nightsoul == true ? (6 * 2) : 6
+    dmg: ({ params }) => params.Nightsoul == true ? (6 + 9) : 6
   }
 },
 {
@@ -154,5 +154,5 @@ export const buffs = [characterBuffGs,enemyBuffGs,ImaginariumBuff,
     a3Cdmg: 40
   }
 },
- {title: `11.21最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs2006ranking} 更新日志:${renew} 其他信息:${information}`}]
+ {title: `12.18最后修改：[11.20重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${gs2006ranking} 更新日志:${renew} 其他信息:${information}`}]
 
