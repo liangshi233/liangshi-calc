@@ -1,4 +1,4 @@
- # liangshi-calc
+# liangshi-calc
 
 ## 为角色面板功能提供全方位拓展
 使用说明（需要安装Miao-Plugin才能使用）
@@ -6,7 +6,9 @@
 打开Yunzai-Bot 根目录输入
 
 <details><summary>跑路了</summary>
-跑路了，有空就更新，没空就没空
+25号之前暂时恢复更新
+
+<s>跑路了，有空就更新，没空就没空</s>
 
 ![](./resources/LLQ.jpg)
 
@@ -50,6 +52,7 @@ panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要
 支持安装他人伤害计算与评分
 ~~~~~~~~~~
 ！希诺宁及往后计算未经实机检验正确性，有问题请在issues中提出
+！通用计算需要更新至最新版miao-plugin才可正常使用
 
 默认支持内容查询 [点击](damage/liangshi-gs/README.md)🤔
 
