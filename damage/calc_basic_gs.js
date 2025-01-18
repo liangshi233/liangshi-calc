@@ -118,13 +118,22 @@ export const details = [
           console.error('伤害将默认使用攻击力计算且不会进行buff计算');
         }
       }
+       if (typeof level !== 'number' || !talent || !talent.talentLevel || typeof talent.talentLevel.a !== 'number' || typeof talent.talentLevel.e !== 'number' || typeof talent.talentLevel.q !== 'number') {
+       console.error('Level or Talent levels are not valid numbers');
+       return {
+        avg: '0.00%',
+        type: 'text'
+       };
+      }
+
       let baseScore = level * (2 / 9);
-      let talentScore = Math.min(29, talent?.talentLevel?.a + talent?.talentLevel?.e + talent?.talentLevel?.q) * (20 / 17);
-      let extraScore = Math.min(2, Math.max(0, talent?.talentLevel?.a + talent?.talentLevel?.e + talent?.talentLevel?.q - 29)) * (20 / 17 / 2);
+      let totalTalentLevel = talent.talentLevel.a + talent.talentLevel.e + talent.talentLevel.q;
+      let talentScore = Math.min(29, totalTalentLevel) * (20 / 17);
+      let extraScore = Math.min(2, Math.max(0, totalTalentLevel - 29)) * (20 / 17 / 2);
       let score = baseScore + talentScore + extraScore;
   
       console.log(`Level: ${level}, Base Score: ${baseScore}`);
-      console.log(`Talent Levels: A=${talent?.talentLevel?.a}, E=${talent?.talentLevel?.e}, Q=${talent?.talentLevel?.q}`);
+      console.log(`Talent Levels: A=${talent.talentLevel.a}, E=${talent.talentLevel.e}, Q=${talent.talentLevel.q}`);
       console.log(`Talent Score: ${talentScore}, Extra Score: ${extraScore}, Total Score: ${score}`);
   
    
