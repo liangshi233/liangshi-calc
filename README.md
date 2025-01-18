@@ -41,6 +41,9 @@ artisLiangZ: false #liangshicalc自适应评分
 autoRefresh: true #重启后会自动刷新极限、平民等预设面板，默认开启，不需要则改为 false
 panelmodel: 1 #自动刷新预设面板的版本，默认使用liangshi，需要自定义请修改为 0
 ~~~~~~~~~~
+
+！独立角色排行设置移至`liangshi-calc\config\ranking.js`,设置内容与原先保持一致
+
 更多设置内容请 [点击](config/system/config.md)🤔
 
 ### 功能
