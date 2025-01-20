@@ -30,6 +30,7 @@ class LSconfig {
     if (!fs.existsSync(`${this.user}${file}`)) {
       fs.copyFileSync(`${this.def}${file}`, `${this.user}${file}`)
     }
+    if (!fs.existsSync(this.user + 'ranking.js')) fs.copyFileSync(this.def + 'ranking_system.js', this.user + 'ranking.js')
     this.watch(`${this.user}${file}`, file.replace('.yaml', ''), 'userSet')
   }
 
