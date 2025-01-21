@@ -15,6 +15,7 @@ export const buffs = CalcBuff
 export const details = [
 {
   title: `${TalentName.eName}点按伤害`,
+  dmgKey: 'a',
   params: { Shadowhunt_Shell: true,  ElementDifferent: 0 },
   dmg: ({ talent }, dmg) => {
     let deDmg = dmg(talent.e['多重瞄准点按伤害'], 'a,nightsoul')
