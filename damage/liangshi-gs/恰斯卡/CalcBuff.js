@@ -1,9 +1,10 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const CalcBuff = [
 characterBuffGs,
 enemyBuffGs,
 ImaginariumBuff,
+MasteryGs,
 {
   title: '恰斯卡4命：[星火，瞬息的击发] 元素爆发索魂命袭中的溢光索魂弹命中敌人时，恢复[_energyevery]点元素能量',
   cons: 4,
@@ -33,5 +34,3 @@ ImaginariumBuff,
     a2Dmg: ({ cons }) => cons >= 2 ? 65 : 35
   }
 }]
-
-export const TeamBuff_Chasca = []

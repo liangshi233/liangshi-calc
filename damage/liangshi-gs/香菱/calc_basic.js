@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 let QDmg = { dmg: 0, avg: 0 }
 let Q1Dmg = { dmg: 0, avg: 0 }

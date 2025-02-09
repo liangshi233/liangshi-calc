@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '断除烦恼炮总伤害',

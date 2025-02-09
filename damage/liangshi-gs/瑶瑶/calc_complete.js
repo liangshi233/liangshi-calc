@@ -1,5 +1,5 @@
 import { Format } from '../../../../../plugins/liangshi-calc/components/index.js'
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 let c6Dmg = { dmg: 0, avg: 0 }
 let c6jDmg = { dmg: 0, avg: 0 }

@@ -1,9 +1,11 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
+import { TeamBuff } from '../index.js'
 
 export const CalcBuff = [
 characterBuffGs,
 enemyBuffGs,
 ImaginariumBuff,
+MasteryGs,
 {
   title: '玛薇卡1命：[夜主的授记] 通获取战意后，攻击力提升[atkPct]%',
   cons: 1,
@@ -63,30 +65,11 @@ ImaginariumBuff,
     a2Plus: ({ params, talent, calc, attr }) => params.Fighting_Spirit * talent.q['驰轮车重击伤害提升'] * calc(attr.atk) / 100,
     _interruption: 100
   }
-}]
-
-export const TeamBuff_Mavuika = [
-{
-  check: ({ params }) => params.team === true && params.Mavuika === true,
-  title: '玛薇卡2命：[灰烬的代价] 焚曜之环形态使附近的敌人的防御力降低[enemyDef]%',
-  cons: 2,
-  data: {
-    enemyDef: 20
-  }
 },
-{
-  check: ({ params }) => params.team === true && params.Mavuika === true,
-  title: '玛薇卡4命：[「领袖」的觉悟] 施放元素爆发燔天之时后的伤害提升效果不再随时间降低，并额外获得[dmg]%伤害加成。',
-  cons: 4,
-  data: {
-    dmg: 10
-  }
-},
-{
-  check: ({ params }) => params.team === true && params.Mavuika === true,
-  title: '玛薇卡天赋：[「基扬戈兹」] 施放元素爆发燔天之时后，拥有[_buff]战意，造成的伤害提升[dmg]%',
-  data: {
-    _buff: 40,
-    dmg: ({ cons }) => cons >= 4 ? 40 : (40 * (1 - (7 / 20)))
-  }
-}]
+TeamBuff.TeamBuff_Ororon[0],
+TeamBuff.TeamBuff_Ororon[1],
+TeamBuff.TeamBuff_Citlali[0],
+TeamBuff.TeamBuff_Citlali[1],
+TeamBuff.TeamBuff_Citlali[2],
+TeamBuff.TeamBuff_Citlali[3]
+]

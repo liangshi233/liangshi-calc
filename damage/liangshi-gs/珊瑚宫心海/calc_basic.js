@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const details = [{
   title: '海月之誓伤害',

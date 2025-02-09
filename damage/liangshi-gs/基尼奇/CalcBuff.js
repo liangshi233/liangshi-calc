@@ -1,9 +1,10 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const CalcBuff = [
 characterBuffGs,
 enemyBuffGs,
 ImaginariumBuff,
+MasteryGs,
 {
   check: ({ params }) => params.Scalespiker_Cannon === true ,
   title: '基尼奇天赋：[焰灵的契约] 队伍中的附近的角色触发「夜魂迸发」迴猎贯鳞炮造成的伤害提高[ePlus]',

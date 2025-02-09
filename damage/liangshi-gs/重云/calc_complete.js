@@ -1,5 +1,5 @@
 import { Format, LSconfig } from '#liangshi'
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 let a3Dmg = { dmg: 0, avg: 0 }
 let ar3Dmg = { dmg: 0, avg: 0 }

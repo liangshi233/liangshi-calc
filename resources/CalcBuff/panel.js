@@ -58,3 +58,15 @@ export const enemyBuffSr = {
     toughness: ({ params }) => ( params.toughness || 10 )
   }
 }
+
+export const MasteryGs = {
+  title: '角色状态：[元素精通] 蒸发、融化反应造成伤害时，伤害提升[_vaporize]%；超载、超导、感电、燃烧、碎冰、扩散、绽放、超绽放、烈绽放反应造成的伤害提升[_swirl]%；超激化、蔓激化反应代理的伤害提升提高[_aggravate]%；结晶反应形成的晶片护盾，提高的伤害吸收量提升[_shield]%。',
+  sort: 10,
+  data: {
+    _vaporize: ({ calc, attr }) => ((25 / 9) * calc(attr.mastery) / (calc(attr.mastery) + 1400)) * 100,
+    _swirl: ({ calc, attr }) => (16 * calc(attr.mastery) / (calc(attr.mastery) + 2000)) * 100,
+    _aggravate: ({ calc, attr }) => (5 * calc(attr.mastery) / (calc(attr.mastery) + 1200)) * 100,
+    _shield: ({ calc, attr }) => ((40 / 9) * calc(attr.mastery) / (calc(attr.mastery) + 1400)) * 100
+  }
+}
+

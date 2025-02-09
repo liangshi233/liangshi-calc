@@ -1,9 +1,10 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const CalcBuff = [
 characterBuffGs,
 enemyBuffGs,
 ImaginariumBuff,
+MasteryGs,
 {
   check: ({ params }) => params.Wave_Momentum != undefined,
   title: '玛拉妮技能：[踏鲨破浪] 浪势充能使鲨鲨撕咬造成的伤害提升[aPlus]巨浪鲨鲨撕咬伤害额外提升[_aPlus]',
@@ -41,5 +42,3 @@ ImaginariumBuff,
   title: '玛拉妮6命：[「流泉之众」的精神] 命之座「悠闲的「梅兹特利」…」的伤害提升效果，移除原本每次夜魂加持只能触发一次的限制。',
   cons: 6
 }]
-
-export const TeamBuff_Mualani = []

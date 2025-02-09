@@ -8,7 +8,7 @@ let energy = cfg.energymodel || 0
 let TalentName = ObTalentName(CharacterName)
 export const defDmgKey = RankingKey(CharacterName)
 export const mainAttr = mainAttrData[CharacterName]
-export const defParams = { ElementSame: 1, ElementDifferent: 1, NormalElement: 3, ElementDmg: 5, ReactionTime: 1, ReactionDmg: 5, FightTime: 5, TruceTime: 0, ShieldDetermine: false, HealDetermine: true, TruceChangeHp: false, ElementWindTeam: 1, BondOfLifeDetermine: false, Nightsoul: false,/*保留对老版本的支持*/soda: 1 }
+export const defParams = { ElementSame: 1, ElementDifferent: 1, NormalElement: 3, ElementDmg: 5, ReactionTime: 1, ReactionDmg: 5, FightTime: 5, TruceTime: 0, HealDetermine: true, ElementWindTeam: 1,/*保留对老版本的支持*/soda: 1 }
 export const buffs = CalcBuff
 export const details = [
 {

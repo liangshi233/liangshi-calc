@@ -1,9 +1,10 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff } from '../../../resources/CalcBuff/index.js'
+import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 
 export const CalcBuff = [
 characterBuffGs,
 enemyBuffGs,
 ImaginariumBuff,
+MasteryGs,
 {
   title: '卡齐娜天赋：[山的回声] 队伍中的附近的角色触发「夜魂迸发」,岩元素伤害加成提升[dmg]%',
   data: {
@@ -37,16 +38,5 @@ ImaginariumBuff,
 {
   title: '卡齐娜6命：[这一次，我一定要赢] 队伍中自己的当前场上角色的护盾因任何原因被替换或摧毁时，将造成岩元素范围伤害',
   cons: 6
-}]
-
-export const TeamBuff_Kachina = [
-{
-  check: ({ params }) => params.EnemiesNumber >= 1 && params.team === true && params.Kachina === true,
-  title: '卡齐娜4命：[敌人越多，越要小心] 现在，认真时间！的超级钻钻领域中，存在的敌人数量为[_buff]名或更多时，领域中的队伍中当前场上角色的防御力提升[defPct]%',
-  cons: 4,
-  data: {
-    _buff: ({ params }) => (params.EnemiesNumber || 4),
-    defPct: ({ params }) => 4 * ((params.EnemiesNumber || 4) + 1)
-  }
 }]
 

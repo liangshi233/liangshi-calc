@@ -10,7 +10,7 @@ let szfhgzyd = { dmg: 0, avg: 0 }
 let TalentName = ObTalentName(CharacterName)
 export const defDmgKey = RankingKey(CharacterName)
 export const mainAttr = mainAttrData[CharacterName]
-export const defParams = { ShieldDetermine: false, HealDetermine: false, ElementWindTeam: 1, NatlanTeammate: 1, PrimordialDetermine: false, BondOfLifeDetermine: false, Nightsoul: true, TruceChangeHp: false }
+export const defParams = { ElementWindTeam: 1, NatlanTeammate: 1, Nightsoul: true }
 export const buffs = CalcBuff
 export const details = [
 {

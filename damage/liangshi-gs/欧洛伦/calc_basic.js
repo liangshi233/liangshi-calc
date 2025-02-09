@@ -8,7 +8,7 @@ let energy = cfg.energymodel || 0
 let TalentName = ObTalentName(CharacterName)
 export const defDmgKey = RankingKey(CharacterName)
 export const mainAttr = mainAttrData[CharacterName]
-export const defParams = { ShieldDetermine: false, HealDetermine: false, ElementSame: 1, ElementMineTeam: 1, NatlanTeammate: 1, PrimordialDetermine: false, BondOfLifeDetermine: false, Nightsoul: true, TruceChangeHp: false }
+export const defParams = { ElementSame: 1, ElementMineTeam: 1, NatlanTeammate: 1, Nightsoul: true }
 export const buffs = CalcBuff
 export const details = [
 {
@@ -48,4 +48,10 @@ export const details = [
   title: '感电反应伤害',
   dmgKey: 'r',
   dmg: ({}, { reaction }) => reaction('electroCharged')
+},
+{
+  title: `恰玛欧茜 后台${TalentName.qName}碰撞`,
+  dmgKey: 'q',
+  params: { team: true, Mavuika: true, Chasca: true, Citlali: true, ElementDifferent: 3, ElementSame: 1, ElementWindTeam: 1, ElementMineTeam: 1, ElementFireTeam: 1, ElementIceTeam: 1, ShieldTime: 10, NatlanTeammate: 4, EnergyTeammate: 180, NightsoulUse: 332, TruceTime: 5 },
+  dmg: ({ talent }, dmg) => dmg(talent.q['音波碰撞伤害'], 'q,nightsoul')
 }]
