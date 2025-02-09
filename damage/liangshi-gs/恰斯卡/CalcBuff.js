@@ -19,7 +19,7 @@ ImaginariumBuff,
   }
 },
 {
-  check: ({ params }) => params.ElementDifferent >= 0,
+  check: ({ params }) => params.ElementDifferent >= 0 && params.simulate != true,
   title: '恰斯卡天赋：[子弹的戏法] 进行元素战技灵缰追影中的多重瞄准的蓄力时,焕光追影弹造成的伤害提升[a2Dmg]%',
   data: {
     a2Dmg: ({ params }) => (params.ElementDifferent * params.ElementDifferent * 5 + params.ElementDifferent * 5 + 5) * (params.ElementDifferent == 0 ? 0 : 1),
@@ -27,7 +27,7 @@ ImaginariumBuff,
   }
 },
 {
-  check: ({ params }) => params.Shadowhunt_Shell != 0,
+  check: ({ params }) => params.simulate === true,
   title: '恰斯卡天赋：[子弹的戏法] 进行元素战技灵缰追影中的多重瞄准的蓄力时,焕光追影弹造成的伤害提升[a2Dmg]%',
   data: {
     a2Dmg: ({ cons }) => cons >= 2 ? 65 : 35

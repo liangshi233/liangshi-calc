@@ -6,9 +6,8 @@
 打开Yunzai-Bot 根目录输入
 
 <details><summary>跑路了</summary>
-25号之前暂时恢复更新
 
-<s>跑路了，有空就更新，没空就没空</s>
+跑路了，有空就更新，没空就没空
 
 ![](./resources/LLQ.jpg)
 

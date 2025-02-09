@@ -12,12 +12,11 @@ ImaginariumBuff,
   }
 },
 {
-  title: '玛薇卡2命：[灰烬的代价] 基础攻击力提升[atkBase]，实际提升[atkPlus]',
+  title: '玛薇卡2命：[灰烬的代价] 基础攻击力提升[atkBase]',
   sort: 2,
   cons: 2,
   data: {
-    atkBase: 200,
-    atkPlus: ({ attr }) => 200 * attr.atk.pct / 100 + 200
+    atkBase: 200
   }
 },
 {

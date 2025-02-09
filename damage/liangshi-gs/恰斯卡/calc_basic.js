@@ -16,7 +16,7 @@ export const details = [
 {
   title: `${TalentName.eName}点按伤害`,
   dmgKey: 'a',
-  params: { Shadowhunt_Shell: true,  ElementDifferent: 0 },
+  params: { Shadowhunt_Shell: false, ElementDifferent: 0 },
   dmg: ({ talent }, dmg) => {
     let deDmg = dmg(talent.e['多重瞄准点按伤害'], 'a,nightsoul')
     szfhgzyd = dmg(talent.e['焕光追影弹伤害'], 'a2,nightsoul', 'scene,vaporize')
@@ -25,6 +25,7 @@ export const details = [
 },
 {
   title: '追影弹伤害',
+  params: { Shadowhunt_Shell: false },
   dmg: ({ talent }, dmg) => {
     zyd = dmg(talent.e['追影弹伤害'], 'a2,nightsoul')
     return zyd
@@ -33,12 +34,12 @@ export const details = [
 {
   title: '焕光追影弹伤害',
   dmgKey: 'z',
-  params: { ElementDifferent: 3 },
+  params: { Shadowhunt_Shell: true, ElementDifferent: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['焕光追影弹伤害'], 'a2,nightsoul', 'scene')
 },
 {
   title: `模拟长按${TalentName.eName}-2火1水队友`,
-  params: { Shadowhunt_Shell: true, ElementWindTeam: 1, ElementFireTeam: 2, ElementWaterTeam: 1 },
+  params: { simulate: true, Shadowhunt_Shell: true, ElementWindTeam: 1, ElementFireTeam: 2, ElementWaterTeam: 1 },
   dmg: ({ talent, cons, attr, calc }, { basic, reaction }) => {
     let hgzyd = basic(talent.e['焕光追影弹伤害'] * calc(attr.atk) / 100, 'a2,nightsoul', 'scene')
     let hzfhgzyd = basic(talent.e['焕光追影弹伤害'] * calc(attr.atk) / 100, 'a2,nightsoul', 'scene,vaporize')

@@ -92,6 +92,6 @@ export const TeamBuff_Xilonen = [
   check: ({ params }) => params.team === true && params.Xilonen === true,
   title: '希诺宁技能：[音火锻淬] 在采样器激活时降低附近的敌人的对应元素抗性[kx]%',
   data: {
-    kx: ({ cons }) => cons >= 3 ? 42 : 33
+    kx: ({ cons, element }) => ['雷', '冰', '水', '火', '岩'].includes(element) ? (cons >= 3 ? 42 : 33) : 0
   }
 }]

@@ -14,7 +14,7 @@ export const details = [
 {
   title: `${TalentName.eName}翦月环伤害`,
   dmgKey: 'e',
-  dmg: ({ talent }, dmg) => dmg(talent.e['环刃攻击伤害'], 'e')
+  dmg: ({ talent }, dmg) => dmg(talent.e['翦月环伤害'], 'e')
 },
 {
   title: `${TalentName.eName}护盾量`,

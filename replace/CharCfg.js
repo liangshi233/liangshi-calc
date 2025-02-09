@@ -66,12 +66,6 @@ let cfgMap = {
       } else {
        cfg = await Data.importModule(`damage/${calcmodel}-${this.game}/${char}/${file}.js`)
       }
-    } else if (cfgL.calcLiang) {
-      if (!fs.existsSync(`${rootPath}/plugins/liangshi-calc/damage/${calcmodel}-${this.game}`)) {
-       cfg = await Data.importModule(`damage/liangshi-${this.game}/${char}/${file}.js`)
-      } else {
-       cfg = await Data.importModule(`damage/${calcmodel}-${this.game}/${char}/${file}.js`)
-      }
     }
     if (module) return cfg[module]
     return cfg

@@ -23,12 +23,12 @@ export const details = [
 {
   title: `${TalentName.qName}释放伤害`,
   params: { EnergyDetermine: 0 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul')
+  dmg: ({ talent }, dmg) => dmg(talent.q['秘仪伤害'], 'q,nightsoul')
 },
 {
   title: `${TalentName.qName}释放激化`,
   params: { EnergyDetermine: 0 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['施放伤害'], 'q,nightsoul', 'aggravate')
+  dmg: ({ talent }, dmg) => dmg(talent.q['秘仪伤害'], 'q,nightsoul', 'aggravate')
 },
 {
   title: `${TalentName.qName}音波碰撞伤害`,
@@ -42,7 +42,7 @@ export const details = [
 {
   title: `${TalentName.tName}附加伤害`,
   params: { Hypersense_effect: true, ElementDmg: 2 },
-  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 180 / 100, 'nightsoul')
+  dmg: ({ attr, calc }, { basic }) => basic(calc(attr.atk) * 160 / 100, 'nightsoul')
 },
 {
   title: '感电反应伤害',
