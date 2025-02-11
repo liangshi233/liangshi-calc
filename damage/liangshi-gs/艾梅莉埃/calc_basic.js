@@ -52,7 +52,7 @@ export const details = [
 {
   check: ({ cons }) => cons >= 6,
   title: `${TalentName.qNameT}后${TalentName.a2Name}伤害`,
-  params: { BurstAfter: 3, NormalElement: 1 },
+  params: { BurstAfter: 3, NormalElement: 1, EnergyDetermine: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
 },
 {

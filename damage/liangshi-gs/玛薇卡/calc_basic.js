@@ -14,7 +14,7 @@ export const details = [
 {
   title: `满战意${TalentName.eName}持续伤害`,
   dmgKey: 'e',
-  params: { Fighting_Spirit: 200, SkillsAfter: 2, EnergyDetermine: 200 },
+  params: { Fighting_Spirit: 200, SkillsAfter: 2, EnergyDetermine: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.e['焚曜之环伤害'], 'e,nightsoul')
 },
 {
@@ -24,7 +24,7 @@ export const details = [
 },
 {
   title: `满战意${TalentName.eNameT}后一段攻击`,
-  params: { Fighting_Spirit: 200, EnergyDetermine: 200 },
+  params: { Fighting_Spirit: 200, EnergyDetermine: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.e['驰轮车普通攻击一段伤害'], 'a,nightsoul')
 },
 {
@@ -35,13 +35,13 @@ export const details = [
 {
   title: `满战意${TalentName.eNameT}后尾段攻击`,
   dmgKey: 'a',
-  params: { Fighting_Spirit: 200, EnergyDetermine: 200 },
+  params: { Fighting_Spirit: 200, EnergyDetermine: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.e['驰轮车普通攻击五段伤害'], 'a,nightsoul')
 },
 {
   title: `满战意${TalentName.eNameT}后${TalentName.a2Name}循环伤害`,
   dmgKey: 'z',
-  params: { Fighting_Spirit: 200, EnergyDetermine: 200 },
+  params: { Fighting_Spirit: 200, EnergyDetermine: 0 },
   dmg: ({ talent }, dmg) => dmg(talent.e['驰轮车重击循环伤害'], 'a2,nightsoul')
 },
 {
