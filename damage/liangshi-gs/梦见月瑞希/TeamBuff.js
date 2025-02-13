@@ -5,7 +5,7 @@ export const TeamBuff_Mizuki = [
   cons: 1,
   sort: 9,
   data: {
-    fyplus: 1000 * 900 / 100
+    fyplus: 1000 * 1100 / 100
   }
 },
 {

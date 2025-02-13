@@ -10,14 +10,14 @@ export class beta extends plugin {
       rule: [
         // 每个角色已分开，不需要此功能或不需要的角色请将对应的注释
         {
-          reg: '^#?((极限|极限面板)?(梦见月瑞希|月瑞希)(极限面板|面板100000000))$',
-          fnc: 'mjyrx'
+          reg: '^#?((极限|极限面板)?(瓦雷莎)(极限面板|面板100000000))$',
+          fnc: 'betajpg'
         }
       ]
     })
   }
 
-  async mjyrx () {
+  async betajpg () {
     this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.jpeg`))
     return true
   }

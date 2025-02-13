@@ -11,7 +11,7 @@ MasteryGs,
   cons: 1,
   sort: 9,
   data: {
-    fyplus: ({ attr, calc }) => calc(attr.mastery) * 900 / 100
+    fyplus: ({ attr, calc }) => calc(attr.mastery) * 1100 / 100
   }
 },
 {

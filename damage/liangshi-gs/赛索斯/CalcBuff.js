@@ -6,54 +6,54 @@ enemyBuffGs,
 ImaginariumBuff,
 MasteryGs,
 {
-  title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
+  title: '赛索斯技能：[古仪·鸣砂掣雷] 对敌人触发了感电、超导、超载、原激化、超激化、超绽放或雷元素扩散反应，恢复[_energyevery]元素能量',
   data: {
-    _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200)
+    _energyevery: 12
   }
 },
 {
-  title: '克洛琳德天赋：[破夜的明焰] 队伍中附近的角色对敌人触发雷元素相关反应后，提升普通攻击与残光将终造成的雷元素伤害[aPlus]',
+  check: ({ params }) => params.BurstAfter >= 0 && params.BurstAfter <= 9,
+  title: '赛索斯技能：[秘仪·瞑光贯影] 普通攻击将转为发射能穿透敌人的暝弦矢提升其造成的伤害[a2Plus]',
   data: {
-    aPlus: ({ attr, calc }) => Math.min((calc(attr.atk) * 20 / 100 * 3), 1800),
-    qPlus: ({ attr, calc }) => Math.min((calc(attr.atk) * 20 / 100 * 3), 1800)
+    a2Plus: ({ talent, attr, calc }) => calc(attr.mastery) * talent.q['瞑弦矢伤害提升'] / 100
   }
 },
 {
-  check: ({ talent, params, weapon }) => (params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus) >= 100,
-  title: '克洛琳德天赋：[契令的酬偿] 生命之契的数值提升或降低[buffCount]次，暴击率提升[cpct]% ',
+  title: '赛索斯天赋：[黑鸢的密喻] 瞄准射击时，使蓄力时间降低至0.3秒，并获得[_energyevery]元素能量',
   data: {
-    buffCount: ({ params }) => params.ChangeBondOfLife || 4,
-    cpct: ({ params }) => 10 * Math.min((params.ChangeBondOfLife || 4), 2)
+    _energyevery: -20
   }
 },
 {
-  title: '克洛琳德1命：[「自此，行过烛影之帷」] 狩夜之巡的夜巡状态持续期间，普通攻击造成的雷元素伤害命中敌人时，将在敌人附近唤出夜巡之影进行两次协同攻击',
-  cons: 1
+  check: ({ params }) => params.Shadowpiercing_Shot == true,
+  title: '赛索斯天赋：[砂王的赐礼] 「热砂炫影」效果，使贯影箭造成的伤害值提升[a2Plus]',
+  data: {
+    a2Plus: ({ attr, calc }) => calc(attr.mastery) * 600 / 100
+  }
 },
 {
-  title: '克洛琳德2命：[「自此，直面长夜之危」] 队伍中附近的角色对敌人触发雷元素相关反应后，普通攻击与残光将终造成的雷元素伤害再提升[aPlus]%,处于3.0层状态下时，抗打断能力提升[interruption]%',
+  check: ({ params }) => params.Shadowpiercing_Shot == true,
+  title: '赛索斯1命：[封龛谒灵歌] 贯影箭的暴击率提升[a2Cpct]%',
+  cons: 1,
+  data: {
+    a2Cpct: 15
+  }
+},
+{
+  title: '赛索斯2命：[寂秘纸草经] 通过古仪·鸣砂掣雷恢复元素能量或施放秘仪·瞑光贯时获得[dmg]%雷元素伤害加成',
   cons: 2,
   data: {
-    aPlus: ({ attr, calc }) => Math.min((calc(attr.atk) * 10 / 100 * 3 ), 900),
-    qPlus: ({ attr, calc }) => Math.min((calc(attr.atk) * 10 / 100 * 3 ), 900),
-    interruption: 70
+    dmg: 15 * 2
   }
 },
 {
-  title: '克洛琳德4命：[「铭记泪，生命与仁爱」] 当前拥有[_BondOfLife]%生命值上限的生命之契，残光将终造成的伤害提升[qDmg]',
+  title: '赛索斯4命：[真念鸵羽集] 贯影箭与暝弦矢命中2名及以上的敌人时，队伍中附近的所有角色的元素精通提升[mastery]',
   cons: 4,
   data: {
-    _BondOfLife: ({ talent, params, weapon }) => Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200),
-    qDmg: ({ talent, params, weapon }) => Math.min((Math.min((params.blPct * (talent.q['赋予生命之契'] + 35 * 3 + (weapon.name === '海渊终曲' ? 25 : 0)) + params.blPct * params.blPlus), 200) * 2), 200)
+    mastery: 80
   }
 },
 {
-  title: '克洛琳德6命：[「为此，勿将希望弃扬」] 施放狩夜之巡后暴击率提高[cpct]%,暴击伤害提高[cdmg]%,夜巡状态持续期间受到的伤害降低[_reduction]%，抗打断能力提高[interruption]%，明烛之影会追击敌人造成雷元素伤害',
-  cons: 6,
-  data: {
-    cpct: 10,
-    cdmg: 70,
-    _reduction: 80,
-    interruption: 100
-  }
+  title: '赛索斯6命：[巡日塔门书] 贯影箭命中敌人后，将返还因固有天赋「黑鸢的密喻」消耗的元素能量',
+  cons: 6
 }]
