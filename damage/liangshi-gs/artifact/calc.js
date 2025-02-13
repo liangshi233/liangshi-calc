@@ -425,9 +425,9 @@ const buffs = {
     4: {
       title: '[buff]层问答,提供[defPct]%防御与[dmg]%岩元素伤害加成',
       data: { // 6秒损失1层，暂时不计算损失，默认提供1层效果
-        buff: ({ params }) => Math.min(((params.RockDmg || 0) + Math.floor((TruceTime || 0) / 3) + 1), 4),
-        defPct: ({ params }) => Math.min(((params.RockDmg || 0) + Math.floor((TruceTime || 0) / 3) + 1), 4) * 6 ,
-        dmg: ({ params, element }) => element === '岩' ? Math.min(((params.RockDmg || 0) + Math.floor((TruceTime || 0) / 3) + 1), 4) * 6 : 0
+        buff: ({ params }) => Math.min(((params.RockDmg || 0) + Math.floor((params.TruceTime || 0) / 3) + 1), 4),
+        defPct: ({ params }) => Math.min(((params.RockDmg || 0) + Math.floor((params.TruceTime || 0) / 3) + 1), 4) * 6 ,
+        dmg: ({ params, element }) => element === '岩' ? Math.min(((params.RockDmg || 0) + Math.floor((params.TruceTime || 0) / 3) + 1), 4) * 6 : 0
       }
     }
   },

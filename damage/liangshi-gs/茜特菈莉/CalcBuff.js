@@ -18,7 +18,7 @@ MasteryGs,
   }
 },
 {
-  title: '茜特菈莉4命：[拒亡者的灵髑] 伊兹帕帕的霜陨风暴命中敌人时，并为茜特菈莉恢复[_nightsoul]点夜魂值和[kx]点元素能量',
+  title: '茜特菈莉4命：[拒亡者的灵髑] 伊兹帕帕的霜陨风暴命中敌人时，并为茜特菈莉恢复[_nightsoul]点夜魂值和[_energyevery]点元素能量',
   cons: 4,
   data: {
     _nightsoul: 16,

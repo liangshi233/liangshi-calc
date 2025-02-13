@@ -37,7 +37,7 @@ export const details = [
 {
   title: '巨浪鲨鲨撕咬蒸发',
   params: { Wave_Momentum: 3 },
-  dmgKey: 'e',
+  dmgKey: 'a',
   dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.hp) * ( talent.e['鲨鲨撕咬基础伤害'] + talent.e['巨浪鲨鲨撕咬伤害额外提升'] ) / 100, 'a,nightsoul', 'vaporize')
 },
 {
