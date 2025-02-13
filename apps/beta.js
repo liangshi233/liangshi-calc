@@ -18,7 +18,7 @@ export class beta extends plugin {
   }
 
   async betajpg () {
-    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.jpeg`))
+    this.e.reply(segment.image(`file:///${_path}/plugins/liangshi-calc/resources/1.jpg`))
     return true
   }
 
