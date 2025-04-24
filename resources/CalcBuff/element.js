@@ -1,5 +1,3 @@
-//先不导出，和组队计算一并修改
-
 export const reactionBuffGs = [{
   check: ({ params }) => params.ElementMineTeam >= 1 && params.ElementIceTeam >= 1,
   title: '元素反应：[超导] 冰元素触及雷元素时会造成冰元素的范围伤害,并降低受超导影响生物[phyKx]%的物理抗性',
@@ -54,7 +52,7 @@ export const resonanceBuffGs = [{
   data: {
     mastery: 80
   }
-{
+},
 {
   check: ({ params }) => params.ElementGrassTeam >= 2 && (params.ElementMineTeam >= 1 || (params.ElementFireTeam >= 1 && params.ElementWaterTeam >= 1)),
   title: '元素共鸣：[蔓生之草(激化/激绽/烈绽队)] 触发超激化、蔓激化或超绽放、烈绽放反应后，提升元素精通[mastery]点',

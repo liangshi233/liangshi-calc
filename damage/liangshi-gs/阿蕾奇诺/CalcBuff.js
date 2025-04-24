@@ -1,4 +1,5 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
+import { resonanceBuffGs, characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
+import { TeamBuff } from '../index.js'
 
 export const CalcBuff = [
 characterBuffGs,
@@ -34,7 +35,7 @@ MasteryGs,
   title: '阿蕾奇诺1命：[「所有的仇与债皆由我偿…」] 红死之宴进一步提高[aPlus]；此外，在红死之宴状态下进行普通攻击或重击时，提高[_aInterruption]%抗打断能力。',
   cons: 1,
    data: {
-    aPlus: ({ attr, calc, params, cons, weapon }) => calc(attr.atk) * ((Math.min( (params.blPct * (Math.min(145 , (65 + (cons >= 2 ? 65 : (params.simulate == true ? 65 : 0)))) + (weapon.name === '赤月之形' ? 25 : 0)) + params.blPlus), 200) / 100) * (100 / 100)),
+    aPlus: ({ attr, calc, params, cons, weapon }) => calc(attr.atk) * ((Math.min((params.blPct * (Math.min(145, (65 + (cons >= 2 ? 65 : (params.simulate == true ? 65 : 0)))) + (weapon.name === '赤月之形' ? 25 : 0)) + params.blPlus), 200) / 100) * (100 / 100)),
     _aInterruption: 100
    }
 },
@@ -54,10 +55,16 @@ MasteryGs,
   title: '阿蕾奇诺6命：[「自此以后，我们将共飨新生。」] 厄月将升造成的伤害提高[qPlus],且释放后普通攻击与元素爆发的暴击率提高[aCpct]%,暴击伤害提高[aCdmg]%',
   cons: 6,
   data: {
-    qPlus: ({ calc, attr, params, cons, weapon }) => (calc(attr.atk) * ((Math.min((params.blPct * (Math.min(145 , (65 + (cons >= 2 ? 65 : 0))) * 2 + (weapon.name === '赤月之形' ? 25 : 0)) + params.blPlus), 200) / 100) * (700 / 100))),
+    qPlus: ({ calc, attr, params, cons, weapon }) => (calc(attr.atk) * ((Math.min((params.blPct * (Math.min(145, (65 + (cons >= 2 ? 65 : 0))) * 2 + (weapon.name === '赤月之形' ? 25 : 0)) + params.blPlus), 200) / 100) * (700 / 100))),
     aCpct: 10,
     aCdmg: 70,
     qCpct: 10,
     qCdmg: 70
   }
-}]
+},
+TeamBuff.TeamBuff_Emilie[0],
+TeamBuff.TeamBuff_Emilie[1],
+TeamBuff.TeamBuff_Zhong_Li[0],
+TeamBuff.TeamBuff_Zhong_Li[1],
+resonanceBuffGs[4]
+]

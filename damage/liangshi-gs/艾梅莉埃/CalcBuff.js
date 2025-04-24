@@ -1,4 +1,4 @@
-import { characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
+import { resonanceBuffGs, characterBuffGs, enemyBuffGs, ImaginariumBuff, MasteryGs } from '../../../resources/CalcBuff/index.js'
 import { TeamBuff } from '../index.js'
 
 export const CalcBuff = [
@@ -53,4 +53,9 @@ MasteryGs,
     aPlus: ({ calc, attr }) => calc(attr.atk) * 300 / 100,
     a2Plus: ({ calc, attr }) => calc(attr.atk) * 300 / 100
   }
-}]
+},
+TeamBuff.TeamBuff_Zhong_Li[0],
+TeamBuff.TeamBuff_Zhong_Li[1],
+TeamBuff.TeamBuff_Chiori[0],
+resonanceBuffGs[4]
+]

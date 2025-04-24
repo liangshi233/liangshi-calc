@@ -1,6 +1,7 @@
 import { mainAttrData } from './mainAttr.js'
 import { ObTalentName } from './TalentName.js'
 import { RankingKey } from './defDmgKey.js'
+import { TeamJson } from './TeamJson.js'
 
 import { TeamBuff_Kamisato_Ayaka } from './神里绫华/TeamBuff.js'
 import { TeamBuff_Jean } from './琴/TeamBuff.js'
@@ -202,4 +203,4 @@ let TeamBuff = {
   TeamBuff_Ifa
 }
 
-export { mainAttrData, ObTalentName, RankingKey, TeamBuff }
+export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson }
