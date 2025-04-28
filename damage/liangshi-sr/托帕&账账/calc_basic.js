@@ -57,7 +57,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       xq: ({ talent }) => talent.q['暴击伤害提高'] * 100
     }
   }, {
-    title: '行迹-金融动荡：对火弱点敌人造成的伤害提高[dmg]%',
+    title: '行迹-****：对火弱点敌人造成的伤害提高[dmg]%',
     tree: 2,
     data: {
       dmg: 15

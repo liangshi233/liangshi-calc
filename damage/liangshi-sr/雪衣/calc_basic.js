@@ -32,7 +32,7 @@ export const defParams = { technique: `${Technique}` }
 export const buffs = [characterBuffSr,enemyBuffSr,
   {
     check: ({ params }) => params.technique >= 1,
-    title: '雪衣秘技：[斩立决] 进入战斗后对敌方全体造成量子属性伤害。'
+    title: '雪衣秘技：[****] 进入战斗后对敌方全体造成量子属性伤害。'
   }, {
     title: '雪衣技能：[天罚贯身] 通过削减韧性,终结技造成的伤害提高[qDmg]%',
     data: {

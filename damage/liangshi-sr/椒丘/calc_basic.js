@@ -145,7 +145,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
   }
 },
 {
-  title: '椒丘4魂：[藏腑和平，血气资荣] 结界存在时，敌方目标的攻击力降低[_enemyatk]%。',
+  title: '椒丘4魂：[藏腑和平，****气资荣] 结界存在时，敌方目标的攻击力降低[_enemyatk]%。',
   cons: 4,
   data: {
     _enemyatk: 15

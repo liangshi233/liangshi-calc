@@ -52,7 +52,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       aCpct: 100
     }
   }, {
-    title: '行迹-军势：布洛妮娅在场时，我方全体造成的伤害提高10%',
+    title: '行迹-****：布洛妮娅在场时，我方全体造成的伤害提高10%',
     check: ({ trees }) => trees[103],
     data: {
       dmg: 10

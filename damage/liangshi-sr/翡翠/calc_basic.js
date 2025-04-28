@@ -10,18 +10,18 @@ let sr1314ranking = cfg.sr1314ranking
 let aName = '普通攻击'
 let eName = '恣肆吞併的担保'
 let eNameT = 'E'
-let qName = '堕此欲渊，立此狱契'
+let qName = '堕此欲渊，立此****'
 let qNameT = 'Q'
 let tName = '追击'
 if ( NamePath !== 1 ) {
  if ( NamePath == 2 ) {
   aName = '挞楚抽薪'
   eNameT = '恣肆吞併的担保'
-  qNameT = '堕此欲渊，立此狱契'
+  qNameT = '堕此欲渊，立此****'
   tName = '剔烁之牙'
  } else if ( NamePath == 3 ) {
   eNameT = '恣肆吞併的担保'
-  qNameT = '堕此欲渊，立此狱契'
+  qNameT = '堕此欲渊，立此****'
  } else if ( NamePath == 4 ) {
   eName = '战技'
   qName = '终结技'
@@ -108,7 +108,7 @@ export const mainAttr = 'atk,cpct,cdmg'
 
 export const buffs = [characterBuffSr,enemyBuffSr,
 {
-  title: '翡翠技能：[堕此欲渊，立此狱契] 天赋的追加攻击获得强化，追加攻击造成的伤害倍率提高[_tPlus]%',
+  title: '翡翠技能：[堕此欲渊，立此****] 天赋的追加攻击获得强化，追加攻击造成的伤害倍率提高[_tPlus]%',
   data: {
     _tPlus: ({ talent }) => talent.q['追加攻击倍率提高'] * 100
   }
@@ -153,7 +153,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
  }
 },
 {
-  title: '翡翠6魂：[公平？仍须保荐] 场上有【收债人】状态的角色时，量子属性抗性穿透提高[kx]%',
+  title: '翡翠6魂：[****仍须保荐] 场上有【****】状态的角色时，量子属性抗性穿透提高[kx]%',
   cons: 6,
   data: {
     kx: 20

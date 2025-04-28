@@ -11,17 +11,17 @@ let sr1315ranking = cfg.sr1315ranking
 let aName = '普通攻击'
 let eName = '炽砾舞者的探戈'
 let eNameT = 'E'
-let qName = '尘魔舞者的日落秀'
+let qName = '尘****者的日落秀'
 let qNameT = 'Q'
 
 if (NamePath !== 1) {
   if (NamePath == 2) {
     aName = '蹄铁裂颅'
     eNameT = '炽砾舞者的探戈'
-    qNameT = '尘魔舞者的日落秀'
+    qNameT = '尘****者的日落秀'
   } else if (NamePath == 3) {
     eNameT = '炽砾舞者的探戈'
-    qNameT = '尘魔舞者的日落秀'
+    qNameT = '尘****者的日落秀'
   } else if (NamePath == 4) {
     eName = '战技'
     qName = '终结技'
@@ -139,7 +139,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     title: '波提欧秘技：[三乘九的微笑] 下一次战斗首次施放战技时，为目标添加与终结技相同的物理弱点'
   }, {
     check: ({ params }) => params.e === true,
-    title: '波提欧技能：[炽砾舞者的探戈] 处于【绝命对峙】的敌方目标受到攻击时，受到的伤害提高[enemydmg]%，自身受到伤害提高[_dmg]%',
+    title: '波提欧技能：[炽砾舞者的探戈] 处于【****对峙】的敌方目标受到攻击时，受到的伤害提高[enemydmg]%，自身受到伤害提高[_dmg]%',
     data: {
       enemydmg: ({ talent }) => talent.e['敌方受到的伤害提高'] * 100,
       _dmg: 15
@@ -151,12 +151,12 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       cdmg: ({ calc, attr }) => Math.min(150, (calc(attr.stance) * 50 / 100))
     }
   }, {
-    title: '波提欧行迹：[抵近射击] 处于【绝命对峙】并获得【优势口袋】时，恢复[_energyevery]点能量',
+    title: '波提欧行迹：[抵近射击] 处于【****对峙】并获得【优势口袋】时，恢复[_energyevery]点能量',
     data: {
       _energyevery: 10
     }
   }, {
-    title: '波提欧行迹：[蛇之上行] 受到未处于【绝命对峙】目标的伤害降低[_reduction]%',
+    title: '波提欧行迹：[蛇之上行] 受到未处于【****对峙】目标的伤害降低[_reduction]%',
     data: {
       _reduction: 30
     }
@@ -167,7 +167,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       ignore: 16
     }
   }, {
-    title: '波提欧2魂：[蛇之上行] 处于【绝命对峙】并获得【优势口袋】时，恢复[skillPoints]个战技点，并且击破特攻提高[stance]%',
+    title: '波提欧2魂：[蛇之上行] 处于【****对峙】并获得【优势口袋】时，恢复[skillPoints]个战技点，并且击破特攻提高[stance]%',
     cons: 2,
     data: {
       skillPoints: 1,
@@ -175,7 +175,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     }
   }, {
     check: ({ params }) => params.e === true,
-    title: '波提欧4魂：[冷肉名厨] 对处于【绝命对峙】的敌方目标造成伤害提升[dmg]%受到伤害降低[_reduction]%',
+    title: '波提欧4魂：[冷肉名厨] 对处于【****对峙】的敌方目标造成伤害提升[dmg]%受到伤害降低[_reduction]%',
     cons: 4,
     data: {
       dmg: 12,

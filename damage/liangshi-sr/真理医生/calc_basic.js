@@ -53,7 +53,7 @@ export const defParams = { debuff: 5, technique: `${Technique}` }
 export const buffs = [characterBuffSr,enemyBuffSr,
   {
     check: ({ params }) => params.technique >= 1,
-    title: '真理医生秘技：[偶像塑造] 处于特殊领域内的敌人进入战斗后，使敌方每个单体目标速度降低[_enemySpeed]%。',
+    title: '真理医生秘技：[****] 处于特殊领域内的敌人进入战斗后，使敌方每个单体目标速度降低[_enemySpeed]%。',
     data: {
       _enemySpeed: 15
     }
@@ -75,7 +75,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     }
   }, {
     check: ({ params }) => params.e === true,
-    title: '真理医生1魂：[倨傲生祸患] 行迹【归纳】的叠加层数上限提高,使施放战技时暴击率提高[eCpct]%,暴击伤害提高[eCdmg]%',
+    title: '真理医生1魂：[倨傲生****] 行迹【归纳】的叠加层数上限提高,使施放战技时暴击率提高[eCpct]%,暴击伤害提高[eCdmg]%',
     cons: 1,
     data: {
       eCpct: 2.5 * 4,
@@ -85,13 +85,13 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     title: '真理医生2魂：[显微而阐幽] 天赋的追加攻击击中目标时，额外造成虚数属性附加伤害',
     cons: 2
   }, {
-    title: '真理医生4魂：[盲目造痴愚] 触发天赋时，额外恢复[_energyevery]点能量。',
+    title: '真理医生4魂：[盲目造****] 触发天赋时，额外恢复[_energyevery]点能量。',
     cons: 4,
     data: {
       _energyevery: 15
     }
   }, {
-    title: '真理医生6魂：[永恒唯真理] 天赋的追加攻击造成的伤害提高[tDmg]%',
+    title: '真理医生6魂：[永恒****] 天赋的追加攻击造成的伤害提高[tDmg]%',
     cons: 6,
     data: {
       tDmg: 50

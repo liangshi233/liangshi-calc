@@ -74,7 +74,6 @@ let information = '如有问题请输入 #伤害计算反馈'
 export const details = [
 {
   title: `${aName}伤害`,
-  dmgKey: 'undefined',
   dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['技能伤害'], 'a')
 },

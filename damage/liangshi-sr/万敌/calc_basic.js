@@ -106,7 +106,7 @@ export const details = [
   title: `****${eNameT}相邻目标伤害`,
   params: { e: 2 },
   dmgKey: 'e',
-  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (cons >= 1 ? talent.e3['技能伤害'] : talent.e3['相邻目标伤害']) / 100, 'e')
+  dmg: ({ talent, attr, calc, cons }, { basic }) => basic(calc(attr.hp) * (cons >= 1 ? talent.e2['技能伤害'] : talent.e2['相邻目标伤害']) / 100, 'e')
 },
 {
   title: `${qName}伤害`,

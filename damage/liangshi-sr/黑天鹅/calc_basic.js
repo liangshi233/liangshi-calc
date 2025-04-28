@@ -48,7 +48,7 @@ export const defParams = { technique: `${Technique}` }
 export const buffs = [characterBuffSr,enemyBuffSr,
   {
     check: ({ params }) => params.tDef === true,
-    title: '黑天鹅技能：[失坠，伪神的黄昏] 战技命中使目标防御力降低[enemyDef]%',
+    title: '黑天鹅技能：[失坠，****的黄昏] 战技命中使目标防御力降低[enemyDef]%',
     data: {
       enemyDef: ({ talent }) => talent.e['防御力降低'] * 100
     }

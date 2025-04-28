@@ -12,18 +12,18 @@ let aName = '普通攻击'
 let zName = '忍具•降魔花弁'
 let eName = '忍切·初志贯彻'
 let eNameT = 'E'
-let qName = '忍道·极·爱死天流'
+let qName = '忍道·极·****天流'
 let qNameT = 'Q'
 let tName = '天赋'
 if ( NamePath !== 1 ) {
  if ( NamePath == 2 ) {
   aName = '忍术·七转八起'
   eNameT = '忍切·初志贯彻'
-  qNameT = '忍道·极·爱死天流'
+  qNameT = '忍道·极·****天流'
   tName = '忍·科学·堪忍袋'
  } else if ( NamePath == 3 ) {
   eNameT = '忍切·初志贯彻'
-  qNameT = '忍道·极·爱死天流'
+  qNameT = '忍道·极·****天流'
   tName = '忍·科学·堪忍袋'
  } else if ( NamePath == 4 ) {
   zName = '强化普攻'
@@ -134,14 +134,14 @@ export const buffs = [characterBuffSr,enemyBuffSr,
 },
 {
   check: ({ params }) => params.technique >= 1,
-  title: '乱破秘技：[忍步•血义理] 主动攻击敌人进入战斗后获得[_energyevery]点能量',
+  title: '乱破秘技：[忍步•****理] 主动攻击敌人进入战斗后获得[_energyevery]点能量',
   data: {
     _energyevery: 10
   }
 },
 {
   check: ({ params }) => params.q === true,
-  title: '乱破技能：[忍道•极•爱死天流] 进入【结印】状态，击破特攻提高[stance]%',
+  title: '乱破技能：[忍道•极•****天流] 进入【结印】状态，击破特攻提高[stance]%',
   data: {
     stance: ({ talent }) => talent.q['击破特攻提高'] * 100
   }

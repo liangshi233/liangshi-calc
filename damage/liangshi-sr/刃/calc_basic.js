@@ -94,7 +94,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       tPlus: ({ attr, calc }) => calc(attr.hp) * 0.5
     }
   }, {
-    title: '行迹-坏劫隳亡：天赋造成的伤害提高20%',
+    title: '行迹-坏劫****：天赋造成的伤害提高20%',
     tree: 3,
     data: {
       tDmg: 20

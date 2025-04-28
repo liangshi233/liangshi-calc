@@ -12,14 +12,14 @@ export const details = [
     title: '战技生命回复 主目标',
     dmg: ({ talent, attr }, { heal }) => heal(attr.hp * talent.e['目标治疗·百分比生命'] + talent.e['目标治疗·固定值'])
   }, {
-    title: '低血量战技回复 主目标',
+    title: '低生命战技回复 主目标',
     params: { cons4: true },
     dmg: ({ talent, attr }, { heal }) => heal(attr.hp * talent.e['目标治疗·百分比生命'] + talent.e['目标治疗·固定值'])
   }, {
     title: '战技生命回复 相邻目标',
     dmg: ({ talent, attr }, { heal }) => heal(attr.hp * talent.e['相邻目标治疗·百分比生命'] + talent.e['相邻目标治疗·固定值'])
   }, {
-    title: '低血量战技回复 相邻目标',
+    title: '低生命战技回复 相邻目标',
     params: { cons4: true },
     dmg: ({ talent, attr }, { heal }) => heal(attr.hp * talent.e['相邻目标治疗·百分比生命'] + talent.e['相邻目标治疗·固定值'])
   }, {

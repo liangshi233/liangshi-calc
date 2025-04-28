@@ -118,7 +118,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       _dmg: ({ talent }) => talent.t['击破伤害提高'] * 100
     }
   }, {
-    title: '加拉赫技能：[酒花奔涌] 受到强化普攻酒花奔涌攻击的目标攻击力降低[atkDef]%',
+    title: '加拉赫技能：[****花奔涌] 受到强化普攻酒花奔涌攻击的目标攻击力降低[atkDef]%',
     data: {
       atkDef: ({ talent }) => talent.a2['攻击力降低'] * 100
     }
@@ -136,7 +136,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       _energyevery: 20
     }
   }, {
-    title: '加拉赫6魂：[血与沙] 击破特攻提高[stance]%',
+    title: '加拉赫6魂：[****与沙] 击破特攻提高[stance]%',
     cons: 6,
     data: {
       stance: 20

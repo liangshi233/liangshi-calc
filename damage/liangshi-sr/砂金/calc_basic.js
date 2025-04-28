@@ -56,7 +56,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       kx: 12
     }
   }, {
-    title: '砂金4魂：[意外绞刑] 触发天赋的追加攻击时，会先使防御力提高[defPct]%',
+    title: '砂金4魂：[意外****] 触发天赋的追加攻击时，会先使防御力提高[defPct]%',
     cons: 4,
     data: {
       defPct: 40

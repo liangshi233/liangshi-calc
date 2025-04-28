@@ -55,7 +55,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
       _energyevery: 15
     }
   }, {
-    title: '澹月转魄：转魄提升暴击率[xq1]%，消耗队友血量提升至多[xq2]%攻击力',
+    title: '澹月转魄：转魄提升暴击率[xq1]%，消耗队友生命提升至多[xq2]%攻击力',
     data: {
       cpct: ({ params, talent }) => params.zp ? (talent.t['暴击率提高'] * 100) : 0,
       atkPct: ({ params, talent }) => params.zp ? (talent.t['攻击力提高上限'] * 100) : 0,

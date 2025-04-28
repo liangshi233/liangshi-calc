@@ -44,16 +44,16 @@ const miss = ['f','c','h','y','dps','dph','hph','hps']
 let ranking = 'undefined'
 if (!cfg.sr1403ranking) {
  if ( rankingOnePath == 'm' )  {
-  ranking = 'e'
+  ranking = 'a'
  } else if (miss.includes(rankingOnePath)) {
     if ( rankingTwoPath == 'm' )  {
-     ranking = 'e'
+     ranking = 'a'
     } else if (miss.includes(rankingTwoPath)) {
       if ( rankingThreePath == 'm' )  {
-       ranking = 'e'
+       ranking = 'a'
       } else if (miss.includes(rankingThreePath)) {
        logger.mark('[缇宝] 排名规则均未命中，已选择默认排名规则')
-       ranking = 'e'
+       ranking = 'a'
       } else {
         ranking = `${rankingThreePath}`
       }
@@ -72,12 +72,11 @@ let information = '如有问题请输入 #伤害计算反馈'
 export const details = [
 {
   title: `${qNameT}${eNameT}后${aName}主目标伤害`,
-  dmgKey: 'a',
-  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['主目标技能伤害'] * calc(attr.hp), 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.talent.a['技能伤害'] * calc(attr.hp), 'a')
 },
 {
   title: `${qNameT}${eNameT}后${aName}相邻伤害`,
-  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['相邻目标技能伤害'] * calc(attr.hp), 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['相邻目标伤害'] * calc(attr.hp), 'a')
 },
 {
   title: `${qName}伤害`,
@@ -91,21 +90,20 @@ export const details = [
 {
   title: '天赋追加伤害',
   params: { t: true },
-  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.t['追加伤害'] * calc(attr.hp), 't')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.t['追加攻击伤害'] * calc(attr.hp), 't')
 },
 {
   title: `3目标${qNameT}${eNameT}后${aName}真实伤害`,
   dmgKey: 'a',
   dmg: ({ talent, calc, attr }, { basic }) => {
-    let a1 = basic(talent.a['主目标技能伤害'] * calc(attr.hp), 'a')
-    let a2 = basic(talent.a['相邻目标技能伤害'] * calc(attr.hp), 'a')
+    let a1 = basic(talent.talent.a['技能伤害'] * calc(attr.hp), 'a')
+    let a2 = basic(talent.a['相邻目标伤害'] * calc(attr.hp), 'a')
     return {
       avg: (a1.avg + a2.avg * 2) * 24 / 100,
       dmg: (a1.dmg + a2.dmg * 2) * 24 / 100,
     }
   }
-},
-]
+}]
 
 export const defDmgKey = `${ranking}`
 export const mainAttr = 'hp,cpct,cdmg'
@@ -113,7 +111,7 @@ export const defParams = { technique: `${Technique}` }
 
 export const buffs = [characterBuffSr,enemyBuffSr,
 {
-  title: '缇宝技能：[礼物都去哪儿了] 拥有【神启】时，我方全体目标全属性抗性穿透提高[atkPct]%',
+  title: '缇宝技能：[礼物都去哪儿了] 拥有【****】时，我方全体目标全属性抗性穿透提高[atkPct]%',
   data: {
     atkPct: ({ talent }) => talent.e['抗性穿透提高'] * 100
   }
@@ -159,7 +157,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
  }
 },
 {
-  title: '缇宝4魂：[心意相契的安宁] 【神启】持续期间，我方全体造成伤害时无视目标[ignore]%的防御力',
+  title: '缇宝4魂：[心意相契的安宁] 【****】持续期间，我方全体造成伤害时无视目标[ignore]%的防御力',
   cons: 4,
   data: {
     ignore: 18

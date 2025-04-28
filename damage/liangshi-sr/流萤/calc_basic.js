@@ -20,8 +20,8 @@ if ( NamePath !== 1 ) {
   aName = '指令-闪燃推进'
   a2Name = '火萤Ⅳ型-底火斩击'
   eNameT = '指令-天火轰击'
-  e2Name = '火萤Ⅳ型-死星过载'
-  e2NameT = '火萤Ⅳ型-死星过载'
+  e2Name = '火萤Ⅳ型-****星过载'
+  e2NameT = '火萤Ⅳ型-****星过载'
   qNameT = '火萤Ⅳ型-完全燃烧'
  } else if ( NamePath == 3 ) {
   eNameT = '指令-天火轰击'

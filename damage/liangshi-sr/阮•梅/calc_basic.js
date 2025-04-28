@@ -129,7 +129,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     }
   }, {
     check: ({ params }) => params.q === true,
-    title: '阮•梅1魂：[神经仿绣图] 终结技展开结界期间，我方全体造成伤害时无视目标[ignore]%的防御力',
+    title: '阮•梅1魂：[****仿绣图] 终结技展开结界期间，我方全体造成伤害时无视目标[ignore]%的防御力',
     cons: 1,
     data: {
       ignore: 20

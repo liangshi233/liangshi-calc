@@ -125,7 +125,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     }
   }, {
     check: ({ params }) => params.Revenge === true,
-    title: '克拉拉行迹：[复仇] 史瓦罗的反击造成的伤害提高[tDmg]%',
+    title: '克拉拉行迹：[****] 史瓦罗的反击造成的伤害提高[tDmg]%',
     tree: 3,
     data: {
       tDmg: 30

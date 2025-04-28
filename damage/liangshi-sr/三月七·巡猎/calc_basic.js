@@ -128,7 +128,7 @@ export const buffs = [characterBuffSr,enemyBuffSr,
 },
 {
   check: ({ params }) => params.a2 === true,
-  title: '三月七6魂：[天下第一本姑娘] 施放终结技后，下一次强化普攻造成的暴击伤害提高[aCdmg]%',
+  title: '三月七6魂：[****本姑娘] 施放终结技后，下一次强化普攻造成的暴击伤害提高[aCdmg]%',
   cons: 6,
   data: {
     aCdmg: 50
