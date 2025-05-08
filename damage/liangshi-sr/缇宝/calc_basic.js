@@ -72,7 +72,7 @@ let information = '如有问题请输入 #伤害计算反馈'
 export const details = [
 {
   title: `${qNameT}${eNameT}后${aName}主目标伤害`,
-  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.talent.a['技能伤害'] * calc(attr.hp), 'a')
+  dmg: ({ talent, calc, attr }, { basic }) => basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
 },
 {
   title: `${qNameT}${eNameT}后${aName}相邻伤害`,
@@ -96,7 +96,7 @@ export const details = [
   title: `3目标${qNameT}${eNameT}后${aName}真实伤害`,
   dmgKey: 'a',
   dmg: ({ talent, calc, attr }, { basic }) => {
-    let a1 = basic(talent.talent.a['技能伤害'] * calc(attr.hp), 'a')
+    let a1 = basic(talent.a['技能伤害'] * calc(attr.hp), 'a')
     let a2 = basic(talent.a['相邻目标伤害'] * calc(attr.hp), 'a')
     return {
       avg: (a1.avg + a2.avg * 2) * 24 / 100,
@@ -171,4 +171,4 @@ export const buffs = [characterBuffSr,enemyBuffSr,
     tDmg: 729
  }
 },
- { title: `2.22最后修改：[2.22重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1403ranking} 更新日志:${renew} 其他信息:${information}` }]
+ { title: `5.8最后修改：[2.22重置] 显示模式:${NamePath} 排行设置:${rankingOnePath},${rankingTwoPath},${rankingThreePath} 专属排行设置:${sr1403ranking} 更新日志:${renew} 其他信息:${information}` }]

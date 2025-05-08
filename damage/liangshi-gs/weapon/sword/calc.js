@@ -352,6 +352,15 @@ export default function (step, staticStep) {
         buff: ({ params }) => (params.NormalHit || 1) + (params.PlungingHit || 0),
         dmg: ({ attr, calc, refine, params }) => ((params.NormalHit || 1) + (params.PlungingHit || 0)) >= 2 ? (Math.min(calc(attr.def) / 1000 * step(8)[refine], step(25.6)[refine])) : 0
       }
-    }]
+    }],
+    苍耀: {
+      check: ({ params }) => (params.params.SkillsUse || 1) > 0,
+      title: '[苍耀] 释放元素战技后装备者的元素能量为[buff]%,攻击力提升[atkPct]%,暴击伤害提升[cdmg]%',
+      data: {
+        buff: ({ params }) => params.EnergyDetermine || 100,
+        atkPct: ({ params, refine }) => step(24)[refine] * ((params.EnergyDetermine || 0) === 0 ? 2 : 1),
+        cdmg: ({ params, refine }) => step(40)[refine] * ((params.EnergyDetermine || 0) === 0 ? 1 : 0)
+      }
+    }
   }
 }

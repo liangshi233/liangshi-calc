@@ -65,7 +65,7 @@ let AllCalc = [
   title: `${TalentName.eNameT}后${TalentName.aName}治疗`,
   dmgKey: 'h',
   params: { NormalUse: 1, NormalHit: 6, NormalDmg: 6, HealNumber: 6 },
-  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.mastery) / 100 * talent.q['秘药弹命中治疗量2'][0] + talent.q['秘药弹命中治疗量2'][1] * 1)
+  dmg: ({ talent, attr, calc }, { heal }) => heal(calc(attr.mastery) / 100 * talent.e['秘药弹命中治疗量2'][0] + talent.e['秘药弹命中治疗量2'][1] * 1)
 },
 {
   title: `${TalentName.qName}伤害`,

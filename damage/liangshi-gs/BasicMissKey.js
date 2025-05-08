@@ -72,6 +72,8 @@ export const BasicMiss = {
   "申鹤": ['a', 'z', 'c', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
   "神里绫华": ['c', 'f', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
   "神里绫人": ['z', 'c', 'f', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
+  "丝柯克": ['f', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
+  "塔利雅": ['f', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
   "提纳里": ['a', 'c', 'f', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
   "托马": ['a', 'z', 'c', 'f', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
   "瓦雷莎": ['a', 'f', 'h', 'y', 'r', 'dph', 'hph', 'dps', 'hps'],
