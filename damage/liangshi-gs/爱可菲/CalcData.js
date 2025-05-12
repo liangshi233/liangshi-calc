@@ -83,7 +83,7 @@ let AllCalc = [
 },
 {
   title: `${TalentName.eName}完整协同融化`,
-  params: { SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10 },
+  params: { FireAttachment: true, SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10 },
   dmg: ({ talent }, dmg) => {
     let e1 = dmg(talent.e['冻霜芭菲伤害'], 'e')
     let e2 = dmg(talent.e['冻霜芭菲伤害'], 'e', 'melt')

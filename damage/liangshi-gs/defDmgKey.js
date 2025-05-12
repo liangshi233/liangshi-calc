@@ -4,6 +4,7 @@ import { UserRankingData } from '../../config/ranking.js'
 import { BasicMiss } from './BasicMissKey.js'
 import path from 'node:path'
 import fs from 'node:fs'
+//后续再将不同版本计算的排名区分，暂时不更新
 
 function RankingKey(CharacterName) {
   let cfg = LSconfig.getConfig('user', 'config')

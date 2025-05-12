@@ -47,13 +47,13 @@ let AllCalc = [
   title: `${TalentName.eName}后${TalentName.aName}伤害`,
   dmgKey: 'a',
   params: { NormalUse: 1, NormalHit: 3, NormalDmg: 3, HealNumber: 3 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['秘药弹伤害'], 'a')
+  dmg: ({ talent }, dmg) => dmg(talent.e['秘药弹伤害'], 'a,nightsou')
 },
 {
   title: `${TalentName.eNameT}后长按${TalentName.aName}完整伤害`,
   params: { NormalUse: 1, NormalHit: 6, NormalDmg: 6, HealNumber: 6 },
   dmg: ({ talent, cons }, dmg) => {
-    let a = dmg(talent.e['秘药弹伤害'], 'a')
+    let a = dmg(talent.e['秘药弹伤害'], 'a,nightsou')
     let c = dmg(120, 'a')
     return {
       avg: a.avg * 12 + c.avg * 6 * (cons >= 6 ? 1 : 0),
@@ -70,7 +70,7 @@ let AllCalc = [
 {
   title: `${TalentName.qName}伤害`,
   params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyDetermine: 0, EnergyUse: 1 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsou')
 },
 {
   title: `${TalentName.qName}附加伤害`,

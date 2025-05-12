@@ -30,7 +30,7 @@ export const details = [
     let a2 = dmg(talent.a['一段伤害2'][0], 'a', 'vaporize')
     return {
       avg: a1.avg + a2.avg,
-      dmg: a1.dmg + a2.amg
+      dmg: a1.dmg + a2.dmg
     }
   }
 },
