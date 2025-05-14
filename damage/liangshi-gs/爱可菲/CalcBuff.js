@@ -17,7 +17,7 @@ MasteryGs,
   title: '爱可菲1命：[味蕾绽放的餐前旋舞] 队伍中所有角色的元素类型均为冰元素与水元素时，冰元素暴击伤害提升[cdmg]%',
   cons: 1,
   data: {
-    cdmg: ({ params }) => params.phy === true ? 0 : 15
+    cdmg: ({ params }) => params.phy === true ? 0 : 60
   }
 },
 {

@@ -5,7 +5,7 @@ import { ObTalentName } from '../index.js'
 let CharacterName = "伊法"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
-let AllCalc = [
+export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
   params: { Nightsoul: false, SkillsUse: 0 },
@@ -92,31 +92,3 @@ let AllCalc = [
   dmgKey: 'r',
   dmg: ({}, { reaction }) => reaction('swirl')
 }]
-
-let CalcData
-if (cfg.calcLiangK) {
-  CalcData = AllCalc //自定义
-} else if (cfg.calcLiangQ) {
-  CalcData = AllCalc
-} else if (cfg.calcLiangT) {
-  CalcData = false
-} else if (cfg.calcLiangJ) {
-  CalcData = [
-    AllCalc[9]
-  ]
-} else if (cfg.calcLiang) {
-  CalcData = [
-    AllCalc[7],
-    AllCalc[8],
-    AllCalc[9],
-    AllCalc[10],
-    AllCalc[11],
-    AllCalc[12],
-    AllCalc[13],
-    AllCalc[14]
-  ]
-} else {
-  CalcData = false
-}
-
-export const CalcMeasure = CalcData

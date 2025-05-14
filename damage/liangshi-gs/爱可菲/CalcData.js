@@ -5,7 +5,7 @@ import { ObTalentName } from '../index.js'
 let CharacterName = "爱可菲"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
-let AllCalc = [
+export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
   params: { phy: true },
@@ -61,12 +61,12 @@ let AllCalc = [
 },
 {
   title: `${TalentName.eName}协同伤害`,
+  dmgKey: 'e',
   params: { SkillsUse: 1, SkillsHit: 3, SkillsDmg: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.e['冻霜芭菲伤害'], 'e')
 },
 {
   title: `${TalentName.eName}完整协同`,
-  dmgKey: 'e',
   params: { SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10 },
   dmg: ({ talent }, dmg) => {
     let e = dmg(talent.e['冻霜芭菲伤害'], 'e')
@@ -124,31 +124,3 @@ let AllCalc = [
   params: { FireAttachment: true, SkillsUse: 1, SkillsHit: 3, SkillsDmg: 3 },
   dmg: ({ talent }, dmg) => dmg(500, 'e', 'melt')
 }]
-
-let CalcData
-if (cfg.calcLiangK) {
-  CalcData = AllCalc //自定义
-} else if (cfg.calcLiangQ) {
-  CalcData = AllCalc
-} else if (cfg.calcLiangT) {
-  CalcData = false
-} else if (cfg.calcLiangJ) {
-  CalcData = [
-    AllCalc[9]
-  ]
-} else if (cfg.calcLiang) {
-  CalcData = [
-    AllCalc[9],
-    AllCalc[10],
-    AllCalc[11],
-    AllCalc[12],
-    AllCalc[13],
-    AllCalc[14],
-    AllCalc[15],
-    AllCalc[17],
-  ]
-} else {
-  CalcData = false
-}
-
-export const CalcMeasure = CalcData

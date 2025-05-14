@@ -4,7 +4,7 @@ import { ObTalentName } from '../index.js'
 let CharacterName = "塔利雅"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
-let AllCalc = [
+export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
   params: { phy: true },
@@ -86,33 +86,4 @@ let AllCalc = [
   params: { ShieldTime: 6, EnergyDetermine: 0, EnergyUse: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Favonian_Favor: true },
   dmgKey: 'h',
   dmg: ({ attr, calc, talent }, { shield }) => shield(calc(attr.hp) * talent.q['圣眷护盾吸收量2'][0] / 100 + talent.q['圣眷护盾吸收量2'][1])
-}
-]
-
-
-let CalcData
-if (cfg.calcLiangK) {
-  CalcData = AllCalc //自定义
-} else if (cfg.calcLiangQ) {
-  CalcData = AllCalc
-} else if (cfg.calcLiangT) {
-  CalcData = false
-} else if (cfg.calcLiangJ) {
-  CalcData = [
-    AllCalc[12]
-  ]
-} else if (cfg.calcLiang) {
-  CalcData = [
-    AllCalc[0],
-    AllCalc[3],
-    AllCalc[8],
-    AllCalc[9],
-    AllCalc[10],
-    AllCalc[11],
-    AllCalc[12]
-  ]
-} else {
-  CalcData = false
-}
-
-export const CalcMeasure = CalcData
+}]

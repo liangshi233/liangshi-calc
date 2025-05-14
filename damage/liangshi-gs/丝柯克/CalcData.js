@@ -4,7 +4,7 @@ import { ObTalentName } from '../index.js'
 let CharacterName = "丝柯克"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
-let AllCalc = [
+export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
   params: { SkillsUse: 0, phy: true },
@@ -104,6 +104,7 @@ let AllCalc = [
 {
   title: `${TalentName.eNameT}后${TalentName.a2Name}伤害`,
   params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
+  dmgKey: 'z',
   dmg: ({ talent }, dmg) => {
     let z = dmg(talent.e['重击伤害2'][0], 'a2')
     return {
@@ -148,6 +149,7 @@ let AllCalc = [
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}五段`,
   params: { BurstUse: 1, NormalUse: 5, NormalHit: 7, NormalDmg: 7, NormalElement: 7, Deaths_Crossing: 3 },
+  dmgKey: 'a',
   dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a')
 },
 {
@@ -185,6 +187,7 @@ let AllCalc = [
 {
   title: `满层${TalentName.qName}完整伤害`,
   params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
+  dmgKey: 'q',
   dmg: ({ talent }, dmg) => {
     let q1 = dmg(talent.q['技能伤害2'][0], 'q')
     let q2 = dmg(talent.q['最终一击技能伤害'], 'q')
@@ -193,34 +196,4 @@ let AllCalc = [
       avg: q1.avg * 5 + q2.avg
     }
   }
-}
-]
-
-
-let CalcData
-if (cfg.calcLiangK) {
-  CalcData = AllCalc //自定义
-} else if (cfg.calcLiangQ) {
-  CalcData = AllCalc
-} else if (cfg.calcLiangT) {
-  CalcData = false
-} else if (cfg.calcLiangJ) {
-  CalcData = [
-    AllCalc[19]
-  ]
-} else if (cfg.calcLiang) {
-  CalcData = [
-    AllCalc[9],
-    AllCalc[13],
-    AllCalc[15],
-    AllCalc[19],
-    AllCalc[20],
-    AllCalc[22],
-    AllCalc[23],
-    AllCalc[25]
-  ]
-} else {
-  CalcData = false
-}
-
-export const CalcMeasure = CalcData
+}]

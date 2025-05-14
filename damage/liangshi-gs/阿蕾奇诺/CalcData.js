@@ -27,7 +27,7 @@ let T1z1Dmg = { avg: 0, dmg: 0 }
 let CharacterName = "阿蕾奇诺"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
-let AllCalc = [
+export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
   params: { blPct: 0, phy: true, SkillsUse: 0, SkillsHit: 0, SkillsDmg: 0, SkillsKill: 0 },
@@ -185,6 +185,7 @@ let AllCalc = [
 {
   title: `${TalentName.eNameT}后${TalentName.a2Name}伤害`,
   params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
+  dmgKey: 'z',
   dmg: ({ talent }, dmg ) => dmg(talent.a['重击伤害'], 'a2')
 },
 {
@@ -205,6 +206,7 @@ let AllCalc = [
 {
   title: `${TalentName.eNameT}后高空${TalentName.a3Name}伤害`,
   params: { phy: true, PlungingUse: 1, PlungingHit: 3, PlungingDmg: 3 },
+  dmgKey: 'c',
   dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
 },
 {
@@ -221,7 +223,6 @@ let AllCalc = [
 },
 {
   title: `${TalentName.eName}尖刺伤害`,
-  dmgKey: 'undefined',
   params: { SkillsUse: 1, SkillsHit: 2, SkillsDmg: 2 },
   dmg: ({ talent }, dmg ) => dmg(talent.e['尖刺伤害'], 'e')
 },
@@ -320,7 +321,7 @@ let AllCalc = [
 },
 {
   title: '单人站场20秒',
-  dmgKey: 'dpm',
+  dmgKey: 'dph',
   params: { NormalElement: 14, blPct: 0.594, NormalUse: 12, NormalHit: 14, NormalDmg: 14, BurstUse: 1, BurstHit: 1, BurstDmg: 1, BondOfLifeGet: 1, DecreasedBondOfLife: 14, BondOfLifeUse: 130, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, HealNumber: 1 },
   dmg: ({ talent, cons }, dmg ) => {
     let e1 = dmg(talent.e['尖刺伤害'], 'e')
@@ -530,48 +531,4 @@ let AllCalc = [
   title: `仆万莫班 ${TalentName.qNameT}蒸发`,
   params: { team: true, BondOfLife: 200, ChangeBondOfLife: 9, SkillsHit: 3, SkillsDmg: 3, NormalUse: 6, NormalHit: 7, NormalDmg: 7, NormalElement: 7, WaterAttachment: true, ElementSame: 2, ElementDifferent: 2, EnergyTeammate: 260, ElementWaterTeam: 1, ElementFireTeam: 3, ElementWindTeam: 1, Kaedehara_Kazuha: true, Mona: true, Bennett: true },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
-}
-]
-
-let CalcData
-if (cfg.calcLiangK) {
-  CalcData = AllCalc //自定义
-} else if (cfg.calcLiangQ) {
-  CalcData = AllCalc
-} else if (cfg.calcLiangT) {
-  CalcData = [
-    AllCalc[51],
-    AllCalc[52],
-    AllCalc[53],
-    AllCalc[54],
-    AllCalc[55],
-    AllCalc[56],
-    AllCalc[57],
-    AllCalc[58],
-    AllCalc[59],
-    AllCalc[60],
-    AllCalc[61],
-    AllCalc[62],
-    AllCalc[63]
-  ]
-} else if (cfg.calcLiangJ) {
-  CalcData = [
-    AllCalc[26]
-  ]
-} else if (cfg.calcLiang) {
-  CalcData = [
-    AllCalc[10],
-    AllCalc[11],
-    AllCalc[32],
-    AllCalc[34],
-    AllCalc[36],
-    AllCalc[38],
-    AllCalc[40],
-    AllCalc[42],
-    AllCalc[44]
-  ]
-} else {
-  CalcData = false
-}
-
-export const CalcMeasure = CalcData
+}]

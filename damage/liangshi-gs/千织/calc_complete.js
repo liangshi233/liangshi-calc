@@ -250,7 +250,7 @@ export const details = [
     weaponconsn = 1
   }
   return {
-    avg: Format.percent((calc(attr.recharge) / 100 * (6 * 3 + weaponn + energy)) / (50 - consn - weaponnn - (0.2212 * (20 + weaponconsn)))),
+    avg: Format.percent((calc(attr.recharge) / 100 * (6 * 3 + weaponn + energy)) / (50 - weaponnn - (0.2212 * (20 + weaponconsn)))),
     type: 'text'
   }
  }
@@ -295,7 +295,7 @@ export const details = [
     let aDmg = (2 * a1.dmg + 3 * a2.dmg + 3 * 2 * a3.dmg + 3 * a4.dmg) + (3 * ae1.dmg + 2 * ae2.dmg + 2 * 2 * ae3.dmg + 2 * ae4.dmg)
     let aAvg = (2 * a1.avg + 3 * a2.avg + 3 * 2 * a3.avg + 3 * a4.avg) + (3 * ae1.avg + 2 * ae2.avg + 2 * 2 * ae3.avg + 2 * ae4.avg)
     let eDmg = (e1.dmg * 5) * cons1+ (e2.dmg * cons2) + (e2.dmg * cons4) + e0.dmg
-    let eAvg = (e1.avg * 5) * cons1 + (e2.dmg * cons ) + (e2.dmg * cons4) + e0.avg
+    let eAvg = (e1.avg * 5) * cons1 + (e2.dmg * cons2) + (e2.dmg * cons4) + e0.avg
     let qDmg = q1.dmg * qcn
     let qAvg = q1.avg * qcn
     return {
