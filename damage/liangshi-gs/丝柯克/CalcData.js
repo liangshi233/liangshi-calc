@@ -1,9 +1,18 @@
 import { LSconfig } from '#liangshi'
 import { ObTalentName } from '../index.js'
+import fs from 'node:fs'
 
 let CharacterName = "丝柯克"
 let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
+let skill
+try {
+  skill = fs.readFileSync('plugins/miao-plugin/resources/meta-gs/character/丝柯克/data.json', 'utf8')
+  skill = JSON.parse(skill)
+  skill = skill.talentData.e
+} catch (err) {
+  console.error(`${CharacterName}天赋数据读取失败: ${err}`)
+}
 export const AllCalc = [
 {
   title: `${TalentName.aName}一段伤害`,
@@ -65,19 +74,29 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}后${TalentName.aName}一段`,
-  params: { NormalElement: 1 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['一段伤害'], 'a')
+  params: { ElementWaterTeam: 1, NormalElement: 1 },
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['一段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `${TalentName.eNameT}后${TalentName.aName}二段`,
-  params: { NormalUse: 2, NormalHit: 2, NormalDmg: 2, NormalElement: 2 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['二段伤害'], 'a')
+  params: { ElementWaterTeam: 1, NormalUse: 2, NormalHit: 2, NormalDmg: 2, NormalElement: 2 },
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['二段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `${TalentName.eNameT}后${TalentName.aName}三段`,
-  params: { NormalUse: 3, NormalHit: 4, NormalDmg: 4, NormalElement: 4 },
+  params: { ElementWaterTeam: 1, NormalUse: 3, NormalHit: 4, NormalDmg: 4, NormalElement: 4 },
   dmg: ({ talent }, dmg) => {
-    let a = dmg(talent.e['三段伤害2'][0], 'a')
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['三段伤害2'][talentlevel]
+    let a = dmg(e[0], 'a')
     return {
       dmg: a.dmg * 2,
       avg: a.avg * 2
@@ -86,10 +105,12 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}后${TalentName.aName}四段`,
-  params: { NormalUse: 4, NormalHit: 6, NormalDmg: 6, NormalElement: 6 },
+  params: { ElementWaterTeam: 1, NormalUse: 4, NormalHit: 6, NormalDmg: 6, NormalElement: 6 },
   dmg: ({ talent }, dmg) => {
-    let a1 = dmg(talent.e['四段伤害2'][0], 'a')
-    let a2 = dmg(talent.e['四段伤害2'][1], 'a')
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['四段伤害2'][talentlevel]
+    let a1 = dmg(e[0], 'a')
+    let a2 = dmg(e[1], 'a')
     return {
       dmg: a1.dmg + a2.dmg,
       avg: a1.avg + a2.avg
@@ -98,15 +119,21 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}后${TalentName.aName}五段`,
-  params: { NormalUse: 5, NormalHit: 7, NormalDmg: 7, NormalElement: 7 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['五段伤害'], 'a')
+  params: { ElementWaterTeam: 1, NormalUse: 5, NormalHit: 7, NormalDmg: 7, NormalElement: 7 },
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['五段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `${TalentName.eNameT}后${TalentName.a2Name}伤害`,
-  params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
+  params: { ElementWaterTeam: 1, ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
   dmgKey: 'z',
   dmg: ({ talent }, dmg) => {
-    let z = dmg(talent.e['重击伤害2'][0], 'a2')
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['重击伤害2'][talentlevel]
+    let z = dmg(e[0], 'a2')
     return {
       dmg: z.dmg * 3,
       avg: z.avg * 3
@@ -115,19 +142,29 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}一段`,
-  params: { BurstUse: 1, NormalElement: 1, Deaths_Crossing: 3 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['一段伤害'], 'a')
+  params: { ElementWaterTeam: 1, BurstUse: 1, NormalElement: 1, Deaths_Crossing: 3 },
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['一段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}二段`,
-  params: { BurstUse: 1, NormalUse: 2, NormalHit: 2, NormalDmg: 2, NormalElement: 2, Deaths_Crossing: 3 },
-  dmg: ({ talent }, dmg) => dmg(talent.e['二段伤害'], 'a')
+  params: { ElementWaterTeam: 1, BurstUse: 1, NormalUse: 2, NormalHit: 2, NormalDmg: 2, NormalElement: 2, Deaths_Crossing: 3 },
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['二段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}三段`,
-  params: { BurstUse: 1, NormalUse: 3, NormalHit: 4, NormalDmg: 4, NormalElement: 4, Deaths_Crossing: 3 },
+  params: { ElementWaterTeam: 1, BurstUse: 1, NormalUse: 3, NormalHit: 4, NormalDmg: 4, NormalElement: 4, Deaths_Crossing: 3 },
   dmg: ({ talent }, dmg) => {
-    let a = dmg(talent.e['三段伤害2'][0], 'a')
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['三段伤害2'][talentlevel]
+    let a = dmg(e[0], 'a')
     return {
       dmg: a.dmg * 2,
       avg: a.avg * 2
@@ -136,10 +173,12 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}四段`,
-  params: { BurstUse: 1, NormalUse: 4, NormalHit: 6, NormalDmg: 6, NormalElement: 6, Deaths_Crossing: 3 },
+  params: { ElementWaterTeam: 1, BurstUse: 1, NormalUse: 4, NormalHit: 6, NormalDmg: 6, NormalElement: 6, Deaths_Crossing: 3 },
   dmg: ({ talent }, dmg) => {
-    let a1 = dmg(talent.e['四段伤害2'][0], 'a')
-    let a2 = dmg(talent.e['四段伤害2'][1], 'a')
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['四段伤害2'][talentlevel]
+    let a1 = dmg(e[0], 'a')
+    let a2 = dmg(e[1], 'a')
     return {
       dmg: a1.dmg + a2.dmg,
       avg: a1.avg + a2.avg
@@ -148,9 +187,13 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.eNameT}${TalentName.qNameT}后${TalentName.aName}五段`,
-  params: { BurstUse: 1, NormalUse: 5, NormalHit: 7, NormalDmg: 7, NormalElement: 7, Deaths_Crossing: 3 },
+  params: { ElementWaterTeam: 1, BurstUse: 1, NormalUse: 5, NormalHit: 7, NormalDmg: 7, NormalElement: 7, Deaths_Crossing: 3 },
   dmgKey: 'a',
-  dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a')
+  dmg: ({ talent }, dmg) => {
+    let talentlevel = Math.min(talent.talentLevel.e, 14)
+    let e = skill['五段伤害'][talentlevel]
+    return dmg(e, 'a')
+  }
 },
 {
   title: `50层${TalentName.qName}斩击单段`,

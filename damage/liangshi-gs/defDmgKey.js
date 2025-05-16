@@ -17,7 +17,7 @@ function RankingKey(CharacterName) {
     PresetsRanking = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-gs/data/Ranking.json', 'utf8')
     UserRanking = UserRanking[CharacterName]
     PresetsRanking = PresetsRanking[CharacterName]
-    if (cfg.calcLiangK) {
+    if (cfg.calcLiangK || cfg.calcLiangQ) {
       PresetsMiss = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-gs/data/AllMiss.json', 'utf8')
       PresetsRanking = PresetsRanking[0]
     } else if (cfg.calcLiangT) {

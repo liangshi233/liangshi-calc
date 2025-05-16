@@ -20,7 +20,7 @@ export class calc extends plugin {
             fnc: 'InspectCalc'
           },
           {
-            reg: '^#*(添加|增加|移除|去除|删除)(计算|伤害计算|calc)模版(.*)[0-9]{1,3}$',
+            reg: '^#*(添加|增加|移除|去除|删除)(计算|伤害计算|calc)模版([^0-9]*)[0-9]{1,3}$', //请勿使用“0人,77”此类别名
             fnc: 'NewCalc'
           }
         ]
@@ -78,6 +78,19 @@ export class calc extends plugin {
     } else {
       return e.reply(`主人也不能设置哦~(*/ω＼*)`)
     }
+
+
+
+    if (/添加|增加/.test(this.e.msg)) {
+
+
+
+    } else if (/移除|去除|删除/.test(this.e.msg)) {
+
+
+
+    }
+
   }
 
 }

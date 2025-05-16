@@ -1,4 +1,4 @@
-import { Format, LSconfig } from '#liangshi'
+import { Format } from '#liangshi'
 import { EnergyCycle } from '../../../resources/CalcBuff/Energy.js'
 import { recordData } from '../../../components/jsRecord.js'
 import { ObTalentName } from '../index.js'
@@ -25,7 +25,6 @@ let T1e3Dmg = { avg: 0, dmg: 0 }
 let T1e4Dmg = { avg: 0, dmg: 0 }
 let T1z1Dmg = { avg: 0, dmg: 0 }
 let CharacterName = "阿蕾奇诺"
-let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
 export const AllCalc = [
 {
