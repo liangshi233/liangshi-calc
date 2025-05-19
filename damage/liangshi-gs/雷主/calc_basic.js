@@ -1,4 +1,4 @@
-import LSconfig from '../../../../../plugins/liangshi-calc/components/LSconfig.js'
+import { Format, LSconfig } from '#liangshi'
 import { mainAttrData, ObTalentName, RankingKey } from '../index.js'
 import { CalcBuff } from './CalcBuff.js'
 

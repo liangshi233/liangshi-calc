@@ -78,9 +78,7 @@ export class calc extends plugin {
     } else {
       return e.reply(`主人也不能设置哦~(*/ω＼*)`)
     }
-
-
-
+    let name = this.e.msg.match(/^#*(添加|增加|移除|去除|删除)(计算|伤害计算|calc)模版([^0-9]*)[0-9]{1,3}$/)[3]
     if (/添加|增加/.test(this.e.msg)) {
 
 
