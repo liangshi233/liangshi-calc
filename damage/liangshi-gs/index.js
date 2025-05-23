@@ -1,6 +1,7 @@
 import { mainAttrData } from './data/mainAttr.js'
 import { ObTalentName } from './TalentName.js'
 import { RankingKey } from './defDmgKey.js'
+import { ParamsData } from './defParams.js'
 import { CalcMeasure } from './CalcData.js'
 import { TeamJson } from './TeamJson.js'
 
@@ -209,4 +210,4 @@ let TeamBuff = {
   TeamBuff_Skirk
 }
 
-export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure }
+export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure, ParamsData }

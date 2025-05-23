@@ -29,7 +29,7 @@ MasteryGs,
   }
 },
 {
-  title: '丝柯克技能：[极恶技·灭] 施放极恶技·灭时，拥有[buff]点蛇之狡谋,元素爆发造成的伤害提高[qPlus]%',
+  title: '丝柯克技能：[极恶技·灭] 施放极恶技·灭时，拥有[buff]点蛇之狡谋,元素爆发造成的伤害提高[qPlus]',
   sort: 9,
   data: {
     buff: ({ params }) => params.Serpents_Subtlety || 100,
@@ -47,12 +47,12 @@ MasteryGs,
   title: '丝柯克天赋：[诸武相授] 队伍中所有角色的元素类型均为冰元素与水元素时，队伍中自己的角色的元素战技等级提高1.0级'
 },
 {
-  title: '丝柯克2命：[坠渊] 七相一闪模式下普通攻击造成的伤害提升[aDmg]%，元素爆发极恶技·灭造成的伤害额外提升[qPlus]',
+  title: '丝柯克2命：[坠渊] 极恶技·灭造成的伤害额外提升[qPlus]，七相一闪模式下释放元素爆发攻击力提升[atkPct]%',
   cons: 2,
   sort: 9,
   data: {
-    aDmg: 60,
-    qPlus: ({ params, attr, calc, talent }) => (calc(attr.atk) * talent.q['蛇之狡谋加成'] / 100) * Math.max((Math.min(((params.Serpents_Subtlety || 100) - 62), 12)), 0)
+    atkPct: ({ params }) => (params.BurstUse || 0) > 0 ? ((params.SkillsUse || 1) > 0 ? 60 : 0) : 0,
+    qPlus: ({ params, attr, calc, talent }) => (calc(attr.atk) * talent.q['蛇之狡谋加成'] / 100) * Math.max((Math.min(((params.Serpents_Subtlety || 100) - 62), 10)), 0)
   }
 },
 {

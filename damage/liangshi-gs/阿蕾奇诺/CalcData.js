@@ -253,35 +253,35 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.qName}伤害`,
-  params: { EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmgKey: 'q',
   dmg: ({ talent }, dmg ) => dmg(talent.q['技能伤害'], 'q')
 },
 {
   check: ({ cons }) => cons >= 6,
   title: `满契${TalentName.qName}伤害`,
-  params: { blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent }, dmg ) => dmg(talent.q['技能伤害'], 'q')
 },
 {
   title: `${TalentName.qName}蒸发`,
-  params: { WaterAttachment: true, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { WaterAttachment: true, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent }, dmg ) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 },
 {
   check: ({ cons }) => cons >= 6,
   title: `满契${TalentName.qName}蒸发`,
-  params: { WaterAttachment: true, blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { WaterAttachment: true, blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent }, dmg ) => dmg(talent.q['技能伤害'], 'q', 'vaporize')
 },
 {
   title: `${TalentName.eNameT}后${TalentName.qName}治疗量`,
-  params: { WaterAttachment: true, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { WaterAttachment: true, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 65, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ params, cons, attr, calc, weapon }, { heal }) => heal((150 / 100 * (Math.min((params.blPct * ((cons >= 2 ? 130 : 65) + (weapon.name === '赤月之形' ? 25 : 0)) + params.blPlus), 200) / 100) * calc(attr.hp)) + (150 / 100 * calc(attr.atk)))
 },
 {
   title: `满契${TalentName.qName}治疗量`,
-  params: { WaterAttachment: true, blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { WaterAttachment: true, blPlus: 200, blPct: 1, EnergyDetermine: 0, BondOfLifeGet: 1, DecreasedBondOfLife: 1, BondOfLifeUse: 100, HealNumber: 1, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmgKey: 'h',
   dmg: ({ params, cons, attr, calc, weapon }, { heal }) => heal(150 / 100 * (200 / 100) * calc(attr.hp) + 150 / 100 * calc(attr.atk))
 },
@@ -321,7 +321,7 @@ export const AllCalc = [
 {
   title: '单人站场20秒',
   dmgKey: 'dph',
-  params: { NormalElement: 14, blPct: 0.594, NormalUse: 12, NormalHit: 14, NormalDmg: 14, BurstUse: 1, BurstHit: 1, BurstDmg: 1, BondOfLifeGet: 1, DecreasedBondOfLife: 14, BondOfLifeUse: 130, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, HealNumber: 1 },
+  params: { NormalElement: 14, blPct: 0.594, NormalUse: 12, NormalHit: 14, NormalDmg: 14, BurstUse: 1, BurstHit: 1, BurstDmg: 1, BondOfLifeGet: 1, DecreasedBondOfLife: 14, BondOfLifeUse: 130, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, HealNumber: 1, EnergyUse: 1 },
   dmg: ({ talent, cons }, dmg ) => {
     let e1 = dmg(talent.e['尖刺伤害'], 'e')
     let e2 = dmg(talent.e['切斩伤害'], 'e')
@@ -362,7 +362,7 @@ export const AllCalc = [
 {
   title: '单人站场期望DPS',
   dmgKey: 'dps',
-  params: { NormalElement: 14, blPct: 0.594, NormalUse: 6, NormalHit: 7, NormalDmg: 7, BurstUse: 1, BurstHit: 1, BurstDmg: 1, BondOfLifeGet: 1, DecreasedBondOfLife: 14, BondOfLifeUse: 130, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, HealNumber: 1 },
+  params: { NormalElement: 14, blPct: 0.594, NormalUse: 6, NormalHit: 7, NormalDmg: 7, BurstUse: 1, BurstHit: 1, BurstDmg: 1, BondOfLifeGet: 1, DecreasedBondOfLife: 14, BondOfLifeUse: 130, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, HealNumber: 1, EnergyUse: 1 },
   dmg: ({ talent, attr, weapon, cons, artis }, dmg ) => {
     let e1 = dmg(talent.e['尖刺伤害'], 'e')
     let e2 = dmg(talent.e['切斩伤害'], 'e')

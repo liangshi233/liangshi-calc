@@ -1,9 +1,7 @@
-import { LSconfig } from '#liangshi'
 import { ObTalentName } from '../index.js'
 import fs from 'node:fs'
 
 let CharacterName = "丝柯克"
-let cfg = LSconfig.getConfig('user', 'config')
 let TalentName = ObTalentName(CharacterName)
 let skill
 try {
@@ -197,20 +195,20 @@ export const AllCalc = [
 },
 {
   title: `50层${TalentName.qName}斩击单段`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害2'][0], 'q')
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
+  dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害2'][0], 'q')
 },
 {
   title: `50层${TalentName.qName}最终斩击`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['最终一击技能伤害'], 'q')
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
+  dmg: ({ talent }, dmg) => dmg(talent.q['斩击最终段伤害'], 'q')
 },
 {
   title: `50层${TalentName.qName}完整伤害`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 50 },
   dmg: ({ talent }, dmg) => {
-    let q1 = dmg(talent.q['技能伤害2'][0], 'q')
-    let q2 = dmg(talent.q['最终一击技能伤害'], 'q')
+    let q1 = dmg(talent.q['斩击伤害2'][0], 'q')
+    let q2 = dmg(talent.q['斩击最终段伤害'], 'q')
     return {
       dmg: q1.dmg * 5 + q2.dmg,
       avg: q1.avg * 5 + q2.avg
@@ -219,21 +217,21 @@ export const AllCalc = [
 },
 {
   title: `满层${TalentName.qName}斩击单段`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害2'][0], 'q')
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
+  dmg: ({ talent }, dmg) => dmg(talent.q['斩击伤害2'][0], 'q')
 },
 {
   title: `满层${TalentName.qName}最终斩击`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
-  dmg: ({ talent }, dmg) => dmg(talent.q['最终一击技能伤害'], 'q')
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
+  dmg: ({ talent }, dmg) => dmg(talent.q['斩击最终段伤害'], 'q')
 },
 {
   title: `满层${TalentName.qName}完整伤害`,
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
+  params: { SkillsUse: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, Serpents_Subtlety: 100 },
   dmgKey: 'q',
   dmg: ({ talent }, dmg) => {
-    let q1 = dmg(talent.q['技能伤害2'][0], 'q')
-    let q2 = dmg(talent.q['最终一击技能伤害'], 'q')
+    let q1 = dmg(talent.q['斩击伤害2'][0], 'q')
+    let q2 = dmg(talent.q['斩击最终段伤害'], 'q')
     return {
       dmg: q1.dmg * 5 + q2.dmg,
       avg: q1.avg * 5 + q2.avg

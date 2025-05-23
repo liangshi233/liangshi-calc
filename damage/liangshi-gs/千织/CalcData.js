@@ -149,7 +149,7 @@ export const AllCalc = [
 },
 {
   title: `${TalentName.qName}伤害`,
-  params: { RockDmg: 3, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyDetermine: 0 },
+  params: { RockDmg: 3, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyDetermine: 0, EnergyUse: 1 },
   dmgKey: 'q',
   dmg: ({ talent, calc, attr }, { basic }) => basic(talent.q['技能伤害2'][0] * calc(attr.atk) / 100 + talent.q['技能伤害2'][1] * calc(attr.def) / 100, 'q')
 },
@@ -162,7 +162,7 @@ export const AllCalc = [
   check: ({ cons }) => cons < 6,
   title: '单人站场16秒',
   dmgKey: 'dph',
-  params: { SkillsUse: 1, SkillsHit: 9, SkillsDmg: 9, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { SkillsUse: 1, SkillsHit: 9, SkillsDmg: 9, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     let a1 = basic(talent.a['一段伤害'] * calc(attr.atk) / 100, 'a', 'phy')
     let a2 = basic(talent.a['二段伤害'] * calc(attr.atk) / 100, 'a', 'phy')
@@ -195,7 +195,7 @@ export const AllCalc = [
   check: ({ cons }) => cons >= 6,
   title: '单人站场16秒',
   dmgKey: 'dph',
-  params: { SkillsUse: 4, SkillsHit: 12, SkillsDmg: 12, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { SkillsUse: 4, SkillsHit: 12, SkillsDmg: 12, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, cons }, { basic }) => {
     let ae1 = basic(talent.a['一段伤害'] * calc(attr.atk) / 100, 'a')
     let ae2 = basic(talent.a['二段伤害'] * calc(attr.atk) / 100, 'a')
@@ -248,7 +248,7 @@ export const AllCalc = [
   check: ({ cons }) => cons < 6,
   title: '单人站场DPS',
   dmgKey: 'dps',
-  params: { SkillsUse: 1, SkillsHit: 9, SkillsDmg: 9, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { SkillsUse: 1, SkillsHit: 9, SkillsDmg: 9, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, cons, weapon, artis }, { basic }) => {
     let a1 = basic(talent.a['一段伤害'] * calc(attr.atk) / 100, 'a', 'phy')
     let a2 = basic(talent.a['二段伤害'] * calc(attr.atk) / 100, 'a', 'phy')
@@ -283,7 +283,7 @@ export const AllCalc = [
   check: ({ cons }) => cons >= 6,
   title: '单人站场DPS',
   dmgKey: 'dps',
-  params: { SkillsUse: 4, SkillsHit: 12, SkillsDmg: 12, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1 },
+  params: { SkillsUse: 4, SkillsHit: 12, SkillsDmg: 12, NormalUse: 20, NormalHit: 25, NormalDmg: 25, NormalElement: 25, RockDmg: 21, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, cons, weapon, artis }, { basic }) => {
     let ae1 = basic(talent.a['一段伤害'] * calc(attr.atk) / 100, 'a')
     let ae2 = basic(talent.a['二段伤害'] * calc(attr.atk) / 100, 'a')

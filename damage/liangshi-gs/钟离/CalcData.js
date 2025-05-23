@@ -104,13 +104,13 @@ export const AllCalc = [
 {
   title: `${TalentName.qName}伤害`,
   dmgKey: 'q',
-  params: { EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, RockDmg: 1 },
+  params: { EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, RockDmg: 1, EnergyUse: 1 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
 },
 {
   title: '单人站场18秒',
   dmgKey: 'dph',
-  params: { NormalUse: 12, NormalHit: 15, NormalDmg: 15, SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 1, BurstDmg: 1, ShieldTime: 9, RockDmg: 11 },
+  params: { NormalUse: 12, NormalHit: 15, NormalDmg: 15, SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 1, BurstDmg: 1, ShieldTime: 9, RockDmg: 11, EnergyUse: 1 },
   dmg: ({ talent, cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')
@@ -148,7 +148,7 @@ export const AllCalc = [
 {
   title: '单人站场DPS',
   dmgKey: 'dps',
-  params: { NormalUse: 12, NormalHit: 15, NormalDmg: 15, SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 1, BurstDmg: 1, ShieldTime: 9, RockDmg: 11 },
+  params: { NormalUse: 12, NormalHit: 15, NormalDmg: 15, SkillsUse: 1, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 1, BurstDmg: 1, ShieldTime: 9, RockDmg: 11, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, weapon, cons, artis }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'phy')
     let a2 = dmg(talent.a['二段伤害'], 'a', 'phy')

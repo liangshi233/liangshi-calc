@@ -184,6 +184,7 @@ export const AllCalc = [
 },
 {
   title: '单人站场22秒',
+  params: { NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3, EnergyUse: 1 },
   dmg: ({ talent, cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a')
     let a2 = dmg(talent.a['二段伤害'], 'a')
@@ -205,7 +206,7 @@ export const AllCalc = [
 },
 {
   title: '单人站场22秒激化',
-  params: { GrassAttachment: true, NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3 },
+  params: { GrassAttachment: true, NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3, EnergyUse: 1 },
   dmgKey: 'dph',
   dmg: ({ talent, cons }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'aggravate')
@@ -230,6 +231,7 @@ export const AllCalc = [
 },
 {
  	title: '单人循环流畅度',
+  params: { NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3, EnergyUse: 1 },
   dmg: ({ attr, weapon, cons, artis }) => {
     let ConsRestore = cons >= 1 ? (8 * 3) : 0
     let a = EnergyCycle(CharacterName, attr, weapon, artis, ConsRestore, 0, 0, 3, 6, 24)
@@ -241,6 +243,7 @@ export const AllCalc = [
 },
 {
   title: '单人站场DPS',
+  params: { NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, weapon, cons, artis }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a')
     let a2 = dmg(talent.a['二段伤害'], 'a')
@@ -265,6 +268,7 @@ export const AllCalc = [
 {
   title: '单人站场DPS激化',
   dmgKey: 'dps',
+  params: { GrassAttachment: true, NormalUse: 12, NormalHit: 12, NormalDmg: 12, SkillsUse: 3, SkillsHit: 10, SkillsDmg: 10, BurstUse: 1, BurstHit: 3, BurstDmg: 3, EnergyUse: 1 },
   dmg: ({ talent, calc, attr, weapon, cons, artis }, dmg) => {
     let a1 = dmg(talent.a['一段伤害'], 'a', 'aggravate')
     let a2 = dmg(talent.a['二段伤害'], 'a')
