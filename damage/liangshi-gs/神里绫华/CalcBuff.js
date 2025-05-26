@@ -39,6 +39,7 @@ MasteryGs,
   }
 },
 {
+  check: ({ params }) => params.Usurahi_Butou === true,
   title: '神里绫华6命：[间水月] 使重击造成的伤害提高[a2Dmg]%',
   cons: 6,
   data: {

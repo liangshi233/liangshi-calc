@@ -8,7 +8,6 @@ MasteryGs,
 {
   check: ({ params }) => params.Pactsworn_Pathclearer === true,
   title: '赛诺技能：[圣仪·煟煌随狼行] 元素精通提升[mastery]点，抗打断能力提高[_interruption]%，并免疫感电反应造成的伤害',
-  sort: 1,
   data: {
     mastery: 100,
     _interruption: 50
@@ -16,13 +15,13 @@ MasteryGs,
 },
 {
   check: ({ params }) => params.Endseer_stance === true,
-  title: '赛诺天赋：[落羽的裁择] 触发「裁定」效果，使此次秘仪·律渊渡魂造成的伤害提升[eDmg]%,并向前方发射3道渡荒之雷',
+  title: '赛诺天赋：[落羽的裁择] 触发「裁定」效果，使此次秘仪·律渊渡魂造成的伤害提升[eDmg]%,并向前方发射3.0道渡荒之雷',
   data: {
     eDmg: 35
   }
 },
 {
-  check: ({ params }) => params.Pactsworn_Pathclearer === true && params.Endseer_stance !== true,
+  check: ({ params }) => params.Pactsworn_Pathclearer === true || params.Duststalker_Bolts === true,
   title: '赛诺天赋：[九弓的执命] 启途誓使状态下的普通攻击造成的伤害提升[aPlus],「落羽的裁择」的渡荒之雷造成的伤害提升[ePlus]',
   data: {
     aPlus: ({ attr, calc }) => calc(attr.mastery) * 150 / 100,
