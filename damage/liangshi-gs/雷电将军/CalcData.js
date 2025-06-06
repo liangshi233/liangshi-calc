@@ -89,53 +89,53 @@ export const AllCalc = [
 {
   title: `零愿力${TalentName.qName}`,
   params: { Musou_Isshin: 0, Resolve: 0, EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qName}`,
   dmgKey: 'q',
   params: { Musou_Isshin: 0, Resolve: 60, EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qName}激化`,
   params: { GrassAttachment: true, Musou_Isshin: 0, Resolve: 60, EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q','aggravate')
+  dmg: ({ talent }, dmg) => dmg(talent.q['梦想一刀基础伤害'], 'q','aggravate')
 },
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.aName}一段`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 2, BurstDmg: 2, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['一段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['一段伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.aName}一段`,
   params: { Musou_Isshin: 1, Resolve: 60, BurstUse: 1, BurstHit: 2, BurstDmg: 2, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['一段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['一段伤害'], 'q')
 },
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.aName}二段`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 3, BurstDmg: 3, NormalUse: 2, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['二段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['二段伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.aName}二段`,
   params: { Musou_Isshin: 1, Resolve: 60, BurstUse: 1, BurstHit: 3, BurstDmg: 3, NormalUse: 2, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['二段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['二段伤害'], 'q')
 },
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.aName}三段`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 4, BurstDmg: 4, NormalUse: 3, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['三段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['三段伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.aName}三段`,
   params: { Musou_Isshin: 1, Resolve: 60, BurstUse: 1, BurstHit: 4, BurstDmg: 4, NormalUse: 3, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['三段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['三段伤害'], 'q')
 },
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.aName}四段`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 6, BurstDmg: 6, NormalUse: 4, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => {
+  dmg: ({ talent }, dmg) => {
     let qa4 = dmg(talent.q['四段伤害2'][0], 'q')
     return {
       dmg: qa4.dmg * 2,
@@ -146,7 +146,7 @@ export const AllCalc = [
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.aName}四段`,
   params: { Musou_Isshin: 1, Resolve: 60, BurstUse: 1, BurstHit: 6, BurstDmg: 6, NormalUse: 4, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => {
+  dmg: ({ talent }, dmg) => {
     let qa4 = dmg(talent.q['四段伤害2'][0], 'q')
     return {
       dmg: qa4.dmg * 2 ,
@@ -157,18 +157,18 @@ export const AllCalc = [
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.aName}五段`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 7, BurstDmg: 7, NormalUse: 5, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['五段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['五段伤害'], 'q')
 },
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.aName}五段`,
   params: { Musou_Isshin: 1, Resolve: 60, BurstUse: 1, BurstHit: 7, BurstDmg: 7, NormalUse: 5, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
   dmgKey: 'a',
-  dmg: ({ talent, attr }, dmg) => dmg(talent.q['五段伤害'], 'q')
+  dmg: ({ talent }, dmg) => dmg(talent.q['五段伤害'], 'q')
 },
 {
   title: `零愿力${TalentName.qNameT}后${TalentName.a2Name}`,
   params: { Musou_Isshin: 1, Resolve: 0, BurstUse: 1, BurstHit: 3, BurstDmg: 3, ChargedUse: 1, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
-  dmg: ({ talent, attr }, dmg) => {
+  dmg: ({ talent }, dmg) => {
     let qz1 = dmg(talent.q['重击伤害2'][0], 'q')
     let qz2 = dmg(talent.q['重击伤害'][1], 'q')
     return {
@@ -181,7 +181,7 @@ export const AllCalc = [
   title: `满愿力${TalentName.qNameT}后${TalentName.a2Name}`,
   params: { Musou_Isshin: 1, Resolve: 60, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, BurstUse: 1, BurstHit: 4, BurstDmg: 4, ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
   dmgKey: 'z',
-  dmg: ({ talent, attr }, dmg) => {
+  dmg: ({ talent }, dmg) => {
     let qz1 = dmg(talent.q['重击伤害2'][0], 'q')
     let qz2 = dmg(talent.q['重击伤害'][1], 'q')
     return {
@@ -193,7 +193,7 @@ export const AllCalc = [
 {
   title: `满愿力${TalentName.qNameT}后${TalentName.a2Name}激化`,
   params: { GrassAttachment: true, Musou_Isshin: 1, Resolve: 60, SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4, BurstUse: 1, BurstHit: 4, BurstDmg: 4, ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
-  dmg: ({ talent, attr }, dmg) => {
+  dmg: ({ talent }, dmg) => {
     let qzj1 = dmg(talent.q['重击伤害2'][0], 'q', 'aggravate')
     let qzj2 = dmg(talent.q['重击伤害2'][1], 'q')
     return {
