@@ -72,6 +72,8 @@ export const mainAttrData = {
   "申鹤": 'atk,cpct,cdmg,dmg,mastery',
   "神里绫华": 'atk,cpct,cdmg,dmg,mastery',
   "神里绫人": 'hp,atk,cpct,cdmg,dmg',
+  "丝柯克": 'atk,cpct,cdmg,dmg,mastery',
+  "塔利雅": 'hp,atk,cpct,cdmg,dmg',
   "提纳里": 'atk,cpct,cdmg,dmg,mastery',
   "托马": 'hp,atk,cpct,cdmg,dmg',
   "瓦雷莎": 'atk,cpct,cdmg,mastery,dmg',
