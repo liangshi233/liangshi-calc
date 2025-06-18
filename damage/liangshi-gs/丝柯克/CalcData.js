@@ -266,5 +266,5 @@ if (cfg.calcLiangK) {
 } else {
   CalcData = false
 }
-
+export { AllCalc };
 export const CalcMeasure = CalcData
