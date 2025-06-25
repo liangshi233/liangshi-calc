@@ -1,10 +1,9 @@
-export const TeamBuff_Calcharo = [
+export const TeamBuff_Jianxin = [
   {
-    check: ({ params }) => params.team === true && params.Calcharo === true,
-    title: '卡卡罗4链：[集群威胁] 施放延奏技能时伤害加成提升[dmg]%',
-    cons: 4,
+    check: ({ params }) => params.team === true && params.Jianxin === true,
+    title: '鉴心延奏：[化境] 共鸣解放伤害加深[qDmg]%',
     data: {
-      dmg: 20
+      qDmg: 38
     }
   }
 ]

@@ -9,10 +9,10 @@ export const CalcBuff = [
   },
   {
     check: ({ params }) => (params.ChargedUse || 0) > 0,
-    title: '鉴心固有2：[覆映吾身] 重击获得的护盾量提升[_reduction]%',
+    title: '鉴心固有2：[覆映吾身] 重击获得的护盾量提升[shield]%',
     tree: 2,
     data: {
-      _reduction: 20
+      shield: 20
     }
   },
   {
