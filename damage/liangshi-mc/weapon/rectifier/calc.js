@@ -140,6 +140,15 @@ export default function (step, staticStep) {
         aDmg: ({ params, refine }) => ((params.SkillsUse || 1) + (params.IntroUse || 1)) > 0 ? step(40)[refine] : 0,
         kx: ({ characterName, element, params, refine }) => ((params.SkillsUse || 1) + (params.IntroUse || 1)) > 0 ? (['坎特蕾拉'].includes(characterName) ? (element === '湮灭' ? step(12)[refine] : 0) : 0) : 0
       }
+    }],
+    "幽冥的忘忧章": [staticStep('atkPct', 12), {
+      check: ({ params }) => !params.TruceTime,
+      title: '[安魂曲] 造成声骸伤害后，共鸣技能伤害提升[eDmg]%，伤害提升[rDmg]%，攻击无视目标[ignore]%防御力',
+      refine: {
+        aDmg: step(32),
+        rDmg: step(32),
+        ignore: step(8)
+      }
     }]
   }
 }
