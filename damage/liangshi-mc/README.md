@@ -4,6 +4,7 @@
 
 | 角色名字 | id   | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                         头像                                         |
 |:-----|------|:----:|:----:|:----:|:-----:|:---:|:----------------------------------------------------------------------------------:|
+| 弗洛洛  | 1608 |  ×   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/弗洛洛/side.webp)  |
 | 坎特蕾拉 | 1607 |  ×   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/坎特蕾拉/side.webp) |
 | 洛可可  | 1606 |  ×   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/洛可可/side.webp)  |
 | 椿    | 1603 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/椿/side.webp)   |

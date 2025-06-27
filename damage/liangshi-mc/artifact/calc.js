@@ -167,5 +167,15 @@ export const buffs = {
         qDmg: 20
       }
     }
+  },
+  失序彼岸之梦: {
+    3: {
+      title: '队伍中角色释放[buff]种声骸技能,暴击率提升[cpct]%，伤害加成提升[dmg]%',
+      data: {
+        buff: ({ characterName }) => ['坎特蕾拉', '弗洛洛'].includes(characterName) ? 4 : 3,
+        cpct: ({ characterName }) => ['坎特蕾拉', '弗洛洛'].includes(characterName) ? (4 * 3 + 8) : (3 * 3),
+        dmg: ({ element, characterName }) => element === '湮灭' ? (['坎特蕾拉', '弗洛洛'].includes(characterName) ? 15 : 0) : 0
+      }
+    }
   }
 }

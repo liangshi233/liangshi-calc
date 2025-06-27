@@ -148,8 +148,19 @@ export const WhimperingBuff = [{
   }
 }, {
   check: ({ element }) => element === "热熔",
-  title: '信物：[] 伤害加成提升[dmg]%',
+  title: '信物：[那无光深渊的低吟] 伤害加成提升[dmg]%',
   data: {
-    dmg: 60
+    dmg: 25
+  }
+}, {
+  title: '信物：[那致敬终焉的欢歌] 重击伤害加深[a2Dmg]%，伤害加深[dmg]%',
+  data: {
+    a2Dmg: 50,
+    dmg: ({ element }) => element === "导电" ? 50 : 0
+  }
+}, {
+  title: '信物：[那抗衡风暴的孤帆] 释放声骸技能2.0次，伤害提升[dmg]%',
+  data: {
+    dmg: ({ element }) => (element === "湮灭" ? 20 : 0) * 2
   }
 }]

@@ -4,7 +4,7 @@ export const ArtifactDmg = {
 
   "无妄者": {
     title: '无妄者声骸伤害',
-    params: { EchoUse: 4, EchoHit: 6, EchoDmg: 6 },
+    params: { EchoUse: 4, EchoHit: 6, EchoDmg: 6, DreamlessDreamless: true },
     dmg: ({ EchoStar, element }, dmg) => {
       let r1 = dmg([33.8, 38.87, 43.94, 49.01, 54.08][EchoStar - 1], 'r')
       let r2 = dmg([169, 194.35, 219.70, 245.05, 270.4][EchoStar - 1], 'r')
@@ -70,6 +70,18 @@ export const ArtifactDmg = {
       }
     }
   },
+  "梦魇·赫卡忒": {
+    title: '梦魇·赫卡忒声骸伤害',
+    params: { EchoUse: 1, EchoHit: 2, EchoDmg: 2 },
+    dmg: ({ EchoStar, element }, dmg) => {
+      let r1 = dmg([124.50, 149.40, 174.30, 199.20, 224.10][EchoStar - 1], 'r')
+      let r2 = dmg([124.50, 149.40, 174.30, 199.20, 224.10][EchoStar - 1], 'r', 'scene')
+      return {
+        dmg: (element === '湮灭' ? r1.dmg : r2.dmg) * 2,
+        avg: (element === '湮灭' ? r1.avg : r2.avg) * 2
+      }
+    }
+  },
 
   //怒涛级
 
@@ -96,6 +108,7 @@ export const ArtifactDmg = {
   "梦魇·哀声鸷": {},
   "梦魇·辉萤军势": {},
   "梦魇·凯尔匹": {},
+  "共鸣回响·芬莱克": {},
 
   // cons3
   //巨浪级
@@ -130,6 +143,7 @@ export const ArtifactDmg = {
   "刺玫菇": {},
   "暗鬃狼": {},
   "箭簇熊": {},
+  "梦魇·振铎乐师": {},
 
   // cons1
   //轻波级
@@ -188,6 +202,8 @@ export const ArtifactDmg = {
   "热熔棱镜": {},
   "冷凝棱镜": {},
   "衍射棱镜": {},
-  "湮灭棱镜": {}
+  "湮灭棱镜": {},
+  "梦魇·审判战士": {},
+  "梦魇·破霜猎手": {}
 
 }

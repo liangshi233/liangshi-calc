@@ -3,8 +3,8 @@ export const ArtifactBuffs = {
    // 海啸级
 
   "无妄者": {
-    check: ({ characterName }) => characterName === '漂泊者·湮灭',
-    title: '声骸技能：[无妄者] 施放共鸣解放·临渊死寂后，声骸技能造成的伤害提升[rDmg]%',
+    check: ({ characterName, params }) => characterName === '漂泊者·湮灭' && params.DreamlessDreamless === true,
+    title: '声骸技能：[无妄者] 施放共鸣解放·临渊死寂后，该声骸技能造成的伤害提升[rDmg]%',
     data: {
       rDmg: 50
     }
@@ -21,18 +21,25 @@ export const ArtifactBuffs = {
       xDmg: 40
     }
   },
+  "鸣钟之龟": {
+    check: ({ params }) => !params.TruceTime,
+    title: '声骸技能：[鸣钟之龟] 施放声骸技能后，为队伍中登场角色提供的[_reduction]%减伤和[dmg]%的伤害提升',
+    data: {
+      _reduction: 50,
+      dmg: 10
+    }
+  },
+  "梦魇·赫卡忒": {
+    title: '声骸技能：[梦魇·赫卡忒]  在首位装配该声骸技能时，伤害加成提升[dmg]%，声骸技能伤害加成提升[rDmg]%',
+    data: {
+      dmg: ({ element }) => element === '湮灭' ? 12 : 0,
+      rDmg: 20
+    }
+  },
   "共鸣回响·芙露德莉斯": {
     title: '声骸技能：[共鸣回响·芙露德莉斯] 在首位装配该声骸技能时，伤害加成提升[dmg]%',
     data: {
       dmg: ({ characterName, element }) => element === '气动' ? (['漂泊者·气动', '卡提希娅'].includes(characterName) ? 20 : 10) : 0
-    }
-  },
-  "鸣钟之龟": {
-    check: ({ params }) => !params.TruceTime,
-    title: '声骸技能：[鸣钟之龟] 为队伍中登场角色提供的[_reduction]%减伤和[dmg]%的伤害提升',
-    data: {
-      _reduction: 50,
-      dmg: 10
     }
   },
 
