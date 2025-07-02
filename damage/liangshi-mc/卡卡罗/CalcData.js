@@ -194,11 +194,11 @@ export const AllCalc = [
   {
     title: `变奏入场伤害`,
     dmg: ({ talent }, dmg) => {
-      let l1 = dmg(talent.l['技能伤害2'][0], 'l')
-      let l2 = dmg(talent.l['技能伤害2'][1], 'l')
+      let i1 = dmg(talent.i['技能伤害2'][0], 'i')
+      let i2 = dmg(talent.i['技能伤害2'][1], 'i')
       return {
-        dmg: (l1.dmg + l2.dmg) * 2,
-        avg: (l1.avg + l2.avg) * 2
+        dmg: (i1.dmg + i2.dmg) * 2,
+        avg: (i1.avg + i2.avg) * 2
       }
     }
   },
@@ -206,10 +206,10 @@ export const AllCalc = [
     title: `变奏必要的手段伤害`,
     params: { BurstUse: 1, BurstDmg: 1, BurstHit: 1, EnergyUse: 1 },
     dmg: ({ talent }, dmg) => {
-      let l1 = dmg(talent.q['「必要的手段」伤害2'][0], 'l')
+      let i1 = dmg(talent.q['「必要的手段」伤害2'][0], 'i')
       return {
-        dmg: l1.dmg * 2,
-        avg: l1.avg * 2
+        dmg: i1.dmg * 2,
+        avg: i1.avg * 2
       }
     }
   },

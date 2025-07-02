@@ -151,12 +151,12 @@ export const AllCalc = [
   },
   {
     title: `变奏入场伤害`,
-    dmgKey: 'l',
+    dmgKey: 'i',
     dmg: ({ talent }, dmg) => {
-      let ldmg = dmg(talent.l['技能伤害'], 'l')
+      let idmg = dmg(talent.i['技能伤害'], 'i')
       return {
-        dmg: ldmg.dmg,
-        avg: ldmg.avg
+        dmg: idmg.dmg,
+        avg: idmg.avg
       }
     }
   },

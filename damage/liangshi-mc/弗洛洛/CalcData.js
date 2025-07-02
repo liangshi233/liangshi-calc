@@ -165,11 +165,11 @@ export const AllCalc = [
   {
     title: `致命组歌变奏伤害`,
     dmg: ({ talent }, dmg) => {
-      let l1 = dmg(talent.l['致命组歌伤害2'][0], 'l')
-      let l2 = dmg(talent.l['致命组歌伤害2'][1], 'l')
+      let i1 = dmg(talent.i['致命组歌伤害2'][0], 'i')
+      let i2 = dmg(talent.i['致命组歌伤害2'][1], 'i')
       return {
-        dmg: l1.dmg + l2.dmg,
-        avg: l1.avg + l2.avg
+        dmg: i1.dmg + i2.dmg,
+        avg: i1.avg + i2.avg
       }
     }
   },
@@ -177,11 +177,11 @@ export const AllCalc = [
     title: `永生组歌变奏伤害`,
     params: { Maestro_State: true },
     dmg: ({ talent, cons }, dmg) => {
-      let l1 = dmg(talent.l['永生组歌伤害'], 'e')
-      let l2 = dmg(80, 'e')
+      let i1 = dmg(talent.i['永生组歌伤害'], 'e')
+      let i2 = dmg(80, 'e')
       return {
-        dmg: l1.dmg + (cons >= 3 ? l2.dmg : 0),
-        avg: l1.avg + (cons >= 3 ? l2.avg : 0)
+        dmg: i1.dmg + (cons >= 3 ? i2.dmg : 0),
+        avg: i1.avg + (cons >= 3 ? i2.avg : 0)
       }
     }
   },

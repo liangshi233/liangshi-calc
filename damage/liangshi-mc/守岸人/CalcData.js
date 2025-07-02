@@ -155,33 +155,33 @@ export const AllCalc = [
   {
     title: `变奏入场伤害`,
     dmg: ({ talent }, dmg) => {
-      let ldmg = dmg(talent.l['启迪伤害2'][0], 'l')
+      let idmg = dmg(talent.i['启迪伤害2'][0], 'i')
       return {
-        dmg: ldmg.dmg * 5,
-        avg: ldmg.avg * 5
+        dmg: idmg.dmg * 5,
+        avg: idmg.avg * 5
       }
     }
   },
   {
     title: '变奏入场治疗',
     params: { HealNumber: 1 },
-    dmg: ({ attr, calc, talent }, { heal }) => heal(talent.l['启迪治疗量2'][1] * calc(attr.hp) / 100 + talent.l['启迪治疗量2'][0])
+    dmg: ({ attr, calc, talent }, { heal }) => heal(talent.i['启迪治疗量2'][1] * calc(attr.hp) / 100 + talent.i['启迪治疗量2'][0])
   },
   {
     title: `变奏洞悉伤害`,
-    dmgKey: 'l',
+    dmgKey: 'i',
     params: { HealNumber: 1, Stellarealm: true, Supernal_Stellarealm: true },
     dmg: ({ attr, calc, cons, talent }, { basic }) => {
-      let ldmg = basic(((cons >= 6 ? 42 : 0) + talent.l['洞悉伤害2'][0]) * calc(attr.hp) / 100, 'l')
+      let idmg = basic(((cons >= 6 ? 42 : 0) + talent.i['洞悉伤害2'][0]) * calc(attr.hp) / 100, 'i')
       return {
-        dmg: ldmg.dmg * 3,
-        avg: ldmg.avg * 3
+        dmg: idmg.dmg * 3,
+        avg: idmg.avg * 3
       }
     }
   },
   {
     title: '变奏洞悉治疗',
     params: { HealNumber: 1, Stellarealm: true, Supernal_Stellarealm: true },
-    dmg: ({ attr, calc, talent }, { heal }) => heal(talent.l['洞悉治疗量2'][1] * calc(attr.hp) / 100 + talent.l['洞悉治疗量2'][0])
+    dmg: ({ attr, calc, talent }, { heal }) => heal(talent.i['洞悉治疗量2'][1] * calc(attr.hp) / 100 + talent.i['洞悉治疗量2'][0])
   }
 ]

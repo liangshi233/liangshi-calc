@@ -137,7 +137,7 @@ export const AllCalc = [
   },
   {
     title: `变奏入场伤害`,
-    dmg: ({ talent }, dmg) => dmg(talent.l['技能伤害'], 'l')
+    dmg: ({ talent }, dmg) => dmg(talent.i['技能伤害'], 'i')
   },
   {
     title: '延奏每段治疗',
