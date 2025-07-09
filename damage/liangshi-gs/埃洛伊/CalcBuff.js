@@ -9,8 +9,8 @@ MasteryGs,
   title: '埃洛伊技能：[冰尘雪野] [buff]层线圈，提高普通攻击造成的伤害[aDmg]%，被命中的敌人攻击力降低[_enemyAtk]%',
   data: {
     _enemyAtk: 12,
-    buff: ({ talent, params }) => params.coil || 0,
-    aDmg: ({ talent, params }) => ((params.coil || 0) >= 4) ? talent.e['冰驰普通攻击伤害提升'] : talent.e['线圈普通攻击伤害提升2'][(params.coil || 0) - 1]
+    buff: ({ params }) => params.Coil || 0,
+    aDmg: ({ talent, params }) => ((params.Coil || 0) >= 4) ? talent.e['冰驰普通攻击伤害提升'] : talent.e['线圈普通攻击伤害提升2'][(params.Coil || 0) - 1]
   }
 },
 {

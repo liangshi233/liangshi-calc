@@ -13,7 +13,7 @@ export const buffs = CalcBuff
 export const details = [
 {
   title: `附魔${TalentName.aName}第一段`,
-  params: { coil: 4, NormalElement: 2, NormalHit: 2, NormalDmg: 2 },
+  params: { Coil: 4, NormalElement: 2, NormalHit: 2, NormalDmg: 2 },
   dmg: ({ talent }, dmg) => {
     let a1 = dmg(talent.a['一段伤害2'][0], 'a')
     let a2 = dmg(talent.a['一段伤害2'][1], 'a')
