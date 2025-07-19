@@ -79,12 +79,19 @@ export function supportGuoba () {
           component: 'Select',
           componentProps: {
             options: [
-              { label: '使用默认设置名称', value: 1 },
-              { label: '使用全称', value: 2 },
-              { label: '简化小部分名称', value: 3 },
-              { label: '使用通俗叫法', value: 4 },
-              { label: '使用字母简化名称', value: 5 },
-              { label: '使用纯字母名称显示', value: 6 }
+              { label: '使用默认设置名称', value: 0 },
+              { label: '使用全称', value: 1 },
+              { label: '简化小部分名称', value: 2 },
+              { label: '使用通俗叫法', value: 3 },
+              { label: '使用字母简化名称', value: 4 },
+              { label: '使用纯字母名称显示', value: 5 },
+              { label: '过长/组队特化纯字母', value: 6 },
+              { label: '过长/组队特化全称', value: 7 },
+              { label: '自定义名称1', value: 8 },
+              { label: '自定义名称2', value: 9 },
+              { label: '字母名称双显预设1', value: 61 },
+              { label: '字母名称双显预设2', value: 62 },
+              { label: '更多组合请手动设置', value: 89 }
             ]
           }
         },
@@ -165,7 +172,7 @@ export function supportGuoba () {
           field: 'energymodel',
           label: '环境产出能量设置',
           helpMessage: '此选项产出的能量会被角色的元素充能影响且会影响到角色DPS的计算，请慎重调整',
-          bottomHelpMessage: '<0 环境会扣除角色能量；0 环境会扣除角色能量，角色无法通过环境获取元素能量；>0 环境会为角色提供能量或目标会产出元素能量',
+          bottomHelpMessage: '<0 环境会扣除角色能量；0 角色无法通过环境获取元素能量；>0 环境会为角色提供能量或目标会产出元素能量',
           component: 'InputNumber',
           required: true,
           componentProps: {

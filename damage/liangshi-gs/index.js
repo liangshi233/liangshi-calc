@@ -1,6 +1,9 @@
-import { mainAttrData } from './mainAttr.js'
+import { mainAttrData } from './data/mainAttr.js'
 import { ObTalentName } from './TalentName.js'
 import { RankingKey } from './defDmgKey.js'
+import { ParamsData } from './defParams.js'
+import { CalcMeasure } from './CalcData.js'
+import { TeamJson } from './TeamJson.js'
 
 import { TeamBuff_Kamisato_Ayaka } from './神里绫华/TeamBuff.js'
 import { TeamBuff_Jean } from './琴/TeamBuff.js'
@@ -100,6 +103,10 @@ import { TeamBuff_Iansan } from './伊安珊/TeamBuff.js'
 import { TeamBuff_Varesa } from './瓦雷莎/TeamBuff.js'
 import { TeamBuff_Escoffier } from './爱可菲/TeamBuff.js'
 import { TeamBuff_Ifa } from './伊法/TeamBuff.js'
+import { TeamBuff_Dahlia } from "./塔利雅/TeamBuff.js"
+import { TeamBuff_Skirk } from "./丝柯克/TeamBuff.js"
+//import { TeamBuff_Ineffa } from "./伊涅芙/TeamBuff.js"
+
 
 let TeamBuff = {
   TeamBuff_Kamisato_Ayaka,
@@ -199,7 +206,12 @@ let TeamBuff = {
   TeamBuff_Iansan,
   TeamBuff_Varesa,
   TeamBuff_Escoffier,
-  TeamBuff_Ifa
+  TeamBuff_Ifa,
+  TeamBuff_Dahlia,
+  TeamBuff_Skirk
+  /*,
+  TeamBuff_Ineffa
+  */
 }
 
-export { mainAttrData, ObTalentName, RankingKey, TeamBuff }
+export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure, ParamsData }

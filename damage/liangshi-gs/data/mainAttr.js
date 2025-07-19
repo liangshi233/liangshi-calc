@@ -94,6 +94,7 @@ export const mainAttrData = {
   "夜兰": 'hp,cpct,cdmg,mastery,dmg',
   "伊安珊": 'atk,cpct,cdmg,mastery,dmg',
   "伊法": 'atk,cpct,cdmg,mastery,heal',
+  "伊涅芙": 'atk,cpct,cdmg,mastery,dmg',
   "优菈": 'atk,cpct,cdmg,phy,dmg',
   "云堇": 'def,atk,cpct,cdmg,dmg',
   "早柚": 'atk,cpct,cdmg,mastery,heal',

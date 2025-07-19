@@ -45,7 +45,11 @@ function ObTalentName(CharacterName) {
     "2": "简化部分",
     "3": "通俗叫法",
     "4": "字母简化",
-    "5": "纯字母"
+    "5": "纯字母",
+    "6": "过长/组队特化纯字母",
+    "7": "过长/组队特化全称",
+    "8": "自定义预留1",
+    "9": "自定义预留2"
   }
 
   let aNameData = {
@@ -54,7 +58,11 @@ function ObTalentName(CharacterName) {
     "2": "普通攻击",
     "3": "普通攻击",
     "4": "普攻",
-    "5": "A"
+    "5": "A",
+    "6": "A",
+    "7": aMName,
+    "8": "",
+    "9": ""
   }
 
   let aTNameData = {
@@ -63,7 +71,11 @@ function ObTalentName(CharacterName) {
     "2": "普通攻击",
     "3": "普通攻击",
     "4": "普攻",
-    "5": "A"
+    "5": "A",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let a2NameData = {
@@ -72,7 +84,11 @@ function ObTalentName(CharacterName) {
     "2": "重击",
     "3": "重击",
     "4": "重",
-    "5": "Z"
+    "5": "Z",
+    "6": "Z",
+    "7": "重击",
+    "8": "",
+    "9": ""
   }
 
   let a2TNameData = {
@@ -81,25 +97,37 @@ function ObTalentName(CharacterName) {
     "2": "重击",
     "3": "重击",
     "4": "重",
-    "5": "Z"
+    "5": "Z",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let a3NameData = {
     "0": "下落",
     "1": "下落攻击",
     "2": "下落攻击",
-    "3": "下落攻击",
-    "4": "下落",
-    "5": "戳"
+    "3": "下落",
+    "4": "戳",
+    "5": "C",
+    "6": "C",
+    "7": "下落攻击",
+    "8": "",
+    "9": ""
   }
 
   let a3TNameData = {
     "0": "下落",
     "1": "下落攻击",
     "2": "下落攻击",
-    "3": "下落攻击",
-    "4": "下落",
-    "5": "戳"
+    "3": "下落",
+    "4": "戳",
+    "5": "C",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let eNameData = {
@@ -108,7 +136,11 @@ function ObTalentName(CharacterName) {
     "2": eMName,
     "3": "元素战技",
     "4": "E技能",
-    "5": "E"
+    "5": "E",
+    "6": "E",
+    "7": eMName,
+    "8": "",
+    "9": ""
   }
 
   let eTNameData = {
@@ -117,7 +149,11 @@ function ObTalentName(CharacterName) {
     "2": eMName,
     "3": "元素战技",
     "4": "E技能",
-    "5": "E"
+    "5": "E",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let qNameData = {
@@ -135,7 +171,11 @@ function ObTalentName(CharacterName) {
     "2": qMName,
     "3": "元素爆发",
     "4": "Q技能",
-    "5": "Q"
+    "5": "Q",
+    "6": "Q",
+    "7": qMName,
+    "8": "",
+    "9": ""
   }
 
   let tNameData = {
@@ -144,7 +184,11 @@ function ObTalentName(CharacterName) {
     "2": "天赋",
     "3": "天赋",
     "4": "天赋",
-    "5": "T"
+    "5": "T",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let c1NameData = {
@@ -153,7 +197,11 @@ function ObTalentName(CharacterName) {
     "2": "一命座",
     "3": "一命",
     "4": "一命",
-    "5": "C1"
+    "5": "C1",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let c2NameData = {
@@ -162,7 +210,11 @@ function ObTalentName(CharacterName) {
     "2": "二命座",
     "3": "二命",
     "4": "二命",
-    "5": "C2"
+    "5": "C2",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let c4NameData = {
@@ -171,7 +223,11 @@ function ObTalentName(CharacterName) {
     "2": "四命座",
     "3": "四命",
     "4": "四命",
-    "5": "C4"
+    "5": "C4",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
   let c6NameData = {
@@ -180,7 +236,11 @@ function ObTalentName(CharacterName) {
     "2": "六命座",
     "3": "六命",
     "4": "六命",
-    "5": "C6"
+    "5": "C6",
+    "6": null,
+    "7": null,
+    "8": "",
+    "9": ""
   }
 
 
@@ -190,20 +250,20 @@ function ObTalentName(CharacterName) {
     let NamePath1 = Math.floor(NamePath / 10)
     let NamePath2 = NamePath % 10
     aName = `[${aNameData[NamePath1]}]${aNameData[NamePath2]}`
-    aNameT = `[${aTNameData[NamePath1]}]${aTNameData[NamePath2]}`
+    aNameT = !`${aTNameData[NamePath1]}` ? `${aTNameData[NamePath2]}` : `[${aTNameData[NamePath1]}]${aTNameData[NamePath2]}`
     a2Name = `[${a2NameData[NamePath1]}]${a2NameData[NamePath2]}`
-    a2NameT = `[${a2TNameData[NamePath1]}]${a2TNameData[NamePath2]}`
+    a2NameT = !`${a2TNameData[NamePath1]}` ? `${a2TNameData[NamePath2]}` : `[${a2TNameData[NamePath1]}]${a2TNameData[NamePath2]}`
     a3Name = `[${a3NameData[NamePath1]}]${a3NameData[NamePath2]}`
-    a3NameT = `[${a3TNameData[NamePath1]}]${a3TNameData[NamePath2]}`
+    a3NameT = !`${a3TNameData[NamePath1]}` ? `${a3TNameData[NamePath2]}` : `[${a3TNameData[NamePath1]}]${a3TNameData[NamePath2]}`
     eName = `[${eNameData[NamePath1]}]${eNameData[NamePath2]}`
-    eNameT = `[${eTNameData[NamePath1]}]${eTNameData[NamePath2]}`
+    eNameT = !`${eTNameData[NamePath1]}` ? `${eTNameData[NamePath2]}` : `[${eTNameData[NamePath1]}]${eTNameData[NamePath2]}`
     qName = `[${qNameData[NamePath1]}]${qNameData[NamePath2]}`
-    qNameT = `[${qTNameData[NamePath1]}]${qTNameData[NamePath2]}`
-    tName = `[${tNameData[NamePath1]}]${tNameData[NamePath2]}`
-    c1Name = `[${c1NameData[NamePath1]}]${c1NameData[NamePath2]}`
-    c2Name = `[${c2NameData[NamePath1]}]${c2NameData[NamePath2]}`
-    c4Name = `[${c4NameData[NamePath1]}]${c4NameData[NamePath2]}`
-    c6Name = `[${c6NameData[NamePath1]}]${c6NameData[NamePath2]}`
+    qNameT = !`${qTNameData[NamePath1]}` ? `${qTNameData[NamePath2]}` : `[${qTNameData[NamePath1]}]${qTNameData[NamePath2]}`
+    tName = !`${tNameData[NamePath1]}` ? `${tNameData[NamePath1]}` : `[${tNameData[NamePath1]}]${tNameData[NamePath2]}`
+    c1Name = !`${c1NameData[NamePath1]}` ? `${c1NameData[NamePath2]}` : `[${c1NameData[NamePath1]}]${c1NameData[NamePath2]}`
+    c2Name = !`${c2NameData[NamePath1]}` ? `${c2NameData[NamePath2]}` : `[${c2NameData[NamePath1]}]${c2NameData[NamePath2]}`
+    c4Name = !`${c4NameData[NamePath1]}` ? `${c4NameData[NamePath2]}` : `[${c4NameData[NamePath1]}]${c4NameData[NamePath2]}`
+    c6Name = !`${c6NameData[NamePath1]}` ? `${c6NameData[NamePath2]}` : `[${c6NameData[NamePath1]}]${c6NameData[NamePath2]}`
   } else {
     if (NamePath > 99 || NamePath < 0) {
       console.error('[liangshi-calc] NamePath配置错误，请重新配置')
