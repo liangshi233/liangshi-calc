@@ -16,6 +16,12 @@ export const details = [
   params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
   dmgKey: 'z',
   dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
+}, 
+{
+  title: `${TalentName.a2Name}融化伤害`,
+  params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1 },
+  dmgKey: 'z',
+  dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2', 'melt')
 },
 {
   title: '冻冻猫猫爪伤害',
