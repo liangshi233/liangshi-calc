@@ -98,6 +98,34 @@ export const details = [
     title: `猫鹤芙爱 ${TalentName.aNameT}`,
     params: { Shen_He: true, Furina: true, Escoffier: true },
     dmg: ({ talent, attr }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2')
+  },
+  {
+    title: '猫鹤芙爱 短E伤害',
+    params: { Icy_Paws: 1, SkillsHit: 2, SkillsDmg: 2 , Shen_He: true, Furina: true, Escoffier: true},
+    dmg: ({ talent }, dmg) => dmg(talent.e['猫爪伤害'], 'e')
+  },
+  {
+    title: `猫鹤芙爱 长按E总伤害`,
+    params: { Icy_Paws: 5, SkillsHit: 3, SkillsDmg: 3 , Shen_He: true, Furina: true, Escoffier: true},
+    dmgKey: 'e',
+    dmg: ({ talent, params }, dmg) => {
+      let e1 = dmg(talent.e['猫爪伤害'], 'e');
+      return {
+        dmg: e1.dmg * params.Icy_Paws,
+        avg: e1.avg * params.Icy_Paws
+      };
+    }
+  },
+  {
+    title: `猫鹤芙爱 ${TalentName.qName}伤害`,
+    params: { EnergyDetermine: 0, BurstUse: 1, BurstHit: 1, BurstDmg: 1 , Shen_He: true, Furina: true, Escoffier: true},
+    dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
+  },
+  {
+    title: '猫鹤芙爱 冰气酒雾领域伤害',
+    params: { Drunken_Mist: true, EnergyDetermine: 0, BurstUse: 1, BurstHit: 5, BurstDmg: 5 , Shen_He: true, Furina: true, Escoffier: true},
+    dmgKey: 'q',
+    dmg: ({ talent }, dmg) => dmg(talent.q['领域持续伤害'], 'q')
   }
 ];
 
