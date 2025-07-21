@@ -7,7 +7,7 @@ export const TeamBuff_Nahida = [
   }
 },
 {
-  check: ({ params, element }) => params.team === true && params.Nahida === true && !['火'].includes(element),
+  check: ({ params }) => params.team === true && params.Nahida === true && params.ElementFireTeam === 0,
   title: '纳西妲2命：[正等善见之根] 处于蕴种印状态下的敌人受到原激化、超激化、蔓激化反应影响后,防御力降低[enemyDef]%',
   cons: 2,
   data: {

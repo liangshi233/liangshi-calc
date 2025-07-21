@@ -8,26 +8,26 @@ function RankingKey(CharacterName) {
   let rankingThreePath = cfg.rankingThreemodel
   let UserRanking, PresetsRanking, PresetsMiss
   try {
-    if (fs.existsSync('plugins/liangshi-calc/config/ranking.json')) {
+    if (!fs.existsSync('plugins/liangshi-calc/config/ranking.json')) {
       const data = fs.readFileSync('plugins/liangshi-calc/config/system/ranking_system.json', 'utf8')
       fs.writeFileSync('plugins/liangshi-calc/config/ranking.json', data)
       logger.mark(`[liangshi-calc] 尚未自定义排名规则，已自动生成自定义排名规则文件`)
     }
-    UserRanking = fs.readFileSync('plugins/liangshi-calc/config/ranking.json', 'utf8')
-    PresetsRanking = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/Ranking.json', 'utf8')
+    UserRanking = JSON.parse(fs.readFileSync('plugins/liangshi-calc/config/ranking.json', 'utf8'))
+    PresetsRanking = JSON.parse(fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/Ranking.json', 'utf8'))
     UserRanking = UserRanking[CharacterName]
     PresetsRanking = PresetsRanking[CharacterName]
     if (cfg.calcLiangK || cfg.calcLiangQ) {
-      PresetsMiss = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/AllMiss.json', 'utf8')
+      PresetsMiss = JSON.parse(fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/AllMiss.json', 'utf8'))
       PresetsRanking = PresetsRanking[0]
     } else if (cfg.calcLiangT) {
-      PresetsMiss = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/TeamMiss.json', 'utf8')
+      PresetsMiss = JSON.parse(fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/TeamMiss.json', 'utf8'))
       PresetsRanking = PresetsRanking[1]
     } else if (cfg.calcLiangJ) {
-      PresetsMiss = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/ConciseMiss.json', 'utf8')
+      PresetsMiss = JSON.parse(fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/ConciseMiss.json', 'utf8'))
       PresetsRanking = PresetsRanking[2]
     } else if (cfg.calcLiang) {
-      PresetsMiss = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/BasicMiss.json', 'utf8')
+      PresetsMiss = JSON.parse(fs.readFileSync('plugins/liangshi-calc/damage/liangshi-mc/data/BasicMiss.json', 'utf8'))
       PresetsRanking = PresetsRanking[3]
     } else {
       return false
