@@ -29,13 +29,7 @@ export const AllCalc = [
   {
     title: `${TalentName.aName}五段`,
     params: { NormalUse: 5, NormalHit: 5, NormalDmg: 5, phy: true },
-    dmg: ({ talent }, dmg) => {
-      let a5 = dmg(talent.a['五段伤害2'][0], 'a', 'phy')
-      return {
-        dmg: a5.dmg * 2,
-        avg: a5.avg * 2
-      }
-    }
+    dmg: ({ talent }, dmg) => dmg(talent.a['五段伤害'], 'a', 'phy')
   },
   {
     title: `${TalentName.a2Name}伤害`,
@@ -122,7 +116,6 @@ export const AllCalc = [
   {
     title: `长按${TalentName.eNameT}总融化`,
     params: { Icy_Paws: 5, SkillsHit: 3, SkillsDmg: 3, FireAttachment: true, FreezeDetermine: false, ShieldTime: 0.1 },
-    dmgKey: 'e',
     dmg: ({ talent, params }, dmg) => {
       let e1 = dmg(talent.e['猫爪伤害'], 'e')
       let e2 = dmg(talent.e['猫爪伤害'], 'e', 'melt')
@@ -150,6 +143,7 @@ export const AllCalc = [
   },
   {
     title: '冰气酒雾领域伤害',
+    dmgKey: 'q',
     params: { Drunken_Mist: true, EnergyDetermine: 0, BurstUse: 1, BurstHit: 5, BurstDmg: 5, HealNumber: 4, EnergyUse: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.q['领域持续伤害'], 'q')
   },
@@ -165,7 +159,6 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qName}完整伤害`,
-    dmgKey: 'q',
     params: { Drunken_Mist: true, BurstUse: 1, BurstHit: 7, BurstDmg: 7, HealNumber: 6, EnergyUse: 1 },
     dmg: ({ talent }, dmg) => {
       let q1 = dmg(talent.q['技能伤害'], 'q')
@@ -185,7 +178,7 @@ export const AllCalc = [
       let q3 = dmg(talent.q['领域持续伤害'], 'q', 'melt')
       return {
         dmg: q1.dmg + (q2.dmg + q3.dmg) * 3,
-        avg: q1.avg + (q2.avg + q2.avg) * 3
+        avg: q1.avg + (q2.avg + q3.avg) * 3
       }
     }
   },
@@ -216,6 +209,7 @@ export const AllCalc = [
   },
   {
     title: '单人站场21秒融化',
+    dmgKey: 'hps',
     params: { Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6, FireAttachment: true, FreezeDetermine: false },
     dmg: ({ talent, cons }, dmg) => {
       let a1 = dmg(talent.a['满蓄力瞄准射击'], 'a2', 'melt')
@@ -226,7 +220,7 @@ export const AllCalc = [
       let q3 = dmg(talent.q['领域持续伤害'], 'q', 'melt')
       let aDmg = a1.dmg * 6 * (cons >= 4 ? 2 : 1)
       let aAvg = a1.avg * 6 * (cons >= 4 ? 2 : 1)
-      let eDmg = (e1.dmg + e2.amg) * 3
+      let eDmg = (e1.dmg + e2.dmg) * 3
       let eAvg = (e1.avg + e2.avg) * 3
       let qDmg = q1.dmg + (q2.dmg + q3.dmg) * 3
       let qAvg = q1.avg + (q2.avg + q3.avg) * 3
@@ -238,6 +232,7 @@ export const AllCalc = [
   },
   {
     title: '单人站场21秒治疗',
+    dmgKey: 'hph',
     params: { Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6 },
     dmg: ({ talent, calc, attr }, { heal }) => {
       let q1 = talent.q['持续治疗量2'][0] * calc(attr.hp) / 100
@@ -259,7 +254,7 @@ export const AllCalc = [
     }
   },
   {
-    title: '单人站场21秒',
+    title: '单人站场DPS',
     params: { Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6 },
     dmg: ({ talent, cons, attr, weapon, artis }, dmg) => {
       let a1 = dmg(talent.a['满蓄力瞄准射击'], 'a2')
@@ -272,16 +267,17 @@ export const AllCalc = [
       let aAvg = a1.avg * 6 * (cons >= 4 ? (1 + qcn) : 1)
       let eDmg = e1.dmg * 2 * 3
       let eAvg = e1.avg * 2 * 3
-      let qDmg = (q1.dmg + (q2.dmg + q3.dmg) * 3) * qcn
-      let qAvg = (q1.avg + (q2.avg + q3.avg) * 3) * qcn
+      let qDmg = (q1.dmg + q2.dmg * 6) * qcn
+      let qAvg = (q1.avg + q2.avg * 6) * qcn
       return {
-        dmg: aDmg + eDmg + qDmg,
-        avg: aAvg + eAvg + qAvg
+        dmg: (aDmg + eDmg + qDmg) / 21,
+        avg: (aAvg + eAvg + qAvg) / 21
       }
     }
   },
   {
-    title: '单人站场21秒融化',
+    title: '单人站场DPS融化',
+    dmgKey: 'dps',
     params: { Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6, FireAttachment: true, FreezeDetermine: false },
     dmg: ({ talent, cons, attr, weapon, artis }, dmg) => {
       let a1 = dmg(talent.a['满蓄力瞄准射击'], 'a2', 'melt')
@@ -294,25 +290,26 @@ export const AllCalc = [
       let qcn = Math.min((EnergyCycle(CharacterName, attr, weapon, artis, 0, 0, 0, SkillsQuantity, 0, 0)), 1)
       let aDmg = a1.dmg * 6 * (cons >= 4 ? (1 + qcn) : 1)
       let aAvg = a1.avg * 6 * (cons >= 4 ? (1 + qcn) : 1)
-      let eDmg = (e1.dmg + e2.amg) * 3
+      let eDmg = (e1.dmg + e2.dmg) * 3
       let eAvg = (e1.avg + e2.avg) * 3
       let qDmg = (q1.dmg + (q2.dmg + q3.dmg) * 3) * qcn
       let qAvg = (q1.avg + (q2.avg + q3.avg) * 3) * qcn
       return {
-        dmg: aDmg + eDmg + qDmg,
-        avg: aAvg + eAvg + qAvg
+        dmg: (aDmg + eDmg + qDmg) / 21,
+        avg: (aAvg + eAvg + qAvg) / 21
       }
     }
   },
   {
-    title: '单人站场21秒治疗',
+    title: '单人站场DPH',
+    dmgKey: 'dph',
     params: { Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6 },
     dmg: ({ talent, attr, calc, artis, weapon }, { heal }) => {
       let q1 = talent.q['持续治疗量2'][0] * calc(attr.hp) / 100
       let q2 = talent.q['持续治疗量2'][1]
       let SkillsQuantity = weapon.name.includes('祭礼') ? 10 : 6
       let qcn = Math.min((EnergyCycle(CharacterName, attr, weapon, artis, 0, 0, 0, SkillsQuantity, 0, 0)), 1)
-      let zll = (q1 + q2) * 6 * qcn
+      let zll = ((q1 + q2) * 6 * qcn) / 21
       return heal(zll)
     }
   },
@@ -343,7 +340,7 @@ export const AllCalc = [
     dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2', 'melt')
   },
   {
-    title: `半血 猫纳万班${TalentName.a2NameT}融化`,
+    title: `半血 猫纳万班 ${TalentName.a2NameT}融化`,
     params: { OwnHp: 40, Drunken_Mist: true, Icy_Paws: 2, ChargedUse: 6, ChargedHit: 6, ChargedDmg: 6, SkillsUse: 3, SkillsHit: 6, SkillsDmg: 6, BurstUse: 1, BurstHit: 7, BurstDmg: 7, EnergyUse: 1, ShieldTime: 2.4, HealNumber: 6, ElementFireTeam: 1, ElementIceTeam: 1, ElementWindTeam: 1, ElementGrassTeam: 1, ElementSame: 1, ElementDifferent: 3, EnergyTeammate: 250, Nahida: true, Kaedehara_Kazuha: true, Bennett: true, FireAttachment: true, FreezeDetermine: false, BurningDetermine: true, team: true },
     dmg: ({ talent }, dmg) => dmg(talent.a['满蓄力瞄准射击'], 'a2', 'melt')
   },

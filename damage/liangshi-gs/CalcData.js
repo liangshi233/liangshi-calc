@@ -3,7 +3,7 @@ import fs from 'node:fs'
 
 function CalcMeasure(CharacterName, AllCalc) {
   let cfg = LSconfig.getConfig('user', 'config')
-  if (cfg.liangshiQ) { //直接返回全部, 预留特殊角色特殊处理
+  if (cfg.calcLiangQ) { //直接返回全部, 预留特殊角色特殊处理
     return AllCalc
   }
   let CalcNumber
