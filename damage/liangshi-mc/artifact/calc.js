@@ -170,11 +170,11 @@ export const buffs = {
   },
   失序彼岸之梦: {
     3: {
-      title: '队伍中角色释放[buff]种声骸技能,暴击率提升[cpct]%，伤害加成提升[dmg]%',
+      title: '当前共鸣能量[buff]%,暴击率提升[cpct]%，声骸技能伤害加成提升[rDmg]%',
       data: {
-        buff: ({ characterName }) => ['坎特蕾拉', '弗洛洛'].includes(characterName) ? 4 : 3,
-        cpct: ({ characterName }) => ['坎特蕾拉', '弗洛洛'].includes(characterName) ? (4 * 3 + 8) : (3 * 3),
-        dmg: ({ element, characterName }) => element === '湮灭' ? (['坎特蕾拉', '弗洛洛'].includes(characterName) ? 15 : 0) : 0
+        buff: ({ params }) => params.EnergyDetermine || 100,
+        cpct: ({ params }) => (params.EnergyDetermine || 100) === 0 ? 20 : 0,
+        rDmg: ({ params }) => (params.EnergyDetermine || 100) === 0 ? 35 : 0
       }
     }
   }

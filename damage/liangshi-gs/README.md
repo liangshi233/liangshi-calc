@@ -2,109 +2,109 @@
 
 > 排名不分前后 按`Ctrl + F`可以进行搜索
 
-| 角色名字  | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                         头像                                          |
-|:------|:----:|:----:|:----:|:-----:|:---:|:-----------------------------------------------------------------------------------:|
-| 伊涅芙    |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊涅芙/side.webp)   |
-| 塔利雅   |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/塔利雅/side.webp)  |
-| 丝柯克    |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丝柯克/side.webp)   |
-| 伊法    |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊法/side.webp)   |
-| 爱可菲   |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/爱可菲/side.webp)  |
-| 瓦雷莎   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/瓦雷莎/side.webp)  |
-| 伊安珊   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊安珊/side.webp)  |
-| 梦见月瑞希 |  √   |  ×   |  ×   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/梦见月瑞希/side.webp) |
-| 蓝砚    |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/蓝砚/side.webp)   |
-| 玛薇卡   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/玛薇卡/side.webp)  |
-| 茜特菈莉  |  √   |  ×   |  ×   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/茜特菈莉/side.webp)  |
-| 恰斯卡   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/恰斯卡/side.webp)  |
-| 欧洛伦   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/欧洛伦/side.webp)  |
-| 希诺宁   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希诺宁/side.webp)  |
-| 基尼奇   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/基尼奇/side.webp)  |
-| 玛拉妮   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/玛拉妮/side.webp)  |
-| 卡齐娜   |  √   |  ×   |  ×   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡齐娜/side.webp)  |
-| 艾梅莉埃  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾梅莉埃/side.webp)  |
-| 克洛琳德  |  √   |  √   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)  |
-| 赛索斯   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)  |
-| 希格雯   |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)  |
-| 阿蕾奇诺  |  √   |  √   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)  |
-| 千织    |  √   |  √   |  √   |   √   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)   |
-| 闲云    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)   |
-| 嘉明    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/嘉明/side.webp)   |
-| 夏沃蕾   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏沃蕾/side.webp)  |
-| 娜维娅   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/娜维娅/side.webp)  |
-| 芙宁娜   |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/芙宁娜/side.webp)  |
-| 夏洛蒂   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏洛蒂/side.webp)  |
-| 莱欧斯利  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莱欧斯利/side.webp)  |
-| 那维莱特  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/那维莱特/side.webp)  |
-| 菲米尼   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲米尼/side.webp)  |
-| 林尼    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/林尼/side.webp)   |
-| 琳妮特   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/琳妮特/side.webp)  |
-| 绮良良   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/绮良良/side.webp)  |
-| 白术    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/白术/side.webp)   |
-| 卡维    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡维/side.webp)   |
-| 米卡    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/米卡/side.webp)   |
-| 迪希雅   |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪希雅/side.webp)  |
-| 艾尔海森  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾尔海森/side.webp)  |
-| 瑶瑶    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/瑶瑶/side.webp)   |
-| 流浪者   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流浪者/side.webp)  |
-| 珐露珊   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/珐露珊/side.webp)  |
-| 莱依拉   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莱依拉/side.webp)  |
-| 纳西妲   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/纳西妲/side.webp)  |
-| 妮露    |  √   |  √   |  √   |   √   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/妮露/side.webp)   |
-| 赛诺    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛诺/side.webp)   |
-| 坎蒂丝   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/坎蒂丝/side.webp)  |
-| 提纳里   |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/提纳里/side.webp)  |
-| 多莉    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/多莉/side.webp)   |
-| 柯莱    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/柯莱/side.webp)   |
-| 鹿野院平藏 |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/鹿野院平藏/side.webp) |
-| 久岐忍   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/久岐忍/side.webp)  |
-| 夜兰    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夜兰/side.webp)   |
-| 神里绫人  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫人/side.webp)  |
-| 八重神子  |  √   |  √   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/八重神子/side.webp)  |
-| 申鹤    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/申鹤/side.webp)   |
-| 云堇    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云堇/side.webp)   |
-| 荒泷一斗  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/荒泷一斗/side.webp)  |
-| 五郎    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/五郎/side.webp)   |
-| 托马    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/托马/side.webp)   |
-| 珊瑚宫心海 |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/珊瑚宫心海/side.webp) |
-| 雷电将军  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷电将军/side.webp)  |
-| 九条裟罗  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/九条裟罗/side.webp)  |
-| 埃洛伊   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/埃洛伊/side.webp)  |
-| 早柚    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/早柚/side.webp)   |
-| 宵宫    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/宵宫/side.webp)   |
-| 神里绫华  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫华/side.webp)  |
-| 枫原万叶  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/枫原万叶/side.webp)  |
-| 优菈    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/优菈/side.webp)   |
-| 烟绯    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/烟绯/side.webp)   |
-| 罗莎莉亚  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/罗莎莉亚/side.webp)  |
-| 胡桃    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/胡桃/side.webp)   |
-| 魈     |  √   |  ×   |  √   |   ×   |  √  |   ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/魈/side.webp)   |
-| 甘雨    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/甘雨/side.webp)   |
-| 阿贝多   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿贝多/side.webp)  |
-| 钟离    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/钟离/side.webp)   |
-| 辛焱    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/辛焱/side.webp)   |
-| 达达利亚  |  √   |  ×   |  √   |   ×   |  √  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/达达利亚/side.webp)  |
-| 迪奥娜   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪奥娜/side.webp)  |
-| 可莉    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/可莉/side.webp)   |
-| 温迪    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/温迪/side.webp)   |
-| 砂糖    |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/砂糖/side.webp)   |
-| 刻晴    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/刻晴/side.webp)   |
-| 莫娜    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫娜/side.webp)   |
-| 重云    |  √   |  √   |  √   |   √   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/重云/side.webp)   |
-| 七七    |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/七七/side.webp)   |
-| 诺艾尔   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/诺艾尔/side.webp)  |
-| 班尼特   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/班尼特/side.webp)  |
-| 菲谢尔   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲谢尔/side.webp)  |
-| 凝光    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凝光/side.webp)   |
-| 行秋    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/行秋/side.webp)   |
-| 北斗    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/北斗/side.webp)   |
-| 香菱    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/香菱/side.webp)   |
-| 安柏    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/安柏/side.webp)   |
-| 雷泽    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷泽/side.webp)   |
-| 迪卢克   |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪卢克/side.webp)  |
-| 凯亚    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凯亚/side.webp)   |
-| 芭芭拉   |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/芭芭拉/side.webp)  |
-| 丽莎    |  √   |  ×   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丽莎/side.webp)   |
-| 琴     |  √   |  √   |  √   |   ×   |  √  |   ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/琴/side.webp)   |
+| 角色名字  | ID       | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                         头像                                          |
+|:------|----------|:----:|:----:|:----:|:-----:|:---:|:-----------------------------------------------------------------------------------:|
+| 伊涅芙   | 10000116 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊涅芙/side.webp)  |
+| 塔利雅   | 10000115 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/塔利雅/side.webp)  |
+| 丝柯克   | 10000114 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丝柯克/side.webp)  |
+| 伊法    | 10000113 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊法/side.webp)   |
+| 爱可菲   | 10000112 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/爱可菲/side.webp)  |
+| 瓦雷莎   | 10000111 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/瓦雷莎/side.webp)  |
+| 伊安珊   | 10000110 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊安珊/side.webp)  |
+| 梦见月瑞希 | 10000109 |  √   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/梦见月瑞希/side.webp) |
+| 蓝砚    | 10000108 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/蓝砚/side.webp)   |
+| 玛薇卡   | 10000106 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/玛薇卡/side.webp)  |
+| 茜特菈莉  | 10000107 |  √   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/茜特菈莉/side.webp)  |
+| 恰斯卡   | 10000104 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/恰斯卡/side.webp)  |
+| 欧洛伦   | 10000105 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/欧洛伦/side.webp)  |
+| 希诺宁   | 10000103 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希诺宁/side.webp)  |
+| 基尼奇   | 10000101 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/基尼奇/side.webp)  |
+| 玛拉妮   | 10000102 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/玛拉妮/side.webp)  |
+| 卡齐娜   | 10000100 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡齐娜/side.webp)  |
+| 艾梅莉埃  | 10000099 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾梅莉埃/side.webp)  |
+| 克洛琳德  | 10000098 |  √   |  √   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/克洛琳德/side.webp)  |
+| 赛索斯   | 10000097 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛索斯/side.webp)  |
+| 希格雯   | 10000095 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/希格雯/side.webp)  |
+| 阿蕾奇诺  | 10000096 |  √   |  √   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿蕾奇诺/side.webp)  |
+| 千织    | 10000094 |  √   |  √   |  √   |   √   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/千织/side.WEBP)   |
+| 闲云    | 10000093 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/闲云/side.webp)   |
+| 嘉明    | 10000092 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/嘉明/side.webp)   |
+| 夏沃蕾   | 10000090 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏沃蕾/side.webp)  |
+| 娜维娅   | 10000091 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/娜维娅/side.webp)  |
+| 芙宁娜   | 10000089 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/芙宁娜/side.webp)  |
+| 夏洛蒂   | 10000088 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏洛蒂/side.webp)  |
+| 莱欧斯利  | 10000086 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莱欧斯利/side.webp)  |
+| 那维莱特  | 10000087 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/那维莱特/side.webp)  |
+| 菲米尼   | 10000085 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲米尼/side.webp)  |
+| 林尼    | 10000084 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/林尼/side.webp)   |
+| 琳妮特   | 10000083 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/琳妮特/side.webp)  |
+| 绮良良   | 10000061 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/绮良良/side.webp)  |
+| 白术    | 10000082 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/白术/side.webp)   |
+| 卡维    | 10000081 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡维/side.webp)   |
+| 米卡    | 10000080 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/米卡/side.webp)   |
+| 迪希雅   | 10000079 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪希雅/side.webp)  |
+| 艾尔海森  | 10000078 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/艾尔海森/side.webp)  |
+| 瑶瑶    | 10000077 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/瑶瑶/side.webp)   |
+| 流浪者   | 10000075 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/流浪者/side.webp)  |
+| 珐露珊   | 10000076 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/珐露珊/side.webp)  |
+| 莱依拉   | 10000074 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莱依拉/side.webp)  |
+| 纳西妲   | 10000073 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/纳西妲/side.webp)  |
+| 妮露    | 10000070 |  √   |  √   |  √   |   √   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/妮露/side.webp)   |
+| 赛诺    | 10000071 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/赛诺/side.webp)   |
+| 坎蒂丝   | 10000072 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/坎蒂丝/side.webp)  |
+| 提纳里   | 10000069 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/提纳里/side.webp)  |
+| 多莉    | 10000068 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/多莉/side.webp)   |
+| 柯莱    | 10000067 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/柯莱/side.webp)   |
+| 鹿野院平藏 | 10000059 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/鹿野院平藏/side.webp) |
+| 久岐忍   | 10000065 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/久岐忍/side.webp)  |
+| 夜兰    | 10000060 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夜兰/side.webp)   |
+| 神里绫人  | 10000066 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫人/side.webp)  |
+| 八重神子  | 10000058 |  √   |  √   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/八重神子/side.webp)  |
+| 申鹤    | 10000063 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/申鹤/side.webp)   |
+| 云堇    | 10000064 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/云堇/side.webp)   |
+| 荒泷一斗  | 10000057 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/荒泷一斗/side.webp)  |
+| 五郎    | 10000055 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/五郎/side.webp)   |
+| 托马    | 10000050 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/托马/side.webp)   |
+| 珊瑚宫心海 | 10000054 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/珊瑚宫心海/side.webp) |
+| 雷电将军  | 10000052 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷电将军/side.webp)  |
+| 九条裟罗  | 10000056 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/九条裟罗/side.webp)  |
+| 埃洛伊   | 10000062 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/埃洛伊/side.webp)  |
+| 早柚    | 10000053 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/早柚/side.webp)   |
+| 宵宫    | 10000049 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/宵宫/side.webp)   |
+| 神里绫华  | 10000002 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/神里绫华/side.webp)  |
+| 枫原万叶  | 10000047 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/枫原万叶/side.webp)  |
+| 优菈    | 10000051 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/优菈/side.webp)   |
+| 烟绯    | 10000048 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/烟绯/side.webp)   |
+| 罗莎莉亚  | 10000045 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/罗莎莉亚/side.webp)  |
+| 胡桃    | 10000046 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/胡桃/side.webp)   |
+| 魈     | 10000026 |  √   |  ×   |  √   |   ×   |  ×  |   ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/魈/side.webp)   |
+| 甘雨    | 10000037 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/甘雨/side.webp)   |
+| 阿贝多   | 10000038 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/阿贝多/side.webp)  |
+| 钟离    | 10000030 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/钟离/side.webp)   |
+| 辛焱    | 10000044 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/辛焱/side.webp)   |
+| 达达利亚  | 10000033 |  √   |  ×   |  √   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/达达利亚/side.webp)  |
+| 迪奥娜   | 10000039 |  √   |  √   |  √   |   ×   |  √  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪奥娜/side.webp)  |
+| 可莉    | 10000029 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/可莉/side.webp)   |
+| 温迪    | 10000022 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/温迪/side.webp)   |
+| 砂糖    | 10000043 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/砂糖/side.webp)   |
+| 刻晴    | 10000042 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/刻晴/side.webp)   |
+| 莫娜    | 10000041 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/莫娜/side.webp)   |
+| 重云    | 10000036 |  √   |  √   |  √   |   √   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/重云/side.webp)   |
+| 七七    | 10000035 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/七七/side.webp)   |
+| 诺艾尔   | 10000034 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/诺艾尔/side.webp)  |
+| 班尼特   | 10000032 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/班尼特/side.webp)  |
+| 菲谢尔   | 10000031 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲谢尔/side.webp)  |
+| 凝光    | 10000027 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凝光/side.webp)   |
+| 行秋    | 10000025 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/行秋/side.webp)   |
+| 北斗    | 10000024 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/北斗/side.webp)   |
+| 香菱    | 10000023 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/香菱/side.webp)   |
+| 安柏    | 10000021 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/安柏/side.webp)   |
+| 雷泽    | 10000020 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/雷泽/side.webp)   |
+| 迪卢克   | 10000016 |  √   |  √   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/迪卢克/side.webp)  |
+| 凯亚    | 10000015 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/凯亚/side.webp)   |
+| 芭芭拉   | 10000014 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/芭芭拉/side.webp)  |
+| 丽莎    | 10000006 |  √   |  ×   |  √   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/丽莎/side.webp)   |
+| 琴     | 10000003 |  √   |  √   |  √   |   ×   |  ×  |   ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/琴/side.webp)   |
 ---
 | 主角属性 | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                       图标                                        |
 |:-----|:----:|:----:|:----:|:-----:|:---:|:-------------------------------------------------------------------------------:|

@@ -33,6 +33,21 @@ export function supportGuoba () {
           component: 'Switch'
         },
         {
+          field: 'calcLiangJ',
+          label: 'liangshicalc 极简',
+          component: 'Switch'
+        },
+        {
+          field: 'calcLiangQ',
+          label: 'liangshicalc 组队',
+          component: 'Switch'
+        },
+        {
+          field: 'calcLiangK',
+          label: 'liangshicalc 自定义',
+          component: 'Switch'
+        },
+        {
           field: 'calcLi',
           label: 'liangshicalc 大爷',
           component: 'Switch'
