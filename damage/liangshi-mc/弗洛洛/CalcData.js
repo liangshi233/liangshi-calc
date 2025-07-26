@@ -1,4 +1,3 @@
-import { Format } from '#liangshi'
 import { ObTalentName } from '../index.js'
 
 let CharacterName = "弗洛洛"
@@ -34,7 +33,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}强化${TalentName.aName}`,
-    params: { SkillsUse: 1, SkillsHit: 3, SkillsDmg: 3 },
+    params: { NormalUse: 4, NormalHit: 9, NormalDmg: 9, SkillsHit: 3, SkillsDmg: 3 },
     dmg: ({ talent, cons }, dmg) => {
       let c1 = cons >= 1 ? 80 : 0
       let t1 = dmg(talent.t['亡与死的乐章伤害2'][0] + c1, 'e')
@@ -93,7 +92,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}强化${TalentName.eName}`,
-    params: { SkillsUse: 2, SkillsHit: 12, SkillsDmg: 12 },
+    params: { NormalUse: 3, NormalHit: 9, NormalDmg: 9, SkillsUse: 1, SkillsHit: 12, SkillsDmg: 12 },
     dmg: ({ talent, cons }, dmg) => {
       let c1 = cons >= 1 ? 80 : 0
       let t1 = dmg(talent.t['永不消逝的梦呓伤害2'][0] + c1, 'e')
@@ -107,12 +106,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}一段伤害`,
-    params: { BurstUse: 1, EnergyUse: 1, Maestro_State: true },
+    params: { BurstUse: 1, Maestro_State: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['普攻·赫卡忒第一段伤害'], 'r')
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}二段伤害`,
-    params: { BurstUse: 1, NormalUse: 2, EnergyUse: 1, Maestro_State: true },
+    params: { BurstUse: 1, NormalUse: 2, Maestro_State: true },
     dmg: ({ talent }, dmg) => {
       let q1 = dmg(talent.q['普攻·赫卡忒第二段伤害'], 'r')
       return {
@@ -123,10 +122,10 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}弦乐`,
-    params: { BurstUse: 1, NormalUse: 3, EnergyUse: 1, Maestro_State: true },
-    dmg: ({ talent, params }, dmg) => {
-      let q1 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][0] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
-      let q2 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][1] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
+    params: { BurstUse: 1, NormalUse: 3, Maestro_State: true },
+    dmg: ({ talent, params, cons }, dmg) => {
+      let q1 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
+      let q2 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
       return {
         dmg: q1.dmg + q2.dmg,
         avg: q1.avg + q2.avg
@@ -135,10 +134,10 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}管乐`,
-    params: { BurstUse: 1, NormalUse: 3, EnergyUse: 1, Maestro_State: true },
-    dmg: ({ talent, params }, dmg) => {
-      let q1 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][0] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
-      let q2 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][1] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
+    params: { BurstUse: 1, NormalUse: 3, Maestro_State: true },
+    dmg: ({ talent, params, cons }, dmg) => {
+      let q1 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
+      let q2 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
       return {
         dmg: q1.dmg + q2.dmg,
         avg: q1.avg + q2.avg
@@ -147,10 +146,10 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}彩乐`,
-    params: { BurstUse: 1, NormalUse: 3, EnergyUse: 1, Maestro_State: true },
-    dmg: ({ talent, params }, dmg) => {
-      let q1 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][0] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
-      let q2 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][1] + Math.min((params.Lingering_Note || 0), 24) * 3, 'r')
+    params: { BurstUse: 1, NormalUse: 3, Maestro_State: true },
+    dmg: ({ talent, params, cons }, dmg) => {
+      let q1 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
+      let q2 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
       return {
         dmg: q1.dmg + q2.dmg,
         avg: q1.avg + q2.avg
@@ -158,8 +157,8 @@ export const AllCalc = [
     }
   },
   {
-    title: `${TalentName.qNameT}谢幕伤害`,
-    params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
+    title: `${TalentName.qName}谢幕伤害`, //不进入演奏长按共鸣解放直接打出谢幕
+    params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, Maestro_State: true },
     dmg: ({ talent }, dmg) => dmg(talent.q['谢幕·赫卡忒伤害'], 'q')
   },
   {
@@ -176,18 +175,17 @@ export const AllCalc = [
   {
     title: `永生组歌变奏伤害`,
     params: { Maestro_State: true },
-    dmg: ({ talent, cons }, dmg) => {
+    dmg: ({ talent }, dmg) => {
       let i1 = dmg(talent.i['永生组歌伤害'], 'e')
-      let i2 = dmg(80, 'e')
       return {
-        dmg: i1.dmg + (cons >= 3 ? i2.dmg : 0),
-        avg: i1.avg + (cons >= 3 ? i2.avg : 0)
+        dmg: i1.dmg,
+        avg: i1.avg
       }
     }
   },
   {
     title: `${TalentName.c6Name}重世幻象·赫卡忒`,
     params: { SkillsUse: 2, SkillsHit: 12, SkillsDmg: 12 },
-    dmg: ({}, dmg) => dmg(304.8, 'r')
+    dmg: ({}, dmg) => dmg(216.42, 'r')
   }
 ]
