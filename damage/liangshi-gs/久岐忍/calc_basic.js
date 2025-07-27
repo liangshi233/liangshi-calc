@@ -37,7 +37,7 @@ export const details = [
   title: '超绽放伤害',
   params: { SkillsUse: 1, SkillsHit: 3, SkillsDmg: 3, HealNumber: 3 },
   dmgKey: 'r',
-  dmg: ({ calc, attr }, { reaction }) => reaction('hyperBloom')
+  dmg: ({}, { reaction }) => reaction('hyperBloom')
 },
 {
   title: `${TalentName.eName}每跳治疗`,

@@ -50,5 +50,5 @@ export const details = [
 {
   title: '草原核伤害',
   dmgKey: 'r',
-  dmg: ({calc, attr}, { reaction }) => reaction('bloom')
+  dmg: ({}, { reaction }) => reaction('bloom')
 }]

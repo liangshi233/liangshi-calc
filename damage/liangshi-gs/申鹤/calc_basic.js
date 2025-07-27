@@ -22,27 +22,29 @@ export const details = [
 },
 {
   title: `${TalentName.eName}点按伤害`,
+  params: { Icy_Quill: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['点按技能伤害'], 'e')
 },
 {
   title: `${TalentName.eName}点按融化`,
-  params: { FireAttachment: true },
+  params: { FireAttachment: true, Icy_Quill: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['点按技能伤害'], 'e', 'melt')
 },
 {
   title: `${TalentName.eName}长按伤害`,
+  params: { Icy_Quill: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e')
 },
 {
   title: `${TalentName.eName}长按融化`,
-  params: { FireAttachment: true },
+  params: { FireAttachment: true, Icy_Quill: true },
   dmgKey: 'e',
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e', 'melt')
 },
 {
   check: ({ cons }) => cons >= 4,
   title: `${TalentName.qNameT}后满层${TalentName.eNameT}长按融化`,
-  params: { Talisman_Spirit: true, Skyfrost_Mantra: 50, FireAttachment: true, BurstUse: 1, BurstHit: 3, BurstDmg: 3 },
+  params: { Talisman_Spirit: true, Skyfrost_Mantra: 50, FireAttachment: true, BurstUse: 1, BurstHit: 3, BurstDmg: 3, Icy_Quill: true },
   dmg: ({ talent }, dmg) => dmg(talent.e['长按技能伤害'], 'e', 'melt')
 },
 {

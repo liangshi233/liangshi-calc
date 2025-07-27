@@ -26,7 +26,7 @@ MasteryGs,
   }
 },
 {
-  check: ({ params }) => params.phy != true,
+  check: ({ params }) => params.phy != true && params.Icy_Quill === true,
   title: '申鹤技能：[仰灵威召将役咒] 攻击对敌人造成冰元素伤害时,造成的伤害提高[aPlus]%',
   sort: 9,
   data: {

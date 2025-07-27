@@ -102,8 +102,71 @@ export class calc extends plugin {
       }
     }
     if (!Charactername) {
-      if(/强制/.test(this.e.msg)) {
+      if (/强制/.test(this.e.msg)) {
         Charactername = TextData[4]
+      } else if (/主角|主|旅行者|开拓者|漂泊者/.test(this.e.msg)) {
+        if (GamePath === "gs") {
+          let elementKey = {
+            "" : "旅行者/null",
+            "风" : "旅行者/anemo",
+            "岩" : "旅行者/geo",
+            "雷" : "旅行者/electro",
+            "草" : "旅行者/dendro",
+            "水" : "旅行者/hydro",
+            "火" : "旅行者/pyro",
+            "冰" : "旅行者/cryo",
+
+            "无" : "旅行者/null",
+            "风神" : "旅行者/anemo",
+            "地理" : "旅行者/geo",
+            "电" : "旅行者/electro",
+            "丹德罗" : "旅行者/dendro",
+            "水电" : "旅行者/hydro",
+            "火焰兵" : "旅行者/pyro",
+            "冷冻" : "旅行者/cryo"
+
+          }
+          let elementName = TextData[4].replace(/主角|主|旅行者/g, "")
+          Charactername = elementKey[elementName] || false
+          if (!Charactername) {
+            e.reply(`[liangshi-calc]未能找到角色${TextData[4]}\n如果是未来或未更新的角色，请使用强制添加/移除`)
+            return false
+          }
+        } else if (GamePath === "mc") {
+          let elementKey = {
+            "气动" : "漂泊者/气动",
+            "衍射" : "漂泊者/衍射",
+            "湮灭" : "漂泊者/湮灭",
+            "导电" : "漂泊者/导电",
+            "热熔" : "漂泊者/热熔",
+            "冷凝" : "漂泊者/冷凝",
+
+            "风" : "漂泊者/气动",
+            "光" : "漂泊者/衍射",
+            "暗" : "漂泊者/湮灭",
+            "电" : "漂泊者/导电",
+            "雷" : "漂泊者/导电",
+            "火" : "漂泊者/热熔",
+            "冰" : "漂泊者/冷凝",
+
+            "航空" : "漂泊者/气动",
+            "斯派克" : "漂泊者/衍射",
+            "大破坏" : "漂泊者/湮灭",
+            "电解" : "漂泊者/导电",
+            "融合" : "漂泊者/热熔",
+            "冰川" : "漂泊者/冷凝"
+
+          }
+          let elementName = TextData[4].replace(/主角|主|漂泊者/g, "")
+          Charactername = elementKey[elementName] || false
+          if (!Charactername) {
+            e.reply(`[liangshi-calc]未能找到角色${TextData[4]}\n如果是未来或未更新的角色，请使用强制添加/移除`)
+            return false
+          }
+        } else {
+          e.reply(`[liangshi-calc]未能找到角色${TextData[4]}\n如果是未来或未更新的角色，请使用强制添加/移除`)
+          return false
+        }
       } else {
         e.reply(`[liangshi-calc]未能找到角色${TextData[4]}\n如果是未来或未更新的角色，请使用强制添加/移除`)
         return false
@@ -699,6 +762,12 @@ export class calc extends plugin {
       let filePath
       if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
         filePath = "./plugins/miao-plugin/resources/meta-mc/character/data.json"
+        if (!fs.existsSync(filePath)) {
+          console.log('[liangshi-calc]找不到文件data.json，请检查mian-waves配置')
+          e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+          e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+          return false
+        }
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取角色配置data.json失败:\n', err)

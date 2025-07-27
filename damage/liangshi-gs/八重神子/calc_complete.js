@@ -227,7 +227,7 @@ export const details = [
 {
   title: '超绽放伤害',
   dmgKey: 'r',
-  dmg: ({ calc, attr }, { reaction }) => reaction('hyperBloom')
+  dmg: ({}, { reaction }) => reaction('hyperBloom')
 },
 {
   title: '单人站场22秒',

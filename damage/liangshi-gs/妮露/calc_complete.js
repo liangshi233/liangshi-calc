@@ -227,7 +227,7 @@ export const details = [
     title: '丰穰之核伤害',
     dmgKey: 'r',
     params: { bloom: true },
-    dmg: ({ calc, attr }, { reaction }) => {
+    dmg: ({}, { reaction }) => {
       frzhDmg = reaction('bloom')
       return frzhDmg
     }

@@ -41,7 +41,7 @@ export const details = [
 {
   title: '扩散反应伤害',
   dmgKey: 'r',
-  dmg: ({ attr, calc, talent, cons }, { reaction }) => {
+  dmg: ({ cons }, { reaction }) => {
     let { avg } = reaction('swirl')
     let cons6dmg = cons >= 6 ? 2 : 1
     let cons6avg = cons >= 6 ? 1.3 : 1
@@ -55,7 +55,7 @@ export const details = [
   title: '二十三夜待扩散反应',
   check: ({ cons }) => cons >= 1,
   params: { Twenty_Three_Nights: true },
-  dmg: ({ attr, calc, talent, cons }, { reaction }) => {
+  dmg: ({ cons }, { reaction }) => {
     let { avg } = reaction('swirl')
     let cons6dmg = cons >= 6 ? 2 : 1
     let cons6avg = cons >= 6 ? 1.3 : 1

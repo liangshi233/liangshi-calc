@@ -14,7 +14,7 @@ MasteryGs,
   }
 },
 {
-  title: '优菈技能：[冰潮的涡旋] 消耗[buff]层冷酷之心效果，使身边的敌人的物理与冰元素抗性降低[kx]%',
+  title: '优菈技能：[冰潮的涡旋] 消耗[buff]层冷酷之心效果，使身边的敌人抗性降低[kx]%',
   data: {
     buff: ({ params }) => params.Grimheart || 2,
     kx: ({ talent, params }) => (params.Grimheart || 2) >= 1 ? talent.e['冰元素抗性降低'] : 0

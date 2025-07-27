@@ -105,9 +105,7 @@ export const details = [
     dmg: ({ talent, calc, attr }, { heal }) => heal(calc(attr.hp) * 0.8 / 100)
   }, {
     title: '草原核伤害',
-    dmg: ({ calc, attr }, { reaction }) => {
-      return reaction('bloom')
-    }
+    dmg: ({}, { reaction }) => reaction('bloom')
   }, {
     title: '单人站场20秒伤害',
     dmg: ({ talent, cons }, dmg) => {
@@ -287,9 +285,7 @@ export const details = [
   }, {
     title: '瑶妮妲绫 草原核',
     params: { teamA: true },
-    dmg: ({ calc, attr }, { reaction }) => {
-      return reaction('bloom')
-    }
+    dmg: ({}, { reaction }) => reaction('bloom')
   }]
 
 export const defParams = { soda: 1 }
