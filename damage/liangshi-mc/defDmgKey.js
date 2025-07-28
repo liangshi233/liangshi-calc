@@ -37,7 +37,7 @@ function RankingKey(CharacterName) {
     console.error(`[liangshi-calc] 角色${CharacterName}排名配置文件读取失败`)
     return false
   }
-  if (!UserRanking) {
+  if (!UserRanking || UserRanking.length === 0) {
     if (rankingOnePath === 'm') {
       return PresetsRanking
     } else if (PresetsMiss.includes(rankingOnePath) || !rankingOnePath) {
