@@ -105,7 +105,7 @@ import { TeamBuff_Escoffier } from './爱可菲/TeamBuff.js'
 import { TeamBuff_Ifa } from './伊法/TeamBuff.js'
 import { TeamBuff_Dahlia } from "./塔利雅/TeamBuff.js"
 import { TeamBuff_Skirk } from "./丝柯克/TeamBuff.js"
-//import { TeamBuff_Ineffa } from "./伊涅芙/TeamBuff.js"
+import { TeamBuff_Ineffa } from "./伊涅芙/TeamBuff.js"
 
 
 let TeamBuff = {
@@ -208,10 +208,8 @@ let TeamBuff = {
   TeamBuff_Escoffier,
   TeamBuff_Ifa,
   TeamBuff_Dahlia,
-  TeamBuff_Skirk
-  /*,
+  TeamBuff_Skirk,
   TeamBuff_Ineffa
-  */
 }
 
 export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure, ParamsData }
