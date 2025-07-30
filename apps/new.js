@@ -24,7 +24,7 @@ export class calc extends plugin {
             fnc: 'add'
           },
           {
-            reg: '^#*(强制)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(计算数据|数据|资源|资源数据)$',
+            reg: '^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(计算数据|数据|资源|资源数据)$',
             fnc: 'new'
           }
         ]
@@ -736,7 +736,7 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
       e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
     } else {
-      e.reply('[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用强制更新')
+      e.reply(`[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${GamePath}${CharacterId}资源数据`)
       console.error(`[liangshi-calc]角色：${CharacterName} 数据已存在`)
     }
     e.reply(`[liangshi-calc]角色数据资源下载完成`)
