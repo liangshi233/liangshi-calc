@@ -226,12 +226,15 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    let cfg = LSconfig.getConfig('user', 'config')
     let TextData = e.msg.match(/^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|角色计算数据)$/)
     let CharacterId = TextData[3]
     if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[2])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[2]) && /强制|强行|覆盖/.test(this.e.msg))) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+      e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
     } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[2])) || /强制|强行|覆盖/.test(this.e.msg)) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+      e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
     } else {
       let CharacterIdUrl
       if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
@@ -266,9 +269,15 @@ export class calc extends plugin {
       GamePath = "mc"
     }
     e.reply(`[liangshi-calc]开始更新角色${CharacterId}数据`)
+    let response, ProxyUrl
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
     try {
-      let url = `https://api.hakush.in/${game}/data/${i}/character/${CharacterId}.json`
-      let response = await fetch(url)
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/character/${CharacterId}.json`
+      response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
         return false
@@ -277,8 +286,18 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]角色:${data.Name} 云端数据读取成功`)
     } catch (err) {
       console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
-      e.reply(`[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新`)
-      e.reply(`数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined`)
+      if (response.status === 404) {
+        e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+        e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
+      } else if (response.status === 429) {
+        e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
+      } else if (response.status >= 500) {
+        e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+      } else if (cfg.ProxyUrl) {
+        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+      } else {
+        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+      }
       return false
     }
     let CharacterName = data.Name
@@ -710,17 +729,19 @@ export class calc extends plugin {
     if (!fs.existsSync(path)) {
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
       logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
     } else if (/强制|强行|覆盖/.test(this.e.msg)) {
       e.reply('[liangshi-calc]角色数据已存在，当前为强制模式，尝试覆盖写入。')
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
       logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
     } else {
-      e.reply('[liangshi-calc]角色数据已存在，运行终止。')
+      e.reply('[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用强制更新')
       console.error(`[liangshi-calc]角色：${CharacterName} 数据已存在`)
     }
     e.reply(`[liangshi-calc]角色数据资源下载完成`)
     logger.mark(`[liangshi-calc]开始下载角色图片资源`)
-    let IconUrl = `https://api.hakush.in/${game}/`
+    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
     if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
       let SkinName = Object.keys(data.Skin)[0]
       await this.getImg((data.Skin[SkinName].Portrait.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/splash.webp`, "立绘")
@@ -757,7 +778,6 @@ export class calc extends plugin {
     }
     e.reply(`[liangshi-calc]角色图片资源下载完成`)
     logger.mark(`[liangshi-calc]图片资源下载完成`)
-    let cfg = LSconfig.getConfig('user', 'config')
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(this.e.msg)) {
       let filePath
       if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {

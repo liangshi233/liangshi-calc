@@ -3,6 +3,7 @@ import { ObTalentName } from './TalentName.js'
 import { RankingKey } from './defDmgKey.js'
 import { CalcMeasure } from './CalcData.js'
 import { TeamJson } from './TeamJson.js'
+import { CalcBy } from './CalcBy.js'
 
-export { mainAttrData, ObTalentName, RankingKey, TeamJson, CalcMeasure }
+export { CalcBy, mainAttrData, ObTalentName, RankingKey, TeamJson, CalcMeasure }
 

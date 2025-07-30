@@ -4,6 +4,7 @@ import { RankingKey } from './defDmgKey.js'
 import { ParamsData } from './defParams.js'
 import { CalcMeasure } from './CalcData.js'
 import { TeamJson } from './TeamJson.js'
+import { CalcBy } from './CalcBy.js'
 
 import { TeamBuff_Kamisato_Ayaka } from './神里绫华/TeamBuff.js'
 import { TeamBuff_Jean } from './琴/TeamBuff.js'
@@ -212,4 +213,4 @@ let TeamBuff = {
   TeamBuff_Ineffa
 }
 
-export { mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure, ParamsData }
+export { CalcBy, mainAttrData, ObTalentName, RankingKey, TeamBuff, TeamJson, CalcMeasure, ParamsData }
