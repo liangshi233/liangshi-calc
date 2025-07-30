@@ -52,6 +52,7 @@ export const AllCalc = [
     params: { SkillsHit: 1, SkillsDmg: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['长按一段伤害'], 'e')
   },
+  //miao-plugin更新了月绽放再将注释去除，否则会报错
   {
     title: `长按${TalentName.eName}二段单枚`,
     dmgKey: 'e',
@@ -74,7 +75,7 @@ export const AllCalc = [
     title: `单人${TalentName.c6Name}${TalentName.aNameT}附加伤害`,
     params: { Lunar: true, Pale_Hymn: true },
     dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, ''/*, 'lunarBloom'*/)
-  }/*,   //miao-plugin更新了月绽放再将注释去，除否则会报错
+  }/*,
   {
     title: '单人月绽放伤害',
     params: { Lunar: true },
