@@ -36,6 +36,7 @@ export const mainAttrData = {
   "可莉": 'atk,cpct,cdmg,dmg,mastery',
   "克洛琳德": 'atk,cpct,cdmg,dmg,mastery',
   "刻晴": 'atk,cpct,cdmg,dmg,mastery',
+  "菈乌玛": 'atk,cpct,cdmg,dmg,mastery',
   "莱欧斯利": 'atk,cpct,cdmg,dmg,mastery',
   "莱依拉": 'hp,atk,cpct,cdmg,dmg',
   "蓝砚": 'atk,cpct,cdmg,dmg,mastery',

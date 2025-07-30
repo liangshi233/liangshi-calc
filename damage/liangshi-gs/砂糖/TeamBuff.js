@@ -2,7 +2,7 @@ import fs from 'node:fs'
 
 let TeamData = null
 try {
-  TeamData = fs.readFileSync('plugins/liangshi-calc/damage/meta-gs/砂糖/TeamData.json', 'utf8')
+  TeamData = fs.readFileSync('plugins/liangshi-calc/damage/liangshi-gs/砂糖/TeamData.json', 'utf8')
   TeamData = JSON.parse(TeamData)
 } catch (err) {
   console.error('组队数据读取失败:', err)
