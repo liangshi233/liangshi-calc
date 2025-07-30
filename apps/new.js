@@ -24,7 +24,7 @@ export class calc extends plugin {
             fnc: 'add'
           },
           {
-            reg: '^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(计算数据|数据|资源|资源数据)$',
+            reg: '^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|资源|角色计算数据|角色计算资源|资源数据)$',
             fnc: 'new'
           }
         ]
@@ -227,7 +227,7 @@ export class calc extends plugin {
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
-    let TextData = e.msg.match(/^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|角色计算数据)$/)
+    let TextData = e.msg.match(/^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|资源|角色计算数据|角色计算资源|资源数据)$/)
     let CharacterId = TextData[3]
     if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[2])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[2]) && /强制|强行|覆盖/.test(this.e.msg))) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
