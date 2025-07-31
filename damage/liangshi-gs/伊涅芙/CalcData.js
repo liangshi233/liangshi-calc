@@ -16,19 +16,19 @@ export const AllCalc = [
   {
     title: `${TalentName.aName}一段伤害`,
     params: { phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a')
+    dmg: ({ talent }, dmg) => dmg(talent.a['一段伤害'], 'a', 'phy')
   },
   {
     title: `${TalentName.aName}二段伤害`,
     params: { NormalUse: 2, NormalHit: 2, NormalDmg: 2, phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a')
+    dmg: ({ talent }, dmg) => dmg(talent.a['二段伤害'], 'a', 'phy')
   },
   {
     title: `${TalentName.aName}三段伤害`,
     params: { NormalUse: 3, NormalHit: 4, NormalDmg: 4, phy: true },
     dmg: ({ talent }, dmg) => {
-      let a1 = dmg(talent.a['三段伤害2'][0], 'a')
-      let a2 = dmg(talent.a['三段伤害2'][1], 'a')
+      let a1 = dmg(talent.a['三段伤害2'][0], 'a', 'phy')
+      let a2 = dmg(talent.a['三段伤害2'][1], 'a', 'phy')
       return {
         dmg: a1.dmg + a2.dmg,
         avg: a1.avg + a2.avg
@@ -39,29 +39,29 @@ export const AllCalc = [
     title: `${TalentName.aName}四段伤害`,
     dmgKey: 'a',
     params: { NormalUse: 2, NormalHit: 2, NormalDmg: 2, phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a')
+    dmg: ({ talent }, dmg) => dmg(talent.a['四段伤害'], 'a', 'phy')
   },
   {
     title: `${TalentName.a2Name}伤害`,
     dmgKey: 'z',
     params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1, phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2')
+    dmg: ({ talent }, dmg) => dmg(talent.a['重击伤害'], 'a2', 'phy')
   },
   {
     title: `${TalentName.a3Name}期间伤害`,
     params: { PlungingUse: 1, PlungingHit: 1, PlungingDmg: 1, phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3')
+    dmg: ({ talent }, dmg) => dmg(talent.a['下坠期间伤害'], 'a3', 'phy')
   },
   {
     title: `低空${TalentName.a3Name}伤害`,
     params: { PlungingUse: 1, PlungingHit: 1, PlungingDmg: 1, phy: true },
-    dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3')
+    dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][0], 'a3', 'phy')
   },
   {
     title: `高空${TalentName.a3Name}伤害`,
     params: { PlungingUse: 1, PlungingHit: 1, PlungingDmg: 1, phy: true },
     dmgKey: 'c',
-    dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3')
+    dmg: ({ talent }, dmg) => dmg(talent.a['低空/高空坠地冲击伤害'][1], 'a3', 'phy')
   },
   {
     title: `${TalentName.eName}伤害`,

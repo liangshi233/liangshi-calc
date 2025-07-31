@@ -268,7 +268,6 @@ export class calc extends plugin {
       game = "ww"
       GamePath = "mc"
     }
-    e.reply(`[liangshi-calc]开始更新角色${CharacterId}数据`)
     let response, ProxyUrl
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
@@ -280,24 +279,24 @@ export class calc extends plugin {
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+          e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
+        } else if (response.status === 429) {
+          e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
         return false
       }
       data = await response.json()
       logger.mark(`[liangshi-calc]角色:${data.Name} 云端数据读取成功`)
     } catch (err) {
       console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
-      if (response.status === 404) {
-        e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
-        e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
-      } else if (response.status === 429) {
-        e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
-      } else if (response.status >= 500) {
-        e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-      } else if (cfg.ProxyUrl) {
-        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-      } else {
-        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-      }
       return false
     }
     let CharacterName = data.Name
@@ -625,6 +624,10 @@ export class calc extends plugin {
           {
             "name": data.Passives[1].Name,
             "desc": data.Passives[1].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+          },
+          {
+            "name": data.Passives?.[3]?.Name,
+            "desc": data.Passives?.[3]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           }
         ],
         "attr": {
@@ -767,6 +770,7 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/" + data.Passives[2].Icon + ".webp", `${icons}/passive-0.webp`, "固有天赋1")
       await this.getImg(IconUrl + "UI/" + data.Passives[0].Icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
       await this.getImg(IconUrl + "UI/" + data.Passives[1].Icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
+      await this.getImg(IconUrl + "UI/" + data.Passives?.[3]?.Icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
       await this.getImg(IconUrl + "UI/" + data.Skills[1].Promote[0].Icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
       await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
       await this.getImg(IconUrl + "UI/" + data.Constellations[0].Icon + ".webp", `${icons}/cons-1.webp`, "1命")
@@ -1049,7 +1053,7 @@ export class calc extends plugin {
     const levelKeys = Object.keys(promote).sort((a, b) => parseInt(a) - parseInt(b))
     const templateDesc = promote[levelKeys[0]].Desc.filter(desc => desc.trim() !== "")
     templateDesc.forEach(desc => {
-      const name = desc.split('|')[0]
+      const name = desc.split('|')[0].trim()
       const format = desc.split('|')[1]
       const hasMultipleParams = (format.match(/\{param\d+:[^}]+\}/g) || []).length > 1
       const hasAsterisk = /\*/.test(format)
@@ -1070,7 +1074,7 @@ export class calc extends plugin {
       const params = levelData.Param
       const currentLevelValues = {}
       templateDesc.forEach(desc => {
-        const name = desc.split('|')[0]
+        const name = desc.split('|')[0].trim()
         const format = desc.split('|')[1]
         const hasMultipleParams = (format.match(/\{param\d+:[^}]+\}/g) || []).length > 1
         const hasAsterisk = /\*/.test(format)
@@ -1098,7 +1102,7 @@ export class calc extends plugin {
         }
         if (hasAsterisk) {
           currentLevelValues[name] = extractedValues[0] * multiplier
-          currentLevelValues[name + "2"] = [[extractedValues[0], multiplier]]
+          currentLevelValues[name + "2"] = [extractedValues[0], multiplier]
         } else if (hasSlash) {
           currentLevelValues[name] = extractedValues
           currentLevelValues[name + "2"] = extractedValues
