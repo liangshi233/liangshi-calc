@@ -52,12 +52,16 @@ export const AllCalc = [
     params: { SkillsHit: 1, SkillsDmg: 1 },
     dmg: ({ talent }, dmg) => dmg(talent.e['长按一段伤害'], 'e')
   },
-  //miao-plugin更新了月绽放再将注释去除，否则会报错
   {
     title: `长按${TalentName.eName}二段单枚`,
-    dmgKey: 'e',
     params: { SkillsHit: 3, SkillsDmg: 3 },
-    dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, ''/*, 'lunarBloom'*/)
+    dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, '', 'lunarBloom')
+  },
+  {
+    title: `满辉${TalentName.eName}二段单枚`,
+    dmgKey: 'e',
+    params: { SkillsHit: 3, SkillsDmg: 3, Moonsign: 3 },
+    dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, '', 'lunarBloom')
   },
   {
     title: `${TalentName.eName}圣域伤害`,
@@ -67,34 +71,48 @@ export const AllCalc = [
   {
     check: ({ cons }) => cons >= 6,
     title: `单人${TalentName.c6Name}${TalentName.eNameT}附加伤害`,
-    params: { Lunar: true },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, ''/*, 'lunarBloom'*/)
+    params: { SkillsHit: 3, SkillsDmg: 3, Lunar: true, Moonsign: 1 },
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, '', 'lunarBloom')
+  },
+  {
+    check: ({ cons }) => cons >= 6,
+    title: `满辉${TalentName.c6Name}${TalentName.eNameT}附加伤害`,
+    params: { SkillsHit: 3, SkillsDmg: 3, Lunar: true, Moonsign: 3 },
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, '', 'lunarBloom')
   },
   {
     check: ({ cons }) => cons >= 6,
     title: `单人${TalentName.c6Name}${TalentName.aNameT}附加伤害`,
-    params: { Lunar: true, Pale_Hymn: true },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, ''/*, 'lunarBloom'*/)
-  }/*,
-  {
-    title: '单人月绽放伤害',
-    params: { Lunar: true },
-    dmg: ({}, { reaction }) => reaction('lunarBloom')
+    params: { SkillsHit: 5, SkillsDmg: 5, Lunar: true, Pale_Hymn: true, Moonsign: 1 },
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, '', 'lunarBloom')
   },
   {
-    title: `${TalentName.qName}后单人月绽放伤害`,
-    params: { Lunar: true, Pale_Hymn: true, lunarBloom: true },
-    dmg: ({}, { reaction }) => reaction('lunarBloom')
+    check: ({ cons }) => cons >= 6,
+    title: `满辉${TalentName.c6Name}${TalentName.aNameT}附加伤害`,
+    params: { SkillsHit: 5, SkillsDmg: 5, Lunar: true, Pale_Hymn: true, Moonsign: 3 },
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, '', 'lunarBloom')
   },
   {
-    title: '满辉月绽放伤害',
-    params: { Lunar: true, Moonsign: 3 },
-    dmg: ({}, { reaction }) => reaction('lunarBloom')
+    title: '绽放伤害',
+    params: { Moonsign: 1 },
+    dmg: ({}, { reaction }) => {
+      let r1 = reaction('bloom')
+      return {
+        dmg: r1.avg * 2,
+        avg: r1.avg * 1.15
+      }
+    }
   },
   {
-    title: `${TalentName.qName}后满辉月绽放伤害`,
+    title: `${TalentName.qName}后绽放伤害`,
     dmgKey: 'r',
-    params: { Lunar: true, Moonsign: 3, Pale_Hymn: true, lunarBloom: true },
-    dmg: ({}, { reaction }) => reaction('lunarBloom')
-  }*/
+    params: { Pale_Hymn: true, Moonsign: 1 },
+    dmg: ({}, { reaction }) => {
+      let r1 = reaction('bloom')
+      return {
+        dmg: r1.avg * 2,
+        avg: r1.avg * 1.15
+      }
+    }
+  }
 ]

@@ -26,10 +26,86 @@ export class calc extends plugin {
           {
             reg: '^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|资源|角色计算数据|角色计算资源|资源数据)$',
             fnc: 'new'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?检查(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)更新$',
+            fnc: 'VerNew'
           }
         ]
       }
     )
+  }
+
+  async VerNew (e) {
+    let cfg = LSconfig.getConfig('user', 'config')
+    let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
+    if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+      game = "gi"
+      GameName = "原神"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+      game = "hsr"
+      GameName = "崩坏：星穹铁道"
+    } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
+      game = "zzz"
+      GameName = "绝区零"
+    } else {
+      game = "ww"
+      GameName = "鸣潮"
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    try {
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      response = await fetch(url)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      logger.mark(`[liangshi-calc] 云端数据读取成功`)
+    } catch (err) {
+      e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      logger.mark(`[liangshi-calc] 云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    let character = data.character.length > 0 ? data.character : "本次无此内容更新"
+    if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+      version = data.hotfix
+      weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
+      artifact = data.echo.length > 0 ? data.echo : "本次无此内容更新"
+      CharacterName = "共鸣者"
+      ArtifactName = "声骸"
+      WeaponName = "武器"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+      version = data.version
+      weapon = data.lightcone.length > 0 ? data.lightcone : "本次无此内容更新"
+      artifact = data.relicset.length > 0 ? data.relicset : "本次无此内容更新"
+      CharacterName = "角色"
+      ArtifactName = "遗器"
+      WeaponName = "光锥"
+    } else {
+      version = data.version
+      weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
+      artifact = data.artifact.length > 0 ? data.artifact : "本次无此内容更新"
+      ArtifactName = "圣遗物"
+      CharacterName = "角色"
+      WeaponName = "武器"
+    }
+    e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
   }
 
   async initial (e) {
@@ -236,21 +312,26 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
       e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
     } else {
-      let CharacterIdUrl
+      let CharacterIdUrl, GameName
       if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
         CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-gs/README.md"
+        GameName = "原神"
       } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
         CharacterIdUrl = undefined //(目录名称内容可能含有违规信息)"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-sr/README.md"
+        GameName = "星铁"
       } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
         CharacterIdUrl = undefined //"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-zzz/README.md"
+        GameName = "绝区零"
       } else if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
         CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-mc/README.md"
+        GameName = "鸣潮"
       } else {
         CharacterIdUrl = undefined
+        GameName = undefined
       }
       console.error(`[liangshi-calc]未知的角色ID:${CharacterId}`)
       e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(原神:8位数字,其余:4位数字)')
-      e.reply(`[liangshi-calc]角色ID可在${CharacterIdUrl}内对照(新角色ID一般为最新已实装角色ID+1)`)
+      e.reply(`[liangshi-calc]角色ID可在${CharacterIdUrl}内对照 (新版本角色ID可使用 #梁氏检查${GameName}更新 查看)`)
       return false
     }
     let data, game, GamePath
@@ -525,7 +606,7 @@ export class calc extends plugin {
       CharacterData = {
         "id": CharacterId,
         "name": data.Name,
-        "abbr": data.Name,
+        "abbr": data.Name.length >= 5 ? data.Name.slice(-2) : data.Name,
         "title": data.CharaInfo.Title,
         "star": RarityKey[data.Rarity],
         "elem": data.Element.toLowerCase(),
@@ -625,11 +706,15 @@ export class calc extends plugin {
             "name": data.Passives[1].Name,
             "desc": data.Passives[1].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
-          {
+          data.Passives?.[3] ? {
             "name": data.Passives?.[3]?.Name,
             "desc": data.Passives?.[3]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-          }
-        ],
+          } : undefined,
+          data.Passives?.[4] ? {
+            "name": data.Passives?.[4]?.Name,
+            "desc": data.Passives?.[4]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+          } : undefined,
+        ].filter(Boolean),
         "attr": {
           "keys": [
             "hpBase",
@@ -908,12 +993,14 @@ export class calc extends plugin {
       for (const desc of data.Desc) {
         if (!desc?.trim()) continue
         try {
-          const [name, paramStr = ''] = desc.split("|")
+          const [descPart, multiplier = ''] = desc.split("*")
+          const [name, paramStr = ''] = descPart.split("|")
           if (!name) continue
           if (!descMap[name]) {
             descMap[name] = {
               name,
               paramParts: [],
+              multiplier: multiplier || null
             }
           }
           const paramRegex = /{param(\d+):([^}]+)}/g
@@ -1015,6 +1102,9 @@ export class calc extends plugin {
               )
               value = formattedParts.join(` ${paramPart.separator} `)
             }
+          }
+          if (value !== false && type.multiplier) {
+            value += `*${type.multiplier}`
           }
           values.push(value)
         } catch (e) {
