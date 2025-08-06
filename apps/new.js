@@ -24,28 +24,839 @@ export class calc extends plugin {
             fnc: 'add'
           },
           {
-            reg: '^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|资源|角色计算数据|角色计算资源|资源数据)$',
-            fnc: 'new'
-          },
-          {
             reg: '^#*(梁氏|liangshi)?检查(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)更新$',
             fnc: 'VerNew'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC)(最|当前最)?(新版本|新版本数据|新版本资源|新版本内容|新版本资源数据)$',
+            fnc: 'New'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$',
+            fnc: 'CharacterNew'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)圣遗物(数据|资源|资源数据)?$',
+            fnc: 'ArtifactNew'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)武器(数据|资源|资源数据)?$',
+            fnc: 'WeaponNew'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
+            fnc: 'ItemNew'
           }
         ]
       }
     )
   }
 
+
+  async New (e) {
+    let cfg = LSconfig.getConfig('user', 'config')
+    if (!e.isMaster) {
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+      game = "gi"
+      GameName = "原神"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      game = "hsr"
+      GameName = "崩坏：星穹铁道"
+      e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
+      return false
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      game = "zzz"
+      GameName = "绝区零"
+      e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
+      return false
+    } else {
+      game = "ww"
+      GameName = "鸣潮"
+    //  e.reply('[liangshi-calc]等liangshi适配')
+      return false
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    try {
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      response = await fetch(url)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      logger.mark(`[liangshi-calc] 云端数据读取成功`)
+    } catch (err) {
+      e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      logger.mark(`[liangshi-calc] 云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    let character = data.character.length > 0 ? data.character : "本次无此内容更新"
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      version = data.hotfix
+      weapon = data.weapon
+      artifact = data.echo
+      CharacterName = "共鸣者"
+      ArtifactName = "声骸"
+      WeaponName = "武器"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      version = data.version
+      weapon = data.lightcone
+      artifact = data.relicset
+      CharacterName = "角色"
+      ArtifactName = "遗器"
+      WeaponName = "光锥"
+    } else {
+      version = data.version
+      weapon = data.weapon
+      artifact = data.artifact
+      CharacterName = "角色"
+      ArtifactName = "圣遗物"
+      WeaponName = "武器"
+    }
+    let UseTime = Math.round(((5 + data.character.length * 5 + data.weapon.length * 4 + data.artifact.length * 4 + data.item.length * 5) / 60) * 10) / 10
+    e.reply(`[liangshi-calc] 即将静默更新\n${GameName} ${version}版本新内容\n共计\n\n${data.character.length}名新${CharacterName}\n${data.weapon.length}个新${WeaponName}\n${data.artifact.length}个新${ArtifactName}\n${data.item.length}个新物品\n\n预计需要${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
+    await common.sleep(2000)
+    ItemOk = true
+    try {
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
+      ItemJson = await fetch(url)
+      if (!response.ok) {
+        ItemOk = false
+      }
+      ItemJson = await ItemJson.json()
+      fs.writeFile(`./plugins/liangshi-calc/resources/ItemJson.json`, JSON.stringify(ItemJson), 'utf8', (err) => {
+        if (err) {
+          ItemOk = false
+        } else {
+          logger.fatal(`[liangshi-calc] 物品Json已缓存至本地`)
+        }
+      })
+    } catch (error) {
+      ItemOk = false
+      logger.fatal(`[liangshi-calc] 失败\n${error}`)
+    }
+    let instruction = { msg: null, isMaster: true, reply: e.reply }
+    for (const charId of data.character) {
+      instruction.msg = `#梁氏覆盖更新${GameName}${charId}角色数据`
+      await common.sleep(2000)
+      await this.CharacterNew(instruction, true)
+    }
+    await common.sleep(5000)
+    logger.fatal(`[liangshi-calc] ${CharacterName}更新完成`)
+    for (const weaponId of weapon) {
+      instruction.msg = `#梁氏覆盖更新${GameName}${weaponId}武器数据`
+      await common.sleep(2000)
+      await this.WeaponNew(instruction, true)
+    }
+    await common.sleep(5000)
+    logger.fatal(`[liangshi-calc] ${WeaponName}更新完成`)
+    for (const artifactId of artifact) {
+      await common.sleep(2000)
+      instruction.msg = `#梁氏覆盖更新${GameName}${artifactId}圣遗物数据`
+      await this.ArtifactNew(instruction, true)
+    }
+    await common.sleep(5000)
+    logger.fatal(`[liangshi-calc] ${ArtifactName}更新完成`)
+    for (const itemId of data.item) {
+      await common.sleep(2000)
+      instruction.msg = `#梁氏覆盖更新${GameName}${itemId}物品数据`
+      await this.ItemNew(instruction, true, ItemOk)
+    }
+    await common.sleep(5000)
+    logger.fatal(`[liangshi-calc] 物品更新完成`)
+    fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => {
+      if (err) {
+        console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message)
+      } else {
+        logger.fatal(`[liangshi-calc] 物品Json缓存已删除`)
+      }
+    })
+    let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata
+    try {
+      CharacterText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
+      WeaponText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/weapon.json`)
+      ArtifactText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/artifact.json`)
+      CharacterNamedata = await CharacterText.json()
+      WeaponNamedata = await WeaponText.json()
+      ArtifactNamedata = await ArtifactText.json()
+      logger.mark(`[liangshi-calc] 云端数据读取成功`)
+    } catch (err) {
+      logger.mark(`[liangshi-calc] 云端数据读取异常`)
+    }
+    let CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS)
+    let WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS)
+    let ArtifactNameText = artifact.map(id => {
+      let item = ArtifactNamedata[id]
+      if (!item?.set) return "未知套装"
+      const firstSetKey = Object.keys(item.set)[0]
+      return item.set[firstSetKey]?.name?.CHS ?? "未知名字"
+    })
+    e.reply(`[liangshi-calc] ${GameName} ${version} 版本更新完成\n已为您更新\n\n${CharacterName}：\n${CharacterNameText}\n\n${WeaponName}：\n${WeaponNameText}\n\n${ArtifactName}：\n${ArtifactNameText}\n\n物品${data.item.length}个\n\n重启后即可使用相关内容`)
+    return false
+  }
+
+  async ItemNew (e, mode, JsonOk) {
+    if (!e.isMaster) {
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    let cfg = LSconfig.getConfig('user', 'config')
+    let response, game, GamePath, ProxyUrl, data
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+      game = "gi"
+      GamePath = "gs"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      game = "hsr"
+      GamePath = "sr"
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      game = "zzz"
+      GamePath = "zzz"
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      game = "ww"
+      GamePath = "mc"
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$/)
+    let ID = TextData[4]
+    if (!JsonOk) {
+      try {
+        let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
+        response = await fetch(url)
+        if (!response.ok) {
+          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+          if (response.status === 404) {
+            if(!mode) e.reply('[liangshi-calc]云端暂无该物品数据，可等待一段时间后再更新')
+          } else if (response.status === 429) {
+            if(!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+          } else if (response.status >= 500) {
+            if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+          } else if (cfg.ProxyUrl) {
+            if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+          } else {
+            if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+          }
+          return false
+        }
+        data = await response.json()
+        logger.mark(`[liangshi-calc] 云端数据读取成功`)
+      } catch (err) {
+        if(!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+        logger.mark(`[liangshi-calc] 云端数据读取异常，请稍后再试\n${err}`)
+        return false
+      }
+    } else {
+      try {
+        let ItemJson = fs.readFileSync('./plugins/liangshi-calc/resources/ItemJson.json', 'utf8')
+        data = JSON.parse(ItemJson)
+      } catch (err) {
+        console.error('[liangshi-calc]物品缓存data.json读取失败:', err)
+        return false
+      }
+    }
+    let ItemData, ItemId, ItemName, ItemType
+    if (!data[`${ID}`]) {
+      if(!mode) e.reply('[liangshi-calc]未知的物品')
+      return false
+    }
+    let url = `${ProxyUrl}https://api.hakush.in/${game}/UI/`
+    let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/material`
+    if (/区域特产/.test(data[`${ID}`].Type)) {
+      //地图采集素材
+      ItemType = "specialty"
+      ItemData = {
+        "id": ID,
+        "name": data[`${ID}`].Name,
+        "type": ItemType,
+        "star": 1
+      }
+      ItemName = data[`${ID}`].Name
+    } else if (data[`${ID}`].Type === "角色天赋素材") {
+      //20体秘境天赋素材
+      let text = data[`${ID}`].Name.match(/「(..)」的(..)/)
+      ItemId = +ID + (4 - data[`${ID}`].Rank)
+      let tf1Name = `「${text[1]}」的教导`
+      let tf2Name = `「${text[1]}」的指引`
+      let tf3Name = `「${text[1]}」的哲学`
+      ItemType = "talent"
+      ItemData = {
+        "id": ItemId,
+        "name": tf3Name,
+        "type": ItemType,
+        "star": 4,
+        "items": {
+          [tf1Name]: {
+            "id": ItemId - 2,
+            "name": tf1Name,
+            "type": ItemType,
+            "star": 2
+          },
+          [tf2Name]: {
+            "id": ItemId - 1,
+            "name": tf2Name,
+            "type": ItemType,
+            "star": 3
+          },
+          [tf3Name]: {
+            "id": ItemId,
+            "name": tf3Name,
+            "type": ItemType,
+            "star": 4
+          }
+        }
+      }
+      ItemName = tf3Name
+    } else if (data[`${ID}`].Type === "武器突破素材") {
+      //20体秘境武器素材
+      ItemId = +ID + (5 - data[`${ID}`].Rank)
+      let wq1Name = data[`${ItemId - 3}`].Name
+      let wq2Name = data[`${ItemId - 2}`].Name
+      let wq3Name = data[`${ItemId - 1}`].Name
+      let wq4Name = data[`${ItemId}`].Name
+      ItemType = "weapon"
+      ItemData = {
+        "id": ItemId,
+        "name": wq4Name,
+        "type": ItemType,
+        "star": 5,
+        "items": {
+          [wq1Name]: {
+            "id": ItemId - 3,
+            "name": wq1Name,
+            "type": ItemType,
+            "star": 2
+          },
+          [wq2Name]: {
+            "id": ItemId - 2,
+            "name": wq2Name,
+            "type": ItemType,
+            "star": 3
+          },
+          [wq3Name]: {
+            "id": ItemId - 1,
+            "name": wq3Name,
+            "type": ItemType,
+            "star": 4
+          },
+          [wq4Name]: {
+            "id": ItemId,
+            "name": wq4Name,
+            "type": ItemType,
+            "star": 5
+          }
+        }
+      }
+      ItemName = wq4Name
+    } else if (data[`${ID}`].Type === "角色培养素材") {
+      //40体Boss素材 或 60体周本素材
+      if (/70级以上/.test(data[`${ID}`].JumpDescs[0])) {
+        // 60体周本素材
+        ItemType = "weekly"
+        ItemData = {
+          "id": ID,
+          "name": data[`${ID}`].Name,
+          "type": ItemType,
+          "star": 5
+        }
+        ItemName = data[`${ID}`].Name
+      } else if (/30级以上/.test(data[`${ID}`].JumpDescs[0])) {
+        //40体Boss素材
+        ItemType = "boss"
+        ItemData = {
+          "id": ID,
+          "name": data[`${ID}`].Name,
+          "type": ItemType,
+          "star": 4
+        }
+        ItemName = data[`${ID}`].Name
+      }
+    } else if (data[`${ID}`].Type === "角色与武器培养素材") {
+      //普通敌人素材或精英敌人素材
+      if (data[`${ID}`].Rank === 1 || (data[`${ID}`].Rank === 2 && /40级以上/.test(data[`${ID}`].JumpDescs[0])) || (data[`${ID}`].Rank === 3 && /60级以上/.test(data[`${ID}`].JumpDescs[0]))) {
+        //普通敌人素材
+        ItemId = +ID + (3 - data[`${ID}`].Rank)
+        let wp1Name = data[`${ItemId - 2}`].Name
+        let wp2Name = data[`${ItemId - 1}`].Name
+        let wp3Name = data[`${ItemId}`].Name
+        ItemType = "normal"
+        ItemData = {
+          "id": ItemId,
+          "name": wp3Name,
+          "type": ItemType,
+          "star": 3,
+          "items": {
+            [wp1Name]: {
+              "id": ItemId - 2,
+              "name": wp1Name,
+              "type": ItemType,
+              "star": 1
+            },
+            [wp2Name]: {
+              "id": ItemId - 1,
+              "name": wp2Name,
+              "type": ItemType,
+              "star": 2
+            },
+            [wp3Name]: {
+              "id": ItemId,
+              "name": wp3Name,
+              "type": ItemType,
+              "star": 3
+            }
+          }
+        }
+        ItemName = wp3Name
+      } else if (data[`${ID}`].Rank === 4 || (data[`${ID}`].Rank === 3 && /40级以上/.test(data[`${ID}`].JumpDescs[0])) || (data[`${ID}`].Rank === 2 && !/级以上/.test(data[`${ID}`].JumpDescs[0]))) {
+        //精英敌人素材
+        ItemId = +ID + (4 - data[`${ID}`].Rank)
+        let wp2Name = data[`${ItemId - 2}`].Name
+        let wp3Name = data[`${ItemId - 1}`].Name
+        let wp4Name = data[`${ItemId}`].Name
+        ItemType = "monster"
+        ItemData = {
+          "id": ItemId,
+          "name": wp4Name,
+          "type": ItemType,
+          "star": 4,
+          "items": {
+            [wp2Name]: {
+              "id": ItemId - 2,
+              "name": wp2Name,
+              "type": ItemType,
+              "star": 2
+            },
+            [wp3Name]: {
+              "id": ItemId - 1,
+              "name": wp3Name,
+              "type": ItemType,
+              "star": 3
+            },
+            [wp4Name]: {
+              "id": ItemId,
+              "name": wp4Name,
+              "type": ItemType,
+              "star": 4
+            }
+          }
+        }
+        ItemName = wp4Name
+      }
+    } else {
+      //未知物品
+      ItemName = data[`${ID}`].Name
+      ItemType =  data[`${ID}`].MaterialType.startsWith("MATERIAL_") ? data[`${ID}`].MaterialType.replace("MATERIAL_", "").toLowerCase() : data[`${ID}`].MaterialType.toLowerCase()
+      ItemData = {
+        "id": ID,
+        "name": data[`${ID}`].Name,
+        "type": ItemType,
+        "star": data[`${ID}`].Rank
+      }
+    }
+    await this.getImg((url + data[`${ID}`].Icon + '.webp'), `${imgs}/${ItemType}/${data[`${ID}`].Name}.webp`, "图标")
+    if(!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-gs/material/data.json`
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取物品配置data.json失败:', err)
+          if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[ItemName] = ItemData
+          logger.mark(`[liangshi-calc]物品：${data[`${ID}`].Name}配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]物品data.json写入失败:\n', err)
+              if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n尝试自动写入Data时失败\n请手动添加后重启使用`)
+              return false
+            } else {
+              logger.mark('[liangshi-calc]物品data.json已更新')
+            }
+          })
+        } catch (err) {
+          console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+        }
+      })
+      if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n重启后即可使用相关内容`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)
+    }
+  }
+
+  async WeaponNew (e, mode) {
+    if (!e.isMaster) {
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    let cfg = LSconfig.getConfig('user', 'config')
+    let response, game, GamePath, ProxyUrl, data, WeaponType, bonus
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+      game = "gi"
+      GamePath = "gs"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      game = "hsr"
+      GamePath = "sr"
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      game = "zzz"
+      GamePath = "zzz"
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      game = "ww"
+      GamePath = "mc"
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)武器(数据|资源|资源数据)?$/)
+    let ID = TextData[4]
+    if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
+    try {
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
+      response = await fetch(url)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if(!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          if(!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      logger.mark(`[liangshi-calc] 云端数据读取成功`)
+    } catch (err) {
+      if(!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      logger.mark(`[liangshi-calc] 云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    if (ID < 12000) {
+      WeaponType = "sword"
+    } else if (ID < 13000) {
+      WeaponType = "claymore"
+    } else if (ID < 14000) {
+      WeaponType = "polearm"
+    } else if (ID < 15000) {
+      WeaponType = "catalyst"
+    } else {
+      WeaponType = "bow"
+    }
+    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
+    let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply(`[liangshi-calc]开始更新武器: ${data.Name}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`, { recursive: true })
+      logger.mark(`[liangshi-calc]武器:${data.Name} 本地文件夹创建成功`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器: ${data.Name} 已经存在，如需更新数据请使用覆盖更新。`)
+      return false
+    }
+    await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/icon.webp`, "icon")
+    await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
+    await this.getImg(IconUrl + "UI/" + data.Icon + "_Awaken" + ".webp", `${imgs}/awaken.webp`, "awaken")
+    if(!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
+    let key = {
+      FIGHT_PROP_HP_PERCENT: "hpPct",
+      FIGHT_PROP_ATTACK_PERCENT: "atkPct",
+      FIGHT_PROP_DEFENSE_PERCENT: "defPct",
+      FIGHT_PROP_ELEMENT_MASTERY: "mastery",
+      FIGHT_PROP_CHARGE_EFFICIENCY: "recharge",
+      FIGHT_PROP_CRITICAL: "cpct",
+      FIGHT_PROP_CRITICAL_HURT: "cdmg",
+      FIGHT_PROP_PHYSICAL_ADD_HURT: "phy"
+    }
+    if (key[Object.keys(data.StatsModifier)[1]] === "mastery") {
+      bonus = 1
+    } else {
+      bonus = 100
+    }
+    let WeaponData = {
+      "id": ID,
+      "name": data.Name,
+      "affixTitle": data.Refinement["1"].Name,
+      "star": data.Rarity,
+      "desc": data.Desc,
+      "attr": {
+        "atk": {
+          "1": data.StatsModifier.ATK.Base,
+          "20": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"],
+          "40": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["1"])[0],
+          "50": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["2"])[0],
+          "60": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["3"])[0],
+          "70": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["4"])[0],
+          "80": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["80"] + Object.values(data.Ascension["5"])[0],
+          "90": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["90"] + Object.values(data.Ascension["6"])[0],
+          "20+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"] + Object.values(data.Ascension["1"])[0],
+          "40+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["2"])[0],
+          "50+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["3"])[0],
+          "60+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["4"])[0],
+          "70+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["5"])[0],
+          "80+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["80"] + Object.values(data.Ascension["6"])[0]
+        },
+        "bonusKey": key[Object.keys(data.StatsModifier)[1]],
+        "bonusData": {
+          "1": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus,
+          "20": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["20"],
+          "40": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["40"],
+          "50": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["50"],
+          "60": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["60"],
+          "70": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["70"],
+          "80": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["80"],
+          "90": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["90"],
+          "20+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["20"],
+          "40+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["40"],
+          "50+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["50"],
+          "60+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["60"],
+          "70+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["70"],
+          "80+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["80"],
+        }
+      },
+      "materials": {
+        "weapon": data.Materials["6"].Mats[0].Name,
+        "monster": data.Materials["6"].Mats[1].Name,
+        "normal": data.Materials["6"].Mats[2].Name
+      },
+      "affixData": await this.WeaponPromote(data.Refinement),
+      "UpdateTime": `[liangshi-calc] ${new Date()}`
+    }
+    logger.mark('[liangshi-calc]数据处理完成')
+
+    let path = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}/data.json`
+    if (!fs.existsSync(path)) {
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}武器资源数据`)
+      console.error(`[liangshi-calc]武器：${data.Name} 数据已存在`)
+    }
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+        let filePath = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/data.json`
+        fs.readFile(filePath, 'utf8', (err, TextData) => {
+          if (err) {
+            console.error('[liangshi-calc]读取武器配置data.json失败:', err)
+            if (!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+            return false
+          }
+          try {
+            let jsonData = JSON.parse(TextData)
+            let newValue = {
+              "id": ID,
+              "name": data.Name,
+              "star": data.Rarity
+            }
+            jsonData[ID] = newValue
+            logger.mark(`[liangshi-calc]武器：${data.Name}配置data.json成功`)
+            let updatedData = JSON.stringify(jsonData, null, 2)
+            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+              if (err) {
+                console.error('[liangshi-calc]武器data.json写入失败:\n', err)
+                if (!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+                return false
+              } else {
+                logger.mark('[liangshi-calc]武器data.json已更新')
+              }
+            })
+          } catch (err) {
+            console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+          }
+        })
+      }
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n重启后即可使用相关内容`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)
+    }
+    return false
+  }
+
+  async ArtifactNew (e, mode) {
+    if (!e.isMaster) {
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    let cfg = LSconfig.getConfig('user', 'config')
+    let response, game, GamePath, ProxyUrl, data
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+      game = "gi"
+      GamePath = "gs"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      game = "hsr"
+      GamePath = "sr"
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      game = "zzz"
+      GamePath = "zzz"
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      game = "ww"
+      GamePath = "mc"
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)圣遗物(数据|资源|资源数据)?$/)
+    let ID = TextData[4]
+    if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的圣遗物数据`)
+    try {
+      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/artifact/${ID}.json`
+      response = await fetch(url)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if(!mode)  e.reply('[liangshi-calc]云端暂无该圣遗物数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          if(!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      logger.mark(`[liangshi-calc] 云端数据读取成功`)
+    } catch (err) {
+      if(!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      logger.mark(`[liangshi-calc] 云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
+    let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact/imgs/${data.Affix[0].Name}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/artifact/imgs/${data.Affix[0].Name}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply(`[liangshi-calc]开始更新圣遗物: ${data.Affix[0].Name}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-${GamePath}/artifact/imgs/${data.Affix[0].Name}`, { recursive: true })
+      logger.mark(`[liangshi-calc]圣遗物:${data.Affix[0].Name} 本地imgs文件夹创建成功`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]圣遗物: ${data.Affix[0].Name} 已经存在，如需更新数据请使用覆盖更新。`)
+      return false
+    }
+    await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_RING.Icon + ".webp", `${imgs}/4.webp`, "空之杯")
+    await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_NECKLACE.Icon + ".webp", `${imgs}/2.webp`, "死之羽")
+    await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_DRESS.Icon + ".webp", `${imgs}/5.webp`, "理之冠")
+    await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_BRACER.Icon + ".webp", `${imgs}/1.webp`, "生之花")
+    await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_SHOES.Icon + ".webp", `${imgs}/3.webp`, "时之沙")
+    if(!mode) e.reply(`[liangshi-calc]圣遗物图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+        let filePath = "./plugins/miao-plugin/resources/meta-gs/artifact/data.json"
+        fs.readFile(filePath, 'utf8', (err, TextData) => {
+          if (err) {
+            console.error('[liangshi-calc]读取圣遗物配置data.json失败:', err)
+            if (!mode) e.reply(`[liangshi-calc]圣遗物：${data.Affix[0].Name} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+            return false
+          }
+          try {
+            let jsonData = JSON.parse(TextData)
+            let newValue = {
+              "id": ID,
+              "name": data.Affix[0].Name,
+              "sets": {
+                "1": {
+                  "id": `${data.Parts.EQUIP_BRACER.Story}`,
+                  "name": data.Parts.EQUIP_BRACER.Name
+                },
+                "2": {
+                  "id": `${data.Parts.EQUIP_NECKLACE.Story}`,
+                  "name": data.Parts.EQUIP_NECKLACE.Name
+                },
+                "3": {
+                  "id": `${data.Parts.EQUIP_SHOES.Story}`,
+                  "name": data.Parts.EQUIP_SHOES.Name
+                },
+                "4": {
+                  "id": `${data.Parts.EQUIP_RING.Story}`,
+                  "name": data.Parts.EQUIP_RING.Name
+                },
+                "5": {
+                  "id": `${data.Parts.EQUIP_DRESS.Story}`,
+                  "name": data.Parts.EQUIP_DRESS.Name
+                }
+              },
+              "effect": {
+                "2": data.Affix[0].Desc,
+                "4": data.Affix[1].Desc
+              },
+              "UpdateTime": `[liangshi-calc] ${new Date()}`
+            }
+            jsonData[ID] = newValue
+            logger.mark(`[liangshi-calc]圣遗物：${data.Affix[0].Name}配置data.json成功`)
+            let updatedData = JSON.stringify(jsonData, null, 2)
+            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+              if (err) {
+                console.error('[liangshi-calc]圣遗物data.json写入失败:\n', err)
+                if (!mode) e.reply(`[liangshi-calc]圣遗物：${data.Affix[0].Name} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+                return false
+              } else {
+                logger.mark('[liangshi-calc]圣遗物data.json已更新')
+              }
+            })
+          } catch (err) {
+            console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+          }
+        })
+      }
+      if (!mode) e.reply(`[liangshi-calc]圣遗物：${data.Affix[0].Name} 数据更新完成\n重启后即可使用相关内容`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]圣遗物：${data.Affix[0].Name} 数据更新完成\n当前未启用自动写入ArtifactData\n手动配置后重启才可使用\n自动写入ArtifactData可在config.yaml启用或使用强制更新临时启用一次`)
+
+    }
+    return false
+  }
+
+
   async VerNew (e) {
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
-    if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GameName = "原神"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       game = "hsr"
       GameName = "崩坏：星穹铁道"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       game = "zzz"
       GameName = "绝区零"
     } else {
@@ -83,14 +894,14 @@ export class calc extends plugin {
       return false
     }
     let character = data.character.length > 0 ? data.character : "本次无此内容更新"
-    if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       version = data.hotfix
       weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
       artifact = data.echo.length > 0 ? data.echo : "本次无此内容更新"
       CharacterName = "共鸣者"
       ArtifactName = "声骸"
       WeaponName = "武器"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       version = data.version
       weapon = data.lightcone.length > 0 ? data.lightcone : "本次无此内容更新"
       artifact = data.relicset.length > 0 ? data.relicset : "本次无此内容更新"
@@ -105,8 +916,9 @@ export class calc extends plugin {
       CharacterName = "角色"
       WeaponName = "武器"
     }
-    e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
+      e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
   }
+
 
   async initial (e) {
     let cfg = LSconfig.getConfig('user', 'config')
@@ -119,16 +931,16 @@ export class calc extends plugin {
       return false
     }
     let McData, GsData, JsonPath
-    if (/空|空白/.test(this.e.msg)) {
+    if (/空|空白/.test(e.msg)) {
       const data = fs.readFileSync('plugins/liangshi-calc/config/system/calc_system.json', 'utf8')
       fs.writeFileSync('plugins/liangshi-calc/config/calc.json', data)
       e.reply(`[liangshi-calc]计算条目配置重置成功\n新配置重启后生效`)
       return true
-    } else if (/基础/.test(this.e.msg)) {
+    } else if (/基础/.test(e.msg)) {
       JsonPath = 'data/BasicCalc.json'
-    } else if (/极简/.test(this.e.msg)) {
+    } else if (/极简/.test(e.msg)) {
       JsonPath = 'data/ConciseCalc.json'
-    } else if (/组队|队伍/.test(this.e.msg)) {
+    } else if (/组队|队伍/.test(e.msg)) {
       JsonPath = 'data/TeamCalc.json'
     }
     McData = JSON.parse(fs.readFileSync(`plugins/liangshi-calc/damage/liangshi-mc/${JsonPath}`, 'utf8'))
@@ -141,13 +953,13 @@ export class calc extends plugin {
 
   async add (e) {
     let cfg = LSconfig.getConfig('user', 'config')
-    if (!/原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    if (!/原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       e.reply('[liangshi-calc]暂不支持该游戏设置。')
       return false
     }
     if (!e.isMaster) {
-     e.reply('你不可以更新哦~(*/ω＼*)')
-     return false
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
     }
     if (!cfg.calcLiangK) {
       e.reply('请先启用calcLiangK才可使用此功能哦~(*/ω＼*)')
@@ -155,16 +967,16 @@ export class calc extends plugin {
     }
     let TextData = e.msg.match(/^#*(强制)?(添加|增加|删除|移除|查看)(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(计算条目|条目|计算)(.*?)$/)
     let GamePath, alias, Charactername, action
-    if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       GamePath = "gs"
       alias = aliasGs
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       GamePath = "sr"
       alias = aliasSr
-    } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       GamePath = "zzz"
       alias = false
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       GamePath = "mc"
       alias = aliasMc
     }
@@ -178,9 +990,9 @@ export class calc extends plugin {
       }
     }
     if (!Charactername) {
-      if (/强制/.test(this.e.msg)) {
+      if (/强制/.test(e.msg)) {
         Charactername = TextData[4]
-      } else if (/主角|主|旅行者|开拓者|漂泊者/.test(this.e.msg)) {
+      } else if (/主角|主|旅行者|开拓者|漂泊者/.test(e.msg)) {
         if (GamePath === "gs") {
           let elementKey = {
             "" : "旅行者/null",
@@ -255,7 +1067,7 @@ export class calc extends plugin {
     }
     let JsonData = JSON.parse(fs.readFileSync(`plugins/liangshi-calc/config/calc.json`, 'utf8'))
     let JsonCharacterData = JsonData[`${Charactername}`] || [] //目前还没有出现纯数字角色名，以防万一
-    if (/查看/.test(this.e.msg)) {
+    if (/查看/.test(e.msg)) {
       e.reply(`[liangshi-calc]当前角色${Charactername}的配置为\n${JsonCharacterData}`)
       return true
     }
@@ -270,7 +1082,7 @@ export class calc extends plugin {
     }
     CalcNumber = Number(CalcNumber.replace(/[^\d]/g, ''))
     if (JsonCharacterData.includes(CalcNumber)) {
-      if (/删除|移除/.test(this.e.msg)) {
+      if (/删除|移除/.test(e.msg)) {
         JsonCharacterData = JsonCharacterData.filter(numeral => numeral !== CalcNumber)
         action = "移除"
       } else {
@@ -278,7 +1090,7 @@ export class calc extends plugin {
         return true
       }
     } else {
-      if (/删除|移除/.test(this.e.msg)) {
+      if (/删除|移除/.test(e.msg)) {
         e.reply(`[liangshi-calc]条目${CalcNumber}没有被添加，无需移除`)
         return true
       } else {
@@ -292,37 +1104,37 @@ export class calc extends plugin {
     e.reply(`[liangshi-calc]${Charactername}的条目${CalcNumber}${action}成功`)
   }
 
-  async new (e) {
-    if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
-      e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
-      logger.mark('[liangshi-calc]更新被中断')
-      return false
-    }
-     if (!e.isMaster) {
+  async CharacterNew (e, mode) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
+      logger.mark('[liangshi-calc]更新被中断')
+      return false
+    }
     let cfg = LSconfig.getConfig('user', 'config')
-    let TextData = e.msg.match(/^#*(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色数据|数据|资源|角色计算数据|角色计算资源|资源数据)$/)
-    let CharacterId = TextData[3]
-    if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[2])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[2]) && /强制|强行|覆盖/.test(this.e.msg))) {
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
+    let CharacterId = TextData[4]
+    if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[3])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[3]) && /强制|强行|覆盖/.test(e.msg))) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-      e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-    } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[2])) || /强制|强行|覆盖/.test(this.e.msg)) {
+      if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+    } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3])) || /强制|强行|覆盖/.test(e.msg)) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-      e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+      if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
     } else {
       let CharacterIdUrl, GameName
-      if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
         CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-gs/README.md"
         GameName = "原神"
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
         CharacterIdUrl = undefined //(目录名称内容可能含有违规信息)"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-sr/README.md"
         GameName = "星铁"
-      } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
+      } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
         CharacterIdUrl = undefined //"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-zzz/README.md"
         GameName = "绝区零"
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-mc/README.md"
         GameName = "鸣潮"
       } else {
@@ -330,25 +1142,26 @@ export class calc extends plugin {
         GameName = undefined
       }
       console.error(`[liangshi-calc]未知的角色ID:${CharacterId}`)
-      e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(原神:8位数字,其余:4位数字)')
-      e.reply(`[liangshi-calc]角色ID可在${CharacterIdUrl}内对照 (新版本角色ID可使用 #梁氏检查${GameName}更新 查看)`)
+      if(!mode) e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(原神:8位数字,其余:4位数字)')
+      if(!mode) e.reply(`[liangshi-calc]角色ID可在${CharacterIdUrl}内对照 (新版本角色ID可使用 #梁氏检查${GameName}更新 查看)`)
       return false
     }
     let data, game, GamePath
-    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg) ? "cn" : "zh"
-    if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GamePath = "gs"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(this.e.msg)) {
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       game = "hsr"
       GamePath = "sr"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(this.e.msg)) {
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       game = "zzz"
       GamePath = "zzz"
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       game = "ww"
       GamePath = "mc"
     }
+    if(!mode) e.reply(`[liangshi-calc]开始更新角色${CharacterId}数据`)
     let response, ProxyUrl
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
@@ -360,24 +1173,24 @@ export class calc extends plugin {
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-        if (response.status === 404) {
-          e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
-          e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
-        } else if (response.status === 429) {
-          e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
-        } else if (response.status >= 500) {
-          e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-        } else if (cfg.ProxyUrl) {
-          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-        } else {
-          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-        }
         return false
       }
       data = await response.json()
       logger.mark(`[liangshi-calc]角色:${data.Name} 云端数据读取成功`)
     } catch (err) {
       console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
+      if (response.status === 404) {
+        if(!mode) e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+        if(!mode) e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
+      } else if (response.status === 429) {
+        if(!mode) e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
+      } else if (response.status >= 500) {
+        if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+      } else if (cfg.ProxyUrl) {
+        if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+      } else {
+        if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+      }
       return false
     }
     let CharacterName = data.Name
@@ -393,7 +1206,7 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]角色:${data.Name} 本地imgs文件夹创建成功`)
     }
     let ConsTalent = { a: 0, e: 0, q: 0 }
-    if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       CharacterData = {
         "id": data.Id,
         "name": data.Name,
@@ -563,7 +1376,7 @@ export class calc extends plugin {
         },
         "UpdateTime": `[liangshi-calc] ${new Date()}`
       }
-    } else if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+    } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       let WeaponKey = {
         "WEAPON_SWORD_ONE_HAND": "sword",
         "WEAPON_CLAYMORE": "claymore",
@@ -817,20 +1630,20 @@ export class calc extends plugin {
     if (!fs.existsSync(path)) {
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
       logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
-      e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
-    } else if (/强制|强行|覆盖/.test(this.e.msg)) {
-      e.reply('[liangshi-calc]角色数据已存在，当前为强制模式，尝试覆盖写入。')
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]角色数据已存在，当前为强制模式，尝试覆盖写入。')
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
       logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
-      e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
     } else {
-      e.reply(`[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${GamePath}${CharacterId}资源数据`)
+      if(!mode) e.reply(`[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${GamePath}${CharacterId}资源数据`)
       console.error(`[liangshi-calc]角色：${CharacterName} 数据已存在`)
     }
-    e.reply(`[liangshi-calc]角色数据资源下载完成`)
+    if(!mode) e.reply(`[liangshi-calc]角色数据资源下载完成`)
     logger.mark(`[liangshi-calc]开始下载角色图片资源`)
     let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
-    if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       let SkinName = Object.keys(data.Skin)[0]
       await this.getImg((data.Skin[SkinName].Portrait.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/splash.webp`, "立绘")
       await this.getImg((data.Skin[SkinName].Background.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/face.webp`, "大头")
@@ -848,7 +1661,7 @@ export class calc extends plugin {
       await this.getImg((data.Chains["4"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-4.webp`, "4链")
       await this.getImg((data.Chains["5"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-5.webp`, "5链")
       await this.getImg((data.Chains["6"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-6.webp`, "6链")
-    } else if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+    } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       await this.getImg(IconUrl + "UI/UI_Gacha_AvatarImg_" + data.Icon.replace("UI_AvatarIcon_", "") + ".webp", `${imgs}/splash.webp`, "立绘")
       await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/face.webp`, "大头")
       await this.getImg(IconUrl + "UI/" + data.CharaInfo.Namecard.Icon + ".webp", `${imgs}/card.webp`, "名片")
@@ -865,23 +1678,23 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/" + data.Constellations[4].Icon + ".webp", `${icons}/cons-5.webp`, "5命")
       await this.getImg(IconUrl + "UI/" + data.Constellations[5].Icon + ".webp", `${icons}/cons-6.webp`, "6命")
     }
-    e.reply(`[liangshi-calc]角色图片资源下载完成`)
+    if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
     logger.mark(`[liangshi-calc]图片资源下载完成`)
-    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(this.e.msg)) {
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath
-      if (/鸣潮|明朝|潮|mc|MC/.test(this.e.msg)) {
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         filePath = "./plugins/miao-plugin/resources/meta-mc/character/data.json"
         if (!fs.existsSync(filePath)) {
-          console.log('[liangshi-calc]找不到文件data.json，请检查mian-waves配置')
-          e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-          e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+          logger.mark('[liangshi-calc]找不到文件data.json，请检查mian-waves配置')
+          if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+          if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
           return false
         }
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取角色配置data.json失败:\n', err)
-            e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-            e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+            if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
             return false
           }
           try {
@@ -894,28 +1707,24 @@ export class calc extends plugin {
               "elem": data.Element,
               "weapon": data.Weapon
             }
-            if (!jsonData.hasOwnProperty(CharacterId)) {
-              jsonData[CharacterId] = newValue
-              console.log(`[liangshi-calc]角色${CharacterId}配置data.json成功`)
-              const updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                  e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-                  e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-                  return false
-                } else {
-                  console.log('[liangshi-calc]角色data.json已更新')
-                }
-              })
-            } else {
-              console.log(`[liangshi-calc]角色${CharacterId}已配置过，取消写入`)
-            }
+            jsonData[CharacterId] = newValue
+            logger.mark(`[liangshi-calc]角色${CharacterId}配置data.json成功`)
+            const updatedData = JSON.stringify(jsonData, null, 2)
+            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+              if (err) {
+                console.error('[liangshi-calc]角色data.json写入失败:\n', err)
+                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+                if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+                return false
+              } else {
+                logger.mark('[liangshi-calc]角色data.json已更新')
+              }
+            })
           } catch (err) {
             console.error('[liangshi-calc]自动配置data.json失败:\n', err)
           }
         })
-      } else if (/原神|原|ys|YS|gs|GS/.test(this.e.msg)) {
+      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
         let RarityKey = {
           "QUALITY_ORANGE_SP": 5,
           "QUALITY_ORANGE": 5,
@@ -932,8 +1741,8 @@ export class calc extends plugin {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取角色配置data.json失败:', err)
-            e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-            e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+            if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
             return false
           }
           try {
@@ -952,33 +1761,29 @@ export class calc extends plugin {
               },
               "talentCons": ConsTalent
             }
-            if (!jsonData.hasOwnProperty(CharacterId)) {
-              jsonData[CharacterId] = newValue
-              console.log(`[liangshi-calc]角色${CharacterId}配置data.json成功`)
-              let updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                  e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-                  e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-                  return false
-                } else {
-                  console.log('[liangshi-calc]角色data.json已更新')
-                }
-              })
-            } else {
-              console.log(`[liangshi-calc]角色${CharacterId}已配置过，取消写入`)
-            }
+            jsonData[CharacterId] = newValue
+            logger.mark(`[liangshi-calc]角色${CharacterId}配置data.json成功`)
+            let updatedData = JSON.stringify(jsonData, null, 2)
+            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+              if (err) {
+                console.error('[liangshi-calc]角色data.json写入失败:\n', err)
+                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+                if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+                return false
+              } else {
+                logger.mark('[liangshi-calc]角色data.json已更新')
+              }
+            })
           } catch (err) {
             console.error('[liangshi-calc]自动配置data.json失败:\n', err)
           }
         })
       }
-      e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n重启后即可使用${CharacterName}相关内容`)
-      e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n重启后即可使用${CharacterName}相关内容`)
+      if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
     } else {
-      e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n当前未启用自动写入CharacterData\n手动配置后重启才可使用\n自动写入CharacterData可在config.yaml启用或使用强制更新临时启用一次`)
-      e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n当前未启用自动写入CharacterData\n手动配置后重启才可使用\n自动写入CharacterData可在config.yaml启用或使用强制更新临时启用一次`)
+      if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
     }
     return true
   }
@@ -1120,6 +1925,55 @@ export class calc extends plugin {
       })
     }
     return tables
+  }
+
+
+  async WeaponPromote(WeaponData) {
+    const result = {
+      affixData: {
+        text: "",
+        datas: {}
+      }
+    }
+    const levels = Object.values(WeaponData)
+    if (levels.length === 0) return result
+    const templateDesc = levels[0].Desc
+    const colorRegex = /<color=#99FFFFFF>(.*?)<\/color>/g
+    const placeholders = []
+    let match
+    let lastIndex = 0
+    let processedText = ""
+    colorRegex.lastIndex = 0
+    while ((match = colorRegex.exec(templateDesc)) !== null) {
+      processedText += templateDesc.slice(lastIndex, match.index)
+      const placeholderIndex = placeholders.length
+      processedText += `$[${placeholderIndex}]`
+      placeholders.push({
+        index: placeholderIndex,
+        values: []
+      })
+      lastIndex = colorRegex.lastIndex
+    }
+    processedText += templateDesc.slice(lastIndex)
+    levels.forEach(level => {
+      const desc = level.Desc
+      colorRegex.lastIndex = 0
+      let valueIndex = 0
+      let valueMatch
+      while ((valueMatch = colorRegex.exec(desc)) !== null) {
+        if (valueIndex >= placeholders.length) {
+          break
+        }
+        const content = valueMatch[1]
+        placeholders[valueIndex].values.push(content)
+        valueIndex++
+      }
+    })
+    result.affixData.text = processedText
+    placeholders.forEach(ph => {
+      result.affixData.datas[ph.index] = ph.values
+    })
+    return result
   }
 
   async formatParam(value, format) {
