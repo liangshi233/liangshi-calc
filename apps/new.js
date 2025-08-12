@@ -889,16 +889,16 @@ export class calc extends plugin {
     let path = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}/data.json`
     if (!fs.existsSync(path)) {
       fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+      logger.mark(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
     } else if (/强制|强行|覆盖/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
       fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据已写入`)
+      logger.mark(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
     } else {
       if(!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}武器数据`)
-      console.error(`[liangshi-calc]武器：${data.Name} 数据已存在`)
+      console.error(`[liangshi-calc]武器：${data.Name}\n数据已存在`)
     }
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
@@ -1080,12 +1080,12 @@ export class calc extends plugin {
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
             jsonData[ID] = newValue
-            logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
+            logger.mark(`[liangshi-calc]${zb}：${imgName}\n配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
                 console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
-                if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+                if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName}\n数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
                 return false
               } else {
                 logger.mark(`[liangshi-calc]${zb}data.json已更新`)
@@ -1171,16 +1171,16 @@ export class calc extends plugin {
         let path = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact/${imgName}/data.json`
         if (!fs.existsSync(path)) {
           fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
-          logger.mark(`[liangshi-calc]声骸：${imgName} 数据已写入`)
-          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据已写入`)
+          logger.mark(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
+          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
         } else if (/强制|强行|覆盖/.test(e.msg)) {
           if(!mode) e.reply('[liangshi-calc]声骸数据已存在，当前为强制模式，尝试覆盖写入。')
           fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
-          logger.mark(`[liangshi-calc]声骸：${imgName} 数据已写入`)
-          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据已写入`)
+          logger.mark(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
+          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
         } else {
           if(!mode) e.reply(`[liangshi-calc]声骸数据已存在，运行终止。\n如果需要刷新声骸数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}声骸数据`)
-          console.error(`[liangshi-calc]声骸：${imgName} 数据已存在`)
+          console.error(`[liangshi-calc]声骸：${imgName}\n数据已存在`)
         }
       }
       if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n重启后即可使用相关内容`)
@@ -1260,7 +1260,7 @@ export class calc extends plugin {
       CharacterName = "角色"
       WeaponName = "武器"
     }
-    e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
+      e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
   }
 
   async initial (e) {
@@ -1524,7 +1524,7 @@ export class calc extends plugin {
       console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
       if (response.status === 404) {
         if(!mode) e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
-        if(!mode) e.reply('数据更新时间(预估)\n鸣潮：暂无确定时间\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
+        if(!mode) e.reply('数据更新时间(预估)\n鸣潮：版本更新后14天18：00~次日6：00左右\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
       } else if (response.status === 429) {
         if(!mode) e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
       } else if (response.status >= 500) {
@@ -1549,7 +1549,6 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]角色:${data.Name} 本地imgs文件夹创建成功`)
     }
     let ConsTalent = { a: 0, e: 0, q: 0 }
-
     let ItemText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/zh/item.json`)
     let ItemNamedata = await ItemText.json()
     let elemKey = {
@@ -1599,32 +1598,32 @@ export class calc extends plugin {
           "a": {
             "name": data.SkillTrees["1"].Skill.Name,
             "desc": data.SkillTrees["1"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["1"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["1"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["1"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           },
           "e": {
             "name": data.SkillTrees["2"].Skill.Name,
             "desc": data.SkillTrees["2"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["2"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["2"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["2"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           },
           "q": {
             "name": data.SkillTrees["3"].Skill.Name,
             "desc": data.SkillTrees["3"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["3"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["3"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["3"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           },
           "t": {
             "name": data.SkillTrees["7"].Skill.Name,
             "desc": data.SkillTrees["7"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["7"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["7"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["7"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           },
           "i": {
             "name": data.SkillTrees["6"].Skill.Name,
             "desc": data.SkillTrees["6"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["6"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["6"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["6"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           },
           "o": {
             "name": data.SkillTrees["8"].Skill.Name,
             "desc": data.SkillTrees["8"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["8"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["8"].Skill.Level).sort((a, b) => a.id - b.id).map(i => ({ ...i, Param: i.Param[0] }))
+            "tables": Object.values(data.SkillTrees["8"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, ...rest } = i; const result = { ...rest, Param: [...i.Param[0]], isSame: [...i.Param[0]].every(p => p === i.Param[0][0]) }; if (Format && Format.includes("{0}")) result.Param = result.Param.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
           }
         },
         "talentData": {
@@ -2043,16 +2042,16 @@ export class calc extends plugin {
     let path = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/data.json`
     if (!fs.existsSync(path)) {
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      logger.mark(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
     } else if (/强制|强行|覆盖/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]角色数据已存在，当前为强制模式，尝试覆盖写入。')
       fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      logger.mark(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
     } else {
       if(!mode) e.reply(`[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${GamePath}${CharacterId}数据`)
-      console.error(`[liangshi-calc]角色：${CharacterName} 数据已存在`)
+      console.error(`[liangshi-calc]角色：${CharacterName}\n数据已存在`)
     }
     if(!mode) e.reply(`[liangshi-calc]角色数据资源下载完成`)
     logger.mark(`[liangshi-calc]开始下载角色图片资源`)
@@ -2105,7 +2104,7 @@ export class calc extends plugin {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取角色配置data.json失败:\n', err)
-            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
             if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
             return false
           }
@@ -2116,8 +2115,8 @@ export class calc extends plugin {
               "name": CharacterName,
               "abbr": CharacterName,
               "star": data.Rarity,
-              "elem": data.Element,
-              "weapon": data.Weapon
+              "elem": elemKey[`${data.Element}`],
+              "weapon": weaponKey[`${data.Weapon}`]
             }
             jsonData[CharacterId] = newValue
             logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
@@ -2125,7 +2124,7 @@ export class calc extends plugin {
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
                 console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
                 if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
                 return false
               } else {
@@ -2153,7 +2152,7 @@ export class calc extends plugin {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取角色配置data.json失败:', err)
-            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+            if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
             if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
             return false
           }
@@ -2179,7 +2178,7 @@ export class calc extends plugin {
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
                 console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+                if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
                 if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
                 return false
               } else {
@@ -2191,10 +2190,10 @@ export class calc extends plugin {
           }
         })
       }
-      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n重启后即可使用${CharacterName}相关内容`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n重启后即可使用${CharacterName}相关内容`)
       if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
     } else {
-      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName} 数据更新完成\n当前未启用自动写入CharacterData\n手动配置后重启才可使用\n自动写入CharacterData可在config.yaml启用或使用强制更新临时启用一次`)
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n当前未启用自动写入CharacterData\n手动配置后重启才可使用\n自动写入CharacterData可在config.yaml启用或使用强制更新临时启用一次`)
       if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
     }
     return true

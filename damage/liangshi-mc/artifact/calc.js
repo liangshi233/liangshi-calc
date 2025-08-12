@@ -177,5 +177,25 @@ export const buffs = {
         rDmg: ({ params }) => (params.EnergyDetermine || 100) === 0 ? 35 : 0
       }
     }
+  },
+  息界同调之律: {
+    3: {
+      title: '角色施放声骸技能[buff]次,声骸技能伤害加成提升[rDmg]%，重击伤害提升[a2Dmg]%',
+      data: {
+        buff: ({ params }) => params["声骸技能使用次数"] || 1,
+        rDmg: ({ params }) => Math.min((params["声骸技能使用次数"] || 1), 4) * 8,
+        a2Dmg: ({ params }) => Math.min((params["声骸技能使用次数"] || 1), 4) * 5
+      }
+    }
+  },
+  荣斗铸锋之冠: {
+    3: {
+      title: '角色获得护盾[buff]次,攻击提升[atkPct]%，暴击伤害提升[cdmg]%',
+      data: {
+        buff: ({ params }) => params["获得护盾次数"] || 0,
+        atkPct: ({ params }) => Math.min((params["获得护盾次数"] || 0), 5) * 6,
+        cdmg: ({ params }) => Math.min((params["获得护盾次数"] || 0), 5) * 4
+      }
+    }
   }
 }

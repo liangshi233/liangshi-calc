@@ -163,4 +163,19 @@ export const WhimperingBuff = [{
   data: {
     dmg: ({ element }) => (element === "湮灭" ? 20 : 0) * 2
   }
+}, {
+  title: '信物：[那沉沦迷梦的远望] 伤害加成提升[dmg]%',
+  data: {
+    dmg: ({ element }) => (["湮灭", "气动"].includes(element) ? 20 : 0)
+  }
+}, {
+  title: '信物：[那撕裂命运的坠星] 焚潮状态持续时间延长至无限，焚潮状态期间造成伤害提升[dmg]%',
+  data: {
+    dmg: 50
+  }
+}, {
+  title: '信物：[那奢靡优雅的归宿] 伤害加成提升[dmg]%',
+  data: {
+    dmg: ({ element }) => element === "热熔" ? 30 : 0
+  }
 }]

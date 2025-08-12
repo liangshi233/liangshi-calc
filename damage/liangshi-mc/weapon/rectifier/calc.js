@@ -148,7 +148,15 @@ export default function (step, staticStep) {
         rDmg: step(32),
         ignore: step(8)
       }
-    }]
+    }],
+    "曜光": {
+      check: ({ params }) => (params["共鸣技能使用次数"] || 1) > 0,
+      title: '[狩潮之誓] 释放共鸣技能时，攻击和普攻伤害加成提升[atkPct]%',
+      data: {
+        atkPct: step(9, 4.95),
+        aDmg: step(9, 4.95)
+      }
+    }
   }
 }
 

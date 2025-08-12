@@ -114,6 +114,22 @@ export default function (step, staticStep) {
         qDmg: ({ params, refine }) => ((params.IntroUse || 1) + (params.BurstUse || 0)) > 0 ? step(24)[refine] : 0,
         dmg: ({ params, refine }) => ((params.IntroUse || 1) + (params.BurstUse || 0)) > 0 ? ((params.ChargedDmg || 0) > 0 ? (element === "热熔" ? step(24)[refine] : 0) : 0) : 0
       }
+    }],
+    "金穹": {
+      check: ({ params }) => (params["共鸣解放使用次数"] || 0) > 0,
+      title: '[狩潮之誓] 施放共鸣解放时，攻击提升[atkPct]%，共鸣解放伤害加成提升[qDmg]%',
+      refine: {
+        atkPct: step(7.2, 3.96),
+        qDmg: step(10.8, 5.94)
+      }
+    },
+    "驭冕铸雷之权": [staticStep('atkPct', 12), {
+      title: '[炽烈权霆] 施放变奏技能或共鸣技能时，重击伤害提升[a2Dmg]%，自身获得护盾[buff]次,共鸣解放伤害无视目标[a2Ignore]%防御',
+      data: {
+        a2Dmg: ({ params, refine }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? step(20)[refine] : 0,
+        buff: ({ params }) => params["获得护盾次数"] || 0,
+        a2Ignore: ({ params, refine }) => Math.min((params["获得护盾次数"] || 0), 5) * step(7.2, 1.2)[refine]
+      }
     }]
   }
 }

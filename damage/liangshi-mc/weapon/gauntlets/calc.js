@@ -108,7 +108,15 @@ export default function (step, staticStep) {
         ignore: step(8),
         Spectro: step(50)
       }
-    }]
+    }],
+    "凌空": {
+      check: ({ params }) => (params["共鸣解放使用次数"] || 0) > 0,
+      title: '[狩潮之誓] 施放共鸣解放时，攻击提升[atkPct]%，共鸣解放伤害加成提升[qDmg]%',
+      refine: {
+        atkPct: step(7.2, 3.96),
+        qDmg: step(10.8, 5.94)
+      }
+    }
   }
 }
 

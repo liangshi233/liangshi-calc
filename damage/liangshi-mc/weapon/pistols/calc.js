@@ -93,7 +93,15 @@ export default function (step, staticStep) {
         dmg: ({ params, refine }) => params.Aero_Erosion_Determine === true ? step(24)[refine] : 0,
         kx: ({ params, refine }) => (params.Aero_Erosion || 0) > 0 ? step(10, 1.5)[refine] : 0
       }
-    }]
+    }],
+    "阳焰": {
+      title: '[狩潮之誓] 造成普攻或重击伤害[buff]次，攻击和重击伤害加成提升[atkPct]%',
+      data: {
+        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine],
+        a2Dmg: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine]
+      }
+    }
   }
 }
 
