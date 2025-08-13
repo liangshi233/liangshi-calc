@@ -17,7 +17,7 @@
 | 灯灯        | 1504 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/灯灯/side.webp)  |
 | 维里奈       | 1503 |  ×   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/维里奈/side.webp)  |
 | 卡提希娅      | 1409 |  ×   |  ×   |  ×   |   ×   |  ×  | ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/卡提希娅/side.webp) |
-| 夏空        | 1406 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏空/side.webp)  |
+| 夏空        | 1407 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/夏空/side.webp)  |
 | 鉴心        | 1405 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/鉴心/side.webp)  |
 | 忌炎        | 1404 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/忌炎/side.webp)  |
 | 秋水        | 1403 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/秋水/side.webp)  |
@@ -41,14 +41,14 @@
 | 散华        | 1102 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/散华/side.webp)  |
 
 ---
-| 主角属性 | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                       图标                                        |
-|:-----|:----:|:----:|:----:|:-----:|:---:|:-------------------------------------------------------------------------------:|
-| 衍射   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/衍射/side.png) |
-| 湮灭   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/湮灭/side.png) |
-| 气动   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/气动/side.png) |
-| 导电   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/导电/side.png) |
-| 热熔   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/热熔/side.png) |
-| 冷凝   |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/冷凝/side.png) |
+| 主角属性 | ID        | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                       图标                                        |
+|:-----|-----------|:----:|:----:|:----:|:-----:|:---:|:-------------------------------------------------------------------------------:|
+| 衍射   | 1501/1502 |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/衍射/side.png) |
+| 湮灭   | 1605/1604 |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/湮灭/side.png) |
+| 气动   | 1406/1408 |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/气动/side.png) |
+| 导电   | 0/0       |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/导电/side.png) |
+| 热熔   | 0/0       |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/热熔/side.png) |
+| 冷凝   | 0/0       |  ×   |  ×   |  ×   |   ×   |  ×  | ![图标](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/冷凝/side.png) |
 
 <details><summary>符号解释</summary>
 
