@@ -38,8 +38,8 @@ export default function (step, staticStep) {
     "穿击枪-26型": {
       title: '[穷理洞彻] 角色没有受到伤害[buff]秒，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => params.FightTime || 6,
-        atkPct: ({ params, refine }) => Math.floor((params.FightTime || 6) / 5) * step(6)[refine]
+        buff: ({ params }) => params["前台时间"] || 6,
+        atkPct: ({ params, refine }) => Math.floor((params["前台时间"] || 6) / 5) * step(6)[refine]
       }
     },
     "无眠烈火": {
@@ -57,8 +57,8 @@ export default function (step, staticStep) {
     "奔雷": {
       title: '[锐不可当] 造成普攻或重击伤害[buff]次，共鸣技能伤害加成提升[eDmg]%',
       data: {
-        buff: ({ params }) => (params.NormalDmg || 1) + (params.ChargedDmg || 0),
-        eDmg: ({ params, refine }) => Math.min(((params.NormalDmg || 1) + (params.ChargedDmg || 0)), 3) * step(7, 4)[refine]
+        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        eDmg: ({ params, refine }) => Math.min(((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 3) * step(7, 4)[refine]
       }
     },
     "悖论喷流": {
@@ -69,11 +69,11 @@ export default function (step, staticStep) {
       }
     },
     "叙别的罗曼史": {
-      check: ({ params }) => ((params.Aero_Erosion || 0) + (params.Electro_Flare || 0) + (params.Spectro_Frazzle || 0) + (params.Fusion_Burst || 0) + (params.Glacio_Chafe || 0) + (params.Havoc_Bane || 0)) > 0,
+      check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0),
-        atkPct: ({ params, refine }) => Math.min(((params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 
@@ -82,16 +82,16 @@ export default function (step, staticStep) {
     "死与舞": [staticStep('atkPct', 12), {
       title: '[缄默悼词] 施放变奏技能或共鸣解放[buff]次，自身共鸣技能伤害加成提升[eDmg]%',
       data: {
-        buff: ({ params }) => (params.IntroUse || 1) + (params.BurstUse || 0),
-        eDmg: ({ params, refine }) => Math.min(((params.IntroUse || 1) + (params.BurstUse || 0)), 1) * step(48)[refine]
+        buff: ({ params }) => (params["变奏技能使用次数"] || 1) + (params["共鸣解放使用次数"] || 0),
+        eDmg: ({ params, refine }) => Math.min(((params["变奏技能使用次数"] || 1) + (params["共鸣解放使用次数"] || 0)), 1) * step(48)[refine]
       }
     }],
     "林间的咏叹调": [staticStep('atkPct', 12), {
       check: ({ element }) => element === "气动",
       title: '[长夏咏颂] 为目标添加风蚀效应后，伤害加成提升[dmg]%，命中带有风蚀效应的敌人抗性降低[kx]%',
       data: {
-        dmg: ({ params, refine }) => params.Aero_Erosion_Determine === true ? step(24)[refine] : 0,
-        kx: ({ params, refine }) => (params.Aero_Erosion || 0) > 0 ? step(10, 1.5)[refine] : 0
+        dmg: ({ params, refine }) => params["风蚀效应能力"] === true ? step(24)[refine] : 0,
+        kx: ({ params, refine }) => (params["风蚀效应"] || 0) > 0 ? step(10, 1.5)[refine] : 0
       }
     }],
     "阳焰": {

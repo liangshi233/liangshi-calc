@@ -28,7 +28,7 @@ export class calc extends plugin {
             fnc: 'VerNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC)(最|当前最)?(新版本|新版本数据|新版本资源|新版本内容|新版本资源数据)$',
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(数据|资源|内容|资源数据)$',
             fnc: 'New'
           },
           {
@@ -55,10 +55,10 @@ export class calc extends plugin {
 
   async New (e) {
     let cfg = LSconfig.getConfig('user', 'config')
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
@@ -137,8 +137,27 @@ export class calc extends plugin {
       s = "artifact"
       u = "weapon"
     }
+    if (/完整|全部/.test(e.msg)) {
+      let Characterurl, Weaponurl, Artifacturl, Itemurl
+      try {
+        Characterurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
+        Characterurl = await Characterurl.json()
+        character = Object.keys(Characterurl).map(Number)
+        Weaponurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${u}.json`)
+        Weaponurl = await Weaponurl.json()
+        weapon = Object.keys(Weaponurl).map(Number)
+        Artifacturl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
+        Artifacturl = await Artifacturl.json()
+        artifact = Object.keys(Artifacturl).map(Number)
+        Itemurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`)
+        Itemurl = await Itemurl.json()
+        data.item = Object.keys(Itemurl).map(Number)
+      } catch (err) {
+        logger.mark(err)
+      }
+    }
     let UseTime = Math.round(((5 + character.length * 20 + weapon.length * 4 + artifact.length * 3 + data.item.length * 4) / 60) * 10) / 10
-    let y = Math.round(UseTime * 0.8 * 10) / 10
+    let y = Math.round(UseTime * 0.75 * 10) / 10
     e.reply(`[liangshi-calc] 即将静默更新\n${GameName} ${version}版本新内容\n共计\n\n${character.length}名新${CharacterName}\n${weapon.length}个新${WeaponName}\n${artifact.length}个新${ArtifactName}\n${data.item.length}个新物品\n\n预计需要${y}~${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
     await common.sleep(2000)
     ItemOk = true
@@ -228,10 +247,10 @@ export class calc extends plugin {
   }
 
   async ItemNew (e, mode, JsonOk) {
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
@@ -543,7 +562,7 @@ export class calc extends plugin {
           //敌人素材
           ItemType = "monster"
         }
-        ItemId = +ID + (5 - data[`${ID}`].Rank)
+        ItemId = +ID + (5 - data[`${ID}`].Rarity)
         let wq1Name = data[`${ItemId - 3}`].Name
         let wq2Name = data[`${ItemId - 2}`].Name
         let wq3Name = data[`${ItemId - 1}`].Name
@@ -662,10 +681,10 @@ export class calc extends plugin {
   }
 
   async WeaponNew (e, mode) {
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, WeaponType, bonus, WeaponData
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
@@ -972,10 +991,10 @@ export class calc extends plugin {
   }
 
   async ArtifactNew (e, mode) {
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, zb
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
@@ -1329,10 +1348,10 @@ export class calc extends plugin {
       e.reply('[liangshi-calc]暂不支持该游戏设置。')
       return false
     }
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     if (!cfg.calcLiangK) {
       e.reply('请先启用calcLiangK才可使用此功能哦~(*/ω＼*)')
       return false
@@ -1477,10 +1496,10 @@ export class calc extends plugin {
   }
 
   async CharacterNew (e, mode) {
-     if (!e.isMaster) {
+    if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
-       return false
-     }
+      return false
+    }
     if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')

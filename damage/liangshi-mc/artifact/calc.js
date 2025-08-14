@@ -5,15 +5,15 @@ export const buffs = {
       check: ({ element }) => element === '冷凝',
       title: '使用普攻或重击[buff]次，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params.NormalUse || 1) + (params.ChargedUse || 0)), 3),
-        dmg: ({ params }) => Math.min(((params.NormalUse || 1) + (params.ChargedUse || 0)), 3) * 10
+        buff: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3),
+        dmg: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3) * 10
       }
     }
   },
   熔山裂谷: {
     2: attr('dmg', 10, '热熔'),
     5: {
-      check: ({ element, params }) => element === '热熔' && (params.SkillsUse || 1) > 0,
+      check: ({ element, params }) => element === '热熔' && (params["共鸣技能使用次数"] || 1) > 0,
       title: '使用共鸣技能时，伤害提升[dmg]%',
       data: {
         dmg: 30
@@ -26,15 +26,15 @@ export const buffs = {
       check: ({ element }) => element === '导电',
       title: '使用重击或共鸣技能[buff]次，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params.SkillsUse || 1) + (params.ChargedUse || 0)), 2),
-        dmg: ({ params }) => Math.min(((params.SkillsUse || 1) + (params.ChargedUse || 0)), 2) * 15
+        buff: ({ params }) => Math.min(((params["共鸣技能使用次数"] || 1) + (params["重击使用次数"] || 0)), 2),
+        dmg: ({ params }) => Math.min(((params["共鸣技能使用次数"] || 1) + (params["重击使用次数"] || 0)), 2) * 15
       }
     }
   },
   啸谷长风: {
     2: attr('dmg', 10, '气动'),
     5: {
-      check: ({ element, params }) => element === '气动' && (params.IntroUse || 1) > 0,
+      check: ({ element, params }) => element === '气动' && (params["变奏技能使用次数"] || 1) > 0,
       title: '变奏登场时，伤害提升[dmg]%',
       data: {
         dmg: 30
@@ -44,7 +44,7 @@ export const buffs = {
   浮星祛暗: {
     2: attr('dmg', 10, '衍射'),
     5: {
-      check: ({ element, params }) => element === '衍射' && (params.IntroUse || 1) > 0,
+      check: ({ element, params }) => element === '衍射' && (params["变奏技能使用次数"] || 1) > 0,
       title: '变奏登场时，伤害提升[dmg]%',
       data: {
         dmg: 30
@@ -57,15 +57,15 @@ export const buffs = {
       check: ({ element }) => element === '湮灭',
       title: '使用普攻或重击[buff]次，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params.NormalUse || 1) + (params.ChargedUse || 0)), 4),
-        dmg: ({ params }) => Math.min(((params.NormalUse || 1) + (params.ChargedUse || 0)), 4) * 7.5
+        buff: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4),
+        dmg: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4) * 7.5
       }
     }
   },
   隐世回光: {
     2: attr('heal', 10),
     5: {
-      check: ({ params }) => params.HealTeamDetermine === true,
+      check: ({ params }) => params["队伍治疗能力"] === true,
       title: '为友方提供治疗时，全队攻击力提升[atkPct]%',
       data: {
         atkPct: 15
@@ -80,8 +80,8 @@ export const buffs = {
     5: {
       title: '在场[buff]秒，攻击力提升[atkPct]%。延奏伤害提升[lDmg]%',
       data: {
-        buff: ({ params }) => params.FightTime || 6,
-        atkPct: ({ params }) => Math.min(((params.FightTime || 6) / 1.5 * 5), 20),
+        buff: ({ params }) => params["前台时间"] || 6,
+        atkPct: ({ params }) => Math.min(((params["前台时间"] || 6) / 1.5 * 5), 20),
         lDmg: 60
       }
     }
@@ -96,8 +96,8 @@ export const buffs = {
     5: {
       title: '释放共鸣技能时，伤害提升[dmg]%，释放共鸣解放时，共鸣技能伤害提升[atkPct]%',
       data: {
-        dmg: ({ params, element }) => (params.SkillsUse || 1) > 0 ? (element === "冷凝" ? 22.5 :0) : 0,
-        eDmg: ({ params }) => (params.BurstUse || 0) > 0 ? 18 : 0
+        dmg: ({ params, element }) => (params["共鸣技能使用次数"] || 1) > 0 ? (element === "冷凝" ? 22.5 :0) : 0,
+        eDmg: ({ params }) => (params["共鸣解放使用次数"] || 0) > 0 ? 18 : 0
       }
     }
   },
@@ -106,9 +106,9 @@ export const buffs = {
     5: {
       title: '为角色添加光噪效应时，暴击提升[cpct]%，目标存在[buff]层光噪效应，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => params.Spectro_Frazzle || 0,
-        cpct: ({ params }) => params.Spectro_Frazzle_Determine === true ? 20 : 0,
-        dmg: ({ element }) => element === '衍射' ? ((params.Spectro_Frazzle || 0) >= 10 ? 15 : 0) : 0
+        buff: ({ params }) => params["光噪效应"] || 0,
+        cpct: ({ params }) => params["光噪效应能力"] === true ? 20 : 0,
+        dmg: ({ params, element }) => element === '衍射' ? ((params["光噪效应"] || 0) >= 10 ? 15 : 0) : 0
       }
     }
   },
@@ -121,7 +121,7 @@ export const buffs = {
       title: '协同攻击造成的伤害提升[xDmg]%，协同攻击命中且暴击时攻击力提升[atkPct]%',
       data: {
         xDmg: 80,
-        atkPct: ({ params }) => params.CoordinatedHit > 0 ? 20 : 0
+        atkPct: ({ params }) => params["协同攻击命中次数"] > 0 ? 20 : 0
       }
     }
   },
@@ -139,7 +139,7 @@ export const buffs = {
   流云逝尽之空: {
     2: attr('dmg', 10, '气动'),
     5: {
-      check: ({ params }) => params.Aero_Erosion_Determine === true,
+      check: ({ params }) => params["风蚀效应能力"] === true,
       title: '为敌人添加风蚀效应时，伤害提升[dmg]%',
       data: {
         dmg: ({ element }) => element === '气动' ? 30 : 0
@@ -149,7 +149,7 @@ export const buffs = {
   愿戴荣光之旅: {
     2: attr('dmg', 10, '气动'),
     5: {
-      check: ({ params }) => (params.Aero_Erosion || 0) > 0,
+      check: ({ params }) => (params["风蚀效应"] || 0) > 0,
       title: '攻击存在风蚀效应的敌人，暴击提升[cpct]%，伤害提升[dmg]%',
       data: {
         cpct: 10,
@@ -160,7 +160,7 @@ export const buffs = {
   奔狼燎原之焰: {
     2: attr('dmg', 10, '热熔'),
     5: {
-      check: ({ element, params }) => element === '热熔' && (params.BurstUse || 0) > 0,
+      check: ({ element, params }) => element === '热熔' && (params["共鸣解放使用次数"] || 0) > 0,
       title: '使用共鸣解放时，伤害提升[dmg]%，共鸣解放伤害提升[qDmg]%',
       data: {
         dmg: ({ element }) => element === '热熔' ? 15 : 0,
@@ -172,9 +172,9 @@ export const buffs = {
     3: {
       title: '当前共鸣能量[buff]%,暴击率提升[cpct]%，声骸技能伤害加成提升[rDmg]%',
       data: {
-        buff: ({ params }) => params.EnergyDetermine || 100,
-        cpct: ({ params }) => (params.EnergyDetermine || 100) === 0 ? 20 : 0,
-        rDmg: ({ params }) => (params.EnergyDetermine || 100) === 0 ? 35 : 0
+        buff: ({ params }) => params["共鸣能量"] || 100,
+        cpct: ({ params }) => (params["共鸣能量"] || 100) === 0 ? 20 : 0,
+        rDmg: ({ params }) => (params["共鸣能量"] || 100) === 0 ? 35 : 0
       }
     }
   },

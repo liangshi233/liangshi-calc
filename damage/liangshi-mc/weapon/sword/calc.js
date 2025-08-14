@@ -32,9 +32,9 @@ export default function (step, staticStep) {
     "心之锚": {
       title: '[喵呜！] 在场造成伤害时[buff]次，攻击提升[atkPct]%，暴击提升[cpct]%',
       data: {
-        buff: ({ params }) => Math.min(((params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 10),
-        atkPct: ({ params, refine }) => Math.min(((params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 10) * step(4)[refine],
-        cpct: ({ params, refine }) => Math.min(((params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 10) >= 10 ? step(6)[refine] : 0
+        buff: ({ params }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) * step(4)[refine],
+        cpct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) >= 10 ? step(6)[refine] : 0
       }
     },
     "行进序曲": {
@@ -46,12 +46,12 @@ export default function (step, staticStep) {
     "瞬斩刀-18型": {
       title: '[踔时之进] 当前生命值[buff]%，重击伤害加成提升[a2Dmg]%',
       data: {
-        buff: ({ params }) => params.OwnHp || 100,
-        a2Dmg: ({ params, refine }) => (params.OwnHp || 100) < 80 ? step(18)[refine] : 0
+        buff: ({ params }) => params["自身生命值"] || 100,
+        a2Dmg: ({ params, refine }) => (params["自身生命值"] || 100) < 80 ? step(18)[refine] : 0
       }
     },
     "不归孤军": {
-      check: ({ params }) => (params.IntroUse || 1) > 0,
+      check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
       title: '[一往无前] 施放变奏技能时，自身攻击提升[atkPct]%',
       refine: {
         atkPct: step(15)
@@ -60,13 +60,13 @@ export default function (step, staticStep) {
     "西升": {
       title: '[天时引动] 角色登场[buff]秒，击败[buffC]名目标，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => params.FightTime || 6,
-        buffC: ({ params }) => (params.IntroKill || 1) + (params.OutroKill || 0) + (params.CoordinatedKill || 0) + (params.NormalKill || 1) + (params.ChargedKill || 0) + (params.PlungingKill || 0) + (params.SkillsKill || 1) + (params.BurstKill || 0),
-        atkPct: ({ params, refine }) => Math.min(((((params.FightTime || 6) > 0 ? 6 : 0) - ((params.FightTime || 6) / 2)) + (((params.IntroKill || 1) + (params.OutroKill || 0) + (params.CoordinatedKill || 0) + (params.NormalKill || 1) + (params.ChargedKill || 0) + (params.PlungingKill || 0) + (params.SkillsKill || 1) + (params.BurstKill || 0)) * 6)), 6) * step(2)[refine]
+        buff: ({ params }) => params["前台时间"] || 6,
+        buffC: ({ params }) => (params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["普通攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((((params["前台时间"] || 6) > 0 ? 6 : 0) - ((params["前台时间"] || 6) / 2)) + (((params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["普通攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0)) * 6)), 6) * step(2)[refine]
       }
     },
     "飞景": {
-      check: ({ params }) => (params.SkillsUse || 1) > 0,
+      check: ({ params }) => (params["共鸣技能使用次数"] || 1) > 0,
       title: '[白刃疾风] 施放共鸣技能时，自身普攻和重击伤害加成提升[aDmg]%',
       refine: {
         aDmg: step(20, 11),
@@ -74,7 +74,7 @@ export default function (step, staticStep) {
       }
     },
     "永续坍缩": {
-      check: ({ params }) => (params.SkillsUse || 1) > 0,
+      check: ({ params }) => (params["共鸣技能使用次数"] || 1) > 0,
       title: '[彼岸眼瞳] 施放共鸣技能时，获得[_energyevery]点共鸣能量，攻击力提升[atkPct]%',
       refine: {
         _energyevery: step(6, 1),
@@ -82,11 +82,11 @@ export default function (step, staticStep) {
       }
     },
     "风流的寓言诗": {
-      check: ({ params }) => ((params.Aero_Erosion || 0) + (params.Electro_Flare || 0) + (params.Spectro_Frazzle || 0) + (params.Fusion_Burst || 0) + (params.Glacio_Chafe || 0) + (params.Havoc_Bane || 0)) > 0,
+      check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0),
-        atkPct: ({ params, refine }) => Math.min(((params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) + (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 
@@ -94,52 +94,52 @@ export default function (step, staticStep) {
     "千古洑流": [staticStep('recharge', 12.8), {
       title: '[流涡无垠] 释放[buff]次共鸣技能，攻击力提升[atkPct]%',
       data: {
-        buff: ({ params }) => params.SkillsUse || 1,
-        atkPct: ({ params, refine }) => Math.min((params.SkillsUse || 1), 2) * step(6)[refine]
+        buff: ({ params }) => params["共鸣技能使用次数"] || 1,
+        atkPct: ({ params, refine }) => Math.min((params["共鸣技能使用次数"] || 1), 2) * step(6)[refine]
       }
     }],
     "赫奕流明": [staticStep('atkPct', 12), {
       title: '[丹煌灼羽] [buff]层【灼羽】，共鸣技能伤害加成提升[eDmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params.SkillsUse || 1) * 5 + (params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) +  (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 14),
-        eDmg: ({ params, refine }) => Math.min(((params.SkillsUse || 1) * 5 + (params.IntroDmg || 1) + (params.OutroDmg || 0) + (params.CoordinatedDmg || 0) + (params.NormalDmg || 1) + (params.ChargedDmg || 0) + (params.PlungingDmg || 0) +  (params.SkillsDmg || 1) + (params.BurstDmg || 0)), 14) * step(4)[refine]
+        buff: ({ params }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14),
+        eDmg: ({ params, refine }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14) * step(4)[refine]
       }
     }],
     "裁春": [staticStep('atkPct', 12), {
       title: '[终始之外] 造成普攻伤害[buff]次，自身的协奏能量消耗[buffC]次，普攻伤害加成提升[aDmg]%',
       data: {
-        buff: ({ params }) => params.NormalDmg || 1,
-        buffC: ({ params }) => params.ConcertoUse || 0,
-        aDmg: ({ params, refine }) => Math.min((params.NormalDmg || 1), 3) * step(10)[refine] + ((params.ConcertoUse || 0) >= 0 ? step(40)[refine] : 0)
+        buff: ({ params }) => params["普通攻击造成伤害次数"] || 1,
+        buffC: ({ params }) => params["协奏能量消耗次数"] || 0,
+        aDmg: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1), 3) * step(10)[refine] + ((params["协奏能量消耗次数"] || 0) >= 0 ? step(40)[refine] : 0)
       }
     }],
     "不灭航路": [staticStep('cpct', 8), {
       title: '[欢笑海] 造成普攻伤害[buff]次，施放共鸣解放[buffC]次，普攻伤害加成提升[aDmg]%',
       data: {
-        buff: ({ params }) => params.NormalDmg || 1,
-        buffC: ({ params }) => params.BurstUse || 0,
-        aDmg: ({ params, refine }) => ((params.NormalDmg || 1) >= 0 ? step(24)[refine] : 0) + ((params.BurstUse || 0) >= 0 ? step(24)[refine] : 0)
+        buff: ({ params }) => params["普通攻击造成伤害次数"] || 1,
+        buffC: ({ params }) => params["共鸣解放使用次数"] || 0,
+        aDmg: ({ params, refine }) => ((params["普通攻击造成伤害次数"] || 1) >= 0 ? step(24)[refine] : 0) + ((params["共鸣解放使用次数"] || 0) >= 0 ? step(24)[refine] : 0)
       }
     }],
     "血誓盟约": [{
-      check: ({ params }) => params.HealDetermine === true,
+      check: ({ params }) => params["治疗能力"] === true,
       title: '[和鸣谐振] 造成治疗时，自身共鸣技能伤害提升[eDmg]%',
       refine: {
         eDmg: step(10, 4)
       }
     }, {
-      check: ({ characterName, params }) => characterName === "漂泊者·气动" && (params.SkillsUse || 1) > 0,
+      check: ({ characterName, params }) => characterName === "漂泊者·气动" && (params["共鸣技能使用次数"] || 1) > 0,
       title: '[和鸣谐振] 释放共鸣技能时，伤害提升[dmg]%',
       refine: {
         dmg: step(10, 4)
       }
     }],
     "不屈命定之冠": [staticStep('hpPct', 12), {
-      check: ({ params }) => ((params.IntroUse || 1) + (params.NormalUse || 1)) > 0,
+      check: ({ params }) => ((params["变奏技能使用次数"] || 1) + (params["普通攻击使用次数"] || 1)) > 0,
       title: '[自由骑士之舞] 释放变奏技能或普攻后，无视目标[ignore]%防御力，造成的伤害加深[dmg]%',
       data: {
         ignore: ({ refine }) => step(8)[refine],
-        dmg: ({ params, refine }) => (params.Aero_Erosion || 0) >= 1 ? step(20)[refine] : 0
+        dmg: ({ params, refine }) => (params["风蚀效应"] || 0) >= 1 ? step(20)[refine] : 0
       }
     }],
     "翼锋": {
