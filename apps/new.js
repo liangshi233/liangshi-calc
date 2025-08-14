@@ -743,8 +743,10 @@ export class calc extends plugin {
         WeaponType = "polearm"
       } else if (ID < 15000) {
         WeaponType = "catalyst"
-      } else {
+      } else if (ID < 30000) {
         WeaponType = "bow"
+      } else {
+        WeaponType = "projection"
       }
     } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       if (ID < 21020000) {
@@ -774,9 +776,20 @@ export class calc extends plugin {
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
     } else {
-      await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/icon.webp`, "icon")
-      await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
-      await this.getImg(IconUrl + "UI/" + data.Icon + "_Awaken" + ".webp", `${imgs}/awaken.webp`, "awaken")
+      if (WeaponType = "projection") {
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Rock" + ".webp", `${imgs}/rock.webp`, "岩")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Ice" + ".webp", `${imgs}/ice.webp`, "冰")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Grass" + ".webp", `${imgs}/grass.webp`, "草")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Electric" + ".webp", `${imgs}/electric.webp`, "雷")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Wind" + ".webp", `${imgs}/wind.webp`, "风")
+      } else {
+        await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/icon.webp`, "icon")
+        await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
+        await this.getImg(IconUrl + "UI/" + data.Icon + "_Awaken" + ".webp", `${imgs}/awaken.webp`, "awaken")
+      }
     }
     if(!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
     let key = {
@@ -796,59 +809,75 @@ export class calc extends plugin {
       FIGHT_PROP_PHYSICAL_ADD_HURT: "phy"
     }
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      if (key[Object.keys(data.StatsModifier)[1]] === "mastery") {
-        bonus = 1
-      } else {
-        bonus = 100
-      }
-      WeaponData = {
-        "id": ID,
-        "name": data.Name,
-        "affixTitle": data.Refinement["1"].Name,
-        "star": data.Rarity,
-        "desc": data.Desc,
-        "attr": {
-          "atk": {
-            "1": data.StatsModifier.ATK.Base,
-            "20": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"],
-            "40": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["1"])[0],
-            "50": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["2"])[0],
-            "60": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["3"])[0],
-            "70": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["4"])[0],
-            "80": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["80"] + Object.values(data.Ascension["5"])[0],
-            "90": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["90"] + Object.values(data.Ascension["6"])[0],
-            "20+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"] + Object.values(data.Ascension["1"])[0],
-            "40+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["2"])[0],
-            "50+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["3"])[0],
-            "60+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["4"])[0],
-            "70+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["5"])[0],
-            "80+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["80"] + Object.values(data.Ascension["6"])[0]
+      if (WeaponType !== "projection") {
+        if (key[Object.keys(data.StatsModifier)[1]] === "mastery") {
+          bonus = 1
+        } else {
+          bonus = 100
+        }
+        WeaponData = {
+          "id": Number(ID),
+          "name": data.Name,
+          "affixTitle": data.Refinement?.["1"]?.Name || "",
+          "star": data.Rarity,
+          "desc": data.Desc,
+          "attr": {
+            "atk": {
+              "1": data.StatsModifier.ATK.Base,
+              "20": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"],
+              "40": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["1"])[0],
+              "50": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["2"])[0],
+              "60": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["3"])[0],
+              "70": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["4"])[0],
+              "80": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["80"] + Object.values(data.Ascension?.["5"] || {})?.[0] || undefined,
+              "90": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["90"] + Object.values(data.Ascension?.["6"] || {})?.[0] || undefined,
+              "20+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"] + Object.values(data.Ascension["1"])[0],
+              "40+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["2"])[0],
+              "50+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["3"])[0],
+              "60+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["4"])[0],
+              "70+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["70"] + Object.values(data.Ascension?.["5"] || {})?.[0] || undefined,
+              "80+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["80"] + Object.values(data.Ascension?.["6"] || {})?.[0] || undefined
+            },
+            "bonusKey": key[Object.keys(data.StatsModifier || {})?.[1]] || undefined,
+            "bonusData": {
+              "1": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus || undefined,
+              "20": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["20"] || undefined,
+              "40": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["40"] || undefined,
+              "50": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["50"] || undefined,
+              "60": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["60"] || undefined,
+              "70": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["70"] || undefined,
+              "80": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["80"] || undefined,
+              "90": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["90"] || undefined,
+              "20+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["20"] || undefined,
+              "40+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["40"] || undefined,
+              "50+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["50"] || undefined,
+              "60+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["60"] || undefined,
+              "70+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["70"] || undefined,
+              "80+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["80"] || undefined,
+            }
           },
-          "bonusKey": key[Object.keys(data.StatsModifier)[1]],
-          "bonusData": {
-            "1": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus,
-            "20": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["20"],
-            "40": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["40"],
-            "50": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["50"],
-            "60": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["60"],
-            "70": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["70"],
-            "80": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["80"],
-            "90": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["90"],
-            "20+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["20"],
-            "40+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["40"],
-            "50+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["50"],
-            "60+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["60"],
-            "70+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["70"],
-            "80+": data.StatsModifier[Object.keys(data.StatsModifier)[1]].Base * bonus * data.StatsModifier[Object.keys(data.StatsModifier)[1]].Levels["80"],
-          }
-        },
-        "materials": {
-          "weapon": data.Materials["6"].Mats[0].Name,
-          "monster": data.Materials["6"].Mats[1].Name,
-          "normal": data.Materials["6"].Mats[2].Name
-        },
-        "affixData": await this.WeaponPromote(data.Refinement),
-        "UpdateTime": `[liangshi-calc] ${new Date()}`
+          "materials": {
+            "weapon": data.Materials?.["6"]?.Mats?.[0]?.Name || data.Materials?.["4"]?.Mats?.[0]?.Name,
+            "monster": data.Materials?.["6"]?.Mats?.[1]?.Name || data.Materials?.["4"]?.Mats?.[1]?.Name,
+            "normal": data.Materials?.["6"]?.Mats?.[2]?.Name || data.Materials?.["4"]?.Mats?.[2]?.Name
+          },
+          "affixData": await this.WeaponPromote(data.Refinement)
+        }
+      } else {
+        let WeaponTypeKey = {
+          WEAPON_SWORD_ONE_HAND: "sword",
+          WEAPON_CLAYMORE: "claymore",
+          WEAPON_POLE: "polearm",
+          WEAPON_CATALYST: "catalyst",
+          WEAPON_BOW: "bow"
+        }
+        WeaponData = {
+          "id": Number(ID),
+          "name": data.Name,
+          "star": data.Rarity,
+          "desc": data.Desc,
+          "WeaponType": WeaponTypeKey[data.WeaponType]
+        }
       }
     } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       let IconData, IconResponse
@@ -1072,11 +1101,11 @@ export class calc extends plugin {
       return false
     }
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_RING.Icon + ".webp", `${imgs}/4.webp`, "空之杯")
-      await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_NECKLACE.Icon + ".webp", `${imgs}/2.webp`, "死之羽")
-      await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_DRESS.Icon + ".webp", `${imgs}/5.webp`, "理之冠")
-      await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_BRACER.Icon + ".webp", `${imgs}/1.webp`, "生之花")
-      await this.getImg(IconUrl + "UI/" + data.Parts.EQUIP_SHOES.Icon + ".webp", `${imgs}/3.webp`, "时之沙")
+      await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_RING?.Icon + ".webp", `${imgs}/4.webp`, "空之杯")
+      await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_NECKLACE?.Icon + ".webp", `${imgs}/2.webp`, "死之羽")
+      await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_DRESS?.Icon + ".webp", `${imgs}/5.webp`, "理之冠")
+      await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_BRACER?.Icon + ".webp", `${imgs}/1.webp`, "生之花")
+      await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_SHOES?.Icon + ".webp", `${imgs}/3.webp`, "时之沙")
       if(!mode) e.reply(`[liangshi-calc]${zb}图片资源下载完成`)
     } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
@@ -1095,38 +1124,48 @@ export class calc extends plugin {
             return false
           }
           try {
+            let l = data.Need?.[0] || null
+            let m = data.Need?.[1] || null
+            let k = m ? {
+              [l]: data.Affix[0].Desc,
+              [m]: data.Affix[1].Desc
+            } : {
+              [l]: data.Affix?.[0]?.Desc
+            }
             let jsonData = JSON.parse(TextData)
             let newValue = {
               "id": ID,
               "name": data.Affix[0].Name,
               "sets": {
                 "1": {
-                  "id": `${data.Parts.EQUIP_BRACER.Story}`,
-                  "name": data.Parts.EQUIP_BRACER.Name
+                  "id": data.Parts?.EQUIP_BRACER?.Story ? `${data.Parts?.EQUIP_BRACER?.Story}` : undefined,
+                  "name": data.Parts?.EQUIP_BRACER?.Name
                 },
                 "2": {
-                  "id": `${data.Parts.EQUIP_NECKLACE.Story}`,
-                  "name": data.Parts.EQUIP_NECKLACE.Name
+                  "id": data.Parts?.EQUIP_NECKLACE?.Story ? `${data.Parts?.EQUIP_NECKLACE?.Story}` : undefined,
+                  "name": data.Parts?.EQUIP_NECKLACE?.Name
                 },
                 "3": {
-                  "id": `${data.Parts.EQUIP_SHOES.Story}`,
-                  "name": data.Parts.EQUIP_SHOES.Name
+                  "id": data.Parts?.EQUIP_SHOES?.Story ? `${data.Parts?.EQUIP_SHOES?.Story}` : undefined,
+                  "name": data.Parts?.EQUIP_SHOES?.Name
                 },
                 "4": {
-                  "id": `${data.Parts.EQUIP_RING.Story}`,
-                  "name": data.Parts.EQUIP_RING.Name
+                  "id": data.Parts?.EQUIP_RING?.Story ? `${data.Parts?.EQUIP_RING?.Story}` : undefined,
+                  "name": data.Parts?.EQUIP_RING?.Name
                 },
                 "5": {
-                  "id": `${data.Parts.EQUIP_DRESS.Story}`,
-                  "name": data.Parts.EQUIP_DRESS.Name
+                  "id": data.Parts?.EQUIP_DRESS?.Story ? `${data.Parts?.EQUIP_DRESS?.Story}` : undefined,
+                  "name": data.Parts?.EQUIP_DRESS?.Name
                 }
               },
-              "effect": {
-                "2": data.Affix[0].Desc,
-                "4": data.Affix[1].Desc
-              },
+              "effect": k,
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
+            newValue.sets = Object.fromEntries(
+                Object.entries(newValue.sets).filter(([key, value]) => {
+                  return value.id !== undefined || value.name !== undefined
+                })
+            )
             jsonData[ID] = newValue
             logger.mark(`[liangshi-calc]${zb}：${imgName}\n配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
@@ -1511,7 +1550,7 @@ export class calc extends plugin {
     if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[3])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[3]) && /强制|强行|覆盖/.test(e.msg))) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
       if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-    } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3])) || /强制|强行|覆盖/.test(e.msg)) {
+    } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3])) || (/^\d{8}-\d$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3]))  || /强制|强行|覆盖/.test(e.msg)) {
       logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
       if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
     } else {
@@ -1552,7 +1591,6 @@ export class calc extends plugin {
       game = "ww"
       GamePath = "mc"
     }
-    if(!mode) e.reply(`[liangshi-calc]开始更新角色${CharacterId}数据`)
     let response, ProxyUrl
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
@@ -1567,7 +1605,7 @@ export class calc extends plugin {
         return false
       }
       data = await response.json()
-      logger.mark(`[liangshi-calc]角色:${data.Name}云端数据读取成功`)
+      logger.mark(`[liangshi-calc]角色:${data.Name} 云端数据读取成功`)
     } catch (err) {
       console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
       if (response.status === 404) {
@@ -1912,7 +1950,7 @@ export class calc extends plugin {
           "gem": data.Materials.Ascensions[5].Mats[0].Name,
           "boss": data.Materials.Ascensions[5].Mats[1].Name,
           "specialty": data.Materials.Ascensions[5].Mats[2].Name,
-          "normal": data.Materials.Ascensions[5].Mats[3].Name,
+          "normal": data.Materials.Ascensions[5].Mats[3]?.Name,
           "talent": data.Materials.Talents[0][8].Mats[0].Name,
           "weekly": data.Materials.Talents[0][8].Mats[2].Name
         },
@@ -1969,16 +2007,16 @@ export class calc extends plugin {
         },
         "passive": [
           {
-            "name": data.Passives[2].Name,
-            "desc": data.Passives[2].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Passives[2]?.Name,
+            "desc": data.Passives[2]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           {
-            "name": data.Passives[0].Name,
-            "desc": data.Passives[0].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Passives[0]?.Name,
+            "desc": data.Passives[0]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           {
-            "name": data.Passives[1].Name,
-            "desc": data.Passives[1].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Passives[1]?.Name,
+            "desc": data.Passives[1]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           data.Passives?.[3] ? {
             "name": data.Passives?.[3]?.Name,
@@ -2126,9 +2164,9 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/UI_Gacha_AvatarImg_" + data.Icon.replace("UI_AvatarIcon_", "") + ".webp", `${imgs}/splash.webp`, "立绘")
       await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/face.webp`, "大头")
       await this.getImg(IconUrl + "UI/" + data.CharaInfo.Namecard.Icon + ".webp", `${imgs}/card.webp`, "名片")
-      await this.getImg(IconUrl + "UI/" + data.Passives[2].Icon + ".webp", `${icons}/passive-0.webp`, "固有天赋1")
-      await this.getImg(IconUrl + "UI/" + data.Passives[0].Icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
-      await this.getImg(IconUrl + "UI/" + data.Passives[1].Icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
+      await this.getImg(IconUrl + "UI/" + data.Passives?.[2]?.Icon + ".webp", `${icons}/passive-0.webp`, "固有天赋1")
+      await this.getImg(IconUrl + "UI/" + data.Passives?.[0]?.Icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
+      await this.getImg(IconUrl + "UI/" + data.Passives?.[1]?.Icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
       await this.getImg(IconUrl + "UI/" + data.Passives?.[3]?.Icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
       await this.getImg(IconUrl + "UI/" + data.Skills[1].Promote[0].Icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
       await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
@@ -2388,10 +2426,8 @@ export class calc extends plugin {
 
   async WeaponPromote(WeaponData) {
     const result = {
-      affixData: {
-        text: "",
-        datas: {}
-      }
+      text: "",
+      datas: {}
     }
     const levels = Object.values(WeaponData)
     if (levels.length === 0) return result
@@ -2427,9 +2463,9 @@ export class calc extends plugin {
         valueIndex++
       }
     })
-    result.affixData.text = processedText
+    result.text = processedText
     placeholders.forEach(ph => {
-      result.affixData.datas[ph.index] = ph.values
+      result.datas[ph.index] = ph.values
     })
     return result
   }
