@@ -776,7 +776,7 @@ export class calc extends plugin {
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
     } else {
-      if (WeaponType = "projection") {
+      if (WeaponType === "projection") {
         await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
@@ -1167,7 +1167,7 @@ export class calc extends plugin {
                 })
             )
             jsonData[ID] = newValue
-            logger.mark(`[liangshi-calc]${zb}：${imgName}\n配置data.json成功`)
+            logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
@@ -1906,14 +1906,14 @@ export class calc extends plugin {
         "FIGHT_PROP_ELEC_ADD_HURT": "dmg",
         "FIGHT_PROP_PHYSICAL_ADD_HURT": "phy"
       }
-      if (data.Constellations[2].Desc.includes("元素爆发") || data.Constellations[4].Desc.includes("元素爆发")) {
-        ConsTalent.q = data.Constellations[2].Desc.includes("元素爆发") ? 3 : 5
+      if (data.Constellations[2].Desc.includes(data.Skills[2].Name) || data.Constellations[4].Desc.includes(data.Skills[2].Name)) {
+        ConsTalent.q = data.Constellations[2].Desc.includes(data.Skills[2].Name) ? 3 : 5
       }
-      if (data.Constellations[2].Desc.includes("元素战技") || data.Constellations[4].Desc.includes("元素战技")) {
-        ConsTalent.e = data.Constellations[2].Desc.includes("元素战技") ? 3 : 5
+      if (data.Constellations[2].Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
+        ConsTalent.e = data.Constellations[2].Desc.includes(data.Skills[1].Name) ? 3 : 5
       }
-      if (data.Constellations[2].Desc.includes("普通攻击") || data.Constellations[4].Desc.includes("普通攻击")) {
-        ConsTalent.a = data.Constellations[2].Desc.includes("普通攻击") ? 3 : 5
+      if (data.Constellations[2].Desc.includes(data.Skills[0].Name) || data.Constellations[4].Desc.includes(data.Skills[0].Name)) {
+        ConsTalent.a = data.Constellations[2].Desc.includes(data.Skills[0].Name) ? 3 : 5
       }
       CharacterData = {
         "id": CharacterId,
