@@ -329,39 +329,50 @@ export class calc extends plugin {
         ItemName = data[`${ID}`].Name
       } else if (data[`${ID}`].Type === "角色天赋素材") {
         //20体秘境天赋素材
-        let text = data[`${ID}`].Name.match(/「(..)」的(..)/)
-        ItemId = +ID + (4 - data[`${ID}`].Rank)
-        let tf1Name = `「${text[1]}」的教导`
-        let tf2Name = `「${text[1]}」的指引`
-        let tf3Name = `「${text[1]}」的哲学`
-        ItemType = "talent"
-        ItemData = {
-          "id": ItemId,
-          "name": tf3Name,
-          "type": ItemType,
-          "star": 4,
-          "items": {
-            [tf1Name]: {
-              "id": ItemId - 2,
-              "name": tf1Name,
-              "type": ItemType,
-              "star": 2
-            },
-            [tf2Name]: {
-              "id": ItemId - 1,
-              "name": tf2Name,
-              "type": ItemType,
-              "star": 3
-            },
-            [tf3Name]: {
-              "id": ItemId,
-              "name": tf3Name,
-              "type": ItemType,
-              "star": 4
+        if (data[`${ID}`].Name === "智识之冕") {
+          ItemName = "智识之冕"
+          ItemType = "talent"
+          ItemData = {
+            "id": ID,
+            "name": "智识之冕",
+            "type": ItemType,
+            "star": 5
+          }
+        } else {
+          let text = data[`${ID}`].Name.match(/「(..)」的(..)/)
+          ItemId = +ID + (4 - data[`${ID}`].Rank)
+          let tf1Name = `「${text[1]}」的教导`
+          let tf2Name = `「${text[1]}」的指引`
+          let tf3Name = `「${text[1]}」的哲学`
+          ItemType = "talent"
+          ItemData = {
+            "id": ItemId,
+            "name": tf3Name,
+            "type": ItemType,
+            "star": 4,
+            "items": {
+              [tf1Name]: {
+                "id": ItemId - 2,
+                "name": tf1Name,
+                "type": ItemType,
+                "star": 2
+              },
+              [tf2Name]: {
+                "id": ItemId - 1,
+                "name": tf2Name,
+                "type": ItemType,
+                "star": 3
+              },
+              [tf3Name]: {
+                "id": ItemId,
+                "name": tf3Name,
+                "type": ItemType,
+                "star": 4
+              }
             }
           }
+          ItemName = tf3Name
         }
-        ItemName = tf3Name
       } else if (data[`${ID}`].Type === "武器突破素材") {
         //20体秘境武器素材
         ItemId = +ID + (5 - data[`${ID}`].Rank)
