@@ -32,8 +32,8 @@ export const CalcBuff = [
     title: '维里奈5链：[盛放的拥抱] 角色生命值[buff]%，治疗效果加成提升[heal]%',
     cons: 5,
     data: {
-      buff: ({ params }) => params.OwnHp || 100,
-      heal: ({ params }) => (params.OwnHp || 100) < 50 ? 20 : 0
+      buff: ({ params }) => params["自身生命值"] || 100,
+      heal: ({ params }) => (params["自身生命值"] || 100) < 50 ? 20 : 0
     }
   },
   {

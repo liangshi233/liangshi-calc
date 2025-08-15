@@ -24,7 +24,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '白芷3链：[真理的崇奉] 施放变奏技能时，生命上限提升[hpPct]%',
     cons: 3,
     data: {
@@ -32,7 +32,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.BurstUse > 0,
+    check: ({ params }) => params["共鸣解放使用次数"] > 0,
     title: '白芷4链：[被追溯的本源] 施放共鸣解放时，治疗倍率提升[_healPct]%,额外造成[qPlus]基础伤害值',
     cons: 4,
     data: {

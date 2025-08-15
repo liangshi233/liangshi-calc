@@ -67,8 +67,8 @@ export default function (step, staticStep) {
     "纹秋": {
       title: '[锋芒所向] 造成普攻或重击伤害[buff]次，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 5) * step(4, 2.2)[refine]
+        buff: ({ params }) => (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 5) * step(4, 2.2)[refine]
       }
     },
     "凋亡频移": {
@@ -82,8 +82,8 @@ export default function (step, staticStep) {
       check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 

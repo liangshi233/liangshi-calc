@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => (params.ChargedUse || 0) > 0,
+    check: ({ params }) => (params["重击使用次数"] || 0) > 0,
     title: '鉴心固有1：[形释无极] 共鸣解放伤害提升[qDmg]%',
     tree: 1,
     data: {
@@ -8,7 +8,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.ChargedUse || 0) > 0,
+    check: ({ params }) => (params["重击使用次数"] || 0) > 0,
     title: '鉴心固有2：[覆映吾身] 重击获得的护盾量提升[shield]%',
     tree: 2,
     data: {

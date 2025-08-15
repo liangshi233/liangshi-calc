@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '散华固有1：[凝冰] 施放变奏技能时，共鸣技能伤害提升[eDmg]%',
     tree: 1,
     data: {
@@ -8,7 +8,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.NormalUse || 1) >= 5,
+    check: ({ params }) => (params["常态攻击使用次数"] || 1) >= 5,
     title: '散华固有2：[自然的献礼] 施放第5.0段普攻后，共鸣回路冰绽造成的伤害提升[tDmg]%',
     tree: 2,
     data: {
@@ -16,7 +16,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.NormalUse || 1) >= 5,
+    check: ({ params }) => (params["常态攻击使用次数"] || 1) >= 5,
     title: '散华1链：[孤身孑然] 施放第5.0段普攻时，暴击提升[cpct]%',
     cons: 1,
     data: {
@@ -32,7 +32,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.BurstUse > 0,
+    check: ({ params }) => params["共鸣解放使用次数"] > 0,
     title: '散华4链：[剑修五蕴] 施放共鸣解放时，回复[_energyevery]点共鸣能量。并且重击爆裂伤害提升[a2Dmg]%',
     cons: 4,
     data: {

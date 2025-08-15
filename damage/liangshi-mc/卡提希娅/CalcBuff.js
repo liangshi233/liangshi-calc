@@ -11,16 +11,16 @@ export const CalcBuff = [
     check: ({ params }) => params.PlayName === "Fleurdelys",
     title: '卡提希娅技能：[听骑士从心祈愿] 目标拥有[buff]层风蚀效应,对目标造成的伤害加深[qDmg]%',
     data: {
-      buff: ({ params }) => params.Aero_Erosion || 0,
-      qDmg: ({ params }) => Math.min((params.Aero_Erosion || 0), 5) * 20
+      buff: ({ params }) => params["风蚀效应"] || 0,
+      qDmg: ({ params }) => Math.min((params["风蚀效应"] || 0), 5) * 20
     }
   },
   {
     title: '卡提希娅固有2：[以风刻痕留蚀] 目标拥有[buff]层风蚀效应,对其造成的伤害提升[dmg]%',
     tree: 2,
     data: {
-      buff: ({ params }) => params.Aero_Erosion || 0,
-      dmg: ({ params }) => Math.min(((params.Aero_Erosion || 0) > 0 ? Math.max(((params.Aero_Erosion || 0) * 10), 30) : 0), 60)
+      buff: ({ params }) => params["风蚀效应"] || 0,
+      dmg: ({ params }) => Math.min(((params["风蚀效应"] || 0) > 0 ? Math.max(((params["风蚀效应"] || 0) * 10), 30) : 0), 60)
     }
   },
   {

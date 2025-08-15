@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => ((params.BurstUse || 0) > 0) || params.Flaming_Sacrifice,
+    check: ({ params }) => ((params["共鸣解放使用次数"] || 0) > 0) || params.Flaming_Sacrifice,
     title: '长离技能：[离火照丹心] 施放共鸣解放后施放重击时攻击力提升[atkPct]%',
     data: {
       atkPct: 25
@@ -15,7 +15,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => ((params.BurstUse || 0) > 0) || params.Flaming_Sacrifice,
+    check: ({ params }) => ((params["共鸣解放使用次数"] || 0) > 0) || params.Flaming_Sacrifice,
     title: '长离固有2：[散势] 施施放重击或共鸣解放时伤害加成提升[eDmg]%，攻击造成伤害时忽视目标[qIgnore]%防御',
     tree: 2,
     data: {
@@ -49,7 +49,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '长离4链：[饰我所言] 施放变奏技能后，队伍中的角色攻击提升[atkPct]%',
     cons: 4,
     data: {

@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => (params.ChargedUse || 0) > 0,
+    check: ({ params }) => (params["重击使用次数"] || 0) > 0,
     title: '卡卡罗固有1：[喋血觉悟] 施放重击「仁慈」时，共鸣解放伤害加成提升[qDmg]%',
     tree: 1,
     data: {
@@ -8,7 +8,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.ChargedUse || 0) > 0,
+    check: ({ params }) => (params["重击使用次数"] || 0) > 0,
     title: '卡卡罗固有2：[无暇赴死] 重击「死告」命中目标时，受到伤害降低[_reduction]%',
     tree: 2,
     data: {
@@ -16,7 +16,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.SkillsHit || 1) > 0,
+    check: ({ params }) => (params["共鸣技能命中次数"] || 1) > 0,
     title: '卡卡罗1链：[隐秘谈判] 共鸣技能灭杀指令命中目标时，额外回复[_energyevery]点共鸣能量',
     cons: 1,
     data: {
@@ -24,7 +24,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '卡卡罗2链：[零和博弈] 施放变奏技能后，共鸣技能伤害加成提升[eDmg]%',
     cons: 2,
     data: {

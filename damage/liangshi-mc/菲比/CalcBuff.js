@@ -1,13 +1,13 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => params.Spectro_Frazzle > 0 && params.Prayer === "Absolution",
+    check: ({ params }) => params["光噪效应"] > 0 && params.Prayer === "Absolution",
     title: '菲比技能：[交错星辉的祝祷] 施放时所消耗的【福音】减少15.0点，命中的目标拥有【光噪效应】时，伤害加深[a2Plus]%',
     data: {
       a2Plus: ({ attr, calc }) => calc(attr.atk) * 256 / 100
     }
   },
   {
-    check: ({ params }) => params.Spectro_Frazzle > 0 && params.Prayer === "Absolution",
+    check: ({ params }) => params["光噪效应"] > 0 && params.Prayer === "Absolution",
     title: '菲比天赋：[交错星辉的祝祷] 施放时所消耗的【福音】减少15.0点，命中的目标拥有【光噪效应】时，伤害加深[a2Plus]%',
     data: {
       a2Plus: ({ attr, calc }) => calc(attr.atk) * 256 / 100
@@ -31,7 +31,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Spectro_Frazzle > 0,
+    check: ({ params }) => params["光噪效应"] > 0,
     title: '菲比2链：[泪水中飘摇的孤船] 延奏技能对拥有【光噪效应】的目标伤害加深[oDmg]%,默祷的【光噪效应】伤害加深效果额外提升[Spectro]%',
     cons: 2,
     data: {

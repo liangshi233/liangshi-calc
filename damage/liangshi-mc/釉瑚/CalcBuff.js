@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '釉瑚固有2：[珠玑] 施放变奏技能时，伤害加成提升[dmg]%',
     tree: 2,
     data: {
@@ -32,7 +32,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.IntroUse || 1) > 0,
+    check: ({ params }) => (params["变奏技能使用次数"] || 1) > 0,
     title: '釉瑚5链：[万里浅眠] 施放变奏技能时，暴击提升[cpct]%',
     cons: 5,
     data: {
@@ -43,8 +43,8 @@ export const CalcBuff = [
     title: '釉瑚6链：[千秋一枕] 施放[buff]次共鸣技能，暴击伤害提升[cdmg]%',
     cons: 6,
     data: {
-      buff: ({ params }) => params.SkillsUse || 1,
-      cdmg: ({ params }) => Math.min((params.SkillsUse || 1), 4) * 15
+      buff: ({ params }) => params["共鸣技能使用次数"] || 1,
+      cdmg: ({ params }) => Math.min((params["共鸣技能使用次数"] || 1), 4) * 15
     }
   }
 ]

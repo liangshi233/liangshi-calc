@@ -57,8 +57,8 @@ export default function (step, staticStep) {
     "奔雷": {
       title: '[锐不可当] 造成普攻或重击伤害[buff]次，共鸣技能伤害加成提升[eDmg]%',
       data: {
-        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
-        eDmg: ({ params, refine }) => Math.min(((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 3) * step(7, 4)[refine]
+        buff: ({ params }) => (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        eDmg: ({ params, refine }) => Math.min(((params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 3) * step(7, 4)[refine]
       }
     },
     "悖论喷流": {
@@ -72,8 +72,8 @@ export default function (step, staticStep) {
       check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 
@@ -97,9 +97,9 @@ export default function (step, staticStep) {
     "阳焰": {
       title: '[狩潮之誓] 造成普攻或重击伤害[buff]次，攻击和重击伤害加成提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine],
-        a2Dmg: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine]
+        buff: ({ params }) => (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min((params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine],
+        a2Dmg: ({ params, refine }) => Math.min((params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0), 4) * step(2.25, 1.23)[refine]
       }
     }
   }

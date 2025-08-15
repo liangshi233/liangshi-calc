@@ -36,8 +36,8 @@ export const CalcBuff = [
     title: '珂莱塔4链：[以旧雨，为颂赞的苦酒] 施放重击、重击限制性策略、重击末路见行[buff]次，队伍中的角色共鸣技能伤害加成提升[eDmg]%',
     cons: 4,
     data: {
-      buff: ({ params }) => params.ChargedUse || 0,
-      eDmg: ({ params }) => (params.ChargedUse || 0) > 0 ? 25 : 0
+      buff: ({ params }) => params["重击使用次数"] || 0,
+      eDmg: ({ params }) => (params["重击使用次数"] || 0) > 0 ? 25 : 0
     }
   },
   {

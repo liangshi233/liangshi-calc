@@ -8,12 +8,12 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.BurstHit || 0) > 0,
+    check: ({ params }) => (params["共鸣解放命中次数"] || 0) > 0,
     title: '莫特斐固有2：[节奏自由] 共鸣解放加强音命中命中[buff]次，共鸣解放加强音伤害提升[qDmg]%',
     tree: 2,
     data: {
-      buff: ({ params }) => Math.max(((params.BurstHit || 0) - 1), 0),
-      qDmg: ({ params }) => Math.min(Math.max(((params.BurstHit || 0) - 1), 0), 50) * 1.5
+      buff: ({ params }) => Math.max(((params["共鸣解放命中次数"] || 0) - 1), 0),
+      qDmg: ({ params }) => Math.min(Math.max(((params["共鸣解放命中次数"] || 0) - 1), 0), 50) * 1.5
     }
   },
   {
@@ -24,7 +24,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.BurstDmg || 0) > 1,
+    check: ({ params }) => (params["共鸣解放造成伤害次数"] || 0) > 1,
     title: '莫特斐3链：[预热的宣叙调] 共鸣解放持续期间，共鸣解放加强音的暴击伤害提升[qCdmg]%',
     cons: 3,
     data: {
@@ -47,7 +47,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.BurstUse || 0) > 0,
+    check: ({ params }) => (params["共鸣解放使用次数"] || 0) > 0,
     title: '莫特斐6链：[盛怒的无言歌] 施放共鸣解放时，队伍中的角色攻击提升[atkPct]%',
     cons: 6,
     data: {

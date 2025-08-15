@@ -5,8 +5,8 @@ export const buffs = {
       check: ({ element }) => element === '冷凝',
       title: '使用普攻或重击[buff]次，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3),
-        dmg: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3) * 10
+        buff: ({ params }) => Math.min(((params["常态攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3),
+        dmg: ({ params }) => Math.min(((params["常态攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 3) * 10
       }
     }
   },
@@ -57,8 +57,8 @@ export const buffs = {
       check: ({ element }) => element === '湮灭',
       title: '使用普攻或重击[buff]次，伤害提升[dmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4),
-        dmg: ({ params }) => Math.min(((params["普通攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4) * 7.5
+        buff: ({ params }) => Math.min(((params["常态攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4),
+        dmg: ({ params }) => Math.min(((params["常态攻击使用次数"] || 1) + (params["重击使用次数"] || 0)), 4) * 7.5
       }
     }
   },

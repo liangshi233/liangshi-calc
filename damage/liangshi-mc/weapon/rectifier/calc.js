@@ -67,8 +67,8 @@ export default function (step, staticStep) {
     "异度": {
       title: '[重光护持] 造成普攻或重击伤害[buff]次，治疗效果加成提升[heal]%',
       data: {
-        buff: ({ params }) => (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
-        heal: ({ params, refine }) => Math.min(((params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 3) * step(3)[refine]
+        buff: ({ params }) => (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0),
+        heal: ({ params, refine }) => Math.min(((params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0)), 3) * step(3)[refine]
       }
     },
     "清音": {
@@ -89,8 +89,8 @@ export default function (step, staticStep) {
       check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 
@@ -98,8 +98,8 @@ export default function (step, staticStep) {
     "漪澜浮录": [staticStep('recharge', 12.8), {
       title: '[浮波万顷] 造成[buff]次普攻伤害，普攻伤害加成提升[aDmg]%',
       data: {
-        buff: ({ params }) => params["普通攻击造成伤害次数"] || 1,
-        aDmg: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1), 5) * step(3.2)[refine]
+        buff: ({ params }) => params["常态攻击造成伤害次数"] || 1,
+        aDmg: ({ params, refine }) => Math.min((params["常态攻击造成伤害次数"] || 1), 5) * step(3.2)[refine]
       }
     }],
     "掣傀之手": [staticStep('dmg', 12), {
@@ -136,9 +136,9 @@ export default function (step, staticStep) {
       check: ({ params }) => !params["后台时间"],
       title: '[在海中] 施放变奏技能或普攻后施放[buff]次声骸技能，普攻伤害加成提升[aDmg]%，无视目标[kx]%抗性',
       data: {
-        buff: ({ characterName, params }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? (['坎特蕾拉'].includes(characterName) ? 2 : 1) : 0,
+        buff: ({ params }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? (params["声骸技能使用次数"] || 1) : 0,
         aDmg: ({ params, refine }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? step(40)[refine] : 0,
-        kx: ({ characterName, element, params, refine }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? (['坎特蕾拉'].includes(characterName) ? (element === '湮灭' ? step(12)[refine] : 0) : 0) : 0
+        kx: ({ element, params, refine }) => ((params["共鸣技能使用次数"] || 1) + (params["变奏技能使用次数"] || 1)) > 0 ? ((params["声骸技能使用次数"] || 1) > 1 ? (element === '湮灭' ? step(12)[refine] : 0) : 0) : 0
       }
     }],
     "幽冥的忘忧章": [staticStep('atkPct', 12), {

@@ -32,9 +32,9 @@ export default function (step, staticStep) {
     "心之锚": {
       title: '[喵呜！] 在场造成伤害时[buff]次，攻击提升[atkPct]%，暴击提升[cpct]%',
       data: {
-        buff: ({ params }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10),
-        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) * step(4)[refine],
-        cpct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) >= 10 ? step(6)[refine] : 0
+        buff: ({ params }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) * step(4)[refine],
+        cpct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 10) >= 10 ? step(6)[refine] : 0
       }
     },
     "行进序曲": {
@@ -61,8 +61,8 @@ export default function (step, staticStep) {
       title: '[天时引动] 角色登场[buff]秒，击败[buffC]名目标，攻击提升[atkPct]%',
       data: {
         buff: ({ params }) => params["前台时间"] || 6,
-        buffC: ({ params }) => (params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["普通攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((((params["前台时间"] || 6) > 0 ? 6 : 0) - ((params["前台时间"] || 6) / 2)) + (((params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["普通攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0)) * 6)), 6) * step(2)[refine]
+        buffC: ({ params }) => (params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["常态攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((((params["前台时间"] || 6) > 0 ? 6 : 0) - ((params["前台时间"] || 6) / 2)) + (((params["变奏技能击败次数"] || 1) + (params["延奏技能击败次数"] || 0) + (params["协同攻击击败次数"] || 0) + (params["常态攻击击败次数"] || 1) + (params["重击击败次数"] || 0) + (params["空中攻击击败次数"] || 0) + (params["共鸣技能击败次数"] || 1) + (params["共鸣解放击败次数"] || 0)) * 6)), 6) * step(2)[refine]
       }
     },
     "飞景": {
@@ -85,8 +85,8 @@ export default function (step, staticStep) {
       check: ({ params }) => ((params["风蚀效应"] || 0) + (params["电磁效应"] || 0) + (params["光噪效应"] || 0) + (params["聚爆效应"] || 0) + (params["霜渐效应"] || 0) + (params["虚湮效应"] || 0)) > 0,
       title: '[修辞] 对带有异常效应的怪物造成[buff]次伤害，攻击提升[atkPct]%',
       data: {
-        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
-        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
+        buff: ({ params }) => (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0),
+        atkPct: ({ params, refine }) => Math.min(((params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) + (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 4) * step(4)[refine]
       }
     },
 
@@ -101,24 +101,24 @@ export default function (step, staticStep) {
     "赫奕流明": [staticStep('atkPct', 12), {
       title: '[丹煌灼羽] [buff]层【灼羽】，共鸣技能伤害加成提升[eDmg]%',
       data: {
-        buff: ({ params }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14),
-        eDmg: ({ params, refine }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["普通攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14) * step(4)[refine]
+        buff: ({ params }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14),
+        eDmg: ({ params, refine }) => Math.min(((params["共鸣技能使用次数"] || 1) * 5 + (params["变奏技能造成伤害次数"] || 1) + (params["延奏技能造成伤害次数"] || 0) + (params["协同攻击造成伤害次数"] || 0) + (params["常态攻击造成伤害次数"] || 1) + (params["重击造成伤害次数"] || 0) + (params["空中攻击造成伤害次数"] || 0) +  (params["共鸣技能造成伤害次数"] || 1) + (params["共鸣解放造成伤害次数"] || 0)), 14) * step(4)[refine]
       }
     }],
     "裁春": [staticStep('atkPct', 12), {
       title: '[终始之外] 造成普攻伤害[buff]次，自身的协奏能量消耗[buffC]次，普攻伤害加成提升[aDmg]%',
       data: {
-        buff: ({ params }) => params["普通攻击造成伤害次数"] || 1,
+        buff: ({ params }) => params["常态攻击造成伤害次数"] || 1,
         buffC: ({ params }) => params["协奏能量消耗次数"] || 0,
-        aDmg: ({ params, refine }) => Math.min((params["普通攻击造成伤害次数"] || 1), 3) * step(10)[refine] + ((params["协奏能量消耗次数"] || 0) >= 0 ? step(40)[refine] : 0)
+        aDmg: ({ params, refine }) => Math.min((params["常态攻击造成伤害次数"] || 1), 3) * step(10)[refine] + ((params["协奏能量消耗次数"] || 0) >= 0 ? step(40)[refine] : 0)
       }
     }],
     "不灭航路": [staticStep('cpct', 8), {
       title: '[欢笑海] 造成普攻伤害[buff]次，施放共鸣解放[buffC]次，普攻伤害加成提升[aDmg]%',
       data: {
-        buff: ({ params }) => params["普通攻击造成伤害次数"] || 1,
+        buff: ({ params }) => params["常态攻击造成伤害次数"] || 1,
         buffC: ({ params }) => params["共鸣解放使用次数"] || 0,
-        aDmg: ({ params, refine }) => ((params["普通攻击造成伤害次数"] || 1) >= 0 ? step(24)[refine] : 0) + ((params["共鸣解放使用次数"] || 0) >= 0 ? step(24)[refine] : 0)
+        aDmg: ({ params, refine }) => ((params["常态攻击造成伤害次数"] || 1) >= 0 ? step(24)[refine] : 0) + ((params["共鸣解放使用次数"] || 0) >= 0 ? step(24)[refine] : 0)
       }
     }],
     "血誓盟约": [{
@@ -135,7 +135,7 @@ export default function (step, staticStep) {
       }
     }],
     "不屈命定之冠": [staticStep('hpPct', 12), {
-      check: ({ params }) => ((params["变奏技能使用次数"] || 1) + (params["普通攻击使用次数"] || 1)) > 0,
+      check: ({ params }) => ((params["变奏技能使用次数"] || 1) + (params["常态攻击使用次数"] || 1)) > 0,
       title: '[自由骑士之舞] 释放变奏技能或普攻后，无视目标[ignore]%防御力，造成的伤害加深[dmg]%',
       data: {
         ignore: ({ refine }) => step(8)[refine],

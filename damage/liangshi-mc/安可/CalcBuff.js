@@ -3,12 +3,12 @@ export const CalcBuff = [
     title: '安可固有1：[生气的黑咩] 当前生命值[buff]%,共鸣解放期间伤害提升[dmg]%',
     tree: 1,
     data: {
-      buff: ({ params }) => params.OwnHp || 100,
-      dmg: ({ params }) => (params.OwnHp || 100) >= 70 ? 10 : 0
+      buff: ({ params }) => params["自身生命值"] || 100,
+      dmg: ({ params }) => (params["自身生命值"] || 100) >= 70 ? 10 : 0
     }
   },
   {
-    check: ({ params }) => (params.SkillsUse || 1) > 0,
+    check: ({ params }) => (params["共鸣技能使用次数"] || 1) > 0,
     title: '安可固有2：[咩咩加油歌] 施放共鸣技能时, 伤害加成提升[dmg]%',
     tree: 2,
     data: {
@@ -19,8 +19,8 @@ export const CalcBuff = [
     title: '安可1链：[羊咩的童话书] 普攻命中目标[buff]次，伤害加成额外提升[dmg]%',
     cons: 1,
     data: {
-      buff: ({ params }) => params.NormalHit || 1,
-      dmg: ({ params }) => Math.min((params.NormalHit || 1), 4) * 3
+      buff: ({ params }) => params["常态攻击命中次数"] || 1,
+      dmg: ({ params }) => Math.min((params["常态攻击命中次数"] || 1), 4) * 3
     }
   },
   {
@@ -31,7 +31,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params.ChargedUse || 1) > 0 && (params.Mayhem || 0) >= 100,
+    check: ({ params }) => (params["重击使用次数"] || 1) > 0 && (params.Mayhem || 0) >= 100,
     title: '安可3链：[迷雾？黑海岸！] 重击伤害倍率提升[buff]%',
     cons: 3,
     data: {

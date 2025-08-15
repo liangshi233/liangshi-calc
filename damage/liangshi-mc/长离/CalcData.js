@@ -6,7 +6,7 @@ let TalentName = ObTalentName(CharacterName)
 export const AllCalc = [
   {
     title: `${TalentName.aName}一段伤害`,
-    params: { NormalUse: 1, NormalHit: 2, NormalDmg: 2 },
+    params: { "常态攻击使用次数": 1, "常态攻击命中次数": 2, "常态攻击造成伤害次数": 2 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第一段伤害2'][0], 'a')
       return {
@@ -17,7 +17,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}二段伤害`,
-    params: { NormalUse: 2, NormalHit: 4, NormalDmg: 4 },
+    params: { "常态攻击使用次数": 2, "常态攻击命中次数": 4, "常态攻击造成伤害次数": 4 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第二段伤害2'][0], 'a')
       return {
@@ -28,7 +28,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}三段伤害`,
-    params: { NormalUse: 3, NormalHit: 4, NormalDmg: 4 },
+    params: { "常态攻击使用次数": 3, "常态攻击命中次数": 4, "常态攻击造成伤害次数": 4 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第三段伤害2'][0], 'a')
       return {
@@ -39,7 +39,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}四段伤害`,
-    params: { NormalUse: 4, NormalHit: 9, NormalDmg: 9 },
+    params: { "常态攻击使用次数": 4, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第四段伤害2'][0], 'a')
       let a2 = dmg(talent.a['第四段伤害2'][2], 'a')
@@ -51,12 +51,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.a3Name}一段伤害`,
-    params: { PlungingUse: 1, PlungingHit: 1, PlungingDmg: 1, fly: true },
+    params: { "空中攻击使用次数": 1, "空中攻击命中次数": 1, "空中攻击造成伤害次数": 1, "处于空中": true },
     dmg: ({ talent }, dmg) => dmg(talent.a['空中攻击第一段伤害'], 'a,a3')
   },
   {
     title: `${TalentName.a3Name}二段伤害`,
-    params: { PlungingUse: 2, PlungingHit: 3, PlungingDmg: 3, fly: true },
+    params: { "空中攻击使用次数": 2, "空中攻击命中次数": 3, "空中攻击造成伤害次数": 3, "处于空中": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['空中攻击第二段伤害2'][0], 'a,a3')
       return {
@@ -67,7 +67,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.a3Name}三段伤害`,
-    params: { PlungingUse: 3, PlungingHit: 6, PlungingDmg: 6, fly: true },
+    params: { "空中攻击使用次数": 3, "空中攻击命中次数": 6, "空中攻击造成伤害次数": 6, "处于空中": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['空中攻击第三段伤害2'][0], 'a,a3')
       return {
@@ -78,7 +78,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}四段伤害`,
-    params: { PlungingUse: 4, PlungingHit: 11, PlungingDmg: 11, fly: true },
+    params: { "空中攻击使用次数": 4, "空中攻击命中次数": 11, "空中攻击造成伤害次数": 11, "处于空中": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['空中攻击第四段伤害2'][0], 'a,a3')
       let a2 = dmg(talent.a['空中攻击第四段伤害2'][1], 'a,a3')
@@ -90,17 +90,17 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.a2Name}伤害`,
-    params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1, Enflamement: 3 },
+    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, Enflamement: 3 },
     dmg: ({ talent }, dmg) => dmg(talent.a['重击'], 'a2')
   },
   {
     title: `空中${TalentName.a2Name}伤害`,
-    params: { ChargedUse: 1, ChargedHit: 1, ChargedDmg: 1, fly: true },
+    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, "处于空中": true },
     dmg: ({ talent }, dmg) => dmg(talent.a['空中重击'], 'a2')
   },
   {
     title: `${TalentName.a4Name}伤害`,
-    params: { NormalUse: 1, NormalHit: 3, NormalDmg: 3 },
+    params: { "常态攻击使用次数": 1, "常态攻击命中次数": 3, "常态攻击造成伤害次数": 3 },
     dmg: ({ talent }, dmg) => {
       let a4 = dmg(talent.a['闪避反击伤害'], 'a')
       return {
@@ -111,7 +111,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}释放伤害`,
-    params: { SkillsUse: 1, SkillsHit: 4, SkillsDmg: 4 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 4, "共鸣技能造成伤害次数": 4 },
     dmg: ({ talent }, dmg) => {
       let e1 = dmg(talent.e['心眼·劫伤害2'][0], 'e')
       let e2 = dmg(talent.e['心眼·劫伤害2'][1], 'e')
@@ -123,7 +123,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}${TalentName.aNameT}伤害`,
-    params: { SkillsUse: 1, SkillsHit: 8, SkillsDmg: 8, Enflamement: 3 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 8, "共鸣技能造成伤害次数": 8, Enflamement: 3 },
     dmg: ({ talent }, dmg) => {
       let e1 = dmg(talent.e['心眼·征伤害2'][0], 'e')
       let e2 = dmg(talent.e['心眼·征伤害2'][1], 'e')
@@ -136,7 +136,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}${TalentName.a3Name}伤害`,
-    params: { SkillsUse: 1, SkillsHit: 6, SkillsDmg: 6, Enflamement: 3 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, Enflamement: 3 },
     dmg: ({ talent }, dmg) => {
       let e1 = dmg(talent.e['心眼·冲伤害2'][0], 'e')
       let e2 = dmg(talent.e['心眼·冲伤害2'][1], 'e')
@@ -148,7 +148,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}${TalentName.a2NameT}伤害`,
-    params: { ChargedUse: 1, SkillsHit: 6, SkillsDmg: 6 , Flaming_Sacrifice: true },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6 , Flaming_Sacrifice: true },
     dmg: ({ talent, cons }, dmg) => {
       let e1 = dmg(talent.t['焚身以火伤害2'][0] + (cons >= 5 ? 50 : 0), 'e')
       let e2 = dmg(talent.t['焚身以火伤害2'][1] + (cons >= 5 ? 50 : 0), 'e')
@@ -160,12 +160,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qName}伤害`,
-    params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
+    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1 },
     dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
   },
   {
     title: `${TalentName.qName}后${TalentName.tName}${TalentName.a2NameT}伤害`,
-    params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1, ChargedUse: 1, SkillsHit: 6, SkillsDmg: 6, Flaming_Sacrifice: true },
+    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1, "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, Flaming_Sacrifice: true },
     dmg: ({ talent, cons }, dmg) => {
       let e1 = dmg(talent.t['焚身以火伤害2'][0] + (cons >= 5 ? 50 : 0), 'e')
       let e2 = dmg(talent.t['焚身以火伤害2'][1] + (cons >= 5 ? 50 : 0), 'e')
