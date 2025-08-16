@@ -126,7 +126,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}诗中物(飞白)`,
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, Auspices_Same: 0 },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, "相同吉兆": 0 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['诗中物伤害2'][0], 'a2')
       return {
@@ -137,7 +137,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}诗中物(对偶)`,
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, Auspices_Same: 2 },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, "相同吉兆": 2 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['诗中物伤害2'][0], 'a2')
       return {
@@ -148,7 +148,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}诗中物(联珠)`,
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, Auspices_Same: 3 },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 1, "相同吉兆": 3 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['诗中物伤害2'][0], 'a2')
       return {
@@ -159,7 +159,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}诗中物(合说)`,
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 21, Auspices_Same: 4 },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 21, "相同吉兆": 4 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['诗中物伤害2'][0], 'a2')
       return {
@@ -170,12 +170,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}诗中物治疗量`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 2, Auspices_Same: 0 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 2, "相同吉兆": 0 },
     dmg: ({ attr, calc, talent }, { heal }) => heal(talent.t['诗中物治疗量2'][0] + talent.t['诗中物治疗量2'][1] * calc(attr.atk) / 100)
   },
   {
     title: `${TalentName.tName}双关额外治疗量`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 2, Auspices_Same: 2 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 10, "共鸣技能造成伤害次数": 10, "自我治疗次数": 2, "相同吉兆": 2 },
     dmg: ({ attr, calc, talent }, { heal }) => heal(talent.t['双关额外治疗量2'][0] + talent.t['双关额外治疗量2'][1] * calc(attr.atk) / 100)
   },
   {

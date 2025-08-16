@@ -107,18 +107,18 @@ export const AllCalc = [
   },
   {
     title: '圣祷赦罪伤害',
-    params: { "光噪效应": 1, Prayer: "Absolution", "重击使用次数": 1 },
+    params: { "光噪效应": 1, "祈愿": "Absolution", "重击使用次数": 1 },
     dmg: ({ talent }, dmg) => dmg(talent.t['圣祷赦罪伤害'], 't')
   },
   {
     title: '显明告解伤害',
-    params: { "光噪效应": 1, Prayer: "Confession", "共鸣技能使用次数": 1 },
+    params: { "光噪效应": 1, "祈愿": "Confession", "共鸣技能使用次数": 1 },
     dmg: ({ talent }, dmg) => dmg(talent.t['显明告解伤害'], 't')
   },
   {
     title: `赦罪${TalentName.a2NameT}星辉伤害`,
     dmgKey: 'z',
-    params: { "光噪效应": 3, Prayer: "Absolution", "重击使用次数": 4, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
+    params: { "光噪效应": 3, "祈愿": "Absolution", "重击使用次数": 4, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['重击·星辉伤害2'][0], 'a2')
       return {
@@ -129,7 +129,7 @@ export const AllCalc = [
   },
   {
     title: `告解${TalentName.a2NameT}星辉伤害`,
-    params: { "光噪效应": 3, Prayer: "Confession", "重击使用次数": 4, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
+    params: { "光噪效应": 3, "祈愿": "Confession", "重击使用次数": 4, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.t['重击·星辉伤害2'][0], 'a2')
       return {
@@ -140,13 +140,13 @@ export const AllCalc = [
   },
   {
     title: `赦罪${TalentName.qName}伤害`,
-    params: { "光噪效应": 3, Prayer: "Absolution", "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1 },
+    params: { "光噪效应": 3, "祈愿": "Absolution", "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1 },
     dmgKey: 'q',
     dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'] + 255, 'q')
   },
   {
     title: `告解${TalentName.qName}伤害`,
-    params: { "光噪效应": 10, Prayer: "Confession", "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1 },
+    params: { "光噪效应": 10, "祈愿": "Confession", "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1 },
     dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q')
   },
   {
@@ -163,7 +163,7 @@ export const AllCalc = [
   {
     title: `赦罪延奏伤害`,
     dmgKey: 'o',
-    params: { "光噪效应": 3, Prayer: "Absolution", "延奏技能使用次数": 1, "延奏技能命中次数": 8, "延奏技能造成伤害次数": 8, "协奏能量消耗次数": 1 },
+    params: { "光噪效应": 3, "祈愿": "Absolution", "延奏技能使用次数": 1, "延奏技能命中次数": 8, "延奏技能造成伤害次数": 8, "协奏能量消耗次数": 1 },
     dmg: ({}, dmg) => {
       let odmg = dmg(97.92625, 'o')
       return {
@@ -174,7 +174,7 @@ export const AllCalc = [
   },
   {
     title: `告解延奏伤害`,
-    params: { "光噪效应": 3, Prayer: "Confession", "延奏技能使用次数": 1, "延奏技能命中次数": 8, "延奏技能造成伤害次数": 8, "协奏能量消耗次数": 1 },
+    params: { "光噪效应": 3, "祈愿": "Confession", "延奏技能使用次数": 1, "延奏技能命中次数": 8, "延奏技能造成伤害次数": 8, "协奏能量消耗次数": 1 },
     dmg: ({}, dmg) => {
       let odmg = dmg(66.05125, 'o')
       return {

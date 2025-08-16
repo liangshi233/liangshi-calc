@@ -32,7 +32,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Deathblade_Gear === true,
+    check: ({ params }) => params["杀戮武装"] === true,
     title: '卡卡罗3链：[铁腕外交] 共鸣解放状态持续期间伤害加成提升[dmg]%',
     cons: 3,
     data: {

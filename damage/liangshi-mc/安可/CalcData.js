@@ -48,7 +48,7 @@ export const AllCalc = [
   },
   {
     title: `失控${TalentName.a2Name}伤害`,
-    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, Mayhem: 100 },
+    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, "失序值": 100 },
     dmg: ({ talent }, dmg) => dmg(talent.t['白咩·失控之炎伤害'], 'q')
   },
   {
@@ -86,7 +86,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}一段伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 1, "常态攻击命中次数": 2, "常态攻击造成伤害次数": 2, Cosmos_Rave: true },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 1, "常态攻击命中次数": 2, "常态攻击造成伤害次数": 2, "黑咩大暴走": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['黑咩·胡闹第一段伤害2'][0], 'a')
       return {
@@ -97,7 +97,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}二段伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 2, "常态攻击命中次数": 5, "常态攻击造成伤害次数": 5, Cosmos_Rave: true },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 2, "常态攻击命中次数": 5, "常态攻击造成伤害次数": 5, "黑咩大暴走": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['黑咩·胡闹第二段伤害2'][0], 'a')
       return {
@@ -108,7 +108,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}三段伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9, Cosmos_Rave: true },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9, "黑咩大暴走": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['黑咩·胡闹第三段伤害2'][0], 'a')
       return {
@@ -119,7 +119,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}四段伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 4, "常态攻击命中次数": 12, "常态攻击造成伤害次数": 12, Cosmos_Rave: true },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "常态攻击使用次数": 4, "常态攻击命中次数": 12, "常态攻击造成伤害次数": 12, "黑咩大暴走": true },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['黑咩·胡闹第四段伤害2'][0], 'a')
       return {
@@ -135,12 +135,12 @@ export const AllCalc = [
   },
   {
     title: `暴走${TalentName.a2Name}伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, Cosmos_Rave: true, Mayhem: 100 },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, "黑咩大暴走": true, "失序值": 100 },
     dmg: ({ talent }, dmg) => dmg(talent.t['黑咩·暴走之炎伤害'], 'q')
   },
   {
     title: `${TalentName.qNameT}后${TalentName.eName}伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "共鸣技能使用次数": 1, "共鸣技能命中次数": 4, "共鸣技能造成伤害次数": 4, Cosmos_Rave: true },
+    params: { "共鸣解放使用次数": 1, "共鸣能量降低次数": 1, "共鸣技能使用次数": 1, "共鸣技能命中次数": 4, "共鸣技能造成伤害次数": 4, "黑咩大暴走": true },
     dmg: ({ talent }, dmg) => {
       let a4 = dmg(talent.q['黑咩·狂热伤害2'][0], 'e')
       return {

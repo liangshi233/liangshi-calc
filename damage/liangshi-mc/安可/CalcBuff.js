@@ -31,7 +31,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => (params["重击使用次数"] || 1) > 0 && (params.Mayhem || 0) >= 100,
+    check: ({ params }) => (params["重击使用次数"] || 1) > 0 && (params["失序值"] || 0) >= 100,
     title: '安可3链：[迷雾？黑海岸！] 重击伤害倍率提升[buff]%',
     cons: 3,
     data: {
@@ -54,7 +54,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Cosmos_Rave === true,
+    check: ({ params }) => params["黑咩大暴走"] === true,
     title: '安可6链：[羊咩，拯救世界！] 共鸣解放黑咩大暴走期间，造成[buff]次伤害使攻击提升[atkPct]%',
     cons: 6,
     data: {

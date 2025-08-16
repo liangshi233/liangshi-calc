@@ -6,17 +6,17 @@ let TalentName = ObTalentName(CharacterName)
 export const AllCalc = [
   {
     title: `${TalentName.aName}一段伤害`,
-    params: { "常态攻击使用次数": 1, "常态攻击命中次数": 1, "常态攻击造成伤害次数": 1, Concentration: 1 },
+    params: { "常态攻击使用次数": 1, "常态攻击命中次数": 1, "常态攻击造成伤害次数": 1, "念意": 1 },
     dmg: ({ talent }, dmg) => dmg(talent.a['第一段伤害'], 'a')
   },
   {
     title: `${TalentName.aName}二段伤害`,
-    params: { "常态攻击使用次数": 2, "常态攻击命中次数": 2, "常态攻击造成伤害次数": 2, Concentration: 2 },
+    params: { "常态攻击使用次数": 2, "常态攻击命中次数": 2, "常态攻击造成伤害次数": 2, "念意": 2 },
     dmg: ({ talent }, dmg) => dmg(talent.a['第二段伤害'], 'a')
   },
   {
     title: `${TalentName.aName}三段伤害`,
-    params: { "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9, Concentration: 3 },
+    params: { "常态攻击使用次数": 3, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9, "念意": 3 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第三段伤害2'][0], 'a')
       return {
@@ -27,7 +27,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}四段伤害`,
-    params: { "常态攻击使用次数": 4, "常态攻击命中次数": 10, "常态攻击造成伤害次数": 10, Concentration: 4 },
+    params: { "常态攻击使用次数": 4, "常态攻击命中次数": 10, "常态攻击造成伤害次数": 10, "念意": 4 },
     dmg: ({ talent }, dmg) => dmg(talent.a['第四段伤害'], 'a')
   },
   {
@@ -58,12 +58,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}伤害`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 1, "共鸣技能造成伤害次数": 1, "自我治疗次数": 1, Concentration: 4 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 1, "共鸣技能造成伤害次数": 1, "自我治疗次数": 1, "念意": 4 },
     dmg: ({ talent }, dmg) => dmg(talent.e['技能伤害'], 'e')
   },
   {
     title: `${TalentName.eName}治疗量`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 1, "共鸣技能造成伤害次数": 1, "自我治疗次数": 1, Concentration: 4 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 1, "共鸣技能造成伤害次数": 1, "自我治疗次数": 1, "念意": 4 },
     dmg: ({ attr, calc, talent }, { heal }) => heal(talent.e['治疗量2'][0] + talent.e['治疗量2'][1] * calc(attr.hp) / 100)
   },
   {

@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => params.Bullets,
+    check: ({ params }) => params["共鸣技能使用次数"] > 1,
     title: '莫特斐固有1：[密接和应] 施放共鸣技能后共鸣技能的伤害提升[eDmg]%',
     tree: 1,
     data: {
@@ -39,7 +39,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Cons5,
+    check: ({ params }) => params["葬送的四重奏"],
     title: '莫特斐5链：[葬送的四重奏] 共鸣技能命中目标时进行的协同攻击加强音伤害提升[qDmg]%',
     cons: 5,
     data: {

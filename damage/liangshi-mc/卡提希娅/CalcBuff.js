@@ -1,6 +1,6 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => params.PlayName === "Fleurdelys",
+    check: ({ params }) => params["游玩角色名称"] === "Fleurdelys",
     title: '卡提希娅技能：[听骑士从心祈愿] 自身一定范围内，目标风蚀效应触发的间隔减少[buff]%，并使目标受到的风蚀效应伤害加深[erosion]%',
     data: {
       buff: 50,
@@ -8,7 +8,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.PlayName === "Fleurdelys",
+    check: ({ params }) => params["游玩角色名称"] === "Fleurdelys",
     title: '卡提希娅技能：[听骑士从心祈愿] 目标拥有[buff]层风蚀效应,对目标造成的伤害加深[qDmg]%',
     data: {
       buff: ({ params }) => params["风蚀效应"] || 0,
@@ -27,12 +27,12 @@ export const CalcBuff = [
     title: '卡提希娅1链：[因命运戴上冠冕] 已积攒[buff]点决意，暴击伤害提升[cdmg]%',
     cons: 1,
     data: {
-      buff: ({ params }) => params.Resolve || 0, //此处Resolve为`卡提希娅`共鸣解放积攒的决意点数，并非「一心净土·雷电将军(雷)」的愿力
-      cdmg: ({ params }) => Math.min((Math.floor((params.Resolve || 0) / 30) * 25), 100)
+      buff: ({ params }) => params["决意"] || 0,
+      cdmg: ({ params }) => Math.min((Math.floor((params["决意"] || 0) / 30) * 25), 100)
     }
   },
   {
-    check: ({ params }) => params.PlayName === "Cartethyia",
+    check: ({ params }) => params["游玩角色名称"] === "Cartethyia",
     title: '卡提希娅2链：[听风潮斩断利刃] 卡提希娅普攻、重击、闪避反击、变奏技能倍率提升[a1Plus]%，空中攻击倍率提升[a3Plus]%',
     cons: 2,
     data: {
@@ -58,7 +58,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.PlayName === "Fleurdelys",
+    check: ({ params }) => params["游玩角色名称"] === "Fleurdelys",
     title: '卡提希娅6链：[尽一线挣扎自由] 目标受到的伤害提升[enemydmg]%',
     cons: 6,
     data: {

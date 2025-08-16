@@ -8,20 +8,20 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Auspices_Same,
+    check: ({ params }) => params["相同吉兆"],
     title: '釉瑚天赋：[诗中物] 当前[buff]个吉兆相同，造成伤害提升[dmg]%',
     data: {
-      buff: ({ params }) => params.Auspices_Same,
-      dmg: ({ params }) => params.Auspices_Same >= 2 ? (params.Auspices_Same >= 3 ? 170 : 70) : 0
+      buff: ({ params }) => params["相同吉兆"],
+      dmg: ({ params }) => params["相同吉兆"] >= 2 ? (params["相同吉兆"] >= 3 ? 170 : 70) : 0
     }
   },
   {
-    check: ({ params }) => params.Auspices_Same,
+    check: ({ params }) => params["相同吉兆"],
     title: '釉瑚2链：[堂侧酣睡] 对偶、联珠、合说对共鸣回路诗中物的伤害提升效果额外生效一次',
     cons: 2,
     data: {
-      buff: ({ params }) => params.Auspices_Same,
-      dmg: ({ params }) => params.Auspices_Same >= 2 ? (params.Auspices_Same >= 3 ? 170 : 70) : 0
+      buff: ({ params }) => params["相同吉兆"],
+      dmg: ({ params }) => params["相同吉兆"] >= 2 ? (params["相同吉兆"] >= 3 ? 170 : 70) : 0
     }
   },
   {

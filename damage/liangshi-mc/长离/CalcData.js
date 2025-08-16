@@ -90,7 +90,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.a2Name}伤害`,
-    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, Enflamement: 3 },
+    params: { "重击使用次数": 1, "重击命中次数": 1, "重击造成伤害次数": 1, "离火": 3 },
     dmg: ({ talent }, dmg) => dmg(talent.a['重击'], 'a2')
   },
   {
@@ -123,7 +123,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}${TalentName.aNameT}伤害`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 8, "共鸣技能造成伤害次数": 8, Enflamement: 3 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 8, "共鸣技能造成伤害次数": 8, "离火": 3 },
     dmg: ({ talent }, dmg) => {
       let e1 = dmg(talent.e['心眼·征伤害2'][0], 'e')
       let e2 = dmg(talent.e['心眼·征伤害2'][1], 'e')
@@ -136,7 +136,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.eName}${TalentName.a3Name}伤害`,
-    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, Enflamement: 3 },
+    params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, "离火": 3 },
     dmg: ({ talent }, dmg) => {
       let e1 = dmg(talent.e['心眼·冲伤害2'][0], 'e')
       let e2 = dmg(talent.e['心眼·冲伤害2'][1], 'e')
@@ -148,7 +148,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.tName}${TalentName.a2NameT}伤害`,
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6 , Flaming_Sacrifice: true },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6 , "焚身以火": true },
     dmg: ({ talent, cons }, dmg) => {
       let e1 = dmg(talent.t['焚身以火伤害2'][0] + (cons >= 5 ? 50 : 0), 'e')
       let e2 = dmg(talent.t['焚身以火伤害2'][1] + (cons >= 5 ? 50 : 0), 'e')
@@ -165,7 +165,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qName}后${TalentName.tName}${TalentName.a2NameT}伤害`,
-    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1, "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, Flaming_Sacrifice: true },
+    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "共鸣能量降低次数": 1, "重击使用次数": 1, "共鸣技能命中次数": 6, "共鸣技能造成伤害次数": 6, "焚身以火": true },
     dmg: ({ talent, cons }, dmg) => {
       let e1 = dmg(talent.t['焚身以火伤害2'][0] + (cons >= 5 ? 50 : 0), 'e')
       let e2 = dmg(talent.t['焚身以火伤害2'][1] + (cons >= 5 ? 50 : 0), 'e')

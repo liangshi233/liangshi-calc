@@ -14,7 +14,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Photosynthesis_Mark === true,
+    check: ({ params }) => params["光合标记"] === true,
     title: '维里奈3链：[生长的选择] 共鸣解放光合标记的治疗效果加成提升[heal]%',
     cons: 3,
     data: {
@@ -37,7 +37,7 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Photosynthesis_Energy > 0,
+    check: ({ params }) => params["光合能量"] > 0,
     title: '维里奈6链：[丰收的喜悦] 重击星星花绽放及空中攻击星星花绽放的伤害提升[a2Dmg]%',
     cons: 6,
     data: {

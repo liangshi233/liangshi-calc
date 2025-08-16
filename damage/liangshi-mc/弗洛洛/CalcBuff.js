@@ -1,15 +1,15 @@
 export const CalcBuff = [
   {
-    check: ({ params }) => params.Scarlet_Coda === true,
+    check: ({ params }) => params["谱曲终末"] === true,
     title: '弗洛洛技能：[生与死的乐章] [buff]层余音可使本次伤害倍率额外增加[buffC]%',
     data: {
-      buff: ({ params }) => params.Lingering_Note || 24,
-      buffC: ({ params, talent }) => Math.min((params.Lingering_Note || 24), 24) * talent.e['每层余音增加倍率'],
-      ePlus: ({ params, talent, attr, calc }) => Math.min((params.Lingering_Note || 24), 24) * talent.e['每层余音增加倍率'] * calc(attr.atk) / 100
+      buff: ({ params }) => params["余音"] || 24,
+      buffC: ({ params, talent }) => Math.min((params["余音"] || 24), 24) * talent.e['每层余音增加倍率'],
+      ePlus: ({ params, talent, attr, calc }) => Math.min((params["余音"] || 24), 24) * talent.e['每层余音增加倍率'] * calc(attr.atk) / 100
     }
   },
   {
-    check: ({ params }) => params.Maestro_State === true,
+    check: ({ params }) => params["指挥状态"] === true,
     title: '弗洛洛技能：[往日深渊的圆舞曲] 攻击力提高[atkPct]%',
     data: {
       atkPct: 120
@@ -26,8 +26,8 @@ export const CalcBuff = [
     title: '弗洛洛固有2：[八重奏] 获得过[buff]层余音，暴击伤害提升[cdmg]%',
     tree: 2,
     data: {
-      buff: ({ params }) => params.Lingering_Note || 24,
-      cdmg: ({ params }) => (Math.min((params.Lingering_Note || 24), 24) * 2.5) + Math.min(Math.max(((params.Lingering_Note || 24) - 24), 0), 100)
+      buff: ({ params }) => params["余音"] || 24,
+      cdmg: ({ params }) => (Math.min((params["余音"] || 24), 24) * 2.5) + Math.min(Math.max(((params["余音"] || 24) - 24), 0), 100)
     }
   },
   {
@@ -39,13 +39,13 @@ export const CalcBuff = [
     }
   },
   {
-    check: ({ params }) => params.Scarlet_Coda === true,
+    check: ({ params }) => params["谱曲终末"] === true,
     title: '弗洛洛2链：[绳索，重生更新的纽带] 谱曲终末伤害倍率提升[buff]%,余音对谱曲终末的倍率增加效果提升[buffC]%',
     cons: 2,
     data: {
       buff: 75,
       buffC: 75,
-      ePlus: ({ params, talent, attr, calc }) => Math.min((params.Lingering_Note || 24), 24) * talent.e['每层余音增加倍率'] * calc(attr.atk) / 100 * 75 / 100
+      ePlus: ({ params, talent, attr, calc }) => Math.min((params["余音"] || 24), 24) * talent.e['每层余音增加倍率'] * calc(attr.atk) / 100 * 75 / 100
     }
   },
   {
@@ -75,8 +75,8 @@ export const CalcBuff = [
     cons: 6,
     data: {
       buff: 24,
-      enemydmg: ({ params }) => params.TruceTime ? (params.Maestro_State === true ? 40 : 0) : 0,
-      dmg: ({ params }) => !params.TruceTime ? (params.Maestro_State === true ? 60 : 0) : 0
+      enemydmg: ({ params }) => params["后台时间"] ? (params["指挥状态"] === true ? 40 : 0) : 0,
+      dmg: ({ params }) => !params["后台时间"] ? (params["指挥状态"] === true ? 60 : 0) : 0
     }
   }
 ]

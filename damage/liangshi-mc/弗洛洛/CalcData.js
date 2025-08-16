@@ -57,7 +57,7 @@ export const AllCalc = [
   },
   {
     title: '谱曲终末伤害',
-    params: { "重击使用次数": 1, "共鸣技能命中次数": 11, "共鸣技能造成伤害次数": 11, Scarlet_Coda: true, "声骸技能使用次数": 2 },
+    params: { "重击使用次数": 1, "共鸣技能命中次数": 11, "共鸣技能造成伤害次数": 11, "谱曲终末": true, "声骸技能使用次数": 2 },
     dmg: ({ talent, cons }, dmg) => {
       let c2 = cons >= 2 ? 75 : 0
       let a1 = dmg(talent.a['谱曲终末伤害2'][0] + c2, 'e')
@@ -106,12 +106,12 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}一段伤害`,
-    params: { "共鸣解放使用次数": 1, Maestro_State: true, "声骸技能使用次数": 3, "声骸技能命中次数": 2, "声骸技能造成伤害次数": 2 },
+    params: { "共鸣解放使用次数": 1, "指挥状态": true, "声骸技能使用次数": 3, "声骸技能命中次数": 2, "声骸技能造成伤害次数": 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['普攻·赫卡忒第一段伤害'], 'r')
   },
   {
     title: `${TalentName.qNameT}后${TalentName.aName}二段伤害`,
-    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 2, Maestro_State: true, "声骸技能使用次数": 4, "声骸技能命中次数": 4, "声骸技能造成伤害次数": 4 },
+    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 2, "指挥状态": true, "声骸技能使用次数": 4, "声骸技能命中次数": 4, "声骸技能造成伤害次数": 4 },
     dmg: ({ talent }, dmg) => {
       let q1 = dmg(talent.q['普攻·赫卡忒第二段伤害'], 'r')
       return {
@@ -122,7 +122,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}弦乐`,
-    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, Maestro_State: true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
+    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, "指挥状态": true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
     dmg: ({ talent, params, cons }, dmg) => {
       let q1 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
       let q2 = dmg(talent.q['强化攻击·弦乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
@@ -134,7 +134,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}管乐`,
-    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, Maestro_State: true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
+    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, "指挥状态": true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
     dmg: ({ talent, params, cons }, dmg) => {
       let q1 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
       let q2 = dmg(talent.q['强化攻击·管乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
@@ -146,7 +146,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qNameT}后强化${TalentName.aName}彩乐`,
-    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, Maestro_State: true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
+    params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 3, "指挥状态": true, "声骸技能使用次数": 5, "声骸技能命中次数": 6, "声骸技能造成伤害次数": 6 },
     dmg: ({ talent, params, cons }, dmg) => {
       let q1 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][0] + (cons >= 6 ? 24 : 0), 'r')
       let q2 = dmg(talent.q['强化攻击·彩乐·赫卡忒伤害2'][1] + (cons >= 6 ? 24 : 0), 'r')
@@ -158,7 +158,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.qName}谢幕伤害`, //不进入演奏长按共鸣解放直接打出谢幕
-    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, Maestro_State: true, "声骸技能使用次数": 2 },
+    params: { "共鸣解放使用次数": 1, "共鸣解放命中次数": 1, "共鸣解放造成伤害次数": 1, "指挥状态": true, "声骸技能使用次数": 2 },
     dmg: ({ talent }, dmg) => dmg(talent.q['谢幕·赫卡忒伤害'], 'q')
   },
   {
@@ -174,7 +174,7 @@ export const AllCalc = [
   },
   {
     title: `永生组歌变奏伤害`,
-    params: { Maestro_State: true, "声骸技能使用次数": 2 },
+    params: { "指挥状态": true, "声骸技能使用次数": 2 },
     dmg: ({ talent }, dmg) => {
       let i1 = dmg(talent.i['永生组歌伤害'], 'e')
       return {

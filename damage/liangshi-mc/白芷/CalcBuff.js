@@ -10,12 +10,12 @@ export const CalcBuff = [
     title: '白芷1链：[极简与繁复] 施放共鸣技能时消耗[buff]点念意，额外回复[_energyevery]点共鸣能量',
     cons: 1,
     data: {
-      buff: ({ params }) => params.Concentration || 4,
-      _energyevery: ({ params }) => (params.Concentration || 4) * 2.5
+      buff: ({ params }) => params["念意"] || 4,
+      _energyevery: ({ params }) => (params["念意"] || 4) * 2.5
     }
   },
   {
-    check: ({ params }) => (params.Concentration || 4) >= 4,
+    check: ({ params }) => (params["念意"] || 4) >= 4,
     title: '白芷2链：[极简与繁复] 施放共鸣技能时有4.0点念意，伤害加成提升[dmg]%，治疗效果加成提升[heal]%',
     cons: 2,
     data: {
