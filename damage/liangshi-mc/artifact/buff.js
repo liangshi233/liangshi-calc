@@ -98,7 +98,7 @@ export const ArtifactBuffs = {
       recharge: 10,
       atkPct: 10
     }
-},
+  },
   "罗蕾莱": {
     title: '声骸技能：[罗蕾莱] 首位装配时，伤害加成提升[dmg]%，普攻伤害加成提升[aDmg]%',
     data: {
