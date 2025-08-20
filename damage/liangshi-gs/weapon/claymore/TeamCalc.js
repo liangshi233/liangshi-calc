@@ -40,6 +40,7 @@ export const WeaponTeamClaymore = {
   便携动力锯: false,
   硕果钩: false,
   撼地者: false,
+  万能钥匙: false,
   玛海菈的水色: {
     title: '队友武器：[玛海菈的水色] 队伍中附近的角色攻击力提升[atkPlus]',
     data: {

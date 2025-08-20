@@ -45,6 +45,7 @@ export const WeaponTeamBow = {
   测距规: false,
   缀花之翎: false,
   碎链: false,
+  罗网勾针: false,
 
   // 5星
 

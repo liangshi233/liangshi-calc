@@ -72,25 +72,25 @@ export const AllCalc = [
     check: ({ cons }) => cons >= 6,
     title: `单人${TalentName.c6Name}${TalentName.eNameT}附加伤害`,
     params: { SkillsHit: 3, SkillsDmg: 3, Lunar: true, Moonsign: 1 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 185 / 100, '', 'lunarBloom')
   },
   {
     check: ({ cons }) => cons >= 6,
     title: `满辉${TalentName.c6Name}${TalentName.eNameT}附加伤害`,
     params: { SkillsHit: 3, SkillsDmg: 3, Lunar: true, Moonsign: 3 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 320 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 185 / 100, '', 'lunarBloom')
   },
   {
     check: ({ cons }) => cons >= 6,
     title: `单人${TalentName.c6Name}${TalentName.aNameT}附加伤害`,
     params: { SkillsHit: 5, SkillsDmg: 5, Lunar: true, Pale_Hymn: true, Moonsign: 1 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 150 / 100, '', 'lunarBloom')
   },
   {
     check: ({ cons }) => cons >= 6,
     title: `满辉${TalentName.c6Name}${TalentName.aNameT}附加伤害`,
     params: { SkillsHit: 5, SkillsDmg: 5, Lunar: true, Pale_Hymn: true, Moonsign: 3 },
-    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 200 / 100, '', 'lunarBloom')
+    dmg: ({ calc, attr }, { basic }) => basic(calc(attr.mastery) * 150 / 100, '', 'lunarBloom')
   },
   {
     title: '绽放伤害',

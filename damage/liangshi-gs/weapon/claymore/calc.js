@@ -43,6 +43,12 @@ export default function (step, staticStep) {
         atkPct: step(20)
       }
     },
+    万能钥匙: {
+      title: '[迎刃而解] 触发元素反应后元素精通提升[mastery]',
+      data: {
+        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
 
 // 4星
 

@@ -234,6 +234,12 @@ export default function (step, staticStep) {
         mastery: ({ params, refine }) => Math.min(((params.ElementDifferent || 0) + (params.NatlanTeammate || 0)), 3) === 3 ? step(24)[refine] : 0
       }
     },
+    罗网勾针: {
+      title: '[矫捷无影] 触发元素反应后元素精通提升[mastery]',
+      data: {
+        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
 
     // 5星
 

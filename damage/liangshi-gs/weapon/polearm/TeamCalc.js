@@ -37,6 +37,7 @@ export const WeaponTeamPolearm = {
   镇山之钉: false,
   虹的行迹: false,
   且住亭御咄: false,
+  掘金之锹: false,
   贯月矢: {
     check: ({ params }) => !params.TruceTime,
     title: '队友武器：[贯月矢] 当前在场上拾取苏生之叶，攻击力提升[atkPct]% {此效果不叠加}',
@@ -57,6 +58,7 @@ export const WeaponTeamPolearm = {
   赤沙之杖: false,
   赤月之形: false,
   柔灯挽歌: false,
+  血染荒城: false,
   香韵奏者: {
     title: '队友武器：[香韵奏者] 受到治疗，攻击力提升[atkPct]% {此效果不叠加}',
     data: {

@@ -42,6 +42,8 @@ export const WeaponTeamSword = {
   弥坚骨: false,
   息燧之笛: false,
   厄水之祸: false,
+  谧音吹哨: false,
+  织月者的曙色: false,
   原木刀: {
     check: ({ params }) => !params.TruceTime,
     title: '队友武器：[原木刀] 在场上拾取种识之叶，元素精通提升[mastery] {此效果不叠加}',

@@ -1,12 +1,12 @@
 import { LSconfig } from '#liangshi'
-import { AnemoCharacter, GeoCharacter, ElectroCharacter, HealCharacter, FontaineCharacter, HydroCharacter, TeamHealCharacter, NatlanCharacter, ShieldCharacter, PyroCharacter, CryoCharacter, TruceHpCharacter, LiyueCharacter, DendroCharacter, CharacterParams } from './data/CharacterParams.js'
+import { AnemoCharacter, GeoCharacter, ElectroCharacter, HealCharacter, FontaineCharacter, HydroCharacter, TeamHealCharacter, NatlanCharacter, ShieldCharacter, PyroCharacter, CryoCharacter, TruceHpCharacter, LiyueCharacter, DendroCharacter, CharacterParams, MoonsignCharacter } from './data/CharacterParams.js'
 import { EnergyKey } from '../../resources/CalcBuff/EnergyKey.js'
 
 function ParamsData(CharacterName) {
   let cfg = LSconfig.getConfig('user', 'config')
   let EchoesProbability = cfg.EchoesProbability || 1
   let BLPlusPath, BLPctPath, FreezeDetermine, BurningDetermine, EnergyTeammate, ShieldDetermine, BondOfLifeDetermine, PrimordialDetermine, Nightsoul, HealDetermine, HealTeamDetermine, TruceChangeHp
-  let LiyueTeammate = 0, FontaineTeammate = 0, NatlanTeammate = 0, SkillsHit = 1, SkillsDmg = 1, SkillsKill = 1, ElementWindTeam = 0, ElementRockTeam = 0, ElementMineTeam = 0, ElementFireTeam = 0, ElementWaterTeam = 0, ElementIceTeam = 0, ElementGrassTeam = 0, SubjectedDmg = 1, ShieldTime = 0
+  let LiyueTeammate = 0, FontaineTeammate = 0, NatlanTeammate = 0, SkillsHit = 1, SkillsDmg = 1, SkillsKill = 1, ElementWindTeam = 0, ElementRockTeam = 0, ElementMineTeam = 0, ElementFireTeam = 0, ElementWaterTeam = 0, ElementIceTeam = 0, ElementGrassTeam = 0, SubjectedDmg = 1, ShieldTime = 0, Moonsign = 0
   if (['玛拉妮', '克洛琳德', '嘉明', '莱欧斯利', '宵宫', '丝柯克', '伊法', '旅行者/null'].includes(CharacterName)) {
     SkillsHit = 0
     SkillsDmg = 0
@@ -38,6 +38,7 @@ function ParamsData(CharacterName) {
   if (CryoCharacter.includes(CharacterName)) ElementIceTeam = 1
   if (ShieldCharacter.includes(CharacterName)) SubjectedDmg = 0
   if (ShieldCharacter.includes(CharacterName)) ShieldTime = 5
+  if (MoonsignCharacter.includes(CharacterName)) Moonsign = 1
   if (['艾梅莉埃', '夏洛蒂', '那维莱特', '菲米尼', '林尼', '旅行者/hydro'].includes(CharacterName)) PrimordialDetermine = "pneuma"
   if (['爱可菲', '希格雯', '克洛琳德', '夏沃蕾', '娜维娅', '莱欧斯利', '琳妮特'].includes(CharacterName)) PrimordialDetermine = "ousia"
   let data = {
@@ -47,7 +48,7 @@ function ParamsData(CharacterName) {
     ShieldDetermine: ShieldDetermine, HealDetermine: HealDetermine, PrimordialDetermine: PrimordialDetermine, Nightsoul: Nightsoul, HealTeamDetermine: HealTeamDetermine, TruceChangeHp: TruceChangeHp,
     FreezeDetermine: FreezeDetermine, BurningDetermine: BurningDetermine,
     ElementSame: 1, ElementWindTeam: ElementWindTeam, ElementRockTeam: ElementRockTeam, ElementMineTeam: ElementMineTeam, ElementGrassTeam: ElementGrassTeam, ElementWaterTeam: ElementWaterTeam, ElementFireTeam: ElementFireTeam, ElementIceTeam: ElementIceTeam,
-    EnergyTeammate: EnergyTeammate, SubjectedDmg: SubjectedDmg, ShieldTime: ShieldTime,
+    EnergyTeammate: EnergyTeammate, SubjectedDmg: SubjectedDmg, ShieldTime: ShieldTime, Moonsign: Moonsign,
     LiyueTeammate: LiyueTeammate, FontaineTeammate: FontaineTeammate, NatlanTeammate: NatlanTeammate
   }
   return Object.assign(data, CharacterParams[CharacterName])

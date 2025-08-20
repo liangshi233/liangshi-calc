@@ -44,6 +44,8 @@ export const WeaponTeamCatalyst = {
   无垠蔚蓝之歌: false,
   乘浪的回旋: false,
   木棉之环: false,
+  天光的纺琴: false,
+  乌髓孑灯: false,
   白辰之环: {
     check: ({ params }) => (params.ElementMineTeam || 0) > 0,
     title: '队友武器：[白辰之环] 与雷元素反应后,获得相关元素伤害加成[dmg]% {此效果不叠加}',
@@ -85,6 +87,15 @@ export const WeaponTeamCatalyst = {
     title: '队友武器：[祭星者之望] 创造护盾后当前场上角色造成的伤害提升[dmg]% {此效果不叠加}',
     refine: {
       dmg: 56
+    }
+  },
+  纺夜天镜: {
+    title: '队友武器：[纺夜天镜] 绽放反应伤害提升[bloom]%,超绽放、烈绽放伤害提升[burgeon]%,月绽放伤害提升[lunarBloom]%',
+    data: {
+      bloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(120)[refine] : 0,
+      burgeon: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(80)[refine] : 0,
+      hyperBloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(80)[refine] : 0,
+      lunarBloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(40)[refine] : 0
     }
   }
 }

@@ -38,7 +38,7 @@ export const CalcBuff = [
   },
   {
     check: ({ params }) => params.Pale_Hymn === true,
-    title: '菈乌玛天赋：[圣言述咏 · 众心为月] 队伍中的角色造成绽放、超绽放、烈绽放、月绽放反应伤害时，提升造成的伤害[fybase]',
+    title: '菈乌玛技能：[圣言述咏 · 众心为月] 队伍中的角色造成绽放、超绽放、烈绽放、月绽放反应伤害时，提升造成的伤害[fyplus]',
     sort: 9,
     data: {
       fyplus: ({ attr, calc, talent, params }) => calc(attr.mastery) * (params.Lunar === true ? talent.q['月绽放反应伤害提升'] : talent.q['绽放、超绽放、烈绽放反应伤害提升']) / 100
@@ -52,11 +52,11 @@ export const CalcBuff = [
     }
   },
   {
-    title: '菈乌玛2命：[「纺出那终北的告诫与述说」] 队伍中的角色触发绽放、超绽放、烈绽放、月绽放反应时造成的伤害额外提升[fybase],处于满辉时月绽放反应伤害提升[lunarBloom]%',
+    title: '菈乌玛2命：[「纺出那终北的告诫与述说」] 队伍中的角色触发绽放、超绽放、烈绽放、月绽放反应时造成的伤害额外提升[fyplus],处于满辉时月绽放反应伤害提升[lunarBloom]%',
     sort: 9,
     cons: 2,
     data: {
-      fyplus: ({ attr, calc, params }) => params.Pale_Hymn === true ? (calc(attr.mastery) * (params.Lunar === true ? 250 : 500) / 100) : 0,
+      fyplus: ({ attr, calc, params }) => params.Pale_Hymn === true ? (calc(attr.mastery) * (params.Lunar === true ? 400 : 500) / 100) : 0,
       lunarBloom: ({ params }) => ((params.Moonsign || 0) >= 2 ? 40 : 0)
     }
   },

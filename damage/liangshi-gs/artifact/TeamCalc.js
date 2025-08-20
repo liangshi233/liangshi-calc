@@ -102,6 +102,23 @@ export const TeamArtifact = {
       dmg: 40
     }
   },
+  穹境示现之夜: {
+    check: ({ artis }) => artis['穹境示现之夜'] !== 4,
+    title: '队友圣遗物：[穹境示现之夜] 依据队伍的月辉明光效果，月曜反应造成的伤害提升[lunarBloom]%',
+    data: {
+      lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+      lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+    }
+  },
+  纺月的夜歌: {
+    check: ({ artis }) => artis['纺月的夜歌'] !== 4,
+    title: '队友圣遗物：[纺月的夜歌] 依据队伍的月兆与月辉明光效果，元素精通提升[mastery],月曜反应造成的伤害提升[lunarBloom]%',
+    data: {
+      mastery: ({ params }) => Math.min(((params.Moonsign || 0) * 60), 120),
+      lunarCharged: ({ params }) => (params["月辉明光"] || 1) * 10,
+      lunarBloom: ({ params }) => (params["月辉明光"] || 1) * 10
+    }
+  },
   如雷的盛怒: false,
   平息鸣雷的尊者: false,
   染血的骑士道: false,

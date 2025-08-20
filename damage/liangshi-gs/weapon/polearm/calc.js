@@ -177,6 +177,13 @@ export default function (step, staticStep) {
         _jSpeed: 10
       }
     },
+    掘金之锹: {
+      title: '[当机立断] 感电反应造成的伤害提升[electroCharged]%，月感电反应造成的伤害提升[lunarCharged]%',
+      data: {
+        electroCharged: ({ refine }) => step(48)[refine],
+        lunarCharged: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
 
 // 5星
 
@@ -252,7 +259,14 @@ export default function (step, staticStep) {
       data: {
         atkPct: ({ params, refine }) => step(32)[refine] * (params.HealDetermine == true ? 1 : 0) + step(12)[refine] * (params.TruceTime > 0 ? 1 : 0)
       }
-    }]
-
+    }],
+    血染荒城: {
+      title: '[哀恸的赞礼] 施放元素爆发后月感电反应伤害提高[lunarCharged]%,触发月感电反应后暴击伤害提高[cdmg]%并为装备者恢复[_energyevery]点元素能量',
+      data: {
+        lunarCharged: ({ params, refine }) => (params.BurstUse || 0) > 0 ? step(36)[refine] : 0,
+        cdmg: ({ element, refine }) => ['水', '雷', '风'].includes(element) ? step(28)[refine] : 0,
+        _energyevery: ({ element, refine }) => ['水', '雷', '风'].includes(element) ? step(12, 1)[refine] : 0
+      }
+    }
   }
 }
