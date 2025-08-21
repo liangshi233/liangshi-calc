@@ -103,6 +103,7 @@ export default function (step, staticStep) {
       }
     }],
     "焰光裁定": [staticStep('atkPct', 12), {
+      check: ({ params }) => (params["常态攻击使用次数"] || 1) > 0,
       title: '[破暗者] 施放普攻时，无视目标[ignore]%防御力，造成的光噪效应伤害提升[Spectro]%',
       refine: {
         ignore: step(8),
@@ -116,7 +117,15 @@ export default function (step, staticStep) {
         atkPct: step(7.2, 3.96),
         qDmg: step(10.8, 5.94)
       }
-    }
+    },
+    "万物持存的注释": [staticStep('atkPct', 12), {
+      title: '[昼月缀界] 施放变奏技能或共鸣解放时，共鸣解放伤害提升[qDmg]%，自身获得护盾[buff]次,共鸣解放伤害无视目标[Spectro]%防御',
+      data: {
+        qDmg: ({ params, refine }) => ((params["共鸣解放使用次数"] || 0) + (params["变奏技能使用次数"] || 1)) > 0 ? step(20)[refine] : 0,
+        buff: ({ params }) => params["获得护盾次数"] || 0,
+        qIgnore: ({ params, refine }) => Math.min((params["获得护盾次数"] || 0), 5) * step(7.2, 1.2)[refine]
+      }
+    }]
   }
 }
 
