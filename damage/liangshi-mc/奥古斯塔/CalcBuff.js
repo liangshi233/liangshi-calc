@@ -28,7 +28,7 @@ export const CalcBuff = [
     cons: 2,
     data: {
       buff: ({ calc, attr }) => calc(attr.cpct),
-      cdmg: ({ calc, attr }) => Math.min((calc(attr.cpct) - 100), 0)
+      cdmg: ({ calc, attr }) => Math.max((calc(attr.cpct) - 100) * 2, 0)
     }
   },
   {
@@ -59,6 +59,14 @@ export const CalcBuff = [
     data: {
       buff: ({ params, cons }) => params["以众愿为冕"] || (cons >= 6 ? 4 : (cons >= 1 ? 2 : 1)),
       dmg: ({ params, cons }) => (params["以众愿为冕"] || (cons >= 6 ? 4 : (cons >= 1 ? 2 : 1))) * 5
+    }
+  },
+  {
+    title: '奥古斯塔6链：[于耀光中刻名] 当前[buff]暴击,提升[cdmg]%暴击伤害',
+    cons: 6,
+    data: {
+      buff: ({ calc, attr }) => calc(attr.cpct),
+      cdmg: ({ calc, attr }) => Math.min((Math.max((calc(attr.cpct) - 150), 0)) * 2, 50)
     }
   }
 ]

@@ -8,10 +8,11 @@ export const CalcBuff = [
   },
   {
     check: ({ params }) => params["月相流转"] === true,
-    title: '尤诺1链：[圆与缺，皆替金枝镀色] 处于月相流转状态时，攻击提升[atkPct]%',
+    title: '尤诺1链：[圆与缺，皆替金枝镀色] 处于月相流转状态时，攻击提升[atkPct]%,处于满月领域每秒额外回复[_energyevery]点共鸣能量',
     cons: 2,
     data: {
-      atkPct: 40
+      atkPct: 40,
+      _energyevery: 1
     }
   },
   {
