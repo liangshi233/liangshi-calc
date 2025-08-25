@@ -48,7 +48,7 @@ export const AllCalc = [
     title: `${TalentName.a2Name}伤害`,
     params: { "重击使用次数": 1, "重击命中次数": 2, "重击造成伤害次数": 2 },
     dmg: ({ talent }, dmg) => {
-      let a1 = dmg(talent.a['重击伤害'], 'a2')
+      let a1 = dmg(talent.a['重击伤害2'][0], 'a2')
       return {
         dmg: a1.dmg * 2,
         avg: a1.avg * 2
@@ -83,7 +83,7 @@ export const AllCalc = [
     title: `${TalentName.eName}伤害`,
     params: { "共鸣技能使用次数": 1, "共鸣技能命中次数": 2, "共鸣技能造成伤害次数": 2 },
     dmg: ({ talent }, dmg) => {
-      let e1 = dmg(talent.e['技能伤害'], 'e')
+      let e1 = dmg(talent.e['技能伤害2'][0], 'e')
       return {
         dmg: e1.dmg * 2,
         avg: e1.avg * 2
@@ -113,7 +113,7 @@ export const AllCalc = [
     title: `${TalentName.qNameT}后${TalentName.aName}二段伤害`,
     params: { "共鸣解放使用次数": 1, "常态攻击使用次数": 2, "指挥状态": true, "声骸技能使用次数": 4, "声骸技能命中次数": 4, "声骸技能造成伤害次数": 4 },
     dmg: ({ talent }, dmg) => {
-      let q1 = dmg(talent.q['普攻·赫卡忒第二段伤害'], 'r')
+      let q1 = dmg(talent.q['普攻·赫卡忒第二段伤害2'][0], 'r')
       return {
         dmg: q1.dmg * 2,
         avg: q1.avg * 2
@@ -175,15 +175,10 @@ export const AllCalc = [
   {
     title: `永生组歌变奏伤害`,
     params: { "指挥状态": true, "声骸技能使用次数": 2 },
-    dmg: ({ talent }, dmg) => {
-      let i1 = dmg(talent.i['永生组歌伤害'], 'e')
-      return {
-        dmg: i1.dmg,
-        avg: i1.avg
-      }
-    }
+    dmg: ({ talent }, dmg) => dmg(talent.i['永生组歌伤害'], 'e')
   },
   {
+    check: ({ cons }) => cons >= 6,
     title: `${TalentName.c6Name}重世幻象·赫卡忒`,
     params: { "共鸣技能使用次数": 2, "共鸣技能命中次数": 12, "共鸣技能造成伤害次数": 12 },
     dmg: ({}, dmg) => dmg(216.42, 'r')
