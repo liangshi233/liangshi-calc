@@ -4,8 +4,8 @@
 
 | 角色名字     | ID       | 基础计算 | 超全计算 | 基础评分 | 自适应评分 | 自定义 |                                         头像                                          |
 |:---------|----------|:----:|:----:|:----:|:-----:|:---:|:-----------------------------------------------------------------------------------:|
-| 爱诺(New)  | 10000121 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/爱诺/side.webp)   |
-| 菲林斯(New) | 10000120 |  ×   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲林斯/side.webp)  |
+| 爱诺(New)  | 10000121 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/爱诺/side.webp)   |
+| 菲林斯(New) | 10000120 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菲林斯/side.webp)  |
 | 菈乌玛(New) | 10000119 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/菈乌玛/side.webp)  |
 | 伊涅芙      | 10000116 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/伊涅芙/side.webp)  |
 | 塔利雅      | 10000115 |  √   |  ×   |  ×   |   ×   |  ×  |  ![头像](https://gitee.com/liangshi233/panel-img/raw/master/PanelCalc/塔利雅/side.webp)  |

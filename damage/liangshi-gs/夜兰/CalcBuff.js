@@ -48,11 +48,6 @@ export const CalcBuff = [
       _aMulti: 156
     }
   },
-  TeamBuff.TeamBuff_Cyno[0],
-  TeamBuff.TeamBuff_Sucrose[0],
-  TeamBuff.TeamBuff_Sucrose[1],
-  TeamBuff.TeamBuff_Ineffa[0],
-  TeamBuff.TeamBuff_Ineffa[1],
-  TeamBuff.TeamBuff_Ineffa[2]
+    ...TeamBuff
 ]
 

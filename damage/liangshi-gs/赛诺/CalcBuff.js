@@ -49,10 +49,5 @@ MasteryGs,
   title: '赛诺6命：[羽仪·裁落钧衡] 施放圣仪·煟煌随狼行或触发固有天赋「落羽的裁择」的「裁定」后,普通攻击命中敌人,将发射一道渡荒之雷',
   cons: 6
 },
-  TeamBuff.TeamBuff_Sucrose[0],
-  TeamBuff.TeamBuff_Sucrose[1],
-  TeamBuff.TeamBuff_Ye_Lan[0],
-  TeamBuff.TeamBuff_Ineffa[0],
-  TeamBuff.TeamBuff_Ineffa[1],
-  TeamBuff.TeamBuff_Ineffa[2]
+...TeamBuff
 ]

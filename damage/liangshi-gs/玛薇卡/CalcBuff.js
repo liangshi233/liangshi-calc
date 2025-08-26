@@ -65,10 +65,58 @@ MasteryGs,
     _interruption: 100
   }
 },
-TeamBuff.TeamBuff_Ororon[0],
-TeamBuff.TeamBuff_Ororon[1],
-TeamBuff.TeamBuff_Citlali[0],
-TeamBuff.TeamBuff_Citlali[1],
-TeamBuff.TeamBuff_Citlali[2],
-TeamBuff.TeamBuff_Citlali[3]
+...TeamBuff,
+{
+  title: '茜特菈莉武器：[祭星者之望-精1] 创造护盾后当前场上角色对附近的敌人造成的伤害提升[dmg]%',
+  check: ({ params, cons }) => params.team === true && cons < 6 && params.Citlali === true,
+  sort: 1,
+  data: {
+    dmg: 28
+  }
+},
+{
+  title: '茜特菈莉武器：[祭星者之望-精5] 创造护盾后当前场上角色对附近的敌人造成的伤害提升[dmg]%',
+  check: ({ params, cons }) => params.team === true && cons >= 6 && params.Citlali === true,
+  sort: 1,
+  data: {
+    dmg: 56
+  }
+},
+{
+  title: '茜特菈莉圣遗物：[教官] 触发元素反应后，队伍中所有角色的元素精通提高[mastery]点',
+  check: ({ params, artis }) => params.team === true && artis['教官'] !== 4 && params.Citlali === true,
+  data: {
+    mastery: 120
+  }
+},
+{
+  title: '希诺宁武器：[岩峰巡歌-精1] 普通攻击或下落攻击命中敌人后，队伍中附近所有角色的所有元素伤害加成提高[dmg]%',
+  check: ({ params, cons }) => params.team === true && cons < 6 && params.Citlali === true && params.TruceTime > 0,
+  sort: 1,
+  data: {
+    dmg: 3000 / 1000 * 8
+  }
+},
+{
+  title: '希诺宁武器：[祭星者之望-精5] 创造护盾后当前场上角色对附近的敌人造成的伤害提升[dmg]%',
+  check: ({ params, cons }) => params.team === true && cons >= 6 && params.Citlali === true && params.TruceTime > 0,
+  sort: 1,
+  data: {
+    dmg: 3000 / 1000 * 16
+  }
+},
+{
+  check: ({ params, artis }) => params.team === true && params.Citlali === true && artis['烬城勇者绘卷'] !== 4,
+  title: '希诺宁圣遗物：[烬城勇者绘卷] 触发元素反应时，所有元素伤害加成与物理伤害加成提升[dmg]%',
+  data: {
+    dmg: 40
+  }
+},
+{
+  title: '班尼特圣遗物：[昔日宗室之仪] 施放元素爆发后，队伍中所有角色攻击力提升[atkPct]%',
+  check: ({ params, artis }) => params.team === true && params.Bennett === true && artis['昔日宗室之仪'] !== 4,
+  data: {
+    atkPct: 20
+  }
+}
 ]

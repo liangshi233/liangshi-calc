@@ -21,6 +21,7 @@ export const TeamBuff_Xilonen = [
   }
 },
 {
+  check: ({ params }) => params.team === true && params.Xilonen === true,
   title: '希诺宁4命：[献予午后的花之梦] 施放音火锻淬后，普通攻击、重击与下落攻击造成的伤害提升[aPlus]',
   cons: 4,
   data: {

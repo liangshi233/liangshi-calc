@@ -456,7 +456,7 @@ rankingThreemodel: dps #备选通用排行规则
 
 #### 独立排行规则
 
-独立设置，在`config\ranking.js` 中修改（文件删除后重启会重新生成）
+独立设置，在`config\ranking.json` 中修改（文件删除后重启会重新生成）
 
 打开文件找到需要修改的角色更改其排行规则
 

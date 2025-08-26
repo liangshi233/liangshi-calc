@@ -1,4 +1,4 @@
-import {mainAttrData, RankingKey, CalcMeasure, ParamsData, CalcBy } from '../index.js'
+import { mainAttrData, RankingKey, CalcMeasure, ParamsData, CalcBy } from '../index.js'
 import { AllCalc } from './CalcData.js'
 import { CalcBuff } from './CalcBuff.js'
 

@@ -27,9 +27,5 @@ export const CalcBuff = [
       _ecdPlus: 4
     }
   },
-  TeamBuff.TeamBuff_Cyno[0],
-  TeamBuff.TeamBuff_Ye_Lan[0],
-  TeamBuff.TeamBuff_Ineffa[0],
-  TeamBuff.TeamBuff_Ineffa[1],
-  TeamBuff.TeamBuff_Ineffa[2]
+    ...TeamBuff
 ]

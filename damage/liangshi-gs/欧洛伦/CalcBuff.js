@@ -41,10 +41,5 @@ MasteryGs,
     atkPct: 10 * 3
   }
 },
-TeamBuff.TeamBuff_Citlali[0],
-TeamBuff.TeamBuff_Citlali[1],
-TeamBuff.TeamBuff_Citlali[2],
-TeamBuff.TeamBuff_Citlali[3],
-TeamBuff.TeamBuff_Mavuika[1],
-TeamBuff.TeamBuff_Mavuika[2]
+...TeamBuff
 ]

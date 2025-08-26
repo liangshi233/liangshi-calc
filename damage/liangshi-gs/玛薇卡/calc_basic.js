@@ -61,8 +61,8 @@ export const details = [
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul', 'melt')
 },
 {
-  title: `恰玛欧茜 满战意${TalentName.qName}融化`,
+  title: `玛希班茜 满战意${TalentName.qName}融化`,
   dmgKey: 'q',
-  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, FightTime: 2, Fighting_Spirit: 200, EnergyDetermine: 0, IceAttachment: true, team: true, Ororon: true, Chasca: true, Citlali: true, ElementDifferent: 3, ElementSame: 1, ElementWindTeam: 1, ElementMineTeam: 1, ElementIceTeam: 1, ShieldTime: 10, NatlanTeammate: 4, EnergyTeammate: 180,/* 玛薇卡的战意不会被视为元素能量被恶王丸与断浪长鳍计入 */ParticulateNumber: 0,/* 玛薇卡无法获取元素能量，获取能量晶球与微粒时无法触发获得能量晶球或微粒状态，获取战意不会被视为获取元素能量 */NightsoulUse: 332 },
+  params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, FightTime: 2, Fighting_Spirit: 200, EnergyDetermine: 0, IceAttachment: true, team: true, Xilonen: true, Bennett: true, Citlali: true, ElementDifferent: 2, ElementSame: 2, ElementRockTeam: 1, ElementIceTeam: 1, ElementFireTeam: 2, ShieldTime: 10, NatlanTeammate: 3, EnergyTeammate: 180,/* 玛薇卡的战意不会被视为元素能量被恶王丸与断浪长鳍计入 */ParticulateNumber: 0,/* 玛薇卡无法获取元素能量，获取能量晶球与微粒时无法触发获得能量晶球或微粒状态，获取战意不会被视为获取元素能量 */NightsoulUse: 234, HealNumber: 1, ChangeNightsou: 3 },
   dmg: ({ talent }, dmg) => dmg(talent.q['技能伤害'], 'q,nightsoul', 'melt')
 }]

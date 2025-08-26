@@ -60,13 +60,7 @@ export const CalcBuff = [
       mastery: ({ params, artis }) => (params.OwnHp || (artis['战狂'] === 4 ? 50 : 100)) > 50 ? 200 : 0
     }
   },
-  TeamBuff.TeamBuff_Shen_He[0],
-  TeamBuff.TeamBuff_Shen_He[1],
-  TeamBuff.TeamBuff_Shen_He[2],
-  TeamBuff.TeamBuff_Shen_He[3],
-  TeamBuff.TeamBuff_Shen_He[4],
-  TeamBuff.TeamBuff_Kaedehara_Kazuha[0],
-  TeamBuff.TeamBuff_Kaedehara_Kazuha[1],
+  ...TeamBuff,
   {
     title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
     check: ({ params, cons, weapon }) => (cons < 6 && cons > 1) && params.Kaedehara_Kazuha === true && weapon.name !== '终末嗟叹之诗',
