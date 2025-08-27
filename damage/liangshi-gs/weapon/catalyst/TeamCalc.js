@@ -16,9 +16,9 @@ export const WeaponTeamCatalyst = {
   甲级宝珏: false,
   琥珀玥: false,
   讨龙英杰谭: {
-    check: ({ params }) => !params.TruceTime,
+    check: ({ params, uid }) => !params.TruceTime && params.team === true,
     title: '队友武器：[讨龙英杰谭] 主动切换角色时，新登场的角色攻击力提升[atkPct]% {此效果不叠加}',
-    refine: {
+    data: {
       atkPct: 48
     }
   },
@@ -47,13 +47,14 @@ export const WeaponTeamCatalyst = {
   天光的纺琴: false,
   乌髓孑灯: false,
   白辰之环: {
-    check: ({ params }) => (params.ElementMineTeam || 0) > 0,
+    check: ({ params, uid }) => (params.ElementMineTeam || 0) > 0 && params.team === true,
     title: '队友武器：[白辰之环] 与雷元素反应后,获得相关元素伤害加成[dmg]% {此效果不叠加}',
-    refine: {
+    data: {
       dmg: 20
     }
   },
   流浪的晚星: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[流浪的晚星] 队伍中附近的其他角色提升[atkPlus]攻击力',
     data: {
       atkPlus: 1000 * (48 / 100) * (30 / 100)
@@ -77,19 +78,21 @@ export const WeaponTeamCatalyst = {
   寝正月初晴: false,
   溢彩心念: false,
   鹤鸣余音: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[鹤鸣余音] 装备者下落攻击命中敌人后，队伍中附近的所有角色下落攻击造成的伤害提高[a3Dmg]% {此效果不叠加}',
     data: {
       a3Dmg: 80
     }
   },
   祭星者之望: {
-    check: ({ params }) => !params.TruceTime,
+    check: ({ params, uid }) => !params.TruceTime && params.team === true,
     title: '队友武器：[祭星者之望] 创造护盾后当前场上角色造成的伤害提升[dmg]% {此效果不叠加}',
-    refine: {
+    data: {
       dmg: 56
     }
   },
   纺夜天镜: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[纺夜天镜] 绽放反应伤害提升[bloom]%,超绽放、烈绽放伤害提升[burgeon]%,月绽放伤害提升[lunarBloom]%',
     data: {
       bloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(120)[refine] : 0,

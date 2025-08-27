@@ -42,15 +42,16 @@ export const WeaponTeamClaymore = {
   撼地者: false,
   万能钥匙: false,
   玛海菈的水色: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[玛海菈的水色] 队伍中附近的角色攻击力提升[atkPlus]',
     data: {
       atkPlus: 1000 * (48 / 100) * (30 / 100)
     }
   },
   森林王器: {
-    check: ({ params }) => !params.TruceTime,
+    check: ({ params, uid }) => !params.TruceTime && params.team === true,
     title: '队友武器：[森林王器] 当前在场上拾取种识之叶，元素精通提升[mastery] {此效果不叠加}',
-    refine: {
+    data: {
       mastery: 120
     }
   },
@@ -66,6 +67,7 @@ export const WeaponTeamClaymore = {
   山王长牙: false,
   焚曜千阳: false,
   狼的末路: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[狼的末路] 攻击命中生命值[buff]%的敌人，队伍中所有成员攻击力提升[atkPct]% {此效果不叠加}',
     data: {
       buff: ({ params }) => params.TargetHp || 30,
@@ -73,6 +75,7 @@ export const WeaponTeamClaymore = {
     }
   },
   松籁响起之时: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[松籁响起之时] 普通攻击与重击命中4.0次，使附近所有角色普通攻击速度提升[aSpeed]%,攻击力提升[atkPct]% {同类此效果不叠加}',
     data: {
       aSpeed: 24,

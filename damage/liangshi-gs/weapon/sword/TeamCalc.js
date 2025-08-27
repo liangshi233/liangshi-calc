@@ -45,13 +45,14 @@ export const WeaponTeamSword = {
   谧音吹哨: false,
   织月者的曙色: false,
   原木刀: {
-    check: ({ params }) => !params.TruceTime,
+    check: ({ params, uid }) => !params.TruceTime && params.team === true,
     title: '队友武器：[原木刀] 在场上拾取种识之叶，元素精通提升[mastery] {此效果不叠加}',
-    refine: {
+    data: {
       mastery: 120
     }
   },
   西福斯的月光: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[西福斯的月光] 队伍中附近的角色提升[recharge]%元素充能效率',
     data: {
       recharge: 1000 * 0.072 * (30 / 100)
@@ -73,6 +74,7 @@ export const WeaponTeamSword = {
   有乐御簾切: false,
   赦罪: false,
   苍古自由之誓: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[苍古自由之誓] 触发2.0次元素反应，提高附近所有角色普攻重击与下落攻击[aDmg]%伤害,攻击力[atkPct]% {同类此效果不叠加}',
     data: {
       aDmg: 32,
@@ -82,12 +84,14 @@ export const WeaponTeamSword = {
     }
   },
   圣显之钥: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[圣显之钥] 为队伍中附近所有角色提供元素精通提升[mastery] {此效果不叠加}',
     data: {
       mastery: 36000 * (0.04 / 100)
     }
   },
   岩峰巡歌: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[岩峰巡歌] 使队伍中附近所有角色的所有元素伤害加成提高[dmg]% {此效果不叠加}',
     data: {
       dmg: Math.min((3200 / 1000 * 16), 51.2)

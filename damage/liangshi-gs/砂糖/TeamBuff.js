@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { WeaponTeam } from '../weapon/index.js'
 
 let TeamData = null
 try {
@@ -7,7 +8,7 @@ try {
 } catch (err) {
   console.error('组队数据读取失败:', err)
 }
-
+let TeamWeapon = WeaponTeam(TeamData, "Sucrose", "祭礼残章", "砂糖")
 
 export const TeamBuff_Sucrose = [
   {
@@ -30,5 +31,6 @@ export const TeamBuff_Sucrose = [
     data: {
       dmg: ({ element }) => ['冰', '水', '火', '雷'].includes(element) ? 20 : 0
     }
-  }
+  },
+  ...TeamWeapon
 ]

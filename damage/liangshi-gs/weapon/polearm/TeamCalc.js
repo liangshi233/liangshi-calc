@@ -38,10 +38,11 @@ export const WeaponTeamPolearm = {
   虹的行迹: false,
   且住亭御咄: false,
   掘金之锹: false,
+  拾慧铸熔: false,
   贯月矢: {
-    check: ({ params }) => !params.TruceTime,
+    check: ({ params, uid }) => !params.TruceTime && params.team === true,
     title: '队友武器：[贯月矢] 当前在场上拾取苏生之叶，攻击力提升[atkPct]% {此效果不叠加}',
-    refine: {
+    data: {
       atkPct: 32
     }
   },
@@ -60,9 +61,17 @@ export const WeaponTeamPolearm = {
   柔灯挽歌: false,
   血染荒城: false,
   香韵奏者: {
+    check: ({ params, uid }) => params.team === true && params.HealNumber > 0,
     title: '队友武器：[香韵奏者] 受到治疗，攻击力提升[atkPct]% {此效果不叠加}',
     data: {
       atkPct: 64
+    }
+  },
+  支离轮光: {
+    check: ({ params, uid }) => params.team === true,
+    title: '队友武器：[支离轮光] 创造护盾后月感电伤害提升[lunarCharged]%',
+    data: {
+      lunarCharged: 40
     }
   }
 }

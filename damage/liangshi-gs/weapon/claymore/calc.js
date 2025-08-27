@@ -43,12 +43,6 @@ export default function (step, staticStep) {
         atkPct: step(20)
       }
     },
-    万能钥匙: {
-      title: '[迎刃而解] 触发元素反应后元素精通提升[mastery]',
-      data: {
-        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
-      }
-    },
 
 // 4星
 
@@ -232,6 +226,19 @@ export default function (step, staticStep) {
         eDmg: step(16)
       }
     },
+    拾慧铸熔: {
+      check: ({ element, params }) => ['风', '水', '雷', '草'].includes(element),
+      title: '触发感电、月感电或绽放反应时，元素精通提升[mastery]',
+      refine: {
+        mastery: step(60)
+      }
+    },
+    万能钥匙: {
+      title: '[迎刃而解] 触发元素反应后元素精通提升[mastery]',
+      data: {
+        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+      }
+    },
 
 // 5星
 
@@ -309,6 +316,5 @@ export default function (step, staticStep) {
         atkPct: ({ params, refine }) => (params.Nightsoul === true ? 1.75 : 1) * step(20)[refine] * (((params.SkillsUse || 1) + (params.BurstUse || 0)) > 0 ? 1 : 0)
       }
     }
-
   }
 }

@@ -260,6 +260,13 @@ export default function (step, staticStep) {
         atkPct: ({ params, refine }) => step(32)[refine] * (params.HealDetermine == true ? 1 : 0) + step(12)[refine] * (params.TruceTime > 0 ? 1 : 0)
       }
     }],
+    支离轮光: {
+      title: '[洁霜的玉冕] 施放元素战技或元素爆发后攻击力提升[atkPct]%，创造护盾后月感电伤害提升[lunarCharged]%',
+      data: {
+        atkPct: ({ params, refine }) => ((params.SkillsUse || 1) + (params.BurstUse || 0)) > 0 ? step(24)[refine] : 0,
+        lunarCharged: ({ params, refine }) => params.ShieldDetermine === true ? step(40)[refine] : 0
+      }
+    },
     血染荒城: {
       title: '[哀恸的赞礼] 施放元素爆发后月感电反应伤害提高[lunarCharged]%,触发月感电反应后暴击伤害提高[cdmg]%并为装备者恢复[_energyevery]点元素能量',
       data: {

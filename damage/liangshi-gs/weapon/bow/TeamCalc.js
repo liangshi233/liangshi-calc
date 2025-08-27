@@ -61,8 +61,9 @@ export const WeaponTeamBow = {
   星鹫赤羽: false,
   陨龙之梦: false,
   终末嗟叹之诗: {
+    check: ({ params, uid }) => params.team === true,
     title: '队友武器：[终末嗟叹之诗] 元素战技与元素爆发命中4.0次敌人，元素精通提高[mastery],攻击力提升[atkPct]% {同类此效果不叠加}',
-    refine: {
+    data: {
       mastery: 200,
       atkPct: 40
     }
