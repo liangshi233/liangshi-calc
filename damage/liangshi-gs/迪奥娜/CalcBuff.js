@@ -60,7 +60,6 @@ export const CalcBuff = [
       mastery: ({ params, artis }) => (params.OwnHp || (artis['战狂'] === 4 ? 50 : 100)) > 50 ? 200 : 0
     }
   },
-  ...TeamBuff,
   {
     title: '枫原万叶武器：[苍古自由之誓-精1] 消耗所有奋起之符使附近队伍中所有角色获得[atkPct]%攻击力 { 该武器效果不可叠加 }',
     check: ({ params, cons, weapon }) => (cons < 6 && cons > 1) && params.Kaedehara_Kazuha === true && weapon.name !== '终末嗟叹之诗',
@@ -86,9 +85,6 @@ export const CalcBuff = [
       atkPct: 40
     }
   },
-  TeamBuff.TeamBuff_Bennett[0],
-  TeamBuff.TeamBuff_Bennett[1],
-  TeamBuff.TeamBuff_Bennett[2],
   {
     title: '班尼特圣遗物：[昔日宗室之仪4] 释放元素爆发后，队伍中所有角色攻击力提升[atkPct]% { 该圣遗物效果不可叠加 }',
     check: ({ params, artis }) => params.Bennett === true && artis.昔日宗室之仪 !== 4,
@@ -97,9 +93,6 @@ export const CalcBuff = [
       atkPct: 20
     }
   },
-  TeamBuff.TeamBuff_Nahida[0],
-  TeamBuff.TeamBuff_Nahida[1],
-  TeamBuff.TeamBuff_Nahida[2],
   {
     title: '纳西妲武器：[千夜浮梦-精1] 队伍中装备者以外的附近角色的元素精通提升[mastery]点',
     check: ({ params, cons }) => cons < 6 && params.Nahida === true,
@@ -116,11 +109,6 @@ export const CalcBuff = [
       mastery: 48
     }
   },
-  TeamBuff.TeamBuff_Furina[0],
-  TeamBuff.TeamBuff_Furina[1],
-  TeamBuff.TeamBuff_Escoffier[0],
-  TeamBuff.TeamBuff_Escoffier[1],
-  TeamBuff.TeamBuff_Escoffier[2],
-  resonanceBuffGs[2],
-  resonanceBuffGs[7]
+  ...TeamBuff,
+  ...resonanceBuffGs
 ]

@@ -229,12 +229,12 @@ export class calc extends plugin {
     }
     let CharacterNameText, WeaponNameText, ArtifactNameText
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"])
-      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"])
-      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"])
+      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
     } else {
-      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS)
-      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS)
+      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
+      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
       ArtifactNameText = artifact.map(id => {
         let item = ArtifactNamedata[id]
         if (!item?.set) return "未知套装"

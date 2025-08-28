@@ -27,7 +27,7 @@ function ObTalentName(CharacterName) {
     c1MName = namejsonPath.cons?.['1'].name
     c2MName = namejsonPath.cons?.['2'].name
     c4MName = namejsonPath.cons?.['4'].name
-    c6MName = namejsonPath.cons?.['5'].name
+    c6MName = namejsonPath.cons?.['6'].name
   } catch (err) {
     aMName = '普通攻击'
     eMName = '元素战技'
@@ -162,7 +162,11 @@ function ObTalentName(CharacterName) {
     "2": qMName,
     "3": "元素爆发",
     "4": "Q技能",
-    "5": "Q"
+    "5": "Q",
+    "6": "Q",
+    "7": qMName,
+    "8": "",
+    "9": ""
   }
 
   let qTNameData = {
@@ -172,8 +176,8 @@ function ObTalentName(CharacterName) {
     "3": "元素爆发",
     "4": "Q技能",
     "5": "Q",
-    "6": "Q",
-    "7": qMName,
+    "6": null,
+    "7": null,
     "8": "",
     "9": ""
   }

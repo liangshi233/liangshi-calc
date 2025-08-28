@@ -602,10 +602,11 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 ---
 ## 其他资源位置
 
+> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) | 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs)
+
 |     名称      |                         gitee                         |                         github                          |
 |:-----------:|:-----------------------------------------------------:|:-------------------------------------------------------:|
 | Yunzai-Bot  |     [gitee](https://gitee.com/le-niao/Yunzai-Bot)     |     [github](https://github.com/le-niao/Yunzai-Bot)     |
 | Yunzai-Miao | [gitee](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)  | [github](https://github.com/yoimiya-kokomi/Yunzai-Bot)  |
 | Miao-Yunzai | [gitee](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) | [github](https://github.com/yoimiya-kokomi/Miao-Yunzai) |
 | Miao-Plugin | [gitee](https://gitee.com/yoimiya-kokomi/miao-plugin) | [github](https://github.com/yoimiya-kokomi/miao-plugin) |
-|   meta-mc   |    [gitee](https://gitee.com/liangshi233/meta-mc)     |                            无                            |
