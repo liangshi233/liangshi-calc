@@ -2094,6 +2094,12 @@ export class calc extends plugin {
               data.BaseDEF * data.StatsModifier.DEF["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
               data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
             ],
+            "100": [
+              data.BaseHP * data.StatsModifier.HP["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
+              data.BaseATK * data.StatsModifier.ATK["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
+              data.BaseDEF * data.StatsModifier.DEF["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
+              data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
+            ],
             "20+": [
               data.BaseHP * data.StatsModifier.HP["20"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_HP,
               data.BaseATK * data.StatsModifier.ATK["20"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_ATTACK,
@@ -2128,6 +2134,12 @@ export class calc extends plugin {
               data.BaseHP * data.StatsModifier.HP["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
               data.BaseATK * data.StatsModifier.ATK["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
               data.BaseDEF * data.StatsModifier.DEF["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
+              data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
+            ],
+            "90+": [
+              data.BaseHP * data.StatsModifier.HP["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
+              data.BaseATK * data.StatsModifier.ATK["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
+              data.BaseDEF * data.StatsModifier.DEF["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
               data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
             ]
           }
