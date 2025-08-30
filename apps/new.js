@@ -1,6 +1,6 @@
 import { alias as aliasGs } from '../../miao-plugin/resources/meta-gs/character/alias.js'
 import { alias as aliasSr } from '../../miao-plugin/resources/meta-sr/character/alias.js'
-import { alias as aliasMc } from '../damage/liangshi-mc/alias.js'
+import { alias as aliasMc } from '../damage/liangshi-mc/data/alias.js'
 import plugin from '../../../lib/plugins/plugin.js'
 import common from '../../../lib/common/common.js'
 import { LSconfig } from '#liangshi'
@@ -1130,7 +1130,7 @@ export class calc extends plugin {
       if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
-            console.error('[liangshi-calc]读取${zb}配置data.json失败:', err)
+            console.error(`[liangshi-calc]读取${zb}配置data.json失败:`, err)
             if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
             return false
           }
