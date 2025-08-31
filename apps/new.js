@@ -1917,8 +1917,10 @@ export class calc extends plugin {
         "FIGHT_PROP_ELEC_ADD_HURT": "dmg",
         "FIGHT_PROP_PHYSICAL_ADD_HURT": "phy"
       }
-      if (data.Constellations[2].Desc.includes(data.Skills[2].Name) || data.Constellations[4].Desc.includes(data.Skills[2].Name)) {
-        ConsTalent.q = data.Constellations[2].Desc.includes(data.Skills[2].Name) ? 3 : 5
+      let qTalentName = data.Skills[2].Name
+      if (data.Skills[2].Desc.includes("替代冲刺")) qTalentName = data.Skills[3].Name
+      if (data.Constellations[2].Desc.includes(qTalentName) || data.Constellations[4].Desc.includes(qTalentName)) {
+        ConsTalent.q = data.Constellations[2].Desc.includes(qTalentName) ? 3 : 5
       }
       if (data.Constellations[2].Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
         ConsTalent.e = data.Constellations[2].Desc.includes(data.Skills[1].Name) ? 3 : 5
