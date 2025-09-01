@@ -156,7 +156,7 @@ export class calc extends plugin {
         logger.mark(err)
       }
     }
-    let UseTime = Math.round(((5 + character.length * 20 + weapon.length * 4 + artifact.length * 3 + data.item.length * 4) / 60) * 10) / 10
+    let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + data.item.length * 2) / 60) * 10) / 10
     let y = Math.round(UseTime * 0.75 * 10) / 10
     e.reply(`[liangshi-calc] 即将静默更新\n${GameName} ${version}版本新内容\n共计\n\n${character.length}名新${CharacterName}\n${weapon.length}个新${WeaponName}\n${artifact.length}个新${ArtifactName}\n${data.item.length}个新物品\n\n预计需要${y}~${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
     await common.sleep(2000)
@@ -182,32 +182,28 @@ export class calc extends plugin {
     let instruction = { msg: null, isMaster: true, reply: e.reply }
     for (const charId of data.character) {
       instruction.msg = `#梁氏覆盖更新${GameName}${charId}角色数据`
-      await common.sleep(2000)
+      await common.sleep(1000)
       await this.CharacterNew(instruction, true)
     }
-    await common.sleep(5000)
-    logger.fatal(`[liangshi-calc] ${CharacterName}更新完成`)
+    await common.sleep(2000)
     for (const weaponId of weapon) {
       instruction.msg = `#梁氏覆盖更新${GameName}${weaponId}武器数据`
-      await common.sleep(2000)
+      await common.sleep(1000)
       await this.WeaponNew(instruction, true)
     }
-    await common.sleep(5000)
-    logger.fatal(`[liangshi-calc] ${WeaponName}更新完成`)
+    await common.sleep(2000)
     for (const artifactId of artifact) {
-      await common.sleep(2000)
+      await common.sleep(1000)
       instruction.msg = `#梁氏覆盖更新${GameName}${artifactId}圣遗物数据`
       await this.ArtifactNew(instruction, true)
     }
-    await common.sleep(5000)
-    logger.fatal(`[liangshi-calc] ${ArtifactName}更新完成`)
+    await common.sleep(2000)
     for (const itemId of data.item) {
-      await common.sleep(2000)
+      await common.sleep(1000)
       instruction.msg = `#梁氏覆盖更新${GameName}${itemId}物品数据`
       await this.ItemNew(instruction, true, ItemOk)
     }
-    await common.sleep(5000)
-    logger.fatal(`[liangshi-calc] 物品更新完成`)
+    await common.sleep(2000)
     fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => {
       if (err) {
         console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message)
@@ -2622,8 +2618,14 @@ export class calc extends plugin {
 
   async getImg (url, Path, name) {
     if (!await common.downFile(url, Path)) {
-      console.error(`[liangshi-calc]下载${name}图片失败`)
-      return false
+      console.error(`[liangshi-calc]下载${name}图片失败，5秒后重试`)
+      await common.sleep(5000)
+      if (!await common.downFile(url, Path)) {
+        console.error(`[liangshi-calc]重试下载${name}图片失败`)
+        return false
+      }
+      logger.mark(`[liangshi-calc]下载${name}图片成功`)
+      return true
     }
     logger.mark(`[liangshi-calc]下载${name}图片成功`)
     return true
