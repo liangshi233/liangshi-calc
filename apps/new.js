@@ -172,7 +172,7 @@ export class calc extends plugin {
         if (err) {
           ItemOk = false
         } else {
-          logger.fatal(`[liangshi-calc] 物品Json已缓存至本地`)
+          logger.info(`[liangshi-calc] 物品Json已缓存至本地`)
         }
       })
     } catch (error) {
@@ -180,20 +180,20 @@ export class calc extends plugin {
       logger.fatal(`[liangshi-calc] 失败\n${error}`)
     }
     let instruction = { msg: null, isMaster: true, reply: e.reply }
-    for (const charId of data.character) {
+    for (const charId of character) {
       instruction.msg = `#梁氏覆盖更新${GameName}${charId}角色数据`
-      await common.sleep(1000)
+      await common.sleep(2000)
       await this.CharacterNew(instruction, true)
     }
     await common.sleep(2000)
     for (const weaponId of weapon) {
       instruction.msg = `#梁氏覆盖更新${GameName}${weaponId}武器数据`
-      await common.sleep(1000)
+      await common.sleep(1500)
       await this.WeaponNew(instruction, true)
     }
     await common.sleep(2000)
     for (const artifactId of artifact) {
-      await common.sleep(1000)
+      await common.sleep(1500)
       instruction.msg = `#梁氏覆盖更新${GameName}${artifactId}圣遗物数据`
       await this.ArtifactNew(instruction, true)
     }
@@ -208,7 +208,7 @@ export class calc extends plugin {
       if (err) {
         console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message)
       } else {
-        logger.fatal(`[liangshi-calc] 物品Json缓存已删除`)
+        logger.info(`[liangshi-calc] 物品Json缓存已删除`)
       }
     })
     let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata
@@ -1631,6 +1631,7 @@ export class calc extends plugin {
     }
     let CharacterName = data.Name
     let CharacterData
+    let Qkey = 2
     let icons = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/icons`
     let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/imgs`
     if (!fs.existsSync(icons)) {
@@ -1913,10 +1914,9 @@ export class calc extends plugin {
         "FIGHT_PROP_ELEC_ADD_HURT": "dmg",
         "FIGHT_PROP_PHYSICAL_ADD_HURT": "phy"
       }
-      let qTalentName = data.Skills[2].Name
-      if (data.Skills[2].Desc.includes("替代冲刺")) qTalentName = data.Skills[3].Name
-      if (data.Constellations[2].Desc.includes(qTalentName) || data.Constellations[4].Desc.includes(qTalentName)) {
-        ConsTalent.q = data.Constellations[2].Desc.includes(qTalentName) ? 3 : 5
+      if (data.Skills[2].Desc.includes("替代冲刺")) Qkey = 3
+      if (data.Constellations[2].Desc.includes(data.Skills[Qkey].Name) || data.Constellations[4].Desc.includes(data.Skills[Qkey].Name)) {
+        ConsTalent.q = data.Constellations[2].Desc.includes(data.Skills[Qkey].Name) ? 3 : 5
       }
       if (data.Constellations[2].Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
         ConsTalent.e = data.Constellations[2].Desc.includes(data.Skills[1].Name) ? 3 : 5
@@ -1941,9 +1941,9 @@ export class calc extends plugin {
         "costume": false,
         "ver": 1,
         "baseAttr": {
-          "hp": Math.round(data.BaseHP * data.StatsModifier.HP["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP),
-          "atk": Math.round((data.BaseATK * data.StatsModifier.ATK["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK) * 100) / 100,
-          "def": Math.round((data.BaseDEF * data.StatsModifier.DEF["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE) * 100) / 100
+          "hp": Math.round(data.BaseHP * data.StatsModifier.HP["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP),
+          "atk": Math.round((data.BaseATK * data.StatsModifier.ATK["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK) * 100) / 100,
+          "def": Math.round((data.BaseDEF * data.StatsModifier.DEF["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE) * 100) / 100
         },
         "growAttr": {
           "key": GrowKey[Object.keys(data.StatsModifier.Ascension[0])[3]],
@@ -1952,7 +1952,7 @@ export class calc extends plugin {
         "talentId": {
           [data.Skills[0].Id]: "a",
           [data.Skills[1].Id]: "e",
-          [data.Skills[2].Id]: "q"
+          [data.Skills[Qkey].Id]: "q"
         },
         "talentCons": ConsTalent,
         "materials": {
@@ -1977,16 +1977,16 @@ export class calc extends plugin {
             "tables": await this.convertPromoteToTables(data.Skills[1].Promote)
           },
           "q": {
-            "id": data.Skills[2].Id,
-            "name": data.Skills[2].Name,
-            "desc": data.Skills[2].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
-            "tables": await this.convertPromoteToTables(data.Skills[2].Promote)
+            "id": data.Skills[Qkey].Id,
+            "name": data.Skills[Qkey].Name,
+            "desc": data.Skills[Qkey].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
+            "tables": await this.convertPromoteToTables(data.Skills[Qkey].Promote)
           }
         },
         "talentData": {
           "a": await this.TalentPromote(data.Skills[0]),
           "e": await this.TalentPromote(data.Skills[1]),
-          "q": await this.TalentPromote(data.Skills[2])
+          "q": await this.TalentPromote(data.Skills[Qkey])
         },
         "cons": {
           "1": {
@@ -2145,6 +2145,16 @@ export class calc extends plugin {
         "UpdateTime": `[liangshi-calc] ${new Date()}`
       }
     }
+    if (Qkey === 3) {
+      CharacterData.talentId[data.Skills[2].Id] = "t"
+      CharacterData.talent["t"] = {
+        "id": data.Skills[2].Id,
+        "name": data.Skills[2].Name,
+        "desc": data.Skills[2].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
+        "tables": await this.convertPromoteToTables(data.Skills[2].Promote)
+      }
+      CharacterData.talentData["t"] = await this.TalentPromote(data.Skills[2])
+    }
     logger.mark('[liangshi-calc]数据处理完成')
     let path = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/data.json`
     if (!fs.existsSync(path)) {
@@ -2190,7 +2200,8 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/" + data.Passives?.[1]?.Icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
       await this.getImg(IconUrl + "UI/" + data.Passives?.[3]?.Icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
       await this.getImg(IconUrl + "UI/" + data.Skills[1].Promote[0].Icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
-      await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
+      await this.getImg(IconUrl + "UI/" + data.Skills[Qkey].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
+      if (Qkey === 3) await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
       await this.getImg(IconUrl + "UI/" + data.Constellations[0].Icon + ".webp", `${icons}/cons-1.webp`, "1命")
       await this.getImg(IconUrl + "UI/" + data.Constellations[1].Icon + ".webp", `${icons}/cons-2.webp`, "2命")
       await this.getImg(IconUrl + "UI/" + data.Constellations[2].Icon + ".webp", `${icons}/cons-3.webp`, "3命")
@@ -2323,9 +2334,11 @@ export class calc extends plugin {
             descMap[name] = {
               name,
               paramParts: [],
-              multiplier: multiplier || null
+              multiplier: multiplier || null,
+              originalTemplates: []
             }
           }
+          descMap[name].originalTemplates.push(descPart)
           const paramRegex = /{param(\d+):([^}]+)}/g
           let match
           const params = []
@@ -2394,6 +2407,9 @@ export class calc extends plugin {
     for (const type of Object.values(descMap)) {
       const values = []
       let hasError = false
+      let unit = ""
+      let unitName = ""
+      const sampleTemplate = type.originalTemplates[0] || ''
       for (const level of levels) {
         if (hasError) {
           values.push(false)
@@ -2405,7 +2421,12 @@ export class calc extends plugin {
             values.push(false)
             continue
           }
-          let value = ""
+          let value = type.name
+          if (type.paramParts.length === 0) {
+            values.push(value)
+            continue
+          }
+          let processedTemplate = sampleTemplate
           for (const paramPart of type.paramParts) {
             if (paramPart.type === "simple") {
               const { index, format } = paramPart
@@ -2413,19 +2434,67 @@ export class calc extends plugin {
                 value = false
                 break
               }
-              value = await this.formatParam(data.Param[index], format)
+              const paramValue = await this.formatParam(data.Param[index], format, true)
+              const paramRegex = new RegExp(`{param${index + 1}:[^}]+}`, 'g')
+              processedTemplate = processedTemplate.replace(paramRegex, paramValue)
             } else if (paramPart.type === "compound") {
               const formattedParts = await Promise.all(
                 paramPart.parts.map(async (part) => {
                   if (part.index >= data.Param.length) {
                     return false
                   }
-                  return await this.formatParam(data.Param[part.index], part.format)
+                  return await this.formatParam(data.Param[part.index], part.format, true)
                 })
               )
-              value = formattedParts.join(` ${paramPart.separator} `)
+              const paramRegex = new RegExp(`{param${paramPart.parts[0].index + 1}:[^}]+}`, 'g')
+              processedTemplate = processedTemplate.replace(paramRegex, formattedParts[0])
+              if (formattedParts.length > 1) processedTemplate = processedTemplate.replace(/\{param(\d{1,2}):[^}]+\}/g, formattedParts[1])
             }
           }
+          processedTemplate = processedTemplate.replace(/{param\d+:[^}]+}/g, '').replace(/{param\d+}/g, '').split('|').pop()
+          if (processedTemplate.endsWith('/') || processedTemplate.endsWith('+')) {
+            processedTemplate = processedTemplate.slice(0, -1)
+          }
+          processedTemplate = processedTemplate.replace(/([+\/])/g, " $1 ")
+          unitName = sampleTemplate.split('|').pop().replace(/{param\d+:[^}]+}/g, '').replace(/{param\d+}/g, '')
+          // miao-plugin原版对于混合倍率(100%攻击力+100%元素精通)显示方式为：抬头显示元素精通，倍率显示”100%攻击力+100%“
+          // 此处优化显示为”100%攻击力+100%元素精通“，如需还原为miao-plugin原版显示方式只需将下方(![XXXX].some(key => processedTemplate.includes(key))改为true即可
+          // 如需改为特殊优化版【抬头显示”攻击力+元素精通“，倍率显示”100%+100%“】，将unitConfig改为true即可
+          let unitConfig = false
+          if (!unitConfig) {
+            if (processedTemplate.endsWith('元素精通') && !['生命值上限', '防御力', '攻击力'].some(key => processedTemplate.includes(key))) {
+              processedTemplate = processedTemplate.slice(0, -4)
+              unit = "元素精通"
+            } else if (processedTemplate.endsWith('生命值上限') && !['元素精通', '防御力', '攻击力'].some(key => processedTemplate.includes(key))) {
+              processedTemplate = processedTemplate.slice(0, -5)
+              unit = "生命值上限"
+            } else if (processedTemplate.endsWith('防御力') && !['元素精通', '生命值上限', '攻击力'].some(key => processedTemplate.includes(key))) {
+              processedTemplate = processedTemplate.slice(0, -3)
+              unit = "防御力"
+            }
+          } else {
+            if (unitName.includes("+") || unitName.includes("/")) {
+              unit = unitName
+              processedTemplate = processedTemplate.replace(/生命值上限|防御力|攻击力|元素精通/g, '')
+
+            } else {
+              if (processedTemplate.endsWith('元素精通')) {
+                processedTemplate = processedTemplate.slice(0, -4)
+                unit = "元素精通"
+              } else if (processedTemplate.endsWith('生命值上限')) {
+                processedTemplate = processedTemplate.slice(0, -5)
+                unit = "生命值上限"
+              } else if (processedTemplate.endsWith('防御力')) {
+                processedTemplate = processedTemplate.slice(0, -3)
+                unit = "防御力"
+              }
+            }
+          }
+          if (processedTemplate.endsWith('每点元素能量')) {
+            processedTemplate = processedTemplate.slice(0, -6)
+            unit = "每点元素能量"
+          }
+          value = processedTemplate
           if (value !== false && type.multiplier) {
             value += `*${type.multiplier}`
           }
@@ -2437,7 +2506,7 @@ export class calc extends plugin {
       }
       tables.push({
         name: type.name,
-        unit: "",
+        unit,
         isSame: values.length > 1 && values.every(v => v === values[0]),
         values,
       })
@@ -2491,14 +2560,16 @@ export class calc extends plugin {
     return result
   }
 
-  async formatParam(value, format) {
+  async formatParam(value, format, skipUnit = false) {
     try {
       const num = parseFloat(value)
       if (isNaN(num)) return value.toString()
       switch (format) {
-        case "F1P": return `${(num * 100).toFixed(1)}%`
-        case "P": return `${Math.round(num * 100)}%`
-        case "F1": return `${Math.round(num)}点`
+        case "F2P":
+        case "F1P": return `${parseFloat((num * 100).toFixed(2))}%`
+        case "P": return `${parseFloat((num * 100).toFixed(2))}%`
+        case "I": return skipUnit ? `${parseFloat(num.toFixed(2))}` : `${parseFloat(num.toFixed(2))}点`
+        case "F1": return skipUnit ? `${Math.round(num)}` : `${Math.round(num)}点`
         default: return value.toString()
       }
     } catch (e) {
