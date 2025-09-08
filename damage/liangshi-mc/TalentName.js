@@ -23,6 +23,7 @@ function ObTalentName(CharacterName) {
     aMName = '常态攻击'
     eMName = '共鸣技能'
     qMName = '共鸣解放'
+    tMName = '共鸣回路'
     c1MName = '一链'
     c2MName = '二链'
     c2MName = '三链'
