@@ -227,6 +227,15 @@ export default function (step, staticStep) {
         lunarBloom: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
       }
     },
+    霜辰: {
+      title: '[深宵的胎梦] 重击命中敌人[buff]次,元素战技命中敌人[buffC]次，元素精通提升[mastery]',
+      sort: 9,
+      data: {
+        buff: ({ params }) => params.ChargedHit || 0,
+        buffC: ({ params }) => params.SkillsHit || 1,
+        mastery: ({ params, refine }) => ((params.ChargedHit || 0) > 0 ? step(72)[refine] : 0) + ((params.SkillsHit || 0) > 1 ? step(48)[refine] : 0)
+      }
+    },
 
 // 5星
 
@@ -357,7 +366,13 @@ export default function (step, staticStep) {
         hyperBloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(80)[refine] : 0,
         lunarBloom: ({ params, refine, element }) => (((params.Moonsign || 0) >= 1 ? 1 : 0) + (['水', '草'].includes(element) ? 1 : 0)) === 2 ? step(40)[refine] : 0
       }
-    }
-
+    },
+    真语秘匣: [staticStep('cpct', 8), {
+      title: '[伪言的真意] 施放元素战技时元素精通提升[mastery]%, 暴击伤害提升[cdmg]%',
+      refine: {
+        mastery: ({ params, refine }) => (params.SkillsUse || 1) >= 1 ? ((params.Moonsign || 0) >= 1 ? (step(80)[refine] * 1.5) : step(80)[refine]) : 0,
+        cdmg: ({ params, refine }) => (params.Moonsign || 0) >= 1 ? ((params.SkillsUse || 1) >= 1 ? (step(24)[refine] * 1.5) : step(24)[refine]) : 0
+      }
+    }]
   }
 }

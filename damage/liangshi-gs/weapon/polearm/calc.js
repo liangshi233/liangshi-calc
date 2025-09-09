@@ -184,6 +184,14 @@ export default function (step, staticStep) {
         lunarCharged: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
       }
     },
+    圣祭者的辉杖: {
+      title: '[未染的觖望] 元素战技命中敌人[buff]次，攻击力提升[atkPct]%，元素充能效率提升[recharge]%',
+      data: {
+        buff: ({ params }) => params.SkillsHit || 1,
+        atkPct: ({ params, refine }) => Math.min((params.SkillsHit || 1), 3) * step(8)[refine],
+        recharge: ({ params, refine }) => Math.min((params.SkillsHit || 1), 3) * step(12)[refine]
+      }
+    },
 
 // 5星
 

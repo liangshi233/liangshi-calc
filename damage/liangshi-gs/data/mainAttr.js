@@ -59,6 +59,7 @@ export const mainAttrData = {
   "纳西妲": 'atk,cpct,cdmg,dmg,mastery',
   "娜维娅": 'atk,cpct,cdmg,dmg,mastery',
   "妮露": 'hp,cpct,cdmg,dmg,mastery',
+  "奈芙尔": 'atk,cpct,cdmg,dmg,mastery',
   "凝光": 'atk,cpct,cdmg,dmg,mastery',
   "诺艾尔": 'def,atk,cpct,cdmg,dmg',
   "欧洛伦": 'atk,cpct,cdmg,dmg,mastery',
