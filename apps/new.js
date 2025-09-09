@@ -827,7 +827,7 @@ export class calc extends plugin {
           "name": data.Name,
           "affixTitle": data.Refinement?.["1"]?.Name || "",
           "star": data.Rarity,
-          "desc": data.Desc,
+          "desc": data.Desc.replace(/\\n/g, ''),
           "attr": {
             "atk": {
               "1": data.StatsModifier.ATK.Base,
@@ -2279,17 +2279,18 @@ export class calc extends plugin {
             let newValue = {
               "id": Number(CharacterId),
               "name": data.Name,
-              "abbr": data.Name,
+              "abbr": data.Name.length >= 5 ? data.Name.slice(-2) : data.Name,
               "star": RarityKey[data.Rarity],
               "elem": data.Element.toLowerCase(),
               "weapon": WeaponKey[data.Weapon],
               "talentId": {
                 [data.Skills[0].Id]: "a",
                 [data.Skills[1].Id]: "e",
-                [data.Skills[2].Id]: "q"
+                [data.Skills[Qkey].Id]: "q"
               },
               "talentCons": ConsTalent
             }
+            if (Qkey === 3) newValue.talentId[data.Skills[2].Id] = "t"
             jsonData[CharacterId] = newValue
             logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
@@ -2448,7 +2449,16 @@ export class calc extends plugin {
               )
               const paramRegex = new RegExp(`{param${paramPart.parts[0].index + 1}:[^}]+}`, 'g')
               processedTemplate = processedTemplate.replace(paramRegex, formattedParts[0])
-              if (formattedParts.length > 1) processedTemplate = processedTemplate.replace(/\{param(\d{1,2}):[^}]+\}/g, formattedParts[1])
+              if (formattedParts.length > 1) {
+                let replaceMap = new Map()
+                paramPart.parts.forEach((part, idx) => {
+                  let regex = new RegExp(`\\{param${part.index + 1}:[^}]+\\}`)
+                  replaceMap.set(regex, formattedParts[idx])
+                })
+                let currentTemplate = processedTemplate
+                replaceMap.forEach((value, regex) => { currentTemplate = currentTemplate.replace(regex, value) })
+                processedTemplate = currentTemplate
+              }
             }
           }
           processedTemplate = processedTemplate.replace(/{param\d+:[^}]+}/g, '').replace(/{param\d+}/g, '').split('|').pop()
@@ -2553,7 +2563,7 @@ export class calc extends plugin {
         valueIndex++
       }
     })
-    result.text = processedText
+    result.text = processedText.replace(/\\n/g, '')
     placeholders.forEach(ph => {
       result.datas[ph.index] = ph.values
     })
@@ -2569,7 +2579,7 @@ export class calc extends plugin {
         case "F1P": return `${parseFloat((num * 100).toFixed(2))}%`
         case "P": return `${parseFloat((num * 100).toFixed(2))}%`
         case "I": return skipUnit ? `${parseFloat(num.toFixed(2))}` : `${parseFloat(num.toFixed(2))}点`
-        case "F1": return skipUnit ? `${Math.round(num)}` : `${Math.round(num)}点`
+        case "F1": return skipUnit ? `${parseFloat(num.toFixed(1))}` : `${parseFloat(num.toFixed(1))}点`
         default: return value.toString()
       }
     } catch (e) {
