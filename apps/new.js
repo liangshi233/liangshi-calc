@@ -1216,14 +1216,31 @@ export class calc extends plugin {
           }
           try {
             let jsonData = JSON.parse(TextData)
+            let setsPath = Array.isArray(jsonData[n]?.sets) ? jsonData[n].sets : []
+            if (!setsPath.includes(data.Id)) setsPath.push(data.Id)
             let newValue = {
               "id": Object.keys(data.Group)[0],
               "name": data.Group[`${Object.keys(data.Group)[0]}`].Name,
-              "sets": {},
+              "sets": setsPath,
               "effect": k,
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
             jsonData[n] = newValue
+            let GroupKey = Object.keys(data.Group)
+            if (GroupKey.length > 1) {
+              for (let i = 0; i < GroupKey.length - 1; i++) {
+                let currentKey = GroupKey[i + 1]
+                let SetsPath = Array.isArray(jsonData[currentKey]?.sets) ? jsonData[currentKey].sets : []
+                if (!SetsPath.includes(data.Id)) SetsPath.push(data.Id)
+                let NewValue = {
+                  "id": jsonData?.[currentKey]?.id,
+                  "name": jsonData?.[currentKey]?.name,
+                  "sets": SetsPath,
+                  "effect": jsonData?.[currentKey]?.effect
+                }
+                jsonData[currentKey] = NewValue
+              }
+            }
             logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
@@ -1253,7 +1270,7 @@ export class calc extends plugin {
           return `$[${p1}]`
         })
         let ArtifactData = {
-          "id": data.id,
+          "id": data.Id,
           "Name": data.Name,
           "Code": data.Code,
           "desc": data.Skill.SimpleDesc.replace(/\n/g, ''),
