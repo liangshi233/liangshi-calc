@@ -94,13 +94,13 @@ export const AllCalc = [
   {
     title: `${TalentName.qName}一段伤害`,
     params: { BurstUse: 1, BurstHit: 1, BurstDmg: 1, EnergyUse: 1 },
-    dmg: ({ talent, calc, attr }, { basic }) => basic((calc(attr.atk) * talent.e['一段伤害2'][0] + calc(attr.mastery) * talent.e['一段伤害2'][1]) / 100, 'q')
+    dmg: ({ talent, calc, attr }, { basic }) => basic((calc(attr.atk) * talent.q['一段伤害2'][0] + calc(attr.mastery) * talent.q['一段伤害2'][1]) / 100, 'q')
   },
   {
     title: `${TalentName.qName}二段伤害`,
     dmgKey: 'q',
     params: { BurstUse: 1, BurstHit: 2, BurstDmg: 2, EnergyUse: 1 },
-    dmg: ({ talent, calc, attr }, { basic }) => basic((calc(attr.atk) * talent.e['二段伤害2'][0] + calc(attr.mastery) * talent.e['二段伤害2'][1]) / 100, 'q')
+    dmg: ({ talent, calc, attr }, { basic }) => basic((calc(attr.atk) * talent.q['二段伤害2'][0] + calc(attr.mastery) * talent.q['二段伤害2'][1]) / 100, 'q')
   },
   {
     title: '绽放伤害',

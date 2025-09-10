@@ -32,14 +32,14 @@ export const CalcBuff = [
     title: '奈芙尔技能：[弈术 · 千夜一舞] [buff]层「伪秘之帷」使幻戏伤害提升为原本的1[_eDmg]%',
     data: {
       buff: ({ params, cons }) => Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)),
-      _eDmg: ({ talent }) => Math.min(((params.Veil_of_Falsehood || 99) * 10), (cons >= 2 ? 50 : 30))
+      _eDmg: ({ params, cons }) => Math.min(((params.Veil_of_Falsehood || 99) * 10), (cons >= 2 ? 50 : 30))
     }
   },
   {
     title: '奈芙尔技能：[圣约 · 真眸幻戏] [buff]层「伪秘之帷」使元素爆发伤害提升[qDmg]%',
     data: {
       buff: ({ params, cons }) => Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)),
-      qDmg: ({ talent, params }) => talent.q['伤害提升'] * Math.min(((params.Veil_of_Falsehood || 99)), (cons >= 2 ? 5 : 3))
+      qDmg: ({ talent, params, cons }) => talent.q['伤害提升'] * Math.min(((params.Veil_of_Falsehood || 99)), (cons >= 2 ? 5 : 3))
     }
   },
   {
@@ -52,7 +52,7 @@ export const CalcBuff = [
     }
   },
   {
-    title: '奈芙尔2命：[明察为筹算之先] 「伪秘之帷」上限提升至5.0层, [buff]层「伪秘之帷」使元素精通额外提升[lunarBloom]%',
+    title: '奈芙尔2命：[明察为筹算之先] 「伪秘之帷」上限提升至5.0层, [buff]层「伪秘之帷」使元素精通额外提升[mastery]',
     cons: 2,
     data: {
       buff: ({ params, cons }) => Math.min((params.Veil_of_Falsehood || 99), (cons >= 2 ? 5 : 3)),

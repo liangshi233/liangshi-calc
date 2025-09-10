@@ -369,7 +369,7 @@ export default function (step, staticStep) {
     },
     真语秘匣: [staticStep('cpct', 8), {
       title: '[伪言的真意] 施放元素战技时元素精通提升[mastery]%, 暴击伤害提升[cdmg]%',
-      refine: {
+      data: {
         mastery: ({ params, refine }) => (params.SkillsUse || 1) >= 1 ? ((params.Moonsign || 0) >= 1 ? (step(80)[refine] * 1.5) : step(80)[refine]) : 0,
         cdmg: ({ params, refine }) => (params.Moonsign || 0) >= 1 ? ((params.SkillsUse || 1) >= 1 ? (step(24)[refine] * 1.5) : step(24)[refine]) : 0
       }
