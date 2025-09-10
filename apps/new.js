@@ -2083,7 +2083,7 @@ export class calc extends plugin {
               data.BaseHP * data.StatsModifier.HP["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_HP,
               data.BaseATK * data.StatsModifier.ATK["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_ATTACK,
               data.BaseDEF * data.StatsModifier.DEF["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_DEFENSE,
-              data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[1])[3]] >= 1 ? data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[1])[3]] * 100)
+              data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[1])[3]] >= 1 ? data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] : (data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] * 100)
             ],
             "60": [
               data.BaseHP * data.StatsModifier.HP["60"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_HP,
