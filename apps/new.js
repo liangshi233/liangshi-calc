@@ -1932,13 +1932,13 @@ export class calc extends plugin {
         "FIGHT_PROP_PHYSICAL_ADD_HURT": "phy"
       }
       if (data.Skills[2].Desc.includes("替代冲刺")) Qkey = 3
-      if (data.Constellations[2].Desc.includes(data.Skills[Qkey].Name) || data.Constellations[4].Desc.includes(data.Skills[Qkey].Name)) {
+      if (data.Constellations[2]?.Desc.includes(data.Skills[Qkey].Name) || data.Constellations[4].Desc.includes(data.Skills[Qkey].Name)) {
         ConsTalent.q = data.Constellations[2].Desc.includes(data.Skills[Qkey].Name) ? 3 : 5
       }
-      if (data.Constellations[2].Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
+      if (data.Constellations[2]?.Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
         ConsTalent.e = data.Constellations[2].Desc.includes(data.Skills[1].Name) ? 3 : 5
       }
-      if (data.Constellations[2].Desc.includes(data.Skills[0].Name) || data.Constellations[4].Desc.includes(data.Skills[0].Name)) {
+      if (data.Constellations[2]?.Desc.includes(data.Skills[0].Name) || data.Constellations[4].Desc.includes(data.Skills[0].Name)) {
         ConsTalent.a = data.Constellations[2].Desc.includes(data.Skills[0].Name) ? 3 : 5
       }
       CharacterData = {
@@ -2007,50 +2007,50 @@ export class calc extends plugin {
         },
         "cons": {
           "1": {
-            "name": data.Constellations[0].Name,
-            "desc": data.Constellations[0].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[0]?.Name,
+            "desc": data.Constellations[0]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           "2": {
-            "name": data.Constellations[1].Name,
-            "desc": data.Constellations[1].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[1]?.Name,
+            "desc": data.Constellations[1]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           "3": {
-            "name": data.Constellations[2].Name,
-            "desc": data.Constellations[2].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[2]?.Name,
+            "desc": data.Constellations[2]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           "4": {
-            "name": data.Constellations[3].Name,
-            "desc": data.Constellations[3].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[3]?.Name,
+            "desc": data.Constellations[3]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           "5": {
-            "name": data.Constellations[4].Name,
-            "desc": data.Constellations[4].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[4]?.Name,
+            "desc": data.Constellations[4]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           "6": {
-            "name": data.Constellations[5].Name,
-            "desc": data.Constellations[5].Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "name": data.Constellations[5]?.Name,
+            "desc": data.Constellations[5]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           }
         },
         "passive": [
           {
             "name": data.Passives[2]?.Name,
-            "desc": data.Passives[2]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "desc": data.Passives[2]?.Desc?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           {
             "name": data.Passives[0]?.Name,
-            "desc": data.Passives[0]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "desc": data.Passives[0]?.Desc?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           {
             "name": data.Passives[1]?.Name,
-            "desc": data.Passives[1]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "desc": data.Passives[1]?.Desc?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           },
           data.Passives?.[3] ? {
             "name": data.Passives?.[3]?.Name,
-            "desc": data.Passives?.[3]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "desc": data.Passives?.[3]?.Desc?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           } : undefined,
           data.Passives?.[4] ? {
             "name": data.Passives?.[4]?.Name,
-            "desc": data.Passives?.[4]?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+            "desc": data.Passives?.[4]?.Desc?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
           } : undefined,
         ].filter(Boolean),
         "attr": {
@@ -2219,12 +2219,12 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/" + data.Skills[1].Promote[0].Icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
       await this.getImg(IconUrl + "UI/" + data.Skills[Qkey].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
       if (Qkey === 3) await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[0].Icon + ".webp", `${icons}/cons-1.webp`, "1命")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[1].Icon + ".webp", `${icons}/cons-2.webp`, "2命")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[2].Icon + ".webp", `${icons}/cons-3.webp`, "3命")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[3].Icon + ".webp", `${icons}/cons-4.webp`, "4命")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[4].Icon + ".webp", `${icons}/cons-5.webp`, "5命")
-      await this.getImg(IconUrl + "UI/" + data.Constellations[5].Icon + ".webp", `${icons}/cons-6.webp`, "6命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[0]?.Icon + ".webp", `${icons}/cons-1.webp`, "1命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[1]?.Icon + ".webp", `${icons}/cons-2.webp`, "2命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[2]?.Icon + ".webp", `${icons}/cons-3.webp`, "3命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[3]?.Icon + ".webp", `${icons}/cons-4.webp`, "4命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[4]?.Icon + ".webp", `${icons}/cons-5.webp`, "5命")
+      await this.getImg(IconUrl + "UI/" + data.Constellations[5]?.Icon + ".webp", `${icons}/cons-6.webp`, "6命")
     }
     if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
     logger.mark(`[liangshi-calc]图片资源下载完成`)
@@ -2375,7 +2375,8 @@ export class calc extends plugin {
               })
             } else {
               const separator = paramStr.includes("/") ? "/" :
-                paramStr.includes("+") ? "+" : null
+                  paramStr.includes("+") ? "+" :
+                      paramStr.includes("到") ? "到" : null
               if (separator) {
                 const parts = paramStr.split(separator).map(p => p.trim())
                 const compoundParts = []
@@ -2659,7 +2660,7 @@ export class calc extends plugin {
         }
         if (hasAsterisk) {
           currentLevelValues[name] = extractedValues[0] * multiplier
-          currentLevelValues[name + "2"] = [extractedValues[0], multiplier]
+          currentLevelValues[name + "2"] = [...extractedValues, multiplier]
         } else if (hasSlash) {
           currentLevelValues[name] = extractedValues
           currentLevelValues[name + "2"] = extractedValues

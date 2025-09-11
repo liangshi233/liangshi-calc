@@ -16,7 +16,7 @@ function ParamsData(CharacterName) {
     BLPlusPath = cfg.bndOfLifePlus || 0
     BLPctPath = cfg.bndOfLifePct || 1
   }
-  EnergyTeammate = EnergyKey[CharacterName][0] || 60
+  EnergyTeammate = EnergyKey[CharacterName]?.[0] ?? 60
   BondOfLifeDetermine = ['阿蕾奇诺', '克洛琳德', '希格雯'].includes(CharacterName)
   FreezeDetermine = ['甘雨', '神里绫华', '菲米尼', '爱可菲', '丝柯克'].includes(CharacterName)
   BurningDetermine = ['艾梅莉埃', '基尼奇'].includes(CharacterName)
