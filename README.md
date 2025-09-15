@@ -602,7 +602,9 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 ---
 ## 其他资源位置
 
-> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) | 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs)
+> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) 
+> 
+> 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs) （ 被大手制裁了:( ）
 
 |     名称      |                         gitee                         |                         github                          |
 |:-----------:|:-----------------------------------------------------:|:-------------------------------------------------------:|
