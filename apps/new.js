@@ -59,23 +59,27 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
+    let status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
+      GamePath = "gs"
       GameName = "原神"
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       game = "hsr"
+      GamePath = "sr"
       GameName = "崩坏：星穹铁道"
       e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
       return false
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       game = "zzz"
+      GamePath = "zzz"
       GameName = "绝区零"
       e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
       return false
     } else {
       game = "ww"
+      GamePath = "mc"
       GameName = "鸣潮"
     }
     if (cfg.ProxyUrl) {
@@ -139,6 +143,7 @@ export class calc extends plugin {
     }
     if (/完整|全部/.test(e.msg)) {
       let Characterurl, Weaponurl, Artifacturl, Itemurl
+      status = "完整"
       try {
         Characterurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
         Characterurl = await Characterurl.json()
@@ -204,6 +209,34 @@ export class calc extends plugin {
       await this.ItemNew(instruction, true, ItemOk)
     }
     await common.sleep(2000)
+    let verDataPath = `./plugins/miao-plugin/resources/meta-${GamePath}/data.json`
+    if (!fs.existsSync(verDataPath)) fs.writeFileSync(verDataPath, '{}')
+    fs.readFile(verDataPath, 'utf8', (err, TextData) => {
+      if (err) return false
+      try {
+        let verData = JSON.parse(TextData)
+        let Time = new Date()
+        let dayTime = `${Time.getFullYear()}-${Time.getMonth() + 1}-${Time.getDate()} ${Time.getHours()}:${Time.getMinutes()}`
+        verData.ver = version
+        verData.time = dayTime
+        verData[dayTime] = {
+          "ver": version,
+          "api": "hakush.in",
+          "time": dayTime,
+          "artifact": artifact,
+          "character": character,
+          "material": data.item,
+          "weapon": weapon,
+          "status": status
+        }
+        let updatedData = JSON.stringify(verData, null, 2)
+        fs.writeFile(verDataPath, updatedData, 'utf8', (err) => {
+          if (err) return false
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    })
     fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => {
       if (err) {
         console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message)

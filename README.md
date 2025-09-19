@@ -126,7 +126,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 ##### 注意事项
 
-> 使用此功能更新后会导致miao-plugin后续更新出现冲突
+> 使用此功能更新后会导致miao-plugin后续更新出现冲突(可使用 #喵喵强制更新 消除冲突)
 
 默认更新不会将角色自动添加到data.json
 
@@ -139,6 +139,15 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 如遇小版本更新(角色数据有修改)，可使用强制更新替换已更新的数据至最新
 
 > 此功能仅更新计算必要的数据，详细角色数据以miao-plugin更新的为准
+
+<details><summary>使用 #喵喵强制更新 无法消除冲突？</summary>
+
+部分特殊情况下会遇到使用 #喵喵强制更新 仍无法更新，可使用下方方法删除本插件更新的数据
+
+> 使用此方法无法回退 完整数据更新 ，仅可回退 仅新内容更新（即更新数据时指令未加`完整`二字可回退）
+
+
+</details>
 
 ---
 
@@ -600,11 +609,24 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 </details>
 
 ---
+
+<details><summary>原神与星铁相关内容维护状态</summary>
+
+Ke_Akatsuki被弹窗气退游了，原神相关内容在10月9日前由liangshi暂时维护
+
+10月10日后会更新关闭原神相关内容开关GsDisabled，可设置GsDisabled关闭原神相关内容
+
+星铁相关内容暂时无人维护，可设置SrDisabled关闭星铁相关内容
+
+</details>
+
+---
+
 ## 其他资源位置
 
 > 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) 
 > 
-> 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs) （ 被大手制裁了:( ）
+> 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs) （被大手制裁了 :( 可前往群文件下载）
 
 |     名称      |                         gitee                         |                         github                          |
 |:-----------:|:-----------------------------------------------------:|:-------------------------------------------------------:|
