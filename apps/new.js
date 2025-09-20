@@ -59,7 +59,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
+    let url, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
@@ -88,7 +88,17 @@ export class calc extends plugin {
       ProxyUrl = ""
     }
     try {
-      let url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        if (cfg.mcApi === 2) {
+          url = `${ProxyUrl}https://api.encore.moe/zh-Hans/new`
+        } else if (cfg.mcApi === 3) {
+          url = `${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`
+        } else {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/new`
+        }
+      } else {
+        url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      }
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -112,11 +122,18 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    let character = data.character
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      version = data.hotfix
-      weapon = data.weapon
-      artifact = data.echo
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        version = data[0].ResVer
+        character = data[1].character
+        weapon = data[1].weapon
+        artifact = data[1].echo
+      } else {
+        version = data.hotfix
+        character = data.character
+        weapon = data.weapon
+        artifact = data.echo
+      }
       CharacterName = "共鸣者"
       ArtifactName = "声骸"
       WeaponName = "武器"
@@ -124,6 +141,7 @@ export class calc extends plugin {
       u = "weapon"
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       version = data.version
+      character = data.character
       weapon = data.lightcone
       artifact = data.relicset
       CharacterName = "角色"
@@ -133,6 +151,7 @@ export class calc extends plugin {
       u = "lightcone"
     } else {
       version = data.version
+      character = data.character
       weapon = data.weapon
       artifact = data.artifact
       CharacterName = "角色"
