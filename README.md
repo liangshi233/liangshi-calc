@@ -117,7 +117,6 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 </details>
 
-
 ##### 数据更新时间
 
 原神: **一般**为版本更新当天20:00~次日8:00左右(如未更新耐心等待即可)
@@ -301,6 +300,22 @@ calcmodel: liangshi #你安装计算的名字（例如abc-gs，就填abc）
 
 ## 设置
 
+### 关闭来自liangshi-calc的原神相关功能
+
+<details><summary>点击展开</summary>
+
+在插件目录下`config/config.yaml` 中添加
+
+~~~~~~~~~~YAML
+GsDisabled: true
+~~~~~~~~~~
+
+添加完成后重启即可
+
+---
+
+</details>
+
 ### 关闭来自liangshi-calc的星铁相关功能
 
 <details><summary>点击展开</summary>
@@ -385,7 +400,6 @@ SrDisabled: true
 
 </details>
 
-
 ### 自定义计算条目显示方式
 
 <details><summary>点击展开</summary>
@@ -445,7 +459,6 @@ namemodel: 51
 ---
 
 </details>
-
 
 ### 自定义计算排行规则
 

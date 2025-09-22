@@ -1356,7 +1356,7 @@ export class calc extends plugin {
 
   async VerNew (e) {
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
+    let url, character, response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GameName = "原神"
@@ -1376,7 +1376,14 @@ export class calc extends plugin {
       ProxyUrl = ""
     }
     try {
-      let url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 2) {
+        url = `${ProxyUrl}https://api.encore.moe/zh-Hans/new`
+        console.log(url)
+      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 3) {
+        url = `${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`
+      } else {
+        url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+      }
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -1400,16 +1407,24 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    let character = data.character.length > 0 ? data.character : "本次无此内容更新"
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      version = data.hotfix
-      weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
-      artifact = data.echo.length > 0 ? data.echo : "本次无此内容更新"
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        version = data[0].ResVer
+        character = data[1].character.length > 0 ? data[1].character : "本次无此内容更新"
+        weapon = data[1].weapon.length > 0 ? data[1].weapon : "本次无此内容更新"
+        artifact = data[1].echo.length > 0 ? data[1].echo : "本次无此内容更新"
+      } else {
+        version = data.hotfix
+        character = data.character.length > 0 ? data.character : "本次无此内容更新"
+        weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
+        artifact = data.echo.length > 0 ? data.echo : "本次无此内容更新"
+      }
       CharacterName = "共鸣者"
       ArtifactName = "声骸"
       WeaponName = "武器"
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       version = data.version
+      character = data.character.length > 0 ? data.character : "本次无此内容更新"
       weapon = data.lightcone.length > 0 ? data.lightcone : "本次无此内容更新"
       artifact = data.relicset.length > 0 ? data.relicset : "本次无此内容更新"
       CharacterName = "角色"
@@ -1417,6 +1432,7 @@ export class calc extends plugin {
       WeaponName = "光锥"
     } else {
       version = data.version
+      character = data.character.length > 0 ? data.character : "本次无此内容更新"
       weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
       artifact = data.artifact.length > 0 ? data.artifact : "本次无此内容更新"
       ArtifactName = "圣遗物"

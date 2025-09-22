@@ -54,13 +54,13 @@ export const AllCalc = [
   },
   {
     title: `长按${TalentName.eName}二段单枚`,
-    params: { SkillsHit: 3, SkillsDmg: 3 },
+    params: { SkillsHit: 3, SkillsDmg: 3, Lunar: true },
     dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, '', 'lunarBloom')
   },
   {
     title: `满辉${TalentName.eName}二段单枚`,
     dmgKey: 'e',
-    params: { SkillsHit: 3, SkillsDmg: 3, Moonsign: 3 },
+    params: { SkillsHit: 3, SkillsDmg: 3, Moonsign: 3, Lunar: true },
     dmg: ({ talent, calc, attr }, { basic }) => basic(calc(attr.mastery) * talent.e['长按二段伤害'] / 100, '', 'lunarBloom')
   },
   {
