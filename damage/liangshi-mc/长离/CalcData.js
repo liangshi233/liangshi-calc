@@ -28,7 +28,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}三段伤害`,
-    params: { "常态攻击使用次数": 3, "常态攻击命中次数": 4, "常态攻击造成伤害次数": 4 },
+    params: { "常态攻击使用次数": 3, "常态攻击命中次数": 7, "常态攻击造成伤害次数": 7 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第三段伤害2'][0], 'a')
       return {
@@ -39,7 +39,7 @@ export const AllCalc = [
   },
   {
     title: `${TalentName.aName}四段伤害`,
-    params: { "常态攻击使用次数": 4, "常态攻击命中次数": 9, "常态攻击造成伤害次数": 9 },
+    params: { "常态攻击使用次数": 4, "常态攻击命中次数": 12, "常态攻击造成伤害次数": 12 },
     dmg: ({ talent }, dmg) => {
       let a1 = dmg(talent.a['第四段伤害2'][0], 'a')
       let a2 = dmg(talent.a['第四段伤害2'][2], 'a')
