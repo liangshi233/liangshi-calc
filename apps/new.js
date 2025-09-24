@@ -59,8 +59,9 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let url, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
+    let url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GamePath = "gs"
@@ -89,12 +90,10 @@ export class calc extends plugin {
     }
     try {
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        if (cfg.mcApi === 2) {
-          url = `${ProxyUrl}https://api.encore.moe/zh-Hans/new`
-        } else if (cfg.mcApi === 3) {
-          url = `${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/new`
         } else {
-          url = `${ProxyUrl}https://api.hakush.in/${game}/new`
+          url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
         }
       } else {
         url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
@@ -164,18 +163,33 @@ export class calc extends plugin {
       let Characterurl, Weaponurl, Artifacturl, Itemurl
       status = "完整"
       try {
-        Characterurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
-        Characterurl = await Characterurl.json()
-        character = Object.keys(Characterurl).map(Number)
-        Weaponurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${u}.json`)
-        Weaponurl = await Weaponurl.json()
-        weapon = Object.keys(Weaponurl).map(Number)
-        Artifacturl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
-        Artifacturl = await Artifacturl.json()
-        artifact = Object.keys(Artifacturl).map(Number)
-        Itemurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`)
-        Itemurl = await Itemurl.json()
-        data.item = Object.keys(Itemurl).map(Number)
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+          Characterurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
+          Characterurl = await Characterurl.json()
+          character = Characterurl.roleList.map(item => item.Id)
+          Weaponurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon`)
+          Weaponurl = await Weaponurl.json()
+          weapon = Weaponurl.weapons.map(item => item.Id)
+          Artifacturl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/echo`)
+          Artifacturl = await Artifacturl.json()
+          artifact = Artifacturl.Echo.map(item => item.Id)
+          Itemurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`)
+          Itemurl = await Itemurl.json()
+          data.item = Itemurl.itemList.map(item => item.Id)
+        } else {
+          Characterurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
+          Characterurl = await Characterurl.json()
+          character = Object.keys(Characterurl).map(Number)
+          Weaponurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${u}.json`)
+          Weaponurl = await Weaponurl.json()
+          weapon = Object.keys(Weaponurl).map(Number)
+          Artifacturl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
+          Artifacturl = await Artifacturl.json()
+          artifact = Object.keys(Artifacturl).map(Number)
+          Itemurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`)
+          Itemurl = await Itemurl.json()
+          data.item = Object.keys(Itemurl).map(Number)
+        }
       } catch (err) {
         logger.mark(err)
       }
@@ -187,6 +201,9 @@ export class calc extends plugin {
     ItemOk = true
     try {
       let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
+      }
       ItemJson = await fetch(url)
       if (!response.ok) {
         ItemOk = false
@@ -238,9 +255,10 @@ export class calc extends plugin {
         let dayTime = `${Time.getFullYear()}-${Time.getMonth() + 1}-${Time.getDate()} ${Time.getHours()}:${Time.getMinutes()}`
         verData.ver = version
         verData.time = dayTime
+        let api = (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) ? "encore.moe" : "hakush.in"
         verData[dayTime] = {
           "ver": version,
-          "api": "hakush.in",
+          "api": api,
           "time": dayTime,
           "artifact": artifact,
           "character": character,
@@ -268,6 +286,11 @@ export class calc extends plugin {
       CharacterText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
       WeaponText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${u}.json`)
       ArtifactText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        CharacterText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
+        WeaponText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${u}`)
+        ArtifactText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${s}`)
+      }
       CharacterNamedata = await CharacterText.json()
       WeaponNamedata = await WeaponText.json()
       ArtifactNamedata = await ArtifactText.json()
@@ -277,9 +300,15 @@ export class calc extends plugin {
     }
     let CharacterNameText, WeaponNameText, ArtifactNameText
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        CharacterNameText = character.map(id => CharacterNamedata.roleList.find(role => role.Id === id).Name)
+        WeaponNameText = weapon.map(id => WeaponNamedata.weapons.find(role => role.Id === id).Name)
+        ArtifactNameText = artifact.map(id => ArtifactNamedata.Echo.find(role => role.Id === id).Name)
+      } else {
+        CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+        WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+        ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      }
     } else {
       CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
       WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
