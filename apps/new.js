@@ -774,8 +774,10 @@ export class calc extends plugin {
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, game, GamePath, ProxyUrl, data, WeaponType, bonus, WeaponData
+    let response, game, GamePath, ProxyUrl, data, WeaponType, bonus, WeaponData, url, apiKey, IconUrl, newValue
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    let counter = -1
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GamePath = "gs"
@@ -798,7 +800,11 @@ export class calc extends plugin {
     let ID = TextData[4]
     if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
     try {
-      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon/${ID}`
+      } else {
+        url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
+      }
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -851,20 +857,31 @@ export class calc extends plugin {
         WeaponType = "projection"
       }
     }
-    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
-    let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`
-    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`) || /强制|强行|覆盖/.test(e.msg)) {
-      if(!mode) e.reply(`[liangshi-calc]开始更新武器: ${data.Name}`)
-      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}`, { recursive: true })
-      logger.mark(`[liangshi-calc]武器:${data.Name} 本地文件夹创建成功`)
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+      IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
     } else {
-      if(!mode) e.reply(`[liangshi-calc]武器: ${data.Name} 已经存在，如需更新数据请使用覆盖更新。`)
+      IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
+    }
+    let WeaponName = (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) ? data.WeaponName : data.Name
+    let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${WeaponName}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply(`[liangshi-calc]开始更新武器: ${WeaponName}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${WeaponName}`, { recursive: true })
+      logger.mark(`[liangshi-calc]武器:${WeaponName} 本地文件夹创建成功`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器: ${WeaponName} 已经存在，如需更新数据请使用覆盖更新。`)
       return false
     }
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        await this.getImg(IconUrl + data.Icon.split('.')[0] + ".png", `${imgs}/icon.webp`, "icon")
+        //await this.getImg(IconUrl + data.IconMiddle.split('.')[0] + ".png", `${imgs}/gacha.webp`, "gacha")
+        //await this.getImg(IconUrl + data.IconSmall.split('.')[0] + ".png", `${imgs}/awaken.webp`, "awaken")
+      } else {
+        await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
+      }
     } else {
-      if (WeaponType === "projection") {
+      if (WeaponType === "projection") {//武器皮肤还没处理
         await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
@@ -968,9 +985,13 @@ export class calc extends plugin {
         }
       }
     } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      let IconData, IconResponse
+      let IconData, IconResponse, url, ValueKey
       try {
-        let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item.json`
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
+        } else {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item.json`
+        }
         IconResponse = await fetch(url)
         if (!response.ok) {
           console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -983,8 +1004,7 @@ export class calc extends plugin {
         IconData = {}
         logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       }
-      let ValueKey
-      if (data.Name.includes("投影·")) {
+      if (data.Name.includes("投影·") || data.WeaponName?.includes("投影·")) {
         WeaponData = {
           "id": ID,
           "name": data.Name,
@@ -992,78 +1012,132 @@ export class calc extends plugin {
           "desc": data.Desc.replace(/\n/g, '')
         }
       } else {
-        if (["暴击", "暴击伤害", "共鸣效率"].includes(data.Stats["0"]["1"][1].Name)) {
-          ValueKey = 0.01
-        } else if (["生命", "防御", "攻击"].includes(data.Stats["0"]["1"][1].Name)) {
-          ValueKey = 100
-        }
-        WeaponData = {
-          "id": ID,
-          "name": data.Name,
-          "affixTitle": data.EffectName,
-          "star": data.Rarity,
-          "desc": data.Desc.replace(/\n/g, ''),
-          "attr": {
-            "atk": {
-              "1": data.Stats["0"]["1"][0].Value,
-              "20": data.Stats["0"]["20"][0].Value,
-              "40": data.Stats["1"]["40"][0].Value,
-              "50": data.Stats["2"]["50"][0].Value,
-              "60": data.Stats["3"]["60"][0].Value,
-              "70": data.Stats["4"]["70"][0].Value,
-              "80": data.Stats["5"]["80"][0].Value,
-              "90": data.Stats["6"]["90"][0].Value,
-              "20+": data.Stats["1"]["20"][0].Value,
-              "40+": data.Stats["2"]["40"][0].Value,
-              "50+": data.Stats["3"]["50"][0].Value,
-              "60+": data.Stats["4"]["60"][0].Value,
-              "70+": data.Stats["5"]["70"][0].Value,
-              "80+": data.Stats["6"]["80"][0].Value
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+          WeaponData = {
+            "id": Number(ID),
+            "name": data.WeaponName,
+            "affixTitle": data.ResonName,
+            "star": data.QualityName === "SR" ? 4 : 5,
+            "desc": data.AttributesDescription.replace(/\n/g, ''),
+            "attr": {
+              "atk": {
+                "1": data.Properties[0].GrowthValues[0].Value,
+                "20": data.Properties[0].GrowthValues[19].Value,
+                "40": data.Properties[0].GrowthValues[39].Value,
+                "50": data.Properties[0].GrowthValues[49].Value,
+                "60": data.Properties[0].GrowthValues[59].Value,
+                "70": data.Properties[0].GrowthValues[69].Value,
+                "80": data.Properties[0].GrowthValues[79].Value,
+                "90": data.Properties[0].GrowthValues[89].Value,
+                "20+": data.Properties[0].GrowthValues[19].Value,
+                "40+": data.Properties[0].GrowthValues[39].Value,
+                "50+": data.Properties[0].GrowthValues[49].Value,
+                "60+": data.Properties[0].GrowthValues[59].Value,
+                "70+": data.Properties[0].GrowthValues[69].Value,
+                "80+": data.Properties[0].GrowthValues[79].Value
+              },
+              "bonusKey": key[data.Properties[1].Name],
+              "bonusData": {
+                "1": data.Properties[1].GrowthValues[0].Value.replace('%', ''),
+                "20": data.Properties[1].GrowthValues[19].Value.replace('%', ''),
+                "40": data.Properties[1].GrowthValues[39].Value.replace('%', ''),
+                "50": data.Properties[1].GrowthValues[49].Value.replace('%', ''),
+                "60": data.Properties[1].GrowthValues[59].Value.replace('%', ''),
+                "70": data.Properties[1].GrowthValues[69].Value.replace('%', ''),
+                "80": data.Properties[1].GrowthValues[79].Value.replace('%', ''),
+                "90": data.Properties[1].GrowthValues[89].Value.replace('%', ''),
+                "20+": data.Properties[1].GrowthValues[19].Value.replace('%', ''),
+                "40+": data.Properties[1].GrowthValues[39].Value.replace('%', ''),
+                "50+": data.Properties[1].GrowthValues[49].Value.replace('%', ''),
+                "60+": data.Properties[1].GrowthValues[59].Value.replace('%', ''),
+                "70+": data.Properties[1].GrowthValues[69].Value.replace('%', ''),
+                "80+": data.Properties[1].GrowthValues[79].Value.replace('%', '')
+              }
             },
-            "bonusKey": key[data.Stats["0"]["1"][1].Name],
-            "bonusData": {
-              "1": data.Stats["0"]["1"][1].Value * ValueKey,
-              "20": data.Stats["0"]["20"][1].Value * ValueKey,
-              "40": data.Stats["1"]["40"][1].Value * ValueKey,
-              "50": data.Stats["2"]["50"][1].Value * ValueKey,
-              "60": data.Stats["3"]["60"][1].Value * ValueKey,
-              "70": data.Stats["4"]["70"][1].Value * ValueKey,
-              "80": data.Stats["5"]["80"][1].Value * ValueKey,
-              "90": data.Stats["6"]["90"][1].Value * ValueKey,
-              "20+": data.Stats["1"]["20"][1].Value * ValueKey,
-              "40+": data.Stats["2"]["40"][1].Value * ValueKey,
-              "50+": data.Stats["3"]["50"][1].Value * ValueKey,
-              "60+": data.Stats["4"]["60"][1].Value * ValueKey,
-              "70+": data.Stats["5"]["70"][1].Value * ValueKey,
-              "80+": data.Stats["6"]["80"][1].Value * ValueKey
+            "materials": {
+              "weapon": IconData.itemList.find(item => item.Id === data.Breaches[4]?.Consume[0].Key)?.Name,
+              "monster": IconData.itemList.find(item => item.Id === data.Breaches[4]?.Consume[1].Key)?.Name
+            },
+            "affixData": {
+              "text": data.Desc.replace(/<span[^>]*>(.*?)<\/span>/g, () => {counter++; return `$[${counter}]`}),
+              "datas": data.DescParams.map(item => item.ArrayString)
             }
-          },
-          "materials": {
-            "weapon": IconData[`${data.Ascensions["4"]?.[0].Key}`]?.name,
-            "monster": IconData[`${data.Ascensions["4"]?.[1].Key}`]?.name
-          },
-          "affixData": {
-            "text": data.Effect.replace(/\{(\d+)\}/g, '$[$1]'),
-            "datas": data.Param
-          },
-          "UpdateTime": `[liangshi-calc] ${new Date()}`
+          }
+        } else {
+          if (["暴击", "暴击伤害", "共鸣效率"].includes(data.Stats["0"]["1"][1].Name)) {
+            ValueKey = 0.01
+          } else if (["生命", "防御", "攻击"].includes(data.Stats["0"]["1"][1].Name)) {
+            ValueKey = 100
+          }
+          WeaponData = {
+            "id": ID,
+            "name": data.Name,
+            "affixTitle": data.EffectName,
+            "star": data.Rarity,
+            "desc": data.Desc.replace(/\n/g, ''),
+            "attr": {
+              "atk": {
+                "1": data.Stats["0"]["1"][0].Value,
+                "20": data.Stats["0"]["20"][0].Value,
+                "40": data.Stats["1"]["40"][0].Value,
+                "50": data.Stats["2"]["50"][0].Value,
+                "60": data.Stats["3"]["60"][0].Value,
+                "70": data.Stats["4"]["70"][0].Value,
+                "80": data.Stats["5"]["80"][0].Value,
+                "90": data.Stats["6"]["90"][0].Value,
+                "20+": data.Stats["1"]["20"][0].Value,
+                "40+": data.Stats["2"]["40"][0].Value,
+                "50+": data.Stats["3"]["50"][0].Value,
+                "60+": data.Stats["4"]["60"][0].Value,
+                "70+": data.Stats["5"]["70"][0].Value,
+                "80+": data.Stats["6"]["80"][0].Value
+              },
+              "bonusKey": key[data.Stats["0"]["1"][1].Name],
+              "bonusData": {
+                "1": data.Stats["0"]["1"][1].Value * ValueKey,
+                "20": data.Stats["0"]["20"][1].Value * ValueKey,
+                "40": data.Stats["1"]["40"][1].Value * ValueKey,
+                "50": data.Stats["2"]["50"][1].Value * ValueKey,
+                "60": data.Stats["3"]["60"][1].Value * ValueKey,
+                "70": data.Stats["4"]["70"][1].Value * ValueKey,
+                "80": data.Stats["5"]["80"][1].Value * ValueKey,
+                "90": data.Stats["6"]["90"][1].Value * ValueKey,
+                "20+": data.Stats["1"]["20"][1].Value * ValueKey,
+                "40+": data.Stats["2"]["40"][1].Value * ValueKey,
+                "50+": data.Stats["3"]["50"][1].Value * ValueKey,
+                "60+": data.Stats["4"]["60"][1].Value * ValueKey,
+                "70+": data.Stats["5"]["70"][1].Value * ValueKey,
+                "80+": data.Stats["6"]["80"][1].Value * ValueKey
+              }
+            },
+            "materials": {
+              "weapon": IconData[`${data.Ascensions["4"]?.[0].Key}`]?.name,
+              "monster": IconData[`${data.Ascensions["4"]?.[1].Key}`]?.name
+            },
+            "affixData": {
+              "text": data.Effect.replace(/\{(\d+)\}/g, '$[$1]'),
+              "datas": data.Param
+            },
+            "UpdateTime": `[liangshi-calc] ${new Date()}`
+          }
         }
+
       }
     }
     logger.mark('[liangshi-calc]数据处理完成')
-    let path = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name}/data.json`
+    let path = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name || data.WeaponName}/data.json`
     if (!fs.existsSync(path)) {
       fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
+      logger.mark(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已写入`)
     } else if (/强制|强行|覆盖/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
       fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-      logger.mark(`[liangshi-calc]武器：${data.Name} 数据已写入`)
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name}\n数据已写入`)
+      logger.mark(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已写入`)
     } else {
       if(!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}武器数据`)
-      console.error(`[liangshi-calc]武器：${data.Name}\n数据已存在`)
+      console.error(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已存在`)
     }
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
@@ -1074,18 +1148,18 @@ export class calc extends plugin {
       fs.readFile(filePath, 'utf8', (err, TextData) => {
         if (err) {
           console.error('[liangshi-calc]读取武器配置data.json失败:', err)
-          if (!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+          if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
           return false
         }
         try {
           let jsonData = JSON.parse(TextData)
-          let newValue = {
-            "id": ID,
-            "name": data.Name,
-            "star": data.Rarity
+          if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+            newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityName === "SR" ? 4 : 5 }
+          } else {
+            newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
           }
           jsonData[ID] = newValue
-          logger.mark(`[liangshi-calc]武器：${data.Name} 配置data.json成功`)
+          logger.mark(`[liangshi-calc]武器：${data.Name || data.WeaponName} 配置data.json成功`)
           let updatedData = JSON.stringify(jsonData, null, 2)
           fs.writeFile(filePath, updatedData, 'utf8', (err) => {
             if (err) {
@@ -1100,9 +1174,9 @@ export class calc extends plugin {
           console.error('[liangshi-calc]自动配置data.json失败:\n', err)
         }
       })
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n重启后即可使用相关内容`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n重启后即可使用相关内容`)
     } else {
-      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)
     }
     return false
   }

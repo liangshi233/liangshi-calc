@@ -30,7 +30,13 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 <details><summary>点击展开</summary>
 
-> 此功能严禁设置为定时任务，如更新报错或更新数据异常可前往762197317反馈，网络问题自行解决，可在设置ProxyUrl中添加代理。
+<h1 align="center" ><font color="red">不要设置为定时任务</font></h1>
+
+<h3 align="center"><font color="red">不要没事就完整更新</font></h3>
+
+> 如更新报错或更新数据异常可前往762197317反馈
+>
+> 网络问题自行解决，可在设置ProxyUrl中添加代理。
 
 <details><summary>一键更新新版本内容</summary>
 
