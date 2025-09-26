@@ -881,7 +881,7 @@ export class calc extends plugin {
         await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
       }
     } else {
-      if (WeaponType === "projection") {//武器皮肤还没处理
+      if (WeaponType === "projection") {
         await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
         await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
@@ -1004,15 +1004,26 @@ export class calc extends plugin {
         IconData = {}
         logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       }
-      if (data.Name.includes("投影·") || data.WeaponName?.includes("投影·")) {
-        WeaponData = {
-          "id": ID,
-          "name": data.Name,
-          "star": data.Rarity,
-          "desc": data.Desc.replace(/\n/g, '')
+      if (data.Name?.includes("投影·") || data.WeaponName?.includes("投影·")) {
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          WeaponData = {
+            "id": Number(ID),
+            "name": data.WeaponName,
+            "star": data.ResonName,
+            "desc": data.AttributesDescription.replace(/\n/g, ''),
+            "UpdateTime": `[liangshi-calc] ${new Date()}`
+          }
+        } else {
+          WeaponData = {
+            "id": Number(ID),
+            "name": data.Name,
+            "star": data.Rarity,
+            "desc": data.Desc.replace(/\n/g, ''),
+            "UpdateTime": `[liangshi-calc] ${new Date()}`
+          }
         }
       } else {
-        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
           WeaponData = {
             "id": Number(ID),
             "name": data.WeaponName,
@@ -1061,7 +1072,8 @@ export class calc extends plugin {
             "affixData": {
               "text": data.Desc.replace(/<span[^>]*>(.*?)<\/span>/g, () => {counter++; return `$[${counter}]`}),
               "datas": data.DescParams.map(item => item.ArrayString)
-            }
+            },
+            "UpdateTime": `[liangshi-calc] ${new Date()}`
           }
         } else {
           if (["暴击", "暴击伤害", "共鸣效率"].includes(data.Stats["0"]["1"][1].Name)) {
