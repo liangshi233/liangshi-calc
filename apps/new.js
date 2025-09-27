@@ -875,8 +875,6 @@ export class calc extends plugin {
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       if (cfg.mcApi === 2 || cfg.mcApi === 3) {
         await this.getImg(IconUrl + data.Icon.split('.')[0] + ".png", `${imgs}/icon.webp`, "icon")
-        //await this.getImg(IconUrl + data.IconMiddle.split('.')[0] + ".png", `${imgs}/gacha.webp`, "gacha")
-        //await this.getImg(IconUrl + data.IconSmall.split('.')[0] + ".png", `${imgs}/awaken.webp`, "awaken")
       } else {
         await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
       }
