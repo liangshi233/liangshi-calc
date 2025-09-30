@@ -1435,9 +1435,9 @@ export class calc extends plugin {
           return `$[${p1}]`
         })
         let ArtifactData = {
-          "id": data.Id,
-          "Name": data.Name,
-          "Code": data.Code,
+          "id": data.Id || data.MonsterId,
+          "Name": data.Name || data.MonsterName,
+          "Code": data.Code || data.Handbook,
           "desc": data.Skill.SimpleDesc.replace(/\n/g, ''),
           "affixData": {
             "text": o.replace(/\n/g, ''),
@@ -1796,14 +1796,19 @@ export class calc extends plugin {
       game = "ww"
       GamePath = "mc"
     }
-    let response, ProxyUrl
+    let response, ProxyUrl, apiKey, CharacterData, ItemText, url
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
       ProxyUrl = ""
     }
     try {
-      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/character/${CharacterId}.json`
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character/${CharacterId}`
+      } else {
+        url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/character/${CharacterId}.json`
+      }
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -1827,8 +1832,7 @@ export class calc extends plugin {
       }
       return false
     }
-    let CharacterName = data.Name
-    let CharacterData
+    let CharacterName = data.Name.Content || data.Name
     let Qkey = 2
     let icons = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/icons`
     let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/character/${CharacterName}/imgs`
@@ -1841,15 +1845,26 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]角色:${data.Name} 本地imgs文件夹创建成功`)
     }
     let ConsTalent = { a: 0, e: 0, q: 0 }
-    let ItemText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/zh/item.json`)
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+      ItemText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`)
+    } else {
+      ItemText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/zh/item.json`)
+    }
     let ItemNamedata = await ItemText.json()
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) ItemNamedata = ItemNamedata.itemList.reduce((acc, item) => {acc[item.Id] = item;return acc}, {})
     let elemKey = {
       "1": "glacio",
+      "冷凝": "glacio",
       "2": "fusion",
+      "热熔": "fusion",
       "3": "electro",
+      "导电": "electro",
       "4": "aero",
+      "气动": "aero",
       "5": "spectrp",
-      "6": "havoc"
+      "衍射": "spectrp",
+      "6": "havoc",
+      "湮灭": "havoc"
     }
     let weaponKey = {
       "1": "broadblade",
@@ -1859,227 +1874,517 @@ export class calc extends plugin {
       "5": "rectifier"
     }
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      CharacterData = {
-        "id": data.Id,
-        "name": data.Name,
-        "abbr": data.Name,
-        "title": data.CharaInfo.TalentName,
-        "star": data.Rarity,
-        "elem": elemKey[`${data.Element}`],
-        "allegiance": data.CharaInfo.Country,
-        "weapon": weaponKey[`${data.Weapon}`],
-        "birth": data.CharaInfo.Birth,
-        "desc": data.CharaInfo.Info.replace(/<te href=\d+>|<\/te>/g, '').replace(/<a[^>]*>(.*?)<\/a>/g, '$1').replace(/\n/g, ''),
-        "cncv": data.CharaInfo.CVNameCn,
-        "jpcv": data.CharaInfo.CVNameJp,
-        "costume": false,
-        "ver": 1,
-        "baseAttr": {
-          "hp": data.Stats["6"]["90"].Life,
-          "atk": data.Stats["6"]["90"].Atk,
-          "def": data.Stats["6"]["90"].Def
-        },
-        "materials": {
-          "boss": ItemNamedata?.[`${data.Ascensions["6"][0].Key}`]?.name || data.Ascensions["6"][0].Key,
-          "specialty": ItemNamedata?.[`${data.Ascensions["6"][1].Key}`]?.name || data.Ascensions["6"][1].Key,
-          "normal": ItemNamedata?.[`${data.Ascensions["6"][2].Key}`]?.name || data.Ascensions["6"][2].Key,
-          "talent": ItemNamedata?.[`${data.SkillTrees["1"].Skill.Consume["10"][0].Key}`]?.name || data.SkillTrees["1"].Skill.Consume["10"][0].Key,
-          "weekly": ItemNamedata?.[`${data.SkillTrees["1"].Skill.Consume["10"][2].Key}`]?.name ||data.SkillTrees["1"].Skill.Consume["10"][2].Key
-        },
-        "talent": {
-          "a": {
-            "name": data.SkillTrees["1"].Skill.Name,
-            "desc": data.SkillTrees["1"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["1"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["1"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        CharacterData = {
+          "id": data.Id,
+          "name": data.Name.Content,
+          "abbr": data.Name.Content,
+          "title": data.NickName.Content,
+          "star": data.QualityId,
+          "elem": elemKey[`${data.ElementName}`],
+          "allegiance": data.favorRole.Country.Content,
+          "weapon": weaponKey[`${data.WeaponType}`],
+          "birth": data.favorRole.Birthday.Content,
+          "desc": data.favorRole.Info.Content.replace(/<a[^>]*>(.*?)<\/a>/g, '$1').replace(/\n/g, '').replace(/<te href=\d+>|<\/te>/g, '').replace('<br>', ''),
+          "cncv": data.favorRole.CVNameCn.Content,
+          "jpcv": data.favorRole.CVNameJp.Content,
+          "costume": false,
+          "ver": 1,
+          "baseAttr": {
+            "hp": data.Properties[0].GrowthValues[95].value,
+            "atk": data.Properties[1].GrowthValues[95].value,
+            "def": data.Properties[2].GrowthValues[95].value
           },
-          "e": {
-            "name": data.SkillTrees["2"].Skill.Name,
-            "desc": data.SkillTrees["2"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["2"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["2"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
+          "materials": {
+            "boss": ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.Name || data.Breaches[5].Items[0].Key,
+            "specialty": ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.Name || data.Breaches[5].Items[1].Key,
+            "normal": ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.Name || data.Breaches[5].Items[2].Key,
+            "talent": ItemNamedata?.[`${data.Skills[0].Consumes[8].Consume[0].Key}`]?.name || ItemNamedata?.[`${data.Skills[0].Consumes[8].Consume[0].Key}`]?.Name || data.Skills[0].Consumes[8].Consume[0].Key,
+            "weekly": ItemNamedata?.[`${data.Skills[0].Consumes[8].Consume[2].Key}`]?.name || ItemNamedata?.[`${data.Skills[0].Consumes[8].Consume[2].Key}`]?.Name || data.Skills[0].Consumes[8].Consume[2].Key
           },
-          "q": {
-            "name": data.SkillTrees["3"].Skill.Name,
-            "desc": data.SkillTrees["3"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["3"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["3"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
-          },
-          "t": {
-            "name": data.SkillTrees["7"].Skill.Name,
-            "desc": data.SkillTrees["7"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["7"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["7"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
-          },
-          "i": {
-            "name": data.SkillTrees["6"].Skill.Name,
-            "desc": data.SkillTrees["6"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["6"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["6"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
-          },
-          "o": {
-            "name": data.SkillTrees["8"].Skill.Name,
-            "desc": data.SkillTrees["8"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["8"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
-            "tables": Object.values(data.SkillTrees["8"].Skill.Level).sort((a, b) => a.id - b.id).map(i => { const { Format, Param, ...rest } = i; const paramValues = [...Param[0]]; const isSame = paramValues.every(p => p === paramValues[0]); const result = { id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")), isSame, Param: paramValues }; if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`); return result })
-          }
-        },
-        "talentData": {
-          "a": await this.mcName(data.SkillTrees["1"].Skill),
-          "e": await this.mcName(data.SkillTrees["2"].Skill),
-          "q": await this.mcName(data.SkillTrees["3"].Skill),
-          "t": await this.mcName(data.SkillTrees["7"].Skill),
-          "i": await this.mcName(data.SkillTrees["6"].Skill),
-          "o": await this.mcName(data.SkillTrees["8"].Skill),
-        },
-        "cons": {
-          "1": {
-            "name": data.Chains["1"].Name,
-            "desc": data.Chains["1"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["1"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          "2": {
-            "name": data.Chains["2"].Name,
-            "desc": data.Chains["2"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["2"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          "3": {
-            "name": data.Chains["3"].Name,
-            "desc": data.Chains["3"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["3"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          "4": {
-            "name": data.Chains["4"].Name,
-            "desc": data.Chains["4"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["4"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          "5": {
-            "name": data.Chains["5"].Name,
-            "desc": data.Chains["5"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["5"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          "6": {
-            "name": data.Chains["6"].Name,
-            "desc": data.Chains["6"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["6"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          }
-        },
-        "passive": [
-          {
-            "name": data.SkillTrees["4"].Skill.Name,
-            "desc": data.SkillTrees["4"].Skill.Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["4"].Skill.Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          },
-          {
-            "name": data.SkillTrees["5"].Skill.Name,
-            "desc": data.SkillTrees["5"].Skill.Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["5"].Skill.Param[i] || m).split('\n').filter(line => line.trim() !== '')
-          }
-        ],
-        "attr": {
-          "tree": {
-            "1": {
-              "name": data.SkillTrees["9"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["9"].Skill.Param[i] || m),
-              "key": data.SkillTrees["9"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["9"].Skill.Param[0].replace('%', ''))
+          "talent": {
+            "a": {
+              "name": data.Skills[0].SkillName,
+              "desc": data.Skills[0].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[0].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             },
-            "2": {
-              "name": data.SkillTrees["10"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["10"].Skill.Param[i] || m),
-              "key": data.SkillTrees["10"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["10"].Skill.Param[0].replace('%', ''))
-
+            "e": {
+              "name": data.Skills[1].SkillName,
+              "desc": data.Skills[1].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[1].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             },
-            "3": {
-              "name": data.SkillTrees["11"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["11"].Skill.Param[i] || m),
-              "key": data.SkillTrees["11"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["11"].Skill.Param[0].replace('%', ''))
+            "q": {
+              "name": data.Skills[2].SkillName,
+              "desc": data.Skills[2].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[2].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             },
-            "4": {
-              "name": data.SkillTrees["12"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["12"].Skill.Param[i] || m),
-              "key": data.SkillTrees["12"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["12"].Skill.Param[0].replace('%', ''))
+            "t": {
+              "name": data.Skills[6].SkillName,
+              "desc": data.Skills[6].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[6].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             },
-            "5": {
-              "name": data.SkillTrees["13"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["13"].Skill.Param[i] || m),
-              "key": data.SkillTrees["13"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["13"].Skill.Param[0].replace('%', ''))
+            "i": {
+              "name": data.Skills[5].SkillName,
+              "desc": data.Skills[5].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[5].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             },
-            "6": {
-              "name": data.SkillTrees["14"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["14"].Skill.Param[i] || m),
-              "key": data.SkillTrees["14"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["14"].Skill.Param[0].replace('%', ''))
-            },
-            "7": {
-              "name": data.SkillTrees["15"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["15"].Skill.Param[i] || m),
-              "key": data.SkillTrees["15"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["15"].Skill.Param[0].replace('%', ''))
-            },
-            "8": {
-              "name": data.SkillTrees["16"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["16"].Skill.Param[i] || m),
-              "key": data.SkillTrees["16"].Skill.Name,
-              "value": parseFloat(data.SkillTrees["16"].Skill.Param[0].replace('%', ''))
+            "o": {
+              "name": data.Skills[8].SkillName,
+              "desc": data.Skills[8].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')}),
+              "tables": data.Skills[8].SkillAttributes.map(item => {let param = item.Description ? item.values.map(val => `${val}${item.Description}`) : [...item.values];let isSame = new Set(param).size === 1; return { Name: item.attributeName, isSame: isSame, Param: param }})
             }
           },
-          "details": {
-            "1": [
-              data.Stats["0"]["1"].Life,
-              data.Stats["0"]["1"].Atk,
-              data.Stats["0"]["1"].Def
-            ],
-            "20": [
-              data.Stats["0"]["20"].Life,
-              data.Stats["0"]["20"].Atk,
-              data.Stats["0"]["20"].Def
-            ],
-            "40": [
-              data.Stats["1"]["40"].Life,
-              data.Stats["1"]["40"].Atk,
-              data.Stats["1"]["40"].Def
-            ],
-            "50": [
-              data.Stats["2"]["50"].Life,
-              data.Stats["2"]["50"].Atk,
-              data.Stats["2"]["50"].Def
-            ],
-            "60": [
-              data.Stats["3"]["60"].Life,
-              data.Stats["3"]["60"].Atk,
-              data.Stats["3"]["60"].Def
-            ],
-            "70": [
-              data.Stats["4"]["70"].Life,
-              data.Stats["4"]["70"].Atk,
-              data.Stats["4"]["70"].Def
-            ],
-            "80": [
-              data.Stats["5"]["80"].Life,
-              data.Stats["5"]["80"].Atk,
-              data.Stats["5"]["80"].Def
-            ],
-            "90": [
-              data.Stats["6"]["90"].Life,
-              data.Stats["6"]["90"].Atk,
-              data.Stats["6"]["90"].Def
-            ],
-            "20+": [
-              data.Stats["1"]["20"].Life,
-              data.Stats["1"]["20"].Atk,
-              data.Stats["1"]["20"].Def
-            ],
-            "40+": [
-              data.Stats["2"]["40"].Life,
-              data.Stats["2"]["40"].Atk,
-              data.Stats["2"]["40"].Def
-            ],
-            "50+": [
-              data.Stats["3"]["50"].Life,
-              data.Stats["3"]["50"].Atk,
-              data.Stats["3"]["50"].Def
-            ],
-            "60+": [
-              data.Stats["4"]["60"].Life,
-              data.Stats["4"]["60"].Atk,
-              data.Stats["4"]["60"].Def
-            ],
-            "70+": [
-              data.Stats["5"]["70"].Life,
-              data.Stats["5"]["70"].Atk,
-              data.Stats["5"]["70"].Def
-            ],
-            "80+": [
-              data.Stats["6"]["80"].Life,
-              data.Stats["6"]["80"].Atk,
-              data.Stats["6"]["80"].Def
-            ]
-          }
-        },
-        "UpdateTime": `[liangshi-calc] ${new Date()}`
+          "talentData": {
+            "a": await this.mcTalName(data.Skills[0].SkillAttributes),
+            "e": await this.mcTalName(data.Skills[1].SkillAttributes),
+            "q": await this.mcTalName(data.Skills[2].SkillAttributes),
+            "t": await this.mcTalName(data.Skills[6].SkillAttributes),
+            "i": await this.mcTalName(data.Skills[5].SkillAttributes),
+            "o": await this.mcTalName(data.Skills[8].SkillAttributes),
+          },
+          "cons": {
+            "1": {
+              "name": data.ResonantChain[0].NodeName,
+              "desc": data.ResonantChain[0].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            },
+            "2": {
+              "name": data.ResonantChain[1].NodeName,
+              "desc": data.ResonantChain[1].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            },
+            "3": {
+              "name": data.ResonantChain[2].NodeName,
+              "desc": data.ResonantChain[2].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            },
+            "4": {
+              "name": data.ResonantChain[3].NodeName,
+              "desc": data.ResonantChain[3].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            },
+            "5": {
+              "name": data.ResonantChain[4].NodeName,
+              "desc": data.ResonantChain[4].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            },
+            "6": {
+              "name": data.ResonantChain[5].NodeName,
+              "desc": data.ResonantChain[5].AttributesDescription.replace(/<[^>]*>/g, '').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '')
+            }
+          },
+          "passive": [
+            {
+              "name": data.Skills[3].SkillName,
+              "desc":  data.Skills[3].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')})
+            },
+            {
+              "name": data.Skills[4].SkillName,
+              "desc":  data.Skills[4].SkillDescribe.replace(/<span[^>]*class="font-bold[^"]*"[^>]*>([^<]+)<\/span>/g,'<h3>$1</h3>').replace(/<br><br>/g, 'liangshi').replace(/<br>/g, '').replace(/<(?!h3\b|\/h3\b|liangshi)[^>]*>/g, '').split('liangshi').map(item => item.trim()).filter(item => item !== '').map(item => {return /^<h3>.*<\/h3>$/.test(item) ? item : item.replace(/<h3>|<\/h3>/g, '')})
+            }
+          ],
+          "attr": {
+            "tree": {
+              "1": {
+                "name": data.SkillTree[1].PropertyNodeDescribe,
+                "key": data.SkillTree[1].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[1].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "2": {
+                "name": data.SkillTree[0].PropertyNodeDescribe,
+                "key": data.SkillTree[0].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[0].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "3": {
+                "name": data.SkillTree[7].PropertyNodeDescribe,
+                "key": data.SkillTree[7].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[7].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "4": {
+                "name": data.SkillTree[6].PropertyNodeDescribe,
+                "key": data.SkillTree[6].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[6].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "5": {
+                "name": data.SkillTree[2].PropertyNodeDescribe,
+                "key": data.SkillTree[2].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[2].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "6": {
+                "name": data.SkillTree[3].PropertyNodeDescribe,
+                "key": data.SkillTree[3].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[3].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "7": {
+                "name": data.SkillTree[4].PropertyNodeDescribe,
+                "key": data.SkillTree[4].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[4].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "8": {
+                "name": data.SkillTree[5].PropertyNodeDescribe,
+                "key": data.SkillTree[5].PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[5].PropertyNodeDescribe.match(/\d+\.?\d*/))
+              }
+            },
+            "details": {
+              "1": [
+                data.Properties[0].GrowthValues[0].value,
+                data.Properties[1].GrowthValues[0].value,
+                data.Properties[2].GrowthValues[0].value
+              ],
+              "20": [
+                data.Properties[0].GrowthValues[19].value,
+                data.Properties[1].GrowthValues[19].value,
+                data.Properties[2].GrowthValues[19].value
+              ],
+              "40": [
+                data.Properties[0].GrowthValues[40].value,
+                data.Properties[1].GrowthValues[40].value,
+                data.Properties[2].GrowthValues[40].value
+              ],
+              "50": [
+                data.Properties[0].GrowthValues[51].value,
+                data.Properties[1].GrowthValues[51].value,
+                data.Properties[2].GrowthValues[51].value
+              ],
+              "60": [
+                data.Properties[0].GrowthValues[62].value,
+                data.Properties[1].GrowthValues[62].value,
+                data.Properties[2].GrowthValues[62].value
+              ],
+              "70": [
+                data.Properties[0].GrowthValues[73].value,
+                data.Properties[1].GrowthValues[73].value,
+                data.Properties[2].GrowthValues[73].value
+              ],
+              "80": [
+                data.Properties[0].GrowthValues[84].value,
+                data.Properties[1].GrowthValues[84].value,
+                data.Properties[2].GrowthValues[84].value
+              ],
+              "90": [
+                data.Properties[0].GrowthValues[95].value,
+                data.Properties[1].GrowthValues[95].value,
+                data.Properties[2].GrowthValues[95].value
+              ],
+              "20+": [
+                data.Properties[0].GrowthValues[20].value,
+                data.Properties[1].GrowthValues[20].value,
+                data.Properties[2].GrowthValues[20].value
+              ],
+              "40+": [
+                data.Properties[0].GrowthValues[41].value,
+                data.Properties[1].GrowthValues[41].value,
+                data.Properties[2].GrowthValues[41].value
+              ],
+              "50+": [
+                data.Properties[0].GrowthValues[52].value,
+                data.Properties[1].GrowthValues[52].value,
+                data.Properties[2].GrowthValues[52].value
+              ],
+              "60+": [
+                data.Properties[0].GrowthValues[63].value,
+                data.Properties[1].GrowthValues[63].value,
+                data.Properties[2].GrowthValues[63].value
+              ],
+              "70+": [
+                data.Properties[0].GrowthValues[74].value,
+                data.Properties[1].GrowthValues[74].value,
+                data.Properties[2].GrowthValues[74].value
+              ],
+              "80+": [
+                data.Properties[0].GrowthValues[85].value,
+                data.Properties[1].GrowthValues[85].value,
+                data.Properties[2].GrowthValues[85].value
+              ]
+            }
+          },
+          "UpdateTime": `[liangshi-calc] ${new Date()}`
+        }
+      } else {
+        CharacterData = {
+          "id": data.Id,
+          "name": data.Name,
+          "abbr": data.Name,
+          "title": data.CharaInfo.TalentName,
+          "star": data.Rarity,
+          "elem": elemKey[`${data.Element}`],
+          "allegiance": data.CharaInfo.Country,
+          "weapon": weaponKey[`${data.Weapon}`],
+          "birth": data.CharaInfo.Birth,
+          "desc": data.CharaInfo.Info.replace(/<te href=\d+>|<\/te>/g, '').replace(/<a[^>]*>(.*?)<\/a>/g, '$1').replace(/\n/g, ''),
+          "cncv": data.CharaInfo.CVNameCn,
+          "jpcv": data.CharaInfo.CVNameJp,
+          "costume": false,
+          "ver": 1,
+          "baseAttr": {
+            "hp": data.Stats["6"]["90"].Life,
+            "atk": data.Stats["6"]["90"].Atk,
+            "def": data.Stats["6"]["90"].Def
+          },
+          "materials": {
+            "boss": ItemNamedata?.[`${data.Ascensions["6"][0].Key}`]?.name || data.Ascensions["6"][0].Key,
+            "specialty": ItemNamedata?.[`${data.Ascensions["6"][1].Key}`]?.name || data.Ascensions["6"][1].Key,
+            "normal": ItemNamedata?.[`${data.Ascensions["6"][2].Key}`]?.name || data.Ascensions["6"][2].Key,
+            "talent": ItemNamedata?.[`${data.SkillTrees["1"].Skill.Consume["10"][0].Key}`]?.name || data.SkillTrees["1"].Skill.Consume["10"][0].Key,
+            "weekly": ItemNamedata?.[`${data.SkillTrees["1"].Skill.Consume["10"][2].Key}`]?.name || data.SkillTrees["1"].Skill.Consume["10"][2].Key
+          },
+          "talent": {
+            "a": {
+              "name": data.SkillTrees["1"].Skill.Name,
+              "desc": data.SkillTrees["1"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["1"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["1"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            },
+            "e": {
+              "name": data.SkillTrees["2"].Skill.Name,
+              "desc": data.SkillTrees["2"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["2"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["2"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            },
+            "q": {
+              "name": data.SkillTrees["3"].Skill.Name,
+              "desc": data.SkillTrees["3"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["3"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["3"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            },
+            "t": {
+              "name": data.SkillTrees["7"].Skill.Name,
+              "desc": data.SkillTrees["7"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["7"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["7"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            },
+            "i": {
+              "name": data.SkillTrees["6"].Skill.Name,
+              "desc": data.SkillTrees["6"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["6"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["6"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            },
+            "o": {
+              "name": data.SkillTrees["8"].Skill.Name,
+              "desc": data.SkillTrees["8"].Skill.Desc.replace(/<te href=\d+>|<\/te>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["8"].Skill.Param[i] || m).replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/\u003Csize=40\u003E\u003Ccolor=Title\u003E(.*?)\u003C\/color\u003E\u003C\/size\u003E/g, '<h3>$1</h3>').replace(/\u003C\/?[a-zA-Z]+(=[a-zA-Z0-9]+)?\u003E/g, '').split('\n').filter(line => line.trim() !== ''),
+              "tables": Object.values(data.SkillTrees["8"].Skill.Level).sort((a, b) => a.id - b.id).map(i => {
+                const {Format, Param, ...rest} = i;
+                const paramValues = [...Param[0]];
+                const isSame = paramValues.every(p => p === paramValues[0]);
+                const result = {
+                  id: rest.id, ...Object.fromEntries(Object.entries(rest).filter(([key]) => key !== "id")),
+                  isSame,
+                  Param: paramValues
+                };
+                if (Format?.includes("{0}")) result.Param = paramValues.map(p => `${p}${Format.replace("{0}", "").trim()}`);
+                return result
+              })
+            }
+          },
+          "talentData": {
+            "a": await this.mcName(data.SkillTrees["1"].Skill),
+            "e": await this.mcName(data.SkillTrees["2"].Skill),
+            "q": await this.mcName(data.SkillTrees["3"].Skill),
+            "t": await this.mcName(data.SkillTrees["7"].Skill),
+            "i": await this.mcName(data.SkillTrees["6"].Skill),
+            "o": await this.mcName(data.SkillTrees["8"].Skill),
+          },
+          "cons": {
+            "1": {
+              "name": data.Chains["1"].Name,
+              "desc": data.Chains["1"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["1"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            "2": {
+              "name": data.Chains["2"].Name,
+              "desc": data.Chains["2"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["2"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            "3": {
+              "name": data.Chains["3"].Name,
+              "desc": data.Chains["3"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["3"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            "4": {
+              "name": data.Chains["4"].Name,
+              "desc": data.Chains["4"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["4"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            "5": {
+              "name": data.Chains["5"].Name,
+              "desc": data.Chains["5"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["5"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            "6": {
+              "name": data.Chains["6"].Name,
+              "desc": data.Chains["6"].Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.Chains["6"].Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            }
+          },
+          "passive": [
+            {
+              "name": data.SkillTrees["4"].Skill.Name,
+              "desc": data.SkillTrees["4"].Skill.Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["4"].Skill.Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            },
+            {
+              "name": data.SkillTrees["5"].Skill.Name,
+              "desc": data.SkillTrees["5"].Skill.Desc.replace(/<size=40><color=Title>(.*?)<\/color><\/size>/g, '<h3>$1<\/h3>').replace(/<a[^>]*>([^<]+)<\/a>/g, '$1').replace(/<\/?[^>]+>/g, '').replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["5"].Skill.Param[i] || m).split('\n').filter(line => line.trim() !== '')
+            }
+          ],
+          "attr": {
+            "tree": {
+              "1": {
+                "name": data.SkillTrees["9"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["9"].Skill.Param[i] || m),
+                "key": data.SkillTrees["9"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["9"].Skill.Param[0].replace('%', ''))
+              },
+              "2": {
+                "name": data.SkillTrees["10"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["10"].Skill.Param[i] || m),
+                "key": data.SkillTrees["10"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["10"].Skill.Param[0].replace('%', ''))
+
+              },
+              "3": {
+                "name": data.SkillTrees["11"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["11"].Skill.Param[i] || m),
+                "key": data.SkillTrees["11"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["11"].Skill.Param[0].replace('%', ''))
+              },
+              "4": {
+                "name": data.SkillTrees["12"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["12"].Skill.Param[i] || m),
+                "key": data.SkillTrees["12"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["12"].Skill.Param[0].replace('%', ''))
+              },
+              "5": {
+                "name": data.SkillTrees["13"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["13"].Skill.Param[i] || m),
+                "key": data.SkillTrees["13"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["13"].Skill.Param[0].replace('%', ''))
+              },
+              "6": {
+                "name": data.SkillTrees["14"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["14"].Skill.Param[i] || m),
+                "key": data.SkillTrees["14"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["14"].Skill.Param[0].replace('%', ''))
+              },
+              "7": {
+                "name": data.SkillTrees["15"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["15"].Skill.Param[i] || m),
+                "key": data.SkillTrees["15"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["15"].Skill.Param[0].replace('%', ''))
+              },
+              "8": {
+                "name": data.SkillTrees["16"].Skill.Desc.replace(/\{(\d+)\}/g, (m, i) => data.SkillTrees["16"].Skill.Param[i] || m),
+                "key": data.SkillTrees["16"].Skill.Name,
+                "value": parseFloat(data.SkillTrees["16"].Skill.Param[0].replace('%', ''))
+              }
+            },
+            "details": {
+              "1": [
+                data.Stats["0"]["1"].Life,
+                data.Stats["0"]["1"].Atk,
+                data.Stats["0"]["1"].Def
+              ],
+              "20": [
+                data.Stats["0"]["20"].Life,
+                data.Stats["0"]["20"].Atk,
+                data.Stats["0"]["20"].Def
+              ],
+              "40": [
+                data.Stats["1"]["40"].Life,
+                data.Stats["1"]["40"].Atk,
+                data.Stats["1"]["40"].Def
+              ],
+              "50": [
+                data.Stats["2"]["50"].Life,
+                data.Stats["2"]["50"].Atk,
+                data.Stats["2"]["50"].Def
+              ],
+              "60": [
+                data.Stats["3"]["60"].Life,
+                data.Stats["3"]["60"].Atk,
+                data.Stats["3"]["60"].Def
+              ],
+              "70": [
+                data.Stats["4"]["70"].Life,
+                data.Stats["4"]["70"].Atk,
+                data.Stats["4"]["70"].Def
+              ],
+              "80": [
+                data.Stats["5"]["80"].Life,
+                data.Stats["5"]["80"].Atk,
+                data.Stats["5"]["80"].Def
+              ],
+              "90": [
+                data.Stats["6"]["90"].Life,
+                data.Stats["6"]["90"].Atk,
+                data.Stats["6"]["90"].Def
+              ],
+              "20+": [
+                data.Stats["1"]["20"].Life,
+                data.Stats["1"]["20"].Atk,
+                data.Stats["1"]["20"].Def
+              ],
+              "40+": [
+                data.Stats["2"]["40"].Life,
+                data.Stats["2"]["40"].Atk,
+                data.Stats["2"]["40"].Def
+              ],
+              "50+": [
+                data.Stats["3"]["50"].Life,
+                data.Stats["3"]["50"].Atk,
+                data.Stats["3"]["50"].Def
+              ],
+              "60+": [
+                data.Stats["4"]["60"].Life,
+                data.Stats["4"]["60"].Atk,
+                data.Stats["4"]["60"].Def
+              ],
+              "70+": [
+                data.Stats["5"]["70"].Life,
+                data.Stats["5"]["70"].Atk,
+                data.Stats["5"]["70"].Def
+              ],
+              "80+": [
+                data.Stats["6"]["80"].Life,
+                data.Stats["6"]["80"].Atk,
+                data.Stats["6"]["80"].Def
+              ]
+            }
+          },
+          "UpdateTime": `[liangshi-calc] ${new Date()}`
+        }
       }
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       let WeaponKey = {
@@ -2372,23 +2677,42 @@ export class calc extends plugin {
     logger.mark(`[liangshi-calc]开始下载角色图片资源`)
     let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      let SkinName = Object.keys(data.Skin)[0]
-      await this.getImg((data.Skin[SkinName].Portrait.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/splash.webp`, "立绘")
-      await this.getImg((data.Skin[SkinName].Background.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/face.webp`, "大头")
-      await this.getImg((data.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/side.webp`, "侧头")
-      await this.getImg((data.SkillTrees["4"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/passive-0.webp`, "固有天赋1")
-      await this.getImg((data.SkillTrees["5"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/passive-1.webp`, "固有天赋2")
-      await this.getImg((data.SkillTrees["2"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-e.webp`, "共鸣技能")
-      await this.getImg((data.SkillTrees["3"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-q.webp`, "共鸣解放")
-      await this.getImg((data.SkillTrees["6"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-i.webp`, "变奏技能")
-      await this.getImg((data.SkillTrees["8"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-o.webp`, "延奏技能")
-      await this.getImg((data.SkillTrees["7"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-t.webp`, "共鸣回路")
-      await this.getImg((data.Chains["1"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-1.webp`, "1链")
-      await this.getImg((data.Chains["2"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-2.webp`, "2链")
-      await this.getImg((data.Chains["3"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-3.webp`, "3链")
-      await this.getImg((data.Chains["4"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-4.webp`, "4链")
-      await this.getImg((data.Chains["5"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-5.webp`, "5链")
-      await this.getImg((data.Chains["6"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-6.webp`, "6链")
+      if(cfg.mcApi === 2 || cfg.mcApi === 3) {
+        await this.getImg(data.RolePortrait, `${imgs}/splash.webp`, "立绘")
+        await this.getImg(data.FormationRoleCard, `${imgs}/face.webp`, "大头")
+        await this.getImg(data.RoleHeadIconBig, `${imgs}/side.webp`, "侧头")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[3].Icon.split('.')[0] + ".png", `${icons}/passive-0.webp`, "固有天赋1")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[4].Icon.split('.')[0] + ".png", `${icons}/passive-1.webp`, "固有天赋2")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[1].Icon.split('.')[0] + ".png", `${icons}/talent-e.webp`, "共鸣技能")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[2].Icon.split('.')[0] + ".png", `${icons}/talent-q.webp`, "共鸣解放")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[5].Icon.split('.')[0] + ".png", `${icons}/talent-i.webp`, "变奏技能")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[8].Icon.split('.')[0] + ".png", `${icons}/talent-o.webp`, "延奏技能")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.Skills[6].Icon.split('.')[0] + ".png", `${icons}/talent-t.webp`, "共鸣回路")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[0].NodeIcon, `${icons}/cons-1.webp`, "1链")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[1].NodeIcon, `${icons}/cons-2.webp`, "2链")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[2].NodeIcon, `${icons}/cons-3.webp`, "3链")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[3].NodeIcon, `${icons}/cons-4.webp`, "4链")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[4].NodeIcon, `${icons}/cons-5.webp`, "5链")
+        await this.getImg(`https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[5].NodeIcon, `${icons}/cons-6.webp`, "6链")
+      } else {
+        let SkinName = Object.keys(data.Skin)[0]
+        await this.getImg((data.Skin[SkinName].Portrait.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/splash.webp`, "立绘")
+        await this.getImg((data.Skin[SkinName].Background.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/face.webp`, "大头")
+        await this.getImg((data.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${imgs}/side.webp`, "侧头")
+        await this.getImg((data.SkillTrees["4"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/passive-0.webp`, "固有天赋1")
+        await this.getImg((data.SkillTrees["5"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/passive-1.webp`, "固有天赋2")
+        await this.getImg((data.SkillTrees["2"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-e.webp`, "共鸣技能")
+        await this.getImg((data.SkillTrees["3"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-q.webp`, "共鸣解放")
+        await this.getImg((data.SkillTrees["6"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-i.webp`, "变奏技能")
+        await this.getImg((data.SkillTrees["8"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-o.webp`, "延奏技能")
+        await this.getImg((data.SkillTrees["7"].Skill.Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/talent-t.webp`, "共鸣回路")
+        await this.getImg((data.Chains["1"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-1.webp`, "1链")
+        await this.getImg((data.Chains["2"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-2.webp`, "2链")
+        await this.getImg((data.Chains["3"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-3.webp`, "3链")
+        await this.getImg((data.Chains["4"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-4.webp`, "4链")
+        await this.getImg((data.Chains["5"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-5.webp`, "5链")
+        await this.getImg((data.Chains["6"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-6.webp`, "6链")
+      }
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       await this.getImg(IconUrl + "UI/UI_Gacha_AvatarImg_" + data.Icon.replace("UI_AvatarIcon_", "") + ".webp", `${imgs}/splash.webp`, "立绘")
       await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/face.webp`, "大头")
@@ -2410,7 +2734,7 @@ export class calc extends plugin {
     if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
     logger.mark(`[liangshi-calc]图片资源下载完成`)
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
-      let filePath
+      let filePath, newValue
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         filePath = "./plugins/miao-plugin/resources/meta-mc/character/data.json"
         if (!fs.existsSync(filePath)) {
@@ -2426,13 +2750,24 @@ export class calc extends plugin {
           }
           try {
             let jsonData = JSON.parse(TextData)
-            const newValue = {
-              "id": data.Id,
-              "name": CharacterName,
-              "abbr": CharacterName,
-              "star": data.Rarity,
-              "elem": elemKey[`${data.Element}`],
-              "weapon": weaponKey[`${data.Weapon}`]
+            if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+              newValue = {
+                "id": data.Id,
+                "name": data.Name.Content,
+                "abbr": data.Name.Content,
+                "star": data.QualityId,
+                "elem": elemKey[`${data.ElementName}`],
+                "weapon": weaponKey[`${data.WeaponType}`]
+              }
+            } else {
+              newValue = {
+                "id": data.Id,
+                "name": CharacterName,
+                "abbr": CharacterName.length >= 5 ? CharacterName.slice(-2) : CharacterName,
+                "star": data.Rarity,
+                "elem": elemKey[`${data.Element}`],
+                "weapon": weaponKey[`${data.Weapon}`]
+              }
             }
             jsonData[CharacterId] = newValue
             logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
@@ -2860,6 +3195,43 @@ export class calc extends plugin {
       }
     })
     return result
+  }
+
+  async mcTalName(inputData) {
+    let a = {}
+    for (const item of inputData) {
+      let b = []
+      let c = []
+      let d = false
+      for (const e of item.values) {
+        if (/[+\-*]/.test(e)) {
+          d = true
+          break
+        }
+      }
+      for (const e of item.values) {
+        let f
+        let parts = []
+        if (/[+\-*]/.test(e)) {
+          let numbers = e.match(/\d+\.?\d*/g).map(Number)
+          f = eval(e.replace(/%/g, ''))
+          parts = numbers
+        }
+        else {
+          f = parseFloat(e)
+          parts = [f]
+        }
+        b.push(f)
+        if (d) {
+          c.push(parts)
+        }
+      }
+      a[item.attributeName] = b
+      if (d) {
+        a[`${item.attributeName}2`] = c
+      }
+    }
+    return a
   }
 
   async mcName(data) {
