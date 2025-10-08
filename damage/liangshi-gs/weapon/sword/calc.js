@@ -131,7 +131,7 @@ export default function (step, staticStep) {
       }
     },
     降临之剑: {
-      check: ({ characterName }) => ['空', '荧', '旅行者'].includes(characterName) && PlayStation_Network != false,
+      check: ({ characterName, params }) => ['空', '荧', '旅行者'].includes(characterName) && params.PlayStation_Network != false,
       title: '[降世] 攻击力提高[atkPlus]点',
       data: {
         atkPlus: 66
@@ -226,7 +226,7 @@ export default function (step, staticStep) {
     },
     息燧之笛: {
       title: '[镜与烟色的隐谜] 施放元素战技[buff]次，防御力提升[defPct]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.SkillsUse || 1,
         defPct: ({ params, refine }) => (params.SkillsUse || 1) > 0 ? step(16)[refine] : 0
       }
@@ -244,7 +244,7 @@ export default function (step, staticStep) {
     谧音吹哨: {
       title: '[沉声止语] 触发反应后生命值上限提高[hpPct]%',
       data: {
-        hpPct: ({ params, refine }) => step(16)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+        hpPct: ({ params, refine }) => step(16)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
     },
     织月者的曙色: {

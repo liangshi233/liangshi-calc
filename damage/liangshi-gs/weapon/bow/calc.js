@@ -220,7 +220,7 @@ export default function (step, staticStep) {
     },
     缀花之翎: {
       title: '[未至的花序] 进行瞄准[buff]秒后射击，重击造成的伤害提升[a2Dmg]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.ChargedTime || 2,
         a2Dmg: ({ params }) => Math.min(((params.ChargedTime || 2) * 2), 6) * step(6)[refine]
       }
@@ -237,7 +237,7 @@ export default function (step, staticStep) {
     罗网勾针: {
       title: '[矫捷无影] 触发元素反应后元素精通提升[mastery]',
       data: {
-        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+        mastery: ({ params, refine }) => step(60)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
     },
 
@@ -253,7 +253,7 @@ export default function (step, staticStep) {
       }
     }, {
       title: '[矢志不忘] 普通攻击与重击的箭矢[buff]秒击中敌人，伤害提高[a2Dmg]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.NormalAfter || params.ChargedAfter || 0,
         aDmg: ({ params, refine }) => Math.min((params.NormalAfter || 0), 0.5) * step(80)[refine],
         a2Dmg: ({ params, refine }) => Math.min((params.ChargedAfter || 0), 0.5) * step(80)[refine],
@@ -261,7 +261,7 @@ export default function (step, staticStep) {
     }],
     终末嗟叹之诗: [staticStep('mastery', 60), {
       title: '[别离的思念之歌] 元素战技与元素爆发命中[buff]次敌人，元素精通提高[mastery],攻击力提升[atkPct]%',
-      refine: {
+      data: {
         buff: ({ params }) => (params.SkillsHit || 1) + (params.BurstHit || 0),
         mastery: ({ params, refine }) => ((params.SkillsHit || 1) + (params.BurstHit || 0)) >= 4 ? step(100)[refine] : 0,
         atkPct: ({ params, refine }) => ((params.SkillsHit || 1) + (params.BurstHit || 0)) >= 4 ? step(20)[refine] : 0
@@ -275,7 +275,7 @@ export default function (step, staticStep) {
       }
     }, {
       title: '[极昼的先兆者] 普通攻击,重击,元素战技与元素爆发命中[buff]类，攻击力将提高[atkPct]%',
-      refine: {
+      data: {
         buff: ({ params }) => [(params.NormalHit || 1), params.ChargedHit, (params.SkillsHit || 1), params.BurstHit].filter(Hit => Hit > 0).length,
         atkPct: ({ params, refine }) => [(params.NormalHit || 1), params.ChargedHit, (params.SkillsHit || 1), params.BurstHit].filter(Hit => Hit > 0).length * step(10)[refine] + ([(params.NormalHit || 1), params.ChargedHit, (params.SkillsHit || 1), params.BurstHit].filter(Hit => Hit > 0).length) === 4 ? step(8)[refine] : 0
       }
@@ -289,7 +289,7 @@ export default function (step, staticStep) {
     }],
     飞雷之弦振: [staticStep('atkPct', 20), {
       title: '[飞雷御执] 当前元素能量[buff]%,普通攻击造成[buffC]次伤害,释放[buffD]次元素战技，普通攻击造成的伤害提高[aDmg]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.EnergyDetermine || 100,
         buffC: ({ params }) => params.NormalDmg || 1,
         buffD: ({ params }) => params.SkillsUse || 1,
@@ -310,7 +310,7 @@ export default function (step, staticStep) {
       }
     }, {
       title: '[伟大者帕西法尔] 队伍中存在[buff]名元素类型相同的角色,[buffC]名不同的角色，攻击力提升[atkPct]%,移动速度提升[_jSpeed]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.ElementSame || 0,
         buffC: ({ params }) => params.ElementDifferent || 0,
         atkPct: ({ params, refine }) => Math.min((params.ElementSame || 0), 3) * step(16)[refine],
@@ -319,7 +319,7 @@ export default function (step, staticStep) {
     }],
     白雨心弦: {
       title: '[德吕阿的夜曲] 释放[buff]次元素战技,进行[buffC]次治疗，生命值上限提升[hpPct]%,元素爆发的暴击率提[qCpct]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.SkillsUse || 1,
         buffC: ({ params, characterName }) => characterName === '希格雯' ? ((params.SkillsHit || 1) > 0 ? (params.SkillsHit || 1) : 0) : (params.HealDetermine === true ? (params.HealNumber || 0) : 0), //希格雯元素战技弹跳治疗不包含自己，需独立处理
         hpPct: ({ params, characterName, refine }) => ((((params.SkillsUse || 1) > 0 ? 1 : 0) + ((characterName === '希格雯' ? ((params.SkillsHit || 1) > 0 ? (params.SkillsHit || 1) : 0) : (params.HealDetermine === true ? (params.HealNumber || 0) : 0)) > 0 ? 1 : 0) + (params.BondOfLifeDetermine === true ? 1 : 0)) * step(12)[refine]) + ((((params.SkillsUse || 1) > 0 ? 1 : 0) + ((characterName === '希格雯' ? ((params.SkillsHit || 1) > 0 ? (params.SkillsHit || 1) : 0) : (params.HealDetermine === true ? (params.HealNumber || 0) : 0)) > 0 ? 1 : 0) + (params.BondOfLifeDetermine === true ? 1 : 0)) === 3 ? step(4)[refine] : 0),

@@ -220,14 +220,14 @@ export default function (step, staticStep) {
       }
     }],
     撼地者: {
-      check: ({ element }) => (params.FireAttachment == true) || ['火'].includes(element),
+      check: ({ element, params }) => (params.FireAttachment === true) || ['火'].includes(element),
       title: '[苍翠之路的誓言] 触发火元素相关反应，元素战技造成的伤害提升[eDmg]%',
       refine: {
         eDmg: step(16)
       }
     },
     拾慧铸熔: {
-      check: ({ element, params }) => ['风', '水', '雷', '草'].includes(element),
+      check: ({ element }) => ['风', '水', '雷', '草'].includes(element),
       title: '触发感电、月感电或绽放反应时，元素精通提升[mastery]',
       refine: {
         mastery: step(60)
@@ -236,7 +236,7 @@ export default function (step, staticStep) {
     万能钥匙: {
       title: '[迎刃而解] 触发元素反应后元素精通提升[mastery]',
       data: {
-        mastery: ({ params, refine }) => step(60)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+        mastery: ({ params, refine }) => step(60)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
     },
 

@@ -38,7 +38,7 @@ export default function (step, staticStep) {
       title: '[元素熟练] 普通攻击命中[buff]次，获得[dmg]%素伤害加成',
       data: {
         buff: ({ params }) => params.NormalHit || 1,
-        dmg: ({ params }) => Math.min((params.NormalHit || 1), 2) * step(6)[refine]
+        dmg: ({ params, refine }) => Math.min((params.NormalHit || 1), 2) * step(6)[refine]
       }
     },
 
@@ -52,17 +52,19 @@ export default function (step, staticStep) {
     苍纹角杯: false,
     流浪乐章: {
       title: '[登场乐] 角色登场时，攻击力提升[atkPct]%,全元素伤害提升[dmg]%,元素精通提升[mastery]',
-      dmg: ({ refine }) => {  // 随机出一个，想看其他属性的反复凹面板即可，避免仅能计算单一buff
-        let dcy = Math.floor(Math.random() * 3) + 1
-        switch(dcy) {
-          case 1:
-            return { atkPct: step(60)[refine], dmg: 0, mastery: 0 }
-          case 2:
-            return { atkPct: 0, dmg: step(48)[refine], mastery: 0 }
-          case 3:
-            return { atkPct: 0, dmg: 0, mastery: step(240)[refine] }
-          default:
-            return { atkPct: 0, dmg: step(48)[refine], mastery: 0 }
+      data: {
+        dmg: ({ refine }) => {  // 随机出一个，想看其他属性的反复凹面板即可，避免仅能计算单一buff
+          let dcy = Math.floor(Math.random() * 3) + 1
+          switch (dcy) {
+            case 1:
+              return {atkPct: step(60)[refine], dmg: 0, mastery: 0}
+            case 2:
+              return {atkPct: 0, dmg: step(48)[refine], mastery: 0}
+            case 3:
+              return {atkPct: 0, dmg: 0, mastery: step(240)[refine]}
+            default:
+              return {atkPct: 0, dmg: step(48)[refine], mastery: 0}
+          }
         }
       }
     },
@@ -111,7 +113,7 @@ export default function (step, staticStep) {
     },
     万国诸海图谱: {
       title: '[注能之卷] 触发元素反应[buff]次，获得[dmg]%元素伤害加成',
-      refine: {
+      data: {
         buff: ({ params }) => params.ReactionDmg || 4,
         dmg: ({ params, refine }) => Math.min((params.ReactionDmg || 4), 2) * step(8)[refine]
       }
@@ -210,7 +212,7 @@ export default function (step, staticStep) {
       sort: 9,
       data: {
         buff: ({ params }) => params.SkillsUse || 1,
-        aDmg: ({ attr, calc, refine }) => (params.SkillsUse || 1) > 0 ? (Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.6, 0.1)[refine], step(16)[refine])) : 0
+        aDmg: ({ params, attr, calc, refine }) => (params.SkillsUse || 1) > 0 ? (Math.min(Math.floor(calc(attr.hp) / 1000) * step(0.6, 0.1)[refine], step(16)[refine])) : 0
       }
     },
     天光的纺琴: {
@@ -224,7 +226,7 @@ export default function (step, staticStep) {
       title: '[结契的凭证] 绽放反应造成的伤害提升[bloom]%，月绽放反应造成的伤害提升[lunarBloom]%',
       data: {
         bloom: ({ refine }) => step(48)[refine],
-        lunarBloom: ({ params, refine }) => step(12)[refine] * (params.Moonsign || 0) >= 2 ? 2 : 1
+        lunarBloom: ({ params, refine }) => step(12)[refine] * ((params.Moonsign || 0) >= 2 ? 2 : 1)
       }
     },
     霜辰: {
@@ -274,15 +276,15 @@ export default function (step, staticStep) {
     }],
     神乐之真意: {
       title: '[神樱神游神乐舞] 施放元素战技[buff]次，元素战技造成的伤害提高[eDmg]%，获得[dmg]%所有元素伤害加成',
-      refine: {
+      data: {
         buff: ({ params }) => params.SkillsUse || 1,
-        eDmg: ({ params }) => Math.min((params.SkillsUse || 1), 3) * step(12)[refine],
-        dmg: ({ params }) => (params.SkillsUse || 1) >= 3 ? step(12)[refine] : 0
+        eDmg: ({ params, refine }) => Math.min((params.SkillsUse || 1), 3) * step(12)[refine],
+        dmg: ({ params, refine }) => (params.SkillsUse || 1) >= 3 ? step(12)[refine] : 0
       }
     },
     千夜浮梦: {
       title: '[千夜的曙歌] 队伍中[buff]个与装备者元素相同的角色,[buffC]个不同的角色，元素伤害加成提高[dmg]%',
-      refine: {
+      data: {
         buff: ({ params }) => params.ElementSame || 0,
         buffC: ({ params }) => params.ElementDifferent || 0,
         mastery: ({ params, refine }) => Math.max(Math.min(((params.ElementSame || 0) - 1), 3), 0) * step(32)[refine],
@@ -314,7 +316,7 @@ export default function (step, staticStep) {
     }],
     万世流涌大典: [staticStep('hpPct', 16), {
       title: '[万世的浪涛] 当前生命值提升或降低[buff]次，重击造成的伤害提升[a2Dmg]%,恢复[_energyevery]点元素能量',
-      refine: {
+      data: {
         buff: ({ params }) => (params.ChangeHp || 0) + (params.SubjectedDmg || (!params.ShieldDetermine ? (!params.ShieldTime ? (params.BurningDetermine == true ? 5 : 1) : 0) : 0)) + (params.HealNumber || 0),
         a2Dmg: ({ params, refine }) => Math.min(((params.ChangeHp || 0) + (params.SubjectedDmg || (!params.ShieldDetermine ? (!params.ShieldTime ? (params.BurningDetermine == true ? 5 : 1) : 0) : 0)) + (params.HealNumber || 0)), 3) * [14, 18, 22, 26, 30][refine],
         _energyevery: ({ params, refine }) => ((params.ChangeHp || 0) + (params.SubjectedDmg || (!params.ShieldDetermine ? (!params.ShieldTime ? (params.BurningDetermine == true ? 5 : 1) : 0) : 0)) + (params.HealNumber || 0)) >= 3 ? step(8, 1)[refine] : 0
@@ -352,7 +354,7 @@ export default function (step, staticStep) {
     },
     溢彩心念: [staticStep('atkPct', 28), {
       title: '[落虹之愿] 施放元素战技或元素爆发[buff]次，下落攻击造成的暴击伤害提升[a3Cdmg]',
-      refine: {
+      data: {
         buff: ({ params }) => (params.SkillsUse || 1) + (params.BurstUse || 0),
         a3Cdmg: ({ params, refine }) => (((params.SkillsUse || 1) + (params.BurstUse || 0)) > 0 ? step(40)[refine] : 0) + step(28)[refine]
       }
