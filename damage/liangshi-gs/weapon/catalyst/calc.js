@@ -52,19 +52,17 @@ export default function (step, staticStep) {
     苍纹角杯: false,
     流浪乐章: {
       title: '[登场乐] 角色登场时，攻击力提升[atkPct]%,全元素伤害提升[dmg]%,元素精通提升[mastery]',
-      data: {
-        dmg: ({ refine }) => {  // 随机出一个，想看其他属性的反复凹面板即可，避免仅能计算单一buff
-          let dcy = Math.floor(Math.random() * 3) + 1
-          switch (dcy) {
-            case 1:
-              return {atkPct: step(60)[refine], dmg: 0, mastery: 0}
-            case 2:
-              return {atkPct: 0, dmg: step(48)[refine], mastery: 0}
-            case 3:
-              return {atkPct: 0, dmg: 0, mastery: step(240)[refine]}
-            default:
-              return {atkPct: 0, dmg: step(48)[refine], mastery: 0}
-          }
+      data: ({ refine }) => {  // 随机出一个，想看其他属性的反复凹面板即可，避免仅能计算单一buff
+        let dcy = Math.floor(Math.random() * 3) + 1
+        switch (dcy) {
+          case 1:
+            return { atkPct: step(60)[refine], dmg: 0, mastery: 0 }
+          case 2:
+            return { atkPct: 0, dmg: step(48)[refine], mastery: 0 }
+          case 3:
+            return { atkPct: 0, dmg: 0, mastery: step(240)[refine] }
+          default:
+            return { atkPct: 0, dmg: step(48)[refine], mastery: 0 }
         }
       }
     },
