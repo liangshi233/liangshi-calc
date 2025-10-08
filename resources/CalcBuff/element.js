@@ -70,7 +70,26 @@ export const resonanceBuffGs = [{
   }
 }]
 
-export const NegativeStatusMc = [{
+export const MoonsignBuffGs = [{ //需要在角色处导入并设置Moonsign大于等于2才会激活
+  check: ({ params }) => !params.MoonsignDetermine && (params.Moonsign || 0) >= 2 && ((params.SkillsUse || 1) + (params.BurstUse || 0)) > 0,
+  title: '新月之拥：[满辉] 释放元素战技或元素爆发后，月曜反应伤害提升[_res]%',
+  data: ({ attr, calc, element }) => {
+    let base = 0
+    if (element === '水') { // 60000
+      base = calc(attr.hp) / 1000 * 0.6
+    } else if (element === '岩') { // 3600
+      base = calc(attr.def) / 100
+    } else if (element === '风' ||  element === '草') { // 1600
+      base = calc(attr.mastery) / 100 * 2.25
+    } else { // 4000
+      base = calc(attr.atk) / 100 * 0.9
+    }
+    base = Math.min(base, 36)
+    return { lunarCharged: base, lunarBloom: base }
+  }
+}]
+
+export const NegativeStatusMc = [{ // 有能给自己挂电磁效应的才用这个(这个是扣攻击)
   check: ({ params }) => params.De_Electro_Flare > 0,
   title: '异常效应：[电磁效应] 角色被附加[buff]层电磁效应，攻击力提升[atkPct]%',
   data: {

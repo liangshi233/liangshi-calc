@@ -1,4 +1,4 @@
-// New in '6.0.50'
+// New in '6.0.53'
 
 export const AnemoCharacter = [ //风属性角色（ 漏了记得帮忙补上 :( ）
   '伊法', '蓝砚', '琳妮特', '珐露珊', '鹿野院平藏', '早柚', '砂糖',
@@ -57,7 +57,7 @@ export const TruceHpCharacter = [ //后台变动生命值角色
   '希格雯', '珊瑚宫心海', '七七', '白术', '琴', '芙宁娜', '闲云', '迪希雅'
 ]
 export const MoonsignCharacter = [ //可提供月辉角色
-  '菈乌玛', '菲林斯',
+  '奈芙尔', '菈乌玛', '菲林斯',
   '爱诺'
 ]
 export const CharacterParams = {  //特殊配置，角色单独设置请在此配置
