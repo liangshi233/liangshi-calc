@@ -568,7 +568,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
   }
 ~~~
 
-添加至`liangshi-calc\damage\liangshi-gs\砂糖\CalcData.js`中AllCalc的末尾（无论是什么类型的条目）
+添加至`liangshi-calc\damage\liangshi-gs\砂糖\CalcData.js`中AllCalc的末尾（无论是什么类型的条目，如果是涉及读取面板的组队计算的需把写入json移至最后一个条目）
 
 添加完成后应为以下格式
 
@@ -598,7 +598,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 例`赛夜砂伊 队友提升精通`属于组队计算，找到`liangshi-calc\damage\liangshi-gs\data\TeamCalc.json`中的砂糖
 
-根据你想显示的位置将刚刚添加的条目的序号（添加在最后默认为条目总数-1）添加至对应位置
+根据你想显示的位置将刚刚添加的条目的序号（添加在最后时默认为条目总数-1）添加至对应位置
 
 ~~~
 //显示在组队计算第一个
@@ -629,13 +629,21 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 ---
 
-<details><summary>原神与星铁相关内容维护状态</summary>
+##### 原神与星铁相关内容维护状态
 
-Ke_Akatsuki被弹窗气退游了，原神相关内容在10月9日前由liangshi暂时维护
+<details><summary>原神</summary>
 
-10月10日后会更新关闭原神相关内容开关GsDisabled，可设置GsDisabled关闭原神相关内容
+默认不再更新，如有BUG或需求请提issues或Pull Requests
 
-星铁相关内容暂时无人维护，可设置SrDisabled关闭星铁相关内容
+可设置GsDisabled关闭原神相关内容
+
+</details>
+
+<details><summary>星铁</summary>
+
+星铁文件夹内似乎有神秘违禁词，一动就封，暂不更新
+
+可设置SrDisabled关闭星铁相关内容
 
 </details>
 
@@ -643,7 +651,7 @@ Ke_Akatsuki被弹窗气退游了，原神相关内容在10月9日前由liangshi�
 
 ## 其他资源位置
 
-> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) 
+> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) （暂停更新至新API适配完成）
 > 
 > 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs) （被大手制裁了 :( 可前往群文件下载）
 
