@@ -329,8 +329,9 @@ export class calc extends plugin {
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, game, GamePath, ProxyUrl, data
+    let response, game, GamePath, ProxyUrl, data, url, apiKey, itemJson
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GamePath = "gs"
@@ -353,7 +354,11 @@ export class calc extends plugin {
     let ID = TextData[4]
     if (!JsonOk) {
       try {
-        let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+          url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
+        } else {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
+        }
         response = await fetch(url)
         if (!response.ok) {
           console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -386,12 +391,20 @@ export class calc extends plugin {
         return false
       }
     }
-    let ItemData, ItemId, ItemName, ItemType
-    if (!data[`${ID}`]) {
+    let ItemData, ItemId, ItemName, ItemType, Tag
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+      Tag = "TypeName"
+      itemJson = data.itemList.reduce((ccb, item) => { ccb[item.Id] = { ...item }; return ccb }, {})
+      url = `${ProxyUrl}${itemJson[`${ID}`].Icon}`
+    } else {
+      Tag = "Tag"
+      itemJson = data
+      url = `${ProxyUrl}https://api.hakush.in/${game}/UI/` + itemJson[`${ID}`].Icon.replace(/^\/Game\/Aki\/UI\//, '').split('.')[0] + '.webp'
+    }
+    if (!itemJson[`${ID}`]) {
       if(!mode) e.reply('[liangshi-calc]未知的物品')
       return false
     }
-    let url = `${ProxyUrl}https://api.hakush.in/${game}/UI/`
     let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/material`
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       if (/区域特产/.test(data[`${ID}`].Type)) {
@@ -641,7 +654,7 @@ export class calc extends plugin {
         "合成成品-玩法道具": "consume",
         "称号": "title"
       }
-      if (data[`${ID}`]?.Tag?.includes("武器与技能素材")) {
+      if (itemJson[`${ID}`]?.[Tag]?.includes("武器与技能素材")) {
         //40体秘境武器天赋素材 与 敌人素材
         if (ID > 43020010 && ID < 43020055) {
           //40体秘境武器天赋素材
@@ -650,11 +663,11 @@ export class calc extends plugin {
           //敌人素材
           ItemType = "monster"
         }
-        ItemId = +ID + (5 - data[`${ID}`].Rarity)
-        let wq1Name = data[`${ItemId - 3}`].Name
-        let wq2Name = data[`${ItemId - 2}`].Name
-        let wq3Name = data[`${ItemId - 1}`].Name
-        let wq4Name = data[`${ItemId}`].Name
+        ItemId = +ID + (5 - (itemJson[`${ID}`].QualityId || itemJson[`${ID}`].Rarity))
+        let wq1Name = itemJson[`${ItemId - 3}`].Name
+        let wq2Name = itemJson[`${ItemId - 2}`].Name
+        let wq3Name = itemJson[`${ItemId - 1}`].Name
+        let wq4Name = itemJson[`${ItemId}`].Name
         ItemData = {
           "id": ItemId,
           "name": wq4Name,
@@ -688,49 +701,49 @@ export class calc extends plugin {
           }
         }
         ItemName = wq4Name
-      } else if (data[`${ID}`]?.Tag?.includes("突破材料")) {
+      } else if (itemJson[`${ID}`]?.[Tag]?.includes("突破材料")) {
         //地图采集素材
         ItemType = "specialty"
         ItemData = {
           "id": ID,
-          "name": data[`${ID}`].name,
+          "name": itemJson[`${ID}`].name,
           "type": ItemType,
           "star": 1
         }
-        ItemName = data[`${ID}`].Name
-      } else if (data[`${ID}`]?.Tag?.includes("技能升级材料")) {
+        ItemName = itemJson[`${ID}`].Name
+      } else if (itemJson[`${ID}`]?.[Tag]?.includes("技能升级材料")) {
         //60体周本材料
         ItemType = "weekly"
         ItemData = {
           "id": ID,
-          "name": data[`${ID}`].Name,
+          "name": itemJson[`${ID}`].Name,
           "type": ItemType,
           "star": 4
         }
-        ItemName = data[`${ID}`].Name
-      } else if (data[`${ID}`]?.Tag?.includes("共鸣者突破材料")) {
+        ItemName = itemJson[`${ID}`].Name
+      } else if (itemJson[`${ID}`]?.[Tag]?.includes("共鸣者突破材料")) {
         //60体Boss材料
         ItemType = "boss"
         ItemData = {
           "id": ID,
-          "name": data[`${ID}`].Name,
+          "name": itemJson[`${ID}`].Name,
           "type": ItemType,
           "star": 4
         }
-        ItemName = data[`${ID}`].Name
+        ItemName = itemJson[`${ID}`].Name
       } else {
         //未知物品
-        ItemName = data[`${ID}`].Name
-        ItemType =  key[`${data[`${ID}`]?.Tag}`]
+        ItemName = itemJson[`${ID}`].Name
+        ItemType = key[`${itemJson[`${ID}`]?.[Tag]}`]
         ItemData = {
           "id": ID,
-          "name": data[`${ID}`].Name,
+          "name": itemJson[`${ID}`].Name,
           "type": ItemType,
-          "star": data[`${ID}`].Rarity
+          "star": itemJson[`${ID}`].Rarity || itemJson[`${ID}`].QualityId
         }
       }
     }
-    await this.getImg((url + data[`${ID}`].Icon.replace(/^\/Game\/Aki\/UI\//, '').split('.')[0] + '.webp'), `${imgs}/${ItemType}/${data[`${ID}`].Name}.webp`, "图标")
+    await this.getImg(url, `${imgs}/${ItemType}/${itemJson[`${ID}`].Name}.webp`, "图标")
     if(!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/material/data.json`
@@ -741,18 +754,18 @@ export class calc extends plugin {
       fs.readFile(filePath, 'utf8', (err, TextData) => {
         if (err) {
           console.error('[liangshi-calc]读取物品配置data.json失败:', err)
-          if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
+          if(!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
           return false
         }
         try {
           let jsonData = JSON.parse(TextData)
           jsonData[ItemName] = ItemData
-          logger.mark(`[liangshi-calc]物品：${data[`${ID}`].Name} 配置data.json成功`)
+          logger.mark(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 配置data.json成功`)
           let updatedData = JSON.stringify(jsonData, null, 2)
           fs.writeFile(filePath, updatedData, 'utf8', (err) => {
             if (err) {
               console.error('[liangshi-calc]物品data.json写入失败:\n', err)
-              if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n尝试自动写入Data时失败\n请手动添加后重启使用`)
+              if(!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n尝试自动写入Data时失败\n请手动添加后重启使用`)
               return false
             } else {
               logger.mark('[liangshi-calc]物品data.json已更新')
@@ -762,9 +775,9 @@ export class calc extends plugin {
           console.error('[liangshi-calc]自动配置data.json失败:\n', err)
         }
       })
-      if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n重启后即可使用相关内容`)
+      if(!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n重启后即可使用相关内容`)
     } else {
-      if(!mode) e.reply(`[liangshi-calc]物品：${data[`${ID}`].Name} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)
+      if(!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)
     }
   }
 
@@ -1197,7 +1210,8 @@ export class calc extends plugin {
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, game, GamePath, ProxyUrl, data, zb
+    let response, game, GamePath, ProxyUrl, data, zb, url, apiKey, p
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
@@ -1224,13 +1238,16 @@ export class calc extends plugin {
     let ID = TextData[4]
     if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的${zb}数据`)
     try {
-      let p
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)){
         p = "echo"
       } else {
         p = "artifact"
       }
-      let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/${p}/${ID}.json`
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${p}/${ID}`
+      } else {
+        url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/${p}/${ID}.json`
+      }
       response = await fetch(url)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -1254,8 +1271,12 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
-    let imgPath, imgs, imgName
+    let imgPath, imgs, imgName, IconUrl
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+      IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
+    } else {
+      IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
+    }
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       imgPath = ""
       imgName = data.Name
@@ -1280,7 +1301,11 @@ export class calc extends plugin {
       await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_SHOES?.Icon + ".webp", `${imgs}/3.webp`, "时之沙")
       if(!mode) e.reply(`[liangshi-calc]${zb}图片资源下载完成`)
     } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        await this.getImg(data.Icon, `${imgs}/img.webp`, "声骸")
+      } else {
+        await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
+      }
     }
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact/data.json`
