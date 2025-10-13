@@ -1271,15 +1271,11 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    let imgPath, imgs, imgName, IconUrl
-    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
-      IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
-    } else {
-      IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
-    }
+    let imgPath, imgs, imgName
+    let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       imgPath = ""
-      imgName = data.Name
+      imgName = data.Name || data.MonsterName
     } else {
       imgPath = "/imgs"
       imgName = data.Affix[0].Name
@@ -1359,9 +1355,9 @@ export class calc extends plugin {
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
             newValue.sets = Object.fromEntries(
-                Object.entries(newValue.sets).filter(([key, value]) => {
-                  return value.id !== undefined || value.name !== undefined
-                })
+              Object.entries(newValue.sets).filter(([key, value]) => {
+                return value.id !== undefined || value.name !== undefined
+              })
             )
             jsonData[ID] = newValue
             logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
@@ -1380,24 +1376,21 @@ export class calc extends plugin {
           }
         })
       } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        let n = Object.keys(data.Group)[0]
-        let m = Object.keys(data.Group[`${n}`].Set)[0]
-        let l = Object.keys(data.Group[`${n}`].Set)[1] || null
-        let k = l ? {
-          [m]: data.Group[`${n}`].Set[`${m}`].Desc.replace(/\{(\d+)\}/g, (match, index) => {
-            let c = parseInt(index, 10)
-            return data.Group[`${n}`].Set[`${m}`].Param[c] || match
-          }),
-          [l]: data.Group[`${n}`].Set[`${l}`].Desc.replace(/\{(\d+)\}/g, (match, index) => {
-            let c = parseInt(index, 10)
-            return data.Group[`${n}`].Set[`${l}`].Param[c] || match
-          })
-        } : {
-          [m]: data.Group[`${n}`].Set[`${m}`].Desc.replace(/\{(\d+)\}/g, (match, index) => {
-            let c = parseInt(index, 10)
-            return data.Group[`${n}`].Set[`${m}`].Param[c] || match
+        let z = (t, u) => {
+          if (!t || !Array.isArray(u)) return t
+          return t.replace(/\{(\d+)\}/g, (r, e) => {
+            let h = parseInt(e, 10)
+            return h >= 0 && h < u.length ? u[h] : r
           })
         }
+        let n = Object.keys(data.Group)[0]
+        let v = data.Group[n]
+        let j = Object.keys(v.Set || {})
+        let k = {}
+        j.forEach(key => {
+          let n = v.Set[key]
+          if (n && n.Desc && Array.isArray(n.Param)) k[key] = z(n.Desc, n.Param)
+        })
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取声骸配置data.json失败:', err)
@@ -1416,17 +1409,22 @@ export class calc extends plugin {
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
             jsonData[n] = newValue
-            let GroupKey = Object.keys(data.Group)
+            let GroupKey = Object.keys(data.Group).map(Number).map(String)
             if (GroupKey.length > 1) {
               for (let i = 0; i < GroupKey.length - 1; i++) {
                 let currentKey = GroupKey[i + 1]
                 let SetsPath = Array.isArray(jsonData[currentKey]?.sets) ? jsonData[currentKey].sets : []
                 if (!SetsPath.includes(data.Id)) SetsPath.push(data.Id)
+                let ccb = {}
+                Object.keys(data?.Group?.[currentKey]?.Set || {}).forEach(key => {
+                  let n = data?.Group[currentKey]?.Set[key]
+                  if (n && n.Desc && Array.isArray(n.Param)) ccb[key] = z(n.Desc, n.Param)
+                })
                 let NewValue = {
-                  "id": jsonData?.[currentKey]?.id,
-                  "name": jsonData?.[currentKey]?.name,
+                  "id": `${data?.Group?.[currentKey]?.Id}`,
+                  "name": data?.Group?.[currentKey]?.Name,
                   "sets": SetsPath,
-                  "effect": jsonData?.[currentKey]?.effect
+                  "effect": ccb
                 }
                 jsonData[currentKey] = NewValue
               }
@@ -1462,8 +1460,8 @@ export class calc extends plugin {
         let ArtifactData = {
           "id": data.Id || data.MonsterId,
           "Name": data.Name || data.MonsterName,
-          "Code": data.Code || data.Handbook,
-          "desc": data.Skill.SimpleDesc.replace(/\n/g, ''),
+          "Code": data.Code || data.Handbook.Intensity,
+          "desc": (data.Skill.SimpleDesc || data.Skill.SimplyDescription).replace(/\n/g, ''),
           "affixData": {
             "text": o.replace(/\n/g, ''),
             "datas": datas
@@ -1487,7 +1485,6 @@ export class calc extends plugin {
       if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n重启后即可使用相关内容`)
     } else {
       if(!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n当前未启用自动写入ArtifactData\n手动配置后重启才可使用\n自动写入ArtifactData可在config.yaml启用或使用强制更新临时启用一次`)
-
     }
     return false
   }
