@@ -59,7 +59,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u
+    let url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
@@ -203,6 +203,21 @@ export class calc extends plugin {
       let url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
         url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
+        url2 = `${ProxyUrl}https://api.encore.moe/zh-Hans/echo`
+        let EchoJson = await fetch(url2)
+        EchoJson = await EchoJson.json()
+        fs.writeFile(`./plugins/liangshi-calc/resources/EchoJson.json`, JSON.stringify(EchoJson), 'utf8', (err) => {
+          if (err) {
+            logger.error(`[liangshi-calc] 声骸Json储存失败`)
+            fs.unlink('./plugins/liangshi-calc/resources/EchoJson.json', (err) => {
+              if (!err) {
+                console.warn(`[liangshi-calc] 声骸Json储存错误残留文件已清理`)
+              }
+            })
+          } else {
+            logger.info(`[liangshi-calc] 声骸Json已缓存至本地`)
+          }
+        })
       }
       ItemJson = await fetch(url)
       if (!response.ok) {
@@ -218,7 +233,7 @@ export class calc extends plugin {
       })
     } catch (error) {
       ItemOk = false
-      logger.fatal(`[liangshi-calc] 失败\n${error}`)
+      logger.error(`[liangshi-calc] Json缓存失败\n${error}`)
     }
     let instruction = { msg: null, isMaster: true, reply: e.reply }
     for (const charId of character) {
@@ -274,6 +289,13 @@ export class calc extends plugin {
         console.log(err)
       }
     })
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 3 || cfg.mcApi === 2)) {
+      fs.unlink('./plugins/liangshi-calc/resources/EchoJson.json', (err) => {
+        if (!err) {
+          logger.fatal(`[liangshi-calc] 声骸Json缓存已删除`)
+        }
+      })
+    }
     fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => {
       if (err) {
         console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message)
@@ -1376,92 +1398,183 @@ export class calc extends plugin {
           }
         })
       } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        let z = (t, u) => {
-          if (!t || !Array.isArray(u)) return t
-          return t.replace(/\{(\d+)\}/g, (r, e) => {
-            let h = parseInt(e, 10)
-            return h >= 0 && h < u.length ? u[h] : r
+        let EchoJson, jsonNOK, yx, jx = {}
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          if (fs.existsSync('./plugins/liangshi-calc/resources/EchoJson.json')) {
+            try {
+              EchoJson = fs.readFileSync('./plugins/liangshi-calc/resources/EchoJson.json','utf8')
+              EchoJson = JSON.parse(EchoJson)
+              logger.mark(`[liangshi-calc]声骸Json读取成功`)
+            } catch (err) {
+              logger.error(`[liangshi-calc]声骸Json读取失败,尝试重新获取`)
+              jsonNOK = true
+            }
+          }
+          if (!fs.existsSync('./plugins/liangshi-calc/resources/EchoJson.json') || jsonNOK) {
+            let url2 = `${ProxyUrl}https://api.encore.moe/zh-Hans/echo`
+            EchoJson = await fetch(url2)
+            EchoJson = await EchoJson.json()
+            if (mode) {
+              fs.writeFile(`./plugins/liangshi-calc/resources/EchoJson.json`, JSON.stringify(EchoJson), 'utf8', (err) => {
+                if (err) {
+                  logger.fatal(`[liangshi-calc]声骸Json储存失败`)
+                  fs.unlink('./plugins/liangshi-calc/resources/EchoJson.json', (err) => {
+                    if (!err) {
+                      console.warn(`[liangshi-calc]声骸Json储存错误残留文件已清理`)
+                    }
+                  })
+                } else {
+                  logger.fatal(`[liangshi-calc] 声骸Json已缓存至本地`)
+                }
+              })
+            }
+          }
+          EchoJson = EchoJson.Echo.reduce((acc, item) => { acc[item.Id] = { ...item }; return acc }, {})
+          let i = EchoJson[data.MonsterId].FetterGroups
+          let textcl = (items) => {
+            return items.reduce((acc, item) => {
+              let effect = item.Fetters.length === 2 ? { 2: item.Fetters[0].EffectDescription, 5: item.Fetters[1].EffectDescription } : { 3: item.Fetters[0].EffectDescription }
+              acc[item.Id] = {
+                id: String(item.Id),
+                name: item.Name,
+                sets: [data.MonsterId],
+                effect: effect
+              }
+              return acc
+            }, {})
+          }
+          if (fs.existsSync(filePath)) {
+            yx = {}
+            try {
+              yx = fs.readFileSync(filePath,'utf8')
+              yx = JSON.parse(yx)
+              logger.mark(`[liangshi-calc]声骸data读取成功`)
+            } catch (err) {
+              logger.error(`[liangshi-calc]声骸data读取失败,尝试重新生成`)
+            }
+          } else { yx = {} }
+          i = textcl(i)
+          jx = { ...yx }
+          for (const key in i) {
+            if (yx.hasOwnProperty(key)) {
+              let yxk = yx[key]
+              let ik = i[key]
+              let ox = { ...yxk, ...ik }
+              if (yxk.sets && ik.sets) { ox.sets = [...new Set([...yxk.sets, ...ik.sets])] }
+              jx[key] = ox
+            } else {
+              jx[key] = i[key]
+            }
+          }
+          fs.writeFile(filePath, JSON.stringify(jx, null, 2), 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+            } else {
+              logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
+            }
+          })
+        } else {
+          let z = (t, u) => {
+            if (!t || !Array.isArray(u)) return t
+            return t.replace(/\{(\d+)\}/g, (match, index) => {
+              let h = parseInt(index, 10)
+              return h >= 0 && h < u.length ? u[h] : match
+            })
+          }
+          let n = Object.keys(data.Group)[0]
+          let v = data.Group[n]
+          let j = Object.keys(v.Set || {})
+          let k = {}
+          j.forEach(key => {
+            let n = v.Set[key]
+            if (n && n.Desc && Array.isArray(n.Param)) k[key] = z(n.Desc, n.Param)
+          })
+          fs.readFile(filePath, 'utf8', (err, TextData) => {
+            if (err) {
+              console.error('[liangshi-calc]读取声骸配置data.json失败:', err)
+              if (!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+              return false
+            }
+            try {
+              let jsonData = JSON.parse(TextData)
+              let setsPath = Array.isArray(jsonData[n]?.sets) ? jsonData[n].sets : []
+              if (!setsPath.includes(data.Id)) setsPath.push(data.Id)
+              let newValue = {
+                "id": Object.keys(data.Group)[0],
+                "name": data.Group[`${Object.keys(data.Group)[0]}`].Name,
+                "sets": setsPath,
+                "effect": k,
+                "UpdateTime": `[liangshi-calc] ${new Date()}`
+              }
+              jsonData[n] = newValue
+              let GroupKey = Object.keys(data.Group).map(Number).map(String)
+              if (GroupKey.length > 1) {
+                for (let i = 0; i < GroupKey.length - 1; i++) {
+                  let currentKey = GroupKey[i + 1]
+                  let SetsPath = Array.isArray(jsonData[currentKey]?.sets) ? jsonData[currentKey].sets : []
+                  if (!SetsPath.includes(data.Id)) SetsPath.push(data.Id)
+                  let ccb = {}
+                  Object.keys(data?.Group?.[currentKey]?.Set || {}).forEach(key => {
+                    let n = data?.Group[currentKey]?.Set[key]
+                    if (n && n.Desc && Array.isArray(n.Param)) ccb[key] = z(n.Desc, n.Param)
+                  })
+                  let newValue = {
+                    "id": `${data?.Group?.[currentKey]?.Id}`,
+                    "name": data?.Group?.[currentKey]?.Name,
+                    "sets": SetsPath,
+                    "effect": ccb,
+                    "UpdateTime": `[liangshi-calc] ${new Date()}`
+                  }
+                  jsonData[currentKey] = newValue
+                }
+              }
+              logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
+              let updatedData = JSON.stringify(jsonData, null, 2)
+              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+                if (err) {
+                  console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
+                  if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+                  return false
+                } else {
+                  logger.mark(`[liangshi-calc]${zb}data.json已更新`)
+                }
+              })
+            } catch (err) {
+              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+            }
           })
         }
-        let n = Object.keys(data.Group)[0]
-        let v = data.Group[n]
-        let j = Object.keys(v.Set || {})
-        let k = {}
-        j.forEach(key => {
-          let n = v.Set[key]
-          if (n && n.Desc && Array.isArray(n.Param)) k[key] = z(n.Desc, n.Param)
-        })
-        fs.readFile(filePath, 'utf8', (err, TextData) => {
-          if (err) {
-            console.error('[liangshi-calc]读取声骸配置data.json失败:', err)
-            if (!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-            return false
-          }
-          try {
-            let jsonData = JSON.parse(TextData)
-            let setsPath = Array.isArray(jsonData[n]?.sets) ? jsonData[n].sets : []
-            if (!setsPath.includes(data.Id)) setsPath.push(data.Id)
-            let newValue = {
-              "id": Object.keys(data.Group)[0],
-              "name": data.Group[`${Object.keys(data.Group)[0]}`].Name,
-              "sets": setsPath,
-              "effect": k,
-              "UpdateTime": `[liangshi-calc] ${new Date()}`
-            }
-            jsonData[n] = newValue
-            let GroupKey = Object.keys(data.Group).map(Number).map(String)
-            if (GroupKey.length > 1) {
-              for (let i = 0; i < GroupKey.length - 1; i++) {
-                let currentKey = GroupKey[i + 1]
-                let SetsPath = Array.isArray(jsonData[currentKey]?.sets) ? jsonData[currentKey].sets : []
-                if (!SetsPath.includes(data.Id)) SetsPath.push(data.Id)
-                let ccb = {}
-                Object.keys(data?.Group?.[currentKey]?.Set || {}).forEach(key => {
-                  let n = data?.Group[currentKey]?.Set[key]
-                  if (n && n.Desc && Array.isArray(n.Param)) ccb[key] = z(n.Desc, n.Param)
-                })
-                let NewValue = {
-                  "id": `${data?.Group?.[currentKey]?.Id}`,
-                  "name": data?.Group?.[currentKey]?.Name,
-                  "sets": SetsPath,
-                  "effect": ccb
-                }
-                jsonData[currentKey] = NewValue
-              }
-            }
-            logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
-            let updatedData = JSON.stringify(jsonData, null, 2)
-            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-              if (err) {
-                console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
-                if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-                return false
-              } else {
-                logger.mark(`[liangshi-calc]${zb}data.json已更新`)
-              }
-            })
-          } catch (err) {
-            console.error('[liangshi-calc]自动配置data.json失败:\n', err)
-          }
-        })
         let y = data.Skill.Param
-        let datas = {}
-        y.forEach(subArray => {
-          subArray.forEach((value, index) => {
-            if (!datas[index]) {
-              datas[index] = []
-            }
-            datas[index].push(value)
+        let o, datas = {}, gx = {}, cb = {}
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '')
+          p = data.Skill.LevelDescStrArray[data.Skill.LevelDescStrArray.length - 1].ArrayString
+          p.forEach((dx, oc) => { cb[dx.replace(/%/g, '').trim()] = oc })
+          let k = Object.entries(cb).sort((a, b) => b[1] - a[1]).reverse()
+          let ly = o
+          for (const [g, f] of k) { ly = ly.replace(new RegExp(`\\b${g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g'), `$[${f}]`) }
+          o = ly.replace(/]%/g, ']')
+          datas = data.Skill.LevelDescStrArray
+          let maxLength = datas.reduce((mx, gu) => Math.max(mx, gu.ArrayString.length), 0)
+          for (let i = 0; i < maxLength; i++) { gx[i] = [] }
+          datas.forEach(xx => { xx.ArrayString.forEach((xn, un) => { gx[un].push(xn) }) })
+          datas = gx
+        } else {
+          y.forEach(subArray => {
+            subArray.forEach((value, index) => {
+              if (!datas[index]) {
+                datas[index] = []
+              }
+              datas[index].push(value)
+            })
           })
-        })
-        let o = data.Skill.Desc.replace(/\{(\d+)\}/g, (match, p1) => {
-          return `$[${p1}]`
-        })
+          o = data.Skill.Desc.replace(/\{(\d+)\}/g, (p0, p1) => { return `$[${p1}]` })
+        }
         let ArtifactData = {
           "id": data.Id || data.MonsterId,
           "Name": data.Name || data.MonsterName,
-          "Code": data.Code || data.Handbook.Intensity,
-          "desc": (data.Skill.SimpleDesc || data.Skill.SimplyDescription).replace(/\n/g, ''),
+          "Code": data.Code || data.Handbook?.Intensity || "",
+          "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/\n/g, '') ,
           "affixData": {
             "text": o.replace(/\n/g, ''),
             "datas": datas
@@ -1471,12 +1584,12 @@ export class calc extends plugin {
         if (!fs.existsSync(path)) {
           fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
           logger.mark(`[liangshi-calc]声骸：${imgName} 数据已写入`)
-          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
+          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据已写入`)
         } else if (/强制|强行|覆盖/.test(e.msg)) {
           if(!mode) e.reply('[liangshi-calc]声骸数据已存在，当前为强制模式，尝试覆盖写入。')
           fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
           logger.mark(`[liangshi-calc]声骸：${imgName} 数据已写入`)
-          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName}\n数据已写入`)
+          if(!mode) e.reply(`[liangshi-calc]声骸：${imgName} 数据已写入`)
         } else {
           if(!mode) e.reply(`[liangshi-calc]声骸数据已存在，运行终止。\n如果需要刷新声骸数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}声骸数据`)
           console.error(`[liangshi-calc]声骸：${imgName}\n数据已存在`)
