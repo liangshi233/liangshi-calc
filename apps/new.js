@@ -1061,41 +1061,41 @@ export class calc extends plugin {
             "id": Number(ID),
             "name": data.WeaponName,
             "affixTitle": data.ResonName,
-            "star": data.QualityName === "SR" ? 4 : 5,
+            "star": data.QualityId,
             "desc": data.AttributesDescription.replace(/\n/g, ''),
             "attr": {
               "atk": {
-                "1": data.Properties[0].GrowthValues[0].Value,
-                "20": data.Properties[0].GrowthValues[19].Value,
-                "40": data.Properties[0].GrowthValues[39].Value,
-                "50": data.Properties[0].GrowthValues[49].Value,
-                "60": data.Properties[0].GrowthValues[59].Value,
-                "70": data.Properties[0].GrowthValues[69].Value,
-                "80": data.Properties[0].GrowthValues[79].Value,
-                "90": data.Properties[0].GrowthValues[89].Value,
-                "20+": data.Properties[0].GrowthValues[19].Value,
-                "40+": data.Properties[0].GrowthValues[39].Value,
-                "50+": data.Properties[0].GrowthValues[49].Value,
-                "60+": data.Properties[0].GrowthValues[59].Value,
-                "70+": data.Properties[0].GrowthValues[69].Value,
-                "80+": data.Properties[0].GrowthValues[79].Value
+                "1": Number(data.Properties[0].GrowthValues[0].Value),
+                "20": Number(data.Properties[0].GrowthValues[19].Value),
+                "40": Number(data.Properties[0].GrowthValues[39].Value),
+                "50": Number(data.Properties[0].GrowthValues[49].Value),
+                "60": Number(data.Properties[0].GrowthValues[59].Value),
+                "70": Number(data.Properties[0].GrowthValues[69].Value),
+                "80": Number(data.Properties[0].GrowthValues[79].Value),
+                "90": Number(data.Properties[0].GrowthValues[89].Value),
+                "20+": Number(data.Properties[0].GrowthValues[19].Value),
+                "40+": Number(data.Properties[0].GrowthValues[39].Value),
+                "50+": Number(data.Properties[0].GrowthValues[49].Value),
+                "60+": Number(data.Properties[0].GrowthValues[59].Value),
+                "70+": Number(data.Properties[0].GrowthValues[69].Value),
+                "80+": Number(data.Properties[0].GrowthValues[79].Value)
               },
               "bonusKey": key[data.Properties[1].Name],
               "bonusData": {
-                "1": data.Properties[1].GrowthValues[0].Value.replace('%', ''),
-                "20": data.Properties[1].GrowthValues[19].Value.replace('%', ''),
-                "40": data.Properties[1].GrowthValues[39].Value.replace('%', ''),
-                "50": data.Properties[1].GrowthValues[49].Value.replace('%', ''),
-                "60": data.Properties[1].GrowthValues[59].Value.replace('%', ''),
-                "70": data.Properties[1].GrowthValues[69].Value.replace('%', ''),
-                "80": data.Properties[1].GrowthValues[79].Value.replace('%', ''),
-                "90": data.Properties[1].GrowthValues[89].Value.replace('%', ''),
-                "20+": data.Properties[1].GrowthValues[19].Value.replace('%', ''),
-                "40+": data.Properties[1].GrowthValues[39].Value.replace('%', ''),
-                "50+": data.Properties[1].GrowthValues[49].Value.replace('%', ''),
-                "60+": data.Properties[1].GrowthValues[59].Value.replace('%', ''),
-                "70+": data.Properties[1].GrowthValues[69].Value.replace('%', ''),
-                "80+": data.Properties[1].GrowthValues[79].Value.replace('%', '')
+                "1": Number(data.Properties[1].GrowthValues[0].Value.replace('%', '')),
+                "20": Number(data.Properties[1].GrowthValues[19].Value.replace('%', '')),
+                "40": Number(data.Properties[1].GrowthValues[39].Value.replace('%', '')),
+                "50": Number(data.Properties[1].GrowthValues[49].Value.replace('%', '')),
+                "60": Number(data.Properties[1].GrowthValues[59].Value.replace('%', '')),
+                "70": Number(data.Properties[1].GrowthValues[69].Value.replace('%', '')),
+                "80": Number(data.Properties[1].GrowthValues[79].Value.replace('%', '')),
+                "90": Number(data.Properties[1].GrowthValues[89].Value.replace('%', '')),
+                "20+": Number(data.Properties[1].GrowthValues[19].Value.replace('%', '')),
+                "40+": Number(data.Properties[1].GrowthValues[39].Value.replace('%', '')),
+                "50+": Number(data.Properties[1].GrowthValues[49].Value.replace('%', '')),
+                "60+": Number(data.Properties[1].GrowthValues[59].Value.replace('%', '')),
+                "70+": Number(data.Properties[1].GrowthValues[69].Value.replace('%', '')),
+                "80+": Number(data.Properties[1].GrowthValues[79].Value.replace('%', ''))
               }
             },
             "materials": {
@@ -1547,7 +1547,7 @@ export class calc extends plugin {
         let y = data.Skill.Param
         let o, datas = {}, gx = {}, cb = {}
         if (cfg.mcApi === 2 || cfg.mcApi === 3) {
-          o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '')
+          o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '').replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, '')
           p = data.Skill.LevelDescStrArray[data.Skill.LevelDescStrArray.length - 1].ArrayString
           p.forEach((dx, oc) => { cb[dx.replace(/%/g, '').trim()] = oc })
           let k = Object.entries(cb).sort((a, b) => b[1] - a[1]).reverse()
@@ -1574,7 +1574,7 @@ export class calc extends plugin {
           "id": data.Id || data.MonsterId,
           "Name": data.Name || data.MonsterName,
           "Code": data.Code || data.Handbook?.Intensity || "",
-          "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/\n/g, '') ,
+          "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, ''),
           "affixData": {
             "text": o.replace(/\n/g, ''),
             "datas": datas
@@ -2033,7 +2033,7 @@ export class calc extends plugin {
           "materials": {
             "boss": ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.Name || data.Breaches[5].Items[0].Key,
             "specialty": ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.Name || data.Breaches[5].Items[1].Key,
-            "normal": ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.Name || data.Breaches[5].Items[2].Key,
+            "normal": ItemNamedata?.[`${data.Breaches[6].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[6].Items[2].Key}`]?.Name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.Name || data.Breaches[5].Items[2].Key,
             "talent": ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[0].Key}`]?.name || ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[0].Key}`]?.Name || data.Skills[0]?.Consumes[8].Consume[0].Key,
             "weekly": ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[2].Key}`]?.name || ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[2].Key}`]?.Name || data.Skills[0]?.Consumes[8].Consume[2].Key
           },
@@ -2116,44 +2116,44 @@ export class calc extends plugin {
           "attr": {
             "tree": {
               "1": {
-                "name": data.SkillTree[1]?.PropertyNodeDescribe,
-                "key": data.SkillTree[1]?.PropertyNodeTitle,
-                "value": parseFloat(data.SkillTree[1]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
-              },
-              "2": {
                 "name": data.SkillTree[0]?.PropertyNodeDescribe,
                 "key": data.SkillTree[0]?.PropertyNodeTitle,
                 "value": parseFloat(data.SkillTree[0]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
               },
+              "2": {
+                "name": data.SkillTree[1]?.PropertyNodeDescribe,
+                "key": data.SkillTree[1]?.PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[1]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
               "3": {
-                "name": data.SkillTree[7]?.PropertyNodeDescribe,
-                "key": data.SkillTree[7]?.PropertyNodeTitle,
-                "value": parseFloat(data.SkillTree[7]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
-              },
-              "4": {
-                "name": data.SkillTree[6]?.PropertyNodeDescribe,
-                "key": data.SkillTree[6]?.PropertyNodeTitle,
-                "value": parseFloat(data.SkillTree[6]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
-              },
-              "5": {
                 "name": data.SkillTree[2]?.PropertyNodeDescribe,
                 "key": data.SkillTree[2]?.PropertyNodeTitle,
                 "value": parseFloat(data.SkillTree[2]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
               },
-              "6": {
+              "4": {
                 "name": data.SkillTree[3]?.PropertyNodeDescribe,
                 "key": data.SkillTree[3]?.PropertyNodeTitle,
                 "value": parseFloat(data.SkillTree[3]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
               },
-              "7": {
+              "5": {
                 "name": data.SkillTree[4]?.PropertyNodeDescribe,
                 "key": data.SkillTree[4]?.PropertyNodeTitle,
                 "value": parseFloat(data.SkillTree[4]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
               },
-              "8": {
+              "6": {
                 "name": data.SkillTree[5]?.PropertyNodeDescribe,
                 "key": data.SkillTree[5]?.PropertyNodeTitle,
                 "value": parseFloat(data.SkillTree[5]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "7": {
+                "name": data.SkillTree[6]?.PropertyNodeDescribe,
+                "key": data.SkillTree[6]?.PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[6]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
+              },
+              "8": {
+                "name": data.SkillTree[7]?.PropertyNodeDescribe,
+                "key": data.SkillTree[7]?.PropertyNodeTitle,
+                "value": parseFloat(data.SkillTree[7]?.PropertyNodeDescribe.match(/\d+\.?\d*/))
               }
             },
             "details": {
