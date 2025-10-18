@@ -1547,12 +1547,13 @@ export class calc extends plugin {
         let y = data.Skill.Param
         let o, datas = {}, gx = {}, cb = {}
         if (cfg.mcApi === 2 || cfg.mcApi === 3) {
-          o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '').replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, '')
+          o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '').replace(/<color=[^>]>/g, '').replace(/<\/color>/g, '').replace(/<size=[^>]>/g, '').replace(/<\/size>/g, '')
           p = data.Skill.LevelDescStrArray[data.Skill.LevelDescStrArray.length - 1].ArrayString
-          p.forEach((dx, oc) => { cb[dx.replace(/%/g, '').trim()] = oc })
+          p.forEach((dx, oc) => { cb[dx.trim()] = oc })
           let k = Object.entries(cb).sort((a, b) => b[1] - a[1]).reverse()
-          let ly = o
-          for (const [g, f] of k) { ly = ly.replace(new RegExp(`\\b${g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g'), `$[${f}]`) }
+          let lszw = 'liangshi', ly = o
+          for (const [g, f] of k) {ly = ly.replace(new RegExp(`${g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w%])`),`${lszw}${f}${lszw}`)}
+          ly = ly.replace(new RegExp(`${lszw}(\\d+)${lszw}`, 'g'),'$[$1]').replace(new RegExp(`\\${lszw}.*\\${lszw}`, 'g'), '')
           o = ly.replace(/]%/g, ']')
           datas = data.Skill.LevelDescStrArray
           let maxLength = datas.reduce((mx, gu) => Math.max(mx, gu.ArrayString.length), 0)
@@ -1574,7 +1575,7 @@ export class calc extends plugin {
           "id": data.Id || data.MonsterId,
           "Name": data.Name || data.MonsterName,
           "Code": data.Code || data.Handbook?.Intensity || "",
-          "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, ''),
+          "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/\n/g, '').replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, ''),
           "affixData": {
             "text": o.replace(/\n/g, ''),
             "datas": datas
@@ -2014,7 +2015,7 @@ export class calc extends plugin {
           "id": data.Id,
           "name": data.Name.Content,
           "abbr": data.Name.Content,
-          "title": data.NickName.Content,
+          "title": data.favorRole.TalentName.Content,
           "star": data.QualityId,
           "elem": elemKey[`${data.ElementName}`],
           "allegiance": data.favorRole.Country.Content,
@@ -2033,7 +2034,7 @@ export class calc extends plugin {
           "materials": {
             "boss": ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.Name || data.Breaches[5].Items[0].Key,
             "specialty": ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.Name || data.Breaches[5].Items[1].Key,
-            "normal": ItemNamedata?.[`${data.Breaches[6].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[6].Items[2].Key}`]?.Name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.Name || data.Breaches[5].Items[2].Key,
+            "normal": ItemNamedata?.[`${data.Breaches[6].Items[2]?.Key}`]?.name || ItemNamedata?.[`${data.Breaches[6].Items[2]?.Key}`]?.Name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[2].Key}`]?.Name || data.Breaches[5].Items[2].Key,
             "talent": ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[0].Key}`]?.name || ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[0].Key}`]?.Name || data.Skills[0]?.Consumes[8].Consume[0].Key,
             "weekly": ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[2].Key}`]?.name || ItemNamedata?.[`${data.Skills[0]?.Consumes[8].Consume[2].Key}`]?.Name || data.Skills[0]?.Consumes[8].Consume[2].Key
           },

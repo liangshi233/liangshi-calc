@@ -528,6 +528,44 @@ calcLi: false #liangshicalc 大爷
 
 </details>
 
+### 数据更新API
+
+<details><summary>点击展开</summary>
+
+通用设置，在`config/config.yaml` 中修改
+
+~~~~~~~~~~YAML
+gsApi: 1 #更新原神未来角色的数据的API
+mcApi: 1 #更新鸣未来角色的数据的API
+~~~~~~~~~~
+
+<details><summary>gsApi</summary>
+
+| 序号 |    名称     |   备注    |
+|:--:|:---------:|:-------:|
+| 0  |    自动     |   预留    |
+| 1  | hakush.in | 默认使用此项  |
+
+</details>
+
+<details><summary>mcApi</summary>
+
+| 序号 |      名称       |               备注               |
+|:--:|:-------------:|:------------------------------:|
+| 0  |      自动       |        预留(后续改成自动使用延迟最低)        |
+| 1  |   hakush.in   |             默认使用此项             |
+| 2  |  encore.moe   | 比1更新快(未完全适配,可能有小问题,部分网络可能访问较慢) |
+| 3  | v2 encore.moe |              和2一样              |
+
+> 更新数据有问题或新api适配请提issues
+
+</details>
+
+---
+
+</details>
+
+
 > 更多设置内容请 [点击](config/system/config.md)🤔（重制中）
 
 通用设置请在本插件目录下`config/config.yaml` 修改
