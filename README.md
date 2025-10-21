@@ -535,8 +535,8 @@ calcLi: false #liangshicalc 大爷
 通用设置，在`config/config.yaml` 中修改
 
 ~~~~~~~~~~YAML
-gsApi: 1 #更新原神未来角色的数据的API
-mcApi: 1 #更新鸣未来角色的数据的API
+gsApi: 1 #更新原神未来角色数据的API
+mcApi: 1 #更新鸣未来角色数据的API
 ~~~~~~~~~~
 
 <details><summary>gsApi</summary>
@@ -550,12 +550,12 @@ mcApi: 1 #更新鸣未来角色的数据的API
 
 <details><summary>mcApi</summary>
 
-| 序号 |      名称       |               备注               |
-|:--:|:-------------:|:------------------------------:|
-| 0  |      自动       |        预留(后续改成自动使用延迟最低)        |
-| 1  |   hakush.in   |             默认使用此项             |
-| 2  |  encore.moe   | 比1更新快(未完全适配,可能有小问题,部分网络可能访问较慢) |
-| 3  | v2 encore.moe |              和2一样              |
+| 序号 |      名称       |                备注                |
+|:--:|:-------------:|:--------------------------------:|
+| 0  |      自动       |         预留(后续改成自动使用延迟最低)         |
+| 1  |   hakush.in   |              默认使用此项              |
+| 2  |  encore.moe   | 一般比1更新快(未完全适配,可能有小问题,部分网络可能访问较慢) |
+| 3  | v2 encore.moe |               和2一样               |
 
 > 更新数据有问题或新api适配请提issues
 
@@ -689,7 +689,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 ## 其他资源位置
 
-> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) （暂停更新至新API适配完成）
+> 鸣潮数据库 [meta-mc](https://gitee.com/liangshi233/meta-mc) 
 > 
 > 原神数据库 [meta-gs](https://gitee.com/Ke_Akatsuki/meta-gs) （被大手制裁了 :( 可前往群文件下载）
 
