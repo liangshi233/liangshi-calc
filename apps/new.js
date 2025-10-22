@@ -6,6 +6,15 @@ import common from '../../../lib/common/common.js'
 import { LSconfig } from '#liangshi'
 import fs from 'node:fs'
 
+/**
+ * 已知问题
+ * 使用API 2和3 更新鸣潮角色数据时角色天赋顺序会被打乱
+ * 使用API 2和3 更新鸣潮声骸数据时会丢失代号数据
+ * 使用API 1 更新原神圣遗物数据时ID不正确
+ * 如果有新的问题建议去issue反馈
+ */
+
+
 export class calc extends plugin {
   constructor () {
     super(
