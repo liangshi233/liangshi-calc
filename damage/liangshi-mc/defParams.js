@@ -24,6 +24,7 @@ function ParamsData(CharacterName) {
   if (HavocCharacter.includes(CharacterName)) ElementHavocTeam = 1
   if (["菲比", "夏空", "赞妮", "漂泊者·衍射"].includes(CharacterName)) Spectro_Frazzle_Determine = true
   if (["夏空", "卡提希娅", "漂泊者·气动"].includes(CharacterName)) Aero_Erosion_Determine = true
+  if (["千咲"].includes(CharacterName)) Havoc_Bane_Determine = true
   let data = {
     "共鸣能量": 100, "队伍共鸣能量总和": EnergyTeammate, "受到伤害次数": SubjectedDmg,
     "队伍冷凝角色数": ElementGlacioTeam, "队伍热熔角色数": ElementFusionTeam, "队伍气动角色数": ElementAeroTeam,
