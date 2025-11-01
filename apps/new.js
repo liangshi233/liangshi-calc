@@ -136,6 +136,7 @@ export class calc extends plugin {
         character = data[1].character
         weapon = data[1].weapon
         artifact = data[1].echo
+        data.item = data[1].item
       } else {
         version = data.hotfix
         character = data.character
