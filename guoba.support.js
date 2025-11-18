@@ -20,6 +20,20 @@ export function supportGuoba () {
       schemas: [
         {
           component: 'Divider',
+          label: '基础功能设置'
+        },
+        {
+          field: 'GsDisabled',
+          label: '禁用 原神 功能',
+          component: 'Switch'
+        },
+        {
+          field: 'SrDisabled',
+          label: '禁用 崩坏：星穹铁道 功能',
+          component: 'Switch'
+        },
+        {
+          component: 'Divider',
           label: '计算/评分基础设置'
         },
         {
