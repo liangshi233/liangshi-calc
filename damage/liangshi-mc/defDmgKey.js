@@ -59,6 +59,9 @@ function RankingKey(CharacterName) {
       return rankingOnePath
     }
   } else if (UserRanking === 'm') {
+    if (Array.isArray(UserRanking)) {
+      return UserRanking[0]
+    }
     return PresetsRanking
   } else {
     return UserRanking
