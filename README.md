@@ -158,6 +158,27 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 </details>
 
+### 分享面板
+
+<details><summary>点击展开</summary>
+
+导出默认启用，对Bot输入指令即可使用
+
+导入需手动开启权限（详情见设置）
+
+~~~
+#分享原神XX面板
+#导出星铁XX面板
+#分享原神100000000XX面板
+#导入面板[分享码]
+~~~
+
+分享码与任意安装了此插件并更新的Bot互通
+
+支持离线导入，支持自定义面板，永久生效
+
+</details>
+
 ### 预设面板
 
 <details><summary>点击展开</summary>
@@ -333,6 +354,27 @@ SrDisabled: true
 ~~~~~~~~~~
 
 添加完成后重启即可
+
+---
+
+</details>
+
+
+### 关闭排行榜保护功能
+
+<details><summary>点击展开</summary>
+
+在插件目录下`config/config.yaml` 中添加
+
+~~~~~~~~~~YAML
+DisabledRankingProtection: true
+~~~~~~~~~~
+
+添加完成后重启即可
+
+> 注意：关闭保护后任何人都可向Bot导入未经验证的面板数据
+
+> 预设面板不受此设置影响,仅主人可导入未经验证的面板数据
 
 ---
 

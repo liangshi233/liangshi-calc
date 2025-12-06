@@ -33,6 +33,11 @@ export function supportGuoba () {
           component: 'Switch'
         },
         {
+          field: 'DisabledRankingProtection',
+          label: '禁用 排行榜保护',
+          component: 'Switch'
+        },
+        {
           component: 'Divider',
           label: '计算/评分基础设置'
         },

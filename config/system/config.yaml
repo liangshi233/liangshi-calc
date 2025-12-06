@@ -20,6 +20,7 @@ bndOfLifePct: 1
 
 GsDisabled: true
 SrDisabled: true
+DisabledRankingProtection: false
 
 gsApi: 1
 mcApi: 1
