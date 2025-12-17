@@ -11,6 +11,12 @@ import fs from 'node:fs'
  * 使用API 2和3 更新鸣潮角色数据时角色天赋顺序会被打乱
  * 使用API 2和3 更新鸣潮声骸数据时会丢失代号数据
  * 使用API 1 更新原神圣遗物数据时ID不正确
+ *
+ * 星铁部分内容更新需手动修改
+ * 1.角色与天赋升级材料ID(不影响面板功能使用)
+ * 2.天赋数据名称
+ * 3.可能还有其他要修改的地方但应该不影响使用
+ *
  * 如果有新的问题建议去issue反馈
  */
 
@@ -1981,6 +1987,7 @@ export class calc extends plugin {
     let cfg = LSconfig.getConfig('user', 'config')
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
     let CharacterId = TextData[4]
+    let aText, bText
     try {
       if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[3])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[3]) && /强制|强行|覆盖/.test(e.msg))) {
         logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
@@ -2101,7 +2108,24 @@ export class calc extends plugin {
         "2": "sword",
         "3": "pistols",
         "4": "gauntlets",
-        "5": "rectifier"
+        "5": "rectifier",
+        "Mage": "智识",
+        "Knight": "存护",
+        "Rogue": "巡猎",
+        "Warlock": "虚无",
+        "Warrior": "毁灭",
+        "Shaman": "同协",
+        "Priest": "丰饶",
+        "Memory": "记忆"
+      }
+      let damageKey = {
+        "Wind": "风",
+        "Fire": "火",
+        "Ice": "冰",
+        "Thunder": "雷",
+        "Quantum": "量子",
+        "Imaginary": "虚数",
+        "Physical": "物理"
       }
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         if (cfg.mcApi === 2 || cfg.mcApi === 3) {
@@ -2891,6 +2915,685 @@ export class calc extends plugin {
           },
           "UpdateTime": `[liangshi-calc] ${new Date()}`
         }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        let liveData
+        try {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/live/${i}/character/${CharacterId}.json`
+          response = await fetch(url)
+          if (!response.ok) {
+            console.error("[liangshi-calc] 加载角色最新数据时遇到问题，可能角色尚未实装（若角色尚未实装请忽略此问题）")
+          } else {
+            liveData = await response.json()
+          }
+        } catch (err) {
+          console.error("[liangshi-calc] 加载角色最新数据时遇到问题，可能角色尚未实装（若此角色尚未实装请忽略此问题）")
+        }
+        let consTexe = item => item?.Desc.replace(/<unbreak>#(\d+)\[i](\%)?<\/unbreak>/g, (_, ab, ac) => { let ccb = item?.ParamList[ab - 1]; return `<nobr>${ccb * (ac ? 100 : 1)}${ac || ''}</nobr>` })
+        let skillTag = {
+          "SingleAttack": "单攻",
+          "Enhance": "群攻",
+          "Bounce": "弹射",
+          "Impair": "妨害",
+          "Support": "辅助",
+          "Restore": "回复"
+        }
+        let skillType = {
+          "Normal": "普攻",
+          "BPSkill": "战技",
+          "Ultra": "终结技",
+          "Maze": "秘技",
+          "Servant": "忆灵技"
+        }
+        let treeKey = {
+          "速度": "speed",
+          "攻击力": "atk",
+          "生命值": "hp",
+          "防御力": "def",
+          "暴击率": "cpct",
+          "暴击伤害": "cdmg",
+          "击破特攻": "stance",
+          "效果命中": "effPct",
+          "效果抵抗": "effDef",
+          "火属性伤害提高": "fire",
+          "冰属性伤害提高": "ice",
+          "雷属性伤害提高": "elec",
+          "风属性伤害提高": "wind",
+          "物理属性伤害提高": "phy",
+          "量子属性伤害提高": "quantum",
+          "虚数属性伤害提高": "imaginary"
+        }
+        let treeDataKey = { ...treeKey, ...{ "攻击力": "atkPct", "生命值": "hpPct", "防御力": "defPct" }}
+        let treeData = ({ ParamList, PointDesc }) => {let bc = PointDesc.replace(/#(\d+)\[i\](%?)/g, (da, db, dc) => {let ac = ParamList[parseInt(db) - 1];return dc ? `${ac * 100}%` : ac.toString()});let bd = bc.replace(/<unbreak>(.*?)<\/unbreak>/g, '<nobr>$1</nobr>');return bd}
+        CharacterData = {
+          "id": Number(CharacterId),
+          "key": data.AvatarVOTag,
+          "name": data.Name,
+          "star": data.Rarity === "CombatPowerAvatarRarityType4" ? 4 : 5,
+          "elem": damageKey[data.DamageType],
+          "allegiance": liveData?.CharaInfo?.Camp || "",
+          "weapon": weaponKey[data.BaseType],
+          "sp": data.SPNeed,
+          "desc": data.Desc.replace(/\\n/g, ''),
+          "cncv": liveData?.CharaInfo?.VA.Chinese || "",
+          "jpcv": liveData?.CharaInfo?.VA.Japanese || "",
+          "baseAttr": {
+            "atk": data.Stats[6].AttackBase + data.Stats[6].AttackAdd * 79,
+            "hp": data.Stats[6].HPBase + data.Stats[6].HPAdd * 79,
+            "def": data.Stats[6].DefenceBase + data.Stats[6].DefenceAdd * 79,
+            "speed": data.Stats[6].SpeedBase,
+            "cpct": data.Stats[6].CriticalChance * 100,
+            "cdmg": data.Stats[6].CriticalDamage * 100,
+            "aggro": data.Stats[6].BaseAggro
+          },
+          "growAttr": {
+            "atk": data.Stats[6].AttackAdd,
+            "hp": data.Stats[6].HPAdd,
+            "def": data.Stats[6].DefenceAdd,
+            "speed": 0
+          },
+          "talentId": {
+            [`${CharacterId * 100 + 1}`]: "a",
+            [`${CharacterId * 100 + 2}`]: "e",
+            [`${CharacterId * 100 + 3}`]: "q",
+            [`${CharacterId * 100 + 4}`]: "t",
+            [`${CharacterId * 100 + 7}`]: "z",
+          },
+          "talentCons": {},
+          "talent": {
+            "a": {
+              "id": CharacterId * 100 + 1,
+              "name": data.Skills[`${CharacterId * 100 + 1}`]?.Name,
+              "type": skillType[data.Skills[`${CharacterId * 100 + 1}`].Type] || "普攻",
+              "tag": skillTag[data.Skills[`${CharacterId * 100 + 1}`].Tag],
+              "desc": data.Skills[`${CharacterId * 100 + 1}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 1}`])
+            },
+            "e": {
+              "id": CharacterId * 100 + 2,
+              "name": data.Skills[`${CharacterId * 100 + 2}`]?.Name,
+              "type": skillType[data.Skills[`${CharacterId * 100 + 2}`].Type] || "战技",
+              "tag": skillTag[data.Skills[`${CharacterId * 100 + 2}`].Tag],
+              "desc": data.Skills[`${CharacterId * 100 + 2}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 2}`])
+            },
+            "q": {
+              "id": CharacterId * 100 + 3,
+              "name": data.Skills[`${CharacterId * 100 + 3}`]?.Name,
+              "type": skillType[data.Skills[`${CharacterId * 100 + 3}`].Type] || "终结技",
+              "tag": skillTag[data.Skills[`${CharacterId * 100 + 3}`].Tag],
+              "desc": data.Skills[`${CharacterId * 100 + 3}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 3}`])
+            },
+            "t": {
+              "id": CharacterId * 100 + 4,
+              "name": data.Skills[`${CharacterId * 100 + 4}`]?.Name,
+              "type": skillType[data.Skills[`${CharacterId * 100 + 4}`].Type] || "天赋",
+              "tag": skillTag[data.Skills[`${CharacterId * 100 + 4}`].Tag],
+              "desc": data.Skills[`${CharacterId * 100 + 4}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 4}`])
+            },
+            "z": {
+              "id": CharacterId * 100 + 7,
+              "name": data.Skills[`${CharacterId * 100 + 7}`]?.Name,
+              "type": skillType[data.Skills[`${CharacterId * 100 + 7}`].Type] || "秘技",
+              "tag": skillTag[data.Skills[`${CharacterId * 100 + 7}`].Tag],
+              "desc": data.Skills[`${CharacterId * 100 + 7}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 7}`])
+            }
+          },
+          "cons": {
+            "1": {
+              "name": data.Ranks[1]?.Name,
+              "desc": consTexe(data.Ranks[1])
+            },
+            "2": {
+              "name": data.Ranks[2]?.Name,
+              "desc": consTexe(data.Ranks[2])
+            },
+            "3": {
+              "name": data.Ranks[3]?.Name,
+              "desc": consTexe(data.Ranks[3])
+            },
+            "4": {
+              "name": data.Ranks[4]?.Name,
+              "desc": consTexe(data.Ranks[4])
+            },
+            "5": {
+              "name": data.Ranks[5]?.Name,
+              "desc": consTexe(data.Ranks[5])
+            },
+            "6": {
+              "name": data.Ranks[6]?.Name,
+              "desc": consTexe(data.Ranks[6])
+            },
+          },
+          "attr": {
+            "0": {
+              "promote": 0,
+              "maxLevel": 20,
+              "cost": {
+                [data.Stats[0].Cost[0].ItemID]: data.Stats[0].Cost[0].ItemNum,
+                [data.Stats[0].Cost[1].ItemID]: data.Stats[0].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[0].AttackAdd,
+                "hp": data.Stats[0].HPAdd,
+                "def": data.Stats[0].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[0].AttackBase,
+                "hp": data.Stats[0].HPBase,
+                "def": data.Stats[0].DefenceBase,
+                "speed": data.Stats[0].SpeedBase,
+                "cpct": data.Stats[0].CriticalChance * 100,
+                "cdmg": data.Stats[0].CriticalDamage * 100,
+                "aggro": data.Stats[0].BaseAggro
+              }
+            },
+            "1": {
+              "promote": 1,
+              "maxLevel": 30,
+              "cost": {
+                [data.Stats[1].Cost[0].ItemID]: data.Stats[1].Cost[0].ItemNum,
+                [data.Stats[1].Cost[1].ItemID]: data.Stats[1].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[1].AttackAdd,
+                "hp": data.Stats[1].HPAdd,
+                "def": data.Stats[1].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[1].AttackBase,
+                "hp": data.Stats[1].HPBase,
+                "def": data.Stats[1].DefenceBase,
+                "speed": data.Stats[1].SpeedBase,
+                "cpct": data.Stats[1].CriticalChance * 100,
+                "cdmg": data.Stats[1].CriticalDamage * 100,
+                "aggro": data.Stats[1].BaseAggro
+              }
+            },
+            "2": {
+              "promote": 2,
+              "maxLevel": 40,
+              "cost": {
+                [data.Stats[2].Cost[0].ItemID]: data.Stats[2].Cost[0].ItemNum,
+                [data.Stats[2].Cost[2].ItemID]: data.Stats[2].Cost[2].ItemNum,
+                [data.Stats[2].Cost[1].ItemID]: data.Stats[2].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[2].AttackAdd,
+                "hp": data.Stats[2].HPAdd,
+                "def": data.Stats[2].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[2].AttackBase,
+                "hp": data.Stats[2].HPBase,
+                "def": data.Stats[2].DefenceBase,
+                "speed": data.Stats[2].SpeedBase,
+                "cpct": data.Stats[2].CriticalChance * 100,
+                "cdmg": data.Stats[2].CriticalDamage * 100,
+                "aggro": data.Stats[2].BaseAggro
+              }
+            },
+            "3": {
+              "promote": 3,
+              "maxLevel": 50,
+              "cost": {
+                [data.Stats[3].Cost[0].ItemID]: data.Stats[3].Cost[0].ItemNum,
+                [data.Stats[3].Cost[2].ItemID]: data.Stats[3].Cost[2].ItemNum,
+                [data.Stats[3].Cost[1].ItemID]: data.Stats[3].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[3].AttackAdd,
+                "hp": data.Stats[3].HPAdd,
+                "def": data.Stats[3].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[3].AttackBase,
+                "hp": data.Stats[3].HPBase,
+                "def": data.Stats[3].DefenceBase,
+                "speed": data.Stats[3].SpeedBase,
+                "cpct": data.Stats[3].CriticalChance * 100,
+                "cdmg": data.Stats[3].CriticalDamage * 100,
+                "aggro": data.Stats[3].BaseAggro
+              }
+            },
+            "4": {
+              "promote": 4,
+              "maxLevel": 60,
+              "cost": {
+                [data.Stats[4].Cost[0].ItemID]: data.Stats[4].Cost[0].ItemNum,
+                [data.Stats[4].Cost[2].ItemID]: data.Stats[4].Cost[2].ItemNum,
+                [data.Stats[4].Cost[1].ItemID]: data.Stats[4].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[4].AttackAdd,
+                "hp": data.Stats[4].HPAdd,
+                "def": data.Stats[4].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[4].AttackBase,
+                "hp": data.Stats[4].HPBase,
+                "def": data.Stats[4].DefenceBase,
+                "speed": data.Stats[4].SpeedBase,
+                "cpct": data.Stats[4].CriticalChance * 100,
+                "cdmg": data.Stats[4].CriticalDamage * 100,
+                "aggro": data.Stats[4].BaseAggro
+              }
+            },
+            "5": {
+              "promote": 5,
+              "maxLevel": 70,
+              "cost": {
+                [data.Stats[5].Cost[0].ItemID]: data.Stats[5].Cost[0].ItemNum,
+                [data.Stats[5].Cost[2].ItemID]: data.Stats[5].Cost[2].ItemNum,
+                [data.Stats[5].Cost[1].ItemID]: data.Stats[5].Cost[1].ItemNum
+              },
+              "grow": {
+                "atk": data.Stats[5].AttackAdd,
+                "hp": data.Stats[5].HPAdd,
+                "def": data.Stats[5].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[5].AttackBase,
+                "hp": data.Stats[5].HPBase,
+                "def": data.Stats[5].DefenceBase,
+                "speed": data.Stats[5].SpeedBase,
+                "cpct": data.Stats[5].CriticalChance * 100,
+                "cdmg": data.Stats[5].CriticalDamage * 100,
+                "aggro": data.Stats[5].BaseAggro
+              }
+            },
+            "6": {
+              "promote": 6,
+              "maxLevel": 80,
+              "cost": {},
+              "grow": {
+                "atk": data.Stats[6].AttackAdd,
+                "hp": data.Stats[6].HPAdd,
+                "def": data.Stats[6].DefenceAdd,
+                "speed": 0
+              },
+              "attrs": {
+                "atk": data.Stats[6].AttackBase,
+                "hp": data.Stats[6].HPBase,
+                "def": data.Stats[6].DefenceBase,
+                "speed": data.Stats[6].SpeedBase,
+                "cpct": data.Stats[6].CriticalChance * 100,
+                "cdmg": data.Stats[6].CriticalDamage * 100,
+                "aggro": data.Stats[6].BaseAggro
+              }
+            }
+          },
+          "tree": {
+            [data.SkillTrees.Point09["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point09["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point09["1"].StatusAddList[0].Value * (data.SkillTrees.Point09["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point10["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point10["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point10["1"].StatusAddList[0].Value * (data.SkillTrees.Point10["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point11["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point11["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point11["1"].StatusAddList[0].Value * (data.SkillTrees.Point11["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point12["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point12["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point12["1"].StatusAddList[0].Value * (data.SkillTrees.Point12["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point13["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point13["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point13["1"].StatusAddList[0].Value * (data.SkillTrees.Point13["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point14["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point14["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point14["1"].StatusAddList[0].Value * (data.SkillTrees.Point14["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point15["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point15["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point15["1"].StatusAddList[0].Value * (data.SkillTrees.Point15["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point16["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point16["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point16["1"].StatusAddList[0].Value * (data.SkillTrees.Point16["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point17["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point17["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point17["1"].StatusAddList[0].Value * (data.SkillTrees.Point17["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            },
+            [data.SkillTrees.Point18["1"].PointID]: {
+              "key": treeKey[data.SkillTrees.Point18["1"].StatusAddList[0].Name],
+              "value": data.SkillTrees.Point18["1"].StatusAddList[0].Value * (data.SkillTrees.Point18["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
+            }
+          },
+          "treeData": {
+            [CharacterId * 1000 + 101]: {
+              "id": CharacterId * 1000 + 101,
+              "type": "skill",
+              "root": true,
+              "name": data.SkillTrees.Point06["1"].PointName,
+              "levelReq": 0,
+              "desc": treeData(data.SkillTrees.Point06["1"]),
+              "cost": {
+                [data.SkillTrees.Point06["1"].MaterialList[0].ItemID]: data.SkillTrees.Point06["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point06["1"].MaterialList[2].ItemID]: data.SkillTrees.Point06["1"].MaterialList[2].ItemNum,
+                [data.SkillTrees.Point06["1"].MaterialList[1].ItemID]: data.SkillTrees.Point06["1"].MaterialList[1].ItemNum
+              },
+              "idx": 1,
+              "children": [
+                CharacterId * 1000 + 204,
+                CharacterId * 1000 + 205
+              ]
+            },
+            [CharacterId * 1000 + 102]: {
+              "id": CharacterId * 1000 + 102,
+              "type": "skill",
+              "root": true,
+              "name": data.SkillTrees.Point07["1"].PointName,
+              "levelReq": 0,
+              "desc": treeData(data.SkillTrees.Point07["1"]),
+              "cost": {
+                [data.SkillTrees.Point07["1"].MaterialList[0].ItemID]: data.SkillTrees.Point07["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point07["1"].MaterialList[3].ItemID]: data.SkillTrees.Point07["1"].MaterialList[3].ItemNum,
+                [data.SkillTrees.Point07["1"].MaterialList[2].ItemID]: data.SkillTrees.Point07["1"].MaterialList[2].ItemNum,
+                [data.SkillTrees.Point07["1"].MaterialList[1].ItemID]: data.SkillTrees.Point07["1"].MaterialList[1].ItemNum
+              },
+              "idx": 2,
+              "children": [
+                CharacterId * 1000 + 206,
+                CharacterId * 1000 + 207
+              ]
+            },
+            [CharacterId * 1000 + 103]: {
+              "id": CharacterId * 1000 + 103,
+              "type": "skill",
+              "root": true,
+              "name": data.SkillTrees.Point08["1"].PointName,
+              "levelReq": 0,
+              "desc": treeData(data.SkillTrees.Point08["1"]),
+              "cost": {
+                [data.SkillTrees.Point08["1"].MaterialList[0].ItemID]: data.SkillTrees.Point08["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point08["1"].MaterialList[3].ItemID]: data.SkillTrees.Point08["1"].MaterialList[3].ItemNum,
+                [data.SkillTrees.Point08["1"].MaterialList[2].ItemID]: data.SkillTrees.Point08["1"].MaterialList[2].ItemNum,
+                [data.SkillTrees.Point08["1"].MaterialList[1].ItemID]: data.SkillTrees.Point08["1"].MaterialList[1].ItemNum
+              },
+              "idx": 3,
+              "children": [
+                CharacterId * 1000 + 208
+              ]
+            },
+            [CharacterId * 1000 + 201]: {
+              "id": CharacterId * 1000 + 201,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point09["1"].PointName,
+              "levelReq": data.SkillTrees.Point09["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point09["1"].MaterialList[0].ItemID]: data.SkillTrees.Point09["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point09["1"].MaterialList[1].ItemID]: data.SkillTrees.Point09["1"].MaterialList[1].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point09["1"].StatusAddList[0].Name]]: data.SkillTrees.Point09["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 202]: {
+              "id": CharacterId * 1000 + 202,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point10["1"].PointName,
+              "levelReq": data.SkillTrees.Point10["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point10["1"].MaterialList[0].ItemID]: data.SkillTrees.Point10["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point10["1"].MaterialList[1].ItemID]: data.SkillTrees.Point10["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point10["1"].MaterialList[2].ItemID]: data.SkillTrees.Point10["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point10["1"].StatusAddList[0].Name]]: data.SkillTrees.Point10["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 203]: {
+              "id": CharacterId * 1000 + 203,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point11["1"].PointName,
+              "levelReq": data.SkillTrees.Point11["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point11["1"].MaterialList[0].ItemID]: data.SkillTrees.Point11["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point11["1"].MaterialList[1].ItemID]: data.SkillTrees.Point11["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point11["1"].MaterialList[2].ItemID]: data.SkillTrees.Point11["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point11["1"].StatusAddList[0].Name]]: data.SkillTrees.Point11["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 204]: {
+              "id": CharacterId * 1000 + 204,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point12["1"].PointName,
+              "levelReq": data.SkillTrees.Point12["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point12["1"].MaterialList[0].ItemID]: data.SkillTrees.Point12["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point12["1"].MaterialList[1].ItemID]: data.SkillTrees.Point12["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point12["1"].MaterialList[2].ItemID]: data.SkillTrees.Point12["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point12["1"].StatusAddList[0].Name]]: data.SkillTrees.Point12["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 205]: {
+              "id": CharacterId * 1000 + 205,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point13["1"].PointName,
+              "levelReq": data.SkillTrees.Point13["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point13["1"].MaterialList[0].ItemID]: data.SkillTrees.Point13["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point13["1"].MaterialList[2].ItemID]: data.SkillTrees.Point13["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point13["1"].MaterialList[2].ItemID]: data.SkillTrees.Point13["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point13["1"].StatusAddList[0].Name]]: data.SkillTrees.Point13["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 206]: {
+              "id": CharacterId * 1000 + 206,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point14["1"].PointName,
+              "levelReq": data.SkillTrees.Point14["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point14["1"].MaterialList[0].ItemID]: data.SkillTrees.Point14["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point14["1"].MaterialList[1].ItemID]: data.SkillTrees.Point14["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point14["1"].MaterialList[2].ItemID]: data.SkillTrees.Point14["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point14["1"].StatusAddList[0].Name]]: data.SkillTrees.Point14["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 207]: {
+              "id": CharacterId * 1000 + 207,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point15["1"].PointName,
+              "levelReq": data.SkillTrees.Point15["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point15["1"].MaterialList[0].ItemID]: data.SkillTrees.Point15["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point15["1"].MaterialList[1].ItemID]: data.SkillTrees.Point15["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point15["1"].MaterialList[2].ItemID]: data.SkillTrees.Point15["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point15["1"].StatusAddList[0].Name]]: data.SkillTrees.Point15["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 208]: {
+              "id": CharacterId * 1000 + 208,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point16["1"].PointName,
+              "levelReq": data.SkillTrees.Point16["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point16["1"].MaterialList[0].ItemID]: data.SkillTrees.Point16["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point16["1"].MaterialList[1].ItemID]: data.SkillTrees.Point16["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point16["1"].MaterialList[2].ItemID]: data.SkillTrees.Point16["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point16["1"].StatusAddList[0].Name]]: data.SkillTrees.Point16["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 209]: {
+              "id": CharacterId * 1000 + 209,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point17["1"].PointName,
+              "levelReq": data.SkillTrees.Point17["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point17["1"].MaterialList[0].ItemID]: data.SkillTrees.Point17["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point17["1"].MaterialList[1].ItemID]: data.SkillTrees.Point17["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point17["1"].MaterialList[2].ItemID]: data.SkillTrees.Point17["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point17["1"].StatusAddList[0].Name]]: data.SkillTrees.Point17["1"].StatusAddList[0].Value * 100
+              }
+            },
+            [CharacterId * 1000 + 210]: {
+              "id": CharacterId * 1000 + 210,
+              "type": "buff",
+              "root": false,
+              "name": data.SkillTrees.Point18["1"].PointName,
+              "levelReq": data.SkillTrees.Point18["1"].AvatarLevelLimit || 0,
+              "cost": {
+                [data.SkillTrees.Point18["1"].MaterialList[0].ItemID]: data.SkillTrees.Point18["1"].MaterialList[0].ItemNum,
+                [data.SkillTrees.Point18["1"].MaterialList[1].ItemID]: data.SkillTrees.Point18["1"].MaterialList[1].ItemNum,
+                [data.SkillTrees.Point18["1"].MaterialList[2].ItemID]: data.SkillTrees.Point18["1"].MaterialList[2].ItemNum
+              },
+              "data": {
+                [treeDataKey[data.SkillTrees.Point18["1"].StatusAddList[0].Name]]: data.SkillTrees.Point18["1"].StatusAddList[0].Value * 100
+              }
+            }
+          },
+          "UpdateTime": `[liangshi-calc] ${new Date()}`
+        }
+        if (data.Ranks[3].Desc.includes("普攻")) {
+          CharacterData.talentCons.a = 3
+          CharacterData.talentCons.t = 5
+        } else {
+          CharacterData.talentCons.a = 5
+          CharacterData.talentCons.t = 3
+        }
+        if (data.Ranks[3].Desc.includes("终结技")) {
+          CharacterData.talentCons.q = 3
+          CharacterData.talentCons.e = 5
+          CharacterData.talentCons["3"] = "q"
+          CharacterData.talentCons["5"] = "e"
+        } else {
+          CharacterData.talentCons.q = 5
+          CharacterData.talentCons.e = 3
+          CharacterData.talentCons["3"] = "e"
+          CharacterData.talentCons["5"] = "q"
+        }
+        if (data.Skills[`${CharacterId * 100 + 5}`]?.Name) {
+          CharacterData.talent.t2 = {
+            "id": CharacterId * 100 + 5,
+            "name": data.Skills[`${CharacterId * 100 + 5}`].Name,
+            "type": skillType[data.Skills[`${CharacterId * 100 + 5}`].Type] || "天赋",
+            "tag": skillTag[data.Skills[`${CharacterId * 100 + 5}`].Tag],
+            "desc": data.Skills[`${CharacterId * 100 + 5}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 5}`])
+          }
+          CharacterData.talentId[`${CharacterId * 100 + 5}`] = "t2"
+        }
+        if (data.Skills[`${CharacterId * 100 + 8}`]?.Name) {
+          CharacterData.talent.a2 = {
+            "id": CharacterId * 100 + 8,
+            "name": data.Skills[`${CharacterId * 100 + 8}`].Name,
+            "type": skillType[data.Skills[`${CharacterId * 100 + 8}`].Type] || "普攻",
+            "tag": skillTag[data.Skills[`${CharacterId * 100 + 8}`].Tag],
+            "desc": data.Skills[`${CharacterId * 100 + 8}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 8}`])
+          }
+          CharacterData.talentId[`${CharacterId * 100 + 8}`] = "a2"
+        }
+        if (data.Skills[`${CharacterId * 100 + 9}`]?.Name) {
+          CharacterData.talent.e1 = {
+            "id": CharacterId * 100 + 9,
+            "name": data.Skills[`${CharacterId * 100 + 9}`].Name,
+            "type": skillType[data.Skills[`${CharacterId * 100 + 9}`].Type] || "战技",
+            "tag": skillTag[data.Skills[`${CharacterId * 100 + 9}`].Tag],
+            "desc": data.Skills[`${CharacterId * 100 + 9}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 9}`])
+          }
+          CharacterData.talentId[`${CharacterId * 100 + 9}`] = "e1"
+        }
+        if (data.Skills[`${CharacterId * 100 + 11}`]?.Name) {
+          CharacterData.talent.e2 = {
+            "id": CharacterId * 100 + 11,
+            "name": data.Skills[`${CharacterId * 100 + 11}`].Name,
+            "type": skillType[data.Skills[`${CharacterId * 100 + 11}`].Type] || "战技",
+            "tag": skillTag[data.Skills[`${CharacterId * 100 + 11}`].Tag],
+            "desc": data.Skills[`${CharacterId * 100 + 11}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 11}`])
+          }
+          CharacterData.talentId[`${CharacterId * 100 + 11}`] = "e2"
+        }
+        if (data.Memosprite?.Name) {
+          CharacterData.talent.me = {
+            "id": 1000000 + CharacterId * 100 + 1,
+            "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Name,
+            "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Type] || "忆灵技",
+            "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Tag],
+            "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`])
+          }
+          CharacterData.talentId[`${1000000 + CharacterId * 100 + 1}`] = "me"
+          CharacterData.talent.mt = {
+            "id": 1000000 + CharacterId * 100 + 3,
+            "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Name,
+            "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Type] || "忆灵天赋",
+            "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Tag],
+            "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+            "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`])
+          }
+          CharacterData.talentId[`${1000000 + CharacterId * 100 + 3}`] = "mt"
+          if (data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`]?.Name) {
+            CharacterData.talent.mt1 = {
+              "id": 1000000 + CharacterId * 100 + 5,
+              "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Name,
+              "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Type] || "忆灵天赋",
+              "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Tag],
+              "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`])
+            }
+            CharacterData.talentId[`${1000000 + CharacterId * 100 + 5}`] = "mt1"
+          }
+          if (data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`]?.Name) {
+            CharacterData.talent.mt2 = {
+              "id": 1000000 + CharacterId * 100 + 6,
+              "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Name,
+              "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Type] || "忆灵天赋",
+              "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Tag],
+              "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
+              "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`])
+            }
+            CharacterData.talentId[`${1000000 + CharacterId * 100 + 6}`] = "mt2"
+          }
+          if (data.Ranks[3].Desc.includes("忆灵技")) {
+            CharacterData.talentCons.me = 3
+            CharacterData.talentCons.mt = 5
+          } else {
+            CharacterData.talentCons.me = 5
+            CharacterData.talentCons.mt = 3
+          }
+        }
+        aText = CharacterData.talentId
+        bText = CharacterData.talentCons
       }
       if (Qkey === 3) {
         CharacterData.talentId[data.Skills[2].Id] = "t"
@@ -2974,6 +3677,26 @@ export class calc extends plugin {
         await this.getImg(IconUrl + "UI/" + data.Constellations[3]?.Icon + ".webp", `${icons}/cons-4.webp`, "4命")
         await this.getImg(IconUrl + "UI/" + data.Constellations[4]?.Icon + ".webp", `${icons}/cons-5.webp`, "5命")
         await this.getImg(IconUrl + "UI/" + data.Constellations[5]?.Icon + ".webp", `${icons}/cons-6.webp`, "6命")
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_1.webp", `${imgs}/cons-1.webp`, "1魂")
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_2.webp", `${imgs}/cons-2.webp`, "2魂")
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_3.webp", `${imgs}/cons-3.webp`, "3魂")
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_4.webp", `${imgs}/cons-4.webp`, "4魂")
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_5.webp", `${imgs}/cons-5.webp`, "5魂")
+        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_6.webp", `${imgs}/cons-6.webp`, "6魂")
+        await this.getImg(IconUrl + "UI/avatarroundicon/" + CharacterId + ".webp", `${imgs}/face.webp`, "大头")
+        await this.getImg(IconUrl + "UI/avatarshopicon/" + CharacterId + ".webp", `${imgs}/preview.webp`, "头像")
+        await this.getImg(IconUrl + "UI/avatardrawcard/" + CharacterId + ".webp", `${imgs}/splash.webp`, "立绘")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Normal.webp", `${imgs}/talent-a.webp`, "普攻")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_BP.webp", `${imgs}/talent-e.webp`, "战技")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Ultra.webp", `${imgs}/talent-q.webp`, "终结技")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Passive.webp", `${imgs}/talent-t.webp`, "天赋")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Maze.webp", `${imgs}/talent-z.webp`, "秘技")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_1" + CharacterId + "_Servant.webp", `${imgs}/talent-me.webp`, "忆灵技")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_1" + CharacterId + "_ServantPassive.webp", `${imgs}/talent-mt.webp`, "忆灵天赋")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree1.webp", `${imgs}/tree-1.webp`, "额外能力1")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree2.webp", `${imgs}/tree-2.webp`, "额外能力2")
+        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree3.webp", `${imgs}/tree-3.webp`, "额外能力3")
       }
       if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
       logger.mark(`[liangshi-calc]图片资源下载完成`)
@@ -3082,6 +3805,46 @@ export class calc extends plugin {
                 }
               })
             } catch (err) {
+              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+            }
+          })
+        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+          filePath = "./plugins/miao-plugin/resources/meta-sr/character/data.json"
+          fs.readFile(filePath, 'utf8', (err, TextData) => {
+            if (err) {
+              console.error('[liangshi-calc]读取角色配置data.json失败:', err)
+              if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+              if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}星魂 查看角色星魂\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+              return false
+            }
+            try {
+              let jsonData = JSON.parse(TextData)
+              newValue = {
+                "id": CharacterId,
+                "key": data.AvatarVOTag,
+                "name": data.Name,
+                "star": data.Rarity === "CombatPowerAvatarRarityType4" ? 4 : 5,
+                "elem": damageKey[data.DamageType],
+                "weapon": weaponKey[data.BaseType],
+                "sp": data.SPNeed,
+                "talentId": aText,
+                "talentCons": bText
+              }
+              jsonData[CharacterId] = newValue
+              logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
+              let updatedData = JSON.stringify(jsonData, null, 2)
+              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+                if (err) {
+                  console.error('[liangshi-calc]角色data.json写入失败:\n', err)
+                  if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+                  if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+                  return false
+                } else {
+                  logger.mark('[liangshi-calc]角色data.json已更新')
+                }
+              })
+            } catch (err) {
+              filePath = "./plugins/miao-plugin/resources/meta-sr/character/data.json"
               console.error('[liangshi-calc]自动配置data.json失败:\n', err)
             }
           })
@@ -3460,6 +4223,33 @@ export class calc extends plugin {
       }
     })
     return result
+  }
+
+  async SRTalent(ccb) {
+    let le = ccb.Level
+    let ve = Object.keys(le)
+    let bd = {}
+    for (let i = 0; i < Math.max(...ve.map(k => le[k].ParamList.length)); i++) {
+      let cb = []
+      let isSame = true
+      let ab = null
+      ve.forEach(key => {
+        let ac = le[key].ParamList
+        if (i < ac.length) {
+          let bc = ac[i]
+          cb.push(bc)
+          if (ab === null) ab = bc
+          else if (bc !== ab) isSame = false
+        }
+      })
+      if (cb.length < 15) {for (let j = 0; j < (15 - cb.length); j++) {cb.push(cb[cb.length - 1])}}
+      bd[i + 1] = {
+        name: `技能数据${i + 1}`,
+        isSame: isSame,
+        values: cb
+      }
+    }
+    return bd
   }
 
   async mcTalName(inputData) {
