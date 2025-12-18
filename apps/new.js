@@ -13,7 +13,7 @@ import fs from 'node:fs'
  * 使用API 1 更新原神圣遗物数据时ID不正确
  *
  * 星铁部分内容更新需手动修改
- * 1.角色与天赋升级材料ID(不影响面板功能使用)
+ * 1.升级材料ID(应该不影响面板功能使用)
  * 2.天赋数据名称
  * 3.可能还有其他要修改的地方但应该不影响使用
  *
@@ -368,6 +368,11 @@ export class calc extends plugin {
   async ItemNew (e, mode, JsonOk) {
     if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
+      logger.mark('[liangshi-calc]更新被中断')
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
@@ -863,6 +868,11 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
+      logger.mark('[liangshi-calc]更新被中断')
+      return false
+    }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, WeaponType, bonus, WeaponData, url, apiKey, IconUrl, newValue
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
@@ -893,8 +903,10 @@ export class calc extends plugin {
       try {
         if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon/${ID}`
-        } else {
+        } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
           url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
+        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/lightcone/${ID}.json`
         }
         response = await fetch(url)
         if (!response.ok) {
@@ -947,6 +959,24 @@ export class calc extends plugin {
         } else {
           WeaponType = "projection"
         }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        if (data.BaseType === "Mage") {
+          WeaponType = "智识"
+        } else if (data.BaseType === "Knight") {
+          WeaponType = "存护"
+        } else if (data.BaseType === "Rogue") {
+          WeaponType = "巡猎"
+        } else if (data.BaseType === "Warlock") {
+          WeaponType = "虚无"
+        } else if (data.BaseType === "Warrior") {
+          WeaponType = "毁灭"
+        } else if (data.BaseType === "Shaman") {
+          WeaponType = "同协"
+        } else if (data.BaseType === "Priest") {
+          WeaponType = "丰饶"
+        } else if (data.BaseType === "Memory") {
+          WeaponType = "记忆"
+        }
       }
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
         IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
@@ -969,7 +999,7 @@ export class calc extends plugin {
         } else {
           await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
         }
-      } else {
+      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
         if (WeaponType === "projection") {
           await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
           await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
@@ -984,6 +1014,9 @@ export class calc extends plugin {
           await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
           await this.getImg(IconUrl + "UI/" + data.Icon + "_Awaken" + ".webp", `${imgs}/awaken.webp`, "awaken")
         }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        await this.getImg(IconUrl + "UI/lightconemaxfigures/" + ID + ".webp", `${imgs}/splash.webp`, "splash")
+        await this.getImg(IconUrl + "UI/lightconemediumicon/" + ID + ".webp", `${imgs}/icon.webp`, "icon")
       }
       if(!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
       let key = {
@@ -1222,7 +1255,127 @@ export class calc extends plugin {
               "UpdateTime": `[liangshi-calc] ${new Date()}`
             }
           }
-
+        }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        WeaponData = {
+          "id": ID,
+          "name": data.Name,
+          "star": Number(data.Rarity.charAt(data.Rarity.length - 1)),
+          "desc": data.Desc.replace(/\\n/g, '<br />'),
+          "type": WeaponType,
+          "typeId": 0,
+          "baseAttr": {
+            "atk": data.Stats[6].BaseAttack + data.Stats[0].BaseAttackAdd * 79,
+            "hp": data.Stats[6].BaseHP + data.Stats[0].BaseHPAdd * 79,
+            "def": data.Stats[6].BaseDefence + data.Stats[0].BaseDefenceAdd * 79
+          },
+          "growAttr": {
+            "atk": data.Stats[0].BaseAttackAdd,
+            "hp": data.Stats[0].BaseHPAdd,
+            "def": data.Stats[0].BaseDefenceAdd
+          },
+          "attr": {
+            "0": {
+              "promote": 0,
+              "maxLevel": 20,
+              "cost": {
+                [data.Stats[0].PromotionCostList[0].ItemID]: data.Stats[0].PromotionCostList[0].ItemNum,
+                [data.Stats[0].PromotionCostList[1].ItemID]: data.Stats[0].PromotionCostList[1].ItemNum,
+              },
+              "attrs": {
+                "atk": data.Stats[0].BaseAttack,
+                "hp": data.Stats[0].BaseHP,
+                "def": data.Stats[0].BaseDefence
+              }
+            },
+            "1": {
+              "promote": 1,
+              "maxLevel": 30,
+              "cost": {
+                [data.Stats[1].PromotionCostList[0].ItemID]: data.Stats[1].PromotionCostList[0].ItemNum,
+                [data.Stats[1].PromotionCostList[1].ItemID]: data.Stats[1].PromotionCostList[1].ItemNum,
+                [data.Stats[1].PromotionCostList[2].ItemID]: data.Stats[1].PromotionCostList[2].ItemNum
+              },
+              "attrs": {
+                "atk": data.Stats[1].BaseAttack,
+                "hp": data.Stats[1].BaseHP,
+                "def": data.Stats[1].BaseDefence
+              }
+            },
+            "2": {
+              "promote": 2,
+              "maxLevel": 40,
+              "cost": {
+                [data.Stats[2].PromotionCostList[0].ItemID]: data.Stats[2].PromotionCostList[0].ItemNum,
+                [data.Stats[2].PromotionCostList[1].ItemID]: data.Stats[2].PromotionCostList[1].ItemNum,
+                [data.Stats[2].PromotionCostList[2].ItemID]: data.Stats[2].PromotionCostList[2].ItemNum
+              },
+              "attrs": {
+                "atk": data.Stats[2].BaseAttack,
+                "hp": data.Stats[2].BaseHP,
+                "def": data.Stats[2].BaseDefence
+              }
+            },
+            "3": {
+              "promote": 3,
+              "maxLevel": 50,
+              "cost": {
+                [data.Stats[3].PromotionCostList[0].ItemID]: data.Stats[3].PromotionCostList[0].ItemNum,
+                [data.Stats[3].PromotionCostList[1].ItemID]: data.Stats[3].PromotionCostList[1].ItemNum,
+                [data.Stats[3].PromotionCostList[2].ItemID]: data.Stats[3].PromotionCostList[2].ItemNum
+              },
+              "attrs": {
+                "atk": data.Stats[3].BaseAttack,
+                "hp": data.Stats[3].BaseHP,
+                "def": data.Stats[3].BaseDefence
+              }
+            },
+            "4": {
+              "promote": 4,
+              "maxLevel": 60,
+              "cost": {
+                [data.Stats[4].PromotionCostList[0].ItemID]: data.Stats[4].PromotionCostList[0].ItemNum,
+                [data.Stats[4].PromotionCostList[1].ItemID]: data.Stats[4].PromotionCostList[1].ItemNum,
+                [data.Stats[4].PromotionCostList[2].ItemID]: data.Stats[4].PromotionCostList[2].ItemNum
+              },
+              "attrs": {
+                "atk": data.Stats[4].BaseAttack,
+                "hp": data.Stats[4].BaseHP,
+                "def": data.Stats[4].BaseDefence
+              }
+            },
+            "5": {
+              "promote": 5,
+              "maxLevel": 70,
+              "cost": {
+                [data.Stats[5].PromotionCostList[0].ItemID]: data.Stats[5].PromotionCostList[0].ItemNum,
+                [data.Stats[5].PromotionCostList[1].ItemID]: data.Stats[5].PromotionCostList[1].ItemNum,
+                [data.Stats[5].PromotionCostList[2].ItemID]: data.Stats[5].PromotionCostList[2].ItemNum
+              },
+              "attrs": {
+                "atk": data.Stats[5].BaseAttack,
+                "hp": data.Stats[5].BaseHP,
+                "def": data.Stats[5].BaseDefence
+              }
+            },
+            "6": {
+              "promote": 6,
+              "maxLevel": 80,
+              "cost": {},
+              "attrs": {
+                "atk": data.Stats[6].BaseAttack,
+                "hp": data.Stats[6].BaseHP,
+                "def": data.Stats[6].BaseDefence
+              }
+            }
+          },
+          "skill": {
+            "id": ID,
+            "name": data.Refinements.Name,
+            "desc": data.Refinements.Desc.replace(/<color=[^>]*>(.*?)<\/color>/g, '$1').replace(/<unbreak>(.*?)<\/unbreak>/g, '<nobr>$1</nobr>').replace(/\\n/g, '<br />').replace(/f1/g, 'i'),
+            "tables": await this.srTables(data.Refinements)
+          },
+          "UpdateTime": `[liangshi-calc] ${new Date()}`
         }
       }
       logger.mark('[liangshi-calc]数据处理完成')
@@ -1241,7 +1394,12 @@ export class calc extends plugin {
         console.error(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已存在`)
       }
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
-        let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
+        let filePath
+        if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+          filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/data.json`
+        } else {
+          filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
+        }
         if (!fs.existsSync(filePath)) {
           fs.writeFileSync(filePath, '{}')
           logger.mark(`[liangshi-calc]未找到data.json文件，已自动创建`)
@@ -1256,8 +1414,10 @@ export class calc extends plugin {
             let jsonData = JSON.parse(TextData)
             if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
               newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityName === "SR" ? 4 : 5 }
-            } else {
+            } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
               newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
+            } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+              newValue = { "id": ID, "name": data.Name, "type": WeaponType, "star": Number(data.Rarity.charAt(data.Rarity.length - 1)) }
             }
             jsonData[ID] = newValue
             logger.mark(`[liangshi-calc]武器：${data.Name || data.WeaponName} 配置data.json成功`)
@@ -1306,6 +1466,11 @@ export class calc extends plugin {
   async ArtifactNew (e, mode) {
     if (!e.isMaster) {
       e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
+      logger.mark('[liangshi-calc]更新被中断')
       return false
     }
     let cfg = LSconfig.getConfig('user', 'config')
@@ -1979,7 +2144,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
       return false
@@ -4322,6 +4487,12 @@ export class calc extends plugin {
       }
     }
     return result
+  }
+
+  async srTables(data) {
+    let ccb = {1:[], 2:[], 3:[], 4:[], 5:[]}
+    Object.values(data.Level).forEach(level => level.ParamList.forEach((val, i) => ccb[i+1].push(i < 4 ? val * 100 : val)))
+    return ccb
   }
 
   async getImg (url, Path, name) {
