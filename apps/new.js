@@ -1503,10 +1503,12 @@ export class calc extends plugin {
       let ID = TextData[4]
       if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的${zb}数据`)
       try {
-        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)){
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
           p = "echo"
-        } else {
+        } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
           p = "artifact"
+        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+          p = "relicset"
         }
         if ((cfg.mcApi === 2 || cfg.mcApi === 3) && /鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${p}/${ID}`
@@ -1541,9 +1543,12 @@ export class calc extends plugin {
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         imgPath = ""
         imgName = data.Name || data.MonsterName
-      } else {
+      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
         imgPath = "/imgs"
         imgName = data.Affix[0].Name
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        imgPath = ""
+        imgName = data.Name
       }
       imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact${imgPath}/${imgName}`
       if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/artifact${imgPath}/${imgName}`) || /强制|强行|覆盖/.test(e.msg)) {
@@ -1567,6 +1572,14 @@ export class calc extends plugin {
         } else {
           await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
         }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        await this.getImg(IconUrl + "UI/itemfigures/" + data.Icon.split('/').pop().split('.')[0] + ".webp", `${imgs}/arti-0.webp`, "套装")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_1.webp", `${imgs}/arti-1.webp`, "头部")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_2.webp", `${imgs}/arti-2.webp`, "手部")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_3.webp", `${imgs}/arti-3.webp`, "躯干")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_4.webp", `${imgs}/arti-4.webp`, "脚部")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_5.webp", `${imgs}/arti-5.webp`, "位面球")
+        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_6.webp", `${imgs}/arti-6.webp`, "连接绳")
       }
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact/data.json`
@@ -1838,6 +1851,116 @@ export class calc extends plugin {
             if(!mode) e.reply(`[liangshi-calc]声骸数据已存在，运行终止。\n如果需要刷新声骸数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}声骸数据`)
             console.error(`[liangshi-calc]声骸：${imgName}\n数据已存在`)
           }
+        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+          let skillsText = ({ Desc, ParamList }) => Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '<\/nobr>').replace(/#(\d+)\[i\]%?/g, (match, idx) => {let ccb = ParamList[idx - 1]; return match.endsWith('%') ? `${(ccb * 100).toFixed(2)}%` : String(ccb)})
+          let idxsKey = Number(Object.keys(data.Parts)[0])
+          let newValue = {
+            "id": ID,
+            "name": data.Name,
+            "skills": {
+              "2": skillsText(data.RequireNum["2"])
+            },
+            "idxs": {},
+            "UpdateTime": `[liangshi-calc] ${new Date()}`
+          }
+          if (data.RequireNum["4"]) {
+            newValue.skills["4"] = skillsText(data.RequireNum["4"])
+            newValue.idxs = {
+              "1": {
+                "name": data.Parts[idxsKey].Name,
+                "desc": data.Parts[idxsKey].Desc,
+                "lore": data.Parts[idxsKey].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 0]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 0]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 0]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 0]: 5
+                }
+              },
+              "2": {
+                "name": data.Parts[idxsKey + 1].Name,
+                "desc": data.Parts[idxsKey + 1].Desc,
+                "lore": data.Parts[idxsKey + 1].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 1]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 1]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 1]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 1]: 5
+                }
+              },
+              "3": {
+                "name": data.Parts[idxsKey + 2].Name,
+                "desc": data.Parts[idxsKey + 2].Desc,
+                "lore": data.Parts[idxsKey + 2].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 2]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 2]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 2]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 2]: 5
+                }
+              },
+              "4": {
+                "name": data.Parts[idxsKey + 3].Name,
+                "desc": data.Parts[idxsKey + 3].Desc,
+                "lore": data.Parts[idxsKey + 3].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 3]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 3]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 3]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 3]: 5
+                }
+              }
+            }
+          } else {
+            newValue.idxs = {
+              "5": {
+                "name": data.Parts[idxsKey].Name,
+                "desc": data.Parts[idxsKey].Desc,
+                "lore": data.Parts[idxsKey].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 0]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 0]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 0]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 0]: 5
+                }
+              },
+              "6": {
+                "name": data.Parts[idxsKey + 1].Name,
+                "desc": data.Parts[idxsKey + 1].Desc,
+                "lore": data.Parts[idxsKey + 1].Story.replace(/\\n/g, '<br />'),
+                "ids": {
+                  [idxsKey + 10000 * 0 + 1 * 1]: 2,
+                  [idxsKey + 10000 * 1 + 1 * 1]: 3,
+                  [idxsKey + 10000 * 2 + 1 * 1]: 4,
+                  [idxsKey + 10000 * 3 + 1 * 1]: 5
+                }
+              }
+            }
+          }
+          fs.readFile(filePath, 'utf8', (err, TextData) => {
+            if (err) {
+              console.error(`[liangshi-calc]读取${zb}配置data.json失败:`, err)
+              if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+              return false
+            }
+            try {
+              let jsonData = JSON.parse(TextData)
+              jsonData[ID] = newValue
+              logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
+              let updatedData = JSON.stringify(jsonData, null, 2)
+              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+                if (err) {
+                  console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
+                  if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName}\n数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
+                  return false
+                } else {
+                  logger.mark(`[liangshi-calc]${zb}data.json已更新`)
+                }
+              })
+            } catch (err) {
+              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+            }
+          })
         }
         if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n重启后即可使用相关内容`)
       } else {
