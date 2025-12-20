@@ -15,7 +15,8 @@ import fs from 'node:fs'
  * 星铁部分内容更新需手动修改
  * 1.升级材料ID(应该不影响面板功能使用)
  * 2.天赋数据名称
- * 3.可能还有其他要修改的地方但应该不影响使用
+ * 3.物品ID与type数据
+ * 4.可能还有其他要修改的地方但应该不影响使用
  *
  * 如果有新的问题建议去issue反馈
  */
@@ -370,7 +371,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
       return false
@@ -442,13 +443,14 @@ export class calc extends plugin {
       let ItemData, ItemId, ItemName, ItemType, Tag
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
         Tag = "TypeName"
-        itemJson = data.itemList.reduce((ccb, item) => {
-          ccb[item.Id] = {...item};
-          return ccb
-        }, {})
+        itemJson = data.itemList.reduce((ccb, item) => {ccb[item.Id] = {...item}; return ccb}, {})
         url = `${ProxyUrl}${itemJson[`${ID}`].Icon}`
-      } else {
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
         Tag = "Tag"
+        itemJson = data
+        url = `${ProxyUrl}https://api.hakush.in/${game}/UI/itemfigures/` + itemJson[`${ID}`].ItemIconPath.split('/').pop().split('.')[0] + '.webp'
+      } else {
+        Tag = "ItemSubType"
         itemJson = data
         url = `${ProxyUrl}https://api.hakush.in/${game}/UI/` + itemJson[`${ID}`].Icon.replace(/^\/Game\/Aki\/UI\//, '').split('.')[0] + '.webp'
       }
@@ -802,8 +804,58 @@ export class calc extends plugin {
             "star": itemJson[`${ID}`].Rarity || itemJson[`${ID}`].QualityId
           }
         }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        let Rar = {
+          "Rare": 3,
+          "VeryRare": 4,
+          "SuperRare": 5
+        }
+        if (data[ID]?.ItemSubType === "Virtual") {
+          ItemType = "normal"
+        } else if (data[ID]?.ItemSubType === "WeeklyMonsterDrop") {
+          ItemType = "normal"
+        } else if (data[ID]?.ItemSubType === "AvatarRank") {
+          ItemType = "char"
+        } else if (data[ID]?.ItemSubType === "CommonMonsterDrop") {
+          ItemType = "char"
+        } else if (data[ID]?.ItemSubType === "AvatarExp") {
+          ItemType = "exp"
+        } else if (data[ID]?.ItemSubType === "TracePath") {
+          ItemType = "weapon"
+        } else if (data[ID]?.ItemSubType === "Material") {
+          ItemType = "normal"
+        } else if (data[ID]?.ItemSubType === "EquipmentExp") {
+          ItemType = "exp"
+        } else if (data[ID]?.ItemSubType === "RelicExp") {
+          ItemType = "exp"
+        } else if (data[ID]?.ItemSubType === "Mission") {
+          ItemType = "Mission"
+        } else if (data[ID]?.ItemSubType === "ComposeMaterial") {
+          ItemType = "normal"
+        } else if (data[ID]?.ItemSubType === "Book") {
+          ItemType = "Book"
+        } else if (data[ID]?.ItemSubType === "Gift") {
+          ItemType = "Gift"
+        } else if (data[ID]?.ItemSubType === "Food") {
+          ItemType = "Food"
+        } else if (data[ID]?.ItemSubType === "Formula") {
+          ItemType = "Formula"
+        } else if (data[ID]?.ItemSubType === "FindChest") {
+          ItemType = "FindChest"
+        }
+        ItemData = {
+          "id": data[ID]?.ID,
+          "type": data[ID]?.InventoryDisplayTag,
+          "name": data[ID]?.ItemName,
+          "desc": data[ID]?.ItemBGDesc.replace(/<i>|<\/i>/g, '').replace(/\\n/g, ''),
+          "star": Rar[data[ID]?.Rarity],
+          "source": data[ID]?.ItemComefrom.map(item => item.Desc || "")
+        }
       }
-      await this.getImg(url, `${imgs}/${ItemType}/${itemJson[`${ID}`].Name}.webp`, "图标")
+      if (!/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        await this.getImg(url, `${imgs}/${ItemType}/${itemJson[`${ID}`].Name}.webp`, "图标")
+        if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
+      }
       if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/material/data.json`
@@ -814,13 +866,17 @@ export class calc extends plugin {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取物品配置data.json失败:', err)
-            if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
+            if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name || itemJson[`${ID}`].ItemName} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
             return false
           }
           try {
             let jsonData = JSON.parse(TextData)
-            jsonData[ItemName] = ItemData
-            logger.mark(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 配置data.json成功`)
+            if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+              jsonData[ItemType][ID] = ItemData
+            } else {
+              jsonData[ItemName] = ItemData
+            }
+            logger.mark(`[liangshi-calc]物品：${itemJson[`${ID}`].Name || itemJson[`${ID}`].ItemName} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
@@ -835,9 +891,9 @@ export class calc extends plugin {
             console.error('[liangshi-calc]自动配置data.json失败:\n', err)
           }
         })
-        if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n重启后即可使用相关内容`)
+        if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name || itemJson[`${ID}`].ItemName} 数据更新完成\n重启后即可使用相关内容`)
       } else {
-        if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)
+        if (!mode) e.reply(`[liangshi-calc]物品：${itemJson[`${ID}`].Name || itemJson[`${ID}`].ItemName} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)
       }
       return true
     } catch (err) {
