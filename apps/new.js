@@ -446,11 +446,11 @@ export class calc extends plugin {
         itemJson = data.itemList.reduce((ccb, item) => {ccb[item.Id] = {...item}; return ccb}, {})
         url = `${ProxyUrl}${itemJson[`${ID}`].Icon}`
       } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        Tag = "Tag"
+        Tag = "ItemSubType"
         itemJson = data
         url = `${ProxyUrl}https://api.hakush.in/${game}/UI/itemfigures/` + itemJson[`${ID}`].ItemIconPath.split('/').pop().split('.')[0] + '.webp'
       } else {
-        Tag = "ItemSubType"
+        Tag = "Tag"
         itemJson = data
         url = `${ProxyUrl}https://api.hakush.in/${game}/UI/` + itemJson[`${ID}`].Icon.replace(/^\/Game\/Aki\/UI\//, '').split('.')[0] + '.webp'
       }
