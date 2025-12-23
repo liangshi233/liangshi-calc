@@ -44,7 +44,7 @@ export class calc extends plugin {
             fnc: 'VerNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(数据|资源|内容|资源数据)$',
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(最|当前最)?新版本(完整|全部)?(数据|资源|内容|资源数据)$',
             fnc: 'New'
           },
           {
@@ -86,8 +86,6 @@ export class calc extends plugin {
       game = "hsr"
       GamePath = "sr"
       GameName = "崩坏：星穹铁道"
-      e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
-      return false
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       game = "zzz"
       GamePath = "zzz"
@@ -179,6 +177,10 @@ export class calc extends plugin {
     if (/完整|全部/.test(e.msg)) {
       let Characterurl, Weaponurl, Artifacturl, Itemurl
       status = "完整"
+      if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        e.reply('[liangshi-calc]崩坏：星穹铁道 不宜进行完整更新，如需使用请手动前往文件解除限制(*/ω＼*)')
+        return false
+      }
       try {
         if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
           Characterurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
@@ -352,6 +354,10 @@ export class calc extends plugin {
         WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
         ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
       }
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.cn ?? `${num.toString()}`)
+      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.cn ?? `${num.toString()}`)
+      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.cn ?? `${num.toString()}`)
     } else {
       CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
       WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
@@ -362,6 +368,9 @@ export class calc extends plugin {
         return item.set[firstSetKey]?.name?.CHS ?? "未知名字"
       })
     }
+    if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何${CharacterName}`
+    if (WeaponNameText.length === 0) WeaponNameText = `本次没有更新任何${WeaponName}`
+    if (ArtifactNameText.length === 0) ArtifactNameText = `本次没有更新任何${ArtifactName}`
     e.reply(`[liangshi-calc] ${GameName} ${version} 版本更新完成\n已为您更新\n\n${CharacterName}：\n${CharacterNameText}\n\n${WeaponName}：\n${WeaponNameText}\n\n${ArtifactName}：\n${ArtifactNameText}\n\n物品${data.item.length}个\n\n重启后即可使用相关内容`)
     return false
   }
@@ -872,6 +881,7 @@ export class calc extends plugin {
           try {
             let jsonData = JSON.parse(TextData)
             if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+              if (!jsonData[ItemType]) jsonData[ItemType] = {}
               jsonData[ItemType][ID] = ItemData
             } else {
               jsonData[ItemName] = ItemData
@@ -1663,7 +1673,7 @@ export class calc extends plugin {
               let newValue = {
                 "id": ID,
                 "name": data.Affix[0].Name,
-                "sets": {
+                "idxs": {
                   "1": {
                     "id": data.Parts?.EQUIP_BRACER?.Story ? `${data.Parts?.EQUIP_BRACER?.Story}` : undefined,
                     "name": data.Parts?.EQUIP_BRACER?.Name
@@ -1685,7 +1695,7 @@ export class calc extends plugin {
                     "name": data.Parts?.EQUIP_DRESS?.Name
                   }
                 },
-                "effect": k,
+                "skills": k,
                 "UpdateTime": `[liangshi-calc] ${new Date()}`
               }
               newValue.sets = Object.fromEntries(
@@ -3106,27 +3116,27 @@ export class calc extends plugin {
           "cons": {
             "1": {
               "name": data.Constellations[0]?.Name,
-              "desc": C1D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C1D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             },
             "2": {
               "name": data.Constellations[1]?.Name,
-              "desc": C2D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C2D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             },
             "3": {
               "name": data.Constellations[2]?.Name,
-              "desc": C3D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C3D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             },
             "4": {
               "name": data.Constellations[3]?.Name,
-              "desc": C4D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C4D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             },
             "5": {
               "name": data.Constellations[4]?.Name,
-              "desc": C5D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C5D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             },
             "6": {
               "name": data.Constellations[5]?.Name,
-              "desc": C6D?.Desc.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
+              "desc": C6D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
             }
           },
           "passive": [
