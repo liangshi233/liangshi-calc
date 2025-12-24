@@ -1698,8 +1698,8 @@ export class calc extends plugin {
                 "skills": k,
                 "UpdateTime": `[liangshi-calc] ${new Date()}`
               }
-              newValue.sets = Object.fromEntries(
-                Object.entries(newValue.sets).filter(([key, value]) => {
+              newValue.idxs = Object.fromEntries(
+                Object.entries(newValue.idxs).filter(([key, value]) => {
                   return value.id !== undefined || value.name !== undefined
                 })
               )
