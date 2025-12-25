@@ -727,7 +727,7 @@ export class calc extends plugin {
         }
         if (itemJson[`${ID}`]?.[Tag]?.includes("武器与技能素材")) {
           //40体秘境武器天赋素材 与 敌人素材
-          if (ID > 43020010 && ID < 43020055) {
+          if ((ID > 43020010 && ID < 43020055) || (ID > 43021010 && ID < 43021055)) {
             //40体秘境武器天赋素材
             ItemType = "weapon"
           } else {
@@ -2503,6 +2503,10 @@ export class calc extends plugin {
               "atk": data.Properties[1].GrowthValues[95].value,
               "def": data.Properties[2].GrowthValues[95].value
             },
+            "Weakness": {
+              "ratio": 100,
+              "mastery": 0
+            },
             "materials": {
               "boss": ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.Name || data.Breaches[5].Items[0].Key,
               "specialty": ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[1].Key}`]?.Name || data.Breaches[5].Items[1].Key,
@@ -2724,6 +2728,10 @@ export class calc extends plugin {
               "hp": data.Stats["6"]["90"].Life,
               "atk": data.Stats["6"]["90"].Atk,
               "def": data.Stats["6"]["90"].Def
+            },
+            "Weakness": {
+              "ratio": data.StatsWeakness?.BreakWeaknessRatio,
+              "mastery": data.StatsWeakness?.WeaknessMastery
             },
             "materials": {
               "boss": ItemNamedata?.[`${data.Ascensions["6"][0].Key}`]?.name || data.Ascensions["6"][0].Key,
