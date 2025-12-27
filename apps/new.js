@@ -969,6 +969,8 @@ export class calc extends plugin {
       try {
         if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon/${ID}`
+        } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
         } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
           url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
         } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
