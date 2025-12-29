@@ -75,7 +75,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2
+    let characterTime, weaponTime, artifactTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
@@ -264,24 +264,28 @@ export class calc extends plugin {
       await common.sleep(2000)
       await this.CharacterNew(instruction, true)
     }
+    characterTime =  `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const weaponId of weapon) {
       instruction.msg = `#梁氏覆盖更新${GameName}${weaponId}武器数据`
       await common.sleep(1500)
       await this.WeaponNew(instruction, true)
     }
+    weaponTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const artifactId of artifact) {
       await common.sleep(1500)
       instruction.msg = `#梁氏覆盖更新${GameName}${artifactId}圣遗物数据`
       await this.ArtifactNew(instruction, true)
     }
+    artifactTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const itemId of data.item) {
       await common.sleep(1000)
       instruction.msg = `#梁氏覆盖更新${GameName}${itemId}物品数据`
       await this.ItemNew(instruction, true, ItemOk)
     }
+    itemTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     let verDataPath = `./plugins/miao-plugin/resources/meta-${GamePath}/data.json`
     if (!fs.existsSync(verDataPath)) fs.writeFileSync(verDataPath, '{}')
@@ -1639,6 +1643,7 @@ export class calc extends plugin {
           await this.getImg(data.Icon, `${imgs}/img.webp`, "声骸")
         } else {
           await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
+          await this.getImg(IconUrl + data.Skill.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/skill.webp`, "技能")
         }
       } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
         await this.getImg(IconUrl + "UI/itemfigures/" + data.Icon.split('/').pop().split('.')[0] + ".webp", `${imgs}/arti-0.webp`, "套装")
@@ -1898,8 +1903,13 @@ export class calc extends plugin {
           let ArtifactData = {
             "id": data.Id || data.MonsterId,
             "Name": data.Name || data.MonsterName,
+            "Type": data.Type,//API2还没做
+            "Intensity": data.Intensity,//API2还没做
+            "Place": data.Place,//API2还没做
             "Code": data.Code || data.Handbook?.Intensity || "",
             "desc": (data.Skill.SimpleDesc || data.Skill?.SimplyDescription).replace(/\n/g, '').replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, ''),
+            "Rarity": data.Rarity,//API2还没做
+            "Group": Object.keys(data.Group),//API2还没做
             "affixData": {
               "text": o.replace(/\n/g, ''),
               "datas": datas
@@ -2725,6 +2735,10 @@ export class calc extends plugin {
             "cncv": data.CharaInfo.CVNameCn,
             "jpcv": data.CharaInfo.CVNameJp,
             "costume": false,
+            "tag": {
+              keys: Object.keys(data.Tag),
+              name: Object.values(data.Tag).map(ccb => ccb.Name)
+            },
             "ver": 1,
             "baseAttr": {
               "hp": data.Stats["6"]["90"].Life,

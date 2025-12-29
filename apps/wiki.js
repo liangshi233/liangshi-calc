@@ -1,0 +1,277 @@
+import plugin from '../../../lib/plugins/plugin.js'
+import { Common } from '../components/index.js'
+import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias } from '../resources/wiki/alias.js'
+import { abbr } from '../resources/wiki/abbr.js'
+import fs from 'node:fs'
+
+export class Wiki extends plugin {
+  constructor () {
+    super(
+      {
+        name: 'wuwaWiki',
+        dsc: '鸣潮图鉴',
+        event: 'message',
+        priority: 5000,
+        rule: [
+          {
+            reg: '^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)图鉴$',
+            fnc: 'McWiki'
+          },
+          {
+            reg: '^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$',
+            fnc: 'Mctalent'
+          }
+        ]
+      }
+    )
+  }
+
+  async McWiki (e) {
+    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|ls|LS)(.*?)图鉴$/)
+    let text = await this.McName(TextData[2])
+    if (text[1] !== "Character") {
+      // 不是角色-暂时跳过后续补充
+      return false
+    }
+    let wikiJson = await this.McJson(text[0])
+    return Common.render('wiki/character-mc-wiki', {
+      data: wikiJson.data,
+      attr: wikiJson.attr,
+      detail: wikiJson.detail,
+      imgs: wikiJson.imgs,
+      Tag: wikiJson.Tag,
+      holding: wikiJson.holding,
+      usage: wikiJson.usage,
+      materials: wikiJson.materials,
+      elem: wikiJson.elem
+    }, { e, scale: 1.4 })
+  }
+
+  async Mctalent (e) {
+    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$/)
+    let mode, text = await this.McName(TextData[2])
+    if (TextData[3] === "天赋" || TextData[3] === "技能") { mode = "talent" } else { mode = "cons" }
+    if (!text) return false
+    let wikiJson = await this.McJson(text)
+    return Common.render('wiki/character-mc-talent', {
+      saveId: `${mode}-${wikiJson.data.id}`,
+      ...wikiJson.data,
+      game: "gs",
+      detail: wikiJson.detail,
+      imgs:  wikiJson.imgs,
+      mode,
+      lvs: [
+        'Lv1', 'Lv2', 'Lv3',
+        'Lv4', 'Lv5', 'Lv6',
+        'Lv7', 'Lv8', 'Lv9',
+        'Lv10', 'Lv11', 'Lv12',
+        'Lv13', 'Lv14', 'Lv15'
+      ],
+      line: wikiJson.line,
+    }, { e, scale: 1.1 })
+  }
+
+  async McJson (text) {
+    let ChaJson
+    let elemKey = {
+      "glacio": "冷凝",
+      "fusion": "热熔",
+      "electro": "导电",
+      "aero": "气动",
+      "spectrp": "衍射",
+      "havoc": "湮灭"
+    }
+    let elemYsKey = {
+      "glacio": "cryo",
+      "fusion": "pyro",
+      "electro": "quantum",
+      "aero": "anemo",
+      "spectrp": "geo",
+      "havoc": "electro"
+    }
+    let weaponKey = {
+      "broadblade": "长刃",
+      "sword": "迅刀",
+      "pistols": "配枪",
+      "gauntlets": "臂铠",
+      "rectifier": "音感仪"
+    }
+    try {
+      ChaJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/character/${text}/data.json`, 'utf8')
+      ChaJson = JSON.parse(ChaJson)
+    } catch (err) {
+      console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")
+      console.warn(err)
+      return false
+    }
+    let KeyName = {
+      "生存治疗": "生存治疗",
+      "主力输出": "主力输出",
+      "快速协奏": "快速协奏",
+      "普攻伤害": "普攻伤害",
+      "重击伤害": "重击伤害",
+      "共鸣技能伤害": "共技伤害",
+      "共鸣解放伤害": "共解伤害",
+      "牵引": "牵引",
+      "协同攻击": "协同攻击",
+      "凝滞": "凝滞",
+      "共鸣解放充能": "充能效率",
+      "共振摧毁": "共振摧毁",
+      "抗打断": "抗打断",
+      "伤害加深": "伤害加深",
+      "湮灭伤害加深": "湮灭加深",
+      "气动伤害加深": "气动加深",
+      "导电伤害加深": "导电加深",
+      "热熔伤害加深": "热熔加深",
+      "冷凝伤害加深": "冷凝加深",
+      "衍射伤害加深": "衍射加深",
+      "普攻伤害加深": "普攻加深",
+      "重击伤害加深": "重击加深",
+      "共鸣技能伤害加深": "共技加深",
+      "共鸣解放伤害加深": "共解加深",
+      "协同攻击伤害加深": "协同加深",
+      "声骸攻击伤害加深": "声骸加深",
+      "风蚀": "风蚀效应",
+      "电磁": "电磁效应",
+      "霜渐": "霜渐效应",
+      "聚爆": "聚爆效应",
+      "光噪": "光噪效应",
+      "虚湮": "虚湮效应",
+      "震谐响应": "震谐响应",
+      "集谐响应": "集谐响应",
+      "谐度破坏增幅": "谐度增幅",
+      "偏谐值累积效率": "偏谐效率",
+    }
+    let data = {
+      id: ChaJson.id,
+      name: ChaJson.name,
+      abbr: ChaJson.abbr,
+      title: ChaJson.title,
+      star: ChaJson.star,
+      elem: elemYsKey[ChaJson.elem],
+      allegiance: ChaJson.allegiance,
+      weapon: ChaJson.weapon,
+      birthday: ChaJson.birth,
+      astro: elemKey[ChaJson.elem],
+      cncv: ChaJson.cncv,
+      jpcv: ChaJson.jpcv,
+      desc: ChaJson.desc,
+      talentCons: { a: 0, e: 0, q: 0 },
+      weaponTypeName: weaponKey[ChaJson.weapon],
+      elemName: elemKey[ChaJson.elem]
+    }
+    let terNum = Math.floor((ChaJson.attr.tree["1"].value + ChaJson.attr.tree["4"].value + ChaJson.attr.tree["5"].value + ChaJson.attr.tree["8"].value) * 100) / 100
+    let attr = [
+      { title: '基础生命', value: Math.floor(ChaJson.baseAttr.hp * 100) / 100 },
+      { title: '基础攻击', value: Math.floor(ChaJson.baseAttr.atk * 100) / 100 },
+      { title: '基础防御', value: Math.floor(ChaJson.baseAttr.def * 100) / 100 },
+      { title: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, value: terNum }
+    ]
+    let line = [
+      { label: '基础生命', num: Math.floor(ChaJson.baseAttr.hp * 100) / 100 },
+      { label: '基础攻击', num: Math.floor(ChaJson.baseAttr.atk * 100) / 100 },
+      { label: '基础防御', num: Math.floor(ChaJson.baseAttr.def * 100) / 100 },
+      { label: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, num: terNum }
+    ]
+    let detail = ChaJson
+    let imgs = {
+      face: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
+      qFace: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
+      side: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
+      gacha: `/meta-mc/character/${ChaJson.name}/imgs/gacha.webp`,
+      splash: `/meta-mc/character/${ChaJson.name}/imgs/splash.webp`,
+      card: `../../liangshi-calc/resources/wiki/card/${ChaJson.elem}.png`,
+      banner: `/meta-mc/character/${ChaJson.name}/imgs/banner.webp`,
+      cons1: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-1.webp`,
+      cons2: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-2.webp`,
+      cons3: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-3.webp`,
+      cons4: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-4.webp`,
+      cons5: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-5.webp`,
+      cons6: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-6.webp`,
+      passive0: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/passive-0.webp`,
+      passive1: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/passive-1.webp`,
+      passive2: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/passive-2.webp`,
+      passive3: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/passive-3.webp`,
+      a: process.cwd() + `/plugins/liangshi-calc/resources/wiki/weaponKey/${ChaJson.weapon}.webp`,
+      e: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/talent-e.webp`,
+      q: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/talent-q.webp`,
+      o: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/talent-o.webp`,
+      i: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/talent-i.webp`,
+      t: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/talent-t.webp`
+    }
+    let Tag = ChaJson.tag.name
+    Tag = Tag.map(id => ({
+      img: `../../liangshi-calc/resources/wiki/RoleLabel/${KeyName[id] || "未知"}.webp`,
+      name: KeyName[id] || id,
+      star: 1
+    }))
+    let materials = [
+      {
+        label: "贝币",
+        star: 3,
+        icon: 'meta-mc/material/consume/贝币.webp',
+        type: 'avatar_material',
+        num: '170000'
+      },
+      {
+        label: ChaJson.materials.boss || null,
+        star: 4,
+        icon: `meta-mc/material/boss/${ChaJson.materials.boss}.webp`,
+        type: 'boss',
+        num: '46'
+      },
+      {
+        label: abbr[ChaJson.materials.normal] || ChaJson.materials.normal || null,
+        star: 5,
+        icon: `meta-mc/material/monster/${ChaJson.materials.normal}.webp`,
+        type: 'normal',
+        num: '4/12/12/4'
+      },
+      {
+        label: ChaJson.materials.specialty || null,
+        star: 1,
+        icon: `meta-mc/material/specialty/${ChaJson.materials.specialty}.webp`,
+        type: 'specialty',
+        num: '60'
+      },
+      {
+        label: abbr[ChaJson.materials.talent] || ChaJson.materials.talent || null,
+        star: 5,
+        icon: `meta-mc/material/weapon/${ChaJson.materials.talent}.webp`,
+        type: 'talent',
+        num: ''
+      },
+      {
+        label: abbr[ChaJson.materials.weekly] || ChaJson.materials.weekly || null,
+        star: 4,
+        icon: `meta-mc/material/weekly/${ChaJson.materials.weekly}.webp`,
+        type: 'weekly',
+        num: ''
+      }
+    ]
+    materials = materials.filter(item => item.label !== null)
+    let elem = elemYsKey[ChaJson.elem]
+    return { data, attr, detail, imgs, Tag, materials, elem, line }
+  }
+
+  async McName (Name) {
+    if (CharacterAlias.hasOwnProperty(Name)) return [Name, "Character"]
+    for (const [key, value] of Object.entries(CharacterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Character"]}
+    if (WeaponAlias.hasOwnProperty(Name)) return [Name, "Weapon"]
+    for (const [key, value] of Object.entries(WeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon"]}
+    if (EchoAlias.hasOwnProperty(Name)) return [Name, "Echo"]
+    for (const [key, value] of Object.entries(EchoAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Echo"]}
+    if (ItemAlias.hasOwnProperty(Name)) return [Name, "Item"]
+    for (const [key, value] of Object.entries(ItemAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Item"]}
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/character/${Name}/data.json`)) return [Name, "Character"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/broadblade/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/gauntlets/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/pistols/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/projection/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/sword/${Name}/data.json`)) return [Name, "Weapon"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${Name}/data.json`)) return [Name, "Echo"]
+    return [Name, "false"]
+  }
+
+}

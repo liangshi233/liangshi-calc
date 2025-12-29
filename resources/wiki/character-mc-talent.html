@@ -1,0 +1,94 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character-mc-talent.css"/>
+{{/block}}
+
+{{block 'main'}}
+
+<div class="head-box" style="background-image:url('{{miao_res_path}}{{imgs.card}}')">
+  <div class="head">
+    <img src="{{miao_res_path}}{{imgs.qFace||imgs.face||imgs.side}}"/>
+  </div>
+  <div class="head-detail">
+    <div class="name">
+      {{title}}·{{name}}
+    </div>
+    <div class="desc">
+      {{@desc}}
+    </div>
+  </div>
+  {{ if line[0]?.num !== 'NaN'}}
+  <div class="data-box">
+    <div class="tab-label">90级基础数据</div>
+    <div class="data-line">
+      {{each line item}}
+      <div class="data_line_item">
+        <div class="num">{{item.num}}</div>
+        <div class="label">{{item.label}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{else}}
+  <div class="data-box">
+    <div class="tab-label">90级基础数据</div>
+    <div class="data-line">
+      暂无详细数据
+    </div>
+  </div>
+  {{/if}}
+</div>
+
+
+{{if mode == "talent"}}
+{{set talentKey = ['a','e','q','t','i','o'] }}
+{{each talentKey type}}
+{{if detail.talent[type]}}
+<div class="talent-box elem-bg">
+  <div class="talent-detail cont {{detail.talent[type+2]?'talent-merge':''}}">
+    {{set minLv = 3 }}
+    {{set maxLv = 10 }}
+    <% include(miao_tpl_path+'/talent-detail.html', [detail.talent[type], {miao_res_path,lvs,type,icon:imgs[type],minLv,maxLv,game}]) %>
+
+    {{set nums = ['1','2'] }}
+    {{each nums num}}
+    {{if detail.talent[type+num]}}
+    {{set minLv = 3 }}
+    {{set maxLv = 10 }}
+    <% include(miao_tpl_path+'/talent-detail.html', [detail.talent[type+num], {miao_res_path,lvs,type,icon:imgs[type+num],minLv,maxLv,game}]) %>
+    {{/if}}
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+{{/each}}
+
+<div class="talent-box elem-bg">
+  <div class="talent-detail passive-talent">
+    {{if game === 'gs'}}
+    {{each detail.passive pass idx}}
+    <% include(miao_tpl_path+'/talent-detail.html', [pass, {miao_res_path,icon:imgs['passive'+idx],game}]) %>
+    {{/each}}
+    {{else}}
+    {{each detail.treeData treeData idx}}
+    {{if treeData.type === 'skill'}}
+    <% include(miao_tpl_path+'/talent-detail.html', [treeData, {miao_res_path,icon:imgs['tree'+treeData.idx],game}]) %>
+    {{/if}}
+    {{/each}}
+    {{/if}}
+  </div>
+</div>
+{{/if}}
+
+{{if mode == "cons"}}
+<div class="talent-box elem-bg">
+  <div class="talent-detail">
+    {{each detail.cons con idx}}
+    <% include(miao_tpl_path+'/talent-detail.html', [con, {miao_res_path,lvs,type,icon:imgs['cons'+idx],game}]) %>
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+{{/block}}
+

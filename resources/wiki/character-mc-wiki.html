@@ -1,0 +1,77 @@
+{{extend elemLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/common/tpl.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/profile-detail.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/profile-list.css"/>
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/character-mc-wiki.css"/>
+{{/block}}
+
+{{set weapon = data.weapon}}
+{{set dataSource = data.dataSource}}
+
+
+{{block 'main'}}
+<div class="basic">
+  <div class="main-pic"
+       style="background-image:url({{miao_res_path}}{{imgs.splash}})"></div>
+  <div class="detail">
+    <div class="char-title">
+      <div class="char-name"><span>{{data.title}} · </span>{{data.name}}</div>
+      <div class="char-lv char-desc">{{@data.desc}}</div>
+    </div>
+    <div class="char-meta">
+      <div class="cont">
+        <ul class="attr char-attr">
+          <li><strong>武器类型</strong> <span>{{data.weaponTypeName}}</span></li>
+          <li><strong>共鸣力</strong> <span>{{data.astro}}</span></li>
+          <li><strong>生日</strong> <span>{{data.birthday}}</span></li>
+          <li><strong>归属</strong> <span>{{data.allegiance}}</span></li>
+          <li><strong>中文CV</strong> <span>{{data.cncv}}</span></li>
+          <li><strong>日文CV</strong> <span>{{data.jpcv}}</span></li>
+        </ul>
+      </div>
+      <div class="cont">
+        <div class="cont-title">90级基础属性{{if data.star}}（{{data.star}}星）{{/if}}</div>
+        <ul class="attr char-attr">
+          {{each attr ds}}
+          <li><strong>{{ds.title}}</strong> <span>{{ds.value}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="material-list">
+    {{each materials ds}}
+    <div class="material-{{ds.type}}">
+      <div class="num">{{ds.num}}</div>
+      <div class="item-card material-card">
+        <div class="item-icon star{{ds.star}} opacity-bg">
+          <div class="item-bg" style="background-image:url({{miao_res_path}}{{ds.icon}})"></div>
+        </div>
+        <div class="item-title">{{ds.label}}</div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+<div class="wiki-cont">
+  <div class="cont no-rank">
+    <div class="cont-title border-less">战斗风格</div>
+    <div class="char-list">
+      {{each Tag tags}}
+      <div class="ta-item">
+        <div class="item-icon tagbg-icon star{{tags.star}}">
+       <span class="img"
+             style="background-image:url({{miao_res_path}}{{tags.img}})"></span>
+        </div>
+        <span class="taname">{{tags.name}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="talent-notice">输入<strong>#鸣潮{{data.abbr}}天赋、#鸣潮{{data.abbr}}共鸣链</strong>可查看详细天赋/共鸣链信息</div>
+</div>
+{{/block}}
