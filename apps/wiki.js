@@ -33,7 +33,7 @@ export class Wiki extends plugin {
       // 不是角色-暂时跳过后续补充
       return false
     }
-    let wikiJson = await this.McJson(text[0])
+    let wikiJson = await this.McJson(text)
     return Common.render('wiki/character-mc-wiki', {
       data: wikiJson.data,
       attr: wikiJson.attr,
