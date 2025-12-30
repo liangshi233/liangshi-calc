@@ -97,7 +97,7 @@ export class Wiki extends plugin {
       "rectifier": "音感仪"
     }
     try {
-      ChaJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/character/${text}/data.json`, 'utf8')
+      ChaJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/character/${text[0]}/data.json`, 'utf8')
       ChaJson = JSON.parse(ChaJson)
     } catch (err) {
       console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")

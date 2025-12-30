@@ -3,6 +3,7 @@ import { alias as aliasSr } from '../../miao-plugin/resources/meta-sr/character/
 import { alias as aliasMc } from '../damage/liangshi-mc/data/alias.js'
 import plugin from '../../../lib/plugins/plugin.js'
 import common from '../../../lib/common/common.js'
+import { Common } from '../components/index.js'
 import { LSconfig } from '#liangshi'
 import fs from 'node:fs'
 
@@ -75,7 +76,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    let characterTime, weaponTime, artifactTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2
+    let characterTime, weaponTime, artifactTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2, servName
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
@@ -106,11 +107,14 @@ export class calc extends plugin {
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         if (cfg.mcApi === 2 || cfg.mcApi === 3) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/new`
+          servName = "encore.moe"
         } else {
           url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+          servName = "hakush.in"
         }
       } else {
         url = `${ProxyUrl}https://api.hakush.in/${game}/new.json`
+        servName = "hakush.in"
       }
       response = await fetch(url)
       if (!response.ok) {
@@ -372,11 +376,119 @@ export class calc extends plugin {
         return item.set[firstSetKey]?.name?.CHS ?? "未知名字"
       })
     }
-    if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何${CharacterName}`
-    if (WeaponNameText.length === 0) WeaponNameText = `本次没有更新任何${WeaponName}`
-    if (ArtifactNameText.length === 0) ArtifactNameText = `本次没有更新任何${ArtifactName}`
-    e.reply(`[liangshi-calc] ${GameName} ${version} 版本更新完成\n已为您更新\n\n${CharacterName}：\n${CharacterNameText}\n\n${WeaponName}：\n${WeaponNameText}\n\n${ArtifactName}：\n${ArtifactNameText}\n\n物品${data.item.length}个\n\n重启后即可使用相关内容`)
-    return false
+    try {
+      let webp, webp3, a, b, c, d, i, f, g, h, j
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        webp = "side"
+        webp3 = "img"
+        a = ""
+        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/character/data.json', 'utf8')
+        c = JSON.parse(c)
+        d = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/broadblade/data.json', 'utf8')
+        d = JSON.parse(d)
+        i = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/gauntlets/data.json', 'utf8')
+        i = JSON.parse(i)
+        f = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/pistols/data.json', 'utf8')
+        f = JSON.parse(f)
+        g = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/data.json', 'utf8')
+        g = JSON.parse(g)
+        h = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/sword/data.json', 'utf8')
+        h = JSON.parse(h)
+        Object.values(d).forEach(ccb => {ccb.type = "broadblade"})
+        Object.values(i).forEach(ccb => {ccb.type = "gauntlets"})
+        Object.values(f).forEach(ccb => {ccb.type = "pistols"})
+        Object.values(g).forEach(ccb => {ccb.type = "rectifier"})
+        Object.values(h).forEach(ccb => {ccb.type = "sword"})
+        j = { ...d, ...i, ...f, ...g, ...h }
+      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+        webp = "face"
+        webp3 = "arti-0"
+        a = ""
+        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/character/data.json', 'utf8')
+        c = JSON.parse(c)
+        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/artifact/data.json', 'utf8')
+        b = JSON.parse(b)
+        j = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/weapon/data.json', 'utf8')
+        j = JSON.parse(j)
+      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+        webp = "face"
+        webp3 = "1"
+        a = "/imgs"
+        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/character/data.json', 'utf8')
+        c = JSON.parse(c)
+        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/artifact/data.json', 'utf8')
+        b = JSON.parse(b)
+        d = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/bow/data.json', 'utf8')
+        d = JSON.parse(d)
+        i = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/catalyst/data.json', 'utf8')
+        i = JSON.parse(i)
+        f = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/claymore/data.json', 'utf8')
+        f = JSON.parse(f)
+        g = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/polearm/data.json', 'utf8')
+        g = JSON.parse(g)
+        h = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/sword/data.json', 'utf8')
+        h = JSON.parse(h)
+        Object.values(d).forEach(ccb => {ccb.type = "bow"})
+        Object.values(i).forEach(ccb => {ccb.type = "catalyst"})
+        Object.values(f).forEach(ccb => {ccb.type = "claymore"})
+        Object.values(g).forEach(ccb => {ccb.type = "polearm"})
+        Object.values(h).forEach(ccb => {ccb.type = "sword"})
+        j = { ...d, ...i, ...f, ...g, ...h }
+      } else {
+        webp = "face"
+        webp3 = "img"
+        a = "/imgs"
+        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/character/data.json', 'utf8')
+        c = JSON.parse(c)
+        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/artifact/data.json', 'utf8')
+        b = JSON.parse(b)
+        j = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/weapon/data.json', 'utf8')
+        j = JSON.parse(j)
+      }
+      let chars = character.filter(id => c.hasOwnProperty(id)).map(id => ({
+        face: `/meta-${GamePath}/character/${c[id].name}/imgs/${webp}.webp`,
+        name: c[id].name,
+        abbr: c[id].abbr || c[id].name,
+        star: c[id].star
+      }))
+      let weapons = weapon.filter(id => j.hasOwnProperty(id)).map(id => ({
+        face: `/meta-${GamePath}/weapon/${j[id].type}/${j[id].name}/icon.webp`,
+        name: j[id].name,
+        abbr: j[id].abbr || j[id].name,
+        star: j[id].star
+      }))
+      let artis = ArtifactNameText.map(id => ({
+        face: `/meta-${GamePath}/artifact${a}/${id}/${webp3}.webp`,
+        name: id,
+        star: 5
+      }))
+      return await Common.render('wiki/ver-new', {
+        gamever: version,
+        gameid: GameName,
+        TxName: {
+          js: CharacterName,
+          wq: WeaponName,
+          zb: ArtifactName
+        },
+        jsNum: character.length,
+        wqNum: weapon.length,
+        zbNum: artifact.length,
+        wpNum: data.item.length,
+        chars,
+        weapons,
+        artis,
+        servName,
+        updateTime: { characterTime, weaponTime, artifactTime, itemTime },
+        elem: 'hydro'
+      }, { e, scale: 1.6, retType: 'base64' })
+    } catch (err) {
+      console.error('[liangshi-calc] 生成图片时遇到了一些问题，但这并不影响功能:', err)
+      if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何${CharacterName}`
+      if (WeaponNameText.length === 0) WeaponNameText = `本次没有更新任何${WeaponName}`
+      if (ArtifactNameText.length === 0) ArtifactNameText = `本次没有更新任何${ArtifactName}`
+      e.reply(`[liangshi-calc] ${GameName} ${version} 版本更新完成\n已为您更新\n\n${CharacterName}：\n${CharacterNameText}\n\n${WeaponName}：\n${WeaponNameText}\n\n${ArtifactName}：\n${ArtifactNameText}\n\n物品${data.item.length}个\n\n重启后即可使用相关内容`)
+      return false
+    }
   }
 
   async ItemNew (e, mode, JsonOk) {
@@ -4643,31 +4755,35 @@ export class calc extends plugin {
   }
 
   async getImg (url, Path, name) {
-    if (!await common.downFile(url, Path)) {
-      console.error(`[liangshi-calc]下载${name}图片失败，5秒后重试`)
-      await common.sleep(5000)
+    try {
       if (!await common.downFile(url, Path)) {
-        console.error(`[liangshi-calc]重试下载${name}图片失败`)
-        let filePath = "./plugins/liangshi-calc/resources/log.json"
-        let oldLog = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '{}'
-        let y = JSON.parse(oldLog)
-        y[new Date()] = { url, Path, name, text: "下载图片错误" }
-        let bbxzData = JSON.stringify(y, null, 2)
-        fs.writeFile(filePath, bbxzData, 'utf8', (err) => {
-          if (err) {
-            console.error('[liangshi-calc]下载失败内容已记录失败:\n', err)
-            return false
-          } else {
-            logger.mark('[liangshi-calc]下载失败内容已记录')
-          }
-        })
-        return false
+        console.error(`[liangshi-calc]下载${name}图片失败，5秒后重试`)
+        await common.sleep(5000)
+        if (!await common.downFile(url, Path)) {
+          console.error(`[liangshi-calc]重试下载${name}图片失败`)
+          let filePath = "./plugins/liangshi-calc/resources/log.json"
+          let oldLog = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '{}'
+          let y = JSON.parse(oldLog)
+          y[new Date()] = { url, Path, name, text: "下载图片错误" }
+          let bbxzData = JSON.stringify(y, null, 2)
+          fs.writeFile(filePath, bbxzData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]下载失败内容已记录失败:\n', err)
+              return false
+            } else {
+              logger.mark('[liangshi-calc]下载失败内容已记录')
+            }
+          })
+          return false
+        }
+        logger.mark(`[liangshi-calc]下载${name}图片成功`)
+        return true
       }
       logger.mark(`[liangshi-calc]下载${name}图片成功`)
       return true
+    } catch (err) {
+      console.log(err)
+      return true
     }
-    logger.mark(`[liangshi-calc]下载${name}图片成功`)
-    return true
   }
-
 }
