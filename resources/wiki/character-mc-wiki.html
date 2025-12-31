@@ -72,6 +72,17 @@
     </div>
   </div>
 
+  {{if Features}}
+  <div class="cont no-rank">
+    <div class="cont-title border-less">战斗特色</div>
+    <div class="features-desc">
+      {{each Features fea}}
+      <p>{{@fea}}</p>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
   <div class="talent-notice">输入<strong>#鸣潮{{data.abbr}}天赋、#鸣潮{{data.abbr}}共鸣链</strong>可查看详细天赋/共鸣链信息</div>
 </div>
 {{/block}}

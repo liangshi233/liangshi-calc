@@ -7,6 +7,17 @@
 body {
   width: 600px;
 }
+.features-desc {
+  font-size: 14px;
+  line-height: 26px;
+  padding: 0 10px 10px 15px;
+}
+.features-desc .highlight {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #d3bc8e;
+}
 .container {
   width: 600px;
   padding: 0;

@@ -2851,6 +2851,7 @@ export class calc extends plugin {
               keys: Object.keys(data.Tag),
               name: Object.values(data.Tag).map(ccb => ccb.Name)
             },
+            "Features": data.ForteNew?.Features,
             "ver": 1,
             "baseAttr": {
               "hp": data.Stats["6"]["90"].Life,

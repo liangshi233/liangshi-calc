@@ -40,6 +40,7 @@ export class Wiki extends plugin {
       detail: wikiJson.detail,
       imgs: wikiJson.imgs,
       Tag: wikiJson.Tag,
+      Features: wikiJson.Features,
       holding: wikiJson.holding,
       usage: wikiJson.usage,
       materials: wikiJson.materials,
@@ -174,6 +175,7 @@ export class Wiki extends plugin {
       { label: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, num: terNum }
     ]
     let detail = ChaJson
+    let Features = ChaJson.Features.map(ccb => ccb.replace(/<color=[^>]*>(.*?)<\/color>/g, '<span class="highlight">$1</span>'))
     let imgs = {
       face: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
       qFace: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
@@ -251,7 +253,7 @@ export class Wiki extends plugin {
     ]
     materials = materials.filter(item => item.label !== null)
     let elem = elemYsKey[ChaJson.elem]
-    return { data, attr, detail, imgs, Tag, materials, elem, line }
+    return { data, attr, detail, imgs, Tag, materials, elem, line, Features }
   }
 
   async McName (Name) {
