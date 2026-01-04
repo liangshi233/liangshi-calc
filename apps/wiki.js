@@ -14,11 +14,11 @@ export class Wiki extends plugin {
         priority: 5000,
         rule: [
           {
-            reg: '^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)图鉴$',
+            reg: '^#*(mc|MC|鸣潮|鸣朝|明潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)图鉴$',
             fnc: 'McWiki'
           },
           {
-            reg: '^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$',
+            reg: '^#*(mc|MC|鸣潮|鸣朝|明潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$',
             fnc: 'Mctalent'
           }
         ]
@@ -27,7 +27,7 @@ export class Wiki extends plugin {
   }
 
   async McWiki (e) {
-    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|ls|LS)(.*?)图鉴$/)
+    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|鸣朝|明潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)图鉴$/)
     let text = await this.McName(TextData[2])
     if (text[1] !== "Character") {
       // 不是角色-暂时跳过后续补充
@@ -49,7 +49,7 @@ export class Wiki extends plugin {
   }
 
   async Mctalent (e) {
-    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$/)
+    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$/)
     let mode, text = await this.McName(TextData[2])
     if (TextData[3] === "天赋" || TextData[3] === "技能") { mode = "talent" } else { mode = "cons" }
     if (!text) return false
@@ -175,7 +175,7 @@ export class Wiki extends plugin {
       { label: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, num: terNum }
     ]
     let detail = ChaJson
-    let Features = ChaJson.Features.map(ccb => ccb.replace(/<color=[^>]*>(.*?)<\/color>/g, '<span class="highlight">$1</span>'))
+    let Features = ChaJson.Features?.map(ccb => ccb.replace(/<color=[^>]*>(.*?)<\/color>/g, '<span class="highlight">$1</span>'))
     let imgs = {
       face: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
       qFace: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
