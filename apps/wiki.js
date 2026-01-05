@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { Common } from '../components/index.js'
-import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias } from '../resources/wiki/alias.js'
+import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias } from '../damage/liangshi-mc/data/alias.js'
 import { abbr } from '../resources/wiki/abbr.js'
 import fs from 'node:fs'
 
@@ -49,7 +49,7 @@ export class Wiki extends plugin {
   }
 
   async Mctalent (e) {
-    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$/)
+    let TextData = e.msg.match(/^#*(mc|MC|鸣潮|鸣朝|明潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)(天赋|技能|共鸣链|命座)$/)
     let mode, text = await this.McName(TextData[2])
     if (TextData[3] === "天赋" || TextData[3] === "技能") { mode = "talent" } else { mode = "cons" }
     if (!text) return false
