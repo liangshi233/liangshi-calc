@@ -22,6 +22,7 @@ import fs from 'node:fs'
  * 如果有新的问题建议去issue反馈
  */
 
+let DQ = Intl.DateTimeFormat().resolvedOptions().locale
 
 export class calc extends plugin {
   constructor () {
@@ -76,6 +77,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     let characterTime, weaponTime, artifactTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2, servName
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
@@ -496,6 +498,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
@@ -1050,6 +1053,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
@@ -1160,6 +1164,8 @@ export class calc extends plugin {
           WeaponType = "丰饶"
         } else if (data.BaseType === "Memory") {
           WeaponType = "记忆"
+        } else if (data.BaseType === "Elation") {
+          WeaponType = "欢愉"
         }
       }
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
@@ -1445,7 +1451,7 @@ export class calc extends plugin {
           "id": ID,
           "name": data.Name,
           "star": Number(data.Rarity.charAt(data.Rarity.length - 1)),
-          "desc": data.Desc.replace(/\\n/g, '<br />'),
+          "desc": data.Desc?.replace(/\\n/g, '<br />'),
           "type": WeaponType,
           "typeId": 0,
           "baseAttr": {
@@ -1652,6 +1658,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
@@ -2059,7 +2066,7 @@ export class calc extends plugin {
               "1": {
                 "name": data.Parts[idxsKey].Name,
                 "desc": data.Parts[idxsKey].Desc,
-                "lore": data.Parts[idxsKey].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 0]: 2,
                   [idxsKey + 10000 * 1 + 1 * 0]: 3,
@@ -2070,7 +2077,7 @@ export class calc extends plugin {
               "2": {
                 "name": data.Parts[idxsKey + 1].Name,
                 "desc": data.Parts[idxsKey + 1].Desc,
-                "lore": data.Parts[idxsKey + 1].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey + 1].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 1]: 2,
                   [idxsKey + 10000 * 1 + 1 * 1]: 3,
@@ -2081,7 +2088,7 @@ export class calc extends plugin {
               "3": {
                 "name": data.Parts[idxsKey + 2].Name,
                 "desc": data.Parts[idxsKey + 2].Desc,
-                "lore": data.Parts[idxsKey + 2].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey + 2].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 2]: 2,
                   [idxsKey + 10000 * 1 + 1 * 2]: 3,
@@ -2092,7 +2099,7 @@ export class calc extends plugin {
               "4": {
                 "name": data.Parts[idxsKey + 3].Name,
                 "desc": data.Parts[idxsKey + 3].Desc,
-                "lore": data.Parts[idxsKey + 3].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey + 3].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 3]: 2,
                   [idxsKey + 10000 * 1 + 1 * 3]: 3,
@@ -2106,7 +2113,7 @@ export class calc extends plugin {
               "5": {
                 "name": data.Parts[idxsKey].Name,
                 "desc": data.Parts[idxsKey].Desc,
-                "lore": data.Parts[idxsKey].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 0]: 2,
                   [idxsKey + 10000 * 1 + 1 * 0]: 3,
@@ -2117,7 +2124,7 @@ export class calc extends plugin {
               "6": {
                 "name": data.Parts[idxsKey + 1].Name,
                 "desc": data.Parts[idxsKey + 1].Desc,
-                "lore": data.Parts[idxsKey + 1].Story.replace(/\\n/g, '<br />'),
+                "lore": data.Parts[idxsKey + 1].Story?.replace(/\\n/g, '<br />'),
                 "ids": {
                   [idxsKey + 10000 * 0 + 1 * 1]: 2,
                   [idxsKey + 10000 * 1 + 1 * 1]: 3,
@@ -2183,6 +2190,7 @@ export class calc extends plugin {
   async VerNew (e) {
     let cfg = LSconfig.getConfig('user', 'config')
     let url, character, response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
       game = "gi"
       GameName = "原神"
@@ -2457,6 +2465,7 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
     if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
       if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
       logger.mark('[liangshi-calc]更新被中断')
