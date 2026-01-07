@@ -352,6 +352,8 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取成功`)
     } catch (err) {
       logger.mark(`[liangshi-calc]云端数据读取异常`)
+      e.reply('[liangshi-calc]网络不佳，请稍后重试')
+      return false
     }
     let CharacterNameText, WeaponNameText, ArtifactNameText
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
