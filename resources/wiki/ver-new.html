@@ -5,9 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/profile-list.css"/>
 {{/block}}
 
-
 {{block 'main'}}
-{{set demo = chars[0]?.abbr || "雷神" }}
 <div class="profile-cont game-{{game}}">
   <div class="head-box">
     <div class="title">{{gameid}}资源更新
@@ -17,25 +15,17 @@
     </div>
   </div>
 
-
-  <div class="cont group-rank-tip {{has-rank}}">
+  {{if jsNum > 0}}
+  <div class="cont no-rank">
     <div class="cont-title">
       <span style="font-size: 15px">本次更新的{{TxName.js}}</span>
-      <span class="rank-time">
-      共计 {{jsNum}} 个
-    </span>
+      <span class="rank-time">共计 {{jsNum}} 个</span>
     </div>
-  </div>
-
-
-
-  <div class="cont no-rank">
     <div class="char-list">
       {{each chars char}}
       <div class="char-item">
         <div class="item-icon char-icon star{{char.star}}">
-       <span class="img"
-             style="background-image:url({{miao_res_path}}{{char.face}})"></span>
+          <span class="img" style="background-image:url({{miao_res_path}}{{char.face}})"></span>
         </div>
         <span class="name">{{char.abbr}}</span>
       </div>
@@ -43,29 +33,22 @@
     </div>
     <div class="cont-footer">
       <span>{{if updateTime.characterTime }} 更新时间：{{updateTime.characterTime}} {{/if}}</span>
-      <span class="serv">
-      使用的API：{{servName}}
-    </span>
+      <span class="serv">使用的API：{{servName}}</span>
     </div>
   </div>
+  {{/if}}
 
-
-  <div class="cont group-rank-tip {{has-rank}}">
+  {{if wqNum > 0}}
+  <div class="cont no-rank">
     <div class="cont-title">
       <span style="font-size: 15px">本次更新的{{TxName.wq}}</span>
-      <span class="rank-time">
-      共计 {{wqNum}} 个
-    </span>
+      <span class="rank-time">共计 {{wqNum}} 个</span>
     </div>
-  </div>
-
-  <div class="cont no-rank">
     <div class="char-list">
       {{each weapons weapon}}
       <div class="char-item">
         <div class="item-icon char-icon star{{weapon.star}}">
-       <span class="img"
-             style="background-image:url({{miao_res_path}}{{weapon.face}})"></span>
+          <span class="img" style="background-image:url({{miao_res_path}}{{weapon.face}})"></span>
         </div>
         <span class="name">{{weapon.name}}</span>
       </div>
@@ -73,34 +56,22 @@
     </div>
     <div class="cont-footer">
       <span>{{if updateTime.weaponTime }} 更新时间：{{updateTime.weaponTime}} {{/if}}</span>
-      <span class="serv">
-      使用的API：{{servName}}
-    </span>
+      <span class="serv">使用的API：{{servName}}</span>
     </div>
   </div>
+  {{/if}}
 
-
-
-
-
-
-  <div class="cont group-rank-tip {{has-rank}}">
+  {{if zbNum > 0}}
+  <div class="cont no-rank">
     <div class="cont-title">
       <span style="font-size: 15px">本次更新的{{TxName.zb}}</span>
-      <span class="rank-time">
-      共计 {{zbNum}} 个
-    </span>
+      <span class="rank-time">共计 {{zbNum}} 个</span>
     </div>
-  </div>
-
-
-  <div class="cont no-rank">
     <div class="char-list">
       {{each artis arti}}
       <div class="char-item">
         <div class="item-icon char-icon star{{arti.star}}">
-       <span class="img"
-             style="background-image:url({{miao_res_path}}{{arti.face}})"></span>
+          <span class="img" style="background-image:url({{miao_res_path}}{{arti.face}})"></span>
         </div>
         <span class="name">{{arti.name}}</span>
       </div>
@@ -108,20 +79,19 @@
     </div>
     <div class="cont-footer">
       <span>{{if updateTime.artifactTime }} 更新时间：{{updateTime.artifactTime}} {{/if}}</span>
-      <span class="serv">
-      使用的API：{{servName}}
-    </span>
+      <span class="serv">使用的API：{{servName}}</span>
     </div>
   </div>
+  {{/if}}
 
+  {{if wpNum > 0}}
   <div class="cont group-rank-tip {{has-rank}}">
     <div class="cont-title">
       <span style="font-size: 15px">本次更新的物品</span>
-      <span class="rank-time">
-      共计 {{wpNum}} 个
-    </span>
+      <span class="rank-time">共计 {{wpNum}} 个</span>
     </div>
   </div>
+  {{/if}}
 
 </div>
 {{/block}}
