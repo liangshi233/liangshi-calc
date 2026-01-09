@@ -46,11 +46,11 @@ export class calc extends plugin {
             fnc: 'VerNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(最|当前最)?新版本(完整|全部)?(数据|资源|内容|资源数据)$',
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料)?(数据|资源|内容|资源数据)$',
             fnc: 'New'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?$',
             fnc: 'CharacterNew'
           },
           {
@@ -218,6 +218,15 @@ export class calc extends plugin {
       } catch (err) {
         logger.mark(err)
       }
+    }
+    if (/角色|共鸣者/.test(e.msg)) {
+      weapon = [], artifact = [], data.item = []
+    } else if (/武器|光锥/.test(e.msg)) {
+      character = [], artifact = [], data.item = []
+    } else if (/圣遗物|声骸/.test(e.msg)) {
+      character = [], weapon = [], data.item = []
+    } else if (/物品|材料/.test(e.msg)) {
+      character = [], weapon = [], artifact = []
     }
     let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + data.item.length * 2) / 60) * 10) / 10
     let y = Math.round(UseTime * 0.75 * 10) / 10
