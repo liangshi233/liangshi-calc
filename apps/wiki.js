@@ -2,6 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import { Common } from '../components/index.js'
 import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias } from '../damage/liangshi-mc/data/alias.js'
 import { abbr } from '../resources/wiki/abbr.js'
+import { source, matNum, attrKey, exclusive } from '../damage/liangshi-mc/data/weapon.js'
 import fs from 'node:fs'
 
 export class Wiki extends plugin {
@@ -29,23 +30,34 @@ export class Wiki extends plugin {
   async McWiki (e) {
     let TextData = e.msg.match(/^#*(mc|MC|鸣潮|鸣朝|明潮|明朝|鸟潮|鸟朝|鸟巢|ls|LS)(.*?)图鉴$/)
     let text = await this.McName(TextData[2])
-    if (text[1] !== "Character") {
-      // 不是角色-暂时跳过后续补充
+    if (text[0] === "") return false
+    if (text[1] === "Character") {
+      let wikiJson = await this.McJson(text)
+      return Common.render('wiki/character-mc-wiki', {
+        data: wikiJson.data,
+        attr: wikiJson.attr,
+        detail: wikiJson.detail,
+        imgs: wikiJson.imgs,
+        Tag: wikiJson.Tag,
+        Features: wikiJson.Features,
+        holding: wikiJson.holding,
+        usage: wikiJson.usage,
+        materials: wikiJson.materials,
+        elem: wikiJson.elem
+      }, { e, scale: 1.4 })
+    } else if (text[1] === "Weapon") {
+      let wikiJson = await this.McWeapon(text)
+      return Common.render('wiki/weapon-mc-wiki', {
+        data: wikiJson.data,
+        attr: wikiJson.attr,
+        skill: wikiJson.skill,
+        materials: wikiJson.materials,
+        imgs: wikiJson.imgs
+      }, { e, scale: 1.4 })
+    } else {
+      // 不是角色与武器-暂时跳过后续补充
       return false
     }
-    let wikiJson = await this.McJson(text)
-    return Common.render('wiki/character-mc-wiki', {
-      data: wikiJson.data,
-      attr: wikiJson.attr,
-      detail: wikiJson.detail,
-      imgs: wikiJson.imgs,
-      Tag: wikiJson.Tag,
-      Features: wikiJson.Features,
-      holding: wikiJson.holding,
-      usage: wikiJson.usage,
-      materials: wikiJson.materials,
-      elem: wikiJson.elem
-    }, { e, scale: 1.4 })
   }
 
   async Mctalent (e) {
@@ -256,7 +268,158 @@ export class Wiki extends plugin {
     return { data, attr, detail, imgs, Tag, materials, elem, line, Features }
   }
 
+  async McWeapon (text) {
+    let type, WeaJson, ItemJson
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/broadblade/${text[0]}/data.json`)) type = "broadblade"
+    else if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/gauntlets/${text[0]}/data.json`)) type = "gauntlets"
+    else if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/pistols/${text[0]}/data.json`)) type = "pistols"
+    else if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/projection/${text[0]}/data.json`)) type = "projection"
+    else if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/${text[0]}/data.json`)) type = "rectifier"
+    else if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/sword/${text[0]}/data.json`)) type = "sword"
+    else return false
+    try {
+      WeaJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/weapon/${type}/${text[0]}/data.json`, 'utf8')
+      WeaJson = JSON.parse(WeaJson)
+      ItemJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/material/data.json`, 'utf8')
+      ItemJson = JSON.parse(ItemJson)
+    } catch (err) {
+      console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")
+      console.warn(err)
+      return false
+    }
+    let materials = [
+      {
+        label: "特级能源核心",
+        star: 5,
+        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/exchange/特级能源核心.webp',
+        type: 'exchange',
+        num: matNum[WeaJson.star].exp
+      },
+      {
+        label: "贝币",
+        star: 3,
+        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/consume/贝币.webp',
+        type: 'avatar_material',
+        num: matNum[WeaJson.star].avatar_material
+      },
+      {
+        label: WeaJson.materials.weapon || null,
+        star: 5,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${WeaJson.materials.weapon}.webp`,
+        type: 'talent',
+        num: matNum[WeaJson.star].talent[0]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[2] || null,
+        star: 4,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[2]}.webp`,
+        type: 'talent',
+        num: matNum[WeaJson.star].talent[1]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[1] || null,
+        star: 3,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[1]}.webp`,
+        type: 'talent',
+        num: matNum[WeaJson.star].talent[1]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[0] || null,
+        star: 2,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[0]}.webp`,
+        type: 'talent',
+        num: matNum[WeaJson.star].talent[1]
+      },
+      {
+        label: WeaJson.materials.monster || null,
+        star: 5,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${WeaJson.materials.monster}.webp`,
+        type: 'normal',
+        num: matNum[WeaJson.star].normal[0]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[2] || null,
+        star: 4,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[2]}.webp`,
+        type: 'normal',
+        num: matNum[WeaJson.star].normal[1]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[1] || null,
+        star: 3,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[1]}.webp`,
+        type: 'normal',
+        num: matNum[WeaJson.star].normal[2]
+      },
+      {
+        label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[0] || null,
+        star: 2,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[0]}.webp`,
+        type: 'normal',
+        num: matNum[WeaJson.star].normal[3]
+      }
+    ]
+    let SourceKey = []
+    for (const [key, zfc] of Object.entries(source)) {
+      if (Array.isArray(zfc) && zfc.includes(WeaJson.name)) {
+        SourceKey.push(key)
+      }
+    }
+    SourceKey = SourceKey.length > 0 ? SourceKey.join(',') : '限定唤取'
+    let skillDesc = WeaJson.affixData?.text?.replace(/\$\[(\d+)\]/g, (bbc, ccb) => {
+      let cbc = WeaJson.affixData?.datas[ccb]
+      if (!cbc) return bbc
+      return cbc.every(bcb => bcb === cbc[0]) ? cbc[0] : `<span class="strong">${cbc.join('/')}</span>`
+    })
+    let skill = {
+      text: WeaJson.affixTitle,
+      desc: [skillDesc],
+    }
+    let data = {
+      name: WeaJson.name,
+      star: WeaJson.star,
+      desc: WeaJson.desc,
+      affixTitle: WeaJson.affixTitle,
+      source: SourceKey
+    }
+    let attr = WeaJson.attr
+    let exclusiveName
+    for (let key in exclusive) {
+      if (exclusive.hasOwnProperty(key) && exclusive[key] === WeaJson.name) {
+        exclusiveName = key
+        break
+      }
+    }
+    let imgs = {
+      icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/weapon/${type}/${WeaJson.name}/icon.webp`,
+      type: process.cwd() + `/plugins/liangshi-calc/resources/wiki/weaponKey/${type}.webp`,
+      character: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${exclusiveName}/imgs/side.webp`
+    }
+    let bonusKey = {
+      "atkPct": "攻击力",
+      "hpPct": "生命值",
+      "defPct": "防御力",
+      "recharge": "共鸣效率",
+      "cpct": "暴击率",
+      "cdmg": "暴击伤害",
+    }
+    attr.attrText = {
+      atk: `${attrKey[WeaJson.star]?.[attr.atk[1]]?.front || ""}${Math.floor(attr.atk[90])}${attrKey[WeaJson.star]?.[attr.atk[1]]?.after || ""}`,
+      bonus: `${attrKey[WeaJson.star]?.[attr.atk[1]]?.opFront || ""}${Math.floor(attr.bonusData[90])}%${attrKey[WeaJson.star]?.[attr.atk[1]]?.after || ""}`
+    }
+    attr.bonusKey = bonusKey[WeaJson.attr?.bonusKey]
+    return {
+      data: data,
+      attr: attr,
+      skill: skill,
+      materials: materials,
+      imgs: imgs,
+      bonusKey: bonusKey[WeaJson.attr?.bonusKey],
+    }
+  }
+
   async McName (Name) {
+    if (Name.includes("专武")) {if (CharacterAlias.hasOwnProperty(Name.replace(/专武/g, ''))) return [exclusive[Name.replace(/专武/g, '')], "Weapon"];for (const [key, value] of Object.entries(CharacterAlias)) {if (value.split(',').map(part => part.trim()).includes(Name.replace(/专武/g, ''))) {Name = key; break}} return [exclusive[Name], "Weapon"]}
     if (CharacterAlias.hasOwnProperty(Name)) return [Name, "Character"]
     for (const [key, value] of Object.entries(CharacterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Character"]}
     if (WeaponAlias.hasOwnProperty(Name)) return [Name, "Weapon"]
