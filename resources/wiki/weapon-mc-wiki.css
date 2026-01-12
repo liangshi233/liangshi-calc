@@ -98,6 +98,15 @@ body {
   transform: translateY(-2px);
 }
 
+.game-key {
+  float: right;
+  vertical-align: middle;
+  margin-right: 5px;
+  position: static;
+  height: 32px;
+  transform: translateY(2px);
+}
+
 .log-direct {
   flex: 1;
   max-width: 62%;
