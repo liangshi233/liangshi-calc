@@ -1,0 +1,74 @@
+<html lang="zh-cn">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <link rel="shortcut icon" href="#"/>
+      <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/echo-mc-wiki.css"/>
+      <link rel="preload" href="{{_res_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+      <title>liangshi-calc</title>
+      {{block 'css'}}
+      {{/block}}
+    </head>
+
+  <body>
+    <div class="title">
+      <div class="title-title">{{data.Name}}<img src="{{_res_path}}/wiki/imgs/mc.png" class="game-key"></div>
+    </div>
+    <div class="container">
+      <div class="echo-container">
+        <img src="{{imgs.icon}}" alt="暂无声骸图片" class="echo-image">
+      </div>
+      <div class="log-direct">
+        <div class="cont">
+          <ul class="echo-attr">
+            <li><strong>Code</strong> <span>{{data.Code || "未知"}}</span></li>
+            <li><strong>Cons</strong> <span>{{data.Cons}}</span></li>
+            <li><strong>稀有度</strong> <span>{{data.Intensity || "未知"}}</span></li>
+            <li><strong>伤害类型</strong> <span>{{type.elem}}</span></li>
+            <li><strong>技能类型</strong> <span>{{type.skill}}</span></li>
+            <li><strong>特殊效果</strong> <span>{{type.key}}</span></li>
+            <li><strong>出生</strong> <span>{{data.Place || "未知"}}</span></li>
+            <li><strong>类型</strong> <span>{{data.Type || "未知"}}</span></li>
+            <li><strong>星级</strong> <span>{{data.Rarity[0]}}~{{data.Rarity[data.Rarity.length - 1]}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-body">
+        <img src="{{imgs.skill}}" class="echo-skill">
+        <div>
+        {{@skillDesc}}
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex;flex-wrap: wrap">
+      {{each Group groups}}
+      <div class="group">
+        <div class="group-body">
+          <div class="group-suit">
+            <img src="{{groups.icon}}" class="group-skill">
+            <div class="group-name">{{groups.name}}</div>
+          </div>
+          <div class="group-effect">
+            {{@groups.effect}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div class="black">
+      <div class="copyright">{{@sys.copyright}}</div>
+    </div>
+  </body>
+</html>
+
+
+
+
+

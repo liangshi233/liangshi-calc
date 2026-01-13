@@ -54,8 +54,17 @@ export class Wiki extends plugin {
         materials: wikiJson.materials,
         imgs: wikiJson.imgs
       }, { e, scale: 1.4 })
+    } else if (text[1] === "Echo") {
+      let wikiJson = await this.McEcho(text)
+      return Common.render('wiki/echo-mc-wiki', {
+        data: wikiJson.data,
+        imgs: wikiJson.imgs,
+        Group: wikiJson.Group,
+        skillDesc: wikiJson.skillDesc,
+        type: wikiJson.type
+      }, { e, scale: 1.4 })
     } else {
-      // 不是角色与武器-暂时跳过后续补充
+      // 不是角色,武器与声骸-暂时跳过后续补充
       return false
     }
   }
@@ -415,6 +424,80 @@ export class Wiki extends plugin {
       materials: materials,
       imgs: imgs,
       bonusKey: bonusKey[WeaJson.attr?.bonusKey],
+    }
+  }
+
+  async McEcho (text) {
+    let EchoJson, GroupJson
+    try {
+      EchoJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${text[0]}/data.json`, 'utf8')
+      EchoJson = JSON.parse(EchoJson)
+      GroupJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/artifact/data.json`, 'utf8')
+      GroupJson = JSON.parse(GroupJson)
+    } catch (err) {
+      console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")
+      console.warn(err)
+      return false
+    }
+    let Cons, Group
+    Group = EchoJson.Group.map(key => {if (GroupJson.hasOwnProperty(key)) {return GroupJson[key]} return null})
+    Group = Group.map(({ sets, UpdateTime, effect: oldEffect, ...rest }) => {
+      let newEffect = oldEffect ? Object.entries(oldEffect).map(([key, value]) => `<span class="suit">${key}件套：</span>${value}<br>`) : []
+      newEffect = newEffect.map((ccb, bbc) => bbc === newEffect.length - 1 ? ccb.replace(/<br>$/, '') : ccb).join('')
+      return {
+        ...rest,
+        effect: newEffect,
+        icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/echoKey/${rest.id}.webp`
+      }
+    })
+    if (EchoJson.Intensity === "海啸级") Cons = "Cons4"
+    else if (EchoJson.Intensity === "怒涛级") Cons = "Cons4"
+    else if (EchoJson.Intensity === "巨浪级") Cons = "Cons3"
+    else if (EchoJson.Intensity === "轻波级") Cons = "Cons1"
+    else Cons = "Cons？"
+    let data = {
+      Name: EchoJson.Name,
+      Type: EchoJson.Type,
+      Rarity: EchoJson.Rarity,
+      Intensity: EchoJson.Intensity,
+      Place: EchoJson.Place,
+      Code: EchoJson.Code,
+      Cons: Cons
+    }
+    let skillDesc = EchoJson.affixData?.text?.replace(/\$\[(\d+)\]/g, (bbc, ccb) => {
+      let cbc = EchoJson.affixData?.datas[ccb]
+      if (!cbc) return bbc
+      return cbc.every(bcb => bcb === cbc[0]) ? cbc[0] : `<span class="strong">${cbc.join('/')}</span>`
+    })
+    let imgs = {
+      icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/artifact/${text[0]}/img.webp`,
+      skill: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/artifact/${text[0]}/skill.webp`
+    }
+    let typeKey = {}
+    if (skillDesc.includes("湮灭伤害")) typeKey.elem = "湮灭"
+    else if (skillDesc.includes("衍射伤害")) typeKey.elem = "衍射"
+    else if (skillDesc.includes("冷凝伤害")) typeKey.elem = "冷凝"
+    else if (skillDesc.includes("热熔伤害")) typeKey.elem = "热熔"
+    else if (skillDesc.includes("导电伤害")) typeKey.elem = "导电"
+    else if (skillDesc.includes("气动伤害")) typeKey.elem = "气动"
+    else if (skillDesc.includes("物理伤害")) typeKey.elem = "物理"
+    else typeKey.elem = "无"
+    if (skillDesc.includes("幻形")) typeKey.skill = "幻形"
+    else if (skillDesc.includes("召唤")) typeKey.skill = "召唤"
+    else if (skillDesc.includes("发动")) typeKey.skill = "增益"
+    else typeKey.skill = "其他"
+    if (skillDesc.includes("对策技")) typeKey.key = "对策技"
+    else if (skillDesc.includes("特殊技")) typeKey.key = "特殊技"
+    else if (skillDesc.includes("定身")) typeKey.key = "定身"
+    else if (skillDesc.includes("逆势回击")) typeKey.key = "逆势回击"
+    else if (skillDesc.includes("不会受到伤害")) typeKey.key = "金身"
+    else typeKey.key = "无"
+    return {
+      data: data,
+      imgs: imgs,
+      Group: Group,
+      skillDesc: skillDesc,
+      type: typeKey
     }
   }
 

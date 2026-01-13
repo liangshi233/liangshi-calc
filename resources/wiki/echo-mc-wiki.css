@@ -1,0 +1,278 @@
+@font-face {
+  font-family: 'Number';
+  src: url("../common/font/tttgbnumber.woff") format('woff'), url("../common/font/tttgbnumber.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'NZBZ';
+  src: url("../common/font/NZBZ.woff") format('woff'), url("../common/font/NZBZ.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'YS';
+  src: url("../common/font/HYWH-65W.woff") format('woff'), url("../common/font/HYWH-65W.ttf") format('truetype');
+}
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  padding-top: 5px;
+  font-size: 18px;
+  color: #1e1f20;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+  transform: scale(1.4);
+  transform-origin: 0 0;
+  background-image: url(./imgs/mc-bg.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 180% 140%;
+}
+
+.container {
+  width: 100%;
+  height: 418px;
+  padding: 20px 15px 10px 15px;
+  background-size: contain;
+  display: flex;
+  justify-content: space-between;
+}
+
+.echo-container {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 50%;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-image: url(./imgs/wq-bg.png);
+  background-size: 100% 100%;
+  box-shadow: 0 0 1px 0 #fff, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+}
+
+.echo-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1;
+}
+
+.game-key {
+  float: right;
+  vertical-align: middle;
+  margin-right: 5px;
+  position: static;
+  height: 32px;
+  transform: translateY(2px);
+}
+
+.log-direct {
+  margin-left: 25px;
+  flex: 0 0 43%;
+  margin-right: 16px;
+}
+
+.title {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 20px 30px 0 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 26px;
+}
+
+.title-title {
+  font-size: 28px;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 0 #fff;
+  color: #d3bc8e;
+  padding: 10px 20px;
+  text-align: left;
+  border-radius: 10px 10px 0 0;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+
+.title-title span {
+  font-size: 14px;
+  color: #aaa;
+  margin-right: 15px;
+  text-align: right;
+  font-weight: normal;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+
+.copyright {
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  position: fixed;
+  padding-left: 10px;
+  text-shadow: 1px 1px 1px #000;
+  margin: 10px 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.copyright .version {
+  color: #d3bc8e;
+  display: inline-block;
+  padding: 0 3px;
+}
+
+.black {
+  width: 100%;
+  height: 40px;
+}
+
+.echo-attr li {
+  width: 375px;
+  padding-left: 20px;
+}
+.echo-attr li strong {
+  color: #d3bc8e;
+  width: 85px;
+  font-weight: normal;
+}
+.echo-attr li span {
+  color: #fff;
+  text-align: right;
+  width: 200px;
+}
+
+.cont {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 5px 0;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+}
+
+.echo-attr {
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.echo-attr li {
+  width: 330px;
+  font-size: 18px;
+  list-style: none;
+  height: 43px;
+  line-height: 43px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  display: flex;
+  padding-left: 18px;
+}
+.echo-attr li:nth-child(even) {
+  background: rgba(0, 0, 0, 0.4);
+}
+.echo-attr li:nth-child(odd) {
+  background: rgba(50, 50, 50, 0.4);
+}
+.echo-attr li .weight {
+  width: 36px;
+}
+
+.echo-skill {
+  margin-right: 10px;
+  position: static;
+  height: 164px;
+}
+
+.skill {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 20px 30px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+}
+
+.skill-body {
+  display: flex;
+  align-items: center;
+  padding: 15px 15px;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px 0 #fff;
+  font-weight: normal;
+}
+
+.skill-body .strong {
+  color: #24d5cd;
+}
+
+.group {
+  border-radius: 10px;
+  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 20px 5px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+  flex: 0 0 calc(48% - 16px);
+}
+
+.group-body {
+   height: 100%;
+   display: flex;
+   align-items: center;
+   padding: 15px 15px;
+   font-size: 18px;
+   background: rgba(0, 0, 0, 0.5);
+   box-shadow: 0 0 1px 0 #fff;
+   font-weight: normal;
+ }
+
+.group-suit {
+  display: block;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.group-name {
+  font-size: 12px;
+  margin-top:5px;
+  text-align: center;
+}
+
+.group-effect {;
+  align-items: center;
+  margin: 3px;
+}
+
+.group-skill {
+  position: static;
+  height: 48px;
+  text-align: center;
+}
+
+.group-effect .suit {
+  color: #d3bc8e;
+  width: 85px;
+  font-weight: normal;
+}
