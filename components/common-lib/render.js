@@ -13,7 +13,7 @@ export default async function (path, params, cfg) {
       const layoutPath = process.cwd() + '/plugins/liangshi-calc/resources/common/layout/'
       return {
         ...data,
-        miao_res_path: "../../../../../plugins/miao-plugin/resources/",
+        miao_res_path: "../../../../../../plugins/miao-plugin/resources/",
         _res_path: resPath,
         _layout_path: layoutPath,
         miao_tpl_path: process.cwd() + '/plugins/miao-plugin/resources/common/tpl/',

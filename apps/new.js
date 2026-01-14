@@ -475,7 +475,7 @@ export class calc extends plugin {
         name: id,
         star: 5
       }))
-      return await Common.render('wiki/ver-new', {
+      return await Common.render('wiki/new/ver-new', {
         gamever: version,
         gameid: GameName,
         TxName: {

@@ -1,14 +1,14 @@
 @font-face {
   font-family: 'Number';
-  src: url("../common/font/tttgbnumber.woff") format('woff'), url("../common/font/tttgbnumber.ttf") format('truetype');
+  src: url("../../common/font/tttgbnumber.woff") format('woff'), url("../../common/font/tttgbnumber.ttf") format('truetype');
 }
 @font-face {
   font-family: 'NZBZ';
-  src: url("../common/font/NZBZ.woff") format('woff'), url("../common/font/NZBZ.ttf") format('truetype');
+  src: url("../../common/font/NZBZ.woff") format('woff'), url("../../common/font/NZBZ.ttf") format('truetype');
 }
 @font-face {
   font-family: 'YS';
-  src: url("../common/font/HYWH-65W.woff") format('woff'), url("../common/font/HYWH-65W.ttf") format('truetype');
+  src: url("../../common/font/HYWH-65W.woff") format('woff'), url("../../common/font/HYWH-65W.ttf") format('truetype');
 }
 .font-YS {
   font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
@@ -84,7 +84,7 @@ body {
 
 .title {
   border-radius: 10px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 20px 30px 0 15px;
   position: relative;
@@ -155,7 +155,7 @@ body {
 
 .cont {
   border-radius: 10px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 5px 0;
   position: relative;
@@ -200,7 +200,7 @@ body {
 
 .skill {
   border-radius: 10px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 20px 30px 5px 15px;
   position: relative;
@@ -226,7 +226,7 @@ body {
 
 .group {
   border-radius: 10px;
-  background: url("../common/cont/card-bg.png") top left repeat-x;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
   background-size: auto 100%;
   margin: 20px 5px 5px 15px;
   position: relative;
