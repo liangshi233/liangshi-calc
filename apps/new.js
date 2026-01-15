@@ -1615,6 +1615,8 @@ export class calc extends plugin {
             let jsonData = JSON.parse(TextData)
             if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
               newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityName === "SR" ? 4 : 5 }
+            } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+              newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
             } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
               newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
             } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
