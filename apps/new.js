@@ -46,7 +46,7 @@ export class calc extends plugin {
             fnc: 'VerNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料)?(数据|资源|内容|资源数据)$',
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|鸣潮|明朝|潮|mc|MC|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料|敌人|敌怪|怪物|残响|残像|boss|BOSS)?(数据|资源|内容|资源数据)$',
             fnc: 'New'
           },
           {
@@ -64,6 +64,10 @@ export class calc extends plugin {
           {
             reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
             fnc: 'ItemNew'
+          },
+          {
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$',
+            fnc: 'MonsterNew'
           }
         ]
       }
@@ -78,7 +82,7 @@ export class calc extends plugin {
       return false
     }
     if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    let characterTime, weaponTime, artifactTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, ItemJson, ItemOk, s, u, url2, servName
+    let characterTime, weaponTime, artifactTime, monsterTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, monster, MonsterName, ItemJson, ItemOk, s, u, url2, servName
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
@@ -146,42 +150,49 @@ export class calc extends plugin {
         version = data[0].ResVer
         character = data[1].character
         weapon = data[1].weapon
+        monster = data.monster
         artifact = data[1].echo
         data.item = data[1].item
       } else {
         version = data.hotfix
         character = data.character
         weapon = data.weapon
+        monster = data.monster
         artifact = data.echo
       }
       CharacterName = "共鸣者"
       ArtifactName = "声骸"
       WeaponName = "武器"
+      MonsterName = "残像"
       s = "echo"
       u = "weapon"
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       version = data.version
       character = data.character
       weapon = data.lightcone
+      monster = data.monster
       artifact = data.relicset
       CharacterName = "角色"
       ArtifactName = "遗器"
       WeaponName = "光锥"
+      MonsterName = "敌人"
       s = "relicset"
       u = "lightcone"
     } else {
       version = data.version
       character = data.character
       weapon = data.weapon
+      monster = data.monster
       artifact = data.artifact
       CharacterName = "角色"
       ArtifactName = "圣遗物"
       WeaponName = "武器"
+      MonsterName = "魔物"
       s = "artifact"
       u = "weapon"
     }
     if (/完整|全部/.test(e.msg)) {
-      let Characterurl, Weaponurl, Artifacturl, Itemurl
+      let Characterurl, Weaponurl, Artifacturl, Monsterurl, Itemurl
       status = "完整"
       if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
         e.reply('[liangshi-calc]崩坏：星穹铁道 不宜进行完整更新，如需使用请手动前往文件解除限制(*/ω＼*)')
@@ -211,6 +222,9 @@ export class calc extends plugin {
           Artifacturl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
           Artifacturl = await Artifacturl.json()
           artifact = Object.keys(Artifacturl).map(Number)
+          Monsterurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/monster.json`)
+          Monsterurl = await Monsterurl.json()
+          monster = Object.keys(Monsterurl).map(Number)
           Itemurl = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${i}/item_all.json`)
           Itemurl = await Itemurl.json()
           data.item = Object.keys(Itemurl).map(Number)
@@ -220,17 +234,19 @@ export class calc extends plugin {
       }
     }
     if (/角色|共鸣者/.test(e.msg)) {
-      weapon = [], artifact = [], data.item = []
+      weapon = [], artifact = [], data.item = [], monster = []
     } else if (/武器|光锥/.test(e.msg)) {
-      character = [], artifact = [], data.item = []
+      character = [], artifact = [], data.item = [], monster = []
     } else if (/圣遗物|声骸/.test(e.msg)) {
-      character = [], weapon = [], data.item = []
+      character = [], weapon = [], data.item = [], monster = []
     } else if (/物品|材料/.test(e.msg)) {
-      character = [], weapon = [], artifact = []
+      character = [], weapon = [], artifact = [], monster = []
+    } else if (/敌人|敌怪|怪物|残响|残像|boss|BOSS/.test(e.msg)) {
+      character = [], weapon = [], artifact = [], data.item = []
     }
-    let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + data.item.length * 2) / 60) * 10) / 10
+    let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + monster.length * 1 + data.item.length * 2) / 60) * 10) / 10
     let y = Math.round(UseTime * 0.75 * 10) / 10
-    e.reply(`[liangshi-calc] 即将静默更新\n${GameName} ${version}版本新内容\n共计\n\n${character.length}名新${CharacterName}\n${weapon.length}个新${WeaponName}\n${artifact.length}个新${ArtifactName}\n${data.item.length}个新物品\n\n预计需要${y}~${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
+    e.reply(`[liangshi-calc] 即将静默更新\n${GameName} ${version}版本新内容\n共计\n\n${character.length}名新${CharacterName}\n${weapon.length}个新${WeaponName}\n${artifact.length}个新${ArtifactName}\n${monster.length}个新${MonsterName}\n${data.item.length}个新物品\n\n预计需要${y}~${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
     await common.sleep(2000)
     ItemOk = true
     if (!fs.existsSync("./plugins/liangshi-calc/resources/log.json")) {
@@ -295,6 +311,15 @@ export class calc extends plugin {
     }
     artifactTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
+    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 1) {
+      for (const monsterId of monster) {
+        await common.sleep(1500)
+        instruction.msg = `#梁氏覆盖更新${GameName}${monsterId}敌人数据`
+        await this.MonsterNew(instruction, true)
+      }
+    }
+    monsterTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+    await common.sleep(2000)
     for (const itemId of data.item) {
       await common.sleep(1000)
       instruction.msg = `#梁氏覆盖更新${GameName}${itemId}物品数据`
@@ -319,6 +344,7 @@ export class calc extends plugin {
           "time": dayTime,
           "artifact": artifact,
           "character": character,
+          "monster": monster,
           "material": data.item,
           "weapon": weapon,
           "status": status
@@ -345,15 +371,17 @@ export class calc extends plugin {
         logger.info(`[liangshi-calc] 物品Json缓存已删除`)
       }
     })
-    let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata
+    let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata, MonsterText, MonsterNamedata
     try {
       CharacterText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/character.json`)
       WeaponText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${u}.json`)
       ArtifactText = await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/${s}.json`)
+      MonsterText =  await fetch(`${ProxyUrl}https://api.hakush.in/${game}/data/monster.json`)
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
         CharacterText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
         WeaponText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${u}`)
         ArtifactText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${s}`)
+        MonsterText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/monster.json`)
       }
       CharacterNamedata = await CharacterText.json()
       WeaponNamedata = await WeaponText.json()
@@ -364,16 +392,18 @@ export class calc extends plugin {
       e.reply('[liangshi-calc]网络不佳，请稍后重试')
       return false
     }
-    let CharacterNameText, WeaponNameText, ArtifactNameText
+    let CharacterNameText, WeaponNameText, ArtifactNameText, MonsterNameText
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
       if (cfg.mcApi === 2 || cfg.mcApi === 3) {
         CharacterNameText = character.map(id => CharacterNamedata.roleList.find(role => role.Id === id).Name)
         WeaponNameText = weapon.map(id => WeaponNamedata.weapons.find(role => role.Id === id).Name)
         ArtifactNameText = artifact.map(id => ArtifactNamedata.Echo.find(role => role.Id === id).Name)
+        MonsterNameText = monster.map(id => MonsterNamedata.Monster.find(role => role.Id === id).Name)
       } else {
         CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
         WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
         ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+        MonsterNameText = monster.map(num => MonsterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
       }
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
       CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.cn ?? `${num.toString()}`)
@@ -475,23 +505,34 @@ export class calc extends plugin {
         name: id,
         star: 5
       }))
+      let monster = {}
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 1) {
+        monster = MonsterNameText.map(id => ({
+          face: `/meta-${GamePath}/monster/${id}/icon.webp`,
+          name: id,
+          star: 5
+        }))
+      }
       return await Common.render('wiki/new/ver-new', {
         gamever: version,
         gameid: GameName,
         TxName: {
           js: CharacterName,
           wq: WeaponName,
-          zb: ArtifactName
+          zb: ArtifactName,
+          dr: MonsterName
         },
         jsNum: character.length,
         wqNum: weapon.length,
         zbNum: artifact.length,
+        drNum: monster.length,
         wpNum: data.item.length,
         chars,
         weapons,
         artis,
+        monster,
         servName,
-        updateTime: { characterTime, weaponTime, artifactTime, itemTime },
+        updateTime: { characterTime, weaponTime, artifactTime, monsterTime, itemTime },
         elem: 'hydro'
       }, { e, scale: 1.6, retType: 'base64' })
     } catch (err) {
@@ -2186,6 +2227,230 @@ export class calc extends plugin {
         let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
         let y = JSON.parse(oldLog)
         y[new Date()] = { name: TextData[4], err, text: "装备更新错误" }
+        let bbxzData = JSON.stringify(y, null, 2)
+        fs.writeFile(lj, bbxzData, 'utf8', (err) => {
+          if (err) {
+            console.error('[liangshi-calc]错误内容记录失败:\n', err)
+            return false
+          } else {
+            logger.mark('[liangshi-calc]错误内容已记录')
+          }
+        })
+      }
+      return true
+    }
+  }
+
+  async MonsterNew (e, mode) {
+    if (!e.isMaster) {
+      e.reply('你不可以更新哦~(*/ω＼*)')
+      return false
+    }
+    let cfg = LSconfig.getConfig('user', 'config')
+    let response, game, GamePath, ProxyUrl, data, MonsterData, url, apiKey, IconUrl, newValue
+    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+      game = "gi"
+      GamePath = "gs"
+    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+      game = "hsr"
+      GamePath = "sr"
+    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
+      game = "zzz"
+      GamePath = "zzz"
+    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      game = "ww"
+      GamePath = "mc"
+    }
+    if (cfg.ProxyUrl) {
+      ProxyUrl = cfg.ProxyUrl
+    } else {
+      ProxyUrl = ""
+    }
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$/)
+    let ID = TextData[4]
+    if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
+    try {
+      try {
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+          url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/monster/${ID}`
+          e.reply('[liangshi-calc]此API尚未适配，请切换至API1(*/ω＼*)')
+        } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/monster/${ID}.json`
+        } else {
+          e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
+          return false
+        }
+        response = await fetch(url)
+        if (!response.ok) {
+          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+          if (response.status === 404) {
+            if(!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
+          } else if (response.status === 429) {
+            if(!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+          } else if (response.status >= 500) {
+            if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+          } else if (cfg.ProxyUrl) {
+            if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+          } else {
+            if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+          }
+          return false
+        }
+        data = await response.json()
+        logger.mark(`[liangshi-calc]云端数据读取成功`)
+      } catch (err) {
+        if(!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+        logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+        return false
+      }
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+        IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
+      } else {
+        IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
+      }
+      let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}`
+      if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}`) || /强制|强行|覆盖/.test(e.msg)) {
+        if(!mode) e.reply(`[liangshi-calc]开始更新敌怪: ${data.Name}`)
+        fs.mkdirSync(`./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}`, { recursive: true })
+        logger.mark(`[liangshi-calc]敌怪:${data.Name} 本地文件夹创建成功`)
+      } else {
+        if(!mode) e.reply(`[liangshi-calc]敌怪: ${data.Name} 已经存在，如需更新数据请使用覆盖更新。`)
+        return false
+      }
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          await this.getImg(IconUrl + data.Icon, `${imgs}/icon.webp`, "icon")
+        } else {
+          await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
+        }
+      }
+      if(!mode) e.reply(`[liangshi-calc]敌怪图片资源下载完成`)
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+          MonsterData = {}
+        } else {
+          let rarityKey = {"1": "轻波级", "2": "巨浪级", "3": "怒涛级", "4": "海啸级"}
+          let HPattr = [], DEFattr = [], ATKattr = [], HARattr = [], REGattr = []
+          Object.values(data.Stats).forEach(item => {
+            HPattr.push(item.Life)
+            DEFattr.push(item.Atk)
+            ATKattr.push(item.Def)
+            HARattr.push(item.HardnessMax)
+            REGattr.push(item.RageMax)
+          })
+          MonsterData = {
+            id: data.Id,
+            name: data.Name,
+            desc: data.Desc,
+            descAll: data.DescOpen.replace(/<color\s*=\s*(["']?)([^"'>]*?)\1\s*>(.*?)<\/\s*color\s*>/g, '$3').split('\n'),
+            rarity: data.Rarity,
+            element: data.Element,
+            elementArray: data.ElementArray,
+            echo: data.Echo,
+            attr: {
+              Mass: data.BaseStats.Mass,
+              WeakTime: data.BaseStats.WeakTime,
+              ParalysisTime: data.BaseStats.ParalysisTimeMax,
+              Res: {
+                PhyRes: data.BaseStats.DamageResistancePhys,
+                GlaRes: data.BaseStats.DamageResistanceElement1,
+                FusRes: data.BaseStats.DamageResistanceElement2,
+                EleRes: data.BaseStats.DamageResistanceElement3,
+                AerRes: data.BaseStats.DamageResistanceElement4,
+                SpeRes: data.BaseStats.DamageResistanceElement5,
+                HavRes: data.BaseStats.DamageResistanceElement6
+              },
+              hp: HPattr,
+              def: DEFattr,
+              atk: ATKattr,
+              hardness: HARattr,
+              rage: REGattr
+            }
+          }
+        }
+      }
+      logger.mark('[liangshi-calc]数据处理完成')
+      let path = `./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}/data.json`
+      if (!fs.existsSync(path)) {
+        fs.writeFileSync(path, JSON.stringify(MonsterData, null, 2), 'utf8')
+        logger.mark(`[liangshi-calc]敌怪：${data.Name} 数据已写入`)
+        if(!mode) e.reply(`[liangshi-calc]敌怪：${data.Name}\n数据已写入`)
+      } else if (/强制|强行|覆盖/.test(e.msg)) {
+        if(!mode) e.reply('[liangshi-calc]敌怪数据已存在，当前为强制模式，尝试覆盖写入。')
+        fs.writeFileSync(path, JSON.stringify(MonsterData, null, 2), 'utf8')
+        logger.mark(`[liangshi-calc]敌怪：${data.Name} 数据已写入`)
+        if(!mode) e.reply(`[liangshi-calc]敌怪：${data.Name}\n数据已写入`)
+      } else {
+        if(!mode) e.reply(`[liangshi-calc]敌怪数据已存在，运行终止。\n如果需要刷新敌怪数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}敌怪数据`)
+        console.error(`[liangshi-calc]敌怪：${data.Name}\n数据已存在`)
+      }
+      if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+        let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/monster/data.json`
+        if (!fs.existsSync(filePath)) {
+          fs.writeFileSync(filePath, '{}')
+          logger.mark(`[liangshi-calc]未找到data.json文件，已自动创建`)
+        }
+        fs.readFile(filePath, 'utf8', (err, TextData) => {
+          if (err) {
+            console.error('[liangshi-calc]读取敌怪配置data.json失败:', err)
+            if (!mode) e.reply(`[liangshi-calc]敌人：${data.Name} 数据更新完成\n尝试自动写入MonsterData时失败\n请手动添加后重启使用`)
+            return false
+          }
+          try {
+            let jsonData = JSON.parse(TextData)
+            if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
+              newValue = {
+                "id": ID,
+                "name": data.Name
+              }
+            } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+              newValue = {
+                "id": ID,
+                "name": data.Name
+              }
+            } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
+              newValue = {
+                "id": ID,
+                "name": data.Name
+              }
+            } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+              newValue = {
+                "id": ID,
+                "name": data.Name
+              }
+            }
+            jsonData[ID] = newValue
+            logger.mark(`[liangshi-calc]敌怪：${data.Name} 配置data.json成功`)
+            let updatedData = JSON.stringify(jsonData, null, 2)
+            fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+              if (err) {
+                console.error('[liangshi-calc]敌怪data.json写入失败:\n', err)
+                if (!mode) e.reply(`[liangshi-calc]敌怪：${data.Name} 数据更新完成\n尝试自动写入MonsterData时失败\n请手动添加后重启使用`)
+                return false
+              } else {
+                logger.mark('[liangshi-calc]敌怪data.json已更新')
+              }
+            })
+          } catch (err) {
+            console.error('[liangshi-calc]自动配置data.json失败:\n', err)
+          }
+        })
+        if(!mode) e.reply(`[liangshi-calc]敌怪：${data.Name} 数据更新完成\n重启后即可使用相关内容`)
+      } else {
+        if(!mode) e.reply(`[liangshi-calc]敌怪：${data.Name} 数据更新完成\n当前未启用自动写入MonsterData\n手动配置后重启才可使用\n自动写入MonsterData可在config.yaml启用或使用强制更新临时启用一次`)
+      }
+      return false
+    } catch (err) {
+      if (!mode) {
+        e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+      } else {
+        console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+        let lj = "./plugins/liangshi-calc/resources/log.json"
+        let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+        let y = JSON.parse(oldLog)
+        y[new Date()] = { name: TextData[4], err, text: "武器更新错误" }
         let bbxzData = JSON.stringify(y, null, 2)
         fs.writeFile(lj, bbxzData, 'utf8', (err) => {
           if (err) {
