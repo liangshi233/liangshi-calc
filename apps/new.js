@@ -2310,6 +2310,7 @@ export class calc extends plugin {
       } else {
         IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
       }
+      if (data.Name === "") data.Name = "无名"
       let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}`
       if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/monster/${data.Name}`) || /强制|强行|覆盖/.test(e.msg)) {
         if(!mode) e.reply(`[liangshi-calc]开始更新敌怪: ${data.Name}`)
@@ -2331,7 +2332,6 @@ export class calc extends plugin {
         if (cfg.mcApi === 2 || cfg.mcApi === 3) {
           MonsterData = {}
         } else {
-          let rarityKey = {"1": "轻波级", "2": "巨浪级", "3": "怒涛级", "4": "海啸级"}
           let HPattr = [], DEFattr = [], ATKattr = [], HARattr = [], REGattr = []
           Object.values(data.Stats).forEach(item => {
             HPattr.push(item.Life)
