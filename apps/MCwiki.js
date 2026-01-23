@@ -232,42 +232,42 @@ export class Wiki extends plugin {
       {
         label: "贝币",
         star: 3,
-        icon: 'meta-mc/material/consume/贝币.webp',
+        icon: 'meta-mc/material/通用货币/贝币.webp',
         type: 'avatar_material',
         num: '170000'
       },
       {
         label: ChaJson.materials.boss || null,
         star: 4,
-        icon: `meta-mc/material/boss/${ChaJson.materials.boss}.webp`,
+        icon: `meta-mc/material/共鸣者突破材料/${ChaJson.materials.boss}.webp`,
         type: 'boss',
         num: '46'
       },
       {
         label: abbr[ChaJson.materials.normal] || ChaJson.materials.normal || null,
         star: 5,
-        icon: `meta-mc/material/monster/${ChaJson.materials.normal}.webp`,
+        icon: `meta-mc/material/武器与技能素材/${ChaJson.materials.normal}.webp`,
         type: 'normal',
         num: '4/12/12/4'
       },
       {
         label: ChaJson.materials.specialty || null,
         star: 1,
-        icon: `meta-mc/material/specialty/${ChaJson.materials.specialty}.webp`,
+        icon: `meta-mc/material/突破材料/${ChaJson.materials.specialty}.webp`,
         type: 'specialty',
         num: '60'
       },
       {
         label: abbr[ChaJson.materials.talent] || ChaJson.materials.talent || null,
         star: 5,
-        icon: `meta-mc/material/weapon/${ChaJson.materials.talent}.webp`,
+        icon: `meta-mc/material/器与技能素材/${ChaJson.materials.talent}.webp`,
         type: 'talent',
         num: ''
       },
       {
         label: abbr[ChaJson.materials.weekly] || ChaJson.materials.weekly || null,
         star: 4,
-        icon: `meta-mc/material/weekly/${ChaJson.materials.weekly}.webp`,
+        icon: `meta-mc/material/能升级材料/${ChaJson.materials.weekly}.webp`,
         type: 'weekly',
         num: ''
       }
@@ -300,70 +300,70 @@ export class Wiki extends plugin {
       {
         label: "特级能源核心",
         star: 5,
-        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/exchange/特级能源核心.webp',
+        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/武器经验材料/特级能源核心.webp',
         type: 'exchange',
         num: matNum[WeaJson.star].exp
       },
       {
         label: "贝币",
         star: 3,
-        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/consume/贝币.webp',
+        icon: process.cwd() + '/plugins/miao-plugin/resources/meta-mc/material/通用货币/贝币.webp',
         type: 'avatar_material',
         num: matNum[WeaJson.star].avatar_material
       },
       {
         label: WeaJson.materials.weapon || null,
         star: 5,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${WeaJson.materials.weapon}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${WeaJson.materials.weapon}.webp`,
         type: 'talent',
         num: matNum[WeaJson.star].talent[0]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[2] || null,
         star: 4,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[2]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[2]}.webp`,
         type: 'talent',
         num: matNum[WeaJson.star].talent[1]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[1] || null,
         star: 3,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[1]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[1]}.webp`,
         type: 'talent',
         num: matNum[WeaJson.star].talent[1]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[0] || null,
         star: 2,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/weapon/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[0]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.weapon]?.items)?.[0]}.webp`,
         type: 'talent',
         num: matNum[WeaJson.star].talent[1]
       },
       {
         label: WeaJson.materials.monster || null,
         star: 5,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${WeaJson.materials.monster}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${WeaJson.materials.monster}.webp`,
         type: 'normal',
         num: matNum[WeaJson.star].normal[0]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[2] || null,
         star: 4,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[2]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[2]}.webp`,
         type: 'normal',
         num: matNum[WeaJson.star].normal[1]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[1] || null,
         star: 3,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[1]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[1]}.webp`,
         type: 'normal',
         num: matNum[WeaJson.star].normal[2]
       },
       {
         label: Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[0] || null,
         star: 2,
-        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/monster/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[0]}.webp`,
+        icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/武器与技能素材/${Object.keys(ItemJson[WeaJson.materials.monster]?.items)?.[0]}.webp`,
         type: 'normal',
         num: matNum[WeaJson.star].normal[3]
       }
