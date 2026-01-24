@@ -447,7 +447,7 @@ export class Wiki extends plugin {
       return {
         ...rest,
         effect: newEffect,
-        icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/echoKey/${rest.id}.webp`
+        icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/${rest.id}.webp`
       }
     })
     if (EchoJson.Intensity === "海啸级") Cons = "Cons4"
