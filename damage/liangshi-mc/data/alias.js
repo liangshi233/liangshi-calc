@@ -176,6 +176,10 @@ export const EchoAlias = {
 
 }
 
+export const MonsterAlias = {
+
+}
+
 export const ItemAlias = {
 
 }

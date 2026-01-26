@@ -16,6 +16,7 @@
 .font-NZBZ {
   font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -108,6 +109,7 @@ body {
 .title-title span {
   font-size: 14px;
   color: #aaa;
+  margin-left: 10px;
   margin-right: 15px;
   text-align: right;
   font-weight: normal;
@@ -137,21 +139,6 @@ body {
   height: 40px;
 }
 
-.echo-attr li {
-  width: 375px;
-  padding-left: 20px;
-}
-.echo-attr li strong {
-  color: #d3bc8e;
-  width: 85px;
-  font-weight: normal;
-}
-.echo-attr li span {
-  color: #fff;
-  text-align: right;
-  width: 200px;
-}
-
 .cont {
   border-radius: 10px;
   background: url("../../common/cont/card-bg.png") top left repeat-x;
@@ -171,15 +158,26 @@ body {
   overflow: hidden;
 }
 
+.echo-attr li strong {
+  color: #d3bc8e;
+  width: 110px;
+  font-weight: normal;
+}
+.echo-attr li span {
+  color: #fff;
+  text-align: right;
+  width: 200px;
+}
+
 .echo-attr li {
-  width: 330px;
+  width: 345px;
   font-size: 18px;
   list-style: none;
-  height: 43px;
-  line-height: 43px;
+  height: 35px;
+  line-height: 35px;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   display: flex;
-  padding-left: 18px;
+  padding-left: 15px;
 }
 .echo-attr li:nth-child(even) {
   background: rgba(0, 0, 0, 0.4);
@@ -188,7 +186,7 @@ body {
   background: rgba(50, 50, 50, 0.4);
 }
 .echo-attr li .weight {
-  width: 36px;
+  width: 10px;
 }
 
 .echo-skill {
@@ -275,3 +273,193 @@ body {
   width: 85px;
   font-weight: normal;
 }
+
+.echo-container {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 50%;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-image: url(./imgs/wq-bg.png);
+  background-size: 100% 100%;
+  box-shadow: 0 0 1px 0 #fff, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+}
+
+.intCont {
+   border-radius: 10px;
+   background: url("../../common/cont/card-bg.png") top left repeat-x;
+   background-size: auto 100%;
+   margin: 10px 15px 5px 25px;
+   position: relative;
+   box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+   overflow: hidden;
+   color: #fff;
+   font-size: 16px;
+ }
+
+.intCont-body {
+  padding: 10px 15px;
+  font-size: 16px;
+  height: 200px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px 0 #fff;
+  font-weight: normal;
+}
+
+.intCont-body p {
+  white-space: pre-line;
+  word-break: break-all;
+  margin: 0;
+}
+
+.material-list {
+  display: flex;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 10px 30px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+}
+
+.item-card {
+  width: 90px;
+  margin: 7px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.item-card.phy {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.gal {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.fus {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.ele {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.are {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.spe {
+  background: rgba(114, 114, 114, 0.5);
+}
+.item-card.hav {
+  background: rgba(114, 114, 114, 0.5);
+}
+
+.item-icon {
+  background-size: cover;
+  padding: 6px 4px 17px;
+}
+
+.item-bg {
+  background-size: contain;
+  background-position: center;
+  height: 90px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-size: 20px;
+}
+
+.item-image {
+  display: block;
+  max-width: 40px;
+  max-height: 40px;
+  object-fit: contain;
+  margin:0 auto;
+}
+
+.item-title, .item-num {
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  color: #fff;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 0;
+  width: 130px;
+  text-align: center;
+  transform: scale(0.7);
+  text-shadow: 0 0 2px #000;
+}
+
+.item-title {
+  bottom: 0;
+  left: 0;
+  transform-origin: left bottom;
+  border-radius: 0 0 6px 6px;
+}
+
+.item-num {
+  top: 0;
+  left: 0;
+  transform-origin: left top;
+  border-radius: 6px 6px 0 0;
+}
+
+.table-list {
+  display: flex;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 10px 30px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(0,0,0,0.7);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: rgba(90, 90, 90, 0.7);
+  border: 1px solid rgba(100, 100, 100, 0.7);
+  color: #d3bc8e;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  text-align: center;
+}
+
+td {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 15px;
+  color: white;
+  text-align: center;
+}
+
+tr:nth-child(odd) td {
+  background-color: rgba(20, 20, 20, 0.5);
+}
+
+tr:nth-child(even) td {
+  background-color: rgba(50, 50, 50, 0.5);
+}
+
+
+
+
+
+
+
+

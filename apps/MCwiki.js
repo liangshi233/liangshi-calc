@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { Common } from '../components/index.js'
-import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias } from '../damage/liangshi-mc/data/alias.js'
+import { CharacterAlias, WeaponAlias, EchoAlias, ItemAlias, MonsterAlias } from '../damage/liangshi-mc/data/alias.js'
 import { abbr } from '../resources/wiki/Wuthering Waves/abbr.js'
 import { source, matNum, attrKey, exclusive } from '../damage/liangshi-mc/data/weapon.js'
 import fs from 'node:fs'
@@ -62,6 +62,15 @@ export class Wiki extends plugin {
         Group: wikiJson.Group,
         skillDesc: wikiJson.skillDesc,
         type: wikiJson.type
+      }, { e, scale: 1.4 })
+    } else if (text[1] === "Monster") {
+      let wikiJson = await this.McMonster(text)
+      return Common.render('wiki/Wuthering Waves/monster-mc-wiki', {
+        data: wikiJson.data,
+        base: wikiJson.base,
+        res: wikiJson.res,
+        attr: wikiJson.attr,
+        imgs: wikiJson.imgs
       }, { e, scale: 1.4 })
     } else {
       // 不是角色,武器与声骸-暂时跳过后续补充
@@ -501,14 +510,133 @@ export class Wiki extends plugin {
     }
   }
 
+  async McMonster (text) {
+    let MonsterJson, res, attr = []
+    try {
+      MonsterJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/monster/${text[0]}/data.json`, 'utf8')
+      MonsterJson = JSON.parse(MonsterJson)
+    } catch (err) {
+      console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")
+      console.warn(err)
+      return false
+    }
+    let eleKey = {
+      "0": "物理",
+      "1": "冷凝",
+      "2": "热熔",
+      "3": "导电",
+      "4": "气动",
+      "5": "衍射",
+      "6": "湮灭"
+    }
+    let rarKey = {
+      "1": "轻波级",
+      "2": "巨浪级",
+      "3": "怒涛级",
+      "4": "海啸级"
+    }
+    if (MonsterJson.descAll.length > 0 && /^该敌人.+?伤害抗性提高。$/.test(MonsterJson.descAll[0])) MonsterJson.descAll.shift()
+    let MosData = {
+      name: MonsterJson.name,
+      desc: MonsterJson.desc,
+      descAll: MonsterJson.descAll,
+      rarity: rarKey[MonsterJson.rarity],
+      element: eleKey[MonsterJson.element],
+      echo: MonsterJson.echo,
+    }
+    let base = {
+      Mass: MonsterJson.attr.Mass,
+      WeakTime: MonsterJson.attr.WeakTime,
+      ParalysisTime: MonsterJson.attr.ParalysisTime,
+    }
+    let imgs = {
+      icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/monster/${text[0]}/icon.webp`,
+    }
+    if (MonsterJson.attr.Res.PhyRes) {
+      res = [
+        {
+          name: "物理抗性",
+          num: MonsterJson.attr.Res.PhyRes / 100 + "%",
+          key: "phy",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/0.webp`,
+        },
+        {
+          name: "冷凝抗性",
+          num: MonsterJson.attr.Res.GlaRes / 100 + "%",
+          key: "gal",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/1.webp`,
+        },
+        {
+          name: "热熔抗性",
+          num: MonsterJson.attr.Res.FusRes / 100 + "%",
+          key: "fus",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/2.webp`,
+        },
+        {
+          name: "导电抗性",
+          num: MonsterJson.attr.Res.EleRes / 100 + "%",
+          key: "ele",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/3.webp`,
+        },
+        {
+          name: "气动抗性",
+          num: MonsterJson.attr.Res.AerRes / 100 + "%",
+          key: "are",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/4.webp`,
+        },
+        {
+          name: "衍射抗性",
+          num: MonsterJson.attr.Res.SpeRes / 100 + "%",
+          key: "spe",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/5.webp`,
+        },
+        {
+          name: "湮灭抗性",
+          num: MonsterJson.attr.Res.HavRes / 100 + "%",
+          key: "hav",
+          icon: process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/6.webp`,
+        }
+      ]
+    }
+    let attrKey = [1, 20, 40, 60, 80, 90, 95, 100, 105, 110, 115, 120]
+    if (MonsterJson.attr.hp[0]) {
+      for (let i = 0; i < 120; i++) {
+        if (attrKey.includes(i + 1)) {
+          attr.push({
+            num: i + 1,
+            hp: MonsterJson.attr.hp[i],
+            def: MonsterJson.attr.def[i],
+            atk: MonsterJson.attr.atk[i],
+            hardness: MonsterJson.attr.hardness[i],
+            rage: MonsterJson.attr.rage[i]
+          })
+        }
+      }
+    }
+    return {
+      data: MosData,
+      base: base,
+      res: res,
+      attr: attr,
+      imgs: imgs
+    }
+  }
+
   async McName (Name) {
     if (Name.includes("专武")) {if (CharacterAlias.hasOwnProperty(Name.replace(/专武/g, ''))) return [exclusive[Name.replace(/专武/g, '')], "Weapon"];for (const [key, value] of Object.entries(CharacterAlias)) {if (value.split(',').map(part => part.trim()).includes(Name.replace(/专武/g, ''))) {Name = key; break}} return [exclusive[Name], "Weapon"]}
+    if (Name.includes("敌人")) {
+      if (MonsterAlias.hasOwnProperty(Name.replace(/敌人/g, ''))) return [Name.replace(/敌人/g, ''), "Monster"]
+      for (const [key, value] of Object.entries(MonsterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name.replace(/敌人/g, ''))) return [key, "Monster"]}
+      if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/monster/${Name.replace(/敌人/g, '')}/data.json`)) return [Name.replace(/敌人/g, ''), "Monster"]
+    }
     if (CharacterAlias.hasOwnProperty(Name)) return [Name, "Character"]
     for (const [key, value] of Object.entries(CharacterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Character"]}
     if (WeaponAlias.hasOwnProperty(Name)) return [Name, "Weapon"]
     for (const [key, value] of Object.entries(WeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon"]}
     if (EchoAlias.hasOwnProperty(Name)) return [Name, "Echo"]
     for (const [key, value] of Object.entries(EchoAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Echo"]}
+    if (MonsterAlias.hasOwnProperty(Name)) return [Name, "Monster"]
+    for (const [key, value] of Object.entries(MonsterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Monster"]}
     if (ItemAlias.hasOwnProperty(Name)) return [Name, "Item"]
     for (const [key, value] of Object.entries(ItemAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Item"]}
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/character/${Name}/data.json`)) return [Name, "Character"]
@@ -519,6 +647,14 @@ export class Wiki extends plugin {
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/${Name}/data.json`)) return [Name, "Weapon"]
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/sword/${Name}/data.json`)) return [Name, "Weapon"]
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${Name}/data.json`)) return [Name, "Echo"]
+    if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/monster/${Name}/data.json`)) return [Name, "Monster"]
+    try {
+      let ItemJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/material/data.json`, 'utf8')
+      ItemJson = JSON.parse(ItemJson)
+      if (ItemJson[Name] !== undefined) return [Name, "Item"]
+    } catch (err) {
+      return [Name, "false"]
+    }
     return [Name, "false"]
   }
 

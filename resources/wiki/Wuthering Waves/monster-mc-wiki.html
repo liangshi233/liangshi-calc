@@ -1,0 +1,94 @@
+<html lang="zh-cn">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <link rel="shortcut icon" href="#"/>
+      <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/Wuthering Waves/monster-mc-wiki.css"/>
+      <link rel="preload" href="{{_res_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+      <title>liangshi-calc</title>
+      {{block 'css'}}
+      {{/block}}
+    </head>
+
+  <body>
+    <div class="title">
+      <div class="title-title">{{data.name}}<span>{{data.desc}}</span><img src="{{_res_path}}/wiki/Wuthering Waves/imgs/mc.png" class="game-key"></div>
+    </div>
+    <div class="container">
+      <div class="echo-container">
+        <img src="{{imgs.icon}}" alt="暂无声骸图片" class="echo-image">
+      </div>
+      <div>
+        <div class="log-direct">
+          <div class="cont">
+            <ul class="echo-attr">
+              <li><strong>稀有度</strong> <span>{{data.rarity}}</span></li>
+              <li><strong>攻击属性</strong> <span>{{data.element}}</span></li>
+              <li><strong>重量</strong> <span>{{base.Mass || "0"}}</span></li>
+              <li><strong>共振恢复</strong> <span>{{base.WeakTime || "0"}}ms</span></li>
+              <li><strong>瘫痪时间</strong> <span>{{base.ParalysisTime || "0"}}ms</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="intCont">
+          <div class="intCont-body">
+            <p>{{data.descAll.join('\n')}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{if res?.[1]}}
+      <div class="material-list">
+        {{each res tex}}
+        <div class="item-card {{tex.key}}">
+          <div class="item-num">{{tex.name}}</div>
+          <div class="item-icon">
+            <div class="item-bg">
+              {{tex.num}}
+            </div>
+          </div>
+          <div class="item-title"><img src="{{tex.icon}}" class="item-image"></div>
+        </div>
+        {{/each}}
+      </div>
+    {{/if}}
+    {{if attr.length > 0}}
+      <div class="table-list">
+        <table>
+          <thead>
+          <tr>
+            <th>等级</th>
+            <th>生命值</th>
+            <th>防御力</th>
+            <th>攻击力</th>
+            <th>共振上限</th>
+            <th>狂暴上限</th>
+          </tr>
+          </thead>
+          <tbody>
+            {{each attr attrs}}
+              <tr>
+                <td>{{attrs.num}}</td>
+                <td>{{attrs.hp}}</td>
+                <td>{{attrs.def}}</td>
+                <td>{{attrs.atk}}</td>
+                <td>{{attrs.hardness}}</td>
+                <td>{{attrs.rage}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+    <div class="black">
+      <div class="copyright">{{@sys.copyright}}</div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
