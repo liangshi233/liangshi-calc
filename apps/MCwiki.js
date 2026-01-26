@@ -269,14 +269,14 @@ export class Wiki extends plugin {
       {
         label: abbr[ChaJson.materials.talent] || ChaJson.materials.talent || null,
         star: 5,
-        icon: `meta-mc/material/器与技能素材/${ChaJson.materials.talent}.webp`,
+        icon: `meta-mc/material/武器与技能素材/${ChaJson.materials.talent}.webp`,
         type: 'talent',
         num: ''
       },
       {
         label: abbr[ChaJson.materials.weekly] || ChaJson.materials.weekly || null,
         star: 4,
-        icon: `meta-mc/material/能升级材料/${ChaJson.materials.weekly}.webp`,
+        icon: `meta-mc/material/技能升级材料/${ChaJson.materials.weekly}.webp`,
         type: 'weekly',
         num: ''
       }
