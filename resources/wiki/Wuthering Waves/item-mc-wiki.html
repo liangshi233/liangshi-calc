@@ -1,0 +1,63 @@
+<html lang="zh-cn">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <link rel="shortcut icon" href="#"/>
+      <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/Wuthering Waves/weapon-mc-wiki.css"/>
+      <link rel="preload" href="{{_res_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+      <link rel="preload" href="{{_res_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+      <title>liangshi-calc</title>
+      {{block 'css'}}
+      {{/block}}
+    </head>
+
+  <body>
+    <div class="title">
+      <div class="title-title">{{data.name}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/mc.png" class="game-key"></div>
+    </div>
+    <div class="container">
+      <div class="weapon-container">
+        <img src="{{imgs.icon}}" alt="暂无物品图片" class="weapon-image">
+        <div class="stars-container">
+          {{if data.star > 0}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/star.png" class="star-icon">{{/if}}
+          {{if data.star > 1}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/star.png" class="star-icon">{{/if}}
+          {{if data.star > 2}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/star.png" class="star-icon">{{/if}}
+          {{if data.star > 3}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/star.png" class="star-icon">{{/if}}
+          {{if data.star > 4}}<img src="{{_res_path}}/wiki/Wuthering Waves/imgs/star.png" class="star-icon">{{/if}}
+        </div>
+      </div>
+      <div class="log-direct">
+        <div class="cont">
+          <div class="cont-title">
+            <span>
+             类型：<span style="color: #fff; font-size: 18px;">{{data.type}}</span>
+            </span>
+          </div>
+          <div class="cont-body">
+            <p>{{@bg.join('<br>')}}</p>
+          </div>
+          <div class="cont-bottom">
+            <span style="color: #fff; font-size: 14px;">{{@data.desc}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="story">
+      <div class="cont-title">
+        <span>获取方式</span>
+      </div>
+      <div class="story-body">
+        <p>{{@data.source.join('<br>')}}</p>
+      </div>
+    </div>
+    <div class="black">
+      <div class="copyright">{{@sys.copyright}}</div>
+    </div>
+  </body>
+</html>
+
+
+
+
+

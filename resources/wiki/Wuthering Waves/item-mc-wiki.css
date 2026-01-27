@@ -1,0 +1,343 @@
+@font-face {
+  font-family: 'Number';
+  src: url("../../common/font/tttgbnumber.woff") format('woff'), url("../../common/font/tttgbnumber.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'NZBZ';
+  src: url("../../common/font/NZBZ.woff") format('woff'), url("../../common/font/NZBZ.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'YS';
+  src: url("../../common/font/HYWH-65W.woff") format('woff'), url("../../common/font/HYWH-65W.ttf") format('truetype');
+}
+.font-YS {
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+.font-NZBZ {
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  padding-top: 5px;
+  font-size: 18px;
+  color: #1e1f20;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+  transform: scale(1.4);
+  transform-origin: 0 0;
+  background-image: url(./imgs/mc-bg.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 180% 140%;
+}
+
+.weapon-container {
+  position: relative;
+  display: inline-block;
+  max-width: 48%;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-image: url(./imgs/wq-bg.png);
+  background-size: 100% 100%;
+  box-shadow: 0 0 1px 0 #fff, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+}
+
+.weapon-image {
+  position: relative;
+  display: block;
+  width: 275px;
+  height: 275px;
+  margin: 0;
+  z-index: 1;
+}
+
+.bg-overlay {
+  bottom: 25px;
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 40%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  opacity: 0.20;
+  z-index: 0;
+}
+
+.stars-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 5px;
+  padding: 4px;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  z-index: 2;
+}
+
+.star-icon {
+  height: 18px;
+  width: 18px
+}
+
+.weapon-key {
+  vertical-align: middle;
+  margin-right: 10px;
+  position: static;
+  height: 32px;
+  transform: translateY(-2px);
+}
+
+.game-key {
+  float: right;
+  vertical-align: middle;
+  margin-right: 5px;
+  position: static;
+  height: 32px;
+  transform: translateY(2px);
+}
+
+.log-direct {
+  flex: 1;
+  max-width: 62%;
+  margin-right: 0;
+}
+
+.cont {
+  border-radius: 10px;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 0 15px 5px 10px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+}
+
+.cont-title {
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 0 #fff;
+  color: #d3bc8e;
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+.cont-title span {
+  display: inline-block;
+  width: 49%;
+}
+
+.cont-bottom {
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 0 #fff;
+  color: #d3bc8e;
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.cont-body {
+  padding: 10px 15px;
+  font-size: 16px;
+  height: 191px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px 0 #fff;
+  font-weight: normal;
+}
+.cont-body p {
+  white-space: pre-line;
+  word-break: break-all;
+  margin: 0;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  height: 300px;
+  padding: 20px 15px 10px 15px;
+  background-size: contain;
+  display: flex;
+  justify-content: space-between;
+}
+
+.story {
+  border-radius: 10px;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 20px 30px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 16px;
+}
+
+.story-body {
+  padding: 15px 15px 15px 15px;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px 0 #fff;
+  font-weight: normal;
+}
+.story-body p {
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.title {
+  border-radius: 10px;
+  background: url("../../common/cont/card-bg.png") top left repeat-x;
+  background-size: auto 100%;
+  margin: 20px 30px 0 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+  color: #fff;
+  font-size: 26px;
+}
+
+.title-title {
+  font-size: 28px;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 0 #fff;
+  color: #d3bc8e;
+  padding: 10px 20px;
+  text-align: left;
+  border-radius: 10px 10px 0 0;
+  text-shadow: 0 0 1px #000, 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-family: Number, "印品南征北战NZBZ体", NZBZ, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+
+.title-title span {
+  font-size: 14px;
+  color: #aaa;
+  margin-left: 15px;
+  font-weight: normal;
+  font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
+}
+
+.copyright {
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  position: fixed;
+  padding-left: 10px;
+  text-shadow: 1px 1px 1px #000;
+  margin: 10px 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.copyright .version {
+  color: #d3bc8e;
+  display: inline-block;
+  padding: 0 3px;
+}
+
+.material-list {
+  display: flex;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 10px 30px 5px 15px;
+  position: relative;
+  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
+  overflow: hidden;
+}
+
+.item-card {
+  width: 66px;
+  margin: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.item-icon {
+  background-size: cover;
+  padding: 6px 4px 17px;
+}
+
+.item-bg {
+  background-size: contain;
+  background-position: center;
+  height: 65px;
+  padding-top: 8px;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-image {
+  transform: translateY(4px);
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.item-title, .item-num {
+  display: block;
+  font-size: 12px;
+  position: absolute;
+  color: #fff;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 0;
+  width: 94px;
+  text-align: center;
+  transform: scale(0.7);
+  text-shadow: 0 0 2px #000;
+}
+
+.item-title {
+  bottom: 0;
+  left: 0;
+  transform-origin: left bottom;
+  border-radius: 0 0 6px 6px;
+}
+
+.item-num {
+  top: 0;
+  left: 0;
+  transform-origin: left top;
+  border-radius: 6px 6px 0 0;
+}
+
+.item-card.star1 {
+  background: rgba(114, 114, 114, 0.5);
+}
+
+.item-card.star2 {
+  background: rgba(90, 130, 90, 0.5);
+}
+
+.item-card.star3 {
+  background: rgba(70, 110, 135, 0.5);
+}
+
+.item-card.star4 {
+  background: rgba(105, 85, 135, 0.5);
+}
+
+.item-card.star5 {
+  background: rgba(150, 105, 65, 0.5);
+}
+
+.black {
+  width: 100%;
+  height: 40px;
+}

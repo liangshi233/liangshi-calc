@@ -73,8 +73,13 @@ export class Wiki extends plugin {
         imgs: wikiJson.imgs
       }, { e, scale: 1.4 })
     } else {
-      // 不是角色,武器与声骸-暂时跳过后续补充
-      return false
+      let wikiJson = await this.McItem(text)
+      if (!wikiJson) return false
+      return Common.render('wiki/Wuthering Waves/item-mc-wiki', {
+        data: wikiJson.data,
+        bg: wikiJson.bg,
+        imgs: wikiJson.imgs
+      }, { e, scale: 1.4 })
     }
   }
 
@@ -618,6 +623,37 @@ export class Wiki extends plugin {
       base: base,
       res: res,
       attr: attr,
+      imgs: imgs
+    }
+  }
+
+  async McItem (text) {
+    let ItemJson
+    try {
+      ItemJson = fs.readFileSync(`./plugins/miao-plugin/resources/meta-mc/material/data.json`, 'utf8')
+      ItemJson = JSON.parse(ItemJson)
+    } catch (err) {
+      console.warn("遇到了些问题，若重试后仍有此问题建议重新更新数据")
+      console.warn(err)
+      return false
+    }
+    ItemJson = ItemJson[text[0]]
+    if (!ItemJson) return false
+    let imgs = {
+      icon: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/material/${ItemJson.type}/${ItemJson.name}.webp`,
+    }
+    if (ItemJson.Source.length === 0) ItemJson.Source = ["未知"]
+    if (ItemJson.Source.length < 5) ItemJson.Source = [...ItemJson.Source, ...Array(5 - ItemJson.Source.length).fill('')]
+    return {
+      data: {
+        name: ItemJson.name,
+        type: ItemJson.type,
+        tag: ItemJson.tag,
+        star: ItemJson.star,
+        desc: ItemJson.Desc,
+        source: ItemJson.Source,
+      },
+      bg: ItemJson.Bg,
       imgs: imgs
     }
   }
