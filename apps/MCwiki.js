@@ -216,7 +216,7 @@ export class Wiki extends plugin {
       qFace: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
       side: `/meta-mc/character/${ChaJson.name}/imgs/side.webp`,
       gacha: `/meta-mc/character/${ChaJson.name}/imgs/gacha.webp`,
-      splash: `/meta-mc/character/${ChaJson.name}/imgs/splash.webp`,
+      splash: fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/imgs/pool.webp`) ? `/meta-mc/character/${ChaJson.name}/imgs/pool.webp`: `/meta-mc/character/${ChaJson.name}/imgs/splash.webp`,
       card: `../../liangshi-calc/resources/wiki/Wuthering Waves/card/${ChaJson.elem}.png`,
       banner: `/meta-mc/character/${ChaJson.name}/imgs/banner.webp`,
       cons1: process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${ChaJson.name}/icons/cons-1.webp`,

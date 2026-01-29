@@ -18,7 +18,7 @@ const LSstart = {
         { file: 'calc_team', name: 'liangshicalc 队伍', test: () => cfg.calcLiangT },
         { file: 'calc_concise', name: 'liangshicalc 极简' , test: () => cfg.calcLiangJ },
         { file: 'calc_basic', name: 'liangshicalc', test: () => cfg.calcLiang },
-        { file: 'calc_auto', name: 'miao-plugin 组团', test: () => Common.cfg('teamCalc') },
+        { file: 'calc_auto', name: 'miao-plugin 组团', test: () => Common?.cfg('teamCalc') },
         { file: 'calc', name: 'miao-plugin' }
       ]
       // 兼容处理星铁主角的情况
