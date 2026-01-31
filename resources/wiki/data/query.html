@@ -1,0 +1,66 @@
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" type="text/css" href="{{_res_path}}/wiki/data/query.css"/>
+    <link rel="preload" href="{{_res_path}}common/font/HYWH-65W.woff" as="font" type="font/woff">
+    <link rel="preload" href="{{_res_path}}common/font/NZBZ.woff" as="font" type="font/woff">
+    <link rel="preload" href="{{_res_path}}common/font/tttgbnumber.woff" as="font" type="font/woff">
+    <title>liangshi-calc</title>
+    {{block 'css'}}
+    {{/block}}
+  </head>
+
+  <body>
+    <div class="title">
+      <div class="title-title">图鉴查询<span>与 {{text}} 相关的内容共查询到{{num}}个</span></div>
+    </div>
+      <div class="material-list">
+        {{if Page[0] < 2}}
+        <div class="one-item-card one-item-card--{{one.game}}">
+          <div class="one-item-bg">
+            <img src="{{one.icon}}" class="one-item-image">
+          </div>
+          <div class="one-item-text">
+            <div class="one-item-name">
+              {{@one.name}}
+            </div>
+            <div class="one-item-type">
+              归属：{{one.type}}
+            </div>
+            <div class="one-item-way">
+              查找方式：{{one.way}}
+            </div>
+          </div>
+        </div>
+        {{/if}}
+        {{if record.length > 0}}
+        {{each record records}}
+        <div class="item-card item-card--{{records.game}}">
+          <div class="item-bg">
+            <img src="{{records.icon}}" class="item-image">
+          </div>
+          <div class="item-text">
+            <div class="item-name">
+              {{@records.name}}
+            </div>
+            <div class="item-type">
+            归属：{{records.type}}
+            </div>
+            <div class="item-way">
+            查找方式：{{records.way}}
+            </div>
+          </div>
+        </div>
+        {{/each}}
+        {{/if}}
+      </div>
+    <div class="page-card">
+      <div class="page">第<span class="ym">{{Page[0]}}</span>页 - 共<span class="ym">{{Page[1]}}</span>页</div>
+    </div>
+    <div class="black">
+      <div class="copyright">{{@sys.copyright}}</div>
+    </div>
+  </body>
+</html>
