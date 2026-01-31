@@ -31,12 +31,8 @@ body {
   font-size: 18px;
   color: #1e1f20;
   font-family: Number, "汉仪文黑-65W", YS, PingFangSC-Medium, "PingFang SC", sans-serif;
-  transform: scale(1.4);
   transform-origin: 0 0;
-
-
   background-color: #2e7be1;
-
   background-image: url(./imgs/zy-bg.png);
   background-position: left top;
   background-repeat: no-repeat;
@@ -105,7 +101,7 @@ body {
   background: url('./imgs/ww.jpg') center/cover,
   linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
   background-blend-mode: overlay;
-  mask-image: linear-gradient(to left,rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to left,rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
   pointer-events: none;
   z-index: -1;
 }
@@ -204,7 +200,7 @@ body {
   background: url('./imgs/ww.jpg') center/cover,
   linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
   background-blend-mode: overlay;
-  mask-image: linear-gradient(to left,rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to left,rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
   pointer-events: none;
   z-index: -1;
 }
