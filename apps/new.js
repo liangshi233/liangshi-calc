@@ -911,7 +911,7 @@ export class calc extends plugin {
             "tag": itemJson[`${ID}`]?.[Tag],
             "tagNum": itemJson[`${ID}`]?.TagNum,
             "Desc": itemJson[`${ID}`]?.Desc.split('\n'),
-            "Bg": itemJson[`${ID}`]?.Bg.split('\n'),
+            "Bg": itemJson[`${ID}`]?.Bg?.split('\n'),
             "Source": itemJson[`${ID}`]?.Source,
             "star": 5,
             "items": {
@@ -951,7 +951,7 @@ export class calc extends plugin {
             "tag": itemJson[`${ID}`]?.[Tag],
             "tagNum": itemJson[`${ID}`]?.TagNum,
             "Desc": itemJson[`${ID}`]?.Desc.split('\n'),
-            "Bg": itemJson[`${ID}`]?.Bg.split('\n'),
+            "Bg": itemJson[`${ID}`]?.Bg?.split('\n'),
             "Source": itemJson[`${ID}`]?.Source,
             "star": 1
           }
@@ -965,7 +965,7 @@ export class calc extends plugin {
             "tag": itemJson[`${ID}`]?.[Tag],
             "tagNum": itemJson[`${ID}`]?.TagNum,
             "Desc": itemJson[`${ID}`]?.Desc.split('\n'),
-            "Bg": itemJson[`${ID}`]?.Bg.split('\n'),
+            "Bg": itemJson[`${ID}`]?.Bg?.split('\n'),
             "Source": itemJson[`${ID}`]?.Source,
             "star": 4
           }
@@ -979,7 +979,7 @@ export class calc extends plugin {
             "tag": itemJson[`${ID}`]?.[Tag],
             "tagNum": itemJson[`${ID}`]?.TagNum,
             "Desc": itemJson[`${ID}`]?.Desc.split('\n'),
-            "Bg": itemJson[`${ID}`]?.Bg.split('\n'),
+            "Bg": itemJson[`${ID}`]?.Bg?.split('\n'),
             "Source": itemJson[`${ID}`]?.Source,
             "star": 4
           }
@@ -994,7 +994,7 @@ export class calc extends plugin {
             "tag": itemJson[`${ID}`]?.[Tag],
             "tagNum": itemJson[`${ID}`]?.TagNum,
             "Desc": itemJson[`${ID}`]?.Desc.split('\n'),
-            "Bg": itemJson[`${ID}`]?.Bg.split('\n'),
+            "Bg": itemJson[`${ID}`]?.Bg?.split('\n'),
             "Source": itemJson[`${ID}`]?.Source,
             "star": itemJson[`${ID}`].Rarity || itemJson[`${ID}`].QualityId
           }
