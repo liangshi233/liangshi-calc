@@ -17,7 +17,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
    > 如果你的网络环境较差，无法连接到 Github，推荐使用文件代理加速下载服务
    >
    > ```
-   > git clone --depth=1 https://git.090708.xyz/https://github.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
+   > git clone --depth=1 https://git.119899.xyz/https://github.com/liangshi233/liangshi-calc.git ./plugins/liangshi-calc/
    > ```
 
 重启Bot后即可启用插件
@@ -48,7 +48,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 > 如更新报错或更新数据异常可前往762197317反馈
 >
-> 网络问题自行解决，可在设置ProxyUrl中添加代理。
+> 如果遇到网络问题打不开,网速慢，可在设置`config/config.yaml`，ProxyUrl后面添加代理链接`https:dl.119899.xyz`。
 
 <details><summary>一键更新新版本内容</summary>
 
@@ -607,6 +607,7 @@ calcLi: false #liangshicalc 大爷
 ~~~~~~~~~~YAML
 gsApi: 1 #更新原神未来角色数据的API
 mcApi: 1 #更新鸣未来角色数据的API
+ProxyUrl: #API代理地址
 ~~~~~~~~~~
 
 <details><summary>gsApi</summary>
