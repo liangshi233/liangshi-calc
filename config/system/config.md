@@ -362,6 +362,14 @@ technique: 0
 energymodel: 0
 bndOfLifePlus: 0
 bndOfLifePct: 1
+
+GsDisabled: true
+SrDisabled: true
+DisabledRankingProtection: false
+
+gsApi: 1
+mcApi: 1
+ProxyUrl: 
 ~~~~~~~~~~
 
 </details>
