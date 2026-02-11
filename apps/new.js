@@ -11,18 +11,9 @@ import fs from 'node:fs'
  * 已知问题
  * 使用API 2和3 更新鸣潮角色数据时角色天赋顺序会被打乱
  * 使用API 2和3 更新鸣潮声骸数据时会丢失代号数据
- * 使用API 1 更新原神圣遗物数据时ID不正确
- *
- * 星铁部分内容更新需手动修改
- * 1.升级材料ID(应该不影响面板功能使用)
- * 2.天赋数据名称
- * 3.物品ID与type数据
- * 4.可能还有其他要修改的地方但应该不影响使用
  *
  * 如果有新的问题建议去issue反馈
  */
-
-let DQ = Intl.DateTimeFormat().resolvedOptions().locale
 
 export class calc extends plugin {
   constructor () {
@@ -42,7 +33,7 @@ export class calc extends plugin {
             fnc: 'add'
           },
           {
-            reg: '^#*(梁氏|liangshi)?检查(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)更新$',
+            reg: '^#*(梁氏|liangshi)?检查(鸣潮|明朝|潮|mc|MC)更新$',
             fnc: 'VerNew'
           },
           {
@@ -50,23 +41,23 @@ export class calc extends plugin {
             fnc: 'New'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?$',
             fnc: 'CharacterNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$',
             fnc: 'ArtifactNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$',
             fnc: 'WeaponNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
             fnc: 'ItemNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$',
             fnc: 'MonsterNew'
           }
         ]
@@ -81,29 +72,13 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
     let characterTime, weaponTime, artifactTime, monsterTime, itemTime, url, apiKey, character, status, response, game, GamePath, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName, monster, MonsterName, ItemJson, ItemOk, s, u, url2, servName
-    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    let i = "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GamePath = "gs"
-      GameName = "原神"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GamePath = "sr"
-      GameName = "崩坏：星穹铁道"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GamePath = "zzz"
-      GameName = "绝区零"
-      e.reply('[liangshi-calc]不支持的游戏(*/ω＼*)')
-      return false
-    } else {
       game = "ww"
       GamePath = "mc"
       GameName = "鸣潮"
-    }
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
@@ -145,59 +120,29 @@ export class calc extends plugin {
       logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
-        version = data[0].ResVer
-        character = data[1].character
-        weapon = data[1].weapon
-        monster = data.monster
-        artifact = data[1].echo
-        data.item = data[1].item
-      } else {
-        version = data.hotfix
-        character = data.character
-        weapon = data.weapon
-        monster = data.monster
-        artifact = data.echo
-      }
-      CharacterName = "共鸣者"
-      ArtifactName = "声骸"
-      WeaponName = "武器"
-      MonsterName = "残像"
-      s = "echo"
-      u = "weapon"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      version = data.version
-      character = data.character
-      weapon = data.lightcone
+    if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+      version = data[0].ResVer
+      character = data[1].character
+      weapon = data[1].weapon
       monster = data.monster
-      artifact = data.relicset
-      CharacterName = "角色"
-      ArtifactName = "遗器"
-      WeaponName = "光锥"
-      MonsterName = "敌人"
-      s = "relicset"
-      u = "lightcone"
+      artifact = data[1].echo
+      data.item = data[1].item
     } else {
-      version = data.version
+      version = data.hotfix
       character = data.character
       weapon = data.weapon
       monster = data.monster
-      artifact = data.artifact
-      CharacterName = "角色"
-      ArtifactName = "圣遗物"
-      WeaponName = "武器"
-      MonsterName = "魔物"
-      s = "artifact"
-      u = "weapon"
+      artifact = data.echo
     }
+    CharacterName = "共鸣者"
+    ArtifactName = "声骸"
+    WeaponName = "武器"
+    MonsterName = "残像"
+    s = "echo"
+    u = "weapon"
     if (/完整|全部/.test(e.msg)) {
       let Characterurl, Weaponurl, Artifacturl, Monsterurl, Itemurl
       status = "完整"
-      if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        e.reply('[liangshi-calc]崩坏：星穹铁道 不宜进行完整更新，如需使用请手动前往文件解除限制(*/ω＼*)')
-        return false
-      }
       try {
         if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
           Characterurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
@@ -393,101 +338,40 @@ export class calc extends plugin {
       return false
     }
     let CharacterNameText, WeaponNameText, ArtifactNameText, MonsterNameText
-    if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
-        CharacterNameText = character.map(id => CharacterNamedata.roleList.find(role => role.Id === id).Name)
-        WeaponNameText = weapon.map(id => WeaponNamedata.weapons.find(role => role.Id === id).Name)
-        ArtifactNameText = artifact.map(id => ArtifactNamedata.Echo.find(role => role.Id === id).Name)
-        MonsterNameText = monster.map(id => MonsterNamedata.Monster.find(role => role.Id === id).Name)
-      } else {
-        CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-        WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-        ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-        MonsterNameText = monster.map(num => MonsterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
-      }
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.cn ?? `${num.toString()}`)
-      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.cn ?? `${num.toString()}`)
-      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.cn ?? `${num.toString()}`)
+    if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+      CharacterNameText = character.map(id => CharacterNamedata.roleList.find(role => role.Id === id).Name)
+      WeaponNameText = weapon.map(id => WeaponNamedata.weapons.find(role => role.Id === id).Name)
+      ArtifactNameText = artifact.map(id => ArtifactNamedata.Echo.find(role => role.Id === id).Name)
+      MonsterNameText = monster.map(id => MonsterNamedata.Monster.find(role => role.Id === id).Name)
     } else {
-      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
-      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.CHS ?? `${num.toString()}`)
-      ArtifactNameText = artifact.map(id => {
-        let item = ArtifactNamedata[id]
-        if (!item?.set) return "未知套装"
-        const firstSetKey = Object.keys(item.set)[0]
-        return item.set[firstSetKey]?.name?.CHS ?? "未知名字"
-      })
+      CharacterNameText = character.map(num => CharacterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      WeaponNameText = weapon.map(num => WeaponNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
+      MonsterNameText = monster.map(num => MonsterNamedata[num.toString()]?.["zh-Hans"] ?? `${num.toString()}`)
     }
     try {
       let webp, webp3, a, b, c, d, i, f, g, h, j
-      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        webp = "side"
-        webp3 = "img"
-        a = ""
-        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/character/data.json', 'utf8')
-        c = JSON.parse(c)
-        d = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/broadblade/data.json', 'utf8')
-        d = JSON.parse(d)
-        i = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/gauntlets/data.json', 'utf8')
-        i = JSON.parse(i)
-        f = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/pistols/data.json', 'utf8')
-        f = JSON.parse(f)
-        g = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/data.json', 'utf8')
-        g = JSON.parse(g)
-        h = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/sword/data.json', 'utf8')
-        h = JSON.parse(h)
-        Object.values(d).forEach(ccb => {ccb.type = "broadblade"})
-        Object.values(i).forEach(ccb => {ccb.type = "gauntlets"})
-        Object.values(f).forEach(ccb => {ccb.type = "pistols"})
-        Object.values(g).forEach(ccb => {ccb.type = "rectifier"})
-        Object.values(h).forEach(ccb => {ccb.type = "sword"})
-        j = { ...d, ...i, ...f, ...g, ...h }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        webp = "face"
-        webp3 = "arti-0"
-        a = ""
-        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/character/data.json', 'utf8')
-        c = JSON.parse(c)
-        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/artifact/data.json', 'utf8')
-        b = JSON.parse(b)
-        j = fs.readFileSync('./plugins/miao-plugin/resources/meta-sr/weapon/data.json', 'utf8')
-        j = JSON.parse(j)
-      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        webp = "face"
-        webp3 = "1"
-        a = "/imgs"
-        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/character/data.json', 'utf8')
-        c = JSON.parse(c)
-        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/artifact/data.json', 'utf8')
-        b = JSON.parse(b)
-        d = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/bow/data.json', 'utf8')
-        d = JSON.parse(d)
-        i = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/catalyst/data.json', 'utf8')
-        i = JSON.parse(i)
-        f = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/claymore/data.json', 'utf8')
-        f = JSON.parse(f)
-        g = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/polearm/data.json', 'utf8')
-        g = JSON.parse(g)
-        h = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/sword/data.json', 'utf8')
-        h = JSON.parse(h)
-        Object.values(d).forEach(ccb => {ccb.type = "bow"})
-        Object.values(i).forEach(ccb => {ccb.type = "catalyst"})
-        Object.values(f).forEach(ccb => {ccb.type = "claymore"})
-        Object.values(g).forEach(ccb => {ccb.type = "polearm"})
-        Object.values(h).forEach(ccb => {ccb.type = "sword"})
-        j = { ...d, ...i, ...f, ...g, ...h }
-      } else {
-        webp = "face"
-        webp3 = "img"
-        a = "/imgs"
-        c = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/character/data.json', 'utf8')
-        c = JSON.parse(c)
-        b = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/artifact/data.json', 'utf8')
-        b = JSON.parse(b)
-        j = fs.readFileSync('./plugins/miao-plugin/resources/meta-zzz/weapon/data.json', 'utf8')
-        j = JSON.parse(j)
-      }
+      webp = "side"
+      webp3 = "img"
+      a = ""
+      c = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/character/data.json', 'utf8')
+      c = JSON.parse(c)
+      d = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/broadblade/data.json', 'utf8')
+      d = JSON.parse(d)
+      i = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/gauntlets/data.json', 'utf8')
+      i = JSON.parse(i)
+      f = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/pistols/data.json', 'utf8')
+      f = JSON.parse(f)
+      g = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/rectifier/data.json', 'utf8')
+      g = JSON.parse(g)
+      h = fs.readFileSync('./plugins/miao-plugin/resources/meta-mc/weapon/sword/data.json', 'utf8')
+      h = JSON.parse(h)
+      Object.values(d).forEach(ccb => {ccb.type = "broadblade"})
+      Object.values(i).forEach(ccb => {ccb.type = "gauntlets"})
+      Object.values(f).forEach(ccb => {ccb.type = "pistols"})
+      Object.values(g).forEach(ccb => {ccb.type = "rectifier"})
+      Object.values(h).forEach(ccb => {ccb.type = "sword"})
+      j = { ...d, ...i, ...f, ...g, ...h }
       let chars = character.filter(id => c.hasOwnProperty(id)).map(id => ({
         face: `/meta-${GamePath}/character/${c[id].name}/imgs/${webp}.webp`,
         name: c[id].name || "无名",
@@ -550,35 +434,19 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
-      logger.mark('[liangshi-calc]更新被中断')
-      return false
-    }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, url, apiKey, itemJson
-    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    let i = "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GamePath = "gs"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GamePath = "sr"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GamePath = "zzz"
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      game = "ww"
-      GamePath = "mc"
-    }
+    game = "ww"
+    GamePath = "mc"
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
       ProxyUrl = ""
     }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       if (!JsonOk) {
@@ -625,10 +493,6 @@ export class calc extends plugin {
         Tag = "TypeName"
         itemJson = data.itemList.reduce((ccb, item) => {ccb[item.Id] = {...item}; return ccb}, {})
         url = `${ProxyUrl}${itemJson[`${ID}`].Icon}`
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        Tag = "ItemSubType"
-        itemJson = data
-        url = `${ProxyUrl}https://api.hakush.in/${game}/UI/itemfigures/` + itemJson[`${ID}`].ItemIconPath.split('/').pop().split('.')[0] + '.webp'
       } else {
         Tag = "Tag"
         itemJson = data
@@ -639,219 +503,7 @@ export class calc extends plugin {
         return false
       }
       let imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/material`
-      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        if (/区域特产/.test(data[`${ID}`].Type)) {
-          //地图采集素材
-          ItemType = "specialty"
-          ItemData = {
-            "id": ID,
-            "name": data[`${ID}`].Name,
-            "type": ItemType,
-            "star": 1
-          }
-          ItemName = data[`${ID}`].Name
-        } else if (data[`${ID}`].Type === "角色天赋素材") {
-          //20体秘境天赋素材
-          if (data[`${ID}`].Name === "智识之冕") {
-            ItemName = "智识之冕"
-            ItemType = "talent"
-            ItemData = {
-              "id": ID,
-              "name": "智识之冕",
-              "type": ItemType,
-              "star": 5
-            }
-          } else if (data[`${ID}`].Name === "？？？") {
-            ItemName = "？？？"
-            ItemType = "talent"
-            ItemData = {
-              "id": ID,
-              "name": "？？？",
-              "type": ItemType,
-              "star": 5
-            }
-          } else {
-            let text = data[`${ID}`].Name.match(/「(..)」的(..)/)
-            ItemId = +ID + (4 - data[`${ID}`].Rank)
-            let tf1Name = `「${text[1]}」的教导`
-            let tf2Name = `「${text[1]}」的指引`
-            let tf3Name = `「${text[1]}」的哲学`
-            ItemType = "talent"
-            ItemData = {
-              "id": ItemId,
-              "name": tf3Name,
-              "type": ItemType,
-              "star": 4,
-              "items": {
-                [tf1Name]: {
-                  "id": ItemId - 2,
-                  "name": tf1Name,
-                  "type": ItemType,
-                  "star": 2
-                },
-                [tf2Name]: {
-                  "id": ItemId - 1,
-                  "name": tf2Name,
-                  "type": ItemType,
-                  "star": 3
-                },
-                [tf3Name]: {
-                  "id": ItemId,
-                  "name": tf3Name,
-                  "type": ItemType,
-                  "star": 4
-                }
-              }
-            }
-            ItemName = tf3Name
-          }
-        } else if (data[`${ID}`].Type === "武器突破素材") {
-          //20体秘境武器素材
-          ItemId = +ID + (5 - data[`${ID}`].Rank)
-          let wq1Name = data[`${ItemId - 3}`].Name
-          let wq2Name = data[`${ItemId - 2}`].Name
-          let wq3Name = data[`${ItemId - 1}`].Name
-          let wq4Name = data[`${ItemId}`].Name
-          ItemType = "weapon"
-          ItemData = {
-            "id": ItemId,
-            "name": wq4Name,
-            "type": ItemType,
-            "star": 5,
-            "items": {
-              [wq1Name]: {
-                "id": ItemId - 3,
-                "name": wq1Name,
-                "type": ItemType,
-                "star": 2
-              },
-              [wq2Name]: {
-                "id": ItemId - 2,
-                "name": wq2Name,
-                "type": ItemType,
-                "star": 3
-              },
-              [wq3Name]: {
-                "id": ItemId - 1,
-                "name": wq3Name,
-                "type": ItemType,
-                "star": 4
-              },
-              [wq4Name]: {
-                "id": ItemId,
-                "name": wq4Name,
-                "type": ItemType,
-                "star": 5
-              }
-            }
-          }
-          ItemName = wq4Name
-        } else if (data[`${ID}`].Type === "角色培养素材") {
-          //40体Boss素材 或 60体周本素材
-          if (/70级以上/.test(data[`${ID}`].JumpDescs[0])) {
-            // 60体周本素材
-            ItemType = "weekly"
-            ItemData = {
-              "id": ID,
-              "name": data[`${ID}`].Name,
-              "type": ItemType,
-              "star": 5
-            }
-            ItemName = data[`${ID}`].Name
-          } else if (/30级以上/.test(data[`${ID}`].JumpDescs[0])) {
-            //40体Boss素材
-            ItemType = "boss"
-            ItemData = {
-              "id": ID,
-              "name": data[`${ID}`].Name,
-              "type": ItemType,
-              "star": 4
-            }
-            ItemName = data[`${ID}`].Name
-          }
-        } else if (data[`${ID}`].Type === "角色与武器培养素材") {
-          //普通敌人素材或精英敌人素材
-          if (data[`${ID}`].Rank === 1 || (data[`${ID}`].Rank === 2 && /40级以上/.test(data[`${ID}`].JumpDescs[0])) || (data[`${ID}`].Rank === 3 && /60级以上/.test(data[`${ID}`].JumpDescs[0]))) {
-            //普通敌人素材
-            ItemId = +ID + (3 - data[`${ID}`].Rank)
-            let wp1Name = data[`${ItemId - 2}`].Name
-            let wp2Name = data[`${ItemId - 1}`].Name
-            let wp3Name = data[`${ItemId}`].Name
-            ItemType = "normal"
-            ItemData = {
-              "id": ItemId,
-              "name": wp3Name,
-              "type": ItemType,
-              "star": 3,
-              "items": {
-                [wp1Name]: {
-                  "id": ItemId - 2,
-                  "name": wp1Name,
-                  "type": ItemType,
-                  "star": 1
-                },
-                [wp2Name]: {
-                  "id": ItemId - 1,
-                  "name": wp2Name,
-                  "type": ItemType,
-                  "star": 2
-                },
-                [wp3Name]: {
-                  "id": ItemId,
-                  "name": wp3Name,
-                  "type": ItemType,
-                  "star": 3
-                }
-              }
-            }
-            ItemName = wp3Name
-          } else if (data[`${ID}`].Rank === 4 || (data[`${ID}`].Rank === 3 && /40级以上/.test(data[`${ID}`].JumpDescs[0])) || (data[`${ID}`].Rank === 2 && !/级以上/.test(data[`${ID}`].JumpDescs[0]))) {
-            //精英敌人素材
-            ItemId = +ID + (4 - data[`${ID}`].Rank)
-            let wp2Name = data[`${ItemId - 2}`].Name
-            let wp3Name = data[`${ItemId - 1}`].Name
-            let wp4Name = data[`${ItemId}`].Name
-            ItemType = "monster"
-            ItemData = {
-              "id": ItemId,
-              "name": wp4Name,
-              "type": ItemType,
-              "star": 4,
-              "items": {
-                [wp2Name]: {
-                  "id": ItemId - 2,
-                  "name": wp2Name,
-                  "type": ItemType,
-                  "star": 2
-                },
-                [wp3Name]: {
-                  "id": ItemId - 1,
-                  "name": wp3Name,
-                  "type": ItemType,
-                  "star": 3
-                },
-                [wp4Name]: {
-                  "id": ItemId,
-                  "name": wp4Name,
-                  "type": ItemType,
-                  "star": 4
-                }
-              }
-            }
-            ItemName = wp4Name
-          }
-        } else {
-          //未知物品
-          ItemName = data[`${ID}`].Name
-          ItemType = data[`${ID}`].MaterialType.startsWith("MATERIAL_") ? data[`${ID}`].MaterialType.replace("MATERIAL_", "").toLowerCase() : data[`${ID}`].MaterialType.toLowerCase()
-          ItemData = {
-            "id": ID,
-            "name": data[`${ID}`].Name,
-            "type": ItemType,
-            "star": data[`${ID}`].Rank
-          }
-        }
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         let key = {
           "经验": "none",
           "通用货币": "consume",
@@ -999,58 +651,8 @@ export class calc extends plugin {
             "star": itemJson[`${ID}`].Rarity || itemJson[`${ID}`].QualityId
           }
         }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        let Rar = {
-          "Rare": 3,
-          "VeryRare": 4,
-          "SuperRare": 5
-        }
-        if (data[ID]?.ItemSubType === "Virtual") {
-          ItemType = "normal"
-        } else if (data[ID]?.ItemSubType === "WeeklyMonsterDrop") {
-          ItemType = "normal"
-        } else if (data[ID]?.ItemSubType === "AvatarRank") {
-          ItemType = "char"
-        } else if (data[ID]?.ItemSubType === "CommonMonsterDrop") {
-          ItemType = "char"
-        } else if (data[ID]?.ItemSubType === "AvatarExp") {
-          ItemType = "exp"
-        } else if (data[ID]?.ItemSubType === "TracePath") {
-          ItemType = "weapon"
-        } else if (data[ID]?.ItemSubType === "Material") {
-          ItemType = "normal"
-        } else if (data[ID]?.ItemSubType === "EquipmentExp") {
-          ItemType = "exp"
-        } else if (data[ID]?.ItemSubType === "RelicExp") {
-          ItemType = "exp"
-        } else if (data[ID]?.ItemSubType === "Mission") {
-          ItemType = "Mission"
-        } else if (data[ID]?.ItemSubType === "ComposeMaterial") {
-          ItemType = "normal"
-        } else if (data[ID]?.ItemSubType === "Book") {
-          ItemType = "Book"
-        } else if (data[ID]?.ItemSubType === "Gift") {
-          ItemType = "Gift"
-        } else if (data[ID]?.ItemSubType === "Food") {
-          ItemType = "Food"
-        } else if (data[ID]?.ItemSubType === "Formula") {
-          ItemType = "Formula"
-        } else if (data[ID]?.ItemSubType === "FindChest") {
-          ItemType = "FindChest"
-        }
-        ItemData = {
-          "id": data[ID]?.ID,
-          "type": data[ID]?.InventoryDisplayTag,
-          "name": data[ID]?.ItemName,
-          "desc": data[ID]?.ItemBGDesc.replace(/<i>|<\/i>/g, '').replace(/\\n/g, ''),
-          "star": Rar[data[ID]?.Rarity],
-          "source": data[ID]?.ItemComefrom.map(item => item.Desc || "")
-        }
       }
-      if (!/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        await this.getImg(url, `${imgs}/${ItemType}/${itemJson[`${ID}`].Name}.webp`, "图标")
-        if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
-      }
+      await this.getImg(url, `${imgs}/${ItemType}/${itemJson[`${ID}`].Name}.webp`, "图标")
       if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/material/data.json`
@@ -1120,48 +722,28 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
-      logger.mark('[liangshi-calc]更新被中断')
-      return false
-    }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, WeaponType, bonus, WeaponData, url, apiKey, IconUrl, newValue
-    let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
+    let i = "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     let counter = -1
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GamePath = "gs"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GamePath = "sr"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GamePath = "zzz"
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      game = "ww"
-      GamePath = "mc"
-    }
+    game = "ww"
+    GamePath = "mc"
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
       ProxyUrl = ""
     }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
       try {
         if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon/${ID}`
-        } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        } else {
           url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
-        } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/weapon/${ID}.json`
-        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          url = `${ProxyUrl}https://api.hakush.in/${game}/data/${i}/lightcone/${ID}.json`
         }
         response = await fetch(url)
         if (!response.ok) {
@@ -1186,21 +768,7 @@ export class calc extends plugin {
         logger.mark(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
         return false
       }
-      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        if (ID < 12000) {
-          WeaponType = "sword"
-        } else if (ID < 13000) {
-          WeaponType = "claymore"
-        } else if (ID < 14000) {
-          WeaponType = "polearm"
-        } else if (ID < 15000) {
-          WeaponType = "catalyst"
-        } else if (ID < 30000) {
-          WeaponType = "bow"
-        } else {
-          WeaponType = "projection"
-        }
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         if (ID < 21020000) {
           WeaponType = "broadblade"
         } else if (ID < 21030000) {
@@ -1213,26 +781,6 @@ export class calc extends plugin {
           WeaponType = "rectifier"
         } else {
           WeaponType = "projection"
-        }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        if (data.BaseType === "Mage") {
-          WeaponType = "智识"
-        } else if (data.BaseType === "Knight") {
-          WeaponType = "存护"
-        } else if (data.BaseType === "Rogue") {
-          WeaponType = "巡猎"
-        } else if (data.BaseType === "Warlock") {
-          WeaponType = "虚无"
-        } else if (data.BaseType === "Warrior") {
-          WeaponType = "毁灭"
-        } else if (data.BaseType === "Shaman") {
-          WeaponType = "同协"
-        } else if (data.BaseType === "Priest") {
-          WeaponType = "丰饶"
-        } else if (data.BaseType === "Memory") {
-          WeaponType = "记忆"
-        } else if (data.BaseType === "Elation") {
-          WeaponType = "欢愉"
         }
       }
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
@@ -1256,24 +804,6 @@ export class calc extends plugin {
         } else {
           await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
         }
-      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        if (WeaponType === "projection") {
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Rock" + ".webp", `${imgs}/rock.webp`, "岩")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Ice" + ".webp", `${imgs}/ice.webp`, "冰")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Grass" + ".webp", `${imgs}/grass.webp`, "草")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Electric" + ".webp", `${imgs}/electric.webp`, "雷")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace(/\{0\}$/, "") + "Great_" + "Wind" + ".webp", `${imgs}/wind.webp`, "风")
-        } else {
-          await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/icon.webp`, "icon")
-          await this.getImg(IconUrl + "UI/" + data.Icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
-          await this.getImg(IconUrl + "UI/" + data.Icon + "_Awaken" + ".webp", `${imgs}/awaken.webp`, "awaken")
-        }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        await this.getImg(IconUrl + "UI/lightconemaxfigures/" + ID + ".webp", `${imgs}/splash.webp`, "splash")
-        await this.getImg(IconUrl + "UI/lightconemediumicon/" + ID + ".webp", `${imgs}/icon.webp`, "icon")
       }
       if(!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
       let key = {
@@ -1292,78 +822,7 @@ export class calc extends plugin {
         "暴击伤害": "cdmg",
         FIGHT_PROP_PHYSICAL_ADD_HURT: "phy"
       }
-      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        if (WeaponType !== "projection") {
-          if (key[Object.keys(data.StatsModifier)[1]] === "mastery") {
-            bonus = 1
-          } else {
-            bonus = 100
-          }
-          WeaponData = {
-            "id": Number(ID),
-            "name": data.Name,
-            "affixTitle": data.Refinement?.["1"]?.Name || "",
-            "star": data.Rarity,
-            "desc": data.Desc.replace(/\\n/g, ''),
-            "attr": {
-              "atk": {
-                "1": data.StatsModifier.ATK.Base,
-                "20": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"],
-                "40": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["1"])[0],
-                "50": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["2"])[0],
-                "60": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["3"])[0],
-                "70": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["70"] + Object.values(data.Ascension["4"])[0],
-                "80": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["80"] + Object.values(data.Ascension?.["5"] || {})?.[0] || undefined,
-                "90": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["90"] + Object.values(data.Ascension?.["6"] || {})?.[0] || undefined,
-                "20+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["20"] + Object.values(data.Ascension["1"])[0],
-                "40+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["40"] + Object.values(data.Ascension["2"])[0],
-                "50+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["50"] + Object.values(data.Ascension["3"])[0],
-                "60+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels["60"] + Object.values(data.Ascension["4"])[0],
-                "70+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["70"] + Object.values(data.Ascension?.["5"] || {})?.[0] || undefined,
-                "80+": data.StatsModifier.ATK.Base * data.StatsModifier.ATK.Levels?.["80"] + Object.values(data.Ascension?.["6"] || {})?.[0] || undefined
-              },
-              "bonusKey": key[Object.keys(data.StatsModifier || {})?.[1]] || undefined,
-              "bonusData": {
-                "1": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus || undefined,
-                "20": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["20"] || undefined,
-                "40": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["40"] || undefined,
-                "50": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["50"] || undefined,
-                "60": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["60"] || undefined,
-                "70": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["70"] || undefined,
-                "80": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["80"] || undefined,
-                "90": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["90"] || undefined,
-                "20+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["20"] || undefined,
-                "40+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["40"] || undefined,
-                "50+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["50"] || undefined,
-                "60+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["60"] || undefined,
-                "70+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["70"] || undefined,
-                "80+": data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Base * bonus * data.StatsModifier?.[Object.keys(data.StatsModifier || {})?.[1]].Levels["80"] || undefined,
-              }
-            },
-            "materials": {
-              "weapon": data.Materials?.["6"]?.Mats?.[0]?.Name || data.Materials?.["4"]?.Mats?.[0]?.Name,
-              "monster": data.Materials?.["6"]?.Mats?.[1]?.Name || data.Materials?.["4"]?.Mats?.[1]?.Name,
-              "normal": data.Materials?.["6"]?.Mats?.[2]?.Name || data.Materials?.["4"]?.Mats?.[2]?.Name
-            },
-            "affixData": await this.WeaponPromote(data.Refinement)
-          }
-        } else {
-          let WeaponTypeKey = {
-            WEAPON_SWORD_ONE_HAND: "sword",
-            WEAPON_CLAYMORE: "claymore",
-            WEAPON_POLE: "polearm",
-            WEAPON_CATALYST: "catalyst",
-            WEAPON_BOW: "bow"
-          }
-          WeaponData = {
-            "id": Number(ID),
-            "name": data.Name,
-            "star": data.Rarity,
-            "desc": data.Desc,
-            "WeaponType": WeaponTypeKey[data.WeaponType]
-          }
-        }
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
         let IconData, IconResponse, url, ValueKey
         try {
           if (cfg.mcApi === 2 || cfg.mcApi === 3) {
@@ -1513,127 +972,6 @@ export class calc extends plugin {
             }
           }
         }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        WeaponData = {
-          "id": ID,
-          "name": data.Name,
-          "star": Number(data.Rarity.charAt(data.Rarity.length - 1)),
-          "desc": data.Desc?.replace(/\\n/g, '<br />'),
-          "type": WeaponType,
-          "typeId": 0,
-          "baseAttr": {
-            "atk": data.Stats[6].BaseAttack + data.Stats[0].BaseAttackAdd * 79,
-            "hp": data.Stats[6].BaseHP + data.Stats[0].BaseHPAdd * 79,
-            "def": data.Stats[6].BaseDefence + data.Stats[0].BaseDefenceAdd * 79
-          },
-          "growAttr": {
-            "atk": data.Stats[0].BaseAttackAdd,
-            "hp": data.Stats[0].BaseHPAdd,
-            "def": data.Stats[0].BaseDefenceAdd
-          },
-          "attr": {
-            "0": {
-              "promote": 0,
-              "maxLevel": 20,
-              "cost": {
-                [data.Stats[0].PromotionCostList[0].ItemID]: data.Stats[0].PromotionCostList[0].ItemNum,
-                [data.Stats[0].PromotionCostList[1].ItemID]: data.Stats[0].PromotionCostList[1].ItemNum,
-              },
-              "attrs": {
-                "atk": data.Stats[0].BaseAttack,
-                "hp": data.Stats[0].BaseHP,
-                "def": data.Stats[0].BaseDefence
-              }
-            },
-            "1": {
-              "promote": 1,
-              "maxLevel": 30,
-              "cost": {
-                [data.Stats[1].PromotionCostList[0].ItemID]: data.Stats[1].PromotionCostList[0].ItemNum,
-                [data.Stats[1].PromotionCostList[1].ItemID]: data.Stats[1].PromotionCostList[1].ItemNum,
-                [data.Stats[1].PromotionCostList[2].ItemID]: data.Stats[1].PromotionCostList[2].ItemNum
-              },
-              "attrs": {
-                "atk": data.Stats[1].BaseAttack,
-                "hp": data.Stats[1].BaseHP,
-                "def": data.Stats[1].BaseDefence
-              }
-            },
-            "2": {
-              "promote": 2,
-              "maxLevel": 40,
-              "cost": {
-                [data.Stats[2].PromotionCostList[0].ItemID]: data.Stats[2].PromotionCostList[0].ItemNum,
-                [data.Stats[2].PromotionCostList[1].ItemID]: data.Stats[2].PromotionCostList[1].ItemNum,
-                [data.Stats[2].PromotionCostList[2].ItemID]: data.Stats[2].PromotionCostList[2].ItemNum
-              },
-              "attrs": {
-                "atk": data.Stats[2].BaseAttack,
-                "hp": data.Stats[2].BaseHP,
-                "def": data.Stats[2].BaseDefence
-              }
-            },
-            "3": {
-              "promote": 3,
-              "maxLevel": 50,
-              "cost": {
-                [data.Stats[3].PromotionCostList[0].ItemID]: data.Stats[3].PromotionCostList[0].ItemNum,
-                [data.Stats[3].PromotionCostList[1].ItemID]: data.Stats[3].PromotionCostList[1].ItemNum,
-                [data.Stats[3].PromotionCostList[2].ItemID]: data.Stats[3].PromotionCostList[2].ItemNum
-              },
-              "attrs": {
-                "atk": data.Stats[3].BaseAttack,
-                "hp": data.Stats[3].BaseHP,
-                "def": data.Stats[3].BaseDefence
-              }
-            },
-            "4": {
-              "promote": 4,
-              "maxLevel": 60,
-              "cost": {
-                [data.Stats[4].PromotionCostList[0].ItemID]: data.Stats[4].PromotionCostList[0].ItemNum,
-                [data.Stats[4].PromotionCostList[1].ItemID]: data.Stats[4].PromotionCostList[1].ItemNum,
-                [data.Stats[4].PromotionCostList[2].ItemID]: data.Stats[4].PromotionCostList[2].ItemNum
-              },
-              "attrs": {
-                "atk": data.Stats[4].BaseAttack,
-                "hp": data.Stats[4].BaseHP,
-                "def": data.Stats[4].BaseDefence
-              }
-            },
-            "5": {
-              "promote": 5,
-              "maxLevel": 70,
-              "cost": {
-                [data.Stats[5].PromotionCostList[0].ItemID]: data.Stats[5].PromotionCostList[0].ItemNum,
-                [data.Stats[5].PromotionCostList[1].ItemID]: data.Stats[5].PromotionCostList[1].ItemNum,
-                [data.Stats[5].PromotionCostList[2].ItemID]: data.Stats[5].PromotionCostList[2].ItemNum
-              },
-              "attrs": {
-                "atk": data.Stats[5].BaseAttack,
-                "hp": data.Stats[5].BaseHP,
-                "def": data.Stats[5].BaseDefence
-              }
-            },
-            "6": {
-              "promote": 6,
-              "maxLevel": 80,
-              "cost": {},
-              "attrs": {
-                "atk": data.Stats[6].BaseAttack,
-                "hp": data.Stats[6].BaseHP,
-                "def": data.Stats[6].BaseDefence
-              }
-            }
-          },
-          "skill": {
-            "id": ID,
-            "name": data.Refinements.Name,
-            "desc": data.Refinements.Desc.replace(/<color=[^>]*>(.*?)<\/color>/g, '$1').replace(/<unbreak>(.*?)<\/unbreak>/g, '<nobr>$1</nobr>').replace(/\\n/g, '<br />').replace(/f1/g, 'i'),
-            "tables": await this.srTables(data.Refinements)
-          },
-          "UpdateTime": `[liangshi-calc] ${new Date()}`
-        }
       }
       logger.mark('[liangshi-calc]数据处理完成')
       let path = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/${data.Name || data.WeaponName}/data.json`
@@ -1651,12 +989,7 @@ export class calc extends plugin {
         console.error(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已存在`)
       }
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
-        let filePath
-        if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/data.json`
-        } else {
-          filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
-        }
+        let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/weapon/${WeaponType}/data.json`
         if (!fs.existsSync(filePath)) {
           fs.writeFileSync(filePath, '{}')
           logger.mark(`[liangshi-calc]未找到data.json文件，已自动创建`)
@@ -1671,12 +1004,8 @@ export class calc extends plugin {
             let jsonData = JSON.parse(TextData)
             if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (cfg.mcApi === 2 || cfg.mcApi === 3)) {
               newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityName === "SR" ? 4 : 5 }
-            } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+            } else {
               newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
-            } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-              newValue = { "id": ID, "name": data.Name, "star": data.Rarity }
-            } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-              newValue = { "id": ID, "name": data.Name, "type": WeaponType, "star": Number(data.Rarity.charAt(data.Rarity.length - 1)) }
             }
             jsonData[ID] = newValue
             logger.mark(`[liangshi-calc]武器：${data.Name || data.WeaponName} 配置data.json成功`)
@@ -1727,49 +1056,25 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
-      logger.mark('[liangshi-calc]更新被中断')
-      return false
-    }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
     let cfg = LSconfig.getConfig('user', 'config')
     let response, game, GamePath, ProxyUrl, data, zb, url, apiKey, p
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GamePath = "gs"
-      zb = "圣遗物"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GamePath = "sr"
-      zb = "遗器"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GamePath = "zzz"
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      game = "ww"
-      GamePath = "mc"
-      zb = "声骸"
-    }
+    game = "ww"
+    GamePath = "mc"
+    zb = "声骸"
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
       ProxyUrl = ""
     }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的${zb}数据`)
       try {
-        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-          p = "echo"
-        } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-          p = "artifact"
-        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          p = "relicset"
-        }
+        p = "echo"
         if ((cfg.mcApi === 2 || cfg.mcApi === 3) && /鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
           url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/${p}/${ID}`
         } else {
@@ -1800,16 +1105,8 @@ export class calc extends plugin {
       }
       let imgPath, imgs, imgName
       let IconUrl = `${ProxyUrl}https://api.hakush.in/${game}/`
-      if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        imgPath = ""
-        imgName = data.Name || data.MonsterName
-      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        imgPath = "/imgs"
-        imgName = data.Affix[0].Name
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        imgPath = ""
-        imgName = data.Name
-      }
+      imgPath = ""
+      imgName = data.Name || data.MonsterName
       imgs = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact${imgPath}/${imgName}`
       if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-${GamePath}/artifact${imgPath}/${imgName}`) || /强制|强行|覆盖/.test(e.msg)) {
         if(!mode) e.reply(`[liangshi-calc]开始更新${zb}: ${imgName}`)
@@ -1819,28 +1116,11 @@ export class calc extends plugin {
         if(!mode) e.reply(`[liangshi-calc]${zb}: ${imgName} 已经存在，如需更新数据请使用覆盖更新。`)
         return false
       }
-      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_RING?.Icon + ".webp", `${imgs}/4.webp`, "空之杯")
-        await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_NECKLACE?.Icon + ".webp", `${imgs}/2.webp`, "死之羽")
-        await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_DRESS?.Icon + ".webp", `${imgs}/5.webp`, "理之冠")
-        await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_BRACER?.Icon + ".webp", `${imgs}/1.webp`, "生之花")
-        await this.getImg(IconUrl + "UI/" + data.Parts?.EQUIP_SHOES?.Icon + ".webp", `${imgs}/3.webp`, "时之沙")
-        if(!mode) e.reply(`[liangshi-calc]${zb}图片资源下载完成`)
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        if (cfg.mcApi === 2 || cfg.mcApi === 3) {
-          await this.getImg(data.Icon, `${imgs}/img.webp`, "声骸")
-        } else {
-          await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
-          await this.getImg(IconUrl + data.Skill.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/skill.webp`, "技能")
-        }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        await this.getImg(IconUrl + "UI/itemfigures/" + data.Icon.split('/').pop().split('.')[0] + ".webp", `${imgs}/arti-0.webp`, "套装")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_1.webp", `${imgs}/arti-1.webp`, "头部")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_2.webp", `${imgs}/arti-2.webp`, "手部")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_3.webp", `${imgs}/arti-3.webp`, "躯干")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_4.webp", `${imgs}/arti-4.webp`, "脚部")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_5.webp", `${imgs}/arti-5.webp`, "位面球")
-        await this.getImg(IconUrl + "UI/relicfigures/IconRelic_" + ID + "_6.webp", `${imgs}/arti-6.webp`, "连接绳")
+      if (cfg.mcApi === 2 || cfg.mcApi === 3) {
+        await this.getImg(data.Icon, `${imgs}/img.webp`, "声骸")
+      } else {
+        await this.getImg(IconUrl + data.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/img.webp`, "声骸")
+        await this.getImg(IconUrl + data.Skill.Icon.replace(/^\/Game\/Aki\//, '').split('.')[0] + ".webp", `${imgs}/skill.webp`, "技能")
       }
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-${GamePath}/artifact/data.json`
@@ -1848,73 +1128,7 @@ export class calc extends plugin {
           fs.writeFileSync(filePath, '{}')
           logger.mark(`[liangshi-calc]未找到data.json文件，已自动创建`)
         }
-        if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-          fs.readFile(filePath, 'utf8', (err, TextData) => {
-            if (err) {
-              console.error(`[liangshi-calc]读取${zb}配置data.json失败:`, err)
-              if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-              return false
-            }
-            try {
-              let l = data.Need?.[0] || null
-              let m = data.Need?.[1] || null
-              let k = m ? {
-                [l]: data.Affix[0].Desc,
-                [m]: data.Affix[1].Desc
-              } : {
-                [l]: data.Affix?.[0]?.Desc
-              }
-              let jsonData = JSON.parse(TextData)
-              let newValue = {
-                "id": ID,
-                "name": data.Affix[0].Name,
-                "idxs": {
-                  "1": {
-                    "id": data.Parts?.EQUIP_BRACER?.Story ? `${data.Parts?.EQUIP_BRACER?.Story}` : undefined,
-                    "name": data.Parts?.EQUIP_BRACER?.Name
-                  },
-                  "2": {
-                    "id": data.Parts?.EQUIP_NECKLACE?.Story ? `${data.Parts?.EQUIP_NECKLACE?.Story}` : undefined,
-                    "name": data.Parts?.EQUIP_NECKLACE?.Name
-                  },
-                  "3": {
-                    "id": data.Parts?.EQUIP_SHOES?.Story ? `${data.Parts?.EQUIP_SHOES?.Story}` : undefined,
-                    "name": data.Parts?.EQUIP_SHOES?.Name
-                  },
-                  "4": {
-                    "id": data.Parts?.EQUIP_RING?.Story ? `${data.Parts?.EQUIP_RING?.Story}` : undefined,
-                    "name": data.Parts?.EQUIP_RING?.Name
-                  },
-                  "5": {
-                    "id": data.Parts?.EQUIP_DRESS?.Story ? `${data.Parts?.EQUIP_DRESS?.Story}` : undefined,
-                    "name": data.Parts?.EQUIP_DRESS?.Name
-                  }
-                },
-                "skills": k,
-                "UpdateTime": `[liangshi-calc] ${new Date()}`
-              }
-              newValue.idxs = Object.fromEntries(
-                Object.entries(newValue.idxs).filter(([key, value]) => {
-                  return value.id !== undefined || value.name !== undefined
-                })
-              )
-              jsonData[ID] = newValue
-              logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
-              let updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
-                  if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName}\n数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-                  return false
-                } else {
-                  logger.mark(`[liangshi-calc]${zb}data.json已更新`)
-                }
-              })
-            } catch (err) {
-              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
-            }
-          })
-        } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
           let EchoJson, jsonNOK, yx, jx = {}
           if (cfg.mcApi === 2 || cfg.mcApi === 3) {
             if (fs.existsSync('./plugins/liangshi-calc/resources/EchoJson.json')) {
@@ -2117,116 +1331,6 @@ export class calc extends plugin {
             if(!mode) e.reply(`[liangshi-calc]声骸数据已存在，运行终止。\n如果需要刷新声骸数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}声骸数据`)
             console.error(`[liangshi-calc]声骸：${imgName}\n数据已存在`)
           }
-        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          let skillsText = ({ Desc, ParamList }) => Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '<\/nobr>').replace(/#(\d+)\[i\]%?/g, (match, idx) => {let ccb = ParamList[idx - 1]; return match.endsWith('%') ? `${(ccb * 100).toFixed(2)}%` : String(ccb)})
-          let idxsKey = Number(Object.keys(data.Parts)[0])
-          let newValue = {
-            "id": ID,
-            "name": data.Name,
-            "skills": {
-              "2": skillsText(data.RequireNum["2"])
-            },
-            "idxs": {},
-            "UpdateTime": `[liangshi-calc] ${new Date()}`
-          }
-          if (data.RequireNum["4"]) {
-            newValue.skills["4"] = skillsText(data.RequireNum["4"])
-            newValue.idxs = {
-              "1": {
-                "name": data.Parts[idxsKey].Name,
-                "desc": data.Parts[idxsKey].Desc,
-                "lore": data.Parts[idxsKey].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 0]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 0]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 0]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 0]: 5
-                }
-              },
-              "2": {
-                "name": data.Parts[idxsKey + 1].Name,
-                "desc": data.Parts[idxsKey + 1].Desc,
-                "lore": data.Parts[idxsKey + 1].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 1]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 1]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 1]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 1]: 5
-                }
-              },
-              "3": {
-                "name": data.Parts[idxsKey + 2].Name,
-                "desc": data.Parts[idxsKey + 2].Desc,
-                "lore": data.Parts[idxsKey + 2].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 2]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 2]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 2]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 2]: 5
-                }
-              },
-              "4": {
-                "name": data.Parts[idxsKey + 3].Name,
-                "desc": data.Parts[idxsKey + 3].Desc,
-                "lore": data.Parts[idxsKey + 3].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 3]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 3]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 3]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 3]: 5
-                }
-              }
-            }
-          } else {
-            newValue.idxs = {
-              "5": {
-                "name": data.Parts[idxsKey].Name,
-                "desc": data.Parts[idxsKey].Desc,
-                "lore": data.Parts[idxsKey].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 0]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 0]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 0]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 0]: 5
-                }
-              },
-              "6": {
-                "name": data.Parts[idxsKey + 1].Name,
-                "desc": data.Parts[idxsKey + 1].Desc,
-                "lore": data.Parts[idxsKey + 1].Story?.replace(/\\n/g, '<br />'),
-                "ids": {
-                  [idxsKey + 10000 * 0 + 1 * 1]: 2,
-                  [idxsKey + 10000 * 1 + 1 * 1]: 3,
-                  [idxsKey + 10000 * 2 + 1 * 1]: 4,
-                  [idxsKey + 10000 * 3 + 1 * 1]: 5
-                }
-              }
-            }
-          }
-          fs.readFile(filePath, 'utf8', (err, TextData) => {
-            if (err) {
-              console.error(`[liangshi-calc]读取${zb}配置data.json失败:`, err)
-              if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-              return false
-            }
-            try {
-              let jsonData = JSON.parse(TextData)
-              jsonData[ID] = newValue
-              logger.mark(`[liangshi-calc]${zb}：${imgName} 配置data.json成功`)
-              let updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error(`[liangshi-calc]${zb}data.json写入失败:\n`, err)
-                  if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName}\n数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`)
-                  return false
-                } else {
-                  logger.mark(`[liangshi-calc]${zb}data.json已更新`)
-                }
-              })
-            } catch (err) {
-              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
-            }
-          })
         }
         if (!mode) e.reply(`[liangshi-calc]${zb}：${imgName} 数据更新完成\n重启后即可使用相关内容`)
       } else {
@@ -2265,25 +1369,14 @@ export class calc extends plugin {
     let response, game, GamePath, ProxyUrl, data, MonsterData, url, apiKey, IconUrl, newValue
     let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GamePath = "gs"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GamePath = "sr"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GamePath = "zzz"
-    } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      game = "ww"
-      GamePath = "mc"
-    }
+    game = "ww"
+    GamePath = "mc"
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
       ProxyUrl = ""
     }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$/)
     let ID = TextData[4]
     if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
     try {
@@ -2420,17 +1513,7 @@ export class calc extends plugin {
                 "id": ID,
                 "name": data.Name
               }
-            } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-              newValue = {
-                "id": ID,
-                "name": data.Name
-              }
-            } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-              newValue = {
-                "id": ID,
-                "name": data.Name
-              }
-            } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
+            } else {
               newValue = {
                 "id": ID,
                 "name": data.Name
@@ -2483,20 +1566,9 @@ export class calc extends plugin {
   async VerNew (e) {
     let cfg = LSconfig.getConfig('user', 'config')
     let url, character, response, game, GameName, ProxyUrl, version, artifact, data, CharacterName, ArtifactName, weapon, WeaponName
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      game = "gi"
-      GameName = "原神"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      game = "hsr"
-      GameName = "崩坏：星穹铁道"
-    } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      game = "zzz"
-      GameName = "绝区零"
-    } else {
-      game = "ww"
-      GameName = "鸣潮"
-    }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
+    game = "ww"
+    GameName = "鸣潮"
     if (cfg.ProxyUrl) {
       ProxyUrl = cfg.ProxyUrl
     } else {
@@ -2505,7 +1577,6 @@ export class calc extends plugin {
     try {
       if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 2) {
         url = `${ProxyUrl}https://api.encore.moe/zh-Hans/new`
-        console.log(url)
       } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg) && cfg.mcApi === 3) {
         url = `${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`
       } else {
@@ -2548,22 +1619,6 @@ export class calc extends plugin {
       }
       CharacterName = "共鸣者"
       ArtifactName = "声骸"
-      WeaponName = "武器"
-    } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      version = data.version
-      character = data.character.length > 0 ? data.character : "本次无此内容更新"
-      weapon = data.lightcone.length > 0 ? data.lightcone : "本次无此内容更新"
-      artifact = data.relicset.length > 0 ? data.relicset : "本次无此内容更新"
-      CharacterName = "角色"
-      ArtifactName = "遗器"
-      WeaponName = "光锥"
-    } else {
-      version = data.version
-      character = data.character.length > 0 ? data.character : "本次无此内容更新"
-      weapon = data.weapon.length > 0 ? data.weapon : "本次无此内容更新"
-      artifact = data.artifact.length > 0 ? data.artifact : "本次无此内容更新"
-      ArtifactName = "圣遗物"
-      CharacterName = "角色"
       WeaponName = "武器"
     }
       e.reply(`[liangshi-calc] 检查到更新\n当前${GameName}的最新版本为${version}\n以下为新内容\n\n${CharacterName}ID\n${character}\n\n${WeaponName}ID\n${weapon}\n\n${ArtifactName}ID\n${artifact}`)
@@ -2758,35 +1813,17 @@ export class calc extends plugin {
       e.reply('你不可以更新哦~(*/ω＼*)')
       return false
     }
-    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg) && (false && (DQ === "zh-CN" || DQ === "zh-Hans-CN"))) { e.reply('不支持的功能'); return true }
-    if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      if(!mode) e.reply('[liangshi-calc]暂不支持该游戏更新，运行终止。')
-      logger.mark('[liangshi-calc]更新被中断')
-      return false
-    }
+    if (!/鸣潮|明朝|潮|mc|MC/.test(e.msg)) { e.reply('不支持的功能'); return true }
     let cfg = LSconfig.getConfig('user', 'config')
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
     let CharacterId = TextData[4]
-    let aText, bText
     try {
-      if ((/^\d{4}$/.test(CharacterId) && !/原神|原|ys|YS|gs|GS/.test(TextData[3])) || (!/原神|原|ys|YS|gs|GS/.test(TextData[3]) && /强制|强行|覆盖/.test(e.msg))) {
-        logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-        if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
-      } else if ((/^\d{8}$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3])) || (/^\d{8}-\d$/.test(CharacterId) && /原神|原|ys|YS|gs|GS/.test(TextData[3]))  || /强制|强行|覆盖/.test(e.msg)) {
+      if ((/^\d{4}$/.test(CharacterId) || /强制|强行|覆盖/.test(e.msg))) {
         logger.mark(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
         if(!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
       } else {
         let CharacterIdUrl, GameName
-        if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-          CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-gs/README.md"
-          GameName = "原神"
-        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          CharacterIdUrl = undefined //(目录名称内容可能含有违规信息)"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-sr/README.md"
-          GameName = "星铁"
-        } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-          CharacterIdUrl = undefined //"https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-zzz/README.md"
-          GameName = "绝区零"
-        } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
+        if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
           CharacterIdUrl = "https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-mc/README.md"
           GameName = "鸣潮"
         } else {
@@ -2794,25 +1831,14 @@ export class calc extends plugin {
           GameName = undefined
         }
         console.error(`[liangshi-calc]未知的角色ID:${CharacterId}`)
-        if(!mode) e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(原神:8位数字,其余:4位数字)')
+        if(!mode) e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(4位数字)')
         if(!mode) e.reply(`[liangshi-calc]角色ID可在${CharacterIdUrl}内对照 (新版本角色ID可使用 #梁氏检查${GameName}更新 查看)`)
         return false
       }
       let data, game, GamePath
-      let i = /星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg) ? "cn" : "zh"
-      if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        game = "gi"
-        GamePath = "gs"
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        game = "hsr"
-        GamePath = "sr"
-      } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-        game = "zzz"
-        GamePath = "zzz"
-      } else if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-        game = "ww"
-        GamePath = "mc"
-      }
+      let i = "zh"
+      game = "ww"
+      GamePath = "mc"
       let response, ProxyUrl, apiKey, CharacterData, ItemText, url
       if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
       if (cfg.ProxyUrl) {
@@ -2837,7 +1863,7 @@ export class calc extends plugin {
         console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
         if (response.status === 404) {
           if(!mode) e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
-          if(!mode) e.reply('数据更新时间(预估)\n鸣潮：版本更新后14天18：00~次日6：00左右\n原神：版本更新当天18：00~次日6：00左右\n星穹铁道：版本更新当天18：00~次日6：00左右\n绝区零：undefined')
+          if(!mode) e.reply('数据更新时间(预估)\n鸣潮：版本更新后14天18：00~次日6：00左右')
         } else if (response.status === 429) {
           if(!mode) e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
         } else if (response.status >= 500) {
@@ -3367,960 +2393,6 @@ export class calc extends plugin {
             "UpdateTime": `[liangshi-calc] ${new Date()}`
           }
         }
-      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        let WeaponKey = {
-          "WEAPON_SWORD_ONE_HAND": "sword",
-          "WEAPON_CLAYMORE": "claymore",
-          "WEAPON_POLE": "polearm",
-          "WEAPON_BOW": "bow",
-          "WEAPON_CATALYST": "catalyst"
-        }
-        let RarityKey = {
-          "QUALITY_ORANGE_SP": 5,
-          "QUALITY_ORANGE": 5,
-          "QUALITY_PURPLE": 4
-        }
-        let GrowKey = {
-          "FIGHT_PROP_HP_PERCENT": "hpPct",
-          "FIGHT_PROP_ATTACK_PERCENT": "atkPct",
-          "FIGHT_PROP_DEFENSE_PERCENT": "defPct",
-          "FIGHT_PROP_CHARGE_EFFICIENCY": "recharge",
-          "FIGHT_PROP_ELEMENT_MASTERY": "mastery",
-          "FIGHT_PROP_CRITICAL_HURT": "cdmg",
-          "FIGHT_PROP_CRITICAL": "cpct",
-          "FIGHT_PROP_HEAL_ADD": "heal",
-          "FIGHT_PROP_ICE_ADD_HURT": "dmg",
-          "FIGHT_PROP_GRASS_ADD_HURT": "dmg",
-          "FIGHT_PROP_ROCK_ADD_HURT": "dmg",
-          "FIGHT_PROP_WIND_ADD_HURT": "dmg",
-          "FIGHT_PROP_WATER_ADD_HURT": "dmg",
-          "FIGHT_PROP_FIRE_ADD_HURT": "dmg",
-          "FIGHT_PROP_ELEC_ADD_HURT": "dmg",
-          "FIGHT_PROP_PHYSICAL_ADD_HURT": "phy"
-        }
-        if (data.Skills[2].Desc.includes("替代冲刺")) Qkey = 3
-        if (data.Constellations[2]?.Desc.includes(data.Skills[Qkey].Name) || data.Constellations[4].Desc.includes(data.Skills[Qkey].Name)) {
-          ConsTalent.q = data.Constellations[2].Desc.includes(data.Skills[Qkey].Name) ? 3 : 5
-        }
-        if (data.Constellations[2]?.Desc.includes(data.Skills[1].Name) || data.Constellations[4].Desc.includes(data.Skills[1].Name)) {
-          ConsTalent.e = data.Constellations[2].Desc.includes(data.Skills[1].Name) ? 3 : 5
-        }
-        if (data.Constellations[2]?.Desc.includes(data.Skills[0].Name) || data.Constellations[4].Desc.includes(data.Skills[0].Name)) {
-          ConsTalent.a = data.Constellations[2].Desc.includes(data.Skills[0].Name) ? 3 : 5
-        }
-        let T1D = data.Skills[0].SpecialDesc || data.Skills[0].Desc
-        let T2D = data.Skills[1].SpecialDesc || data.Skills[1].Desc
-        let T3D = data.Skills[Qkey].SpecialDesc || data.Skills[Qkey].Desc
-        let C1D = data.Constellations[0]?.SpecialDesc || data.Constellations[0]?.Desc
-        let C2D = data.Constellations[1]?.SpecialDesc || data.Constellations[1]?.Desc
-        let C3D = data.Constellations[2]?.SpecialDesc || data.Constellations[2]?.Desc
-        let C4D = data.Constellations[3]?.SpecialDesc || data.Constellations[3]?.Desc
-        let C5D = data.Constellations[4]?.SpecialDesc || data.Constellations[4]?.Desc
-        let C6D = data.Constellations[5]?.SpecialDesc || data.Constellations[5]?.Desc
-        let G1D = data.Passives[0]?.SpecialDesc || data.Passives[0]?.Desc
-        let G2D = data.Passives[1]?.SpecialDesc || data.Passives[1]?.Desc
-        let G3D = data.Passives[2]?.SpecialDesc || data.Passives[2]?.Desc
-        let G4D = data.Passives[3]?.SpecialDesc || data.Passives[3]?.Desc
-        let G5D = data.Passives[4]?.SpecialDesc || data.Passives[4]?.Desc
-        CharacterData = {
-          "id": CharacterId,
-          "name": data.Name,
-          "abbr": data.Name.length >= 5 ? data.Name.slice(-2) : data.Name,
-          "title": data.CharaInfo.Title,
-          "star": RarityKey[data.Rarity],
-          "elem": data.Element.toLowerCase(),
-          "allegiance": data.CharaInfo.Native,
-          "weapon": WeaponKey[data.Weapon],
-          "birth": `${data.CharaInfo.Birth[0]}-${data.CharaInfo.Birth[1]}`,
-          "astro": data.CharaInfo.Constellation,
-          "desc": data.CharaInfo.Detail,
-          "cncv": data.CharaInfo.VA.Chinese,
-          "jpcv": data.CharaInfo.VA.Japanese,
-          "costume": false,
-          "ver": 1,
-          "baseAttr": {
-            "hp": Math.round(data.BaseHP * data.StatsModifier.HP["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP),
-            "atk": Math.round((data.BaseATK * data.StatsModifier.ATK["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK) * 100) / 100,
-            "def": Math.round((data.BaseDEF * data.StatsModifier.DEF["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE) * 100) / 100
-          },
-          "growAttr": {
-            "key": GrowKey[Object.keys(data.StatsModifier.Ascension[0])[3]],
-            "value": Math.floor((data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)) * 10) / 10
-          },
-          "talentId": {
-            [data.Skills[0].Id]: "a",
-            [data.Skills[1].Id]: "e",
-            [data.Skills[Qkey].Id]: "q"
-          },
-          "talentCons": ConsTalent,
-          "materials": {
-            "gem": data.Materials.Ascensions[5].Mats[0].Name,
-            "boss": data.Materials.Ascensions[5].Mats[1].Name,
-            "specialty": data.Materials.Ascensions[5].Mats[2].Name,
-            "normal": data.Materials.Ascensions[5].Mats[3]?.Name,
-            "talent": data.Materials.Talents[0][8].Mats[0].Name,
-            "weekly": data.Materials.Talents[0][8].Mats[2].Name
-          },
-          "talent": {
-            "a": {
-              "id": data.Skills[0].Id,
-              "name": data.Skills[0].Name,
-              "desc": T1D.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
-              "tables": await this.convertPromoteToTables(data.Skills[0].Promote)
-            },
-            "e": {
-              "id": data.Skills[1].Id,
-              "name": data.Skills[1].Name,
-              "desc": T2D.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
-              "tables": await this.convertPromoteToTables(data.Skills[1].Promote)
-            },
-            "q": {
-              "id": data.Skills[Qkey].Id,
-              "name": data.Skills[Qkey].Name,
-              "desc": T3D.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0),
-              "tables": await this.convertPromoteToTables(data.Skills[Qkey].Promote)
-            }
-          },
-          "talentData": {
-            "a": await this.TalentPromote(data.Skills[0]),
-            "e": await this.TalentPromote(data.Skills[1]),
-            "q": await this.TalentPromote(data.Skills[Qkey])
-          },
-          "cons": {
-            "1": {
-              "name": data.Constellations[0]?.Name,
-              "desc": C1D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            "2": {
-              "name": data.Constellations[1]?.Name,
-              "desc": C2D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            "3": {
-              "name": data.Constellations[2]?.Name,
-              "desc": C3D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            "4": {
-              "name": data.Constellations[3]?.Name,
-              "desc": C4D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            "5": {
-              "name": data.Constellations[4]?.Name,
-              "desc": C5D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            "6": {
-              "name": data.Constellations[5]?.Name,
-              "desc": C6D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            }
-          },
-          "passive": [
-            {
-              "name": data.Passives[2]?.Name,
-              "desc": G3D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            {
-              "name": data.Passives[0]?.Name,
-              "desc": G1D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            {
-              "name": data.Passives[1]?.Name,
-              "desc": G2D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            },
-            data.Passives?.[3] ? {
-              "name": data.Passives?.[3]?.Name,
-              "desc": G4D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            } : undefined,
-            data.Passives?.[4] ? {
-              "name": data.Passives?.[4]?.Name,
-              "desc": G5D?.split(/\\n/).map(l=>(l=l.trim(),/^<color=#[^>]+>[^<]+<\/color>$/.test(l)?l.replace(/<color=#[^>]+>(.*?)<\/color>/,'<h3>$1</h3>'):/^<color=[^>]+>[^<]+<\/color>$/.test(l)?'':l.replace(/<color=#FFD780FF>(.*?)<\/color>/g,'$1').replace(/<color=[^>]+>(.*?)<\/color>/g,'$1'))).map(l=>l.replace(/{LINK#S\d+}/g,'').replace(/{LINK#N\d+}/g,'').replace(/{\/LINK}/g,'')).filter(l=>l.length>0)
-            } : undefined,
-          ].filter(Boolean),
-          "attr": {
-            "keys": [
-              "hpBase",
-              "atkBase",
-              "defBase",
-              `${GrowKey[Object.keys(data.StatsModifier.Ascension[0])[3]]}`
-            ],
-            "details": {
-              "1": [
-                data.BaseHP,
-                data.BaseATK,
-                data.BaseDEF,
-                0
-              ],
-              "20": [
-                data.BaseHP * data.StatsModifier.HP["20"],
-                data.BaseATK * data.StatsModifier.ATK["20"],
-                data.BaseDEF * data.StatsModifier.DEF["20"],
-                0
-              ],
-              "40": [
-                data.BaseHP * data.StatsModifier.HP["40"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["40"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["40"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[0])[3]] >= 1 ? data.StatsModifier.Ascension[0][Object.keys(data.StatsModifier.Ascension[0])[3]] : (data.StatsModifier.Ascension[0][Object.keys(data.StatsModifier.Ascension[0])[3]] * 100)
-              ],
-              "50": [
-                data.BaseHP * data.StatsModifier.HP["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["50"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[1])[3]] >= 1 ? data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] : (data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] * 100)
-              ],
-              "60": [
-                data.BaseHP * data.StatsModifier.HP["60"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["60"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["60"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[2])[3]] >= 1 ? data.StatsModifier.Ascension[2][Object.keys(data.StatsModifier.Ascension[2])[3]] : (data.StatsModifier.Ascension[2][Object.keys(data.StatsModifier.Ascension[2])[3]] * 100)
-              ],
-              "70": [
-                data.BaseHP * data.StatsModifier.HP["70"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["70"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["70"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[3])[3]] >= 1 ? data.StatsModifier.Ascension[3][Object.keys(data.StatsModifier.Ascension[3])[3]] : (data.StatsModifier.Ascension[3][Object.keys(data.StatsModifier.Ascension[3])[3]] * 100)
-              ],
-              "80": [
-                data.BaseHP * data.StatsModifier.HP["80"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["80"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["80"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[4])[3]] >= 1 ? data.StatsModifier.Ascension[4][Object.keys(data.StatsModifier.Ascension[4])[3]] : (data.StatsModifier.Ascension[4][Object.keys(data.StatsModifier.Ascension[4])[3]] * 100)
-              ],
-              "90": [
-                data.BaseHP * data.StatsModifier.HP["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
-              ],
-              "100": [
-                data.BaseHP * data.StatsModifier.HP["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["100"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
-              ],
-              "20+": [
-                data.BaseHP * data.StatsModifier.HP["20"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["20"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["20"] + data.StatsModifier.Ascension[0].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[0])[3]] >= 1 ? data.StatsModifier.Ascension[0][Object.keys(data.StatsModifier.Ascension[0])[3]] : (data.StatsModifier.Ascension[0][Object.keys(data.StatsModifier.Ascension[0])[3]] * 100)
-              ],
-              "40+": [
-                data.BaseHP * data.StatsModifier.HP["40"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["40"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["40"] + data.StatsModifier.Ascension[1].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[1])[3]] >= 1 ? data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] : (data.StatsModifier.Ascension[1][Object.keys(data.StatsModifier.Ascension[1])[3]] * 100)
-              ],
-              "50+": [
-                data.BaseHP * data.StatsModifier.HP["50"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["50"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["50"] + data.StatsModifier.Ascension[2].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[2])[3]] >= 1 ? data.StatsModifier.Ascension[2][Object.keys(data.StatsModifier.Ascension[2])[3]] : (data.StatsModifier.Ascension[2][Object.keys(data.StatsModifier.Ascension[2])[3]] * 100)
-              ],
-              "60+": [
-                data.BaseHP * data.StatsModifier.HP["60"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["60"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["60"] + data.StatsModifier.Ascension[3].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[3])[3]] >= 1 ? data.StatsModifier.Ascension[3][Object.keys(data.StatsModifier.Ascension[3])[3]] : (data.StatsModifier.Ascension[3][Object.keys(data.StatsModifier.Ascension[3])[3]] * 100)
-              ],
-              "70+": [
-                data.BaseHP * data.StatsModifier.HP["70"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["70"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["70"] + data.StatsModifier.Ascension[4].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[4])[3]] >= 1 ? data.StatsModifier.Ascension[4][Object.keys(data.StatsModifier.Ascension[4])[3]] : (data.StatsModifier.Ascension[4][Object.keys(data.StatsModifier.Ascension[4])[3]] * 100)
-              ],
-              "80+": [
-                data.BaseHP * data.StatsModifier.HP["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["80"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
-              ],
-              "90+": [
-                data.BaseHP * data.StatsModifier.HP["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_HP,
-                data.BaseATK * data.StatsModifier.ATK["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_ATTACK,
-                data.BaseDEF * data.StatsModifier.DEF["90"] + data.StatsModifier.Ascension[5].FIGHT_PROP_BASE_DEFENSE,
-                data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] >= 1 ? data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] : (data.StatsModifier.Ascension[5][Object.keys(data.StatsModifier.Ascension[5])[3]] * 100)
-              ]
-            }
-          },
-          "UpdateTime": `[liangshi-calc] ${new Date()}`
-        }
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        let liveData
-        try {
-          url = `${ProxyUrl}https://api.hakush.in/${game}/live/${i}/character/${CharacterId}.json`
-          response = await fetch(url)
-          if (!response.ok) {
-            console.error("[liangshi-calc] 加载角色最新数据时遇到问题，可能角色尚未实装（若角色尚未实装请忽略此问题）")
-          } else {
-            liveData = await response.json()
-          }
-        } catch (err) {
-          console.error("[liangshi-calc] 加载角色最新数据时遇到问题，可能角色尚未实装（若此角色尚未实装请忽略此问题）")
-        }
-        let consTexe = item => item?.Desc.replace(/<unbreak>#(\d+)\[i](\%)?<\/unbreak>/g, (_, ab, ac) => { let ccb = item?.ParamList[ab - 1]; return `<nobr>${ccb * (ac ? 100 : 1)}${ac || ''}</nobr>` })
-        let skillTag = {
-          "SingleAttack": "单攻",
-          "Enhance": "群攻",
-          "Bounce": "弹射",
-          "Impair": "妨害",
-          "Support": "辅助",
-          "Restore": "回复"
-        }
-        let skillType = {
-          "Normal": "普攻",
-          "BPSkill": "战技",
-          "Ultra": "终结技",
-          "Maze": "秘技",
-          "Servant": "忆灵技"
-        }
-        let treeKey = {
-          "速度": "speed",
-          "攻击力": "atk",
-          "生命值": "hp",
-          "防御力": "def",
-          "暴击率": "cpct",
-          "暴击伤害": "cdmg",
-          "击破特攻": "stance",
-          "效果命中": "effPct",
-          "效果抵抗": "effDef",
-          "火属性伤害提高": "fire",
-          "冰属性伤害提高": "ice",
-          "雷属性伤害提高": "elec",
-          "风属性伤害提高": "wind",
-          "物理属性伤害提高": "phy",
-          "量子属性伤害提高": "quantum",
-          "虚数属性伤害提高": "imaginary"
-        }
-        let treeDataKey = { ...treeKey, ...{ "攻击力": "atkPct", "生命值": "hpPct", "防御力": "defPct" }}
-        let treeData = ({ ParamList, PointDesc }) => {let bc = PointDesc.replace(/#(\d+)\[i\](%?)/g, (da, db, dc) => {let ac = ParamList[parseInt(db) - 1];return dc ? `${ac * 100}%` : ac.toString()});let bd = bc.replace(/<unbreak>(.*?)<\/unbreak>/g, '<nobr>$1</nobr>');return bd}
-        CharacterData = {
-          "id": Number(CharacterId),
-          "key": data.AvatarVOTag,
-          "name": data.Name,
-          "star": data.Rarity === "CombatPowerAvatarRarityType4" ? 4 : 5,
-          "elem": damageKey[data.DamageType],
-          "allegiance": liveData?.CharaInfo?.Camp || "",
-          "weapon": weaponKey[data.BaseType],
-          "sp": data.SPNeed,
-          "desc": data.Desc.replace(/\\n/g, ''),
-          "cncv": liveData?.CharaInfo?.VA.Chinese || "",
-          "jpcv": liveData?.CharaInfo?.VA.Japanese || "",
-          "baseAttr": {
-            "atk": data.Stats[6].AttackBase + data.Stats[6].AttackAdd * 79,
-            "hp": data.Stats[6].HPBase + data.Stats[6].HPAdd * 79,
-            "def": data.Stats[6].DefenceBase + data.Stats[6].DefenceAdd * 79,
-            "speed": data.Stats[6].SpeedBase,
-            "cpct": data.Stats[6].CriticalChance * 100,
-            "cdmg": data.Stats[6].CriticalDamage * 100,
-            "aggro": data.Stats[6].BaseAggro
-          },
-          "growAttr": {
-            "atk": data.Stats[6].AttackAdd,
-            "hp": data.Stats[6].HPAdd,
-            "def": data.Stats[6].DefenceAdd,
-            "speed": 0
-          },
-          "talentId": {
-            [`${CharacterId * 100 + 1}`]: "a",
-            [`${CharacterId * 100 + 2}`]: "e",
-            [`${CharacterId * 100 + 3}`]: "q",
-            [`${CharacterId * 100 + 4}`]: "t",
-            [`${CharacterId * 100 + 7}`]: "z",
-          },
-          "talentCons": {},
-          "talent": {
-            "a": {
-              "id": CharacterId * 100 + 1,
-              "name": data.Skills[`${CharacterId * 100 + 1}`]?.Name,
-              "type": skillType[data.Skills[`${CharacterId * 100 + 1}`].Type] || "普攻",
-              "tag": skillTag[data.Skills[`${CharacterId * 100 + 1}`].Tag],
-              "desc": data.Skills[`${CharacterId * 100 + 1}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 1}`])
-            },
-            "e": {
-              "id": CharacterId * 100 + 2,
-              "name": data.Skills[`${CharacterId * 100 + 2}`]?.Name,
-              "type": skillType[data.Skills[`${CharacterId * 100 + 2}`].Type] || "战技",
-              "tag": skillTag[data.Skills[`${CharacterId * 100 + 2}`].Tag],
-              "desc": data.Skills[`${CharacterId * 100 + 2}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 2}`])
-            },
-            "q": {
-              "id": CharacterId * 100 + 3,
-              "name": data.Skills[`${CharacterId * 100 + 3}`]?.Name,
-              "type": skillType[data.Skills[`${CharacterId * 100 + 3}`].Type] || "终结技",
-              "tag": skillTag[data.Skills[`${CharacterId * 100 + 3}`].Tag],
-              "desc": data.Skills[`${CharacterId * 100 + 3}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 3}`])
-            },
-            "t": {
-              "id": CharacterId * 100 + 4,
-              "name": data.Skills[`${CharacterId * 100 + 4}`]?.Name,
-              "type": skillType[data.Skills[`${CharacterId * 100 + 4}`].Type] || "天赋",
-              "tag": skillTag[data.Skills[`${CharacterId * 100 + 4}`].Tag],
-              "desc": data.Skills[`${CharacterId * 100 + 4}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 4}`])
-            },
-            "z": {
-              "id": CharacterId * 100 + 7,
-              "name": data.Skills[`${CharacterId * 100 + 7}`]?.Name,
-              "type": skillType[data.Skills[`${CharacterId * 100 + 7}`].Type] || "秘技",
-              "tag": skillTag[data.Skills[`${CharacterId * 100 + 7}`].Tag],
-              "desc": data.Skills[`${CharacterId * 100 + 7}`].Desc.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 7}`])
-            }
-          },
-          "cons": {
-            "1": {
-              "name": data.Ranks[1]?.Name,
-              "desc": consTexe(data.Ranks[1])
-            },
-            "2": {
-              "name": data.Ranks[2]?.Name,
-              "desc": consTexe(data.Ranks[2])
-            },
-            "3": {
-              "name": data.Ranks[3]?.Name,
-              "desc": consTexe(data.Ranks[3])
-            },
-            "4": {
-              "name": data.Ranks[4]?.Name,
-              "desc": consTexe(data.Ranks[4])
-            },
-            "5": {
-              "name": data.Ranks[5]?.Name,
-              "desc": consTexe(data.Ranks[5])
-            },
-            "6": {
-              "name": data.Ranks[6]?.Name,
-              "desc": consTexe(data.Ranks[6])
-            },
-          },
-          "attr": {
-            "0": {
-              "promote": 0,
-              "maxLevel": 20,
-              "cost": {
-                [data.Stats[0].Cost[0].ItemID]: data.Stats[0].Cost[0].ItemNum,
-                [data.Stats[0].Cost[1].ItemID]: data.Stats[0].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[0].AttackAdd,
-                "hp": data.Stats[0].HPAdd,
-                "def": data.Stats[0].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[0].AttackBase,
-                "hp": data.Stats[0].HPBase,
-                "def": data.Stats[0].DefenceBase,
-                "speed": data.Stats[0].SpeedBase,
-                "cpct": data.Stats[0].CriticalChance * 100,
-                "cdmg": data.Stats[0].CriticalDamage * 100,
-                "aggro": data.Stats[0].BaseAggro
-              }
-            },
-            "1": {
-              "promote": 1,
-              "maxLevel": 30,
-              "cost": {
-                [data.Stats[1].Cost[0].ItemID]: data.Stats[1].Cost[0].ItemNum,
-                [data.Stats[1].Cost[1].ItemID]: data.Stats[1].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[1].AttackAdd,
-                "hp": data.Stats[1].HPAdd,
-                "def": data.Stats[1].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[1].AttackBase,
-                "hp": data.Stats[1].HPBase,
-                "def": data.Stats[1].DefenceBase,
-                "speed": data.Stats[1].SpeedBase,
-                "cpct": data.Stats[1].CriticalChance * 100,
-                "cdmg": data.Stats[1].CriticalDamage * 100,
-                "aggro": data.Stats[1].BaseAggro
-              }
-            },
-            "2": {
-              "promote": 2,
-              "maxLevel": 40,
-              "cost": {
-                [data.Stats[2].Cost[0].ItemID]: data.Stats[2].Cost[0].ItemNum,
-                [data.Stats[2].Cost[2].ItemID]: data.Stats[2].Cost[2].ItemNum,
-                [data.Stats[2].Cost[1].ItemID]: data.Stats[2].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[2].AttackAdd,
-                "hp": data.Stats[2].HPAdd,
-                "def": data.Stats[2].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[2].AttackBase,
-                "hp": data.Stats[2].HPBase,
-                "def": data.Stats[2].DefenceBase,
-                "speed": data.Stats[2].SpeedBase,
-                "cpct": data.Stats[2].CriticalChance * 100,
-                "cdmg": data.Stats[2].CriticalDamage * 100,
-                "aggro": data.Stats[2].BaseAggro
-              }
-            },
-            "3": {
-              "promote": 3,
-              "maxLevel": 50,
-              "cost": {
-                [data.Stats[3].Cost[0].ItemID]: data.Stats[3].Cost[0].ItemNum,
-                [data.Stats[3].Cost[2].ItemID]: data.Stats[3].Cost[2].ItemNum,
-                [data.Stats[3].Cost[1].ItemID]: data.Stats[3].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[3].AttackAdd,
-                "hp": data.Stats[3].HPAdd,
-                "def": data.Stats[3].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[3].AttackBase,
-                "hp": data.Stats[3].HPBase,
-                "def": data.Stats[3].DefenceBase,
-                "speed": data.Stats[3].SpeedBase,
-                "cpct": data.Stats[3].CriticalChance * 100,
-                "cdmg": data.Stats[3].CriticalDamage * 100,
-                "aggro": data.Stats[3].BaseAggro
-              }
-            },
-            "4": {
-              "promote": 4,
-              "maxLevel": 60,
-              "cost": {
-                [data.Stats[4].Cost[0].ItemID]: data.Stats[4].Cost[0].ItemNum,
-                [data.Stats[4].Cost[2].ItemID]: data.Stats[4].Cost[2].ItemNum,
-                [data.Stats[4].Cost[1].ItemID]: data.Stats[4].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[4].AttackAdd,
-                "hp": data.Stats[4].HPAdd,
-                "def": data.Stats[4].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[4].AttackBase,
-                "hp": data.Stats[4].HPBase,
-                "def": data.Stats[4].DefenceBase,
-                "speed": data.Stats[4].SpeedBase,
-                "cpct": data.Stats[4].CriticalChance * 100,
-                "cdmg": data.Stats[4].CriticalDamage * 100,
-                "aggro": data.Stats[4].BaseAggro
-              }
-            },
-            "5": {
-              "promote": 5,
-              "maxLevel": 70,
-              "cost": {
-                [data.Stats[5].Cost[0].ItemID]: data.Stats[5].Cost[0].ItemNum,
-                [data.Stats[5].Cost[2].ItemID]: data.Stats[5].Cost[2].ItemNum,
-                [data.Stats[5].Cost[1].ItemID]: data.Stats[5].Cost[1].ItemNum
-              },
-              "grow": {
-                "atk": data.Stats[5].AttackAdd,
-                "hp": data.Stats[5].HPAdd,
-                "def": data.Stats[5].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[5].AttackBase,
-                "hp": data.Stats[5].HPBase,
-                "def": data.Stats[5].DefenceBase,
-                "speed": data.Stats[5].SpeedBase,
-                "cpct": data.Stats[5].CriticalChance * 100,
-                "cdmg": data.Stats[5].CriticalDamage * 100,
-                "aggro": data.Stats[5].BaseAggro
-              }
-            },
-            "6": {
-              "promote": 6,
-              "maxLevel": 80,
-              "cost": {},
-              "grow": {
-                "atk": data.Stats[6].AttackAdd,
-                "hp": data.Stats[6].HPAdd,
-                "def": data.Stats[6].DefenceAdd,
-                "speed": 0
-              },
-              "attrs": {
-                "atk": data.Stats[6].AttackBase,
-                "hp": data.Stats[6].HPBase,
-                "def": data.Stats[6].DefenceBase,
-                "speed": data.Stats[6].SpeedBase,
-                "cpct": data.Stats[6].CriticalChance * 100,
-                "cdmg": data.Stats[6].CriticalDamage * 100,
-                "aggro": data.Stats[6].BaseAggro
-              }
-            }
-          },
-          "tree": {
-            [data.SkillTrees.Point09["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point09["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point09["1"].StatusAddList[0].Value * (data.SkillTrees.Point09["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point10["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point10["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point10["1"].StatusAddList[0].Value * (data.SkillTrees.Point10["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point11["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point11["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point11["1"].StatusAddList[0].Value * (data.SkillTrees.Point11["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point12["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point12["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point12["1"].StatusAddList[0].Value * (data.SkillTrees.Point12["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point13["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point13["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point13["1"].StatusAddList[0].Value * (data.SkillTrees.Point13["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point14["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point14["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point14["1"].StatusAddList[0].Value * (data.SkillTrees.Point14["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point15["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point15["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point15["1"].StatusAddList[0].Value * (data.SkillTrees.Point15["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point16["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point16["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point16["1"].StatusAddList[0].Value * (data.SkillTrees.Point16["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point17["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point17["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point17["1"].StatusAddList[0].Value * (data.SkillTrees.Point17["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            },
-            [data.SkillTrees.Point18["1"].PointID]: {
-              "key": treeKey[data.SkillTrees.Point18["1"].StatusAddList[0].Name],
-              "value": data.SkillTrees.Point18["1"].StatusAddList[0].Value * (data.SkillTrees.Point18["1"].StatusAddList[0].Name === "速度" ? 1 : 100)
-            }
-          },
-          "treeData": {
-            [CharacterId * 1000 + 101]: {
-              "id": CharacterId * 1000 + 101,
-              "type": "skill",
-              "root": true,
-              "name": data.SkillTrees.Point06["1"].PointName,
-              "levelReq": 0,
-              "desc": treeData(data.SkillTrees.Point06["1"]),
-              "cost": {
-                [data.SkillTrees.Point06["1"].MaterialList[0].ItemID]: data.SkillTrees.Point06["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point06["1"].MaterialList[2].ItemID]: data.SkillTrees.Point06["1"].MaterialList[2].ItemNum,
-                [data.SkillTrees.Point06["1"].MaterialList[1].ItemID]: data.SkillTrees.Point06["1"].MaterialList[1].ItemNum
-              },
-              "idx": 1,
-              "children": [
-                CharacterId * 1000 + 204,
-                CharacterId * 1000 + 205
-              ]
-            },
-            [CharacterId * 1000 + 102]: {
-              "id": CharacterId * 1000 + 102,
-              "type": "skill",
-              "root": true,
-              "name": data.SkillTrees.Point07["1"].PointName,
-              "levelReq": 0,
-              "desc": treeData(data.SkillTrees.Point07["1"]),
-              "cost": {
-                [data.SkillTrees.Point07["1"].MaterialList[0].ItemID]: data.SkillTrees.Point07["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point07["1"].MaterialList[3].ItemID]: data.SkillTrees.Point07["1"].MaterialList[3].ItemNum,
-                [data.SkillTrees.Point07["1"].MaterialList[2].ItemID]: data.SkillTrees.Point07["1"].MaterialList[2].ItemNum,
-                [data.SkillTrees.Point07["1"].MaterialList[1].ItemID]: data.SkillTrees.Point07["1"].MaterialList[1].ItemNum
-              },
-              "idx": 2,
-              "children": [
-                CharacterId * 1000 + 206,
-                CharacterId * 1000 + 207
-              ]
-            },
-            [CharacterId * 1000 + 103]: {
-              "id": CharacterId * 1000 + 103,
-              "type": "skill",
-              "root": true,
-              "name": data.SkillTrees.Point08["1"].PointName,
-              "levelReq": 0,
-              "desc": treeData(data.SkillTrees.Point08["1"]),
-              "cost": {
-                [data.SkillTrees.Point08["1"].MaterialList[0].ItemID]: data.SkillTrees.Point08["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point08["1"].MaterialList[3].ItemID]: data.SkillTrees.Point08["1"].MaterialList[3].ItemNum,
-                [data.SkillTrees.Point08["1"].MaterialList[2].ItemID]: data.SkillTrees.Point08["1"].MaterialList[2].ItemNum,
-                [data.SkillTrees.Point08["1"].MaterialList[1].ItemID]: data.SkillTrees.Point08["1"].MaterialList[1].ItemNum
-              },
-              "idx": 3,
-              "children": [
-                CharacterId * 1000 + 208
-              ]
-            },
-            [CharacterId * 1000 + 201]: {
-              "id": CharacterId * 1000 + 201,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point09["1"].PointName,
-              "levelReq": data.SkillTrees.Point09["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point09["1"].MaterialList[0].ItemID]: data.SkillTrees.Point09["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point09["1"].MaterialList[1].ItemID]: data.SkillTrees.Point09["1"].MaterialList[1].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point09["1"].StatusAddList[0].Name]]: data.SkillTrees.Point09["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 202]: {
-              "id": CharacterId * 1000 + 202,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point10["1"].PointName,
-              "levelReq": data.SkillTrees.Point10["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point10["1"].MaterialList[0].ItemID]: data.SkillTrees.Point10["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point10["1"].MaterialList[1].ItemID]: data.SkillTrees.Point10["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point10["1"].MaterialList[2].ItemID]: data.SkillTrees.Point10["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point10["1"].StatusAddList[0].Name]]: data.SkillTrees.Point10["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 203]: {
-              "id": CharacterId * 1000 + 203,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point11["1"].PointName,
-              "levelReq": data.SkillTrees.Point11["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point11["1"].MaterialList[0].ItemID]: data.SkillTrees.Point11["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point11["1"].MaterialList[1].ItemID]: data.SkillTrees.Point11["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point11["1"].MaterialList[2].ItemID]: data.SkillTrees.Point11["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point11["1"].StatusAddList[0].Name]]: data.SkillTrees.Point11["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 204]: {
-              "id": CharacterId * 1000 + 204,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point12["1"].PointName,
-              "levelReq": data.SkillTrees.Point12["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point12["1"].MaterialList[0].ItemID]: data.SkillTrees.Point12["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point12["1"].MaterialList[1].ItemID]: data.SkillTrees.Point12["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point12["1"].MaterialList[2].ItemID]: data.SkillTrees.Point12["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point12["1"].StatusAddList[0].Name]]: data.SkillTrees.Point12["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 205]: {
-              "id": CharacterId * 1000 + 205,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point13["1"].PointName,
-              "levelReq": data.SkillTrees.Point13["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point13["1"].MaterialList[0].ItemID]: data.SkillTrees.Point13["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point13["1"].MaterialList[2].ItemID]: data.SkillTrees.Point13["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point13["1"].MaterialList[2].ItemID]: data.SkillTrees.Point13["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point13["1"].StatusAddList[0].Name]]: data.SkillTrees.Point13["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 206]: {
-              "id": CharacterId * 1000 + 206,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point14["1"].PointName,
-              "levelReq": data.SkillTrees.Point14["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point14["1"].MaterialList[0].ItemID]: data.SkillTrees.Point14["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point14["1"].MaterialList[1].ItemID]: data.SkillTrees.Point14["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point14["1"].MaterialList[2].ItemID]: data.SkillTrees.Point14["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point14["1"].StatusAddList[0].Name]]: data.SkillTrees.Point14["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 207]: {
-              "id": CharacterId * 1000 + 207,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point15["1"].PointName,
-              "levelReq": data.SkillTrees.Point15["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point15["1"].MaterialList[0].ItemID]: data.SkillTrees.Point15["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point15["1"].MaterialList[1].ItemID]: data.SkillTrees.Point15["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point15["1"].MaterialList[2].ItemID]: data.SkillTrees.Point15["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point15["1"].StatusAddList[0].Name]]: data.SkillTrees.Point15["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 208]: {
-              "id": CharacterId * 1000 + 208,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point16["1"].PointName,
-              "levelReq": data.SkillTrees.Point16["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point16["1"].MaterialList[0].ItemID]: data.SkillTrees.Point16["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point16["1"].MaterialList[1].ItemID]: data.SkillTrees.Point16["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point16["1"].MaterialList[2].ItemID]: data.SkillTrees.Point16["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point16["1"].StatusAddList[0].Name]]: data.SkillTrees.Point16["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 209]: {
-              "id": CharacterId * 1000 + 209,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point17["1"].PointName,
-              "levelReq": data.SkillTrees.Point17["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point17["1"].MaterialList[0].ItemID]: data.SkillTrees.Point17["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point17["1"].MaterialList[1].ItemID]: data.SkillTrees.Point17["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point17["1"].MaterialList[2].ItemID]: data.SkillTrees.Point17["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point17["1"].StatusAddList[0].Name]]: data.SkillTrees.Point17["1"].StatusAddList[0].Value * 100
-              }
-            },
-            [CharacterId * 1000 + 210]: {
-              "id": CharacterId * 1000 + 210,
-              "type": "buff",
-              "root": false,
-              "name": data.SkillTrees.Point18["1"].PointName,
-              "levelReq": data.SkillTrees.Point18["1"].AvatarLevelLimit || 0,
-              "cost": {
-                [data.SkillTrees.Point18["1"].MaterialList[0].ItemID]: data.SkillTrees.Point18["1"].MaterialList[0].ItemNum,
-                [data.SkillTrees.Point18["1"].MaterialList[1].ItemID]: data.SkillTrees.Point18["1"].MaterialList[1].ItemNum,
-                [data.SkillTrees.Point18["1"].MaterialList[2].ItemID]: data.SkillTrees.Point18["1"].MaterialList[2].ItemNum
-              },
-              "data": {
-                [treeDataKey[data.SkillTrees.Point18["1"].StatusAddList[0].Name]]: data.SkillTrees.Point18["1"].StatusAddList[0].Value * 100
-              }
-            }
-          },
-          "UpdateTime": `[liangshi-calc] ${new Date()}`
-        }
-        if (data.Ranks[3].Desc.includes("普攻")) {
-          CharacterData.talentCons.a = 3
-          CharacterData.talentCons.t = 5
-        } else {
-          CharacterData.talentCons.a = 5
-          CharacterData.talentCons.t = 3
-        }
-        if (data.Ranks[3].Desc.includes("终结技")) {
-          CharacterData.talentCons.q = 3
-          CharacterData.talentCons.e = 5
-          CharacterData.talentCons["3"] = "q"
-          CharacterData.talentCons["5"] = "e"
-        } else {
-          CharacterData.talentCons.q = 5
-          CharacterData.talentCons.e = 3
-          CharacterData.talentCons["3"] = "e"
-          CharacterData.talentCons["5"] = "q"
-        }
-        if (data.Skills[`${CharacterId * 100 + 5}`]?.Name) {
-          CharacterData.talent.t2 = {
-            "id": CharacterId * 100 + 5,
-            "name": data.Skills[`${CharacterId * 100 + 5}`].Name,
-            "type": skillType[data.Skills[`${CharacterId * 100 + 5}`].Type] || "天赋",
-            "tag": skillTag[data.Skills[`${CharacterId * 100 + 5}`].Tag],
-            "desc": data.Skills[`${CharacterId * 100 + 5}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 5}`])
-          }
-          CharacterData.talentId[`${CharacterId * 100 + 5}`] = "t2"
-        }
-        if (data.Skills[`${CharacterId * 100 + 8}`]?.Name) {
-          CharacterData.talent.a2 = {
-            "id": CharacterId * 100 + 8,
-            "name": data.Skills[`${CharacterId * 100 + 8}`].Name,
-            "type": skillType[data.Skills[`${CharacterId * 100 + 8}`].Type] || "普攻",
-            "tag": skillTag[data.Skills[`${CharacterId * 100 + 8}`].Tag],
-            "desc": data.Skills[`${CharacterId * 100 + 8}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 8}`])
-          }
-          CharacterData.talentId[`${CharacterId * 100 + 8}`] = "a2"
-        }
-        if (data.Skills[`${CharacterId * 100 + 9}`]?.Name) {
-          CharacterData.talent.e1 = {
-            "id": CharacterId * 100 + 9,
-            "name": data.Skills[`${CharacterId * 100 + 9}`].Name,
-            "type": skillType[data.Skills[`${CharacterId * 100 + 9}`].Type] || "战技",
-            "tag": skillTag[data.Skills[`${CharacterId * 100 + 9}`].Tag],
-            "desc": data.Skills[`${CharacterId * 100 + 9}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 9}`])
-          }
-          CharacterData.talentId[`${CharacterId * 100 + 9}`] = "e1"
-        }
-        if (data.Skills[`${CharacterId * 100 + 11}`]?.Name) {
-          CharacterData.talent.e2 = {
-            "id": CharacterId * 100 + 11,
-            "name": data.Skills[`${CharacterId * 100 + 11}`].Name,
-            "type": skillType[data.Skills[`${CharacterId * 100 + 11}`].Type] || "战技",
-            "tag": skillTag[data.Skills[`${CharacterId * 100 + 11}`].Tag],
-            "desc": data.Skills[`${CharacterId * 100 + 11}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Skills[`${CharacterId * 100 + 11}`])
-          }
-          CharacterData.talentId[`${CharacterId * 100 + 11}`] = "e2"
-        }
-        if (data.Memosprite?.Name) {
-          CharacterData.talent.me = {
-            "id": 1000000 + CharacterId * 100 + 1,
-            "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Name,
-            "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Type] || "忆灵技",
-            "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Tag],
-            "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`])
-          }
-          CharacterData.talentId[`${1000000 + CharacterId * 100 + 1}`] = "me"
-          CharacterData.talent.mt = {
-            "id": 1000000 + CharacterId * 100 + 3,
-            "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Name,
-            "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Type] || "忆灵天赋",
-            "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`].Tag],
-            "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 1}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-            "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 3}`])
-          }
-          CharacterData.talentId[`${1000000 + CharacterId * 100 + 3}`] = "mt"
-          if (data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`]?.Name) {
-            CharacterData.talent.mt1 = {
-              "id": 1000000 + CharacterId * 100 + 5,
-              "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Name,
-              "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Type] || "忆灵天赋",
-              "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Tag],
-              "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 5}`])
-            }
-            CharacterData.talentId[`${1000000 + CharacterId * 100 + 5}`] = "mt1"
-          }
-          if (data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`]?.Name) {
-            CharacterData.talent.mt2 = {
-              "id": 1000000 + CharacterId * 100 + 6,
-              "name": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Name,
-              "type": skillType[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Type] || "忆灵天赋",
-              "tag": skillTag[data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Tag],
-              "desc": data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`].Desc?.replace(/<unbreak>/g, '<nobr>').replace(/<\/unbreak>/g, '</nobr>').replace(/#/g, '$').replace(/<color=[$#][^>]+>/g, '').replace(/<\/color>/g, '').replace(/\\n/g, '<br />'),
-              "tables": await this.SRTalent(data.Memosprite.Skills[`${1000000 + CharacterId * 100 + 6}`])
-            }
-            CharacterData.talentId[`${1000000 + CharacterId * 100 + 6}`] = "mt2"
-          }
-          if (data.Ranks[3].Desc.includes("忆灵技")) {
-            CharacterData.talentCons.me = 3
-            CharacterData.talentCons.mt = 5
-          } else {
-            CharacterData.talentCons.me = 5
-            CharacterData.talentCons.mt = 3
-          }
-        }
-        aText = CharacterData.talentId
-        bText = CharacterData.talentCons
       }
       if (Qkey === 3) {
         CharacterData.talentId[data.Skills[2].Id] = "t"
@@ -4387,43 +2459,6 @@ export class calc extends plugin {
           await this.getImg((data.Chains["5"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-5.webp`, "5链")
           await this.getImg((data.Chains["6"].Icon.replace(/^\/Game\/Aki\//, IconUrl)).replace(/\.[^/.]+$/, '.webp'), `${icons}/cons-6.webp`, "6链")
         }
-      } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-        await this.getImg(IconUrl + "UI/UI_Gacha_AvatarImg_" + data.Icon.replace("UI_AvatarIcon_", "") + ".webp", `${imgs}/splash.webp`, "立绘")
-        await this.getImg(IconUrl + "UI/" + data.Icon + ".webp", `${imgs}/face.webp`, "大头")
-        await this.getImg(IconUrl + "UI/" + data.CharaInfo.Namecard.Icon + ".webp", `${imgs}/card.webp`, "名片")
-        await this.getImg(IconUrl + "UI/" + data.Passives?.[2]?.Icon + ".webp", `${icons}/passive-0.webp`, "固有天赋1")
-        await this.getImg(IconUrl + "UI/" + data.Passives?.[0]?.Icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
-        await this.getImg(IconUrl + "UI/" + data.Passives?.[1]?.Icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
-        await this.getImg(IconUrl + "UI/" + data.Passives?.[3]?.Icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
-        await this.getImg(IconUrl + "UI/" + data.Skills[1].Promote[0].Icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
-        await this.getImg(IconUrl + "UI/" + data.Skills[Qkey].Promote[0].Icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
-        if (Qkey === 3) await this.getImg(IconUrl + "UI/" + data.Skills[2].Promote[0].Icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[0]?.Icon + ".webp", `${icons}/cons-1.webp`, "1命")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[1]?.Icon + ".webp", `${icons}/cons-2.webp`, "2命")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[2]?.Icon + ".webp", `${icons}/cons-3.webp`, "3命")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[3]?.Icon + ".webp", `${icons}/cons-4.webp`, "4命")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[4]?.Icon + ".webp", `${icons}/cons-5.webp`, "5命")
-        await this.getImg(IconUrl + "UI/" + data.Constellations[5]?.Icon + ".webp", `${icons}/cons-6.webp`, "6命")
-      } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_1.webp", `${imgs}/cons-1.webp`, "1魂")
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_2.webp", `${imgs}/cons-2.webp`, "2魂")
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_3.webp", `${imgs}/cons-3.webp`, "3魂")
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_4.webp", `${imgs}/cons-4.webp`, "4魂")
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_5.webp", `${imgs}/cons-5.webp`, "5魂")
-        await this.getImg(IconUrl + "UI/rank/_dependencies/textures/" + CharacterId + "/" + CharacterId + "_Rank_6.webp", `${imgs}/cons-6.webp`, "6魂")
-        await this.getImg(IconUrl + "UI/avatarroundicon/" + CharacterId + ".webp", `${imgs}/face.webp`, "大头")
-        await this.getImg(IconUrl + "UI/avatarshopicon/" + CharacterId + ".webp", `${imgs}/preview.webp`, "头像")
-        await this.getImg(IconUrl + "UI/avatardrawcard/" + CharacterId + ".webp", `${imgs}/splash.webp`, "立绘")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Normal.webp", `${imgs}/talent-a.webp`, "普攻")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_BP.webp", `${imgs}/talent-e.webp`, "战技")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Ultra.webp", `${imgs}/talent-q.webp`, "终结技")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Passive.webp", `${imgs}/talent-t.webp`, "天赋")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_Maze.webp", `${imgs}/talent-z.webp`, "秘技")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_1" + CharacterId + "_Servant.webp", `${imgs}/talent-me.webp`, "忆灵技")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_1" + CharacterId + "_ServantPassive.webp", `${imgs}/talent-mt.webp`, "忆灵天赋")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree1.webp", `${imgs}/tree-1.webp`, "额外能力1")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree2.webp", `${imgs}/tree-2.webp`, "额外能力2")
-        await this.getImg(IconUrl + "UI/skillicons/SkillIcon_" + CharacterId + "_SkillTree3.webp", `${imgs}/tree-3.webp`, "额外能力3")
       }
       if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
       logger.mark(`[liangshi-calc]图片资源下载完成`)
@@ -4477,101 +2512,6 @@ export class calc extends plugin {
                 }
               })
             } catch (err) {
-              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
-            }
-          })
-        } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-          let RarityKey = {
-            "QUALITY_ORANGE_SP": 5,
-            "QUALITY_ORANGE": 5,
-            "QUALITY_PURPLE": 4
-          }
-          let WeaponKey = {
-            "WEAPON_SWORD_ONE_HAND": "sword",
-            "WEAPON_CLAYMORE": "claymore",
-            "WEAPON_POLE": "polearm",
-            "WEAPON_BOW": "bow",
-            "WEAPON_CATALYST": "catalyst"
-          }
-          filePath = "./plugins/miao-plugin/resources/meta-gs/character/data.json"
-          fs.readFile(filePath, 'utf8', (err, TextData) => {
-            if (err) {
-              console.error('[liangshi-calc]读取角色配置data.json失败:', err)
-              if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-              if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-              return false
-            }
-            try {
-              let jsonData = JSON.parse(TextData)
-              let newValue = {
-                "id": Number(CharacterId),
-                "name": data.Name || "无名",
-                "abbr": data.Name.length >= 5 ? data.Name.slice(-2) : data.Name,
-                "star": RarityKey[data.Rarity],
-                "elem": data.Element.toLowerCase(),
-                "weapon": WeaponKey[data.Weapon],
-                "talentId": {
-                  [data.Skills[0].Id]: "a",
-                  [data.Skills[1].Id]: "e",
-                  [data.Skills[Qkey].Id]: "q"
-                },
-                "talentCons": ConsTalent
-              }
-              if (Qkey === 3) newValue.talentId[data.Skills[2].Id] = "t"
-              jsonData[CharacterId] = newValue
-              logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
-              let updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                  if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-                  if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-                  return false
-                } else {
-                  logger.mark('[liangshi-calc]角色data.json已更新')
-                }
-              })
-            } catch (err) {
-              console.error('[liangshi-calc]自动配置data.json失败:\n', err)
-            }
-          })
-        } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-          filePath = "./plugins/miao-plugin/resources/meta-sr/character/data.json"
-          fs.readFile(filePath, 'utf8', (err, TextData) => {
-            if (err) {
-              console.error('[liangshi-calc]读取角色配置data.json失败:', err)
-              if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-              if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}星魂 查看角色星魂\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-              return false
-            }
-            try {
-              let jsonData = JSON.parse(TextData)
-              newValue = {
-                "id": CharacterId,
-                "key": data.AvatarVOTag,
-                "name": data.Name,
-                "star": data.Rarity === "CombatPowerAvatarRarityType4" ? 4 : 5,
-                "elem": damageKey[data.DamageType],
-                "weapon": weaponKey[data.BaseType],
-                "sp": data.SPNeed,
-                "talentId": aText,
-                "talentCons": bText
-              }
-              jsonData[CharacterId] = newValue
-              logger.mark(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
-              let updatedData = JSON.stringify(jsonData, null, 2)
-              fs.writeFile(filePath, updatedData, 'utf8', (err) => {
-                if (err) {
-                  console.error('[liangshi-calc]角色data.json写入失败:\n', err)
-                  if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
-                  if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
-                  return false
-                } else {
-                  logger.mark('[liangshi-calc]角色data.json已更新')
-                }
-              })
-            } catch (err) {
-              filePath = "./plugins/miao-plugin/resources/meta-sr/character/data.json"
               console.error('[liangshi-calc]自动配置data.json失败:\n', err)
             }
           })
@@ -4813,52 +2753,6 @@ export class calc extends plugin {
     return tables
   }
 
-  async WeaponPromote(WeaponData) {
-    const result = {
-      text: "",
-      datas: {}
-    }
-    const levels = Object.values(WeaponData)
-    if (levels.length === 0) return result
-    const templateDesc = levels[0].Desc
-    const colorRegex = /<color=#99FFFFFF>(.*?)<\/color>/g
-    const placeholders = []
-    let match
-    let lastIndex = 0
-    let processedText = ""
-    colorRegex.lastIndex = 0
-    while ((match = colorRegex.exec(templateDesc)) !== null) {
-      processedText += templateDesc.slice(lastIndex, match.index)
-      const placeholderIndex = placeholders.length
-      processedText += `$[${placeholderIndex}]`
-      placeholders.push({
-        index: placeholderIndex,
-        values: []
-      })
-      lastIndex = colorRegex.lastIndex
-    }
-    processedText += templateDesc.slice(lastIndex)
-    levels.forEach(level => {
-      const desc = level.Desc
-      colorRegex.lastIndex = 0
-      let valueIndex = 0
-      let valueMatch
-      while ((valueMatch = colorRegex.exec(desc)) !== null) {
-        if (valueIndex >= placeholders.length) {
-          break
-        }
-        const content = valueMatch[1]
-        placeholders[valueIndex].values.push(content)
-        valueIndex++
-      }
-    })
-    result.text = processedText.replace(/\\n/g, '')
-    placeholders.forEach(ph => {
-      result.datas[ph.index] = ph.values
-    })
-    return result
-  }
-
   async formatParam(value, format, skipUnit = false) {
     try {
       const num = parseFloat(value)
@@ -4952,33 +2846,6 @@ export class calc extends plugin {
     return result
   }
 
-  async SRTalent(ccb) {
-    let le = ccb.Level
-    let ve = Object.keys(le)
-    let bd = {}
-    for (let i = 0; i < Math.max(...ve.map(k => le[k].ParamList.length)); i++) {
-      let cb = []
-      let isSame = true
-      let ab = null
-      ve.forEach(key => {
-        let ac = le[key].ParamList
-        if (i < ac.length) {
-          let bc = ac[i]
-          cb.push(bc)
-          if (ab === null) ab = bc
-          else if (bc !== ab) isSame = false
-        }
-      })
-      if (cb.length < 15) {for (let j = 0; j < (15 - cb.length); j++) {cb.push(cb[cb.length - 1])}}
-      bd[i + 1] = {
-        name: `技能数据${i + 1}`,
-        isSame: isSame,
-        values: cb
-      }
-    }
-    return bd
-  }
-
   async mcTalName(inputData) {
     if (!inputData) return ""
     let a = {}
@@ -5049,12 +2916,6 @@ export class calc extends plugin {
       }
     }
     return result
-  }
-
-  async srTables(data) {
-    let ccb = {1:[], 2:[], 3:[], 4:[], 5:[]}
-    Object.values(data.Level).forEach(level => level.ParamList.forEach((val, i) => ccb[i+1].push(i < 4 ? val * 100 : val)))
-    return ccb
   }
 
   async getImg (url, Path, name) {
