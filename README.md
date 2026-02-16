@@ -48,7 +48,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 > 如更新报错或更新数据异常可前往762197317反馈
 >
-> 如果遇到网络问题打不开,网速慢，可在设置`config/config.yaml`，ProxyUrl后面添加代理链接`https:dl.119899.xyz`。
+> 如果遇到网络问题打不开,网速慢，可在设置`config/config.yaml`，ProxyUrl后面添加代理链接`https://dl.119899.xyz/`。
 
 <details><summary>一键更新新版本内容</summary>
 
