@@ -32,7 +32,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 首次使用前需手动为miao-plugin更新对应游戏必要资源
 
-以鸣潮为例：可使用`#一键更新鸣潮新版本完整数据`下载所有资源 或者 安装[meta-mc](https://gitee.com/liangshi233/meta-mc)，后续使用`#一键更新鸣潮新版本数据`更新数据
+以鸣潮为例：可使用`#一键更新鸣潮新版本完整数据`下载所有资源 或者 安装[meta-mc](https://gitee.com/kukukij/meta-mc)，后续使用`#一键更新鸣潮新版本数据`更新数据
 
 图鉴拓展详细用法与已支持的内容可查看[WikiReadme](resources/wiki/README.md)
 
