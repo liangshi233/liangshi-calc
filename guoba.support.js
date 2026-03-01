@@ -57,7 +57,7 @@ export function supportGuoba () {
           component: 'Switch'
         },
         {
-          field: 'calcLiangQ',
+          field: 'calcLiangT',
           label: 'liangshicalc 组队',
           component: 'Switch'
         },
