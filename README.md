@@ -38,7 +38,7 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 </details>
 
-### 一键更新未来角色的数据
+### 一键更新新角色的数据
 
 <details><summary>点击展开</summary>
 
@@ -605,28 +605,47 @@ calcLi: false #liangshicalc 大爷
 通用设置，在`config/config.yaml` 中修改
 
 ~~~~~~~~~~YAML
-gsApi: 1 #更新原神未来角色数据的API
-mcApi: 1 #更新鸣未来角色数据的API
+gsApi: 2 #更新原神新角色数据的API
+srApi: 2 #更新原神新角色数据的API
+mcApi: 2 #更新鸣潮新角色数据的API
 ProxyUrl: #API代理地址
 ~~~~~~~~~~
 
 <details><summary>gsApi</summary>
 
-| 序号 |    名称     |   备注    |
-|:--:|:---------:|:-------:|
-| 0  |    自动     |   预留    |
-| 1  | hakush.in | 默认使用此项  |
+| 序号 |     名称      |        备注        |
+|:--:|:-----------:|:----------------:|
+| 0  |     自动      | 预留(后续改成自动使用延迟最低) |
+| 1  | mihoyo.com  | 官方数据源(米游社)【适配中】  |
+| 2  | lunaris.moe |   默认使用此项【适配中】    |
+| 3  |  yatta.moe  |      【适配中】       |
+| 9  |  hakush.in  |       已关闭        |
+
+</details>
+
+<details><summary>srApi</summary>
+
+| 序号 |      名称      |        备注        |
+|:--:|:------------:|:----------------:|
+| 0  |      自动      | 预留(后续改成自动使用延迟最低) |
+| 1  |  mihoyo.com  | 官方数据源(米游社)【适配中】  |
+| 2  | neonteam.dev |   默认使用此项【适配中】    |
+| 3  |  yatta.moe   |      【适配中】       |
+| 9  |  hakush.in   |       已关闭        |
 
 </details>
 
 <details><summary>mcApi</summary>
 
-| 序号 |      名称       |                备注                |
-|:--:|:-------------:|:--------------------------------:|
-| 0  |      自动       |         预留(后续改成自动使用延迟最低)         |
-| 1  |   hakush.in   |              默认使用此项              |
-| 2  |  encore.moe   | 一般比1更新快(未完全适配,可能有小问题,部分网络可能访问较慢) |
-| 3  | v2 encore.moe |               和2一样               |
+| 序号 |      名称       |         备注          |
+|:--:|:-------------:|:-------------------:|
+| 0  |      自动       |  预留(后续改成自动使用延迟最低)   |
+| 1  |  kurobbs.com  |   官方数据源(库街区)【适配中】   |
+| 2  |  encore.moe   | 默认使用此项(部分网络可能访问较慢)  |
+| 3  | v2 encore.moe | 和2一样(使用2时遇到问题时切换此项) |
+| 4  |   wuwa.wiki   |        【适配中】        |
+| 5  | wuwaflex.com  |        【适配中】        |
+| 9  |   hakush.in   |         已关闭         |
 
 > 更新数据有问题或新api适配请提issues
 
@@ -760,7 +779,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 ## 其他资源位置
 
-> 鸣潮数据库 [meta-mc](https://gitee.com/kukukij/meta-mc) (重制中)
+> 鸣潮数据库 [meta-mc](https://github.com/Kukukij/meta-mc)
 
 |     名称      |                         gitee                         |                         github                          |
 |:-----------:|:-----------------------------------------------------:|:-------------------------------------------------------:|

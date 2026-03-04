@@ -124,6 +124,18 @@ body {
     linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
 }
 
+.one-item-card--kq::after {
+  background:
+    url('./imgs/kq.PNG') center/cover,
+    linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
+}
+
+.one-item-card--yh::after {
+  background:
+    url('./imgs/yh.png') center/cover,
+    linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
+}
+
 .one-item-bg {
   background-size: contain;
   background-position: center;
@@ -220,6 +232,18 @@ body {
 .item-card--mc::after {
   background:
     url('./imgs/ww.jpg') center/cover,
+    linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
+}
+
+.item-card--kq::after {
+  background:
+    url('./imgs/kq.PNG') center/cover,
+    linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
+}
+
+.item-card--yh::after {
+  background:
+    url('./imgs/yh.png') center/cover,
     linear-gradient(to left,rgba(21, 143, 168, 0) 0%,rgba(21, 143, 168, 0.6) 100%);
 }
 

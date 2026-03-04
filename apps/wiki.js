@@ -195,7 +195,7 @@ export class Wiki extends plugin {
         way: "模糊匹配",
         game: "mc"
       }))
-      if (McWeapon.length !== 0) {McWeapon = await Promise.all(McWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name, "mc"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-mc/weapon/${weaponKey}/${item.name}/icon.webp`}}))}
+      if (McWeapon.length !== 0) {McWeapon = await Promise.all(McWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name.replace(/<\/?span>/gi, ''), "mc"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-mc/weapon/${weaponKey}/${item.name.replace(/<\/?span>/gi, '')}/icon.webp`}}))}
       McEcho = file("./plugins/miao-plugin/resources/meta-mc/artifact").filter(key => key.includes(ccb) && (bbc === undefined || key !== bbc)).map(Name => ({
         name: Name.replace(new RegExp(ccb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),`<span>${ccb}</span>`),
         type: "声骸",
@@ -232,16 +232,16 @@ export class Wiki extends plugin {
         ...file("./plugins/miao-plugin/resources/meta-gs/weapon/catalyst"),
         ...file("./plugins/miao-plugin/resources/meta-gs/weapon/claymore"),
         ...file("./plugins/miao-plugin/resources/meta-gs/weapon/polearm"),
-        ...file("./plugins/miao-plugin/resources/meta-gs/weapon/projection"),
         ...file("./plugins/miao-plugin/resources/meta-gs/weapon/sword")
       ]
+      if (fs.existsSync("./plugins/miao-plugin/resources/meta-gs/weapon/projection")) WeaponFile = [...WeaponFile, ...file("./plugins/miao-plugin/resources/meta-gs/weapon/projection")]
       GsWeapon = WeaponFile.filter(key => key.includes(ccb) && (bbc === undefined || key !== bbc)).map(Name => ({
         name: Name.replace(new RegExp(ccb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),`<span>${ccb}</span>`),
         type: "武器",
         way: "模糊匹配",
         game: "gs",
       }))
-      if (GsWeapon.length !== 0) {GsWeapon = await Promise.all(GsWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name, "gs"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-gs/weapon/${weaponKey}/${item.name}/icon.webp`}}))}
+      if (GsWeapon.length !== 0) {GsWeapon = await Promise.all(GsWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name.replace(/<\/?span>/gi, ''), "gs"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-gs/weapon/${weaponKey}/${item.name.replace(/<\/?span>/gi, '')}/icon.webp`}}))}
       GsEcho = file("./plugins/miao-plugin/resources/meta-gs/artifact/imgs").filter(key => key.includes(ccb) && (bbc === undefined || key !== bbc)).map(Name => ({
         name: Name.replace(new RegExp(ccb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),`<span>${ccb}</span>`),
         type: "圣遗物",
@@ -283,7 +283,7 @@ export class Wiki extends plugin {
         way: "模糊匹配",
         game: "sr",
       }))
-      if (SrWeapon.length !== 0) {SrWeapon = await Promise.all(SrWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name, "sr"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-sr/weapon/${weaponKey}/${item.name}/icon.webp`}}))}
+      if (SrWeapon.length !== 0) {SrWeapon = await Promise.all(SrWeapon.map(async (item) => {let weaponKey = await this.weaponKey(item.name.replace(/<\/?span>/gi, ''), "sr"); return {...item, icon: `${process.cwd()}/plugins/miao-plugin/resources/meta-sr/weapon/${weaponKey}/${item.name.replace(/<\/?span>/gi, '')}/icon.webp`}}))}
       SrEcho = file("./plugins/miao-plugin/resources/meta-sr/artifact").filter(key => key.includes(ccb) && (bbc === undefined || key !== bbc)).map(Name => ({
         name: Name.replace(new RegExp(ccb.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),`<span>${ccb}</span>`),
         type: "遗器",
@@ -327,7 +327,7 @@ export class Wiki extends plugin {
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${Name}/data.json`)) return [Name, "Echo", "全称", process.cwd() + `/plugins/miao-plugin/resources/meta-mc/artifact/${Name}/img.webp`]
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/monster/${Name}/data.json`)) return [Name, "Monster", "全称", process.cwd() + `/plugins/miao-plugin/resources/meta-mc/monster/${Name}/icon.webp`]
     for (const [key, value] of Object.entries(McCharacterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Character", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-mc/character/${key}/imgs/side.webp`]}
-    for (const [key, value] of Object.entries(McWeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon", "别名",  process.cwd() + `/plugins/miao-plugin/resources/meta-mc/weapon/${await this.weaponKey(Name, "mc")}/${Name}/icon.webp`]}
+    for (const [key, value] of Object.entries(McWeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon", "别名",  process.cwd() + `/plugins/miao-plugin/resources/meta-mc/weapon/${await this.weaponKey(key, "mc")}/${key}/icon.webp`]}
     for (const [key, value] of Object.entries(McEchoAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Echo", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-mc/artifact/${key}/imgs.webp`]}
     for (const [key, value] of Object.entries(McMonsterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Monster", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-mc/monster/${key}/icon.webp`]}
     for (const [key, value] of Object.entries(McItemAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Item", "别名"]}
@@ -352,7 +352,7 @@ export class Wiki extends plugin {
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/weapon/sword/${Name}/data.json`)) return [Name, "Weapon", "全称", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/weapon/sword/${Name}/icon.webp`]
     if (fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/artifact/${Name}/data.json`)) return [Name, "Echo", "全称", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/artifact/imgs/${Name}/1.webp`]
     for (const [key, value] of Object.entries(GsCharacterAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Character", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/character/${key}/imgs/side.webp`]}
-    for (const [key, value] of Object.entries(GsWeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/weapon/${await this.weaponKey(key, "gs")}/${Name}/icon.webp`]}
+    for (const [key, value] of Object.entries(GsWeaponAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Weapon", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/weapon/${await this.weaponKey(key, "gs")}/${key}/icon.webp`]}
     for (const [key, value] of Object.entries(GsEchoAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Echo", "别名", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/artifact/imgs/${key}/1.webp`]}
     for (const [key, value] of Object.entries(GsItemAlias)) { if (value.split(',').map(part => part.trim()).includes(Name)) return [key, "Item", "别名"]}
     if (GsCharacterAlias.hasOwnProperty(Name)) return [Name, "Character", "全称", process.cwd() + `/plugins/miao-plugin/resources/meta-gs/character/${Name}/imgs/side.webp`]
