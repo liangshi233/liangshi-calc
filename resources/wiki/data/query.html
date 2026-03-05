@@ -55,6 +55,9 @@
         </div>
         {{/each}}
         {{/if}}
+        {{if record.length < 13}}
+        <div class="yjddl">已经到底了(*/ω＼*)</div>
+        {{/if}}
       </div>
     <div class="page-card">
       <div class="page">第<span class="ym">{{Page[0]}}</span>页 - 共<span class="ym">{{Page[1]}}</span>页</div>

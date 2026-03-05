@@ -25,7 +25,7 @@ export class Wiki extends plugin {
           priority: 15000,
           rule: [
             {
-              reg: '^#*(LS|ls)?图鉴(查询|查找|寻找)(.*?)(?:第(\\d{1,2})页)?$',
+              reg: '^#*(LS|ls)?图鉴(查询|搜索|搜寻|查寻|查找|寻找)(.*?)(?:第(\\d{1,2})页)?$',
               fnc: 'Wiki'
             }
           ]
@@ -34,7 +34,7 @@ export class Wiki extends plugin {
   }
 
   async Wiki (e) {
-    let Text = [],record = [], complete = undefined, mz = new Set(), TextData = e.msg.match(/^#*(LS|ls)?图鉴(查询|查找|寻找)(.*?)(?:第(\d{1,2})页)?$/)
+    let Text = [],record = [], complete = undefined, mz = new Set(), TextData = e.msg.match(/^#*(LS|ls)?图鉴(查询|搜索|搜寻|查寻|查找|寻找)(.*?)(?:第(\d{1,2})页)?$/)
     for (let ccb = 0; ccb < TextData[3].length; ccb++) {
       for (let bbc = ccb + 1; bbc <= TextData[3].length; bbc++) {
         Text.push(TextData[3].substring(ccb, bbc))
@@ -119,13 +119,13 @@ export class Wiki extends plugin {
           ccb[i + 1] = record.slice((i - 1) * 21 + 18, i * 21 + 18)
         }
       }
-    }
+    } else { Counting = 1 }
     return Common.render('wiki/data/query', {
       text: TextData[3],
       num: record.length + 1,
       one: one,
       Page: [Page ,Counting],
-      record: ccb[Page]
+      record: ccb[Page] || []
     }, { e, scale: 1.4 })
   }
 

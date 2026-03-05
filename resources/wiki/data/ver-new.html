@@ -84,6 +84,29 @@
   </div>
   {{/if}}
 
+  {{if drNum > 0}}
+  <div class="cont no-rank">
+    <div class="cont-title">
+      <span style="font-size: 15px">本次更新的{{TxName.dr}}</span>
+      <span class="rank-time">共计 {{drNum}} 个</span>
+    </div>
+    <div class="char-list">
+      {{each monster mon}}
+      <div class="char-item">
+        <div class="item-icon char-icon star{{mon.star}}">
+          <span class="img" style="background-image:url({{miao_res_path}}{{mon.face}})"></span>
+        </div>
+        <span class="name">{{mon.name}}</span>
+      </div>
+      {{/each}}
+    </div>
+    <div class="cont-footer">
+      <span>{{if updateTime.monsterTime }} 更新时间：{{updateTime.monsterTime}} {{/if}}</span>
+      <span class="serv">使用的API：{{servName}}</span>
+    </div>
+  </div>
+  {{/if}}
+
   {{if wpNum > 0}}
   <div class="cont group-rank-tip {{has-rank}}">
     <div class="cont-title">

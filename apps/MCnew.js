@@ -270,15 +270,11 @@ export class calc extends plugin {
         name: id,
         star: 5
       }))
+      let TxName = { js: "共鸣者", wq: "武器", zb: "声骸", dr: "残像" }
       return await Common.render('wiki/data/ver-new', {
         gamever: data[0].ResVer,
         gameid: "鸣潮",
-        TxName: {
-          js: "共鸣者",
-          wq: "武器",
-          zb: "声骸",
-          dr: "残像"
-        },
+        TxName: TxName,
         jsNum: character.length,
         wqNum: weapon.length,
         zbNum: artifact.length,
@@ -292,7 +288,6 @@ export class calc extends plugin {
         updateTime: { characterTime, weaponTime, artifactTime, monsterTime, itemTime },
         elem: 'hydro'
       }, { e, scale: 1.6, retType: 'base64' })
-
     } catch (err) {
       console.error('[liangshi-calc] 生成图片时遇到了一些问题，但这并不影响功能:', err)
       if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何共鸣者`
@@ -643,13 +638,13 @@ export class calc extends plugin {
       await this.getImg(ProxyUrl + data.RolePortrait, `${imgs}/splash.webp`, "立绘")
       await this.getImg(ProxyUrl + data.FormationRoleCard, `${imgs}/face.webp`, "大头")
       await this.getImg(ProxyUrl + data.RoleHeadIconBig, `${imgs}/side.webp`, "侧头")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[3]?.Icon.split('.')[0] + ".png", `${icons}/passive-0.webp`, "固有天赋1")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[4]?.Icon.split('.')[0] + ".png", `${icons}/passive-1.webp`, "固有天赋2")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[1]?.Icon.split('.')[0] + ".png", `${icons}/talent-e.webp`, "共鸣技能")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[2]?.Icon.split('.')[0] + ".png", `${icons}/talent-q.webp`, "共鸣解放")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[5]?.Icon.split('.')[0] + ".png", `${icons}/talent-i.webp`, "变奏技能")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[8]?.Icon.split('.')[0] + ".png", `${icons}/talent-o.webp`, "延奏技能")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.Skills[6]?.Icon.split('.')[0] + ".png", `${icons}/talent-t.webp`, "共鸣回路")
+      await this.getImg(ProxyUrl + data.Skills[3]?.Icon, `${icons}/passive-0.webp`, "固有天赋1")
+      await this.getImg(ProxyUrl + data.Skills[4]?.Icon, `${icons}/passive-1.webp`, "固有天赋2")
+      await this.getImg(ProxyUrl + data.Skills[1]?.Icon, `${icons}/talent-e.webp`, "共鸣技能")
+      await this.getImg(ProxyUrl + data.Skills[2]?.Icon, `${icons}/talent-q.webp`, "共鸣解放")
+      await this.getImg(ProxyUrl + data.Skills[5]?.Icon, `${icons}/talent-i.webp`, "变奏技能")
+      await this.getImg(ProxyUrl + data.Skills[8]?.Icon, `${icons}/talent-o.webp`, "延奏技能")
+      await this.getImg(ProxyUrl + data.Skills[6]?.Icon, `${icons}/talent-t.webp`, "共鸣回路")
       await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[0]?.NodeIcon, `${icons}/cons-1.webp`, "1链")
       await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[1]?.NodeIcon, `${icons}/cons-2.webp`, "2链")
       await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[2]?.NodeIcon, `${icons}/cons-3.webp`, "3链")
