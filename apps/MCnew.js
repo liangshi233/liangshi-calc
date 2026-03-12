@@ -270,11 +270,10 @@ export class calc extends plugin {
         name: id,
         star: 5
       }))
-      let TxName = { js: "共鸣者", wq: "武器", zb: "声骸", dr: "残像" }
       return await Common.render('wiki/data/ver-new', {
         gamever: data[0].ResVer,
         gameid: "鸣潮",
-        TxName: TxName,
+        TxName: { js: "共鸣者", wq: "武器", zb: "声骸", dr: "残像" },
         jsNum: character.length,
         wqNum: weapon.length,
         zbNum: artifact.length,
