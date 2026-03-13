@@ -225,6 +225,18 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 </details>
 
+### 自定义预设面板
+
+<details><summary>点击展开</summary>
+
+使用此功能建议在设置中将预设面板自动替换关闭或修改为0
+
+[教程转跳](apps/panel/panel.md)
+
+---
+
+</details>
+
 ### 智能组队计算
 
 <details><summary>点击展开</summary>
