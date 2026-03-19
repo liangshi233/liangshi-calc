@@ -57,7 +57,7 @@ export class calc extends plugin {
     if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      response = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/new`)
+      response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/new`)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
         if (response.status === 404) {
@@ -88,19 +88,19 @@ export class calc extends plugin {
     if (/完整|全部/.test(e.msg)) {
       status = "完整"
       try {
-        let Characterurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
+        let Characterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
         Characterurl = await Characterurl.json()
         character = Characterurl.roleList.map(item => item.Id)
-        let Weaponurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon`)
+        let Weaponurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
         Weaponurl = await Weaponurl.json()
         weapon = Weaponurl.weapons.map(item => item.Id)
-        let Artifacturl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/echo`)
+        let Artifacturl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
         Artifacturl = await Artifacturl.json()
         artifact = Artifacturl.Echo.map(item => item.Id)
-        let Monsterurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/monster`)
+        let Monsterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
         Monsterurl = await Monsterurl.json()
         monster = Monsterurl.monsterList.map(item => item.Id)
-        let Itemurl = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`)
+        let Itemurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
         Itemurl = await Itemurl.json()
         data.item = Itemurl.itemList.map(item => item.Id)
       } catch (err) {
