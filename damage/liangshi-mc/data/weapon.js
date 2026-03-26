@@ -136,6 +136,8 @@ export const source = {
 }
 
 export const exclusive = {
+  "达妮娅": '',
+  "绯雪": '',
   "西格莉卡": '昭日译注',
   "陆·赫斯": '白昼之脊',
   "爱弥斯": '永远的启明星',
