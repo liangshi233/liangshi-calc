@@ -60,7 +60,7 @@
 
 <details><summary>鸣潮图鉴</summary>
 
-首次使用前需手动为miao-plugin更新对应游戏必要资源(一键更新 或 安装[meta-mc](https://gitee.com/liangshi233/meta-mc))，未来版本资源需手动使用指令更新(详见主页`一键更新未来角色的数据`功能)
+首次使用前需手动为miao-plugin更新对应游戏必要资源(一键更新 或 安装[meta-mc](https://github.com/Kukukij/meta-mc))，未来版本资源需手动使用指令更新(详见主页`一键更新未来角色的数据`功能)
 
 <details><summary>一键更新</summary>
 
