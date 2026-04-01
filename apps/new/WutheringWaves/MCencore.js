@@ -1,78 +1,29 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import common from '../../../lib/common/common.js'
-import { Common } from '../components/index.js'
+import common from '../../../../../lib/common/common.js'
+import { Common } from '../../../components/index.js'
 import { LSconfig } from '#liangshi'
 import fs from 'node:fs'
 
 /**
+ * 鸣潮API2
+ * https://encore.moe/
+ *
  * 已知问题
  * 更新角色数据时角色天赋顺序会被打乱
- * 更新声骸数据时会丢失代号数据
- * 更新敌人数据时会丢失重量瘫痪时间等数据
+ * 更新声骸数据时会缺少代号数据
+ * 更新敌人数据时会缺少重量瘫痪时间等数据
+ *
  * 如果有新的问题建议去issue反馈
  */
 
-export class calc extends plugin {
-  constructor () {
-    super(
-      {
-        name: 'liangshicalc',
-        dsc: 'liangshicalc拓展',
-        event: 'message',
-        priority: 5000,
-        rule: [
-          {
-            reg: '^#*(梁氏|liangshi)?一键更新(鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料|敌人|敌怪|怪物|残响|残像|boss|BOSS)?(数据|资源|内容|资源数据)$',
-            fnc: 'New'
-          },
-          {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?$',
-            fnc: 'CharacterNew'
-          },
-          {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$',
-            fnc: 'WeaponNew'
-          },
-          {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$',
-            fnc: 'ArtifactNew'
-          },
-          {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$',
-            fnc: 'MonsterNew'
-          },
-          {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
-            fnc: 'ItemNew'
-          }
-        ]
-      }
-    )
-  }
-
-  async New (e) {
+export async function New (e) {
     let cfg = LSconfig.getConfig('user', 'config')
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
-    let characterTime, weaponTime, artifactTime, monsterTime, itemTime, apiKey, character, status, response, ProxyUrl, artifact, data, weapon, monster, ItemJson, ItemOk, url2
-    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    let characterTime, weaponTime, artifactTime, monsterTime, itemTime, character, status, response, ProxyUrl, artifact, data, weapon, monster, ItemJson, ItemOk, url2
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
       response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/new`)
-      if (!response.ok) {
-        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-        if (response.status === 404) {
-          e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
-        } else if (response.status === 429) {
-          e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
-        } else if (response.status >= 500) {
-          e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-        } else if (cfg.ProxyUrl) {
-          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-        } else {
-          e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-        }
-        return false
-      }
+      if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`)
+      if (!response.ok) { await network(e, response, true); return false }
       data = await response.json()
       console.log(`[liangshi-calc]云端数据读取成功`)
     } catch (err) {
@@ -89,22 +40,28 @@ export class calc extends plugin {
       status = "完整"
       try {
         let Characterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
+        if (!(Characterurl.headers.get('content-type') && (Characterurl.headers.get('content-type').includes('application/json') || Characterurl.headers.get('content-type').includes('application/vnd.api+json')))) Characterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
         Characterurl = await Characterurl.json()
         character = Characterurl.roleList.map(item => item.Id)
         let Weaponurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
+        if (!(Weaponurl.headers.get('content-type') && (Weaponurl.headers.get('content-type').includes('application/json') || Weaponurl.headers.get('content-type').includes('application/vnd.api+json')))) Weaponurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/weapon`)
         Weaponurl = await Weaponurl.json()
         weapon = Weaponurl.weapons.map(item => item.Id)
         let Artifacturl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
+        if (!(Artifacturl.headers.get('content-type') && (Artifacturl.headers.get('content-type').includes('application/json') || Artifacturl.headers.get('content-type').includes('application/vnd.api+json')))) Artifacturl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/echo`)
         Artifacturl = await Artifacturl.json()
         artifact = Artifacturl.Echo.map(item => item.Id)
         let Monsterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
+        if (!(Monsterurl.headers.get('content-type') && (Monsterurl.headers.get('content-type').includes('application/json') || Monsterurl.headers.get('content-type').includes('application/vnd.api+json')))) Monsterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/monster`)
         Monsterurl = await Monsterurl.json()
         monster = Monsterurl.monsterList.map(item => item.Id)
         let Itemurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
+        if (!(Itemurl.headers.get('content-type') && (Itemurl.headers.get('content-type').includes('application/json') || Itemurl.headers.get('content-type').includes('application/vnd.api+json')))) Itemurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/item`)
         Itemurl = await Itemurl.json()
         data.item = Itemurl.itemList.map(item => item.Id)
       } catch (err) {
-        console.error(err)
+        e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+        console.error(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       }
     }
     if (/角色|共鸣者/.test(e.msg)) {
@@ -125,7 +82,7 @@ export class calc extends plugin {
     ItemOk = true
     if (!fs.existsSync("./plugins/liangshi-calc/resources/log.json")) { fs.writeFileSync("./plugins/liangshi-calc/resources/log.json", '{}'); console.log(`[liangshi-calc]未找到错误日志文件，已自动创建`)}
     try {
-      let url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
+      let url = `${ProxyUrl}https://api.encore.moe/zh-Hans/item`
       url2 = `${ProxyUrl}https://api.encore.moe/zh-Hans/echo`
       let EchoJson = await fetch(url2)
       EchoJson = await EchoJson.json()
@@ -141,35 +98,35 @@ export class calc extends plugin {
     for (const charId of character) {
       instruction.msg = `#梁氏覆盖更新鸣潮${charId}角色数据`
       await common.sleep(2000)
-      await this.CharacterNew(instruction, true)
+      await CharacterNew(instruction, true)
     }
     characterTime =  `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const weaponId of weapon) {
       instruction.msg = `#梁氏覆盖更新鸣潮${weaponId}武器数据`
       await common.sleep(1500)
-      await this.WeaponNew(instruction, true)
+      await WeaponNew(instruction, true)
     }
     weaponTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const artifactId of artifact) {
       await common.sleep(1500)
       instruction.msg = `#梁氏覆盖更新鸣潮${artifactId}声骸数据`
-      await this.ArtifactNew(instruction, true)
+      await ArtifactNew(instruction, true)
     }
     artifactTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const monsterId of monster) {
       await common.sleep(1500)
       instruction.msg = `#梁氏覆盖更新鸣潮${monsterId}敌人数据`
-      await this.MonsterNew(instruction, true)
+      await MonsterNew(instruction, true)
     }
     monsterTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
     for (const itemId of data.item) {
       await common.sleep(1000)
       instruction.msg = `#梁氏覆盖更新鸣潮${itemId}物品数据`
-      await this.ItemNew(instruction, true, ItemOk)
+      await ItemNew(instruction, true, ItemOk)
     }
     itemTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
     await common.sleep(2000)
@@ -203,10 +160,14 @@ export class calc extends plugin {
     if (data.item.length > 0) { fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => { if (err) { console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message) } else { console.log(`[liangshi-calc] 物品Json缓存已删除`) }})}
     let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata, MonsterText, MonsterNamedata
     try {
-      CharacterText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character`)
-      WeaponText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon`)
-      ArtifactText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/echo`)
-      MonsterText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/monster`)
+      CharacterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
+      if (!(CharacterText.headers.get('content-type') && (CharacterText.headers.get('content-type').includes('application/json') || CharacterText.headers.get('content-type').includes('application/vnd.api+json')))) CharacterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
+      WeaponText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
+      if (!(WeaponText.headers.get('content-type') && (WeaponText.headers.get('content-type').includes('application/json') || WeaponText.headers.get('content-type').includes('application/vnd.api+json')))) WeaponText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
+      ArtifactText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
+      if (!(ArtifactText.headers.get('content-type') && (ArtifactText.headers.get('content-type').includes('application/json') || ArtifactText.headers.get('content-type').includes('application/vnd.api+json')))) ArtifactText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
+      MonsterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
+      if (!(MonsterText.headers.get('content-type') && (MonsterText.headers.get('content-type').includes('application/json') || MonsterText.headers.get('content-type').includes('application/vnd.api+json')))) MonsterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
       CharacterNamedata = await CharacterText.json()
       WeaponNamedata = await WeaponText.json()
       ArtifactNamedata = await ArtifactText.json()
@@ -287,6 +248,7 @@ export class calc extends plugin {
         updateTime: { characterTime, weaponTime, artifactTime, monsterTime, itemTime },
         elem: 'hydro'
       }, { e, scale: 1.6, retType: 'base64' })
+
     } catch (err) {
       console.error('[liangshi-calc] 生成图片时遇到了一些问题，但这并不影响功能:', err)
       if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何共鸣者`
@@ -298,7 +260,7 @@ export class calc extends plugin {
     }
   }
 
-  async CharacterNew (e, mode) {
+export async function CharacterNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
@@ -310,16 +272,15 @@ export class calc extends plugin {
       } else {
         console.error(`[liangshi-calc]未知的角色ID:${CharacterId}`)
         if (!mode) e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(4位数字)')
-        if (!mode) e.reply(`[liangshi-calc]角色ID可在https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-mc/README.md内对照 (新版本角色ID可使用 #梁氏检查鸣潮更新 查看)`)
+        if (!mode) e.reply(`[liangshi-calc]角色ID可在https://gitee.com/liangshi233/liangshi-calc/blob/master/damage/liangshi-ww/README.md内对照 (新版本角色ID可使用 #梁氏检查鸣潮更新 查看)`)
         return false
       }
-      let response, ProxyUrl, apiKey, CharacterData, ItemText, url, data
-      if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+      let response, ProxyUrl, CharacterData, ItemText, data
       if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
       try {
-        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/character/${CharacterId}`
-        response = await fetch(url)
-        if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); return false }
+        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character/${CharacterId}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character/${CharacterId}`)
+        if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]角色：${data.Name.Content || data.Name || "无名"} 云端数据读取成功`)
       } catch (err) {
@@ -343,7 +304,7 @@ export class calc extends plugin {
       let imgs = `./plugins/miao-plugin/resources/meta-mc/character/${CharacterName}/imgs`
       if (!fs.existsSync(icons)) { fs.mkdirSync(icons, { recursive: true }); console.log(`[liangshi-calc]角色：${data.Name || "无名"} 本地icons文件夹创建成功`) }
       if (!fs.existsSync(imgs)) { fs.mkdirSync(imgs, { recursive: true }); console.log(`[liangshi-calc]角色：${data.Name || "无名"} 本地imgs文件夹创建成功`) }
-      ItemText = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`)
+      ItemText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
       let ItemNamedata = await ItemText.json()
       ItemNamedata = ItemNamedata.itemList.reduce((acc, item) => {acc[item.Id] = item;return acc}, {})
       let mcTalName = (data) => {
@@ -415,7 +376,7 @@ export class calc extends plugin {
         },
         "Weakness": {
           "ratio": 10000,
-          "mastery": 10
+          "mastery": data.Properties[5]?.BaseValue || 0
         },
         "materials": {
           "boss": ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.name || ItemNamedata?.[`${data.Breaches[5].Items[0].Key}`]?.Name || data.Breaches[5].Items[0].Key,
@@ -634,22 +595,22 @@ export class calc extends plugin {
       }
       if (!mode) e.reply(`[liangshi-calc]角色数据资源下载完成`)
       console.log(`[liangshi-calc]开始下载角色图片资源`)
-      await this.getImg(ProxyUrl + data.RolePortrait, `${imgs}/splash.webp`, "立绘")
-      await this.getImg(ProxyUrl + data.FormationRoleCard, `${imgs}/face.webp`, "大头")
-      await this.getImg(ProxyUrl + data.RoleHeadIconBig, `${imgs}/side.webp`, "侧头")
-      await this.getImg(ProxyUrl + data.Skills[3]?.Icon, `${icons}/passive-0.webp`, "固有天赋1")
-      await this.getImg(ProxyUrl + data.Skills[4]?.Icon, `${icons}/passive-1.webp`, "固有天赋2")
-      await this.getImg(ProxyUrl + data.Skills[1]?.Icon, `${icons}/talent-e.webp`, "共鸣技能")
-      await this.getImg(ProxyUrl + data.Skills[2]?.Icon, `${icons}/talent-q.webp`, "共鸣解放")
-      await this.getImg(ProxyUrl + data.Skills[5]?.Icon, `${icons}/talent-i.webp`, "变奏技能")
-      await this.getImg(ProxyUrl + data.Skills[8]?.Icon, `${icons}/talent-o.webp`, "延奏技能")
-      await this.getImg(ProxyUrl + data.Skills[6]?.Icon, `${icons}/talent-t.webp`, "共鸣回路")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[0]?.NodeIcon, `${icons}/cons-1.webp`, "1链")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[1]?.NodeIcon, `${icons}/cons-2.webp`, "2链")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[2]?.NodeIcon, `${icons}/cons-3.webp`, "3链")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[3]?.NodeIcon, `${icons}/cons-4.webp`, "4链")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[4]?.NodeIcon, `${icons}/cons-5.webp`, "5链")
-      await this.getImg(`${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data` + data.ResonantChain[5]?.NodeIcon, `${icons}/cons-6.webp`, "6链")
+      await getImg(ProxyUrl + data.RolePortrait, `${imgs}/splash.webp`, "立绘")
+      await getImg(ProxyUrl + data.FormationRoleCard, `${imgs}/face.webp`, "大头")
+      await getImg(ProxyUrl + data.RoleHeadIconBig, `${imgs}/side.webp`, "侧头")
+      await getImg(ProxyUrl + data.Skills[3]?.Icon, `${icons}/passive-0.webp`, "固有天赋1")
+      await getImg(ProxyUrl + data.Skills[4]?.Icon, `${icons}/passive-1.webp`, "固有天赋2")
+      await getImg(ProxyUrl + data.Skills[1]?.Icon, `${icons}/talent-e.webp`, "共鸣技能")
+      await getImg(ProxyUrl + data.Skills[2]?.Icon, `${icons}/talent-q.webp`, "共鸣解放")
+      await getImg(ProxyUrl + data.Skills[5]?.Icon, `${icons}/talent-i.webp`, "变奏技能")
+      await getImg(ProxyUrl + data.Skills[8]?.Icon, `${icons}/talent-o.webp`, "延奏技能")
+      await getImg(ProxyUrl + data.Skills[6]?.Icon, `${icons}/talent-t.webp`, "共鸣回路")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[0]?.NodeIcon, `${icons}/cons-1.webp`, "1链")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[1]?.NodeIcon, `${icons}/cons-2.webp`, "2链")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[2]?.NodeIcon, `${icons}/cons-3.webp`, "3链")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[3]?.NodeIcon, `${icons}/cons-4.webp`, "4链")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[4]?.NodeIcon, `${icons}/cons-5.webp`, "5链")
+      await getImg(`${ProxyUrl}https://api-v2.encore.moe/resource/Data` + data.ResonantChain[5]?.NodeIcon, `${icons}/cons-6.webp`, "6链")
       if (!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
       console.log(`[liangshi-calc]图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
@@ -706,33 +667,19 @@ export class calc extends plugin {
     }
   }
 
-  async WeaponNew (e, mode) {
+export async function WeaponNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, WeaponType, WeaponData, apiKey, IconUrl, newValue, counter = -1
-    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    let response, ProxyUrl, data, WeaponType, WeaponData, IconUrl, newValue, counter = -1
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
       try {
-        response = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/weapon/${ID}`)
-        if (!response.ok) {
-          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-          if (response.status === 404) {
-            if (!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
-          } else if (response.status === 429) {
-            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
-          } else if (response.status >= 500) {
-            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-          } else if (cfg.ProxyUrl) {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-          } else {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-          }
-          return false
-        }
+        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/weapon/${ID}`)
+        if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
@@ -741,7 +688,7 @@ export class calc extends plugin {
         return false
       }
       if (ID < 21020000) { WeaponType = "broadblade" } else if (ID < 21030000) { WeaponType = "sword" } else if (ID < 21040000) { WeaponType = "pistols" } else if (ID < 21050000) { WeaponType = "gauntlets" } else if (ID < 80000000) { WeaponType = "rectifier" } else { WeaponType = "projection" }
-      IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
+      IconUrl = `${ProxyUrl}https://api-v2.encore.moe/resource/Data`
       let WeaponName = data.WeaponName
       let imgs = `./plugins/miao-plugin/resources/meta-mc/weapon/${WeaponType}/${WeaponName}`
       if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/weapon/${WeaponType}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
@@ -749,14 +696,14 @@ export class calc extends plugin {
         fs.mkdirSync(`./plugins/miao-plugin/resources/meta-mc/weapon/${WeaponType}/${WeaponName}`, { recursive: true })
         console.log(`[liangshi-calc]武器:${WeaponName} 本地文件夹创建成功`)
       } else { if (!mode) e.reply(`[liangshi-calc]武器: ${WeaponName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
-      await this.getImg(ProxyUrl + IconUrl + data.Icon.split('.')[0] + ".png", `${imgs}/icon.webp`, "icon")
+      await getImg(ProxyUrl + IconUrl + data.Icon.split('.')[0] + ".webp", `${imgs}/icon.webp`, "icon")
       if (!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
       let key = { "生命": "hpPct", "攻击": "atkPct", "防御": "atkPct", "共鸣效率": "recharge", "暴击": "cpct", "暴击伤害": "cdmg" }
-      let IconData, IconResponse, url
+      let IconData, IconResponse
       try {
-        url = `${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/item`
-        IconResponse = await fetch(url)
-        if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); IconData = {} } else { IconData = await IconResponse.json() }
+        IconResponse = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
+        if (!(IconResponse.headers.get('content-type') && (IconResponse.headers.get('content-type').includes('application/json') || IconResponse.headers.get('content-type').includes('application/vnd.api+json')))) IconResponse = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/item`)
+        if (!IconResponse.ok) { await network(e, IconResponse, mode); IconData = {} } else { IconData = await IconResponse.json() }
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
         IconData = {}
@@ -822,19 +769,19 @@ export class calc extends plugin {
         }
       }
       console.log('[liangshi-calc]数据处理完成')
-      let path = `./plugins/miao-plugin/resources/meta-mc/weapon/${WeaponType}/${data.Name || data.WeaponName}/data.json`
+      let path = `./plugins/miao-plugin/resources/meta-mc/weapon/${WeaponType}/${WeaponName}/data.json`
       if (!fs.existsSync(path)) {
         fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-        console.log(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据已写入`)
-        if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已写入`)
+        console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+        if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
       } else if (/强制|强行|覆盖/.test(e.msg)) {
         if (!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
         fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
-        console.log(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据已写入`)
-        if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已写入`)
+        console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+        if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
       } else {
         if (!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}武器数据`)
-        console.error(`[liangshi-calc]武器：${data.Name || data.WeaponName}\n数据已存在`)
+        console.error(`[liangshi-calc]武器：${WeaponName}\n数据已存在`)
         return false
       }
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
@@ -843,26 +790,26 @@ export class calc extends plugin {
         fs.readFile(filePath, 'utf8', (err, TextData) => {
           if (err) {
             console.error('[liangshi-calc]读取武器配置data.json失败:', err)
-            if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+            if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
             return false
           }
           try {
             let jsonData = JSON.parse(TextData)
-            newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityName === "SR" ? 4 : 5 }
+            newValue = { "id": ID, "name": data.WeaponName, "star": data.QualityId }
             jsonData[ID] = newValue
-            console.log(`[liangshi-calc]武器：${data.Name || data.WeaponName} 配置data.json成功`)
+            console.log(`[liangshi-calc]武器：${WeaponName} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => {
               if (err) {
                 console.error('[liangshi-calc]武器data.json写入失败:\n', err)
-                if (!mode) e.reply(`[liangshi-calc]武器：${data.Name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+                if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
                 return false
               } else { console.log('[liangshi-calc]武器data.json已更新') }
             })
           } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
         })
-        if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n重启后即可使用相关内容`)
-      } else { if (!mode) e.reply(`[liangshi-calc]武器：${data.Name || data.WeaponName} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)}
+        if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n重启后即可使用相关内容`)
+      } else { if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)}
       return false
     } catch (err) {
       if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`) } else {
@@ -878,33 +825,19 @@ export class calc extends plugin {
     }
   }
 
-  async ArtifactNew (e, mode) {
+export async function ArtifactNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, apiKey, p
-    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    let response, ProxyUrl, data, p
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的声骸数据`)
       try {
-        response = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/echo/${ID}`)
-        if (!response.ok) {
-          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-          if (response.status === 404) {
-            if (!mode)  e.reply(`[liangshi-calc]云端暂无该声骸数据，可等待一段时间后再更新`)
-          } else if (response.status === 429) {
-            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
-          } else if (response.status >= 500) {
-            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-          } else if (cfg.ProxyUrl) {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-          } else {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-          }
-          return false
-        }
+        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/echo/${ID}`)
+        if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
@@ -919,8 +852,8 @@ export class calc extends plugin {
         fs.mkdirSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${imgName}`, { recursive: true })
         console.log(`[liangshi-calc]声骸:${imgName} 本地imgs文件夹创建成功`)
       } else { if (!mode) e.reply(`[liangshi-calc]声骸: ${imgName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
-      await this.getImg(ProxyUrl + data.Icon, `${imgs}/img.webp`, "声骸")
-      await this.getImg(ProxyUrl + data.Skill?.BattleViewIcon, `${imgs}/skill.webp`, "技能")
+      await getImg(ProxyUrl + data.Icon, `${imgs}/img.webp`, "声骸")
+      await getImg(ProxyUrl + data.Skill?.BattleViewIcon, `${imgs}/skill.webp`, "技能")
       if (!mode) e.reply(`[liangshi-calc]声骸图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-mc/artifact/data.json`
@@ -1017,41 +950,26 @@ export class calc extends plugin {
     }
   }
 
-  async MonsterNew (e, mode) {
+export async function MonsterNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, MonsterData, apiKey, IconUrl, newValue
-    if (cfg.mcApi === 3) apiKey = "-v2"; else apiKey = ""
+    let response, ProxyUrl, data, MonsterData, IconUrl, newValue
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$/)
     let ID = TextData[4]
     if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
     try {
       try {
-        response = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/zh-Hans/monster/${ID}`)
-        if (!response.ok) {
-          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-          if (response.status === 404) {
-            if (!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
-          } else if (response.status === 429) {
-            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
-          } else if (response.status >= 500) {
-            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-          } else if (cfg.ProxyUrl) {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-          } else {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-          }
-          return false
-        }
+        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/monster/${ID}`)
+        if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
-        if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
-        console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+        if (!mode) e.reply('[liangshi-calc]云端数据读取异常，尝试切换(*/ω＼*)')
+        console.log(`[liangshi-calc]云端数据读取异常尝试切换\n${err}`)
         return false
       }
-      IconUrl = `${ProxyUrl}https://api${apiKey}.encore.moe/resource/Data`
       if (data.Name === "") data.Name = "无名"
       let imgs = `./plugins/miao-plugin/resources/meta-mc/monster/${data.Name}`
       if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/monster/${data.Name}`) || /强制|强行|覆盖/.test(e.msg)) {
@@ -1059,15 +977,15 @@ export class calc extends plugin {
         fs.mkdirSync(`./plugins/miao-plugin/resources/meta-mc/monster/${data.Name}`, { recursive: true })
         console.log(`[liangshi-calc]敌怪:${data.Name} 本地文件夹创建成功`)
       } else { if (!mode) e.reply(`[liangshi-calc]敌怪: ${data.Name} 已经存在，如需更新数据请使用覆盖更新。`); return false }
-      await this.getImg(ProxyUrl + IconUrl + data.Icon, `${imgs}/icon.webp`, "icon")
+      await getImg(ProxyUrl + data.Icon.replace(/\.png/g, '.webp'), `${imgs}/icon.webp`, "icon")
       if (!mode) e.reply(`[liangshi-calc]敌怪图片资源下载完成`)
       let HPattr = [], DEFattr = [], ATKattr = [], HARattr = [], REGattr = []
       Object.values(data.GrowthRates).forEach(item => {
-        HPattr.push((item.LifeMaxRatio / 10000 * data.Properties.LifeMax.Value).toFixed(4) * 1)
-        ATKattr.push((item.AtkRatio / 10000 * data.Properties.Atk.Value).toFixed(4) * 1)
-        DEFattr.push((item.DefRatio / 10000 * data.Properties.Def.Value).toFixed(4) * 1)
-        HARattr.push((item.HardnessMaxRatio / 10000 * data.Properties.HardnessMax.Value).toFixed(4) * 1)
-        REGattr.push((item.RageMaxRatio / 10000 * data.Properties.RageMax.Value).toFixed(4) * 1)
+        HPattr.push((item.LifeMaxRatio / 10000 * data.Properties?.LifeMax.Value).toFixed(4) * 1)
+        ATKattr.push((item.AtkRatio / 10000 * data.Properties?.Atk.Value).toFixed(4) * 1)
+        DEFattr.push((item.DefRatio / 10000 * data.Properties?.Def.Value).toFixed(4) * 1)
+        HARattr.push((item.HardnessMaxRatio / 10000 * data.Properties?.HardnessMax.Value).toFixed(4) * 1)
+        REGattr.push((item.RageMaxRatio / 10000 * data.Properties?.RageMax.Value).toFixed(4) * 1)
       })
       MonsterData = {
         id: data.Id,
@@ -1077,19 +995,19 @@ export class calc extends plugin {
         rarity: data.RarityId,
         element: data.ElementIdArray[0],
         elementArray: data.ElementIdArray,
-        echo: data.AttributeComponent.PropertyId,
+        echo: data.AttributeComponent?.PropertyId,
         attr: {
           Mass: "-", //重量
           WeakTime: "-", //共振恢复时间
           ParalysisTime: "-", //最大瘫痪时间
           Res: {
-            PhyRes: data.Properties.DamageResistancePhys.Value,
-            GlaRes: data.Properties.DamageResistanceElement1.Value,
-            FusRes: data.Properties.DamageResistanceElement2.Value,
-            EleRes: data.Properties.DamageResistanceElement3.Value,
-            AerRes: data.Properties.DamageResistanceElement4.Value,
-            SpeRes: data.Properties.DamageResistanceElement5.Value,
-            HavRes: data.Properties.DamageResistanceElement6.Value
+            PhyRes: data.Properties?.DamageResistancePhys?.Value,
+            GlaRes: data.Properties?.DamageResistanceElement1?.Value,
+            FusRes: data.Properties?.DamageResistanceElement2?.Value,
+            EleRes: data.Properties?.DamageResistanceElement3?.Value,
+            AerRes: data.Properties?.DamageResistanceElement4?.Value,
+            SpeRes: data.Properties?.DamageResistanceElement5?.Value,
+            HavRes: data.Properties?.DamageResistanceElement6?.Value
           },
           hp: HPattr,
           def: DEFattr,
@@ -1141,55 +1059,30 @@ export class calc extends plugin {
       } else { if (!mode) e.reply(`[liangshi-calc]敌怪：${data.Name} 数据更新完成\n当前未启用自动写入MonsterData\n手动配置后重启才可使用\n自动写入MonsterData可在config.yaml启用或使用强制更新临时启用一次`)}
       return false
     } catch (err) {
-      if (!mode) {
-        e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+      if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
       } else {
         console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
-        let lj = "./plugins/liangshi-calc/resources/log.json"
-        let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
-        let y = JSON.parse(oldLog)
+        let lj = "./plugins/liangshi-calc/resources/log.json", oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}', y = JSON.parse(oldLog)
         y[new Date()] = { name: TextData[4], err, text: "武器更新错误" }
         let bbxzData = JSON.stringify(y, null, 2)
-        fs.writeFile(lj, bbxzData, 'utf8', (err) => {
-          if (err) {
-            console.error('[liangshi-calc]错误内容记录失败:\n', err)
-            return false
-          } else {
-            console.log('[liangshi-calc]错误内容已记录')
-          }
-        })
+        fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') } })
       }
       return true
     }
   }
 
-  async ItemNew (e, mode) {
+export async function ItemNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, url, apiKey, itemJson
-    if (cfg.mcApi === 3 ) apiKey = "-v2"; else apiKey = ""
+    let response, ProxyUrl, data, url, itemJson
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = ""}
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$/)
     try {
       let ID = TextData[4]
       try {
-        response = await fetch(`${ProxyUrl}https://api${apiKey}.encore.moe/api/zh-Hans/item/${TextData[4]}`)
-        console.log(`${ProxyUrl}https://api${apiKey}.encore.moe/api/zh-Hans/item/${TextData[4]}`)
-        if (!response.ok) {
-          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
-          if (response.status === 404) {
-            if (!mode) e.reply('[liangshi-calc]云端暂无该物品数据，可等待一段时间后再更新')
-          } else if (response.status === 429) {
-            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
-          } else if (response.status >= 500) {
-            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
-          } else if (cfg.ProxyUrl) {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
-          } else {
-            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
-          }
-          return false
-        }
+        response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${TextData[4]}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/api/zh-Hans/item/${TextData[4]}`)
+        if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
@@ -1210,17 +1103,17 @@ export class calc extends plugin {
         "Bg": data.BgDescription?.split('\n'),
         "Source": data.AccessDescriptions,
         "star": data.QualityId,
-        "Bag": data.ShowInBag, //是否显示在背包中
+        "Bag": data.ShowInBag, //是否显示在背包中?
         "Del": data.Destructible, //是否可被摧毁
         "Use": data.ShowUseButton, //是否可在背包中使用
         "Red": data.RedDotDisableRule, //获得时是否有红点
-        "Capcity": data.MaxCapcity, //最大容量
-        "Stackable": data.MaxStackableNum, //最大堆叠
+        "Capcity": data.MaxCapcity, //最大容量?
+        "Stackable": data.MaxStackableNum, //最大堆叠?
         "Dec": data.DecomposeInfo, //分解产物
         "Leve": data.UseLevel //使用等级限制
       }
       ItemName = data.Name
-      await this.getImg(ProxyUrl + url, `${imgs}/${ItemType}/${data.Name}.webp`, "图标")
+      await getImg(ProxyUrl + url, `${imgs}/${ItemType}/${data.Name}.webp`, "图标")
       if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
         let filePath = `./plugins/miao-plugin/resources/meta-mc/material/data.json`
@@ -1252,20 +1145,13 @@ export class calc extends plugin {
        let y = JSON.parse(oldLog)
        y[new Date()] = { name: TextData[4], err, text: "物品更新错误" }
        let bbxzData = JSON.stringify(y, null, 2)
-       fs.writeFile(lj, bbxzData, 'utf8', (err) => {
-         if (err) {
-           console.error('[liangshi-calc]错误内容记录失败:\n', err)
-           return false
-         } else {
-           console.log('[liangshi-calc]错误内容已记录')
-         }
-       })
+       fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false  } else { console.log('[liangshi-calc]错误内容已记录') }})
      }
      return true
     }
   }
 
-  async getImg (url, Path, name) {
+export async function getImg (url, Path, name) {
     try {
       if (!await common.downFile(url, Path)) {
         console.error(`[liangshi-calc]下载${name}图片失败，5秒后重试`)
@@ -1290,4 +1176,20 @@ export class calc extends plugin {
       return true
     }
   }
+
+export async function network (e, key, mode) {
+  let cfg = LSconfig.getConfig('user', 'config')
+  console.error(`[liangshi-calc]访问云端时发生错误:${key.status}`)
+  if (key.status === 404) {
+    if (!mode) e.reply('[liangshi-calc]云端暂无该数据，可等待一段时间后再更新')
+  } else if (key.status === 429) {
+    if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+  } else if (key.status >= 500) {
+    if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+  } else if (cfg.ProxyUrl) {
+    if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+  } else {
+    if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+  }
+  return false
 }

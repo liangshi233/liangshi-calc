@@ -631,6 +631,7 @@ ProxyUrl: #API代理地址
 | 1  | mihoyo.com  | 官方数据源(米游社)【适配中】  |
 | 2  | lunaris.moe |   默认使用此项【适配中】    |
 | 3  |  yatta.moe  |      【适配中】       |
+| 4  |  nanoka.cc  |      【适配中】       |
 | 9  |  hakush.in  |       已关闭        |
 
 </details>
@@ -643,21 +644,23 @@ ProxyUrl: #API代理地址
 | 1  |  mihoyo.com  | 官方数据源(米游社)【适配中】  |
 | 2  | neonteam.dev |   默认使用此项【适配中】    |
 | 3  |  yatta.moe   |      【适配中】       |
+| 4  |  nanoka.cc   |      【适配中】       |
+| 5  |  huroka.com  |      【适配中】       |
 | 9  |  hakush.in   |       已关闭        |
 
 </details>
 
 <details><summary>mcApi</summary>
 
-| 序号 |      名称       |         备注          |
-|:--:|:-------------:|:-------------------:|
-| 0  |      自动       |  预留(后续改成自动使用延迟最低)   |
-| 1  |  kurobbs.com  |   官方数据源(库街区)【适配中】   |
-| 2  |  encore.moe   | 默认使用此项(部分网络可能访问较慢)  |
-| 3  | v2 encore.moe | 和2一样(使用2时遇到问题时切换此项) |
-| 4  |   wuwa.wiki   |        【适配中】        |
-| 5  | wuwaflex.com  |        【适配中】        |
-| 9  |   hakush.in   |         已关闭         |
+| 序号 |      名称      |         备注         |
+|:--:|:------------:|:------------------:|
+| 0  |      自动      |  预留(后续改成自动使用延迟最低)  |
+| 1  | kurobbs.com  |  官方数据源(库街区)【适配中】   |
+| 2  |  encore.moe  | 默认使用此项(部分网络可能访问较慢) |
+| 3  |  nanoka.cc   |       【适配中】        |
+| 4  |  wuwa.wiki   |       【适配中】        |
+| 5  | wuwaflex.com |       【适配中】        |
+| 9  |  hakush.in   |        已关闭         |
 
 > 更新数据有问题或新api适配请提issues
 
