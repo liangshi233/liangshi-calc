@@ -27,27 +27,27 @@ export class calc extends plugin {
           },
             */
           {
-            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料|敌人|敌怪|怪物|残响|残像|boss|BOSS)?(数据|资源|内容|资源数据)$',
+            reg: '^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料|敌人|敌怪|怪物|残响|残像|boss|BOSS)?(数据|资源|内容|资源数据)(api|API|Api|接口)?(.*?)$',
             fnc: 'NewData'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$',
             fnc: 'CharacterNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$',
             fnc: 'WeaponNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$',
             fnc: 'ArtifactNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$',
             fnc: 'MonsterNew'
           },
           {
-            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$',
+            reg: '^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$',
             fnc: 'ItemNew'
           }
         ]
@@ -56,74 +56,86 @@ export class calc extends plugin {
   }
 
   async NewData (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?一键更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(最|当前最)?新版本(完整|全部)?(角色|共鸣者|武器|光锥|圣遗物|声骸|遗器|物品|材料|敌人|敌怪|怪物|残响|残像|boss|BOSS)?(数据|资源|内容|资源数据)(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[8]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "All"); return true
+      await McNew(e, "All", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "All"); return true
+      await GsNew(e, "All", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "All"); return true
+      await SrNew(e, "All", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "All"); return true
+      await ZzNew(e, "All", api); return true
     }
   }
 
   async CharacterNew (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(角色|共鸣者)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[8]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "Cha"); return true
+      await McNew(e, "Cha", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "Cha"); return true
+      await GsNew(e, "Cha", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "Cha"); return true
+      await SrNew(e, "Cha", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "Cha"); return true
+      await ZzNew(e, "Cha", api); return true
     }
   }
 
   async WeaponNew (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[8]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "Wea"); return true
+      await McNew(e, "Wea", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "Wea"); return true
+      await GsNew(e, "Wea", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "Wea"); return true
+      await SrNew(e, "Wea", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "Wea"); return true
+      await ZzNew(e, "Wea", api); return true
     }
   }
 
   async ArtifactNew (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[8]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "Art"); return true
+      await McNew(e, "Art", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "Art"); return true
+      await GsNew(e, "Art", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "Art"); return true
+      await SrNew(e, "Art", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "Art"); return true
+      await ZzNew(e, "Art", api); return true
     }
   }
 
   async MonsterNew (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[8]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "Mon"); return true
+      await McNew(e, "Mon", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "Mon"); return true
+      await GsNew(e, "Mon", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "Mon"); return true
+      await SrNew(e, "Mon", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "Mon"); return true
+      await ZzNew(e, "Mon", api); return true
     }
   }
 
   async ItemNew (e) {
+    let api, TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS|星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR|绝区零|绝|zzz|ZZZ|鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?(api|API|Api|接口)?(.*?)$/)
+    if (/api|API|Api|接口/.test(e.msg)) api = TextData[7]
     if (/鸣潮|明朝|潮|mc|MC/.test(e.msg)) {
-      await McNew(e, "Ite"); return true
+      await McNew(e, "Ite", api); return true
     } else if (/原神|原|ys|YS|gs|GS/.test(e.msg)) {
-      await GsNew(e, "Ite"); return true
+      await GsNew(e, "Ite", api); return true
     } else if (/星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR/.test(e.msg)) {
-      await SrNew(e, "Ite"); return true
+      await SrNew(e, "Ite", api); return true
     } else if (/绝区零|绝|zzz|ZZZ/.test(e.msg)) {
-      await ZzNew(e, "Ite"); return true
+      await ZzNew(e, "Ite", api); return true
     }
   }
 

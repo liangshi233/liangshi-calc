@@ -9,9 +9,9 @@ import { New as NewNeonteam, CharacterNew as CharacterNewNeonteam, WeaponNew as 
  * 星铁API索引
  */
 
-export async function SrNew (e, type) {
+export async function SrNew (e, type, api) {
   let cfg = LSconfig.getConfig('user', 'config')
-  if (cfg.srApi === 0 || !cfg.srApi) cfg.srApi = 4 //预留自动配置
+  if (api) cfg.srApi = Number(api); if (cfg.srApi === 0 || !cfg.srApi) cfg.srApi = 4 //预留自动配置
   if (cfg.srApi === 1) { //mihoyo.com
     e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false
   } else if (cfg.srApi === 2) { //neonteam.dev

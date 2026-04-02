@@ -263,7 +263,7 @@ export async function New (e) {
 export async function CharacterNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)角色(数据|资源|资源数据)?(.*?)$/)
     let CharacterId = TextData[4]
     try {
       if (/^\d{4}$/.test(CharacterId) || /强制|强行|覆盖/.test(e.msg)) {
@@ -672,7 +672,7 @@ export async function WeaponNew (e, mode) {
     let cfg = LSconfig.getConfig('user', 'config')
     let response, ProxyUrl, data, WeaponType, WeaponData, IconUrl, newValue, counter = -1
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(武器|光锥)(数据|资源|资源数据)?(.*?)$/)
     try {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
@@ -830,7 +830,7 @@ export async function ArtifactNew (e, mode) {
     let cfg = LSconfig.getConfig('user', 'config')
     let response, ProxyUrl, data, p
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(.*?)$/)
     try {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的声骸数据`)
@@ -955,7 +955,7 @@ export async function MonsterNew (e, mode) {
     let cfg = LSconfig.getConfig('user', 'config')
     let response, ProxyUrl, data, MonsterData, IconUrl, newValue
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(.*?)$/)
     let ID = TextData[4]
     if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
     try {
@@ -1076,7 +1076,7 @@ export async function ItemNew (e, mode) {
     let cfg = LSconfig.getConfig('user', 'config')
     let response, ProxyUrl, data, url, itemJson
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = ""}
-    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?$/)
+    let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?(.*?)$/)
     try {
       let ID = TextData[4]
       try {

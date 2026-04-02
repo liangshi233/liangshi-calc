@@ -8,9 +8,9 @@ import { New as NewHakush, CharacterNew as CharacterNewHakush, WeaponNew as Weap
  * 原神API索引
  */
 
-export async function GsNew (e, type) {
+export async function GsNew (e, type, api) {
   let cfg = LSconfig.getConfig('user', 'config')
-  if (cfg.gsApi === 0 || !cfg.gsApi) cfg.gsApi = 2 //预留自动配置
+  if (api) cfg.gsApi = Number(api); if (cfg.gsApi === 0 || !cfg.gsApi) cfg.gsApi = 2 //预留自动配置
   if (cfg.gsApi === 1) { //mihoyo.com
     e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false
   } else if (cfg.gsApi === 2) { //lunaris.moe

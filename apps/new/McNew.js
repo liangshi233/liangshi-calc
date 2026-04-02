@@ -1,15 +1,15 @@
 import { LSconfig } from '#liangshi'
 import { New as AllNewEncore, CharacterNew as CharacterNewEncore, WeaponNew as WeaponNewEncore, ArtifactNew as ArtifactNewEncore, MonsterNew as MonsterNewEncore, ItemNew as ItemNewEncore } from './WutheringWaves/MCencore.js';
 import { New as AllNewHakush, CharacterNew as CharacterNewHakush, WeaponNew as WeaponNewHakush, ArtifactNew as ArtifactNewHakush, MonsterNew as MonsterNewHakush, ItemNew as ItemNewHakush } from './WutheringWaves/MChakush.js';
-import { New as NewNanoka, CharacterNew as CharacterNewNanoka, WeaponNew as WeaponNewNanoka, ArtifactNew as ArtifactNewNanoka, MonsterNew as MonsterNewNanoka, ItemNew as ItemNewNanoka } from './WutheringWaves/MCnanoka.js'
+import { New as AllNewNanoka, CharacterNew as CharacterNewNanoka, WeaponNew as WeaponNewNanoka, ArtifactNew as ArtifactNewNanoka, MonsterNew as MonsterNewNanoka, ItemNew as ItemNewNanoka } from './WutheringWaves/MCnanoka.js'
 
 /**
  * 鸣潮API索引
  */
 
-export async function McNew (e, type) {
+export async function McNew (e, type, api) {
   let cfg = LSconfig.getConfig('user', 'config')
-  if (cfg.mcApi === 0 || !cfg.mcApi) cfg.mcApi = 2 //预留自动配置
+  if (api) cfg.mcApi = Number(api); if (cfg.mcApi === 0 || !cfg.mcApi) cfg.mcApi = 2 //预留自动配置
   if (cfg.mcApi === 1) { //kurobbs.com
     e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false
   } else if (cfg.mcApi === 2) { //encore.moe
@@ -21,7 +21,7 @@ export async function McNew (e, type) {
     if (type === "Ite") { await ItemNewEncore(e); return true }
     return true
   } else if (cfg.mcApi === 3) { //nanoka.cc
-    if (type === "All") { await NewNanoka(e); return true }
+    if (type === "All") { await AllNewNanoka(e); return true }
     if (type === "Cha") { await CharacterNewNanoka(e); return true }
     if (type === "Wea") { await WeaponNewNanoka(e); return true }
     if (type === "Art") { await ArtifactNewNanoka(e); return true }
