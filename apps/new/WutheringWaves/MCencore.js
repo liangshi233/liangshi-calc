@@ -597,7 +597,7 @@ export async function CharacterNew (e, mode) {
       console.log(`[liangshi-calc]开始下载角色图片资源`)
       await getImg(ProxyUrl + data.RolePortrait, `${imgs}/splash.webp`, "立绘")
       await getImg(ProxyUrl + data.FormationRoleCard, `${imgs}/face.webp`, "大头")
-      await getImg(ProxyUrl + data.RoleHeadIconBig, `${imgs}/side.webp`, "侧头")
+      await getImg(ProxyUrl + data.RoleHeadIconLarge, `${imgs}/side.webp`, "侧头")
       await getImg(ProxyUrl + data.Skills[3]?.Icon, `${icons}/passive-0.webp`, "固有天赋1")
       await getImg(ProxyUrl + data.Skills[4]?.Icon, `${icons}/passive-1.webp`, "固有天赋2")
       await getImg(ProxyUrl + data.Skills[1]?.Icon, `${icons}/talent-e.webp`, "共鸣技能")
