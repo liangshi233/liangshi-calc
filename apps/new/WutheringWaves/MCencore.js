@@ -21,8 +21,8 @@ export async function New (e) {
     let characterTime, weaponTime, artifactTime, monsterTime, itemTime, character, status, response, ProxyUrl, artifact, data, weapon, monster, ItemJson, ItemOk, url2
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/new`)
-      if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/new`)
+      response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/new`)
+      if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/new`)
       if (!response.ok) { await network(e, response, true); return false }
       data = await response.json()
       console.log(`[liangshi-calc]云端数据读取成功`)
@@ -39,24 +39,24 @@ export async function New (e) {
     if (/完整|全部/.test(e.msg)) {
       status = "完整"
       try {
-        let Characterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
-        if (!(Characterurl.headers.get('content-type') && (Characterurl.headers.get('content-type').includes('application/json') || Characterurl.headers.get('content-type').includes('application/vnd.api+json')))) Characterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
+        let Characterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/character`)
+        if (!(Characterurl.headers.get('content-type') && (Characterurl.headers.get('content-type').includes('application/json') || Characterurl.headers.get('content-type').includes('application/vnd.api+json')))) Characterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
         Characterurl = await Characterurl.json()
         character = Characterurl.roleList.map(item => item.Id)
-        let Weaponurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
-        if (!(Weaponurl.headers.get('content-type') && (Weaponurl.headers.get('content-type').includes('application/json') || Weaponurl.headers.get('content-type').includes('application/vnd.api+json')))) Weaponurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/weapon`)
+        let Weaponurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/weapon`)
+        if (!(Weaponurl.headers.get('content-type') && (Weaponurl.headers.get('content-type').includes('application/json') || Weaponurl.headers.get('content-type').includes('application/vnd.api+json')))) Weaponurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
         Weaponurl = await Weaponurl.json()
         weapon = Weaponurl.weapons.map(item => item.Id)
-        let Artifacturl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
-        if (!(Artifacturl.headers.get('content-type') && (Artifacturl.headers.get('content-type').includes('application/json') || Artifacturl.headers.get('content-type').includes('application/vnd.api+json')))) Artifacturl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/echo`)
+        let Artifacturl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/echo`)
+        if (!(Artifacturl.headers.get('content-type') && (Artifacturl.headers.get('content-type').includes('application/json') || Artifacturl.headers.get('content-type').includes('application/vnd.api+json')))) Artifacturl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
         Artifacturl = await Artifacturl.json()
         artifact = Artifacturl.Echo.map(item => item.Id)
-        let Monsterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
-        if (!(Monsterurl.headers.get('content-type') && (Monsterurl.headers.get('content-type').includes('application/json') || Monsterurl.headers.get('content-type').includes('application/vnd.api+json')))) Monsterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/monster`)
+        let Monsterurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/monster`)
+        if (!(Monsterurl.headers.get('content-type') && (Monsterurl.headers.get('content-type').includes('application/json') || Monsterurl.headers.get('content-type').includes('application/vnd.api+json')))) Monsterurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
         Monsterurl = await Monsterurl.json()
         monster = Monsterurl.monsterList.map(item => item.Id)
-        let Itemurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
-        if (!(Itemurl.headers.get('content-type') && (Itemurl.headers.get('content-type').includes('application/json') || Itemurl.headers.get('content-type').includes('application/vnd.api+json')))) Itemurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/item`)
+        let Itemurl = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item`)
+        if (!(Itemurl.headers.get('content-type') && (Itemurl.headers.get('content-type').includes('application/json') || Itemurl.headers.get('content-type').includes('application/vnd.api+json')))) Itemurl = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
         Itemurl = await Itemurl.json()
         data.item = Itemurl.itemList.map(item => item.Id)
       } catch (err) {
@@ -82,13 +82,15 @@ export async function New (e) {
     ItemOk = true
     if (!fs.existsSync("./plugins/liangshi-calc/resources/log.json")) { fs.writeFileSync("./plugins/liangshi-calc/resources/log.json", '{}'); console.log(`[liangshi-calc]未找到错误日志文件，已自动创建`)}
     try {
-      let url = `${ProxyUrl}https://api.encore.moe/zh-Hans/item`
-      url2 = `${ProxyUrl}https://api.encore.moe/zh-Hans/echo`
+      let url = `${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item`
+      url2 = `${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/echo`
       let EchoJson = await fetch(url2)
+      if (!(EchoJson.headers.get('content-type') && (EchoJson.headers.get('content-type').includes('application/json') || EchoJson.headers.get('content-type').includes('application/vnd.api+json')))) EchoJson = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
       EchoJson = await EchoJson.json()
       if (artifact.length > 0) { fs.writeFile(`./plugins/liangshi-calc/resources/EchoJson.json`, JSON.stringify(EchoJson), 'utf8', (err) => { if (err) { console.error(`[liangshi-calc] 声骸Json储存失败`); fs.unlink('./plugins/liangshi-calc/resources/EchoJson.json', (err) => { if (!err) { console.warn(`[liangshi-calc] 声骸Json储存错误残留文件已清理`) }})} else { console.log(`[liangshi-calc] 声骸Json已缓存至本地`) }}) }
       if (data.item.length > 0) {
         ItemJson = await fetch(url)
+        if (!(ItemJson.headers.get('content-type') && (ItemJson.headers.get('content-type').includes('application/json') || ItemJson.headers.get('content-type').includes('application/vnd.api+json')))) ItemJson = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
         if (!response.ok) ItemOk = false
         ItemJson = await ItemJson.json()
         fs.writeFile(`./plugins/liangshi-calc/resources/ItemJson.json`, JSON.stringify(ItemJson), 'utf8', (err) => { if (err) { ItemOk = false } else { console.log(`[liangshi-calc] 物品Json已缓存至本地`) }})
@@ -160,14 +162,14 @@ export async function New (e) {
     if (data.item.length > 0) { fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => { if (err) { console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message) } else { console.log(`[liangshi-calc] 物品Json缓存已删除`) }})}
     let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata, MonsterText, MonsterNamedata
     try {
-      CharacterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
-      if (!(CharacterText.headers.get('content-type') && (CharacterText.headers.get('content-type').includes('application/json') || CharacterText.headers.get('content-type').includes('application/vnd.api+json')))) CharacterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
-      WeaponText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
-      if (!(WeaponText.headers.get('content-type') && (WeaponText.headers.get('content-type').includes('application/json') || WeaponText.headers.get('content-type').includes('application/vnd.api+json')))) WeaponText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
-      ArtifactText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
-      if (!(ArtifactText.headers.get('content-type') && (ArtifactText.headers.get('content-type').includes('application/json') || ArtifactText.headers.get('content-type').includes('application/vnd.api+json')))) ArtifactText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
-      MonsterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
-      if (!(MonsterText.headers.get('content-type') && (MonsterText.headers.get('content-type').includes('application/json') || MonsterText.headers.get('content-type').includes('application/vnd.api+json')))) MonsterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character`)
+      CharacterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/character`)
+      if (!(CharacterText.headers.get('content-type') && (CharacterText.headers.get('content-type').includes('application/json') || CharacterText.headers.get('content-type').includes('application/vnd.api+json')))) CharacterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character`)
+      WeaponText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/weapon`)
+      if (!(WeaponText.headers.get('content-type') && (WeaponText.headers.get('content-type').includes('application/json') || WeaponText.headers.get('content-type').includes('application/vnd.api+json')))) WeaponText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon`)
+      ArtifactText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/echo`)
+      if (!(ArtifactText.headers.get('content-type') && (ArtifactText.headers.get('content-type').includes('application/json') || ArtifactText.headers.get('content-type').includes('application/vnd.api+json')))) ArtifactText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo`)
+      MonsterText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/monster`)
+      if (!(MonsterText.headers.get('content-type') && (MonsterText.headers.get('content-type').includes('application/json') || MonsterText.headers.get('content-type').includes('application/vnd.api+json')))) MonsterText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster`)
       CharacterNamedata = await CharacterText.json()
       WeaponNamedata = await WeaponText.json()
       ArtifactNamedata = await ArtifactText.json()
@@ -278,8 +280,8 @@ export async function CharacterNew (e, mode) {
       let response, ProxyUrl, CharacterData, ItemText, data
       if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
       try {
-        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character/${CharacterId}`)
-        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/character/${CharacterId}`)
+        response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/character/${CharacterId}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/character/${CharacterId}`)
         if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]角色：${data.Name.Content || data.Name || "无名"} 云端数据读取成功`)
@@ -304,7 +306,8 @@ export async function CharacterNew (e, mode) {
       let imgs = `./plugins/miao-plugin/resources/meta-mc/character/${CharacterName}/imgs`
       if (!fs.existsSync(icons)) { fs.mkdirSync(icons, { recursive: true }); console.log(`[liangshi-calc]角色：${data.Name || "无名"} 本地icons文件夹创建成功`) }
       if (!fs.existsSync(imgs)) { fs.mkdirSync(imgs, { recursive: true }); console.log(`[liangshi-calc]角色：${data.Name || "无名"} 本地imgs文件夹创建成功`) }
-      ItemText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
+      ItemText = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item`)
+      if (!(ItemText.headers.get('content-type') && (ItemText.headers.get('content-type').includes('application/json') || ItemText.headers.get('content-type').includes('application/vnd.api+json'))) || !ItemText.ok) ItemText = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
       let ItemNamedata = await ItemText.json()
       ItemNamedata = ItemNamedata.itemList.reduce((acc, item) => {acc[item.Id] = item;return acc}, {})
       let mcTalName = (data) => {
@@ -677,8 +680,8 @@ export async function WeaponNew (e, mode) {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
       try {
-        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon/${ID}`)
-        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/weapon/${ID}`)
+        response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/weapon/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/weapon/${ID}`)
         if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
@@ -701,8 +704,8 @@ export async function WeaponNew (e, mode) {
       let key = { "生命": "hpPct", "攻击": "atkPct", "防御": "atkPct", "共鸣效率": "recharge", "暴击": "cpct", "暴击伤害": "cdmg" }
       let IconData, IconResponse
       try {
-        IconResponse = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
-        if (!(IconResponse.headers.get('content-type') && (IconResponse.headers.get('content-type').includes('application/json') || IconResponse.headers.get('content-type').includes('application/vnd.api+json')))) IconResponse = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/item`)
+        IconResponse = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item`)
+        if (!(IconResponse.headers.get('content-type') && (IconResponse.headers.get('content-type').includes('application/json') || IconResponse.headers.get('content-type').includes('application/vnd.api+json')))) IconResponse = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/item`)
         if (!IconResponse.ok) { await network(e, IconResponse, mode); IconData = {} } else { IconData = await IconResponse.json() }
         console.log(`[liangshi-calc]云端数据读取成功`)
       } catch (err) {
@@ -835,8 +838,8 @@ export async function ArtifactNew (e, mode) {
       let ID = TextData[4]
       if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的声骸数据`)
       try {
-        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo/${ID}`)
-        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/echo/${ID}`)
+        response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/echo/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/echo/${ID}`)
         if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
@@ -875,19 +878,21 @@ export async function ArtifactNew (e, mode) {
             return acc
           }, {})
         }
-        if (fs.existsSync(filePath)) { yx = {}; try { yx = fs.readFileSync(filePath,'utf8'); yx = JSON.parse(yx); console.log(`[liangshi-calc]声骸data读取成功`)} catch (err) { console.error(`[liangshi-calc]声骸data读取失败,尝试重新生成`) }} else { yx = {} }
-        i = textcl(i)
-        jx = { ...yx }
-        for (const key in i) {
-          if (yx.hasOwnProperty(key)) {
-            let yxk = yx[key]
-            let ik = i[key]
-            let ox = { ...yxk, ...ik }
-            if (yxk.sets && ik.sets) { ox.sets = [...new Set([...yxk.sets, ...ik.sets])] }
-            jx[key] = ox
-          } else { jx[key] = i[key] }
+        if (i) {
+          if (fs.existsSync(filePath)) { yx = {}; try { yx = fs.readFileSync(filePath,'utf8'); yx = JSON.parse(yx); console.log(`[liangshi-calc]声骸data读取成功`)} catch (err) { console.error(`[liangshi-calc]声骸data读取失败,尝试重新生成`) }} else { yx = {} }
+          i = textcl(i)
+          jx = { ...yx }
+          for (const key in i) {
+            if (yx.hasOwnProperty(key)) {
+              let yxk = yx[key]
+              let ik = i[key]
+              let ox = { ...yxk, ...ik }
+              if (yxk.sets && ik.sets) { ox.sets = [...new Set([...yxk.sets, ...ik.sets])] }
+              jx[key] = ox
+            } else { jx[key] = i[key] }
+          }
+          fs.writeFile(filePath, JSON.stringify(jx, null, 2), 'utf8', (err) => { if (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) } else { console.log(`[liangshi-calc]声骸：${imgName} 配置data.json成功`) }})
         }
-        fs.writeFile(filePath, JSON.stringify(jx, null, 2), 'utf8', (err) => { if (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) } else { console.log(`[liangshi-calc]声骸：${imgName} 配置data.json成功`) }})
         let gx = {}, cb = {}
         let o = data.Skill.DescriptionEx.replace(/\u003Cbr\u003E/g, '').replace(/<color=[^>]>/g, '').replace(/<\/color>/g, '').replace(/<size=[^>]>/g, '').replace(/<\/size>/g, '')
         p = data.Skill.LevelDescStrArray[data.Skill.LevelDescStrArray.length - 1].ArrayString
@@ -953,15 +958,15 @@ export async function ArtifactNew (e, mode) {
 export async function MonsterNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, MonsterData, IconUrl, newValue
+    let response, ProxyUrl, data, MonsterData, newValue
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(.*?)$/)
     let ID = TextData[4]
     if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
     try {
       try {
-        response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster/${ID}`)
-        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/zh-Hans/monster/${ID}`)
+        response = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/monster/${ID}`)
+        if (!(response.headers.get('content-type') && (response.headers.get('content-type').includes('application/json') || response.headers.get('content-type').includes('application/vnd.api+json'))) || !response.ok) response = await fetch(`${ProxyUrl}https://api.encore.moe/zh-Hans/monster/${ID}`)
         if (!response.ok) { await network(e, response, mode); return false }
         data = await response.json()
         console.log(`[liangshi-calc]云端数据读取成功`)
@@ -1074,7 +1079,7 @@ export async function MonsterNew (e, mode) {
 export async function ItemNew (e, mode) {
     if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
     let cfg = LSconfig.getConfig('user', 'config')
-    let response, ProxyUrl, data, url, itemJson
+    let response, ProxyUrl, data, url
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = ""}
     let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?(.*?)$/)
     try {
