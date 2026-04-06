@@ -202,13 +202,13 @@ export class Wiki extends plugin {
       { title: '基础生命', value: Math.floor(ChaJson.baseAttr.hp * 100) / 100 },
       { title: '基础攻击', value: Math.floor(ChaJson.baseAttr.atk * 100) / 100 },
       { title: '基础防御', value: Math.floor(ChaJson.baseAttr.def * 100) / 100 },
-      { title: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, value: terNum }
+      { title: `天赋·${ChaJson.attr.tree["1"]?.key ? ChaJson.attr.tree["1"].key.slice(0, 2) : "未知"}`, value: terNum }
     ]
     let line = [
       { label: '基础生命', num: Math.floor(ChaJson.baseAttr.hp * 100) / 100 },
       { label: '基础攻击', num: Math.floor(ChaJson.baseAttr.atk * 100) / 100 },
       { label: '基础防御', num: Math.floor(ChaJson.baseAttr.def * 100) / 100 },
-      { label: `天赋·${ChaJson.attr.tree["1"].key.slice(0, 2)}`, num: terNum }
+      { label: `天赋·${ChaJson.attr.tree["1"]?.key ? ChaJson.attr.tree["1"].key.slice(0, 2) : "未知"}`, num: terNum }
     ]
     let detail = ChaJson
     let Features = ChaJson.Features?.map(ccb => ccb.replace(/<color=[^>]*>(.*?)<\/color>/g, '<span class="highlight">$1</span>'))

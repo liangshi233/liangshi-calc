@@ -1095,13 +1095,14 @@ export async function ItemNew (e, mode) {
         console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
         return false
       }
-      let ItemData, ItemName, ItemType
+      let ItemData, ItemName, ItemType, items, itemStarName
       url = `${ProxyUrl}${data.Icon}`
       let imgs = `./plugins/miao-plugin/resources/meta-mc/material`
       ItemType = data?.TypeName
+      ItemName = data.Name
       ItemData = {
         "id": ID,
-        "name": data.Name,
+        "name": ItemName,
         "type": ItemType,
         "tag": data.TypeName,
         "Desc": data.AttributesDescription.split('\n'),
@@ -1117,7 +1118,49 @@ export async function ItemNew (e, mode) {
         "Dec": data.DecomposeInfo, //分解产物
         "Leve": data.UseLevel //使用等级限制
       }
-      ItemName = data.Name
+      if (ItemType === "武器与技能素材") {
+        let itemID = Number(ID) + 5 - data.QualityId
+        let itemJson1 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 3}`)
+        if (!(itemJson1.headers.get('content-type') && (itemJson1.headers.get('content-type').includes('application/json') || itemJson1.headers.get('content-type').includes('application/vnd.api+json'))) || !itemJson1.ok) itemJson1 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 3}`)
+        let itemJson2 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 2}`)
+        if (!(itemJson2.headers.get('content-type') && (itemJson2.headers.get('content-type').includes('application/json') || itemJson2.headers.get('content-type').includes('application/vnd.api+json'))) || !itemJson2.ok) itemJson2 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 2}`)
+        let itemJson3 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 1}`)
+        if (!(itemJson3.headers.get('content-type') && (itemJson3.headers.get('content-type').includes('application/json') || itemJson3.headers.get('content-type').includes('application/vnd.api+json'))) || !itemJson3.ok) itemJson3 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID - 1}`)
+        let itemJson4 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID}`)
+        if (!(itemJson4.headers.get('content-type') && (itemJson4.headers.get('content-type').includes('application/json') || itemJson4.headers.get('content-type').includes('application/vnd.api+json'))) || !itemJson4.ok) itemJson4 = await fetch(`${ProxyUrl}https://api-v2.encore.moe/api/zh-Hans/item/${itemID}`)
+        if (!itemJson1.ok || !itemJson2.ok || !itemJson3.ok || !itemJson4.ok) { console.log("[liangshi-calc]云端数据读取异常，需自行配置武器与技能素材data.json"); return false }
+        itemJson1 = await itemJson1.json()
+        itemJson2 = await itemJson2.json()
+        itemJson3 = await itemJson3.json()
+        itemJson4 = await itemJson4.json()
+        itemStarName = itemJson4.Name
+        items = {
+          [itemJson1.Name]: {
+            "id": itemID - 3,
+            "name": itemJson1.Name,
+            "type": "武器与技能素材",
+            "star": 2
+          },
+          [itemJson2.Name]: {
+            "id": itemID - 2,
+            "name": itemJson2.Name,
+            "type": "武器与技能素材",
+            "star": 3
+          },
+          [itemJson3.Name]: {
+            "id": itemID - 1,
+            "name": itemJson3.Name,
+            "type": "武器与技能素材",
+            "star": 4
+          },
+          [itemStarName]: {
+            "id": itemID,
+            "name": itemStarName,
+            "type": "武器与技能素材",
+            "star": 5
+          }
+        }
+      }
       await getImg(ProxyUrl + url, `${imgs}/${ItemType}/${data.Name}.webp`, "图标")
       if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
       if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
@@ -1132,6 +1175,10 @@ export async function ItemNew (e, mode) {
           try {
             let jsonData = JSON.parse(TextData)
             jsonData[ItemName] = ItemData
+            if (ItemType === "武器与技能素材") {
+              if (!jsonData[itemStarName]) jsonData[itemStarName] = {}
+              jsonData[itemStarName].items = items
+            }
             console.log(`[liangshi-calc]物品：${ItemName} 配置data.json成功`)
             let updatedData = JSON.stringify(jsonData, null, 2)
             fs.writeFile(filePath, updatedData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]物品data.json写入失败:\n', err); if (!mode) e.reply(`[liangshi-calc]物品：${ItemName} 数据更新完成\n尝试自动写入Data时失败\n请手动添加后重启使用`); return false } else { console.log('[liangshi-calc]物品data.json已更新')}})
