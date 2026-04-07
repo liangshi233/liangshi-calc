@@ -14,7 +14,434 @@ import fs from 'node:fs'
 
 export async function New (e) { e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
-export async function CharacterNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function CharacterNew (e, mode, version) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS)(.*?)角色(数据|资源|资源数据)?(.*?)$/)
+  let CharacterId = TextData[4], verLeve
+  try {
+    if (/^\d{8}$/.test(CharacterId) || /强制|强行|覆盖/.test(e.msg)) {
+      console.log(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+      if (!mode) e.reply(`[liangshi-calc]开始更新ID:${CharacterId}的角色数据`)
+    } else {
+      console.error(`[liangshi-calc]未知的角色ID:${CharacterId}`)
+      if (!mode) e.reply('[liangshi-calc]角色ID错误，请检查角色ID格式(8位数字)')
+      return false
+    }
+    let response, ProxyUrl, CharacterData, url, data, verUrl
+    if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+    try {
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.gi.latest
+      } else { verLeve = version }
+      url = `${ProxyUrl}https://static.nanoka.cc/gi/${verLeve}/zh/character/${CharacterId}.json`
+      response = await fetch(url)
+      if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
+      data = await response.json()
+      console.log(`[liangshi-calc]角色：${data.name || "无名"} 云端数据读取成功`)
+    } catch (err) {
+      console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
+      if (response.status === 404) {
+        if (!mode) e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+        if (!mode) e.reply('数据更新时间(预估)\n原神：版本更新当天18：00~次日6：00左右')
+      } else if (response.status === 429) {
+        if (!mode) e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
+      } else if (response.status >= 500) {
+        if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+      } else if (cfg.ProxyUrl) {
+        if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+      } else {
+        if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+      }
+      return false
+    }
+    let CharacterName = data.name.replace(/<\/?unbreak>/g, '').replace(/\./g, '') || "无名"
+    let imgs = `./plugins/miao-plugin/resources/meta-gs/character/${CharacterName}/imgs`
+    let icons = `./plugins/miao-plugin/resources/meta-gs/character/${CharacterName}/icons`
+    if (!fs.existsSync(imgs)) { fs.mkdirSync(imgs, { recursive: true }); console.log(`[liangshi-calc]角色：${CharacterName} 本地imgs文件夹创建成功`) }
+    if (!fs.existsSync(icons)) { fs.mkdirSync(icons, { recursive: true }); console.log(`[liangshi-calc]角色：${CharacterName} 本地icons文件夹创建成功`) }
+    let talentData = (p) => Object.entries(p).sort(([a], [b]) => a - b).reduce((r, [l, d]) => {
+      d.desc.forEach((ln, i) => {
+        if (!ln.trim()) return
+        let [k,...s] = ln.split('|'), t = s.join('|').trim(), x = k.trim(), re = /({param\d+:F?\d?P?I?})|([\+\-\*\/])(\d*\.?\d+)/g
+        let pr = [], cp = [], li = 0, m
+        while((m=re.exec(t))!==null){
+          let seg = t.slice(li,m.index).trim()
+          if (seg) {
+            let ps = seg.split(/([\+\-\*\/])/).filter(Boolean)
+            ps.forEach(pt=>{ let n = Number(pt); if (!isNaN(n)) { pr.push(n); cp.push(n) } })
+          }
+          if (m[1]) {
+            let pm = m[1].match(/{param(\d+):(F?\d?P?I?)}/)
+            if (pm) {
+              let v = d.param[+pm[1]-1]
+              const f = pm[2];
+              v = (() => {
+                if (f.includes('I')) return Math.round(v)
+                if (f.includes('P')) v = v * 100
+                if (f.includes('F')){ let m = Math.pow(10,f.match(/F(\d)/)?.[1] || 2); return Math.round(v * m) / m } else { v = Math.round(v) }
+                return v
+              })()
+              pr.push(v); cp.push(v)
+            }
+          } else if (m[2] && m[3]) { let n = Number(m[3]); if(!isNaN(n)){ pr.push(n); cp.push(`${m[2]}${n}`) } }
+          li = re.lastIndex
+        }
+        let suf = t.slice(li).trim()
+        if (suf) { let ps = suf.split(/([\+\-\*\/])/).filter(Boolean); ps.forEach(pt => { let n = Number(pt); if(!isNaN(n)){pr.push(n); cp.push(n)} }) }
+        let hasOp = /[\+\-\*\/]/.test(t), op = t.match(/[+\-*/]/g) || []
+        if (!r[x]) { r[x] = Array(Object.keys(p).length).fill(null) }
+        let idx = Object.keys(p).indexOf(l)
+        if (pr.length > 1 || hasOp) {
+          let nk =`${x}2`, res
+          if (!r[nk]) { r[nk] = Array(Object.keys(p).length).fill([]) }
+          r[nk][idx] = pr.filter(v => !isNaN(v))
+          try {
+            if (pr.length === 0) throw new Error()
+            if (pr.length === 1) throw new Error()
+            if (op.length === 0) throw new Error()
+            let vo = op.slice(0, Math.min(op.length, pr.length-1))
+            res = pr[0]
+            for (let i = 0; i < vo.length; i++){
+              let n = pr[i+1];
+              switch(vo[i]) {
+                case'+': res+=n; break
+                case'-': res-=n; break
+                case'*': res*=n; break
+                case'/': res/=n; break
+                default: throw new Error()
+              }
+            }
+          } catch(e) { res = pr[0] }
+          r[x][idx] = Math.round(res * 100) / 100 || 100
+        } else { r[x][idx] = pr[0] ?? (d.param?.length ? Math.round(d.param[0]) : null) }
+      })
+      return r
+    },{})
+    let tablesData = (a) => { let b = Object.values(a), c = b[0]; return c.desc .filter(d => d.trim() !== "") .map(d => { let [e, f] = d.split('|'), g = f.match(/[\u4e00-\u9fa5]+$/), h = g ? g[0] : "", i = g ? f.replace(g[0], '') : f, j = b.map(() => i); return { name: e.trim(), unit: h, isSame: false, values: j }})}
+    let tfData = (a, b) => { return a.map(c => { let d = c.values.map((e, f) => { return e.replace(/{param(\d+):([A-Z0-9.]+)}/g, (g, h, i) => { let j = f.toString(), k = b[j]?.param?.[parseInt(h) - 1], l; if (i.includes('P')) { let m = k * 100; if (i.startsWith('F')) { let n = parseInt(i.substring(1, i.indexOf('P'))); l = `${m.toFixed(n)}%` } else { l = `${Math.round(m)}%` } } else if (i.includes('F')) { let n = parseInt(i.substring(1)); l = k?.toFixed(n) } else if (i === 'I') { l = Math.floor(k).toString() } else { l = Math.round(k).toString() } return l})}); return { ...c, values: d }})}
+    let Qkey = data.constellations[2].desc.includes("替代冲刺") ? 3 : 2
+    let weaKey = { WEAPON_SWORD_ONE_HAND: "sword", WEAPON_CLAYMORE: "claymore", WEAPON_POLE: "polearm", WEAPON_CATALYST: "catalyst",  WEAPON_BOW: "bow" }
+    let gowKey = {
+      "fight_prop_hp_percent": "hpPct",
+      "fight_prop_attatk_percent": "atkPct",
+      "fight_prop_defense_percent": "defPct",
+      "fight_prop_charge_efficiency": "recharge",
+      "fight_prop_element_mastery": "mastery",
+      "fight_prop_critical_hurt": "cdmg",
+      "fight_prop_critical": "cpct",
+      "fight_prop_heal_add": "heal",
+      "fight_prop_ice_add_hurt": "dmg",
+      "fight_prop_grass_add_hurt": "dmg",
+      "fight_prop_rock_add_hurt": "dmg",
+      "fight_prop_wind_add_hurt": "dmg",
+      "fight_prop_water_add_hurt": "dmg",
+      "fight_prop_fire_add_hurt": "dmg",
+      "fight_prop_elec_add_hurt": "dmg",
+    }
+    CharacterData = {
+      "id": CharacterId,
+      "name": data.name,
+      "abbr": data.name.length >= 5 ? data.name.slice(-2) : data.name,
+      "title": data.chara_info.title,
+      "star": data.rarity === "QUALITY_PURPLE" ? 4 : 5,
+      "elem": data.element.toLowerCase(),
+      "allegiance": data.chara_info.native,
+      "weapon": weaKey[data.weapon],
+      "birth": `${data.chara_info.birth[0] || 1}-${data.chara_info.birth[1] || 1}`,
+      "astro": data.chara_info.constellation,
+      "desc": data.desc,
+      "cncv": data.chara_info.va.chinese,
+      "jpcv": data.chara_info.va.japanese,
+      "costume": false,
+      "ver": 1,
+      "baseAttr": {
+        "hp": Math.round(data.base_hp * data.stats_modifier?.hp?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_hp),
+        "atk": Math.round((data.base_atk * data.stats_modifier?.atk?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_attack) * 100) / 100,
+        "def": Math.round((data.base_def * data.stats_modifier?.def?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_defense) * 100) / 100
+      },
+      "growAttr": {
+        "key": gowKey[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]],
+        "value": Math.round((data.stats_modifier?.ascension?.[5]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)) * 100) / 100
+      },
+      "talentId": {
+        [10001 + CharacterId.slice(-3) * 10]: "a",
+        [10002 + CharacterId.slice(-3) * 10]: "e",
+        [10005 + CharacterId.slice(-3) * 10]: "q"
+      },
+      "talentCons": {
+        "a": 0,
+        "e": 0,
+        "q": 0
+      },
+      "materials": {
+        "gem": data.materials.ascensions?.[5]?.mats?.[0].name,
+        "boss": data.materials.ascensions?.[5]?.mats?.[1].name,
+        "specialty": data.materials.ascensions?.[5]?.mats?.[2].name,
+        "normal": data.materials.ascensions?.[5]?.mats?.[3].name,
+        "talent": data.materials.talents?.[0]?.[8]?.mats?.[0].name,
+        "weekly": data.materials.talents?.[0]?.[8]?.mats?.[2].name
+      },
+      "talent": {
+        "a": {
+          "id": data.skills?.[0].id,
+          "name": data.skills?.[0].name,
+          "desc": data.skills?.[0].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[0].promote), data.skills?.[0].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+        },
+        "e": {
+          "id": data.skills?.[1].id,
+          "name": data.skills?.[1].name,
+          "desc": data.skills?.[1].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[1].promote), data.skills?.[1].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+        },
+        "q": {
+          "id": data.skills?.[Qkey].id,
+          "name": data.skills?.[Qkey].name,
+          "desc": data.skills?.[Qkey].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[Qkey].promote), data.skills?.[Qkey].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+        }
+      },
+      "talentData": {
+        "a": talentData(data.skills?.[0]?.promote),
+        "e": talentData(data.skills?.[1]?.promote),
+        "q": talentData(data.skills?.[Qkey]?.promote)
+      },
+      "cons": {
+        "1": {
+          "name": data.constellations?.[0]?.name,
+          "desc": data.constellations?.[0]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        },
+        "2": {
+          "name": data.constellations?.[1]?.name,
+          "desc": data.constellations?.[1]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        },
+        "3": {
+          "name": data.constellations?.[2]?.name,
+          "desc": data.constellations?.[2]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        },
+        "4": {
+          "name": data.constellations?.[3]?.name,
+          "desc": data.constellations?.[3]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        },
+        "5": {
+          "name": data.constellations?.[4]?.name,
+          "desc": data.constellations?.[4]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        },
+        "6": {
+          "name": data.constellations?.[5]?.name,
+          "desc": data.constellations?.[5]?.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "")
+        }
+      },
+      "passive": data.passives.map(({ icon, unlock, param_list, ...rest }) => ({ ...rest, desc: rest.desc.replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== "") })),
+      "attr": {
+        "keys": [
+          "hpBase",
+          "atkBase",
+          "defBase",
+          gowKey[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]]
+        ],
+        "details": {
+          "1": [
+            data.base_hp * data.stats_modifier?.hp?.["1"],
+            data.base_atk * data.stats_modifier?.atk?.["1"],
+            data.base_def * data.stats_modifier?.def?.["1"],
+            0
+          ],
+          "20": [
+            data.base_hp * data.stats_modifier?.hp?.["20"],
+            data.base_atk * data.stats_modifier?.atk?.["20"],
+            data.base_def * data.stats_modifier?.def?.["20"],
+            0
+          ],
+          "40": [
+            data.base_hp * data.stats_modifier?.hp?.["40"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["40"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["40"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_defense,
+            0
+          ],
+          "50": [
+            data.base_hp * data.stats_modifier?.hp?.["50"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["50"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["50"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[1]?.[Object.keys(data.stats_modifier?.ascension?.[1])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "60": [
+            data.base_hp * data.stats_modifier?.hp?.["60"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["60"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["60"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[3]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "70": [
+            data.base_hp * data.stats_modifier?.hp?.["70"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["70"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["70"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[3]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "80": [
+            data.base_hp * data.stats_modifier?.hp?.["80"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["80"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["80"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[4]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "90": [
+            data.base_hp * data.stats_modifier?.hp?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[5]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "100": [
+            data.base_hp * data.stats_modifier?.hp?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["100"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[5]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "20+": [
+            data.base_hp * data.stats_modifier?.hp?.["20"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["20"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["20"] + data.stats_modifier?.ascension?.[0]?.fight_prop_base_defense,
+            0
+          ],
+          "40+": [
+            data.base_hp * data.stats_modifier?.hp?.["40"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["40"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["40"] + data.stats_modifier?.ascension?.[1]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[1]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "50+": [
+            data.base_hp * data.stats_modifier?.hp?.["50"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["50"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["50"] + data.stats_modifier?.ascension?.[2]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[3]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "60+": [
+            data.base_hp * data.stats_modifier?.hp?.["60"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["60"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["60"] + data.stats_modifier?.ascension?.[3]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[3]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "70+": [
+            data.base_hp * data.stats_modifier?.hp?.["70"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["70"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["70"] + data.stats_modifier?.ascension?.[4]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[4]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "80+": [
+            data.base_hp * data.stats_modifier?.hp?.["80"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["80"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["80"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[5]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ],
+          "90+": [
+            data.base_hp * data.stats_modifier?.hp?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_hp,
+            data.base_atk * data.stats_modifier?.atk?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_attack,
+            data.base_def * data.stats_modifier?.def?.["90"] + data.stats_modifier?.ascension?.[5]?.fight_prop_base_defense,
+            data.stats_modifier?.ascension?.[5]?.[Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]] * ((Object.keys(data.stats_modifier?.ascension?.[0])[Object.keys(data.stats_modifier?.ascension?.[0]).length - 1]) === "fight_prop_element_mastery" ? 1 : 100)
+          ]
+        }
+      }
+    }
+    if ((data.constellations[2]?.desc.includes(data.skills[2].name) || data.constellations[4].desc.includes(data.skills[2].name)) && !data.constellations[2].desc.includes("替代冲刺")) {
+      CharacterData.talentCons.q = data.constellations[2].desc.includes(data.skills[2].name) ? 3 : 5
+    } else if (data.constellations[2]?.desc.includes(data.skills[3].name) || data.constellations[4].desc.includes(data.skills[3].name)) {
+      CharacterData.talentCons.q = data.constellations[2].desc.includes(data.skills[3].name) ? 3 : 5
+    }
+    if (data.constellations[2]?.desc.includes(data.skills[1].name) || data.constellations[4].desc.includes(data.skills[1].name)) {
+      CharacterData.talentCons.e = data.constellations[2].desc.includes(data.skills[1].name) ? 3 : 5
+    }
+    if (data.constellations[2]?.desc.includes(data.skills[0].name) || data.constellations[4].desc.includes(data.skills[0].name)) {
+      CharacterData.talentCons.a = data.constellations[2].desc.includes(data.skills[0].name) ? 3 : 5
+    }
+    console.log('[liangshi-calc]数据处理完成')
+    let path = `./plugins/miao-plugin/resources/meta-gs/character/${CharacterName}/data.json`
+    if (!fs.existsSync(path)) {
+      fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply('[liangshi-calc]角色数据已存在，当前为强制模式，尝试覆盖写入。')
+      fs.writeFileSync(path, JSON.stringify(CharacterData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]角色：${CharacterName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据已写入`)
+    } else {
+      if (!mode) e.reply(`[liangshi-calc]角色数据已存在，运行终止。\n如果需要刷新角色数据至最新预览版本请使用覆盖更新\n例：#覆盖更新鸣潮${CharacterId}数据`)
+      console.error(`[liangshi-calc]角色：${CharacterName}\n数据已存在`)
+    }
+    if (!mode) e.reply(`[liangshi-calc]角色数据资源下载完成`)
+    console.log(`[liangshi-calc]开始下载角色图片资源`)
+    let IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`
+    await getImg(IconUrl + data.icon.replace("UI_AvatarIcon_", "UI_Gacha_AvatarImg_") + ".webp", `${imgs}/splash.webp`, "立绘")
+    await getImg(IconUrl + data.icon + ".webp", `${imgs}/face.webp`, "大头")
+    await getImg(IconUrl + data.chara_info.namecard.icon + ".webp", `${imgs}/card.webp`, "名片")
+    await getImg(IconUrl + data.passives?.[0]?.icon + ".webp", `${icons}/passive-0.webp`, "固有天赋1")
+    await getImg(IconUrl + data.passives?.[1]?.icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
+    await getImg(IconUrl + data.passives?.[2]?.icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
+    await getImg(IconUrl + data.passives?.[3]?.icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
+    await getImg(IconUrl + data.skills[1].promote[0].icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
+    await getImg(IconUrl + data.skills[Qkey].promote[Qkey].icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
+    if (Qkey === 3) await getImg(IconUrl + data.skills[2].promote[0].icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
+    await getImg(IconUrl + data.constellations[0]?.icon + ".webp", `${icons}/cons-1.webp`, "1命")
+    await getImg(IconUrl + data.constellations[1]?.icon + ".webp", `${icons}/cons-2.webp`, "2命")
+    await getImg(IconUrl + data.constellations[2]?.icon + ".webp", `${icons}/cons-3.webp`, "3命")
+    await getImg(IconUrl + data.constellations[3]?.icon + ".webp", `${icons}/cons-4.webp`, "4命")
+    await getImg(IconUrl + data.constellations[4]?.icon + ".webp", `${icons}/cons-5.webp`, "5命")
+    await getImg(IconUrl + data.constellations[5]?.icon + ".webp", `${icons}/cons-6.webp`, "6命")
+    if(!mode) e.reply(`[liangshi-calc]角色图片资源下载完成`)
+    console.log(`[liangshi-calc]图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = "./plugins/miao-plugin/resources/meta-gs/character/data.json"
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取角色配置data.json失败:', err)
+          if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+          if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[CharacterId] = {
+            "id": Number(CharacterId),
+            "name": data.name,
+            "abbr": data.name.length >= 5 ? data.name.slice(-2) : data.name,
+            "star": data.rarity === "QUALITY_PURPLE" ? 4 : 5,
+            "elem": CharacterData.elem,
+            "weapon": CharacterData.weapon,
+            "talentId": CharacterData.talentId,
+            "talentCons": CharacterData.talentCons
+          }
+          console.log(`[liangshi-calc]角色${CharacterId} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]角色data.json写入失败:\n', err)
+              if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n尝试自动写入CharacterData时失败\n请手动添加后重启使用`)
+              if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+              return false
+            } else { console.log('[liangshi-calc]角色data.json已更新') }
+          })
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n重启后即可使用${CharacterName}相关内容`)
+      if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]角色：${CharacterName}\n数据更新完成\n当前未启用自动写入CharacterData\n手动配置后重启才可使用\n自动写入CharacterData可在config.yaml启用或使用强制更新临时启用一次`)
+      if(!mode) e.reply(`#${CharacterName}图鉴 查看角色信息\n#${CharacterName}天赋 查看角色天赋\n#${CharacterName}命座 查看角色命座\n#XX面板换${CharacterName} 通过替换查看角色面板`)
+    }
+    return true
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`) } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}角色数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let y = JSON.parse(fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}')
+      y[new Date()] = { name: TextData[4], err, text: "角色更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else {console.log('[liangshi-calc]错误内容已记录') }})
+    }
+  }
+  return false
+}
 
 export async function WeaponNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 

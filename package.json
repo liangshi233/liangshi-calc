@@ -1,6 +1,6 @@
 {
   "name": "liangshi-calc",
-  "version": "1.4.0",
+  "version": "1.5.4",
   "author": "liangshi233",
   "description": "为miao-plugin提供各种功能拓展",
   "type": "module",
