@@ -67,17 +67,17 @@ export async function CharacterNew (e, mode, version) {
         if (!ln.trim()) return
         let [k,...s] = ln.split('|'), t = s.join('|').trim(), x = k.trim(), re = /({param\d+:F?\d?P?I?})|([\+\-\*\/])(\d*\.?\d+)/g
         let pr = [], cp = [], li = 0, m
-        while((m=re.exec(t))!==null){
+        while((m = re.exec(t)) !== null) {
           let seg = t.slice(li,m.index).trim()
           if (seg) {
             let ps = seg.split(/([\+\-\*\/])/).filter(Boolean)
-            ps.forEach(pt=>{ let n = Number(pt); if (!isNaN(n)) { pr.push(n); cp.push(n) } })
+            ps.forEach(pt => { let n = Number(pt); if (!isNaN(n)) { pr.push(n); cp.push(n) } })
           }
           if (m[1]) {
             let pm = m[1].match(/{param(\d+):(F?\d?P?I?)}/)
             if (pm) {
-              let v = d.param[+pm[1]-1]
-              const f = pm[2];
+              let v = d.param[+pm[1] - 1]
+              let f = pm[2]
               v = (() => {
                 if (f.includes('I')) return Math.round(v)
                 if (f.includes('P')) v = v * 100
@@ -443,7 +443,203 @@ export async function CharacterNew (e, mode, version) {
   return false
 }
 
-export async function WeaponNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function WeaponNew (e, mode, version) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let response, ProxyUrl, data, WeaponType, bonus, WeaponData, filePath, IconUrl, verUrl, verLeve
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS)(.*?)(武器|光锥)(数据|资源|资源数据)?(.*?)$/), ID = TextData[4]
+  try {
+    if(!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的武器数据`)
+    try {
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.gi.latest
+      } else { verLeve = version }
+      response = await fetch(`${ProxyUrl}https://static.nanoka.cc/gi/${verLeve}/zh/weapon/${ID}.json`)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if(!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          if(!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if(!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if(!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      console.log(`[liangshi-calc]云端数据读取成功`)
+    } catch (err) {
+      if(!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    if (ID < 12000) { WeaponType = "sword" } else if (ID < 13000) { WeaponType = "claymore" } else if (ID < 14000) { WeaponType = "polearm" } else if (ID < 15000) { WeaponType = "catalyst" } else if (ID < 30000) { WeaponType = "bow" } else { WeaponType = "projection" }
+    let WeaponName = data.name; IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`
+    let imgs = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply(`[liangshi-calc]开始更新武器: ${WeaponName}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`, { recursive: true })
+      console.log(`[liangshi-calc]武器:${WeaponName} 本地文件夹创建成功`)
+    } else { if(!mode) e.reply(`[liangshi-calc]武器: ${WeaponName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
+    if (WeaponType === "projection") {
+      await getImg(IconUrl + data.icon.replace("UI_", "UI_Gacha_").replace(/_\{0\}$/, "") + ".webp", `${imgs}/gacha.webp`, "gacha")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Fire" + ".webp", `${imgs}/fire.webp`, "火")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Water" + ".webp", `${imgs}/water.webp`, "水")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Rock" + ".webp", `${imgs}/rock.webp`, "岩")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Ice" + ".webp", `${imgs}/ice.webp`, "冰")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Grass" + ".webp", `${imgs}/grass.webp`, "草")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Electric" + ".webp", `${imgs}/electric.webp`, "雷")
+      await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Wind" + ".webp", `${imgs}/wind.webp`, "风")
+    } else {
+      await getImg(IconUrl + data.icon + ".webp", `${imgs}/icon.webp`, "icon")
+      await getImg(IconUrl + data.icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
+      await getImg(IconUrl + data.icon + ".webp", `${imgs}/awaken.webp`, "awaken")
+    }
+    if(!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
+    let WeaponPromote = (WeaponData) => {
+      let yyu = { text: "", datas: {} }, yuu = Object.values(WeaponData)
+      if (yuu.length === 0) return yyu
+      let yreg = /<color=#99FFFFFF>(.*?)<\/color>/g, pxx = [], xpp, xxp = 0, uui = ""
+      yreg.lastIndex = 0
+      while ((xpp = yreg.exec(yuu[0].desc)) !== null) {
+        uui += yuu[0].desc.slice(xxp, xpp.index)
+        uui += `$[${pxx.length}]`
+        pxx.push({ index: pxx.length, values: [] })
+        xxp = yreg.lastIndex
+      }
+      uui += yuu[0].desc.slice(xxp)
+      yuu.forEach(level => {yreg.lastIndex = 0; let rrt = 0, rtt; while ((rtt = yreg.exec(level.desc)) !== null) { if (rrt >= pxx.length) break; pxx[rrt].values.push(rtt[1]); rrt++ }})
+      yyu.text = uui.replace(/\\n/g, '')
+      pxx.forEach(ph => { yyu.datas[ph.index] = ph.values })
+      return yyu
+    }
+    let key = {
+      fight_prop_hp_percent: "hpPct",
+      fight_prop_attack_percent: "atkPct",
+      fight_prop_defense_percent: "defPct",
+      fight_prop_element_mastery: "mastery",
+      fight_prop_charge_efficiency: "recharge",
+      fight_prop_crirical: "cpct",
+      fight_prop_critical_hurt: "cdmg",
+      fight_prop_physical_add_hurt: "phy"
+    }
+    if (WeaponType !== "projection") {
+      if (key[Object.keys(data.stats_modifier)[1]] === "mastery") { bonus = 1 } else { bonus = 100 }
+      WeaponData = {
+        "id": Number(ID),
+        "name": WeaponName,
+        "affixTitle": data.refinement?.["1"]?.name || "",
+        "star": data.rarity,
+        "desc": data.desc.replace(/\\n/g, ''),
+        "attr": {
+          "atk": {
+            "1": data.stats_modifier.atk.base,
+            "20": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["20"],
+            "40": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["40"] + Object.values(data.ascension["1"])[0],
+            "50": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["50"] + Object.values(data.ascension["2"])[0],
+            "60": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["60"] + Object.values(data.ascension["3"])[0],
+            "70": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["70"] + Object.values(data.ascension["4"])[0],
+            "80": data.stats_modifier.atk.base * data.stats_modifier.atk.levels?.["80"] + Object.values(data.ascension?.["5"] || {})?.[0] || undefined,
+            "90": data.stats_modifier.atk.base * data.stats_modifier.atk.levels?.["90"] + Object.values(data.ascension?.["6"] || {})?.[0] || undefined,
+            "20+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["20"] + Object.values(data.ascension["1"])[0],
+            "40+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["40"] + Object.values(data.ascension["2"])[0],
+            "50+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["50"] + Object.values(data.ascension["3"])[0],
+            "60+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels["60"] + Object.values(data.ascension["4"])[0],
+            "70+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels?.["70"] + Object.values(data.ascension?.["5"] || {})?.[0] || undefined,
+            "80+": data.stats_modifier.atk.base * data.stats_modifier.atk.levels?.["80"] + Object.values(data.ascension?.["6"] || {})?.[0] || undefined
+          },
+          "bonusKey": key[Object.keys(data.stats_modifier || {})?.[1]] || undefined,
+          "bonusData": {
+            "1": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus || undefined,
+            "20": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["20"] || undefined,
+            "40": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["40"] || undefined,
+            "50": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["50"] || undefined,
+            "60": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["60"] || undefined,
+            "70": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["70"] || undefined,
+            "80": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["80"] || undefined,
+            "90": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["90"] || undefined,
+            "20+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["20"] || undefined,
+            "40+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["40"] || undefined,
+            "50+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["50"] || undefined,
+            "60+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["60"] || undefined,
+            "70+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["70"] || undefined,
+            "80+": data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].base * bonus * data.stats_modifier?.[Object.keys(data.stats_modifier || {})?.[1]].levels["80"] || undefined,
+          }
+        },
+        "materials": {
+          "weapon": data.materials?.["6"]?.mats?.[0]?.name || data.materials?.["4"]?.mats?.[0]?.name,
+          "monster": data.materials?.["6"]?.mats?.[1]?.name || data.materials?.["4"]?.mats?.[1]?.name,
+          "normal": data.materials?.["6"]?.mats?.[2]?.name || data.materials?.["4"]?.mats?.[2]?.name
+        },
+        "affixData": await WeaponPromote(data.refinement)
+      }
+    } else {
+      let WeaponTypeKey = { WEAPON_SWORD_ONE_HAND: "sword", WEAPON_CLAYMORE: "claymore", WEAPON_POLE: "polearm", WEAPON_CATALYST: "catalyst", WEAPON_BOW: "bow" }
+      WeaponData = { "id": Number(ID), "name": WeaponName, "star": data.Rarity, "desc": data.Desc, "WeaponType": WeaponTypeKey[data.WeaponType]    }
+    }
+    console.log('[liangshi-calc]数据处理完成')
+    let path = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}/data.json`
+    if (!fs.existsSync(path)) {
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if(!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+      if(!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}武器数据`)
+      console.error(`[liangshi-calc]武器：${WeaponName}\n数据已存在`)
+    }
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      filePath = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取武器配置data.json失败:', err)
+          if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[ID] = { "id": ID, "name": WeaponName, "star": data.rarity }
+          console.log(`[liangshi-calc]武器：${WeaponName} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]武器data.json写入失败:\n', err)
+              if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+              return false
+            } else { console.log('[liangshi-calc]武器data.json已更新') }
+          })
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if(!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n重启后即可使用相关内容`)
+    } else {
+      if(!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)
+    }
+    return false
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let y = JSON.parse(fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}')
+      y[new Date()] = { name: TextData[4], err, text: "武器更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function ArtifactNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
