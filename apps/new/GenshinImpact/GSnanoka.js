@@ -126,7 +126,7 @@ export async function CharacterNew (e, mode, version) {
     let weaKey = { WEAPON_SWORD_ONE_HAND: "sword", WEAPON_CLAYMORE: "claymore", WEAPON_POLE: "polearm", WEAPON_CATALYST: "catalyst",  WEAPON_BOW: "bow" }
     let gowKey = {
       "fight_prop_hp_percent": "hpPct",
-      "fight_prop_attatk_percent": "atkPct",
+      "fight_prop_attack_percent": "atkPct",
       "fight_prop_defense_percent": "defPct",
       "fight_prop_charge_efficiency": "recharge",
       "fight_prop_element_mastery": "mastery",
