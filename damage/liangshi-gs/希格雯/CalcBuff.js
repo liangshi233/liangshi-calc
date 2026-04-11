@@ -8,13 +8,14 @@ MasteryGs,
 {
   title: '角色状态：[生命之契] 当前拥有[_BondOfLife]%生命值上限的生命之契',
   data: {
-    _BondOfLife: ({ params, cons, weapon }) => Math.min((params.blPct * ((10 * 2)) + params.blPlus), 200)
+    _BondOfLife: ({ params }) => Math.min((params.blPct * ((10 * 2)) + params.blPlus), 200)
   }
 },
 {
-  title: '希格雯技能：[弹跳水疗法] 生命之契被清除时，每清除2000.0点生命之契将为她恢复[_energyevery]点元素能量。',
+  title: '希格雯技能：[弹跳水疗法] 长按会使激愈水球造成的伤害提升与回复量[eDmg]%且生命之契被清除时，每清除一个源水之滴的生命之契将为她恢复[_energyevery]点元素能量。',
   data: {
-     _energyevery: 1
+    eDmg: ({ params }) => 5 * (params.elv || 0),
+    _energyevery: ({ calc , attr }) => Math.min(((calc(attr.hp) * 0.1) / 2000), 5)
   }
 },
 {
