@@ -825,7 +825,236 @@ export async function CharacterNew (e, mode) {
   }
 }
 
-export async function WeaponNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function WeaponNew (e, mode) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(武器|光锥)(数据|资源|资源数据)?(.*?)$/)
+  let WeaponId = TextData[4], verLeve
+  try {
+    if (/^\d{5}$/.test(WeaponId) || /强制|强行|覆盖/.test(e.msg)) {
+      console.log(`[liangshi-calc]开始更新ID:${WeaponId}的武器数据`)
+      if (!mode) e.reply(`[liangshi-calc]开始更新ID:${WeaponId}的武器数据`)
+    } else {
+      console.error(`[liangshi-calc]未知的武器ID:${WeaponId}`)
+      if (!mode) e.reply('[liangshi-calc]武器ID错误，请检查武器ID格式(5位数字)')
+      return false
+    }
+    let response, ProxyUrl, WeaponData, url, data, verUrl
+    if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+    try {
+      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+      verUrl = await verUrl.json()
+      verLeve = verUrl.hsr.latest
+      url = `${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/lightcone/${WeaponId}.json`
+      response = await fetch(url)
+      if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
+      data = await response.json()
+      console.log(`[liangshi-calc]武器：${data.name || "无名"} 云端数据读取成功`)
+    } catch (err) {
+      console.error("[liangshi-calc]云端拉取数据时发生错误\n", err)
+      if (response.status === 404) {
+        if (!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
+        if (!mode) e.reply('数据更新时间(预估)\n星铁：版本更新当天18：00~次日6：00左右')
+      } else if (response.status === 429) {
+        if (!mode) e.reply('[liangshi-calc]你更新的速度太快了，请稍等一下再试吧(*/ω＼*)')
+      } else if (response.status >= 500) {
+        if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+      } else if (cfg.ProxyUrl) {
+        if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+      } else {
+        if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+      }
+      return false
+    }
+    let typeMap = { 'Knight': "存护", 'Priest': "丰饶", 'Shaman': "同谐", 'Warlock': "虚无", 'Rogue': "巡猎", 'Warrior': "毁灭", 'Mage': "智识", 'Memory': "记忆", 'Elation': "欢愉" }
+    let tables = {}, keys = Object.keys(data.refinements?.level).sort((a, b) => parseInt(a) - parseInt(b))
+    for (let i = 0; i < data.refinements?.level?.["1"]?.param_list.length || 0; i++) { let values = []; for (const key of keys) { values.push(data.refinements?.level[key].param_list[i]) } tables[(i + 1).toString()] = values }
+    let type = typeMap[data.base_type], WeaponName = data.name
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-sr/weapon/${type}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply(`[liangshi-calc]开始更新武器: ${WeaponName}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-sr/weapon/${type}/${WeaponName}`, { recursive: true })
+      console.log(`[liangshi-calc]武器:${WeaponName} 本地文件夹创建成功`)
+    } else { if (!mode) e.reply(`[liangshi-calc]武器: ${WeaponName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
+    WeaponData = {
+      "id": WeaponId,
+      "name": WeaponName,
+      "star": data.rarity.slice(-1),
+      "desc": data.desc,
+      "type": type,
+      "typeId": 0,
+      "baseAttr": {
+        "atk": data.stats[5].base_attack + data.stats[5].base_attack_add * 79,
+        "hp": data.stats[5].base_hp + data.stats[5].base_hp_add * 79,
+        "def": data.stats[5].base_defence + data.stats[5].base_defence_add * 79
+      },
+      "growAttr": {
+        "atk": data.stats[5].base_attack_add,
+        "hp": data.stats[5].base_hp_add,
+        "def": data.stats[5].base_defence_add
+      },
+      "attr": {
+        "0": {
+          "promote": 0,
+          "maxLevel": 20,
+          "cost": {
+            [data.stats[0].promotion_cost_list[0].item_id]: data.stats[0].promotion_cost_list[0].item_num,
+            [data.stats[0].promotion_cost_list[1].item_id]: data.stats[0].promotion_cost_list[1].item_num
+          },
+          "attrs": {
+            "atk": data.stats[0].base_attack,
+            "hp": data.stats[0].base_hp,
+            "def": data.stats[0].base_defence
+          }
+        },
+        "1": {
+          "promote": 1,
+          "maxLevel": 30,
+          "cost": {
+            [data.stats[1].promotion_cost_list[0].item_id]: data.stats[1].promotion_cost_list[0].item_num,
+            [data.stats[1].promotion_cost_list[1].item_id]: data.stats[1].promotion_cost_list[1].item_num,
+            [data.stats[1].promotion_cost_list[2].item_id]: data.stats[1].promotion_cost_list[2].item_num
+          },
+          "attrs": {
+            "atk": data.stats[1].base_attack,
+            "hp": data.stats[1].base_hp,
+            "def": data.stats[1].base_defence
+          }
+        },
+        "2": {
+          "promote": 2,
+          "maxLevel": 40,
+          "cost": {
+            [data.stats[2].promotion_cost_list[0].item_id]: data.stats[2].promotion_cost_list[0].item_num,
+            [data.stats[2].promotion_cost_list[1].item_id]: data.stats[2].promotion_cost_list[1].item_num,
+            [data.stats[2].promotion_cost_list[2].item_id]: data.stats[2].promotion_cost_list[2].item_num
+          },
+          "attrs": {
+            "atk": data.stats[2].base_attack,
+            "hp": data.stats[2].base_hp,
+            "def": data.stats[2].base_defence
+          }
+        },
+        "3": {
+          "promote": 3,
+          "maxLevel": 50,
+          "cost": {
+            [data.stats[3].promotion_cost_list[0].item_id]: data.stats[3].promotion_cost_list[0].item_num,
+            [data.stats[3].promotion_cost_list[1].item_id]: data.stats[3].promotion_cost_list[1].item_num,
+            [data.stats[3].promotion_cost_list[2].item_id]: data.stats[3].promotion_cost_list[2].item_num
+          },
+          "attrs": {
+            "atk": data.stats[3].base_attack,
+            "hp": data.stats[3].base_hp,
+            "def": data.stats[3].base_defence
+          }
+        },
+        "4": {
+          "promote": 4,
+          "maxLevel": 60,
+          "cost": {
+            [data.stats[4].promotion_cost_list[0].item_id]: data.stats[4].promotion_cost_list[0].item_num,
+            [data.stats[4].promotion_cost_list[1].item_id]: data.stats[4].promotion_cost_list[1].item_num,
+            [data.stats[4].promotion_cost_list[2].item_id]: data.stats[4].promotion_cost_list[2].item_num
+          },
+          "attrs": {
+            "atk": data.stats[4].base_attack,
+            "hp": data.stats[4].base_hp,
+            "def": data.stats[4].base_defence
+          }
+        },
+        "5": {
+          "promote": 5,
+          "maxLevel": 70,
+          "cost": {
+            [data.stats[5].promotion_cost_list[0].item_id]: data.stats[5].promotion_cost_list[0].item_num,
+            [data.stats[5].promotion_cost_list[1].item_id]: data.stats[5].promotion_cost_list[1].item_num,
+            [data.stats[5].promotion_cost_list[2].item_id]: data.stats[5].promotion_cost_list[2].item_num
+          },
+          "attrs": {
+            "atk": data.stats[5].base_attack,
+            "hp": data.stats[5].base_hp,
+            "def": data.stats[5].base_defence
+          }
+        },
+        "6": {
+          "promote": 6,
+          "maxLevel": 80,
+          "cost": {},
+          "attrs": {
+            "atk": data.stats[6].base_attack,
+            "hp": data.stats[6].base_hp,
+            "def": data.stats[6].base_defence
+          }
+        }
+      },
+      "skill": {
+        "id": WeaponId,
+        "name": data.refinements?.name,
+        "desc": data.refinements?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+        "tables": tables
+      }
+    }
+    console.log('[liangshi-calc]数据处理完成')
+    let path = `./plugins/miao-plugin/resources/meta-sr/weapon/${type}/${WeaponName}/data.json`
+    if (!fs.existsSync(path)) {
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply('[liangshi-calc]武器数据已存在，当前为强制模式，尝试覆盖写入。')
+      fs.writeFileSync(path, JSON.stringify(WeaponData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]武器：${WeaponName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName}\n数据已写入`)
+    } else {
+      if (!mode) e.reply(`[liangshi-calc]武器数据已存在，运行终止。\n如果需要刷新武器数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${WeaponId}武器数据`)
+      console.error(`[liangshi-calc]武器：${WeaponName}\n数据已存在`)
+      return false
+    }
+    console.log(`[liangshi-calc]开始下载武器图片资源`)
+    let imgs = `./plugins/miao-plugin/resources/meta-sr/weapon/${type}/${WeaponName}`
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/lightconemaxfigures/${WeaponId}.webp`, `${imgs}/splash.webp`, "splash")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/lightconemediumicon/${WeaponId}.webp`, `${imgs}/icon.webp`, "icon")
+    if (!mode) e.reply(`[liangshi-calc]武器图片资源下载完成`)
+    console.log(`[liangshi-calc]图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-sr/weapon/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取武器配置data.json失败:', err)
+          if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[WeaponId] = { "id": WeaponId, "name": WeaponName, "type": type, "star": data.rarity.slice(-1) }
+          console.log(`[liangshi-calc]武器：${WeaponName} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]武器data.json写入失败:\n', err)
+              if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`)
+              return false
+            } else { console.log('[liangshi-calc]武器data.json已更新') }
+          })
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]武器：${WeaponName} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return false
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`) } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}武器数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "武器更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function ArtifactNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
