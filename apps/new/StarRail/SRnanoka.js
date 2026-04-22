@@ -1056,7 +1056,162 @@ export async function WeaponNew (e, mode) {
   }
 }
 
-export async function ArtifactNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function ArtifactNew (e, mode) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(.*?)$/)
+  let ArtifactId = TextData[4], verLeve, ProxyUrl, response, verUrl, ArtifactData, skills = {}, idxs, data
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  try {
+    if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ArtifactId}的遗器数据`)
+    try {
+      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+      verUrl = await verUrl.json()
+      verLeve = verUrl.hsr.latest
+      response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/relicset/${ArtifactId}.json`)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if (!mode) e.reply(`[liangshi-calc]云端暂无该遗器数据，可等待一段时间后再更新`)
+        } else if (response.status === 429) {
+          if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      console.log(`[liangshi-calc]云端数据读取成功`)
+    } catch (err) {
+      if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    console.log(`[liangshi-calc]开始下载遗器图片资源`)
+    let imgs = `./plugins/miao-plugin/resources/meta-sr/artifact/${data.name}`
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/itemfigures/${data.icon?.match(/\/(\d+)(?:\.\w+)?$/)[1]}.webp`, `${imgs}/arti-0.webp`, "套装")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_1.webp`, `${imgs}/arti-1.webp`, "头部")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_2.webp`, `${imgs}/arti-2.webp`, "手部")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_3.webp`, `${imgs}/arti-3.webp`, "躯干")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_4.webp`, `${imgs}/arti-4.webp`, "脚部")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_5.webp`, `${imgs}/arti-5.webp`, "位面球")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/relicfigures/IconRelic_${ArtifactId}_6.webp`, `${imgs}/arti-6.webp`, "连接绳")
+    if (!mode) e.reply(`[liangshi-calc]遗器图片资源下载完成`)
+    console.log(`[liangshi-calc]图片资源下载完成`)
+    let skillsDes = (a, b) => a.replace(/#(\d+)\[i\](%)?/g, (match, ddt, ttd) => (ttd ? (b[parseInt(ddt) - 1] * 100).toFixed(2).replace(/\.00$/, "") : b[parseInt(ddt) - 1].toFixed(4)) + (ttd || "")).replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />')
+    skills["2"] = skillsDes(data.require_num["2"].desc, data.require_num["2"].param_list)
+    if (data.require_num["4"]?.length > 0) skills["4"] = skillsDes(data.require_num["4"].desc, data.require_num["4"].param_list)
+    ArtifactData = {
+      "id": ArtifactId,
+      "name": data.name,
+      "skills": {
+        "2": skills["2"],
+        "4": skills["4"]
+      },
+      "idxs": {
+        "1": {
+          "name": data.parts?.["3" + ArtifactId + "1"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "1"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "1"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "1"]: 2,
+            ["4" + ArtifactId + "1"]: 3,
+            ["5" + ArtifactId + "1"]: 4,
+            ["6" + ArtifactId + "1"]: 5
+          }
+        },
+        "2": {
+          "name": data.parts?.["3" + ArtifactId + "2"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "2"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "2"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "2"]: 2,
+            ["4" + ArtifactId + "2"]: 3,
+            ["5" + ArtifactId + "2"]: 4,
+            ["6" + ArtifactId + "2"]: 5
+          }
+        },
+        "3": {
+          "name": data.parts?.["3" + ArtifactId + "3"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "3"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "3"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "3"]: 2,
+            ["4" + ArtifactId + "3"]: 3,
+            ["5" + ArtifactId + "3"]: 4,
+            ["6" + ArtifactId + "3"]: 5
+          }
+        },
+        "4": {
+          "name": data.parts?.["3" + ArtifactId + "4"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "4"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "4"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "4"]: 2,
+            ["4" + ArtifactId + "4"]: 3,
+            ["5" + ArtifactId + "4"]: 4,
+            ["6" + ArtifactId + "4"]: 5
+          }
+        },
+        "5": {
+          "name": data.parts?.["3" + ArtifactId + "5"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "5"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "5"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "5"]: 2,
+            ["4" + ArtifactId + "5"]: 3,
+            ["5" + ArtifactId + "5"]: 4,
+            ["6" + ArtifactId + "5"]: 5
+          }
+        },
+        "6": {
+          "name": data.parts?.["3" + ArtifactId + "6"]?.name || null,
+          "desc": data.parts?.["3" + ArtifactId + "6"]?.desc || null,
+          "lore": data.parts?.["3" + ArtifactId + "6"]?.story?.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />') || null,
+          "ids": {
+            ["3" + ArtifactId + "6"]: 2,
+            ["4" + ArtifactId + "6"]: 3,
+            ["5" + ArtifactId + "6"]: 4,
+            ["6" + ArtifactId + "6"]: 5
+          }
+        }
+      }
+    }
+    Object.keys(ArtifactData.idxs).forEach(key => {if (ArtifactData.idxs[key].name === null) {delete ArtifactData.idxs[key]}})
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-sr/artifact/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) { console.error('[liangshi-calc]读取遗器配置data.json失败:', err); if (!mode) e.reply(`[liangshi-calc]遗器：${data.name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`); return false}
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[ArtifactId] = ArtifactData
+          console.log(`[liangshi-calc]遗器：${data.name} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]遗器data.json写入失败:\n', err); if (!mode) e.reply(`[liangshi-calc]遗器：${data.name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`); return false } else { console.log('[liangshi-calc]遗器data.json已更新') }})
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if (!mode) e.reply(`[liangshi-calc]遗器：${data.name} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]遗器：${data.name} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return false
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "装备更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function MonsterNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
