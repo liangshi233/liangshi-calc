@@ -1213,7 +1213,169 @@ export async function ArtifactNew (e, mode) {
   }
 }
 
-export async function MonsterNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function MonsterNew (e, mode, JsonOk) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let response, ProxyUrl, data, levedata, MonsterData, newValue
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(.*?)$/)
+  let ID = TextData[4], verUrl, verLeve
+  if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
+  try {
+    try {
+      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+      verUrl = await verUrl.json()
+      verLeve = verUrl.hsr.latest
+      if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/MonsterJson.json")) {
+        response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/HardLevelGroup.json`)
+        if (!response.ok) {
+          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+          if (response.status === 404) {
+            if (!mode) e.reply('[liangshi-calc]云端暂无该物品数据，可等待一段时间后再更新')
+          } else if (response.status === 429) {
+            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+          } else if (response.status >= 500) {
+            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+          } else if (cfg.ProxyUrl) {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+          } else {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+          }
+          return false
+        }
+        levedata = await response.json()
+        console.log(`[liangshi-calc]云端数据读取成功`)
+      } else {
+        response = fs.readFileSync("./plugins/liangshi-calc/resources/MonsterJson.json", 'utf8')
+        levedata = JSON.parse(response)
+        console.log(`[liangshi-calc]本地数据读取成功`)
+      }
+      response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/monster/${ID}.json`)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if (!mode) e.reply('[liangshi-calc]云端暂无该武器数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      console.log(`[liangshi-calc]云端数据读取成功`)
+    } catch (err) {
+      if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    let MonsterName = data.name || "无名"
+    let imgs = `./plugins/miao-plugin/resources/meta-sr/monster/${MonsterName}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-sr/monster/${MonsterName}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply(`[liangshi-calc]开始更新敌怪: ${MonsterName}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-sr/monster/${MonsterName}`, { recursive: true })
+      console.log(`[liangshi-calc]敌怪:${MonsterName} 本地文件夹创建成功`)
+    } else { if (!mode) e.reply(`[liangshi-calc]敌怪: ${MonsterName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
+    console.log(`[liangshi-calc]开始下载敌怪图片资源`)
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/monsterfigure/Monster_${data.image_path?.match(/\d+/)[0]}.webp`, `${imgs}/splash.webp`, "立绘")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/hsr/monstermiddleicon/Monster_${data.image_path?.match(/\d+/)[0]}.webp`, `${imgs}/preview.webp`, "头像")
+    if (!mode) e.reply(`[liangshi-calc]敌怪图片资源下载完成`)
+    console.log(`[liangshi-calc]图片资源下载完成`)
+    MonsterData = {
+      id: data.id,
+      name: MonsterName,
+      desc: data.desc.replace(/\\n/g, ''),
+      camp: data.monster_camp_id,//阵营
+      ratio: data.initial_delay_ratio,//首回合延迟
+      stance: data.stance_base, //韧性
+      weak: data.child?.[0].stance_weak_list, //弱点
+      fatigue: data.minimum_fatigue_ratio, //最低抗性
+      rank: data.rank, //评级
+      child: data.child.length, //变体数量
+      attr: {
+        Res: {
+          PhyRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Physical').map(item => item.value),
+          IceRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Ice').map(item => item.value),
+          FirRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Fire').map(item => item.value),
+          ThuRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Thunder').map(item => item.value),
+          WinRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Wind').map(item => item.value),
+          QuaRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Quantum').map(item => item.value),
+          ImaRes: data.child?.[0]?.damage_type_resistance .filter(item => item.damage_type === 'Imaginary').map(item => item.value)
+        },
+        hp: levedata.slice(0, 100).map(i => +(data.hp_base * i.HPRatio).toFixed(3)),
+        def: levedata.slice(0, 100).map(i => +(data.defence_base * i.DefenceRatio).toFixed(3)),
+        atk: levedata.slice(0, 100).map(i => +(data.attack_base * i.AttackRatio).toFixed(3)),
+        speed: levedata.slice(0, 100).map(i => +(data.speed_base * i.SpeedRatio).toFixed(3)),
+        effPct: levedata.slice(0, 100).map(i => +(0 + (i.StatusProbability || 0) * 100).toFixed(3)), //效果命中
+        effDef: levedata.slice(0, 100).map(i => +(data.status_resistance_base + (i.StatusResistance || 0) * 100).toFixed(3)), //效果抵抗
+        cdmg: data.critical_damage_base
+      },
+      skill: data.child?.[0]?.skill_list.map(({ id, skill_name: name, skill_desc: desc, damage_type: type, sp_hit_base: hit }) => ({ id, name, desc, type, hit })),
+      drop: {
+        level: data.drop[data.drop.length - 1].avatar_exp_reward,
+        itme: data.drop[data.drop.length - 1]?.display_item_list?.map(y => y.id ?? "")
+      }
+    }
+    console.log('[liangshi-calc]数据处理完成')
+    let path = `./plugins/miao-plugin/resources/meta-sr/monster/${MonsterName}/data.json`
+    if (!fs.existsSync(path)) {
+      fs.writeFileSync(path, JSON.stringify(MonsterData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]敌怪：${MonsterName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]敌怪：${MonsterName}\n数据已写入`)
+    } else if (/强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply('[liangshi-calc]敌怪数据已存在，当前为强制模式，尝试覆盖写入。')
+      fs.writeFileSync(path, JSON.stringify(MonsterData, null, 2), 'utf8')
+      console.log(`[liangshi-calc]敌怪：${MonsterName} 数据已写入`)
+      if (!mode) e.reply(`[liangshi-calc]敌怪：${MonsterName}\n数据已写入`)
+    } else {
+      if (!mode) e.reply(`[liangshi-calc]敌怪数据已存在，运行终止。\n如果需要刷新敌怪数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}敌怪数据`)
+      console.error(`[liangshi-calc]敌怪：${MonsterName}\n数据已存在`)
+    }
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-sr/monster/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取敌怪配置data.json失败:', err)
+          if (!mode) e.reply(`[liangshi-calc]敌人：${MonsterName} 数据更新完成\n尝试自动写入MonsterData时失败\n请手动添加后重启使用`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          newValue = { "id": ID, "name": MonsterName }
+          jsonData[ID] = newValue
+          console.log(`[liangshi-calc]敌怪：${MonsterName} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => {
+            if (err) {
+              console.error('[liangshi-calc]敌怪data.json写入失败:\n', err)
+              if (!mode) e.reply(`[liangshi-calc]敌怪：${MonsterName} 数据更新完成\n尝试自动写入MonsterData时失败\n请手动添加后重启使用`)
+              return false
+            } else { console.log('[liangshi-calc]敌怪data.json已更新') }
+          })
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if (!mode) e.reply(`[liangshi-calc]敌怪：${MonsterName} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]敌怪：${MonsterName} 数据更新完成\n当前未启用自动写入MonsterData\n手动配置后重启才可使用\n自动写入MonsterData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return false
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "武器更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') } })
+    }
+    return true
+  }
+}
 
 export async function ItemNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
