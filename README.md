@@ -46,9 +46,11 @@ git clone --depth=1 https://github.com/liangshi233/liangshi-calc.git ./plugins/l
 
 <h3 align="center"><font color="red">不要没事就完整更新</font></h3>
 
-> 如更新报错或更新数据异常可前往762197317反馈
+> 如更新报错或更新数据异常可前往762197317（电子泔水街）反馈
 >
 > 如果遇到网络问题打不开,网速慢，可在设置`config/config.yaml`，ProxyUrl后面添加代理链接`https://dl.119899.xyz/`。
+>
+> 这个是更新角色武器等数据资源的，不是更新面板的:(
 
 <details><summary>一键更新新版本内容</summary>
 
@@ -617,21 +619,24 @@ calcLi: false #liangshicalc 大爷
 通用设置，在`config/config.yaml` 中修改
 
 ~~~~~~~~~~YAML
-gsApi: 2 #更新原神新角色数据的API
-srApi: 2 #更新原神新角色数据的API
-mcApi: 2 #更新鸣潮新角色数据的API
+gsApi: 2 #更新原神新数据的API
+srApi: 2 #更新原神新数据的API
+mcApi: 2 #更新鸣潮新数据的API
+yhApi: 2 #更新异环新数据的API
 ProxyUrl: #API代理地址
 ~~~~~~~~~~
 
-<details><summary>gsApi</summary>
+<details>
+
+</details><summary>gsApi</summary>
 
 | 序号 |     名称      |        备注        |
 |:--:|:-----------:|:----------------:|
 | 0  |     自动      | 预留(后续改成自动使用延迟最低) |
 | 1  | mihoyo.com  | 官方数据源(米游社)【适配中】  |
-| 2  | lunaris.moe |   默认使用此项【适配中】    |
+| 2  | lunaris.moe |      【适配中】       |
 | 3  |  yatta.moe  |      【适配中】       |
-| 4  |  nanoka.cc  |      【适配中】       |
+| 4  |  nanoka.cc  |      默认使用此项      |
 | 9  |  hakush.in  |       已关闭        |
 
 </details>
@@ -642,9 +647,9 @@ ProxyUrl: #API代理地址
 |:--:|:------------:|:----------------:|
 | 0  |      自动      | 预留(后续改成自动使用延迟最低) |
 | 1  |  mihoyo.com  | 官方数据源(米游社)【适配中】  |
-| 2  | neonteam.dev |   默认使用此项【适配中】    |
+| 2  | neonteam.dev |      【适配中】       |
 | 3  |  yatta.moe   |      【适配中】       |
-| 4  |  nanoka.cc   |      【适配中】       |
+| 4  |  nanoka.cc   |      默认使用此项      |
 | 5  |  huroka.com  |      【适配中】       |
 | 9  |  hakush.in   |       已关闭        |
 
@@ -657,10 +662,18 @@ ProxyUrl: #API代理地址
 | 0  |      自动      |  预留(后续改成自动使用延迟最低)  |
 | 1  | kurobbs.com  |  官方数据源(库街区)【适配中】   |
 | 2  |  encore.moe  | 默认使用此项(部分网络可能访问较慢) |
-| 3  |  nanoka.cc   |       【适配中】        |
+| 3  |  nanoka.cc   |     【已完成，测试中】      |
 | 4  |  wuwa.wiki   |       【适配中】        |
 | 5  | wuwaflex.com |       【适配中】        |
 | 9  |  hakush.in   |        已关闭         |
+
+<details><summary>yhApi</summary>
+
+| 序号 |      名称      |               备注                |
+|:--:|:------------:|:-------------------------------:|
+| 0  |      自动      |        预留(后续改成自动使用延迟最低)         |
+| 1  | tajiduo.com  | 官方数据源(塔吉多)【实际上根本没有看到里面有wiki(不是】 |
+| 2  |  nanoka.cc   |           【部分完成，适配中】            |
 
 > 更新数据有问题或新api适配请提issues
 
@@ -776,7 +789,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 <details><summary>原神</summary>
 
-默认不再更新，如有BUG或需求请提issues或Pull Requests
+其余内容完成前默认不再更新，如有BUG或需求请提issues或Pull Requests，看到了都会补上或修复
 
 可设置GsDisabled关闭原神相关内容
 
@@ -784,7 +797,7 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 
 <details><summary>星铁</summary>
 
-星铁文件夹内似乎有神秘违禁词，一动就封，暂不更新
+近期有空会全部重做(大概)
 
 可设置SrDisabled关闭星铁相关内容
 
@@ -793,8 +806,6 @@ PR自定义计算条目时请将你的条目放置于`CalcData.js`中**AllCalc**
 ---
 
 ## 其他资源位置
-
-> 鸣潮数据库 [meta-mc](https://github.com/Kukukij/meta-mc)
 
 |     名称      |                         gitee                         |                         github                          |
 |:-----------:|:-----------------------------------------------------:|:-------------------------------------------------------:|

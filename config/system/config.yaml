@@ -22,7 +22,8 @@ GsDisabled: true
 SrDisabled: true
 DisabledRankingProtection: false
 
-gsApi: 2
-srApi: 2
+gsApi: 4
+srApi: 4
 mcApi: 2
+yhApi: 2
 ProxyUrl: 
