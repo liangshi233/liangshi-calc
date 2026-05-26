@@ -72,13 +72,13 @@ export async function New (e) {
   }
   if (/角色|共鸣者/.test(e.msg)) {
     weapon = [], artifact = [], data.item = [], monster = []
-  } else if (/武器|光锥/.test(e.msg)) {
+  } else if (/武器|光锥|弧盘/.test(e.msg)) {
     character = [], artifact = [], data.item = [], monster = []
-  } else if (/圣遗物|遗器|声骸/.test(e.msg)) {
+  } else if (/圣遗物|遗器|声骸|遗器|终端|卡带|驱动块/.test(e.msg)) {
     character = [], weapon = [], data.item = [], monster = []
   } else if (/物品|材料/.test(e.msg)) {
     character = [], weapon = [], artifact = [], monster = []
-  } else if (/敌人|敌怪|怪物|残响|残像|boss|BOSS/.test(e.msg)) {
+  } else if (/敌人|敌怪|怪物|残响|残像|boss|BOSS|异象/.test(e.msg)) {
     character = [], weapon = [], artifact = [], data.item = []
   }
   let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + monster.length * 1 + data.item.length * 2) / 60) * 10) / 10
@@ -256,7 +256,7 @@ export async function New (e) {
 export async function CharacterNew (e, mode) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
-  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)角色(数据|资源|资源数据)?(.*?)$/)
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(角色|共鸣者)(数据|资源|资源数据)?(.*?)$/)
   let CharacterId = TextData[4], verLeve
   try {
     if (/^\d{4}$/.test(CharacterId) || /强制|强行|覆盖/.test(e.msg)) {
@@ -1064,7 +1064,7 @@ export async function CharacterNew (e, mode) {
 export async function WeaponNew (e, mode) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
-  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(武器|光锥)(数据|资源|资源数据)?(.*?)$/)
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(武器|光锥|弧盘)(数据|资源|资源数据)?(.*?)$/)
   let WeaponId = TextData[4], verLeve
   try {
     if (/^\d{5}$/.test(WeaponId) || /强制|强行|覆盖/.test(e.msg)) {
@@ -1295,7 +1295,7 @@ export async function WeaponNew (e, mode) {
 export async function ArtifactNew (e, mode) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
-  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(.*?)$/)
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(圣遗物|声骸|遗器|终端|卡带|驱动块)(数据|资源|资源数据)?(.*?)$/)
   let ArtifactId = TextData[4], verLeve, ProxyUrl, response, verUrl, ArtifactData, skills = {}, idxs, data
   if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
   try {
@@ -1454,7 +1454,7 @@ export async function MonsterNew (e, mode, JsonOk) {
   let cfg = LSconfig.getConfig('user', 'config')
   let response, ProxyUrl, data, levedata, MonsterData, newValue
   if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
-  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS)(数据|资源|资源数据)?(.*?)$/)
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS|异象)(数据|资源|资源数据)?(.*?)$/)
   let ID = TextData[4], verUrl, verLeve
   if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
   try {
