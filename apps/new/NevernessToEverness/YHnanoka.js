@@ -533,7 +533,107 @@ export async function WeaponNew (e, mode, JsonOk) {
   }
 }
 
-export async function ArtifactNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function ArtifactNew (e, mode, JsonOk) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(异环|YH|yh|NTE|nte)(.*?)(圣遗物|声骸|遗器|终端|卡带|驱动块)(数据|资源|资源数据)?(.*?)$/)
+  let ArtifactId = TextData[4], verLeve, ProxyUrl, response, verUrl, ArtifactData, data
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  try {
+    if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ArtifactId}的终端数据`)
+    if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/ConsoleJson.json")) {
+      try {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.nte.latest
+        response = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${verLeve}/zh/console.json`)
+        if (!response.ok) {
+          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+          if (response.status === 404) {
+            if (!mode) e.reply(`[liangshi-calc]云端暂无该终端数据，可等待一段时间后再更新`)
+          } else if (response.status === 429) {
+            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+          } else if (response.status >= 500) {
+            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+          } else if (cfg.ProxyUrl) {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+          } else {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+          }
+          return false
+        }
+        data = await response.json()
+        console.log(`[liangshi-calc]云端数据读取成功`)
+      } catch (err) {
+        if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+        console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+        return false
+      }
+    } else {
+      response = fs.readFileSync("./plugins/liangshi-calc/resources/ConsoleJson.json", 'utf8')
+      data = JSON.parse(response)
+      console.log(`[liangshi-calc]本地数据读取成功`)
+    }
+    data = data[ArtifactId]
+    console.log(`[liangshi-calc]开始下载终端图片资源`)
+    let imgName = /^cell\d+_style\d+_\d+$/.test(ArtifactId) ? data.type_geometry : data.name
+    let imgs = `./plugins/miao-plugin/resources/meta-yh/artifact/${imgName}/`
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[2].icon}.webp`, `${imgs}/5.webp`, "img-5")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[1].icon}.webp`, `${imgs}/4.webp`, "img-4")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[0].icon}.webp`, `${imgs}/3.webp`, "img-3")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.set_effect?.set_icon}.webp`, `${imgs}/skill.webp`, "skill")
+    if (!mode) e.reply(`[liangshi-calc]终端图片资源下载完成`)
+    console.log(`[liangshi-calc]图片资源下载完成`)
+    if (/^cell\d+_style\d+_\d+$/.test(ArtifactId)) {
+      ArtifactData = {
+        "id": ArtifactId,
+        "name": data.name,
+        "type": data.type,
+        "key": data.type_geometry,
+        "num": data.own_grid_num
+      }
+    } else {
+      ArtifactData = {
+        "id": ArtifactId,
+        "name": data.name,
+        "type": data.type,
+        "geometry": data.set_effect.geometry.map(item => item.id),
+        "skills": data.set_effect.conditions.reduce((acc, item) => {
+          acc[item.condition] = item.desc; return acc;
+        }, {})
+      }
+    }
+
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-yh/artifact/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) { console.error('[liangshi-calc]读取终端配置data.json失败:', err); if (!mode) e.reply(`[liangshi-calc]终端：${data.name} 数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`); return false}
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[ArtifactId] = ArtifactData
+          console.log(`[liangshi-calc]终端：${data.name} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]终端data.json写入失败:\n', err); if (!mode) e.reply(`[liangshi-calc]终端：${data.name} 数据更新完成\n尝试自动写入WeaponData时失败\n请手动添加后重启使用`); return false } else { console.log('[liangshi-calc]终端data.json已更新') }})
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if (!mode) e.reply(`[liangshi-calc]终端：${data.name} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]终端：${data.name} 数据更新完成\n当前未启用自动写入WeaponData\n手动配置后重启才可使用\n自动写入WeaponData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return false
+  } catch (err) {
+    if (!mode) { e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "装备更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function MonsterNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
