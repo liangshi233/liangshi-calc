@@ -21,7 +21,7 @@ export const characterBuffGs = {
 }
 
 export const characterBuffSr = {
-  title: '角色状态：[面板属性] 生命值[_hp]（[_hpBase] +[_hpPct]），当前攻击力[_atk]（[_atkBase] +[_atkPct]），防御力[_def]（[_defBase] +[_defPct]），速度[_speed]，暴击率[_cpct]%，暴击伤害[_cdmg]%，充能效率[_recharge]%，击破特攻[_stance]%，效果命中[_effPct]%，效果抵抗[_effDef]%，治疗加成[_heal]%，伤害加成[_dmg]%',
+  title: '角色状态：[面板属性] 生命值[_hp]（[_hpBase] +[_hpPct]），当前攻击力[_atk]（[_atkBase] +[_atkPct]），防御力[_def]（[_defBase] +[_defPct]），速度[_speed]，暴击率[_cpct]%，暴击伤害[_cdmg]%，能量恢复效率[_recharge]%，击破特攻[_stance]%，欢愉度[_joy]%，效果命中[_effPct]%，效果抵抗[_effDef]%，治疗加成[_heal]%，伤害加成[_dmg]%',
   sort: 10,
   data: {
     _hp: ({ calc, attr }) => calc(attr.hp),
@@ -37,6 +37,7 @@ export const characterBuffSr = {
     _cpct: ({ calc, attr }) => calc(attr.cpct),
     _cdmg: ({ calc, attr }) => calc(attr.cdmg),
     _recharge: ({ calc, attr }) => calc(attr.recharge),
+    _joy: ({ calc, attr }) => calc(attr.joy),
     _stance: ({ calc, attr }) => calc(attr.stance),
     _effPct: ({ calc, attr }) => calc(attr.effPct),
     _effDef: ({ calc, attr }) => calc(attr.effDef),
