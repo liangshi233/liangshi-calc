@@ -12,7 +12,241 @@ import fs from 'node:fs'
  */
 
 
-export async function New (e) { e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function New (e) {
+  let cfg = LSconfig.getConfig('user', 'config')
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let characterTime, weaponTime, artifactTime, monsterTime, itemTime, character, status, response, ProxyUrl, artifact, data, weapon, monster, ItemJson, ConsoleJson, ItemOk, ConsoleOK
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  try {
+    response = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+    if (!response.ok) {
+      console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+      if (response.status === 404) {
+        e.reply('[liangshi-calc]云端暂无该角色数据，可等待一段时间后再更新')
+      } else if (response.status === 429) {
+        e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+      } else if (response.status >= 500) {
+        e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+      } else if (cfg.ProxyUrl) {
+        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+      } else {
+        e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+      }
+      return false
+    }
+    data = await response.json()
+    console.log(`[liangshi-calc]云端数据读取成功`)
+  } catch (err) {
+    e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+    console.error(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+    return false
+  }
+  character = data.nte.new.character || []
+  weapon = data.nte.new.weapon || []
+  artifact = data.nte.new.console || []
+  monster = data.nte.new.monster || []
+  data.item = data.nte.new.item || []
+  let ver = data.nte.latest
+  if (/完整|全部/.test(e.msg)) {
+    status = "完整"
+    try {
+      let Characterurl = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/character.json`)
+      Characterurl = await Characterurl.json()
+      character = Object.keys(Characterurl)
+      let Weaponurl = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/weapon.json`)
+      Weaponurl = await Weaponurl.json()
+      weapon = Object.keys(Weaponurl)
+      let Artifacturl = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/zh/console.json`)
+      Artifacturl = await Artifacturl.json()
+      artifact = Object.keys(Artifacturl)
+      let Monsterurl = null
+      monster = []
+      let Itemurl = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/zh/item.json`)
+      Itemurl = await Itemurl.json()
+      data.item = Object.keys(Itemurl)
+    } catch (err) { console.error(err) }
+  }
+  if (/角色|共鸣者/.test(e.msg)) {
+    weapon = [], artifact = [], data.item = [], monster = []
+  } else if (/武器|光锥|弧盘/.test(e.msg)) {
+    character = [], artifact = [], data.item = [], monster = []
+  } else if (/圣遗物|遗器|声骸|终端|卡带/.test(e.msg)) {
+    character = [], weapon = [], data.item = [], monster = []
+  } else if (/物品|材料/.test(e.msg)) {
+    character = [], weapon = [], artifact = [], monster = []
+  } else if (/敌人|敌怪|怪物|残响|残像|boss|BOSS|异象/.test(e.msg)) {
+    character = [], weapon = [], artifact = [], data.item = []
+  }
+  let UseTime = Math.round(((5 + character.length * 16 + weapon.length * 2 + artifact.length * 1 + monster.length * 1 + data.item.length * 2) / 60) * 10) / 10
+  let y = Math.round(UseTime * 0.75 * 10) / 10
+  e.reply(`[liangshi-calc] 即将静默更新\n异环 ${ver}版本新内容\n共计\n\n${character.length}名新角色\n${weapon.length}个新弧盘\n${artifact.length}个新终端\n${monster.length}个新异象\n${data.item.length}个新物品\n\n预计需要${y}~${UseTime}分钟，请耐心等待.\n(*/ω＼*)`)
+  await common.sleep(2000)
+  ItemOk = true, ConsoleOK = true
+  if (!fs.existsSync("./plugins/liangshi-calc/resources/log.json")) { fs.writeFileSync("./plugins/liangshi-calc/resources/log.json", '{}'); console.log(`[liangshi-calc]未找到错误日志文件，已自动创建`)}
+  try {
+    let url = `${ProxyUrl}https://static.nanoka.cc/nte/${ver}/zh/item.json`
+    let url2 = `${ProxyUrl}https://static.nanoka.cc/nte/${ver}/zh/console.json`
+    if (data.item.length > 0) {
+      ItemJson = await fetch(url)
+      if (!response.ok) ItemOk = false
+      ItemJson = await ItemJson.json()
+      fs.writeFile(`./plugins/liangshi-calc/resources/ItemJson.json`, JSON.stringify(ItemJson), 'utf8', (err) => { if (err) { ItemOk = false } else { console.log(`[liangshi-calc] 物品Json已缓存至本地`) }})
+    }
+    if (artifact.length > 0) {
+      ConsoleJson = await fetch(url2)
+      if (!response.ok) ConsoleOK = false
+      ConsoleJson = await ConsoleJson.json()
+      fs.writeFile(`./plugins/liangshi-calc/resources/ConsoleJson.json`, JSON.stringify(ConsoleJson), 'utf8', (err) => { if (err) { ItemOk = false } else { console.log(`[liangshi-calc] 终端Json已缓存至本地`) }})
+    }
+  } catch (err) { ItemOk = false; console.error(`[liangshi-calc] Json缓存失败\n${err}`) }
+  let instruction = { msg: null, isMaster: true, reply: e.reply }
+  for (const charId of character) {
+    instruction.msg = `#梁氏覆盖更新异环${charId}角色数据`
+    await common.sleep(2000)
+    /await CharacterNew(instruction, true, ItemOk)
+  }
+  characterTime =  `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+  await common.sleep(2000)
+  for (const weaponId of weapon) {
+    instruction.msg = `#梁氏覆盖更新异环${weaponId}武器数据`
+    await common.sleep(1500)
+    await WeaponNew(instruction, true)
+  }
+  weaponTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+  await common.sleep(2000)
+  for (const artifactId of artifact) {
+    await common.sleep(1500)
+    instruction.msg = `#梁氏覆盖更新异环${artifactId}声骸数据`
+    await ArtifactNew(instruction, true, ConsoleOK)
+  }
+  artifactTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+  await common.sleep(2000)
+  for (const monsterId of monster) {
+    //await common.sleep(1500)
+    instruction.msg = `#梁氏覆盖更新异环${monsterId}敌人数据`
+    //await MonsterNew(instruction, true)
+  }
+  monsterTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+  await common.sleep(2000)
+  for (const itemId of data.item) {
+    await common.sleep(1000)
+    instruction.msg = `#梁氏覆盖更新异环${itemId}物品数据`
+    await ItemNew(instruction, true, ItemOk)
+  }
+  itemTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
+  await common.sleep(2000)
+  let verDataPath = `./plugins/miao-plugin/resources/meta-yh/data.json`
+  if (!fs.existsSync(verDataPath)) fs.writeFileSync(verDataPath, '{}')
+  fs.readFile(verDataPath, 'utf8', (err, TextData) => {
+    if (err) return false
+    try {
+      let verData = JSON.parse(TextData)
+      let Time = new Date()
+      let dayTime = `${Time.getFullYear()}-${Time.getMonth() + 1}-${Time.getDate()} ${Time.getHours()}:${Time.getMinutes()}`
+      verData.ver = ver
+      verData.time = dayTime
+      let api = "nanoka.cc"
+      verData[dayTime] = {
+        "ver": ver,
+        "api": api,
+        "time": dayTime,
+        "artifact": artifact,
+        "character": character,
+        "monster": monster,
+        "material": data.item,
+        "weapon": weapon,
+        "status": status
+      }
+      let updatedData = JSON.stringify(verData, null, 2)
+      fs.writeFile(verDataPath, updatedData, 'utf8', (err) => { if (err) return false })
+    } catch (err) { console.error(err) }
+  })
+  if (data.item.length > 0) { fs.unlink('./plugins/liangshi-calc/resources/ItemJson.json', (err) => { if (err) { console.error('[liangshi-calc] 物品Json缓存删除失败:', err.message) } else { console.log(`[liangshi-calc] 物品Json缓存已删除`) }})}
+  if (artifact.length > 0) { fs.unlink('./plugins/liangshi-calc/resources/ConsoleJson.json', (err) => { if (err) { console.error('[liangshi-calc] 终端Json缓存删除失败:', err.message) } else { console.log(`[liangshi-calc] 终端Json缓存已删除`) }})}
+  let CharacterNamedata, CharacterText, WeaponText, WeaponNamedata, ArtifactText, ArtifactNamedata, MonsterText, MonsterNamedata
+  try {
+    CharacterText = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/character.json`)
+    WeaponText = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/weapon.json`)
+    ArtifactText = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${ver}/zh/console.json`)
+    MonsterText = null
+    CharacterNamedata = await CharacterText.json()
+    WeaponNamedata = await WeaponText.json()
+    ArtifactNamedata = await ArtifactText.json()
+    MonsterNamedata = {}
+    console.log(`[liangshi-calc]云端数据读取成功`)
+  } catch (err) {
+    console.warn(`[liangshi-calc]云端数据读取异常`)
+    e.reply('[liangshi-calc]网络不佳，请稍后重试')
+    return false
+  }
+  let CharacterNameText, WeaponNameText, ArtifactNameText, MonsterNameText
+  CharacterNameText = character.map(id => CharacterNamedata[`${id}`].zh)
+  WeaponNameText = weapon.map(id => WeaponNamedata[`${id}`].zh)
+  ArtifactNameText = artifact.map(id => ArtifactNamedata[`${id}`].name)
+  MonsterNameText = []
+  try {
+    let c, h
+    c = fs.readFileSync('./plugins/miao-plugin/resources/meta-yh/character/data.json', 'utf8')
+    c = JSON.parse(c)
+    h = fs.readFileSync('./plugins/miao-plugin/resources/meta-yh/weapon/data.json', 'utf8')
+    h = JSON.parse(h)
+    let chars = character.filter(id => c.hasOwnProperty(id)).map(id => ({
+      face: `/meta-yh/character/${c[id].name}/imgs/face.webp`,
+      name: c[id].name || "无名",
+      abbr: c[id].abbr || c[id].name || "",
+      star: c[id].star
+    }))
+
+    let weapons = weapon.filter(id => h.hasOwnProperty(id)).map(id => ({
+      face: `/meta-yh/weapon/${h[id].type}/${h[id].name}/icon.webp`,
+      name: h[id].name,
+      abbr: h[id].abbr || h[id].name,
+      star: h[id].star
+    }))
+
+    let artis = ArtifactNameText.map(id => ({
+      face: `/meta-yh/artifact/${/^[\u2160-\u2183]+型驱动$/.test(id) ? id : id}/5.webp`,
+      name: id,
+      star: 5
+    }))
+    let consoleKey = { "Ⅱ型驱动": "cell2_style1_1", "Ⅲ型驱动": "cell3_style1_1", "Ⅳ型驱动": "cell4_style1_1" }
+    let monster = MonsterNameText.map(id => ({
+      face: `/meta-yh/monster/${/^cell\d+_style\d+_\d+$/.test(id) ? consoleKey[id] : id}/preview.webp`,
+      name: id,
+      star: 5
+    }))
+    return await Common.render('wiki/data/ver-new', {
+      gamever: ver,
+      gameid: "异环",
+      TxName: {
+        js: "角色",
+        wq: "弧盘",
+        zb: "终端",
+        dr: "异象"
+      },
+      jsNum: character.length,
+      wqNum: weapon.length,
+      zbNum: artifact.length,
+      drNum: monster.length,
+      wpNum: data.item.length,
+      chars,
+      weapons,
+      artis,
+      monster,
+      servName: "nanoka.cc",
+      updateTime: { characterTime, weaponTime, artifactTime, monsterTime, itemTime },
+      elem: 'hydro'
+    }, { e, scale: 1.6, retType: 'base64' })
+  } catch (err) {
+    console.error('[liangshi-calc] 生成图片时遇到了一些问题，但这并不影响功能:', err)
+    if (CharacterNameText.length === 0) CharacterNameText = `本次没有更新任何角色`
+    if (WeaponNameText.length === 0) WeaponNameText = `本次没有更新任何弧盘`
+    if (ArtifactNameText.length === 0) ArtifactNameText = `本次没有更新任何终端`
+    if (MonsterNameText.length === 0) MonsterNameText = `本次没有更新任何异象`
+    e.reply(`[liangshi-calc] 异环 ${ver} 版本更新完成\n已为您更新\n\n角色：\n${CharacterNameText}\n\n弧盘：\n${WeaponNameText}\n\n终端：\n${ArtifactNameText}\n\n异象：\n${MonsterNameText}\n\n物品${data.item.length}个\n\n重启后即可使用相关内容`)
+    return false
+  }
+}
 
 export async function CharacterNew (e, mode, JsonOk) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
