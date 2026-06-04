@@ -360,7 +360,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "01"]?.name,
           "type": skillType[data.skills?.[CharacterId + "01"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "01"]?.tag],
-          "desc": data.skills?.[CharacterId + "01"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "01"]?.desc || data.skills?.[CharacterId + "01"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "01"]?.level)
         },
         "e": {
@@ -368,7 +368,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "02"]?.name,
           "type": skillType[data.skills?.[CharacterId + "02"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "02"]?.tag],
-          "desc": data.skills?.[CharacterId + "02"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "02"]?.desc || data.skills?.[CharacterId + "02"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "02"]?.level)
         },
         "q": {
@@ -376,7 +376,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "03"]?.name,
           "type": skillType[data.skills?.[CharacterId + "03"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "03"]?.tag],
-          "desc": data.skills?.[CharacterId + "03"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "03"]?.desc || data.skills?.[CharacterId + "03"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "03"]?.level)
         },
         "t": {
@@ -384,7 +384,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "04"]?.name,
           "type": skillType[data.skills?.[CharacterId + "04"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "04"]?.tag],
-          "desc": data.skills?.[CharacterId + "04"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "04"]?.desc || data.skills?.[CharacterId + "04"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "04"]?.level)
         },
         "z": {
@@ -392,7 +392,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "07"]?.name,
           "type": skillType[data.skills?.[CharacterId + "07"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "07"]?.tag],
-          "desc": data.skills?.[CharacterId + "07"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "07"]?.desc || data.skills?.[CharacterId + "07"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "07"]?.level)
         },
         "a2": {
@@ -400,7 +400,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "08"]?.name,
           "type": skillType[data.skills?.[CharacterId + "08"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "08"]?.tag],
-          "desc": data.skills?.[CharacterId + "08"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "05"]?.desc || data.skills?.[CharacterId + "05"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "08"]?.level)
         },
         "e2": {
@@ -408,7 +408,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "11"]?.name,
           "type": skillType[data.skills?.[CharacterId + "11"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "11"]?.tag],
-          "desc": data.skills?.[CharacterId + "11"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "11"]?.desc || data.skills?.[CharacterId + "11"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "11"]?.level)
         },
         "q2": {
@@ -416,7 +416,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "14"]?.name,
           "type": skillType[data.skills?.[CharacterId + "14"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "14"]?.tag],
-          "desc": data.skills?.[CharacterId + "14"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "14"]?.desc || data.skills?.[CharacterId + "14"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "14"]?.level)
         },
         "t2": {
@@ -424,7 +424,7 @@ export async function CharacterNew (e, mode) {
           "name": data.skills?.[CharacterId + "05"]?.name,
           "type": skillType[data.skills?.[CharacterId + "05"]?.type] || "天赋",
           "tag": skillTag[data.skills?.[CharacterId + "05"]?.tag],
-          "desc": data.skills?.[CharacterId + "05"]?.desc.replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
+          "desc": (data.skills?.[CharacterId + "05"]?.desc || data.skills?.[CharacterId + "05"]?.simple_desc || "").replace(/unbreak/g, 'nobr').replace(/<\/color>/g, '').replace(/<color=#[0-9A-Fa-f]{8}>/g, '').replace(/\\n/g, '<br />').replace(/#/g, '$'),
           "tables": skillDesc(data.skills?.[CharacterId + "05"]?.level)
         }
       },
