@@ -613,7 +613,121 @@ export async function WeaponNew (e, mode, JsonOk, version) {
   }
 }
 
-export async function ArtifactNew (e, mode) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function ArtifactNew (e, mode, JsonOk, version) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let response, ProxyUrl, data, p, verUrl, verLeve
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)(圣遗物|声骸|遗器)(数据|资源|资源数据)?(.*?)$/)
+  try {
+    let ID = TextData[4]
+    if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的声骸数据`)
+    try {
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.ww.latest
+      } else { verLeve = version }
+      response = await fetch(`${ProxyUrl}https://static.nanoka.cc/ww/${verLeve}/zh/echo/${ID}.json`)
+      if (!response.ok) {
+        console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+        if (response.status === 404) {
+          if (!mode) e.reply('[liangshi-calc]云端暂无该敌人数据，可等待一段时间后再更新')
+        } else if (response.status === 429) {
+          if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+        } else if (response.status >= 500) {
+          if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+        } else if (cfg.ProxyUrl) {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+        } else {
+          if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+        }
+        return false
+      }
+      data = await response.json()
+      console.log(`[liangshi-calc]云端数据读取成功`)
+    } catch (err) {
+      if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+      console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+      return false
+    }
+    let EchoName = data.name || "无名"
+    let imgs = `./plugins/miao-plugin/resources/meta-mc/artifact/${EchoName}`
+    if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${EchoName}`) || /强制|强行|覆盖/.test(e.msg)) {
+      if (!mode) e.reply(`[liangshi-calc]开始更新声骸: ${EchoName}`)
+      fs.mkdirSync(`./plugins/miao-plugin/resources/meta-mc/artifact/${EchoName}`, { recursive: true })
+      console.log(`[liangshi-calc]声骸:${EchoName} 本地imgs文件夹创建成功`)
+    } else { if (!mode) e.reply(`[liangshi-calc]声骸: ${EchoName} 已经存在，如需更新数据请使用覆盖更新。`); return false }
+    let IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/ww`
+    await getImg(ProxyUrl + IconUrl + data.icon.replace(/\/Game\/Aki\/UI/g, '').replace(/\.[^.]*$/, '') + ".webp", `${imgs}/img.webp`, "声骸")
+    await getImg(ProxyUrl + IconUrl + data.skill?.icon.replace(/\/Game\/Aki\/UI/g, '').replace(/\.[^.]*$/, '') + ".webp", `${imgs}/skill.webp`, "技能")
+    if (!mode) e.reply(`[liangshi-calc]声骸图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-mc/artifact/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`)}
+      let ArtData = fs.readFileSync(filePath, 'utf8')
+      let affData = (o) => {
+        let r = {}
+        for (let k in o) {
+          if (o.hasOwnProperty(k)) {
+            let e = { ...o[k] }, s = e.set, h = {}
+            for (const sk in s) { if (s.hasOwnProperty(sk)) { let i = { ...s[sk] }, { desc: t, param: p } = i, nd = t || ''; nd = nd.replace(/\{(\d+)\}/g, (m, idx) => p?.[idx] ?? m); h[sk] = nd }}
+            e.effect = h; delete e.set; r[k] = e
+          }
+        }
+        return r
+      }
+      let DataID = (a, b) => { Object.keys(b).forEach(key => { if (a.hasOwnProperty(key)) { a[key].id = b[key].id; a[key].name = b[key].name; a[key].effect = b[key].effect; a[key].icon = undefined; a[key].color = undefined } else { a[key] = { ...b[key], sets: a[key]?.sets || [], icon: undefined, color: undefined } }}); return a }
+      let Sets = (a, b, c) => { b.forEach(num => { let key = String(num); if (a.hasOwnProperty(key)) { if (!a[key].sets) { a[key].sets = [c] } else { if (!a[key].sets.includes(c)) { a[key].sets.push(c) } } } }); return a }
+      fs.writeFile(filePath, JSON.stringify(Sets(DataID(JSON.parse(ArtData), affData(data.group)), Object.keys(data.group), data.id), null, 2), 'utf8', (err) => { if (err) { console.error(`[liangshi-calc]声骸：${EchoName}自动配置data.json失败:\n`, err) } else { console.log(`[liangshi-calc]声骸：${EchoName} 配置data.json成功`) }})
+      let skillMap = {}; data.skill.param.forEach(c => {c.forEach((a, b) => {(skillMap[b] || (skillMap[b] = [])).push(a)})})
+      let ArtifactData = {
+        "id": data.id,
+        "Name": EchoName,
+        "Type": data.type || "",
+        "Intensity": data.intensity || "",
+        "Place": data.place || "",
+        "Code": data.code || "",
+        "desc": data.skill.simple_desc.replace(/\n/g, '').replace(/<size=40><color=Title>/g, '').replace(/<\/color><\/size>/g, ''),
+        "Rarity": data.rarity || [2, 3, 4, 5],
+        "Group": Object.keys(data.group).map(Number),
+        "affixData": {
+          "text": data.skill.desc.replace(/\{(.*?)}/g, '\$[$1]').replace(/\n/g, ''),
+          "datas": skillMap
+        }
+      }
+      let path = `./plugins/miao-plugin/resources/meta-mc/artifact/${EchoName}/data.json`
+      if (!fs.existsSync(path)) {
+        fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
+        console.log(`[liangshi-calc]声骸：${EchoName} 数据已写入`)
+        if (!mode) e.reply(`[liangshi-calc]声骸：${EchoName} 数据已写入`)
+      } else if (/强制|强行|覆盖/.test(e.msg)) {
+        if (!mode) e.reply('[liangshi-calc]声骸数据已存在，当前为强制模式，尝试覆盖写入。')
+        fs.writeFileSync(path, JSON.stringify(ArtifactData, null, 2), 'utf8')
+        console.log(`[liangshi-calc]声骸：${EchoName} 数据已写入`)
+        if (!mode) e.reply(`[liangshi-calc]声骸：${EchoName} 数据已写入`)
+      } else {
+        if (!mode) e.reply(`[liangshi-calc]声骸数据已存在，运行终止。\n如果需要刷新声骸数据至最新预览版本请使用覆盖更新\n例：#覆盖更新${ID}声骸数据`)
+        console.error(`[liangshi-calc]声骸：${EchoName}\n数据已存在`)
+      }
+      if (!mode) e.reply(`[liangshi-calc]声骸：${EchoName} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]声骸：${EchoName} 数据更新完成\n当前未启用自动写入ArtifactData\n手动配置后重启才可使用\n自动写入ArtifactData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return false
+  } catch (err) {
+    if (!mode) {
+      e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData[3]}${TextData[4]}${TextData[5]}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "装备更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) {console.error('[liangshi-calc]错误内容记录失败:\n', err); return false } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function MonsterNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
