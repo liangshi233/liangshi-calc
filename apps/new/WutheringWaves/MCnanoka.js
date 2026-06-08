@@ -868,7 +868,144 @@ export async function MonsterNew (e, mode, JsonOk, version) {
   }
 }
 
-export async function ItemNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function ItemNew (e, mode, JsonOk, version) {
+  if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
+  let cfg = LSconfig.getConfig('user', 'config')
+  let response, ProxyUrl, data, url, verUrl, verLeve
+  if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = ""}
+  let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(鸣潮|明朝|潮|mc|MC)(.*?)物品(数据|资源|资源数据)?(.*?)$/), ID = TextData[4]
+  try {
+    if (!version) {
+      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+      verUrl = await verUrl.json()
+      verLeve = verUrl.ww.latest
+    } else { verLeve = version }
+    if (!JsonOk) {
+      try {
+        response = await fetch(`${ProxyUrl}https://static.nanoka.cc/ww/${verLeve}/zh/item_all.json`)
+        if (!response.ok) {
+          console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
+          if (response.status === 404) {
+            if (!mode) e.reply('[liangshi-calc]云端暂无该物品数据，可等待一段时间后再更新')
+          } else if (response.status === 429) {
+            if (!mode) e.reply('[liangshi-calc]你查询的速度太快了，请稍等一下再试吧(*/ω＼*)')
+          } else if (response.status >= 500) {
+            if (!mode) e.reply('[liangshi-calc]云端服务器可能正在维护，请稍等一下再试吧(*/ω＼*)')
+          } else if (cfg.ProxyUrl) {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议检查配置的代理后再试(*/ω＼*)')
+          } else {
+            if (!mode) e.reply('[liangshi-calc]请求异常，可能是网络超时，建议使用代理后再试(*/ω＼*)')
+          }
+          return false
+        }
+        data = await response.json()
+        console.log(`[liangshi-calc]云端数据读取成功`)
+      } catch (err) {
+        if (!mode) e.reply('[liangshi-calc]云端数据读取异常，请稍后再试(*/ω＼*)')
+        console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
+        return false
+      }
+    } else { try { let ItemJson = fs.readFileSync('./plugins/liangshi-calc/resources/ItemJson.json', 'utf8'); data = JSON.parse(ItemJson) } catch (err) { console.error('[liangshi-calc]物品缓存data.json读取失败:', err); return false } }
+    let ItemData, ItemName, ItemType, items, itemStarName, ItemJs
+    if (!data[ID]) { console.log(`[liangshi-calc]找不到此物品`); return false }
+    ItemJs = data[ID] || {}
+    url = `${ProxyUrl}${ItemJs.icon}`
+    let imgs = `./plugins/miao-plugin/resources/meta-mc/material`
+    ItemType = ItemJs.tag[0]
+    ItemName = ItemJs.name
+    ItemData = {
+      "id": ID,
+      "name": ItemName,
+      "type": ItemType,
+      "tag": ItemJs?.tag[0],
+      "Desc": ItemJs.desc.split('\n'),
+      "Bg": ItemJs.bg?.split('\n'),
+      "Source": ItemJs.source,
+      "star": ItemJs.rarity,
+      "Bag": undefined, //是否显示在背包中?
+      "Del": undefined, //是否可被摧毁
+      "Use": undefined, //是否可在背包中使用
+      "Red": undefined, //获得时是否有红点
+      "Capcity": undefined, //最大容量?
+      "Stackable": undefined, //最大堆叠?
+      "Dec": undefined, //分解产物
+      "Leve": undefined //使用等级限制
+    }
+    if (ItemType === "武器与技能素材") {
+      let itemID = Number(ID) + 5 - ItemJs.rarity
+      let itemJson1 = data[itemID - 3]
+      let itemJson2 = data[itemID - 2]
+      let itemJson3 = data[itemID - 1]
+      itemStarName = data[itemID].Name
+      items = {
+        [itemJson1.Name]: {
+          "id": itemID - 3,
+          "name": itemJson1.Name,
+          "type": "武器与技能素材",
+          "star": 2
+        },
+        [itemJson2.Name]: {
+          "id": itemID - 2,
+          "name": itemJson2.Name,
+          "type": "武器与技能素材",
+          "star": 3
+        },
+        [itemJson3.Name]: {
+          "id": itemID - 1,
+          "name": itemJson3.Name,
+          "type": "武器与技能素材",
+          "star": 4
+        },
+        [itemStarName]: {
+          "id": itemID,
+          "name": itemStarName,
+          "type": "武器与技能素材",
+          "star": 5
+        }
+      }
+    }
+    let IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/ww`
+    await getImg(ProxyUrl + IconUrl + url.replace(/\/Game\/Aki\/UI/g, '').replace(/\.[^.]*$/, '') + ".webp", `${imgs}/${ItemType}/${ItemName}.webp`, "图标")
+    if (!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
+    if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
+      let filePath = `./plugins/miao-plugin/resources/meta-mc/material/data.json`
+      if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
+      fs.readFile(filePath, 'utf8', (err, TextData) => {
+        if (err) {
+          console.error('[liangshi-calc]读取物品配置data.json失败:', err)
+          if (!mode) e.reply(`[liangshi-calc]物品：${ItemName} 数据更新完成\n尝试自动写入data时失败\n请手动添加后重启使用`)
+          return false
+        }
+        try {
+          let jsonData = JSON.parse(TextData)
+          jsonData[ItemName] = ItemData
+          if (ItemType === "武器与技能素材") {
+            if (!jsonData[itemStarName]) jsonData[itemStarName] = {}
+            jsonData[itemStarName].items = items
+          }
+          console.log(`[liangshi-calc]物品：${ItemName} 配置data.json成功`)
+          let updatedData = JSON.stringify(jsonData, null, 2)
+          fs.writeFile(filePath, updatedData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]物品data.json写入失败:\n', err); if (!mode) e.reply(`[liangshi-calc]物品：${ItemName} 数据更新完成\n尝试自动写入Data时失败\n请手动添加后重启使用`); return false } else { console.log('[liangshi-calc]物品data.json已更新')}})
+        } catch (err) { console.error('[liangshi-calc]自动配置data.json失败:\n', err) }
+      })
+      if (!mode) e.reply(`[liangshi-calc]物品：${ItemName} 数据更新完成\n重启后即可使用相关内容`)
+    } else { if (!mode) e.reply(`[liangshi-calc]物品：${ItemName} 数据更新完成\n当前未启用自动写入ItemData\n手动配置后重启才可使用\n自动写入ItemData可在config.yaml启用或使用强制更新临时启用一次`)}
+    return true
+  } catch (err) {
+    if (!mode) {
+      e.reply(`[liangshi-calc]更新错误,建议检查网络状态,如网络正常可复制下方信息前往762197317反馈\n\n${err}`)
+    } else {
+      console.error(`[liangshi-calc]更新遇到了一些错误,已跳过此内容更新\n建议使用 #强制更新${TextData}数据 进行手动更新\n${err}`)
+      let lj = "./plugins/liangshi-calc/resources/log.json"
+      let oldLog = fs.existsSync(lj) ? fs.readFileSync(lj, 'utf8') : '{}'
+      let y = JSON.parse(oldLog)
+      y[new Date()] = { name: TextData[4], err, text: "物品更新错误" }
+      let bbxzData = JSON.stringify(y, null, 2)
+      fs.writeFile(lj, bbxzData, 'utf8', (err) => { if (err) { console.error('[liangshi-calc]错误内容记录失败:\n', err); return false  } else { console.log('[liangshi-calc]错误内容已记录') }})
+    }
+    return true
+  }
+}
 
 export async function getImg (url, Path, name) {
   try {
