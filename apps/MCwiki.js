@@ -167,7 +167,7 @@ export class Wiki extends plugin {
       "共鸣技能伤害加深": "共技加深",
       "共鸣解放伤害加深": "共解加深",
       "协同攻击伤害加深": "协同加深",
-      "声骸攻击伤害加深": "声骸加深",
+      "声骸技能伤害加深": "声骸加深",
       "风蚀": "风蚀效应",
       "电磁": "电磁效应",
       "霜渐": "霜渐效应",
@@ -176,6 +176,7 @@ export class Wiki extends plugin {
       "虚湮": "虚湮效应",
       "震谐响应": "震谐响应",
       "集谐响应": "集谐响应",
+      "骇破响应": "骇破响应",
       "谐度破坏增幅": "谐度增幅",
       "偏谐值累积效率": "偏谐效率",
     }
@@ -459,6 +460,7 @@ export class Wiki extends plugin {
     Group = Group.map(({ sets, UpdateTime, effect: oldEffect, ...rest }) => {
       let newEffect = oldEffect ? Object.entries(oldEffect).map(([key, value]) => `<span class="suit">${key}件套：</span>${value}<br>`) : []
       newEffect = newEffect.map((ccb, bbc) => bbc === newEffect.length - 1 ? ccb.replace(/<br>$/, '') : ccb).join('')
+      if (!fs.existsSync(process.cwd() + `/plugins/liangshi-calc/resources/wiki/Wuthering Waves/echoKey/${rest.id}.webp`)) rest.id = 99
       return {
         ...rest,
         effect: newEffect,
