@@ -713,7 +713,7 @@ export async function WeaponNew (e, mode, version) {
       return false
     }
     if (ID < 12000) { WeaponType = "sword" } else if (ID < 13000) { WeaponType = "claymore" } else if (ID < 14000) { WeaponType = "polearm" } else if (ID < 15000) { WeaponType = "catalyst" } else if (ID < 30000) { WeaponType = "bow" } else { WeaponType = "projection" }
-    let WeaponName = data.name; IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`
+    let WeaponName = data.name || "无名"; IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`
     let imgs = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`
     if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
       if(!mode) e.reply(`[liangshi-calc]开始更新武器: ${WeaponName}`)
@@ -910,7 +910,7 @@ export async function ArtifactNew (e, mode, version) {
       console.log(`[liangshi-calc]云端数据读取异常，请稍后再试\n${err}`)
       return false
     }
-    let IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`, imgName = data.affix[0].name, imgs = `./plugins/miao-plugin/resources/meta-gs/artifact/imgs/${imgName}`
+    let IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`, imgName = data.affix[0].name || ID, imgs = `./plugins/miao-plugin/resources/meta-gs/artifact/imgs/${imgName}`
     if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/artifact/imgs/${imgName}`) || /强制|强行|覆盖/.test(e.msg)) {
       if(!mode) e.reply(`[liangshi-calc]开始更新圣遗物: ${imgName}`)
       fs.mkdirSync(`./plugins/miao-plugin/resources/meta-gs/artifact/imgs/${imgName}`, { recursive: true })
@@ -938,7 +938,7 @@ export async function ArtifactNew (e, mode, version) {
           let jsonData = JSON.parse(TextData)
           let newValue = {
             "id": ID,
-            "name": data.affix[0].name,
+            "name": imgName,
             "idxs": {
               "1": {
                 "id": data.parts?.equip_bracer?.story ? (Object.keys(data.parts?.equip_bracer?.story)[0] || `${ID}43`) : `${ID}43`,
