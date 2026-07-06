@@ -922,6 +922,27 @@ export async function ArtifactNew (e, mode, version) {
     await getImg(IconUrl + "UI_RelicIcon_" + ID + "_1.webp", `${imgs}/4.webp`, "空之杯")
     await getImg(IconUrl + "UI_RelicIcon_" + ID + "_3.webp", `${imgs}/5.webp`, "理之冠")
     if(!mode) e.reply(`[liangshi-calc]圣遗物图片资源下载完成`)
+    let artData = JSON.parse(fs.readFileSync("./plugins/liangshi-calc/resources/wiki/Genshin Impact/ArtifactMap.json", 'utf8'))
+    let artID = artData[ID] || (ID * 10 - 1100049)
+    let story1 = [], story2 = [], story3 = [], story4 = [], story5 = []
+    try {
+      story1 = await fetch(`https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/refs/heads/master/Readable/CHS/Relic${ID}_1.txt`)
+      story1 = await story1.text()
+      await common.sleep(500)
+      story2 = await fetch(`https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/refs/heads/master/Readable/CHS/Relic${ID}_2.txt`)
+      story2 = await story2.text()
+      await common.sleep(500)
+      story3 = await fetch(`https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/refs/heads/master/Readable/CHS/Relic${ID}_3.txt`)
+      story3 = await story3.text()
+      await common.sleep(500)
+      story4 = await fetch(`https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/refs/heads/master/Readable/CHS/Relic${ID}_4.txt`)
+      story4 = await story4.text()
+      await common.sleep(500)
+      story5 = await fetch(`https://raw.githubusercontent.com/DimbreathBot/AnimeGameData/refs/heads/master/Readable/CHS/Relic${ID}_5.txt`)
+      story5 = await story5.text()
+    } catch (err) {
+      console.error(`[liangshi-calc]获取圣遗物故事数据失败:`, err)
+    }
     if (cfg.AutoUpdateData || /强制|强行|覆盖/.test(e.msg)) {
       let filePath = `./plugins/miao-plugin/resources/meta-gs/artifact/data.json`
       if (!fs.existsSync(filePath)) { fs.writeFileSync(filePath, '{}'); console.log(`[liangshi-calc]未找到data.json文件，已自动创建`) }
@@ -937,34 +958,45 @@ export async function ArtifactNew (e, mode, version) {
           let k = m ? { [l]: data.affix[0].desc, [m]: data.affix[1].desc } : { [l]: data.affix?.[0]?.desc }
           let jsonData = JSON.parse(TextData)
           let newValue = {
-            "id": ID,
+            "id": artID,
             "name": imgName,
+            "rank": data.rank,
             "idxs": {
               "1": {
                 "id": data.parts?.equip_bracer?.story ? (Object.keys(data.parts?.equip_bracer?.story)[0] || `${ID}43`) : `${ID}43`,
-                "name": data.parts?.equip_bracer?.name
+                "name": data.parts?.equip_bracer?.name,
+                "desc": data.parts?.equip_bracer?.desc,
+                "story": story4.split('\n').filter(item => item !== "").filter(item => item !== " ")
               },
               "2": {
                 "id": data.parts?.equip_necklace?.story ? (Object.keys(data.parts?.equip_necklace?.story)[0] || `${ID}23`) : `${ID}23`,
-                "name": data.parts?.equip_necklace?.name
+                "name": data.parts?.equip_necklace?.name,
+                "desc": data.parts?.equip_necklace?.desc,
+                "story": story2.split('\n').filter(item => item !== "").filter(item => item !== " ")
               },
               "3": {
                 "id": data.parts?.equip_shoes?.story ? (Object.keys(data.parts?.equip_shoes?.story)[0] || `${ID}53`) : `${ID}53`,
-                "name": data.parts?.equip_shoes?.name
+                "name": data.parts?.equip_shoes?.name,
+                "desc": data.parts?.equip_shoes?.desc,
+                "story": story5.split('\n').filter(item => item !== "").filter(item => item !== " ")
               },
               "4": {
                 "id": data.parts?.equip_ring?.story ? (Object.keys(data.parts?.equip_ring?.story)[0] || `${ID}13`) : `${ID}13`,
-                "name": data.parts?.equip_ring?.name
+                "name": data.parts?.equip_ring?.name,
+                "desc": data.parts?.equip_ring?.desc,
+                "story": story1.split('\n').filter(item => item !== "").filter(item => item !== " ")
               },
               "5": {
                 "id": data.parts?.equip_dress?.story ? (Object.keys(data.parts?.equip_dress?.story)[0] || `${ID}33`) : `${ID}33`,
-                "name": data.parts?.equip_dress?.name
+                "name": data.parts?.equip_dress?.name,
+                "desc": data.parts?.equip_dress?.desc,
+                "story": story3.split('\n').filter(item => item !== "").filter(item => item !== " ")
               }
             },
             "skills": k
           }
           newValue.idxs = Object.fromEntries(Object.entries(newValue.idxs).filter(([key, value]) => { return value.id !== undefined || value.name !== undefined }))
-          jsonData[ID] = newValue
+          jsonData[artID] = newValue
           console.log(`[liangshi-calc]圣遗物：${imgName} 配置data.json成功`)
           let updatedData = JSON.stringify(jsonData, null, 2)
           fs.writeFile(filePath, updatedData, 'utf8', (err) => { if (err) { console.error(`[liangshi-calc]圣遗物data.json写入失败:\n`, err); if (!mode) e.reply(`[liangshi-calc]圣遗物：${imgName}\n数据更新完成\n尝试自动写入ArtifactData时失败\n请手动添加后重启使用`); return false } else { console.log(`[liangshi-calc]圣遗物data.json已更新`) } })
