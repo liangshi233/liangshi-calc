@@ -352,9 +352,9 @@ export async function CharacterNew (e, mode, version) {
       })
       return r
     },{})
-    let tablesData = (a) => { let b = Object.values(a), c = b[0]; return c.desc .filter(d => d.trim() !== "") .map(d => { let [e, f] = d.split('|'), g = f.match(/[\u4e00-\u9fa5]+$/), h = g ? g[0] : "", i = g ? f.replace(g[0], '') : f, j = b.map(() => i); return { name: e.trim(), unit: h, isSame: false, values: j }})}
+    let tablesData = (a) => { if (!a) return []; let b = Object.values(a), c = b[0]; return c.desc .filter(d => d.trim() !== "") .map(d => { let [e, f] = d.split('|'), g = f.match(/[\u4e00-\u9fa5]+$/), h = g ? g[0] : "", i = g ? f.replace(g[0], '') : f, j = b.map(() => i); return { name: e.trim(), unit: h, isSame: false, values: j }})}
     let tfData = (a, b) => { return a.map(c => { let d = c.values.map((e, f) => { return e.replace(/{param(\d+):([A-Z0-9.]+)}/g, (g, h, i) => { let j = f.toString(), k = b[j]?.param?.[parseInt(h) - 1], l; if (i.includes('P')) { let m = k * 100; if (i.startsWith('F')) { let n = parseInt(i.substring(1, i.indexOf('P'))); l = `${m.toFixed(n)}%` } else { l = `${Math.round(m)}%` } } else if (i.includes('F')) { let n = parseInt(i.substring(1)); l = k?.toFixed(n) } else if (i === 'I') { l = Math.floor(k).toString() } else { l = Math.round(k).toString() } return l})}); return { ...c, values: d }})}
-    let Qkey = data.constellations[2].desc.includes("替代冲刺") ? 3 : 2
+    let Qkey = data.constellations[2]?.desc.includes("替代冲刺") ? 3 : 2
     let weaKey = { WEAPON_SWORD_ONE_HAND: "sword", WEAPON_CLAYMORE: "claymore", WEAPON_POLE: "polearm", WEAPON_CATALYST: "catalyst",  WEAPON_BOW: "bow" }
     let gowKey = {
       "fight_prop_hp_percent": "hpPct",
@@ -409,37 +409,37 @@ export async function CharacterNew (e, mode, version) {
         "q": 0
       },
       "materials": {
-        "gem": data.materials.ascensions?.[5]?.mats?.[0].name,
-        "boss": data.materials.ascensions?.[5]?.mats?.[1].name,
-        "specialty": data.materials.ascensions?.[5]?.mats?.[2].name,
-        "normal": data.materials.ascensions?.[5]?.mats?.[3].name,
-        "talent": data.materials.talents?.[0]?.[8]?.mats?.[0].name,
-        "weekly": data.materials.talents?.[0]?.[8]?.mats?.[2].name
+        "gem": data.materials.ascensions?.[5]?.mats?.[0]?.name,
+        "boss": data.materials.ascensions?.[5]?.mats?.[1]?.name,
+        "specialty": data.materials.ascensions?.[5]?.mats?.[2]?.name,
+        "normal": data.materials.ascensions?.[5]?.mats?.[3]?.name,
+        "talent": data.materials.talents?.[0]?.[8]?.mats?.[0]?.name,
+        "weekly": data.materials.talents?.[0]?.[8]?.mats?.[2]?.name
       },
       "talent": {
         "a": {
-          "id": data.skills?.[0].id,
-          "name": data.skills?.[0].name,
-          "desc": data.skills?.[0].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
-          "tables": tfData(tablesData(data.skills?.[0].promote), data.skills?.[0].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+          "id": data.skills?.[0]?.id,
+          "name": data.skills?.[0]?.name,
+          "desc": data.skills?.[0]?.desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[0]?.promote), data.skills?.[0]?.promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
         },
         "e": {
-          "id": data.skills?.[1].id,
-          "name": data.skills?.[1].name,
-          "desc": data.skills?.[1].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
-          "tables": tfData(tablesData(data.skills?.[1].promote), data.skills?.[1].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+          "id": data.skills?.[1]?.id,
+          "name": data.skills?.[1]?.name,
+          "desc": data.skills?.[1]?.desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[1]?.promote), data.skills?.[1]?.promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
         },
         "q": {
-          "id": data.skills?.[Qkey].id,
-          "name": data.skills?.[Qkey].name,
-          "desc": data.skills?.[Qkey].desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
-          "tables": tfData(tablesData(data.skills?.[Qkey].promote), data.skills?.[Qkey].promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
+          "id": data.skills?.[Qkey]?.id,
+          "name": data.skills?.[Qkey]?.name,
+          "desc": data.skills?.[Qkey]?.desc.replace(/^<color=#FFD780FF>(.*?)<\/color>\\n/g, '<h3>$1</h3>\\n').replace(/\\n\\n<color=#FFD780FF>(.*?)<\/color>\\n/g, '\\n\\n<h3>$1</h3>\\n').replace(/\{LINK#\w+}|\{\/LINK}/g, '').replace(/<color=#\w+>|<\/color>/g, '').split('\\n').filter(item => item !== ""),
+          "tables": tfData(tablesData(data.skills?.[Qkey]?.promote), data.skills?.[Qkey]?.promote).map(item => ({ ...item, isSame: new Set(item.values).size === 1 }))
         }
       },
       "talentData": {
-        "a": talentData(data.skills?.[0]?.promote),
-        "e": talentData(data.skills?.[1]?.promote),
-        "q": talentData(data.skills?.[Qkey]?.promote)
+        "a": data.skills?.[0]?.promote ? talentData(data.skills?.[0]?.promote) : {},
+        "e": data.skills?.[1]?.promote ? talentData(data.skills?.[1]?.promote) : {},
+        "q": data.skills?.[Qkey]?.promote ? talentData(data.skills?.[Qkey]?.promote) : {}
       },
       "cons": {
         "1": {
@@ -575,16 +575,16 @@ export async function CharacterNew (e, mode, version) {
         }
       }
     }
-    if ((data.constellations[2]?.desc.includes(data.skills[2].name) || data.constellations[4].desc.includes(data.skills[2].name)) && !data.constellations[2].desc.includes("替代冲刺")) {
-      CharacterData.talentCons.q = data.constellations[2].desc.includes(data.skills[2].name) ? 3 : 5
-    } else if (data.constellations[2]?.desc.includes(data.skills[3].name) || data.constellations[4].desc.includes(data.skills[3].name)) {
-      CharacterData.talentCons.q = data.constellations[2].desc.includes(data.skills[3].name) ? 3 : 5
+    if ((data.constellations[2]?.desc.includes(data.skills[2].name) || data.constellations[4]?.desc.includes(data.skills[2].name)) && !data.constellations[2]?.desc.includes("替代冲刺")) {
+      CharacterData.talentCons.q = data.constellations[2]?.desc.includes(data.skills[2].name) ? 3 : 5
+    } else if (data.constellations[2]?.desc.includes(data.skills[3].name) || data.constellations[4]?.desc.includes(data.skills[3].name)) {
+      CharacterData.talentCons.q = data.constellations[2]?.desc.includes(data.skills[3].name) ? 3 : 5
     }
-    if (data.constellations[2]?.desc.includes(data.skills[1].name) || data.constellations[4].desc.includes(data.skills[1].name)) {
-      CharacterData.talentCons.e = data.constellations[2].desc.includes(data.skills[1].name) ? 3 : 5
+    if (data.constellations[2]?.desc.includes(data.skills[1].name) || data.constellations[4]?.desc.includes(data.skills[1].name)) {
+      CharacterData.talentCons.e = data.constellations[2]?.desc.includes(data.skills[1].name) ? 3 : 5
     }
-    if (data.constellations[2]?.desc.includes(data.skills[0].name) || data.constellations[4].desc.includes(data.skills[0].name)) {
-      CharacterData.talentCons.a = data.constellations[2].desc.includes(data.skills[0].name) ? 3 : 5
+    if (data.constellations[2]?.desc.includes(data.skills[0].name) || data.constellations[4]?.desc.includes(data.skills[0].name)) {
+      CharacterData.talentCons.a = data.constellations[2]?.desc.includes(data.skills[0].name) ? 3 : 5
     }
     console.log('[liangshi-calc]数据处理完成')
     let path = `./plugins/miao-plugin/resources/meta-gs/character/${CharacterName}/data.json`
@@ -611,9 +611,9 @@ export async function CharacterNew (e, mode, version) {
     await getImg(IconUrl + data.passives?.[1]?.icon + ".webp", `${icons}/passive-1.webp`, "固有天赋2")
     await getImg(IconUrl + data.passives?.[2]?.icon + ".webp", `${icons}/passive-2.webp`, "固有天赋3")
     await getImg(IconUrl + data.passives?.[3]?.icon + ".webp", `${icons}/passive-3.webp`, "固有天赋4")
-    await getImg(IconUrl + data.skills[1].promote[0].icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
-    await getImg(IconUrl + data.skills[Qkey].promote[Qkey].icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
-    if (Qkey === 3) await getImg(IconUrl + data.skills[2].promote[0].icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
+    await getImg(IconUrl + data.skills[1]?.promote?.[0]?.icon + ".webp", `${icons}/talent-e.webp`, "元素战技")
+    await getImg(IconUrl + data.skills[Qkey]?.promote?.[Qkey]?.icon + ".webp", `${icons}/talent-q.webp`, "元素爆发")
+    if (Qkey === 3) await getImg(IconUrl + data.skills[2]?.promote?.[0]?.icon + ".webp", `${icons}/talent-t.webp`, "替代冲刺")
     await getImg(IconUrl + data.constellations[0]?.icon + ".webp", `${icons}/cons-1.webp`, "1命")
     await getImg(IconUrl + data.constellations[1]?.icon + ".webp", `${icons}/cons-2.webp`, "2命")
     await getImg(IconUrl + data.constellations[2]?.icon + ".webp", `${icons}/cons-3.webp`, "3命")
@@ -1024,7 +1024,7 @@ export async function ArtifactNew (e, mode, version) {
 export async function MonsterNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
-  let response, ProxyUrl, itemdata, data, verUrl, verLeve, MonsterName, MonsterData, drops = [], dropsId = []
+  let response, ProxyUrl, itemdata, data, verUrl, verLeve, MonsterName, MonsterData, drops, dropsId
   if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(原神|原|ys|YS|gs|GS)(.*?)(敌人|敌怪|怪物|残响|残像|boss|BOSS|异象)(数据|资源|资源数据)?(.*?)$/), ID = TextData[4]
   try {
@@ -1100,9 +1100,9 @@ export async function MonsterNew (e, mode, JsonOk, version) {
       "type": MonType[childData?.type],
       "speName": data.special_names, // 出现过的相关名字
       "legend": childData?.local_legend, //地方传奇
-      "drops": [drops, ...childData?.hp_drops.map(item => item.hp_percent ?? null).filter(val => val !== null)], //元素能量掉落阈值
-      "dropsId": [dropsId, ...childData?.hp_drops.map(item => item.drop_id ?? null).filter(val => val !== null)], //元素能量掉落类型
-      "reward": data.reward?.map(item => item.id).map(id => itemdata[id]?.name).filter(item => item !== null),
+      "drops": [drops, ...childData?.hp_drops.map(item => item.hp_percent ?? null).filter(val => val != null)], //元素能量掉落阈值
+      "dropsId": [dropsId, ...childData?.hp_drops.map(item => item.drop_id ?? null).filter(val => val != null)], //元素能量掉落类型
+      "reward": data.reward?.map(item => item.id).map(id => itemdata[id]?.name).filter(item => item != null).filter(Boolean),
       "attr": {
         "Res": {
           "FirRes": childData?.sub_hurt?.fire * 10000,
