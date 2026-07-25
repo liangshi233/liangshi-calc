@@ -8,8 +8,6 @@ import fs from 'node:fs'
  * 鸣潮API3
  * nanoka.cc
  *
- * 适配中
- *
  * 如果有新的问题建议去issue反馈
  */
 
@@ -330,7 +328,7 @@ export async function CharacterNew (e, mode, JsonOk, version) {
     CharacterData = {
       "id": data.id,
       "name": data.name || "无名",
-      "abbr": data.nick_name || "",
+      "abbr": (data.name || "无名").length >= 5 ? data.name.slice(-2) : (data.name || "无名"),
       "title": data.chara_info.talent_name,
       "star": data.rarity,
       "elem": elemKey[data.element],
@@ -607,7 +605,7 @@ export async function CharacterNew (e, mode, JsonOk, version) {
           newValue = {
             "id": data.id,
             "name": data.name || "无名",
-            "abbr": data.nick_name || "",
+            "abbr": (data.name || "无名").length >= 5 ? data.name.slice(-2) : (data.name || "无名"),
             "star": data.rarity,
             "elem": elemKey[data.element],
             "weapon": weaponKey[data.weapon]
