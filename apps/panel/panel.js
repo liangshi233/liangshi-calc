@@ -101,7 +101,7 @@ XS3/hk2WboJpQPI36QIDAQAB
     let talent = { "a": characterTaA, "e": characterTaE, "q": characterTaQ }
     let weaponID = h.substring(0, 5), weaponCo = Number(h.charAt(5)), weaponPr = Number(h.charAt(6)), weaponLv = Number(h.substring(7)), weapon, artisID = []
     if (weaponJson[weaponID]?.name) { weapon = { "name": weaponJson[weaponID]?.name, "level": weaponLv, "promote": weaponPr, "affix": weaponCo } } else { weapon = {} }
-    for (let ix = 0; ix < i.length; ix += 5) artisID.push(i.substring(ix, ix + 5))
+    for (let ix = 0; ix < i.length; ix += 6) artisID.push(i.substring(ix, ix + 6))
     let artisLv = artisKey(k, 21), artisSt = artisKey(j, 6), artisMa = o.slice(0, 6), artisMaId = [artisMa.substring(0, 2), artisMa.substring(2, 4), artisMa.substring(4, 6)], artisAt = o.slice(6), artisAtNum = [artisAt.substring(0, 1), artisAt.substring(1, 2), artisAt.substring(2, 3), artisAt.substring(3, 4), artisAt.substring(4, 5)], artisAtId = artisAt.slice(5).match(/.{1,2}/g)
     let hgp = [], ccb = 0, artis1, artis2, artis3, artis4, artis5
     for (let Str of artisAtNum) { hgp.push(artisAtId.slice(ccb, ccb + parseInt(Str, 10))); ccb += parseInt(Str, 10) }
