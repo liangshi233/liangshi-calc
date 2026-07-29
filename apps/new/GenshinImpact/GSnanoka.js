@@ -175,7 +175,7 @@ export async function New (e) {
   let ArtifactNameText = artifact.map(num => ArtifactNamedata[num.toString()]?.["set"]?.["2" + num.toString() + "0"]?.["name"]?.["zh"] ?? `${num.toString()}`)
   let MonsterNameText = monster.map(num => MonsterNamedata[num.toString()]?.["zh"] ?? `${num.toString()}`)
   try {
-    let c, b, d, i, f, g, h, j
+    let c, b, d, i, f, g, h, j, k
     c = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/character/data.json', 'utf8')
     c = JSON.parse(c)
     d = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/bow/data.json', 'utf8')
@@ -190,13 +190,16 @@ export async function New (e) {
     b = JSON.parse(b)
     h = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/sword/data.json', 'utf8')
     h = JSON.parse(h)
+    k = fs.readFileSync('./plugins/miao-plugin/resources/meta-gs/weapon/tps/data.json', 'utf8')
+    k = JSON.parse(k)
     Object.values(d).forEach(ccb => {ccb.type = "bow"})
     Object.values(i).forEach(ccb => {ccb.type = "catalyst"})
     Object.values(f).forEach(ccb => {ccb.type = "claymore"})
     Object.values(g).forEach(ccb => {ccb.type = "polearm"})
     Object.values(b).forEach(ccb => {ccb.type = "projection"})
     Object.values(h).forEach(ccb => {ccb.type = "sword"})
-    j = { ...d, ...i, ...f, ...g, ...b, ...h }
+    Object.values(k).forEach(ccb => {ccb.type = "tps"})
+    j = { ...d, ...i, ...f, ...g, ...b, ...h, ...k }
     let chars = character.filter(id => c.hasOwnProperty(id)).map(id => ({
       face: `/meta-gs/character/${c[id].name}/imgs/face.webp`,
       name: c[id].name || "无名",
@@ -713,6 +716,7 @@ export async function WeaponNew (e, mode, version) {
       return false
     }
     if (ID < 12000) { WeaponType = "sword" } else if (ID < 13000) { WeaponType = "claymore" } else if (ID < 14000) { WeaponType = "polearm" } else if (ID < 15000) { WeaponType = "catalyst" } else if (ID < 30000) { WeaponType = "bow" } else { WeaponType = "projection" }
+    if (data.tps) WeaponType = "tps"
     let WeaponName = data.name || "无名"; IconUrl = `${ProxyUrl}https://static.nanoka.cc/assets/gi/`
     let imgs = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`
     if (!fs.existsSync(`./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}`) || /强制|强行|覆盖/.test(e.msg)) {
@@ -729,6 +733,8 @@ export async function WeaponNew (e, mode, version) {
       await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Grass" + ".webp", `${imgs}/grass.webp`, "草")
       await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Electric" + ".webp", `${imgs}/electric.webp`, "雷")
       await getImg(IconUrl + data.icon.replace(/\{0\}$/, "") + "Great_" + "Wind" + ".webp", `${imgs}/wind.webp`, "风")
+    } else if (WeaponType === "tps") {
+      await getImg(IconUrl + data.icon + ".webp", `${imgs}/icon.webp`, "icon")
     } else {
       await getImg(IconUrl + data.icon + ".webp", `${imgs}/icon.webp`, "icon")
       await getImg(IconUrl + data.icon.replace("UI_", "UI_Gacha_") + ".webp", `${imgs}/gacha.webp`, "gacha")
@@ -762,7 +768,7 @@ export async function WeaponNew (e, mode, version) {
       fight_prop_critical_hurt: "cdmg",
       fight_prop_physical_add_hurt: "phy"
     }
-    if (WeaponType !== "projection") {
+    if (WeaponType !== "projection" && WeaponType !== "tps") {
       if (key[Object.keys(data.stats_modifier)[1]] === "mastery") { bonus = 1 } else { bonus = 100 }
       WeaponData = {
         "id": Number(ID),
@@ -814,7 +820,7 @@ export async function WeaponNew (e, mode, version) {
       }
     } else {
       let WeaponTypeKey = { WEAPON_SWORD_ONE_HAND: "sword", WEAPON_CLAYMORE: "claymore", WEAPON_POLE: "polearm", WEAPON_CATALYST: "catalyst", WEAPON_BOW: "bow" }
-      WeaponData = { "id": Number(ID), "name": WeaponName, "star": data.Rarity, "desc": data.Desc, "WeaponType": WeaponTypeKey[data.WeaponType]    }
+      WeaponData = { "id": Number(ID), "name": WeaponName, "star": data.Rarity, "desc": data.Desc || data.desc, "WeaponType": WeaponTypeKey[data.WeaponType] || "tps" }
     }
     console.log('[liangshi-calc]数据处理完成')
     let path = `./plugins/miao-plugin/resources/meta-gs/weapon/${WeaponType}/${WeaponName}/data.json`
