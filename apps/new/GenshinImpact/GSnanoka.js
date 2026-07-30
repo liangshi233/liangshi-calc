@@ -1221,7 +1221,7 @@ export async function ItemNew (e, mode, JsonOk, version) {
         return false
       }
     } else { try { let ItemJson = fs.readFileSync('./plugins/liangshi-calc/resources/ItemJson.json', 'utf8'); data = JSON.parse(ItemJson) } catch (err) { console.error('[liangshi-calc]物品缓存data.json读取失败:', err); return false } }
-    let ItemData, ItemType = itemJson?.material_type.replace(/MATERIAL_/g, '').toLowerCase(); itemJson = data[`${ID}`]; let ItemName = itemJson.name
+    let ItemData, itemJson = data[`${ID}`], ItemType = itemJson?.material_type.replace(/MATERIAL_/g, '').toLowerCase(), ItemName = itemJson.name
     if (!itemJson) { if (!mode) e.reply('[liangshi-calc]未知的物品'); return false }
     ItemData = {
       "id": ID,
@@ -1232,7 +1232,7 @@ export async function ItemNew (e, mode, JsonOk, version) {
       "list": itemJson.type,
       "source": [...itemJson.jump_descs, ...itemJson.source_list],
     }
-    if (itemJson.type.includes('区域特产')) itemJson.type = "specialty" //地图上的采集物
+    if (itemJson.type.includes('区域特产')) ItemData.type = "specialty" //地图上的采集物
     if (itemJson.type.includes('角色培养素材')) {
       if (itemJson.jump_descs.includes('70级以上')) ItemData.type = "weekly" //60体周本素材
       if (itemJson.jump_descs.includes('30级以上')) ItemData.type = "boss" //40体Boss素材
