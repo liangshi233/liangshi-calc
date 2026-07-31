@@ -65,6 +65,7 @@ dVmQ+7hI/dbzfRJVx9wwSsNirkDa3qqHmdNZ8V9DKPKsb9f89os9mPrBtHREhYDM
 0zWddaMEEHrGT8ESBBlj9oxNUcOGBF6jNZNQIJyAiT7OdmVGN8WvDOHOLTh407u0
 XS3/hk2WboJpQPI36QIDAQAB
 -----END PUBLIC KEY-----`
+        if (!JMkey || !/^[0-9a-fA-F]+$/.test(JMkey) || JMkey.length % 2 !== 0) { e.reply(`[liangshi-calc] 不正确的签名，可能是数据缺失或被篡改`); return false }
         try {
           let Tex = crypto.createVerify('RSA-SHA256')
           Tex.update(ccb, 'hex')
@@ -128,6 +129,7 @@ dVmQ+7hI/dbzfRJVx9wwSsNirkDa3qqHmdNZ8V9DKPKsb9f89os9mPrBtHREhYDM
 0zWddaMEEHrGT8ESBBlj9oxNUcOGBF6jNZNQIJyAiT7OdmVGN8WvDOHOLTh407u0
 XS3/hk2WboJpQPI36QIDAQAB
 -----END PUBLIC KEY-----`
+        if (!JMkey || !/^[0-9a-fA-F]+$/.test(JMkey) || JMkey.length % 2 !== 0) { e.reply(`[liangshi-calc] 不正确的签名，可能是数据缺失或被篡改`); return false }
         try { let Tex = crypto.createVerify('RSA-SHA256'); Tex.update(ccb, 'hex'); let acc = Buffer.from(JMkey, 'hex'), bcc = crypto.createPublicKey({ key: gyText, format: 'pem', type: 'spki' }); if (Tex.verify(bcc, acc)) { e.reply(`[liangshi-calc] 签名验证成功`); source = "enka" } else { e.reply(`[liangshi-calc] 不正确的签名，可能是数据缺失或被篡改`); return false }} catch (err) { console.error(err.message); e.reply(`[liangshi-calc] 遇到了一些错误，请稍后重试(*/ω＼*)`); return false }
       }
     }
