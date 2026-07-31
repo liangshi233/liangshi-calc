@@ -107,35 +107,35 @@ export async function New (e) {
   for (const charId of character) {
     instruction.msg = `#梁氏覆盖更新星铁${charId}角色数据`
     await common.sleep(2000)
-    await CharacterNew(instruction, true)
+    await CharacterNew(instruction, true, ver)
   }
   characterTime =  `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
   await common.sleep(2000)
   for (const weaponId of weapon) {
     instruction.msg = `#梁氏覆盖更新星铁${weaponId}武器数据`
     await common.sleep(1500)
-    await WeaponNew(instruction, true)
+    await WeaponNew(instruction, true, ver)
   }
   weaponTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
   await common.sleep(2000)
   for (const artifactId of artifact) {
     await common.sleep(1500)
     instruction.msg = `#梁氏覆盖更新星铁${artifactId}声骸数据`
-    await ArtifactNew(instruction, true)
+    await ArtifactNew(instruction, true, ver)
   }
   artifactTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
   await common.sleep(2000)
   for (const monsterId of monster) {
     await common.sleep(1500)
     instruction.msg = `#梁氏覆盖更新星铁${monsterId}敌人数据`
-    await MonsterNew(instruction, true, MonsterOk)
+    await MonsterNew(instruction, true, MonsterOk, ver)
   }
   monsterTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
   await common.sleep(2000)
   for (const itemId of data.item) {
     await common.sleep(1000)
     instruction.msg = `#梁氏覆盖更新星铁${itemId}物品数据`
-    await ItemNew(instruction, true, ItemOk)
+    await ItemNew(instruction, true, ItemOk, ver)
   }
   itemTime = `${new Date().getFullYear()}-${(new Date().getMonth() + 1) < 10 ? `0${new Date().getMonth() + 1}` : (new Date().getMonth() + 1)}-${new Date().getDate() < 10 ? `0${new Date().getDate()}` : new Date().getDate()} ${new Date().getHours() < 10 ? `0${new Date().getHours()}` : new Date().getHours()}:${new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes()}`
   await common.sleep(2000)
@@ -253,7 +253,7 @@ export async function New (e) {
   }
 }
 
-export async function CharacterNew (e, mode) {
+export async function CharacterNew (e, mode, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(角色|共鸣者)(数据|资源|资源数据)?(.*?)$/)
@@ -270,9 +270,11 @@ export async function CharacterNew (e, mode) {
     let response, ProxyUrl, CharacterData, url, data, verUrl
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.hsr.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.hsr.latest
+      } else { verLeve = version }
       url = `${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/character/${CharacterId}.json`
       response = await fetch(url)
       if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
@@ -1061,7 +1063,7 @@ export async function CharacterNew (e, mode) {
   }
 }
 
-export async function WeaponNew (e, mode) {
+export async function WeaponNew (e, mode, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(武器|光锥|弧盘)(数据|资源|资源数据)?(.*?)$/)
@@ -1078,9 +1080,11 @@ export async function WeaponNew (e, mode) {
     let response, ProxyUrl, WeaponData, url, data, verUrl
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.hsr.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.hsr.latest
+      } else { verLeve = version }
       url = `${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/lightcone/${WeaponId}.json`
       response = await fetch(url)
       if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
@@ -1292,7 +1296,7 @@ export async function WeaponNew (e, mode) {
   }
 }
 
-export async function ArtifactNew (e, mode) {
+export async function ArtifactNew (e, mode, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(星铁|崩坏星穹铁道|崩坏：星穹铁道|铁道|sr|SR)(.*?)(圣遗物|声骸|遗器|终端|卡带|驱动块)(数据|资源|资源数据)?(.*?)$/)
@@ -1301,9 +1305,11 @@ export async function ArtifactNew (e, mode) {
   try {
     if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ArtifactId}的遗器数据`)
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.hsr.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.hsr.latest
+      } else { verLeve = version }
       response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/relicset/${ArtifactId}.json`)
       if (!response.ok) {
         console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -1449,7 +1455,7 @@ export async function ArtifactNew (e, mode) {
   }
 }
 
-export async function MonsterNew (e, mode, JsonOk) {
+export async function MonsterNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let response, ProxyUrl, data, levedata, MonsterData, newValue
@@ -1459,9 +1465,11 @@ export async function MonsterNew (e, mode, JsonOk) {
   if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ID}的敌怪数据`)
   try {
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.hsr.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.hsr.latest
+      } else { verLeve = version }
       if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/MonsterJson.json")) {
         response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/HardLevelGroup.json`)
         if (!response.ok) {
@@ -1613,7 +1621,7 @@ export async function MonsterNew (e, mode, JsonOk) {
   }
 }
 
-export async function ItemNew (e, mode, JsonOk) {
+export async function ItemNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let response, ProxyUrl, data, verUrl, verLeve
@@ -1622,9 +1630,11 @@ export async function ItemNew (e, mode, JsonOk) {
   let ID = TextData[4]
   try {
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.hsr.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.hsr.latest
+      } else { verLeve = version }
       if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/ItemJson.json")) {
         response = await fetch(`${ProxyUrl}https://static.nanoka.cc/hsr/${verLeve}/zh/item_all.json`)
         if (!response.ok) {

@@ -248,7 +248,7 @@ export async function New (e) {
   }
 }
 
-export async function CharacterNew (e, mode, JsonOk) {
+export async function CharacterNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(异环|YH|yh|NTE|nte)(.*?)(角色|共鸣者)(数据|资源|资源数据)?(.*?)$/)
@@ -265,9 +265,11 @@ export async function CharacterNew (e, mode, JsonOk) {
     let response, ProxyUrl, CharacterData, url, data, verUrl
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.nte.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.nte.latest
+      } else { verLeve = version }
       url = `${ProxyUrl}https://static.nanoka.cc/nte/${verLeve}/zh/character/${CharacterId}.json`
       response = await fetch(url)
       if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
@@ -594,7 +596,7 @@ export async function CharacterNew (e, mode, JsonOk) {
   }
 }
 
-export async function WeaponNew (e, mode, JsonOk) {
+export async function WeaponNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(异环|YH|yh|NTE|nte)(.*?)(武器|光锥|弧盘)(数据|资源|资源数据)?(.*?)$/)
@@ -611,9 +613,11 @@ export async function WeaponNew (e, mode, JsonOk) {
     let response, ProxyUrl, WeaponData, url, data, verUrl, itemdata
     if (cfg.ProxyUrl) { ProxyUrl = cfg.ProxyUrl } else { ProxyUrl = "" }
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.nte.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.nte.latest
+      } else { verLeve = version }
       url = `${ProxyUrl}https://static.nanoka.cc/nte/${verLeve}/zh/weapon/${WeaponId}.json`
       response = await fetch(url)
       if (!response.ok) { console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`); throw new Error() }
@@ -767,7 +771,7 @@ export async function WeaponNew (e, mode, JsonOk) {
   }
 }
 
-export async function ArtifactNew (e, mode, JsonOk) {
+export async function ArtifactNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let TextData = e.msg.match(/^#*(梁氏|liangshi)?(强制|强行|覆盖)?更新(异环|YH|yh|NTE|nte)(.*?)(圣遗物|声骸|遗器|终端|卡带|驱动块)(数据|资源|资源数据)?(.*?)$/)
@@ -777,9 +781,11 @@ export async function ArtifactNew (e, mode, JsonOk) {
     if (!mode) e.reply(`[liangshi-calc]开始更新ID:${ArtifactId}的终端数据`)
     if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/ConsoleJson.json")) {
       try {
-        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-        verUrl = await verUrl.json()
-        verLeve = verUrl.nte.latest
+        if (!version) {
+          verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+          verUrl = await verUrl.json()
+          verLeve = verUrl.nte.latest
+        } else { verLeve = version }
         response = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${verLeve}/zh/console.json`)
         if (!response.ok) {
           console.error(`[liangshi-calc]访问云端时发生错误:${response.status}`)
@@ -869,9 +875,9 @@ export async function ArtifactNew (e, mode, JsonOk) {
   }
 }
 
-export async function MonsterNew (e, mode, JsonOk) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
+export async function MonsterNew (e, mode, JsonOk, version) { if(!mode) e.reply('[liangshi-calc]暂不支持使用此API更新(ಥ_ಥ)\n请在设置中切换API后再试'); return false }
 
-export async function ItemNew (e, mode, JsonOk) {
+export async function ItemNew (e, mode, JsonOk, version) {
   if (!e.isMaster) { e.reply('你不可以更新哦~(*/ω＼*)'); return false }
   let cfg = LSconfig.getConfig('user', 'config')
   let response, ProxyUrl, data, verUrl, verLeve
@@ -880,9 +886,11 @@ export async function ItemNew (e, mode, JsonOk) {
   let ID = TextData[4]
   try {
     try {
-      verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
-      verUrl = await verUrl.json()
-      verLeve = verUrl.nte.latest
+      if (!version) {
+        verUrl = await fetch(`${ProxyUrl}https://static.nanoka.cc/manifest.json`)
+        verUrl = await verUrl.json()
+        verLeve = verUrl.nte.latest
+      } else { verLeve = version }
       if (!JsonOk || !fs.existsSync("./plugins/liangshi-calc/resources/ItemJson.json")) {
         response = await fetch(`${ProxyUrl}https://static.nanoka.cc/nte/${verLeve}/zh/item.json`)
         if (!response.ok) {
