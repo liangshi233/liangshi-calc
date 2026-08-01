@@ -204,14 +204,14 @@ export async function New (e) {
       star: h[id].star
     }))
 
-    let artis = ArtifactNameText.map(id => ({
-      face: `/meta-yh/artifact/${/^[\u2160-\u2183]+型驱动$/.test(id) ? id : id}/5.webp`,
+    let artis = ArtifactNameText.map((id, index) => ({
+      face: `/meta-yh/artifact/${id.includes('型驱动') ? (id + "_" + ArtifactNameKey[index].split('_')[1]) : id}/5.webp`,
       name: id,
       star: 5
     }))
-    let consoleKey = { "Ⅱ型驱动": "cell2_style1_1", "Ⅲ型驱动": "cell3_style1_1", "Ⅳ型驱动": "cell4_style1_1" }
+
     let monster = MonsterNameText.map(id => ({
-      face: `/meta-yh/monster/${/^cell\d+_style\d+_\d+$/.test(id) ? consoleKey[id] : id}/preview.webp`,
+      face: `/meta-yh/monster/${id}/preview.webp`,
       name: id,
       star: 5
     }))
@@ -816,11 +816,11 @@ export async function ArtifactNew (e, mode, JsonOk, version) {
     }
     data = data[ArtifactId]
     console.log(`[liangshi-calc]开始下载终端图片资源`)
-    let imgName = /^cell\d+_style\d+_\d+$/.test(ArtifactId) ? data.type_geometry : data.name
+    let imgName = /^cell\d+_style\d+_\d+$/.test(ArtifactId) ? (data.name + "_" + data.type_geometry.split('_')[1]) : data.name
     let imgs = `./plugins/miao-plugin/resources/meta-yh/artifact/${imgName}/`
-    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[2].icon}.webp`, `${imgs}/5.webp`, "img-5")
-    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[1].icon}.webp`, `${imgs}/4.webp`, "img-4")
-    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family[0].icon}.webp`, `${imgs}/3.webp`, "img-3")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family?.find(a => a.rarity === 5)?.icon}.webp`, `${imgs}/5.webp`, "img-5")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family?.find(a => a.rarity === 4)?.icon}.webp`, `${imgs}/4.webp`, "img-4")
+    await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.family?.find(a => a.rarity === 3)?.icon}.webp`, `${imgs}/3.webp`, "img-3")
     await getImg(ProxyUrl + `https://static.nanoka.cc/assets/nte${data.set_effect?.set_icon}.webp`, `${imgs}/skill.webp`, "skill")
     if (!mode) e.reply(`[liangshi-calc]终端图片资源下载完成`)
     console.log(`[liangshi-calc]图片资源下载完成`)
