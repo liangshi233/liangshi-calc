@@ -1234,18 +1234,24 @@ export async function ItemNew (e, mode, JsonOk, version) {
     }
     if (itemJson.type.includes('区域特产')) ItemData.type = "specialty" //地图上的采集物
     if (itemJson.type.includes('角色培养素材')) {
-      if (itemJson.jump_descs.includes('70级以上')) ItemData.type = "weekly" //60体周本素材
-      if (itemJson.jump_descs.includes('30级以上')) ItemData.type = "boss" //40体Boss素材
+      if (itemJson.jump_descs.includes('70级以上') || itemJson.jump_descs.some(s => s.includes('70级以上'))) ItemData.type = "weekly" //60体周本素材
+      if (itemJson.jump_descs.includes('30级以上') || itemJson.jump_descs.some(s => s.includes('30级以上'))) ItemData.type = "boss" //40体Boss素材
     }
     if (itemJson.type.includes('角色与武器培养素材')) {
       if (itemJson.rank === 1) ItemData.type = "normal" // 普通敌人素材
-      if (itemJson.jump_descs.includes('40级以上') && itemJson.rank === 2) ItemData.type = "normal" //普通敌人素材
-      if (itemJson.jump_descs.includes('60级以上') && itemJson.rank === 3) ItemData.type = "normal" //普通敌人素材
-      if (itemJson.jump_descs.includes('40级以上') && itemJson.rank === 3) ItemData.type = "monster" //精英敌人素材
+      if ((itemJson.jump_descs.includes('40级以上') || itemJson.jump_descs.some(s => s.includes('40级以上'))) && itemJson.rank === 2) ItemData.type = "normal" //普通敌人素材
+      if ((itemJson.jump_descs.includes('60级以上') || itemJson.jump_descs.some(s => s.includes('60级以上'))) && itemJson.rank === 3) ItemData.type = "normal" //普通敌人素材
+      if ((itemJson.jump_descs.includes('40级以上') || itemJson.jump_descs.some(s => s.includes('40级以上'))) && itemJson.rank === 3) ItemData.type = "monster" //精英敌人素材
       if (itemJson.rank === 4 || itemJson.rank === 2) ItemData.type = "monster" //精英敌人素材
     }
     if (itemJson.type.includes('武器突破素材')) ItemData.type = "weapon"
     if (itemJson.type.includes('角色天赋素材')) ItemData.type = "talent"
+    if (ItemData.type === "fire_master_avatar_talent_item" || ItemData.type === "rare_growth_material") ItemData.type = "avatar_talent_material"
+    if (ItemData.list === "命之座激活") ItemData.type = "avatar_talent_material"
+    if (ItemData.list === "角色突破素材" && ItemData.type === "avatar_material") ItemData.type = "gem"
+    if (["quest_album", "quest_event_book", "rainbow_prince_hand_book", "remus_music_box", "robo_gift", "photo_display_book", "photov5_hand_book", "natlan_race_envelope", "natlan_race_album", "moon_night_card", "mikawa_flower_invite", "magic_story_book", "lanv5_paimon_greeting_card", "holiday_resort_invite", "holiday_memory_book", "greatefestivalv2_invite", "deshret_manual", "clue_shop_handbook", "aranara", "", ].includes('ItemData.type')) ItemData.type = "quest"
+    if (ItemData.type === "chest_batch_use" || ItemData.type === "chest_batch_use_with_group") ItemData.type = "chest"
+    if (ItemData.type === "bronze_carriage_box") ItemData.type = "widget"
     let imgs = `./plugins/miao-plugin/resources/meta-gs/material`
     await getImg(ProxyUrl + "https://static.nanoka.cc/assets/gi/" + itemJson.icon + ".webp", `${imgs}/${ItemData.type}/${ItemName}.webp`, "图标")
     if(!mode) e.reply(`[liangshi-calc]物品图片资源下载完成`)
