@@ -1249,7 +1249,7 @@ export async function ItemNew (e, mode, JsonOk, version) {
     if (ItemData.type === "fire_master_avatar_talent_item" || ItemData.type === "rare_growth_material") ItemData.type = "avatar_talent_material"
     if (ItemData.list === "命之座激活") ItemData.type = "avatar_talent_material"
     if (ItemData.list === "角色突破素材" && ItemData.type === "avatar_material") ItemData.type = "gem"
-    if (["quest_album", "quest_event_book", "rainbow_prince_hand_book", "remus_music_box", "robo_gift", "photo_display_book", "photov5_hand_book", "natlan_race_envelope", "natlan_race_album", "moon_night_card", "mikawa_flower_invite", "magic_story_book", "lanv5_paimon_greeting_card", "holiday_resort_invite", "holiday_memory_book", "greatefestivalv2_invite", "deshret_manual", "clue_shop_handbook", "aranara", "", ].includes('ItemData.type')) ItemData.type = "quest"
+    if (["quest_album", "quest_event_book", "rainbow_prince_hand_book", "remus_music_box", "robo_gift", "photo_display_book", "photov5_hand_book", "natlan_race_envelope", "natlan_race_album", "moon_night_card", "mikawa_flower_invite", "magic_story_book", "lanv5_paimon_greeting_card", "holiday_resort_invite", "holiday_memory_book", "greatefestivalv2_invite", "deshret_manual", "clue_shop_handbook", "aranara"].includes('ItemData.type')) ItemData.type = "quest"
     if (ItemData.type === "chest_batch_use" || ItemData.type === "chest_batch_use_with_group") ItemData.type = "chest"
     if (ItemData.type === "bronze_carriage_box") ItemData.type = "widget"
     let imgs = `./plugins/miao-plugin/resources/meta-gs/material`
